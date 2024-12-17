@@ -10,6 +10,7 @@ export default tseslint.config(
   {
     ignores: [
       "dist/*",
+      "coverage/*",
       // Temporary compiled files
       "**/*.ts.build-*.mjs",
 

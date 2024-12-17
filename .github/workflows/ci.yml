@@ -1,0 +1,69 @@
+name: CI
+
+on: push
+
+jobs:
+  format:
+    name: Formatted correctly
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+      - name: Install modules
+        run: npm ci
+      - name: Run tests
+        run: npm run format-check
+  lint:
+    name: No lint errors
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+      - name: Install modules
+        run: npm ci
+      - name: Run linting
+        run: npm run lint
+  test:
+    name: Unit tests pass
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+      - name: Install modules
+        run: npm ci
+      - name: Run tests
+        run: npm run test-coverage
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+  build:
+    name: Builds successfully
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+      - name: Install modules
+        run: npm ci
+      - name: Run build
+        run: npm run build

@@ -1,72 +1,48 @@
-<!--bati:start section="document"-->
+# Train Disruptions
 
-<!--bati:start section="intro"-->
+A hub for train disruption information in Melbourne and Victoria.
 
-Generated with [Bati](https://batijs.dev) ([version 309](https://www.npmjs.com/package/create-bati/v/0.0.309)) using this command:
+Very much still a work-in-progress!
 
-```sh
-npm create bati --- --react --tailwindcss --express --eslint --prettier
-```
+## Getting started
 
-<!--bati:start section="TOC"-->
+Requires [NodeJS](https://nodejs.org/en) installed.
 
-## Contents
+1. Clone the repo:
 
-* [React](#react)
+   ```
+   git clone https://github.com/dan-schel/train-disruptions.git
+   ```
 
-  * [`/pages/+config.ts`](#pagesconfigts)
-  * [Routing](#routing)
-  * [`/pages/_error/+Page.jsx`](#pages_errorpagejsx)
-  * [`/pages/+onPageTransitionStart.ts` and `/pages/+onPageTransitionEnd.ts`](#pagesonpagetransitionstartts-and-pagesonpagetransitionendts)
-  * [SSR](#ssr)
-  * [HTML Streaming](#html-streaming)
+2. Install dependencies:
 
-<!--bati:end section="TOC"-->
+   ```
+   npm i
+   ```
 
-<!--bati:end section="intro"-->
+3. Start the server:
 
-<!--bati:start section="features"-->
+   ```
+   npm run dev
+   ```
 
-<!--bati:start category="UI Framework" flag="react"-->
+4. Navigate to http://localhost:3000.
 
-## React
+## Docs
 
-This app is ready to start. It's powered by [Vike](https://vike.dev) and [React](https://react.dev/learn).
+### Typescript
 
-### `/pages/+config.ts`
+- https://www.typescriptlang.org
 
-Such `+` files are [the interface](https://vike.dev/config) between Vike and your code. It defines:
+### Express
 
-* A default [`<Layout>` component](https://vike.dev/Layout) (that wraps your [`<Page>` components](https://vike.dev/Page)).
-* A default [`title`](https://vike.dev/title).
-* Global [`<head>` tags](https://vike.dev/head-tags).
+- http://expressjs.com/
 
-### Routing
+### Vike
 
-[Vike's built-in router](https://vike.dev/routing) lets you choose between:
+- The README.md from the template: [VIKE-DOCS.md](./VIKE-DOCS.md)
+- https://vike.dev
 
-* [Filesystem Routing](https://vike.dev/filesystem-routing) (the URL of a page is determined based on where its `+Page.jsx` file is located on the filesystem)
-* [Route Strings](https://vike.dev/route-string)
-* [Route Functions](https://vike.dev/route-function)
+### Tailwind
 
-### `/pages/_error/+Page.jsx`
-
-The [error page](https://vike.dev/error-page) which is rendered when errors occur.
-
-### `/pages/+onPageTransitionStart.ts` and `/pages/+onPageTransitionEnd.ts`
-
-The [`onPageTransitionStart()` hook](https://vike.dev/onPageTransitionStart), together with [`onPageTransitionEnd()`](https://vike.dev/onPageTransitionEnd), enables you to implement page transition animations.
-
-### SSR
-
-SSR is enabled by default. You can [disable it](https://vike.dev/ssr) for all your pages or only for some pages.
-
-### HTML Streaming
-
-You can enable/disable [HTML streaming](https://vike.dev/stream) for all your pages, or only for some pages while still using it for others.
-
-<!--bati:end category="UI Framework" flag="react"-->
-
-<!--bati:end section="features"-->
-
-<!--bati:end section="document"-->
+- https://tailwindcss.com/
