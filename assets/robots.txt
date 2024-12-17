@@ -1,0 +1,3 @@
+# Don't need it listed on Google while it's still a work in progress.
+user-agent: *
+Disallow: /

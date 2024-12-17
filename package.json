@@ -2,7 +2,7 @@
   "scripts": {
     "dev": "tsx ./express-entry.ts",
     "build": "vite build",
-    "preview": "cross-env NODE_ENV=production tsx ./express-entry.ts",
+    "start": "cross-env NODE_ENV=production tsx ./express-entry.ts",
     "lint": "eslint . --max-warnings 0 && tsc --noEmit -p tsconfig.json",
     "test": "vitest --run",
     "test-coverage": "vitest --run --coverage",
