@@ -5,7 +5,9 @@
     "preview": "cross-env NODE_ENV=production tsx ./express-entry.ts",
     "lint": "eslint . --max-warnings 0 && tsc --noEmit -p tsconfig.json",
     "test": "vitest --run",
-    "test-coverage": "vitest --run --coverage"
+    "test-coverage": "vitest --run --coverage",
+    "format": "prettier --write .",
+    "format-check": "prettier --check ."
   },
   "dependencies": {
     "@universal-middleware/core": "^0.2.13",
