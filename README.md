@@ -22,13 +22,26 @@ Requires [NodeJS](https://nodejs.org/en) installed.
    npm install
    ```
 
-3. Start the server:
+3. Create a `.env` file with the following content:
+
+   ```dotenv
+   # The connection string to your locally running MongoDB server. If you do not
+   # have a locally running MongoDB server yet, do not add this line.
+   # e.g. "mongodb://username:password@localhost:27017/?authMechanism=DEFAULT"
+   DATABASE_URL="..."
+
+   # This value is a secret password which won't be committed to GitHub.
+   # If you have not been provided this value, do not add this line.
+   RELAY_KEY="..."
+   ```
+
+4. Start the server:
 
    ```
    npm run dev
    ```
 
-4. Navigate to http://localhost:3000.
+5. Navigate to http://localhost:3000.
 
 ## Scripts
 
@@ -79,6 +92,14 @@ npm run build && npm run start
 - The README.md from the template: [VIKE-DOCS.md](./VIKE-DOCS.md)
 - https://vike.dev
 
+### MongoDB
+
+- https://www.mongodb.com/
+
 ### Tailwind
 
 - https://tailwindcss.com/
+
+### Zod
+
+- https://zod.dev/
