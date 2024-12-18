@@ -5,6 +5,7 @@ import { createTodoHandler } from "./server/create-todo-handler";
 import { vikeHandler } from "./server/vike-handler";
 import { createHandler } from "@universal-middleware/express";
 import express from "express";
+import { runDemos } from "./server/demo/run-demos";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -15,6 +16,8 @@ const hmrPort = process.env.HMR_PORT ? parseInt(process.env.HMR_PORT, 10) : 2467
 export default (await startServer()) as unknown;
 
 async function startServer() {
+  await runDemos();
+
   const app = express();
 
   if (process.env.NODE_ENV === "production") {
@@ -43,7 +46,7 @@ async function startServer() {
   app.all("*", createHandler(vikeHandler)());
 
   app.listen(port, () => {
-    console.log(`Server listening on http://localhost:${port}`);
+    console.log(`🟢 Server listening on http://localhost:${port}`);
   });
 
   return app;
