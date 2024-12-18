@@ -19,7 +19,7 @@ export class MongoDBConnection extends DatabaseConnection {
   }
 
   async saveDisruption(data: string): Promise<void> {
-    await this.db.collection("disruptions").insertOne({ data });
+    await this.db.collection("test").insertOne({ data });
     console.log("🟢 Database connection working!");
   }
 }
