@@ -18,6 +18,18 @@ export class StationCollection extends Collection<number, Station> {
     return station;
   }
 
+  findByPtvId(ptvId: number): Station | null {
+    return this.first((station) => station.ptvIds.includes(ptvId));
+  }
+
+  requireByPtvId(ptvId: number): Station {
+    const station = this.findByPtvId(ptvId);
+    if (station === null) {
+      throw new Error(`No station with PTV ID "${ptvId}".`);
+    }
+    return station;
+  }
+
   protected _getID(item: Station): number {
     return item.id;
   }

@@ -1,11 +1,11 @@
 export class Station {
   id: number;
   name: string;
-  ptvIDs: number[];
+  ptvIds: number[];
 
-  constructor({ id, name, ptvIDs }: { id: number; name: string; ptvIDs: number[] }) {
+  constructor({ id, name, ptvIds }: { id: number; name: string; ptvIds: number[] }) {
     this.id = id;
     this.name = name;
-    this.ptvIDs = ptvIDs;
+    this.ptvIds = ptvIds;
   }
 }
