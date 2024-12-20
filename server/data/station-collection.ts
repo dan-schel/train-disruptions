@@ -2,8 +2,13 @@ import { Collection } from "./collection";
 import { Station } from "./station";
 
 export class StationCollection extends Collection<number, Station> {
+  private _ptvMap: Map<number, Station>;
+
   constructor(data: Station[]) {
     super(data);
+
+    // Implement a map for PTV IDs, since this query will probably happen a lot.
+    this._ptvMap = new Map(data.flatMap((station) => station.ptvIds.map((ptvId) => [ptvId, station])));
   }
 
   findByName(name: string): Station | null {
@@ -19,7 +24,7 @@ export class StationCollection extends Collection<number, Station> {
   }
 
   findByPtvId(ptvId: number): Station | null {
-    return this.first((station) => station.ptvIds.includes(ptvId));
+    return this._ptvMap.get(ptvId) ?? null;
   }
 
   requireByPtvId(ptvId: number): Station {
