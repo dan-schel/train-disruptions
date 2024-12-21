@@ -48,6 +48,7 @@ async function startServer() {
   app.all("*", createHandler(vikeHandler)());
 
   app.listen(port, () => {
+    // eslint-disable-next-line no-console
     console.log(`🟢 Server listening on http://localhost:${port}`);
   });
 

@@ -20,6 +20,7 @@ export class MongoDBConnection extends DatabaseConnection {
 
   async saveDisruption(data: string): Promise<void> {
     await this.db.collection("test").insertOne({ data });
+    // eslint-disable-next-line no-console
     console.log("🟢 Database connection working!");
   }
 }
@@ -27,6 +28,7 @@ export class MongoDBConnection extends DatabaseConnection {
 // For testing purposes.
 export class FakeDatabaseConnection extends DatabaseConnection {
   async saveDisruption(_data: string): Promise<void> {
+    // eslint-disable-next-line no-console
     console.log("🟡 No database set up yet.");
   }
 }
