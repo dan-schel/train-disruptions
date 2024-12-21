@@ -1,8 +1,14 @@
 import eslint from "@eslint/js";
 import prettier from "eslint-plugin-prettier/recommended";
 import react from "eslint-plugin-react/configs/recommended.js";
+import reactHooks from "eslint-plugin-react-hooks";
 import globals from "globals";
 import tseslint from "typescript-eslint";
+
+// Philosophy: Reserve errors for situations where the code will not run or
+// compile. Everything else is a warning. Warnings will still cause CI to fail,
+// but let the dev get away with trying something temporarily without the editor
+// putting red squigglies all over the place.
 
 const customRules = {
   rules: {
@@ -10,35 +16,48 @@ const customRules = {
     "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
 
     // Require === and !==, except when comparing to null.
-    eqeqeq: ["error", "always", { null: "ignore" }],
+    eqeqeq: ["warn", "always", { null: "ignore" }],
 
     // Warn on console.log uses, but allow console.warn.
     "no-console": ["warn", { allow: ["warn", "error"] }],
-
-    // TODO: Remove this? What does it do?
-    "@typescript-eslint/no-namespace": 0,
 
     // Warn about prettier violations.
     "prettier/prettier": "warn",
   },
 };
 
-const reactConfig = {
-  files: ["**/*.{js,mjs,cjs,jsx,mjsx,ts,tsx,mtsx}"],
-  ...react,
-  languageOptions: {
-    ...react.languageOptions,
-    globals: {
-      ...globals.serviceworker,
-      ...globals.browser,
+const reactConfig = [
+  {
+    files: ["**/*.{js,mjs,cjs,jsx,mjsx,ts,tsx,mtsx}"],
+    ...react,
+    languageOptions: {
+      ...react.languageOptions,
+      globals: {
+        ...globals.serviceworker,
+        ...globals.browser,
+      },
+    },
+    settings: {
+      react: {
+        version: "detect",
+      },
     },
   },
-  settings: {
-    react: {
-      version: "detect",
+  {
+    plugins: {
+      "react-hooks": reactHooks,
+    },
+
+    // Ignore use of Vike hooks inside Vike's "+" files (this plugin thinks
+    // anything starting with "use" is a React hook)
+    ignores: ["**/+*.ts"],
+
+    rules: {
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn",
     },
   },
-};
+];
 
 export default tseslint.config(
   {
