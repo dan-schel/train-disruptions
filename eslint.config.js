@@ -23,6 +23,12 @@ const customRules = {
 
     // Warn about prettier violations.
     "prettier/prettier": "warn",
+
+    // TODO: Consider other lint rules from
+    // https://github.com/jsx-eslint/eslint-plugin-react?tab=readme-ov-file#list-of-supported-rules
+    // such as `react/button-has-type`.
+
+    // TODO: Consider installing tailwind sort order plugin.
   },
 };
 
