@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import eslint from "@eslint/js";
 import prettier from "eslint-plugin-prettier/recommended";
 import react from "eslint-plugin-react/configs/recommended.js";
@@ -8,17 +6,7 @@ import tseslint from "typescript-eslint";
 
 export default tseslint.config(
   {
-    ignores: [
-      "dist/*",
-      "coverage/*",
-      // Temporary compiled files
-      "**/*.ts.build-*.mjs",
-
-      // JS files at the root of the project
-      "*.js",
-      "*.cjs",
-      "*.mjs",
-    ],
+    ignores: ["node_modules/*", "dist/*", "coverage/*"],
   },
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
@@ -32,18 +20,6 @@ export default tseslint.config(
     },
   },
   {
-    rules: {
-      "@typescript-eslint/no-unused-vars": [
-        1,
-        {
-          argsIgnorePattern: "^_",
-        },
-      ],
-      "@typescript-eslint/no-namespace": 0,
-    },
-  },
-
-  {
     files: ["**/*.{js,mjs,cjs,jsx,mjsx,ts,tsx,mtsx}"],
     ...react,
     languageOptions: {
@@ -53,13 +29,32 @@ export default tseslint.config(
         ...globals.browser,
       },
     },
-
     settings: {
       react: {
         version: "detect",
       },
     },
   },
-
   prettier,
+  {
+    rules: {
+      // Ignore unused variables if they start with underscores.
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        { argsIgnorePattern: "^_" },
+      ],
+
+      // Require === and !==, except when comparing to null.
+      eqeqeq: ["error", "always", { null: "ignore" }],
+
+      // Warn on console.log uses, but allow console.warn.
+      "no-console": ["warn", { allow: ["warn", "error"] }],
+
+      // TODO: Remove this? What does it do?
+      "@typescript-eslint/no-namespace": 0,
+
+      // Warn about prettier violations.
+      "prettier/prettier": "warn",
+    },
+  },
 );
