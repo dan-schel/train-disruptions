@@ -8,7 +8,9 @@ export class LineCollection extends Collection<number, Line> {
     super(data);
 
     // Implement a map for PTV IDs, since this query will probably happen a lot.
-    this._ptvMap = new Map(data.flatMap((line) => line.ptvIds.map((ptvId) => [ptvId, line])));
+    this._ptvMap = new Map(
+      data.flatMap((line) => line.ptvIds.map((ptvId) => [ptvId, line])),
+    );
   }
 
   findByPtvId(ptvId: number): Line | null {

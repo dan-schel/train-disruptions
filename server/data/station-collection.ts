@@ -8,7 +8,11 @@ export class StationCollection extends Collection<number, Station> {
     super(data);
 
     // Implement a map for PTV IDs, since this query will probably happen a lot.
-    this._ptvMap = new Map(data.flatMap((station) => station.ptvIds.map((ptvId) => [ptvId, station])));
+    this._ptvMap = new Map(
+      data.flatMap((station) =>
+        station.ptvIds.map((ptvId) => [ptvId, station]),
+      ),
+    );
   }
 
   findByName(name: string): Station | null {

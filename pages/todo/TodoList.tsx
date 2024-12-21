@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 
-export function TodoList({ initialTodoItems }: { initialTodoItems: { text: string }[] }) {
+export function TodoList({
+  initialTodoItems,
+}: {
+  initialTodoItems: { text: string }[];
+}) {
   const [todoItems, setTodoItems] = useState(initialTodoItems);
   const [newTodo, setNewTodo] = useState("");
   return (

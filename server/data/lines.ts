@@ -18,7 +18,11 @@ const data = [
   new Line({ id: line.UPFIELD, name: "Upfield", ptvIds: [15] }),
   new Line({ id: line.CRAIGIEBURN, name: "Craigieburn", ptvIds: [3] }),
   new Line({ id: line.SEYMOUR, name: "Seymour", ptvIds: [1706, 1710, 1908] }),
-  new Line({ id: line.FLEMINGTON_RACECOURSE, name: "Flemington Racecourse", ptvIds: [1482] }),
+  new Line({
+    id: line.FLEMINGTON_RACECOURSE,
+    name: "Flemington Racecourse",
+    ptvIds: [1482],
+  }),
   new Line({ id: line.SUNBURY, name: "Sunbury", ptvIds: [14] }),
   new Line({ id: line.BENDIGO, name: "Bendigo", ptvIds: [1740, 1848, 1849] }),
   new Line({ id: line.BALLARAT, name: "Ballarat", ptvIds: [1728, 1837, 4871] }),

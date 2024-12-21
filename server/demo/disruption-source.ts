@@ -45,7 +45,9 @@ export class VtarDisruptionSource extends DisruptionSource {
       ...data.disruptions.regional_train.map((d) => d.title),
     ];
 
-    console.log(`🟢 Successfully fetched ${combined.length} disruption(s) from VTAR.`);
+    console.log(
+      `🟢 Successfully fetched ${combined.length} disruption(s) from VTAR.`,
+    );
     return combined;
   }
 }
