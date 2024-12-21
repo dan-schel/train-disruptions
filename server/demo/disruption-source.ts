@@ -45,7 +45,10 @@ export class VtarDisruptionSource extends DisruptionSource {
       ...data.disruptions.regional_train.map((d) => d.title),
     ];
 
-    console.log(`🟢 Successfully fetched ${combined.length} disruption(s) from VTAR.`);
+    // eslint-disable-next-line no-console
+    console.log(
+      `🟢 Successfully fetched ${combined.length} disruption(s) from VTAR.`,
+    );
     return combined;
   }
 }
@@ -53,6 +56,7 @@ export class VtarDisruptionSource extends DisruptionSource {
 // For testing purposes.
 export class FakeDisruptionSource extends DisruptionSource {
   async fetchDisruptions(): Promise<string[]> {
+    // eslint-disable-next-line no-console
     console.log("🟡 Relay connection not set up yet.");
     return ["Buses replace trains between X and Y."];
   }

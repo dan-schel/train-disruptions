@@ -1,7 +1,10 @@
 import { config } from "../config";
 import { env } from "../env";
 import { FakeDatabaseConnection, MongoDBConnection } from "./db-connection";
-import { FakeDisruptionSource, VtarDisruptionSource } from "./disruption-source";
+import {
+  FakeDisruptionSource,
+  VtarDisruptionSource,
+} from "./disruption-source";
 
 export async function runDemos() {
   try {
