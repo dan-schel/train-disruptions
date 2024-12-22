@@ -7,6 +7,7 @@ export default function HeadDefault() {
   return (
     <>
       <link rel="icon" href={logoUrl} />
+      <link rel="manifest" href="/manifest.webmanifest" />
     </>
   );
 }

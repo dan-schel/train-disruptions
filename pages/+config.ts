@@ -14,4 +14,7 @@ export default {
   description: "Demo showcasing Vike",
 
   extends: vikeReact,
+
+  // For VitePWA (because it doesn't work automatically).
+  bodyHtmlEnd: '<script defer src="/registerSW.js"></script>',
 } satisfies Config;
