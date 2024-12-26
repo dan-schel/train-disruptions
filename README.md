@@ -22,20 +22,7 @@ Requires [NodeJS](https://nodejs.org/en) installed.
    npm install
    ```
 
-3. Create a `.env` file with the following content:
-
-   ```dotenv
-   # The connection string to your locally running MongoDB server. If you do not
-   # have a locally running MongoDB server yet, do not add this line.
-   # e.g. "mongodb://username:password@localhost:27017/?authMechanism=DEFAULT"
-   DATABASE_URL = "..."
-
-   # This value is a secret password which won't be committed to GitHub.
-   # If you have not been provided this value, do not add this line.
-   RELAY_KEY = "..."
-   ```
-
-   ([Find out more](/docs/environment-variables.md))
+3. Create a `.env` file as described [here](/docs/environment-variables.md#local-development-server) (under "Local development server").
 
 4. Start the server:
 
