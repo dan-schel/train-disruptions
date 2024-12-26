@@ -5,7 +5,7 @@ Environment variables allow us to change behaviour of the app depending on wheth
 <!-- Table of contents created using "Markdown All in One" VSCode extension. -->
 <!-- Command palette: "> Markdown All in One: Update Table of Contents" -->
 
-## Table of contents <!-- omit in toc -->
+## Contents <!-- omit in toc -->
 
 - [Variables list](#variables-list)
   - [`DATABASE_URL`](#database_url)
