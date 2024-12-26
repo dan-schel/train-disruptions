@@ -4,7 +4,13 @@ import vike from "vike/plugin";
 import { VitePWA, VitePWAOptions } from "vite-plugin-pwa";
 
 const pwaConfig: Partial<VitePWAOptions> = {
-  // TODO: No idea what to set this to. This is what I've used in the past?
+  // TODO: It looks like there's no way to create a custom "You're offline" page
+  // without implementing a custom service worker. Might leave that for later!
+
+  // I'm pretty sure it doesn't matter what we set this to, because we're not
+  // precaching HTML, and stuff in the "assets" folder have hashes added to
+  // their filenames. This might become relevant for things in the public
+  // directory though.
   registerType: "autoUpdate",
 
   // VitePWA doesn't automatically add the script tag to the HTML (it doesn't
@@ -12,13 +18,9 @@ const pwaConfig: Partial<VitePWAOptions> = {
   // `registerSW.js` for us.
   injectRegister: "script",
 
-  // Do not cache HTML (for now). Not caching HTML means this app won't do
-  // anything offline (which kinda defeats the purpose of a PWA), but the config
-  // is complicated because we're doing SSR, so I'll leave it for later.
-  //
-  // If I understand the docs at https://vite-pwa-org.netlify.app/guide/static-assets
-  // correctly, this doesn't work for stuff in the public directory. They need
-  // to go in `includeAssets` instead.
+  // There's no HTML to pre-cache because it's generated dynamically with SSR.
+  // This doesn't seem to work for stuff in the public directory. They need to
+  // go in `includeAssets` instead.
   workbox: {
     globPatterns: ["**/*.{js,css,ico,png,svg}"],
   },
@@ -28,8 +30,6 @@ const pwaConfig: Partial<VitePWAOptions> = {
     // include the manifest icons here though, they're included by default.
     // "/whatever.woff2",
   ],
-
-  // TODO: Work out how to add a custom "You're offline" page.
 
   manifest: {
     name: "My Vike App",
