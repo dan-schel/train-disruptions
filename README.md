@@ -28,12 +28,14 @@ Requires [NodeJS](https://nodejs.org/en) installed.
    # The connection string to your locally running MongoDB server. If you do not
    # have a locally running MongoDB server yet, do not add this line.
    # e.g. "mongodb://username:password@localhost:27017/?authMechanism=DEFAULT"
-   DATABASE_URL="..."
+   DATABASE_URL = "..."
 
    # This value is a secret password which won't be committed to GitHub.
    # If you have not been provided this value, do not add this line.
-   RELAY_KEY="..."
+   RELAY_KEY = "..."
    ```
+
+   ([Find out more](/docs/environment-variables.md))
 
 4. Start the server:
 
