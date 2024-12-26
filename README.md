@@ -8,7 +8,7 @@ Very much still a work-in-progress!
 
 ## Getting started
 
-Requires [NodeJS](https://nodejs.org/en) installed.
+Requires [NodeJS](https://nodejs.org/en) and [MongoDB](https://www.mongodb.com/).
 
 1. Clone the repo:
 
@@ -22,7 +22,7 @@ Requires [NodeJS](https://nodejs.org/en) installed.
    npm install
    ```
 
-3. Create a `.env` file as described [here](/docs/environment-variables.md#local-development-server) (under "Local development server").
+3. Set environment variables by creating a `.env` file as described [here](/docs/environment-variables.md#local-development-server) (under "Local development server").
 
 4. Start the server:
 
