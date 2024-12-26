@@ -1,7 +1,7 @@
 export class Station {
-  id: number;
-  name: string;
-  ptvIds: number[];
+  readonly id: number;
+  readonly name: string;
+  readonly ptvIds: readonly number[];
 
   constructor({
     id,
@@ -10,7 +10,7 @@ export class Station {
   }: {
     id: number;
     name: string;
-    ptvIds: number[];
+    ptvIds: readonly number[];
   }) {
     this.id = id;
     this.name = name;
