@@ -25,7 +25,7 @@ Environment variables allow us to change behaviour of the app depending on wheth
 
 - The MongoDB connection string of the database to use.
 - Takes the form of `mongodb://username:password@localhost:27017/?authMechanism=DEFAULT`, where `username`, `password`, and `27017` (the port) are changed as needed.
-- Not required, the app will not remember anything across restarts unless provided!
+- Not required, but the app will not remember anything across restarts unless provided!
 
 ### `RELAY_KEY`
 
@@ -36,10 +36,10 @@ Environment variables allow us to change behaviour of the app depending on wheth
 ### `NODE_ENV`
 
 - Either `production` or `development`.
-- Defaults to `development`, but automatically set to `production` when run with `npm run start`.
+- Defaults to `development`, but is automatically set to `production` when run with `npm run start`.
 - When `production`:
   - Can only be used after running `npm run build`.
-  - Uses prebuilt & minified frontend code from the `dist` folder.
+  - Uses pre-built & minified frontend code from the `dist` folder.
   - No hot-reloading.
 - When `development`:
   - No build step required.
@@ -59,7 +59,7 @@ Environment variables allow us to change behaviour of the app depending on wheth
 
 ### `HMR_PORT`
 
-- Used internally by Vike to facilitate hot-reloading.
+- A port used internally by Vike to facilitate hot-reloading.
 - Defaults to `24678`.
 
 ## Setting up variables
