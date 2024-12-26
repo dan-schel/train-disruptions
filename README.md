@@ -22,18 +22,7 @@ Requires [NodeJS](https://nodejs.org/en) installed.
    npm install
    ```
 
-3. Create a `.env` file with the following content:
-
-   ```dotenv
-   # The connection string to your locally running MongoDB server. If you do not
-   # have a locally running MongoDB server yet, do not add this line.
-   # e.g. "mongodb://username:password@localhost:27017/?authMechanism=DEFAULT"
-   DATABASE_URL="..."
-
-   # This value is a secret password which won't be committed to GitHub.
-   # If you have not been provided this value, do not add this line.
-   RELAY_KEY="..."
-   ```
+3. Create a `.env` file as described [here](/docs/environment-variables.md#local-development-server) (under "Local development server").
 
 4. Start the server:
 
@@ -43,63 +32,9 @@ Requires [NodeJS](https://nodejs.org/en) installed.
 
 5. Navigate to http://localhost:3000.
 
-## Scripts
-
-### Check for errors
-
-Runs [ESLint](https://eslint.org/) and the Typescript compiler to enforce code quality and check for errors:
-
-```
-npm run lint
-```
-
-### Format code
-
-Runs [Prettier](https://prettier.io/) rewrite code into a consistent format:
-
-```
-npm run format
-```
-
-### Run unit tests
-
-Runs unit tests defined in `tests` directory:
-
-```
-npm run test
-```
-
-### Preview production-style build
-
-Runs the server in production-mode (i.e. without hot-reloading and with `NODE_ENV=production`):
-
-```
-npm run build && npm run start
-```
-
 ## Docs
 
-### Typescript
-
-- https://www.typescriptlang.org
-
-### Express
-
-- http://expressjs.com/
-
-### Vike
-
-- The README.md from the template: [VIKE-DOCS.md](./VIKE-DOCS.md)
-- https://vike.dev
-
-### MongoDB
-
-- https://www.mongodb.com/
-
-### Tailwind
-
-- https://tailwindcss.com/
-
-### Zod
-
-- https://zod.dev/
+- [Environment variables](/docs/environment-variables.md)
+- [Scripts](/docs/scripts.md)
+- [Tools](/docs/tools.md)
+- [Original Vike README.md](/docs/vike-readme.md)

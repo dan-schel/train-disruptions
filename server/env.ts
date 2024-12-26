@@ -1,23 +1,21 @@
 import { configDotenv } from "dotenv";
 import { z } from "zod";
+import { stringNumberSchema } from "./utils";
 
 const schema = z.object({
-  // Should be set to "production" in production.
-  NODE_ENV: z.string().default("development"),
-
-  // Required to install devDependencies in Digital Ocean.
-  NPM_CONFIG_PRODUCTION: z.string().default("false"),
-
-  // TODO: These can't really be optional in the long run, but they are for now
-  // while everyone gets set up.
   RELAY_KEY: z.string().optional(),
   DATABASE_URL: z.string().optional(),
+
+  NODE_ENV: z.enum(["production", "development"]).default("development"),
+  NPM_CONFIG_PRODUCTION: z.string().default("false"),
+  PORT: stringNumberSchema.default("3000"),
+  HMR_PORT: stringNumberSchema.default("24678"),
 });
 
-// Loads environment variables from the .env file into process.env.
+// Loads environment variables from the `.env` file into process.env.
 configDotenv();
 
-// Parses process.env using the schema (i.e. checks that NODE_ENV, RELAY_KEY,
-// etc. are there), and makes them available in the "env" constant for other
-// code to use.
+// Parses process.env using the schema (i.e. checks that `RELAY_KEY`,
+// `DATABASE_URL`, etc. are there), and makes them available in the "env"
+// constant for other code to use.
 export const env = schema.parse(process.env);
