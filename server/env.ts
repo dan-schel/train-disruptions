@@ -2,7 +2,11 @@ import { configDotenv } from "dotenv";
 import { z } from "zod";
 
 const schema = z.object({
+  // Should be set to "production" in production.
   NODE_ENV: z.string().default("development"),
+
+  // Required to install devDependencies in Digital Ocean.
+  NPM_CONFIG_PRODUCTION: z.string().default("false"),
 
   // TODO: These can't really be optional in the long run, but they are for now
   // while everyone gets set up.
