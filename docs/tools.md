@@ -1,4 +1,6 @@
-# Docs
+# Tools
+
+Links to the documentation of tools that we're using.
 
 ## Typescript
 
