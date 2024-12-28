@@ -15,5 +15,5 @@ export type SerializedData =
   | boolean
   | Date
   | null
-  | Record<string, SerializedObject>
+  | { [field: string]: SerializedData }
   | SerializedData[];
