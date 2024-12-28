@@ -2,8 +2,8 @@ import { Collection, WithId } from "mongodb";
 import { Repository } from "../general/database";
 import { DatabaseModel, DataOf, IdOf } from "../general/database-model";
 import { FindQuery, FirstQuery, CountQuery } from "../general/query-types";
-import { buildFilter } from "./build-filter";
 import { buildSort } from "./build-sort";
+import { MongoWhereClauseInterpreter } from "./mongo-where-clause-interpreter";
 
 export type ModelDocument = {
   // The mongodb driver hates it when I try to use IdOf<Model> here, otherwise I
@@ -30,8 +30,9 @@ export class MongoRepository<
   }
 
   async find(query: FindQuery<Model>): Promise<DataOf<Model>[]> {
+    const filter = new MongoWhereClauseInterpreter(query.where).toMongoFilter();
     const result = await this._collection
-      .find(buildFilter(query.where), {
+      .find(filter, {
         sort: buildSort(query.sort),
         limit: query.limit,
       })
@@ -41,15 +42,18 @@ export class MongoRepository<
   }
 
   async first(query: FirstQuery<Model>): Promise<DataOf<Model> | null> {
-    const result = await this._collection.findOne(buildFilter(query.where));
+    const filter = new MongoWhereClauseInterpreter(query.where).toMongoFilter();
+    const result = await this._collection.findOne(filter);
     if (result == null) {
       return null;
     }
+
     return this._deserialize(result);
   }
 
   async count(query: CountQuery<Model>): Promise<number> {
-    return await this._collection.countDocuments(buildFilter(query.where));
+    const filter = new MongoWhereClauseInterpreter(query.where).toMongoFilter();
+    return await this._collection.countDocuments(filter);
   }
 
   async create(item: DataOf<Model>): Promise<void> {
