@@ -1,7 +1,7 @@
 import { Collection, WithId } from "mongodb";
-import { ModelResolver } from "../database";
-import { DatabaseModel } from "../database-model";
-import { FindQuery, FirstQuery, CountQuery } from "../query-types";
+import { ModelResolver } from "../general/database";
+import { DatabaseModel, SerializedObject } from "../general/database-model";
+import { FindQuery, FirstQuery, CountQuery } from "../general/query-types";
 import { buildFilter } from "./build-filter";
 import { buildSort } from "./build-sort";
 
@@ -12,9 +12,10 @@ export type ModelDocument = {
 export class MongoModelResolver<
   IdType extends string | number,
   DataType extends object,
-> extends ModelResolver<IdType, DataType> {
+  SerializedData extends SerializedObject,
+> extends ModelResolver<IdType, DataType, SerializedData> {
   constructor(
-    model: DatabaseModel<IdType, DataType>,
+    model: DatabaseModel<IdType, DataType, SerializedData>,
     private readonly _collection: Collection<ModelDocument>,
   ) {
     super(model);
@@ -28,7 +29,7 @@ export class MongoModelResolver<
     return this._deserialize(result);
   }
 
-  async find(query: FindQuery): Promise<DataType[]> {
+  async find(query: FindQuery<SerializedData>): Promise<DataType[]> {
     const result = await this._collection
       .find(buildFilter(query.where), {
         sort: buildSort(query.sort),
@@ -39,7 +40,7 @@ export class MongoModelResolver<
     return result.map((item) => this._deserialize(item));
   }
 
-  async first(query: FirstQuery): Promise<DataType | null> {
+  async first(query: FirstQuery<SerializedData>): Promise<DataType | null> {
     const result = await this._collection.findOne(buildFilter(query.where));
     if (result == null) {
       return null;
@@ -47,7 +48,7 @@ export class MongoModelResolver<
     return this._deserialize(result);
   }
 
-  async count(query: CountQuery): Promise<number> {
+  async count(query: CountQuery<SerializedData>): Promise<number> {
     return await this._collection.countDocuments(buildFilter(query.where));
   }
 

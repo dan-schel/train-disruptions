@@ -1,5 +1,5 @@
 import { env } from "../env";
-import { Database } from "./database";
+import { Database } from "./general/database";
 import { InMemoryDatabase } from "./in-memory/in-memory-database";
 import { MongoDatabase } from "./mongo/mongo-database";
 

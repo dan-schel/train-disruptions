@@ -1,3 +1,5 @@
+import { SerializedObject } from "./database-model";
+
 /** Typescript magic to force either gt or gte to be defined but never both. */
 type GreaterThan<T, Equals extends boolean> = Equals extends true
   ? { gte?: T; gt?: never }
@@ -15,35 +17,37 @@ export type Comparison<T> =
   | EqualOrNot<T>
   | (GreaterThan<T, boolean> & LessThan<T, boolean>);
 
+export type FieldConstraint =
+  | EqualOrNot<string | boolean | null>
+  | Comparison<number | Date>
+  | { length: Comparison<number> }
+  | { contains: string | number }
+  | { notContains: string | number };
+
 /** Can match any field (but not nested structures). */
-export type FieldMatcher = {
-  [field: string]:
-    | EqualOrNot<string | boolean | null>
-    | Comparison<number | Date>
-    | { length: Comparison<number> }
-    | { contains: string | number }
-    | { notContains: string | number };
+export type FieldMatcher<SerializedData extends SerializedObject> = {
+  [field in keyof SerializedData]?: FieldConstraint;
 };
 
 /** Arguments to a "find"/select query. */
-export type FindQuery = {
-  where?: FieldMatcher;
-  sort?: Sorting;
+export type FindQuery<SerializedData extends SerializedObject> = {
+  where?: FieldMatcher<SerializedData>;
+  sort?: Sorting<SerializedData>;
   limit?: number;
 };
 
 /** Arguments to a first query (like "find" but limits are useless). */
-export type FirstQuery = {
-  where?: FieldMatcher;
+export type FirstQuery<SerializedData extends SerializedObject> = {
+  where?: FieldMatcher<SerializedData>;
 };
 
 /** Arguments to a count query (like "find" but limits/sorting are useless). */
-export type CountQuery = {
-  where?: FieldMatcher;
+export type CountQuery<SerializedData extends SerializedObject> = {
+  where?: FieldMatcher<SerializedData>;
 };
 
 /** Can sort any field by ascending/descending (but not nested structures). */
-export type Sorting = {
-  by: string;
+export type Sorting<SerializedData extends SerializedObject> = {
+  by: keyof SerializedData;
   direction: "asc" | "desc";
 };

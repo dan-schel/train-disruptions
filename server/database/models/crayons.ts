@@ -1,8 +1,7 @@
 // For demonstration purposes.
 
 import { z } from "zod";
-import { DatabaseModel, SerializedObject } from "../database-model";
-import { FindQuery } from "../query-types";
+import { DatabaseModel } from "../general/database-model";
 
 export class Crayon {
   constructor(
@@ -13,10 +12,15 @@ export class Crayon {
   ) {}
 }
 
-export class CrayonModel extends DatabaseModel<string, Crayon> {
+export class CrayonModel extends DatabaseModel<
+  string,
+  Crayon,
+  z.input<typeof CrayonModel.schema>
+> {
   static instance = new CrayonModel();
 
-  private schema = z.object({
+  // All fields except the ID.
+  private static schema = z.object({
     color: z.enum(["red", "yellow", "green", "blue"]),
     length: z.number(),
     wrapped: z.boolean(),
@@ -30,8 +34,7 @@ export class CrayonModel extends DatabaseModel<string, Crayon> {
     return item.id;
   }
 
-  serialize(item: Crayon): SerializedObject {
-    // Intentionally omit the ID. It's added by the database using getId().
+  serialize(item: Crayon): z.input<typeof CrayonModel.schema> {
     return {
       color: item.color,
       length: item.length,
@@ -39,20 +42,8 @@ export class CrayonModel extends DatabaseModel<string, Crayon> {
     };
   }
 
-  deserialize(id: string, item: SerializedObject): Crayon {
-    const parsed = this.schema.parse(item);
+  deserialize(id: string, item: unknown): Crayon {
+    const parsed = CrayonModel.schema.parse(item);
     return new Crayon(id, parsed.color, parsed.length, parsed.wrapped);
-  }
-
-  getErrorForRequire(id: string): Error {
-    return new Error(`No crayon with ID="${id}".`);
-  }
-
-  getErrorForRequireFirst(_query: FindQuery): Error {
-    return new Error("No matching crayon found.");
-  }
-
-  getErrorForRequireSingle(_query: FindQuery, count: number): Error {
-    return new Error(`${count} crayons matched. Expected 1.`);
   }
 }

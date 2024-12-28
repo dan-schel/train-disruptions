@@ -1,10 +1,16 @@
 import { Filter } from "mongodb";
-import { FieldMatcher, EqualOrNot, Comparison } from "../query-types";
+import {
+  FieldMatcher,
+  EqualOrNot,
+  Comparison,
+  FieldConstraint,
+} from "../general/query-types";
 import { ModelDocument } from "./mongo-model-resolver";
+import { SerializedObject } from "../general/database-model";
 
 /** Convert FieldMatcher queries into MongoDB syntax queries. */
 export function buildFilter(
-  where: FieldMatcher | undefined,
+  where: FieldMatcher<SerializedObject> | undefined,
 ): Filter<ModelDocument> {
   if (where == null) {
     return {};
@@ -12,12 +18,13 @@ export function buildFilter(
 
   const filter: Filter<ModelDocument> = {};
   for (const field in where) {
-    filter[field] = buildFilterForField(where[field]);
+    const value = where[field]!;
+    filter[field] = buildFilterForField(value);
   }
   return filter;
 }
 
-function buildFilterForField(field: FieldMatcher[string]) {
+function buildFilterForField(field: FieldConstraint) {
   if (field != null && typeof field === "object" && !(field instanceof Date)) {
     if ("length" in field) {
       return { $size: buildFilterForComparison(field.length) };

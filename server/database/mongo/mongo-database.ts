@@ -1,7 +1,7 @@
 import { Db, MongoClient } from "mongodb";
 import { config } from "../../config";
-import { DatabaseModel } from "../database-model";
-import { Database, ModelResolver } from "../database";
+import { DatabaseModel, SerializedObject } from "../general/database-model";
+import { Database, ModelResolver } from "../general/database";
 import { MongoModelResolver } from "./mongo-model-resolver";
 
 export class MongoDatabase extends Database {
@@ -18,9 +18,13 @@ export class MongoDatabase extends Database {
     return new MongoDatabase(client);
   }
 
-  of<IdType extends string | number, DataType extends object>(
-    model: DatabaseModel<IdType, DataType>,
-  ): ModelResolver<IdType, DataType> {
+  of<
+    IdType extends string | number,
+    DataType extends object,
+    SerializedData extends SerializedObject,
+  >(
+    model: DatabaseModel<IdType, DataType, SerializedData>,
+  ): ModelResolver<IdType, DataType, SerializedData> {
     return new MongoModelResolver(model, this._db.collection(model.name));
   }
 }
