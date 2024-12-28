@@ -26,6 +26,7 @@ export class InMemoryWhereClauseInterpreter<Model extends DatabaseModel> {
   }
 
   private static _isMatchingField(field: FieldConstraint, value: unknown) {
+    // TODO: [DS] This sucks.
     if (
       field != null &&
       typeof field === "object" &&
@@ -61,6 +62,7 @@ export class InMemoryWhereClauseInterpreter<Model extends DatabaseModel> {
     comparison: EqualOrNot<string | boolean | null> | Comparison<number | Date>,
     value: unknown,
   ) {
+    // TODO: [DS] This sucks.
     if (
       comparison == null ||
       typeof comparison !== "object" ||

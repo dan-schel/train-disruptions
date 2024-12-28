@@ -54,8 +54,10 @@ export class MongoRepository<
     return this._deserialize(result);
   }
 
-  async count(query: CountQuery<Model>): Promise<number> {
-    const filter = new MongoWhereClauseInterpreter(query.where).toMongoFilter();
+  async count(query?: CountQuery<Model>): Promise<number> {
+    const filter = new MongoWhereClauseInterpreter(
+      query?.where,
+    ).toMongoFilter();
     return await this._collection.countDocuments(filter);
   }
 

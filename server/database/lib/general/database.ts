@@ -18,7 +18,7 @@ export abstract class Repository<Model extends DatabaseModel> {
   abstract first(query: FirstQuery<Model>): Promise<DataOf<Model> | null>;
 
   /** Returns the number of records which the query. */
-  abstract count(query: CountQuery<Model>): Promise<number>;
+  abstract count(query?: CountQuery<Model>): Promise<number>;
 
   /** Creates a new record with the given value. */
   abstract create(item: DataOf<Model>): Promise<void>;
@@ -39,7 +39,7 @@ export abstract class Repository<Model extends DatabaseModel> {
   }
 
   /** Returns the record with the given id or throws if not found. */
-  async requireFirst(query: FindQuery<Model>): Promise<DataOf<Model>> {
+  async requireFirst(query: FirstQuery<Model>): Promise<DataOf<Model>> {
     const item = await this.first(query);
     if (item == null) {
       throw new Error(`No matching items found in "${this._model.name}".`);
@@ -48,7 +48,7 @@ export abstract class Repository<Model extends DatabaseModel> {
   }
 
   /** Returns the record matching the query or throws if zero/multiple match. */
-  async requireSingle(query: FindQuery<Model>): Promise<DataOf<Model>> {
+  async requireSingle(query: FirstQuery<Model>): Promise<DataOf<Model>> {
     const items = await this.find(query);
     if (items.length !== 1) {
       throw new Error(

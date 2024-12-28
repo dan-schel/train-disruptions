@@ -29,7 +29,7 @@ describe("InMemoryDatabase", () => {
 
   it("should count the number of items it has", async () => {
     const db = getDatabase().of(MUSICAL_INSTRUMENTS);
-    expect(await db.count({})).toBe(4);
+    expect(await db.count()).toBe(4);
     expect(await db.count({ where: { type: "piano" } })).toBe(2);
   });
 
@@ -41,7 +41,7 @@ describe("InMemoryDatabase", () => {
     });
     await db.create(item);
     expect(await db.get(4)).toStrictEqual(item);
-    expect(await db.count({})).toBe(5);
+    expect(await db.count()).toBe(5);
   });
 
   it("should update items", async () => {
@@ -58,6 +58,6 @@ describe("InMemoryDatabase", () => {
     const db = getDatabase().of(MUSICAL_INSTRUMENTS);
     await db.delete(1);
     expect(await db.get(1)).toStrictEqual(null);
-    expect(await db.count({})).toBe(3);
+    expect(await db.count()).toBe(3);
   });
 });

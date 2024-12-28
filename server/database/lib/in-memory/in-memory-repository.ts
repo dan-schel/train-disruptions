@@ -52,8 +52,8 @@ export class InMemoryRepository<
     return this._deserialize(item);
   }
 
-  async count(query: CountQuery<Model>): Promise<number> {
-    const filter = new InMemoryWhereClauseInterpreter(query.where);
+  async count(query?: CountQuery<Model>): Promise<number> {
+    const filter = new InMemoryWhereClauseInterpreter(query?.where);
     return this._collection.count((item) => filter.matches(item));
   }
 

@@ -26,6 +26,7 @@ export class MongoWhereClauseInterpreter<Model extends DatabaseModel> {
   }
 
   private static _buildFilterForField(field: FieldConstraint) {
+    // TODO: [DS] This sucks.
     if (
       field != null &&
       typeof field === "object" &&
@@ -52,6 +53,7 @@ export class MongoWhereClauseInterpreter<Model extends DatabaseModel> {
   private static _buildFilterForComparison(
     comparison: EqualOrNot<string | boolean | null> | Comparison<number | Date>,
   ) {
+    // TODO: [DS] This sucks.
     if (
       comparison == null ||
       typeof comparison !== "object" ||
