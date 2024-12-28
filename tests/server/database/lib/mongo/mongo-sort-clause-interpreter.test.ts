@@ -4,7 +4,7 @@ import { SortClause } from "../../../../../server/database/lib/general/query-typ
 import { DatabaseModel } from "../../../../../server/database/lib/general/database-model";
 
 describe("MongoSortClauseInterpreter", () => {
-  describe("buildSort", () => {
+  describe("toMongoSort", () => {
     function sort(sort: SortClause<DatabaseModel> | undefined) {
       return new MongoSortClauseInterpreter(sort).toMongoSort();
     }
