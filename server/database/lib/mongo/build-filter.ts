@@ -5,7 +5,7 @@ import {
   Comparison,
   FieldConstraint,
 } from "../general/query-types";
-import { ModelDocument } from "./mongo-model-resolver";
+import { ModelDocument } from "./mongo-repository";
 import { DatabaseModel } from "../general/database-model";
 
 /** Convert WhereClause queries into MongoDB syntax queries. */

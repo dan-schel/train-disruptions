@@ -1,7 +1,7 @@
-import { Database, ModelResolver } from "../general/database";
+import { Database, Repository } from "../general/database";
 import { DatabaseModel } from "../general/database-model";
 import { InMemoryDatabaseCollection } from "./in-memory-database-collection";
-import { InMemoryModelResolver } from "./in-memory-model-resolver";
+import { InMemoryRepository } from "./in-memory-repository";
 
 export class InMemoryDatabase extends Database {
   private readonly data: Map<string, InMemoryDatabaseCollection>;
@@ -11,8 +11,8 @@ export class InMemoryDatabase extends Database {
     this.data = new Map<string, InMemoryDatabaseCollection>();
   }
 
-  of<Model extends DatabaseModel>(model: Model): ModelResolver<Model> {
-    return new InMemoryModelResolver(model, this._collection(model.name));
+  of<Model extends DatabaseModel>(model: Model): Repository<Model> {
+    return new InMemoryRepository(model, this._collection(model.name));
   }
 
   private _collection(name: string) {

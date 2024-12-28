@@ -2,10 +2,10 @@ import { DatabaseModel, DataOf, IdOf } from "./database-model";
 import { CountQuery, FindQuery, FirstQuery } from "./query-types";
 
 export abstract class Database {
-  abstract of<Model extends DatabaseModel>(model: Model): ModelResolver<Model>;
+  abstract of<Model extends DatabaseModel>(model: Model): Repository<Model>;
 }
 
-export abstract class ModelResolver<Model extends DatabaseModel> {
+export abstract class Repository<Model extends DatabaseModel> {
   constructor(protected readonly _model: Model) {}
 
   /** Returns the record with the given id or null. */

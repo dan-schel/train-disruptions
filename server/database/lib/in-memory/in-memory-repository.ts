@@ -1,4 +1,4 @@
-import { ModelResolver } from "../general/database";
+import { Repository } from "../general/database";
 import { DatabaseModel, DataOf, IdOf } from "../general/database-model";
 import { FindQuery, FirstQuery, CountQuery } from "../general/query-types";
 import { isMatchingItem } from "./filtering";
@@ -8,9 +8,9 @@ import {
 } from "./in-memory-database-collection";
 import { getItemSorter } from "./sorting";
 
-export class InMemoryModelResolver<
+export class InMemoryRepository<
   Model extends DatabaseModel,
-> extends ModelResolver<Model> {
+> extends Repository<Model> {
   constructor(
     model: Model,
     private readonly _collection: InMemoryDatabaseCollection,

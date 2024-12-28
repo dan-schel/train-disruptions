@@ -1,5 +1,5 @@
 import { Collection, WithId } from "mongodb";
-import { ModelResolver } from "../general/database";
+import { Repository } from "../general/database";
 import { DatabaseModel, DataOf, IdOf } from "../general/database-model";
 import { FindQuery, FirstQuery, CountQuery } from "../general/query-types";
 import { buildFilter } from "./build-filter";
@@ -11,9 +11,9 @@ export type ModelDocument = {
   _id: string | number;
 } & object;
 
-export class MongoModelResolver<
+export class MongoRepository<
   Model extends DatabaseModel,
-> extends ModelResolver<Model> {
+> extends Repository<Model> {
   constructor(
     model: Model,
     private readonly _collection: Collection<ModelDocument>,
