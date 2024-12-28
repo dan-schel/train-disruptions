@@ -3,6 +3,7 @@
 import { z } from "zod";
 import { DatabaseModel } from "../general/database-model";
 
+/** The class returned by the database. */
 export class Crayon {
   constructor(
     readonly id: string,
@@ -12,6 +13,7 @@ export class Crayon {
   ) {}
 }
 
+/** Knows how to convert Crayon objects into database records. */
 export class CrayonModel extends DatabaseModel<
   string,
   Crayon,

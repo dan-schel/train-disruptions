@@ -2,6 +2,7 @@ import { Sort } from "mongodb";
 import { Sorting } from "../general/query-types";
 import { DatabaseModel } from "../general/database-model";
 
+/** Convert sorting options into MongoDB's syntax. */
 export function buildSort<Model extends DatabaseModel>(
   sort: Sorting<Model> | undefined,
 ): Sort | undefined {

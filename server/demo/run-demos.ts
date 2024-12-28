@@ -22,6 +22,7 @@ export async function runDemos() {
       length: { gt: 10 },
     },
   });
+  // eslint-disable-next-line no-console
   console.log(result);
 }
 

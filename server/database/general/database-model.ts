@@ -1,31 +1,16 @@
-/** All fields must be primitive data types (or nested arrays/objects). */
-export type SerializedObject = {
-  // Disallow ID from being serialized, since it's handled by the database
-  // implementation itself (using getId() to retrieve it).
-  id?: undefined;
+import { SerializedObject } from "./serialized-types";
 
-  [field: string]: SerializedData;
-};
-
-/** Primitive data types (or nested arrays/objects). */
-export type SerializedData =
-  | undefined
-  | string
-  | number
-  | boolean
-  | Date
-  | null
-  | SerializedObject
-  | SerializedData[];
-
+/** Typescript magic to extract the Id type used by a DatabaseModel. */
 export type IdOf<T extends DatabaseModel> =
   T extends DatabaseModel<infer Id, object, SerializedObject> ? Id : never;
 
+/** Typescript magic to extract the Data type used by a DatabaseModel. */
 export type DataOf<T extends DatabaseModel> =
   T extends DatabaseModel<string | number, infer Data, SerializedObject>
     ? Data
     : never;
 
+/** Typescript magic to extract the SerializedData type used by a DatabaseModel. */
 export type SerializedDataOf<T extends DatabaseModel> =
   T extends DatabaseModel<string | number, object, infer SerializedData>
     ? SerializedData

@@ -6,6 +6,8 @@ import { buildFilter } from "./build-filter";
 import { buildSort } from "./build-sort";
 
 export type ModelDocument = {
+  // The mongodb driver hates it when I try to use IdOf<Model> here, otherwise I
+  // would.
   _id: string | number;
 } & object;
 
