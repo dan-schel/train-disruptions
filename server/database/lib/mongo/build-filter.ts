@@ -1,6 +1,6 @@
 import { Filter } from "mongodb";
 import {
-  FieldMatcher,
+  WhereClause,
   EqualOrNot,
   Comparison,
   FieldConstraint,
@@ -8,9 +8,9 @@ import {
 import { ModelDocument } from "./mongo-model-resolver";
 import { DatabaseModel } from "../general/database-model";
 
-/** Convert FieldMatcher queries into MongoDB syntax queries. */
+/** Convert WhereClause queries into MongoDB syntax queries. */
 export function buildFilter<Model extends DatabaseModel>(
-  where: FieldMatcher<Model> | undefined,
+  where: WhereClause<Model> | undefined,
 ): Filter<ModelDocument> {
   if (where == null) {
     return {};

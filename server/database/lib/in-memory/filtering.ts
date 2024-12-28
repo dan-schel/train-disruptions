@@ -1,6 +1,6 @@
 import { DatabaseModel } from "../general/database-model";
 import {
-  FieldMatcher,
+  WhereClause,
   FieldConstraint,
   EqualOrNot,
   Comparison,
@@ -10,7 +10,7 @@ import { InMemoryDatabaseItem } from "./in-memory-database-collection";
 /** Returns true if the item matches the where clause. */
 export function isMatchingItem(
   item: InMemoryDatabaseItem,
-  where: FieldMatcher<DatabaseModel>,
+  where: WhereClause<DatabaseModel>,
 ) {
   return Object.entries(where).every(([field, constraint]) => {
     const value = item[field];
