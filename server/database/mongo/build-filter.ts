@@ -6,11 +6,11 @@ import {
   FieldConstraint,
 } from "../general/query-types";
 import { ModelDocument } from "./mongo-model-resolver";
-import { SerializedObject } from "../general/database-model";
+import { DatabaseModel } from "../general/database-model";
 
 /** Convert FieldMatcher queries into MongoDB syntax queries. */
-export function buildFilter(
-  where: FieldMatcher<SerializedObject> | undefined,
+export function buildFilter<Model extends DatabaseModel>(
+  where: FieldMatcher<Model> | undefined,
 ): Filter<ModelDocument> {
   if (where == null) {
     return {};

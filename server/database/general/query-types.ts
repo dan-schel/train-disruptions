@@ -1,4 +1,4 @@
-import { SerializedObject } from "./database-model";
+import { DatabaseModel, SerializedDataOf } from "./database-model";
 
 /** Typescript magic to force either gt or gte to be defined but never both. */
 type GreaterThan<T, Equals extends boolean> = Equals extends true
@@ -25,29 +25,29 @@ export type FieldConstraint =
   | { notContains: string | number };
 
 /** Can match any field (but not nested structures). */
-export type FieldMatcher<SerializedData extends SerializedObject> = {
-  [field in keyof SerializedData]?: FieldConstraint;
+export type FieldMatcher<Model extends DatabaseModel> = {
+  [field in keyof SerializedDataOf<Model>]?: FieldConstraint;
 };
 
 /** Arguments to a "find"/select query. */
-export type FindQuery<SerializedData extends SerializedObject> = {
-  where?: FieldMatcher<SerializedData>;
-  sort?: Sorting<SerializedData>;
+export type FindQuery<Model extends DatabaseModel> = {
+  where?: FieldMatcher<Model>;
+  sort?: Sorting<Model>;
   limit?: number;
 };
 
 /** Arguments to a first query (like "find" but limits are useless). */
-export type FirstQuery<SerializedData extends SerializedObject> = {
-  where?: FieldMatcher<SerializedData>;
+export type FirstQuery<Model extends DatabaseModel> = {
+  where?: FieldMatcher<Model>;
 };
 
 /** Arguments to a count query (like "find" but limits/sorting are useless). */
-export type CountQuery<SerializedData extends SerializedObject> = {
-  where?: FieldMatcher<SerializedData>;
+export type CountQuery<Model extends DatabaseModel> = {
+  where?: FieldMatcher<Model>;
 };
 
 /** Can sort any field by ascending/descending (but not nested structures). */
-export type Sorting<SerializedData extends SerializedObject> = {
-  by: keyof SerializedData;
+export type Sorting<Model extends DatabaseModel> = {
+  by: keyof SerializedDataOf<Model>;
   direction: "asc" | "desc";
 };

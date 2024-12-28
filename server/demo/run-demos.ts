@@ -19,7 +19,7 @@ export async function runDemos() {
   const db = await initDatabase();
   const result = await db.of(CRAYONS).find({
     where: {
-      color: { not: "red" },
+      length: { gt: 10 },
     },
   });
   console.log(result);

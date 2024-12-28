@@ -1,6 +1,6 @@
 import { Collection, WithId } from "mongodb";
 import { ModelResolver } from "../general/database";
-import { DatabaseModel, SerializedObject } from "../general/database-model";
+import { DatabaseModel, DataOf, IdOf } from "../general/database-model";
 import { FindQuery, FirstQuery, CountQuery } from "../general/query-types";
 import { buildFilter } from "./build-filter";
 import { buildSort } from "./build-sort";
@@ -10,18 +10,16 @@ export type ModelDocument = {
 } & object;
 
 export class MongoModelResolver<
-  IdType extends string | number,
-  DataType extends object,
-  SerializedData extends SerializedObject,
-> extends ModelResolver<IdType, DataType, SerializedData> {
+  Model extends DatabaseModel,
+> extends ModelResolver<Model> {
   constructor(
-    model: DatabaseModel<IdType, DataType, SerializedData>,
+    model: Model,
     private readonly _collection: Collection<ModelDocument>,
   ) {
     super(model);
   }
 
-  async get(id: IdType): Promise<DataType | null> {
+  async get(id: IdOf<Model>): Promise<DataOf<Model> | null> {
     const result = await this._collection.findOne({ _id: id });
     if (result == null) {
       return null;
@@ -29,7 +27,7 @@ export class MongoModelResolver<
     return this._deserialize(result);
   }
 
-  async find(query: FindQuery<SerializedData>): Promise<DataType[]> {
+  async find(query: FindQuery<Model>): Promise<DataOf<Model>[]> {
     const result = await this._collection
       .find(buildFilter(query.where), {
         sort: buildSort(query.sort),
@@ -40,7 +38,7 @@ export class MongoModelResolver<
     return result.map((item) => this._deserialize(item));
   }
 
-  async first(query: FirstQuery<SerializedData>): Promise<DataType | null> {
+  async first(query: FirstQuery<Model>): Promise<DataOf<Model> | null> {
     const result = await this._collection.findOne(buildFilter(query.where));
     if (result == null) {
       return null;
@@ -48,36 +46,34 @@ export class MongoModelResolver<
     return this._deserialize(result);
   }
 
-  async count(query: CountQuery<SerializedData>): Promise<number> {
+  async count(query: CountQuery<Model>): Promise<number> {
     return await this._collection.countDocuments(buildFilter(query.where));
   }
 
-  async create(item: DataType): Promise<void> {
+  async create(item: DataOf<Model>): Promise<void> {
     await this._collection.insertOne(this._serialize(item));
   }
 
-  async update(item: DataType): Promise<void> {
+  async update(item: DataOf<Model>): Promise<void> {
     await this._collection.updateOne(
       { _id: this._model.getId(item) },
       this._serialize(item),
     );
   }
 
-  async delete(id: IdType): Promise<void> {
+  async delete(id: IdOf<Model>): Promise<void> {
     await this._collection.deleteOne({ _id: id });
   }
 
-  private _serialize(item: DataType): ModelDocument {
+  private _serialize(item: DataOf<Model>): ModelDocument {
     return {
       ...this._model.serialize(item),
       _id: this._model.getId(item),
     };
   }
 
-  private _deserialize(item: WithId<ModelDocument>): DataType {
-    // This type assertion sucks, but I tried making ModelDocument a generic
-    // type which took the IdType and used it for _id, and it something within
-    // the mongodb libary didn't like it.
-    return this._model.deserialize(item._id as IdType, item);
+  private _deserialize(item: WithId<ModelDocument>): DataOf<Model> {
+    // TODO: [DS] Can we avoid this type assertion?
+    return this._model.deserialize(item._id, item) as DataOf<Model>;
   }
 }

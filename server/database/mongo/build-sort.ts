@@ -1,9 +1,9 @@
 import { Sort } from "mongodb";
 import { Sorting } from "../general/query-types";
-import { SerializedObject } from "../general/database-model";
+import { DatabaseModel } from "../general/database-model";
 
-export function buildSort<SerializedData extends SerializedObject>(
-  sort: Sorting<SerializedData> | undefined,
+export function buildSort<Model extends DatabaseModel>(
+  sort: Sorting<Model> | undefined,
 ): Sort | undefined {
   if (sort == null) {
     return undefined;

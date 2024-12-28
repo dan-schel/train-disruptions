@@ -18,10 +18,23 @@ export type SerializedData =
   | SerializedObject
   | SerializedData[];
 
+export type IdOf<T extends DatabaseModel> =
+  T extends DatabaseModel<infer Id, object, SerializedObject> ? Id : never;
+
+export type DataOf<T extends DatabaseModel> =
+  T extends DatabaseModel<string | number, infer Data, SerializedObject>
+    ? Data
+    : never;
+
+export type SerializedDataOf<T extends DatabaseModel> =
+  T extends DatabaseModel<string | number, object, infer SerializedData>
+    ? SerializedData
+    : never;
+
 export abstract class DatabaseModel<
-  Id extends string | number,
-  Data extends object,
-  SerializedData extends SerializedObject,
+  Id extends string | number = string | number,
+  Data extends object = object,
+  SerializedData extends SerializedObject = SerializedObject,
 > {
   constructor(readonly name: string) {}
 
