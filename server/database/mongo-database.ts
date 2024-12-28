@@ -1,12 +1,13 @@
 import { Db, Filter, MongoClient, ObjectId, Sort, Document } from "mongodb";
-import { CountQuery, Database, FindQuery, SortInstructions } from "./database";
 import { config } from "../config";
 import { DatabaseModel } from "./database-model";
+import { Database } from "./database";
+import { CountQuery, FieldMatcher, FindQuery, Sorting } from "./query-types";
 
 export class MongoDatabase extends Database {
   private readonly _db: Db;
 
-  private constructor(private _client: MongoClient) {
+  private constructor(_client: MongoClient) {
     super();
     this._db = _client.db(config.DATABASE_NAME);
   }
@@ -90,17 +91,26 @@ export class MongoDatabase extends Database {
   ) {
     // TODO: [DS] We override how the model is serialized because MongoDB uses
     // _id for ids. Is there a better way?
+
     return {
       ...model.serialize(item),
       _id: new ObjectId(model.getId(item)),
     };
   }
 
-  private _toMongoFilter(where: object | undefined): Filter<Document> {
+  static toMongoFilter(where: FieldMatcher | undefined): Filter<Document> {
+    if (where == null) {
+      return {};
+    }
+
     // TODO: [DS] This is not very strict, but maybe that's ok.
-    return where ?? {};
   }
-  private _toMongoSort(sort: SortInstructions | undefined): Sort | undefined {
+
+  static toMongoSort(sort: Sorting | undefined): Sort | undefined {
+    if (sort == null) {
+      return undefined;
+    }
+
     // TODO: [DS] Implement this!
   }
 }

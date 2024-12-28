@@ -1,4 +1,19 @@
-import { FindQuery } from "./database";
+import { FindQuery } from "./query-types";
+
+/** All fields must be primitive data types (or nested arrays/objects). */
+export type SerializedObject = {
+  [field: string]: SerializedData;
+};
+
+/** Primitive data types (or nested arrays/objects). */
+export type SerializedData =
+  | string
+  | number
+  | boolean
+  | Date
+  | null
+  | SerializedObject
+  | SerializedData[];
 
 export abstract class DatabaseModel<
   IdType extends string | number,
@@ -11,6 +26,6 @@ export abstract class DatabaseModel<
 
   abstract getId(item: DataType): IdType;
 
-  abstract serialize(item: DataType): object;
-  abstract deserialize(item: object): DataType;
+  abstract serialize(item: DataType): SerializedObject;
+  abstract deserialize(item: SerializedObject): DataType;
 }

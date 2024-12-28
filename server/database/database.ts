@@ -1,16 +1,5 @@
 import { DatabaseModel } from "./database-model";
-
-export type SortInstructions = Record<string, "asc" | "desc">;
-
-export type FindQuery = {
-  where?: object;
-  sort?: SortInstructions;
-  limit?: number;
-};
-
-export type CountQuery = {
-  where?: object;
-};
+import { CountQuery, FindQuery } from "./query-types";
 
 export abstract class Database {
   /** Returns the record with the given id or null. */
