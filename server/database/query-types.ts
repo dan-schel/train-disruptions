@@ -8,18 +8,21 @@ type LessThan<T, Equals extends boolean> = Equals extends true
   ? { lte?: T; lt?: never }
   : { lt?: T; lte?: never };
 
+export type EqualOrNot<T> = T | { not: T };
+
 /** Can choose an exact value or gt/lt (greater/less than). */
-type Comparison<T> = T | (GreaterThan<T, boolean> & LessThan<T, boolean>);
+export type Comparison<T> =
+  | EqualOrNot<T>
+  | (GreaterThan<T, boolean> & LessThan<T, boolean>);
 
 /** Can match any field (but not nested structures). */
 export type FieldMatcher = {
   [field: string]:
+    | EqualOrNot<string | boolean | null>
     | Comparison<number | Date>
-    | string
-    | boolean
-    | { isNull: boolean }
     | { length: Comparison<number> }
-    | { contains: string | number };
+    | { contains: string | number }
+    | { notContains: string | number };
 };
 
 /** Arguments to a "find"/select query. */

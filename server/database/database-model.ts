@@ -21,11 +21,12 @@ export abstract class DatabaseModel<
 > {
   constructor(readonly name: string) {}
 
-  abstract getErrorForRequire(id: IdType): Error;
-  abstract getErrorForFindSingle(query: FindQuery): Error;
-
   abstract getId(item: DataType): IdType;
 
   abstract serialize(item: DataType): SerializedObject;
   abstract deserialize(item: SerializedObject): DataType;
+
+  abstract getErrorForRequire(id: IdType): Error;
+  abstract getErrorForRequireFirst(query: FindQuery): Error;
+  abstract getErrorForRequireSingle(query: FindQuery, count: number): Error;
 }

@@ -14,6 +14,12 @@ export abstract class Database {
     query: FindQuery,
   ): Promise<DataType[]>;
 
+  /** Returns the first record matching the query. */
+  abstract first<DataType extends object>(
+    model: DatabaseModel<string | number, DataType>,
+    query: FindQuery,
+  ): Promise<DataType | null>;
+
   /** Returns the number of records which the query. */
   abstract count(
     model: DatabaseModel<string | number, object>,
@@ -50,14 +56,26 @@ export abstract class Database {
     return item;
   }
 
+  /** Returns the record with the given id or throws if not found. */
+  async requireFirst<IdType extends string | number, DataType extends object>(
+    model: DatabaseModel<IdType, DataType>,
+    query: FindQuery,
+  ): Promise<DataType> {
+    const item = await this.first(model, query);
+    if (item == null) {
+      throw model.getErrorForRequireFirst(query);
+    }
+    return item;
+  }
+
   /** Returns the record matching the query or throws if zero/multiple match. */
-  async findSingle<DataType extends object>(
+  async requireSingle<DataType extends object>(
     model: DatabaseModel<string | number, DataType>,
     query: FindQuery,
   ): Promise<DataType> {
     const items = await this.find(model, query);
     if (items.length !== 1) {
-      throw model.getErrorForFindSingle(query);
+      throw model.getErrorForRequireSingle(query, items.length);
     }
     return items[0];
   }

@@ -2,7 +2,14 @@ import { Db, Filter, MongoClient, ObjectId, Sort, Document } from "mongodb";
 import { config } from "../config";
 import { DatabaseModel } from "./database-model";
 import { Database } from "./database";
-import { CountQuery, FieldMatcher, FindQuery, Sorting } from "./query-types";
+import {
+  CountQuery,
+  FieldMatcher,
+  FindQuery,
+  Sorting,
+  Comparison,
+  EqualOrNot,
+} from "./query-types";
 
 export class MongoDatabase extends Database {
   private readonly _db: Db;
@@ -33,14 +40,29 @@ export class MongoDatabase extends Database {
     return model.deserialize(result);
   }
 
+  async first<DataType extends object>(
+    model: DatabaseModel<string | number, DataType>,
+    query: FindQuery,
+  ): Promise<DataType | null> {
+    const result = await this._db
+      .collection(model.name)
+      .findOne(MongoDatabase.buildFilter(query.where));
+
+    if (result == null) {
+      return null;
+    }
+
+    return model.deserialize(result);
+  }
+
   async find<DataType extends object>(
     model: DatabaseModel<string | number, DataType>,
     query: FindQuery,
   ): Promise<DataType[]> {
     const result = await this._db
       .collection(model.name)
-      .find(this._toMongoFilter(query.where), {
-        sort: this._toMongoSort(query.sort),
+      .find(MongoDatabase.buildFilter(query.where), {
+        sort: MongoDatabase.buildSort(query.sort),
         limit: query.limit,
       })
       .toArray();
@@ -54,7 +76,7 @@ export class MongoDatabase extends Database {
   ): Promise<number> {
     return await this._db
       .collection(model.name)
-      .countDocuments(this._toMongoFilter(query.where));
+      .countDocuments(MongoDatabase.buildFilter(query.where));
   }
 
   async create<DataType extends object>(
@@ -98,19 +120,79 @@ export class MongoDatabase extends Database {
     };
   }
 
-  static toMongoFilter(where: FieldMatcher | undefined): Filter<Document> {
+  static buildFilter(where: FieldMatcher | undefined): Filter<Document> {
     if (where == null) {
       return {};
     }
 
-    // TODO: [DS] This is not very strict, but maybe that's ok.
+    const filter: Filter<Document> = {};
+    for (const field in where) {
+      filter[field] = MongoDatabase._buildFilterForField(where[field]);
+    }
+    return filter;
   }
 
-  static toMongoSort(sort: Sorting | undefined): Sort | undefined {
+  static buildSort(sort: Sorting | undefined): Sort | undefined {
     if (sort == null) {
       return undefined;
     }
 
     // TODO: [DS] Implement this!
+  }
+
+  private static _buildFilterForField(field: FieldMatcher[string]) {
+    if (
+      field != null &&
+      typeof field === "object" &&
+      !(field instanceof Date)
+    ) {
+      if ("length" in field) {
+        return { $size: MongoDatabase._buildFilterForComparison(field.length) };
+      } else if ("contains" in field) {
+        return { $in: field.contains };
+      } else if ("notContains" in field) {
+        return { $nin: field.notContains };
+      } else {
+        return MongoDatabase._buildFilterForComparison(field);
+      }
+    } else {
+      return MongoDatabase._buildFilterForComparison(field);
+    }
+  }
+
+  private static _buildFilterForComparison(
+    comparison: EqualOrNot<string | boolean | null> | Comparison<number | Date>,
+  ) {
+    if (
+      comparison == null ||
+      typeof comparison !== "object" ||
+      comparison instanceof Date
+    ) {
+      return comparison;
+    } else if ("not" in comparison) {
+      return { $ne: comparison.not };
+    } else {
+      const result: {
+        $gt?: number | Date;
+        $gte?: number | Date;
+        $lt?: number | Date;
+        $lte?: number | Date;
+      } = {};
+
+      if ("gt" in comparison) {
+        result.$gt = comparison.gt;
+      }
+      if ("gte" in comparison) {
+        result.$gte = comparison.gte;
+      }
+      if ("lt" in comparison) {
+        result.$lt = comparison.lt;
+      }
+      if ("lte" in comparison) {
+        result.$lte = comparison.lte;
+      }
+
+      return result;
+    }
   }
 }
