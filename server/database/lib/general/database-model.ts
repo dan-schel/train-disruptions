@@ -2,23 +2,23 @@ import { SerializedObject } from "./serialized-types";
 
 /** Typescript magic to extract the Id type used by a DatabaseModel. */
 export type IdOf<T extends DatabaseModel> =
-  T extends DatabaseModel<infer Id, object, SerializedObject> ? Id : never;
+  T extends DatabaseModel<object, infer Id, SerializedObject> ? Id : never;
 
 /** Typescript magic to extract the Data type used by a DatabaseModel. */
 export type DataOf<T extends DatabaseModel> =
-  T extends DatabaseModel<string | number, infer Data, SerializedObject>
+  T extends DatabaseModel<infer Data, string | number, SerializedObject>
     ? Data
     : never;
 
 /** Typescript magic to extract the SerializedData type used by a DatabaseModel. */
 export type SerializedDataOf<T extends DatabaseModel> =
-  T extends DatabaseModel<string | number, object, infer SerializedData>
+  T extends DatabaseModel<object, string | number, infer SerializedData>
     ? SerializedData
     : never;
 
 export abstract class DatabaseModel<
-  Id extends string | number = string | number,
   Data extends object = object,
+  Id extends string | number = string | number,
   SerializedData extends SerializedObject = SerializedObject,
 > {
   constructor(readonly name: string) {}

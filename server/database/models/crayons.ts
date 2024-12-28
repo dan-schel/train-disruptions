@@ -1,4 +1,4 @@
-// For demonstration purposes.
+// For demonstration purposes. Delete this once we've got the first real model.
 
 import { z } from "zod";
 import { DatabaseModel } from "../lib/general/database-model";
@@ -15,8 +15,8 @@ export class Crayon {
 
 /** Knows how to convert Crayon objects into database records. */
 export class CrayonModel extends DatabaseModel<
-  string,
   Crayon,
+  string,
   z.input<typeof CrayonModel.schema>
 > {
   static instance = new CrayonModel();

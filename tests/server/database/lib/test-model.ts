@@ -14,8 +14,8 @@ export class MusicalInstrument {
 }
 
 export class MusicalInstrumentModel extends DatabaseModel<
-  number,
   MusicalInstrument,
+  number,
   z.input<typeof MusicalInstrumentModel.schema>
 > {
   static instance = new MusicalInstrumentModel();
