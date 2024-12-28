@@ -5,8 +5,8 @@ import {
   InMemoryDatabaseCollection,
   InMemoryDatabaseItem,
 } from "./in-memory-database-collection";
+import { InMemorySortClauseInterpreter } from "./in-memory-sort-clause-interpreter";
 import { InMemoryWhereClauseInterpreter } from "./in-memory-where-clause-interpreter";
-import { getItemSorter } from "./sorting";
 
 export class InMemoryRepository<
   Model extends DatabaseModel,
@@ -28,10 +28,11 @@ export class InMemoryRepository<
 
   async find(query: FindQuery<Model>): Promise<DataOf<Model>[]> {
     const filter = new InMemoryWhereClauseInterpreter(query.where);
+    const sort = new InMemorySortClauseInterpreter(query.sort);
 
     let items = this._collection.find((item) => filter.matches(item));
-    if (query.sort != null) {
-      items.sort(getItemSorter(query.sort));
+    if (sort.requiresSorting()) {
+      items.sort(sort.getSortFunction());
     }
     if (query.limit != null) {
       items = items.slice(0, query.limit);
