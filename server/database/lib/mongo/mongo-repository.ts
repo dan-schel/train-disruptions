@@ -2,8 +2,8 @@ import { Collection, WithId } from "mongodb";
 import { Repository } from "../general/database";
 import { DatabaseModel, DataOf, IdOf } from "../general/database-model";
 import { FindQuery, FirstQuery, CountQuery } from "../general/query-types";
-import { buildSort } from "./build-sort";
 import { MongoWhereClauseInterpreter } from "./mongo-where-clause-interpreter";
+import { MongoSortClauseInterpreter } from "./mongo-sort-clause-interpreter";
 
 export type ModelDocument = {
   // The mongodb driver hates it when I try to use IdOf<Model> here, otherwise I
@@ -31,9 +31,11 @@ export class MongoRepository<
 
   async find(query: FindQuery<Model>): Promise<DataOf<Model>[]> {
     const filter = new MongoWhereClauseInterpreter(query.where).toMongoFilter();
+    const sort = new MongoSortClauseInterpreter(query.sort).toMongoSort();
+
     const result = await this._collection
       .find(filter, {
-        sort: buildSort(query.sort),
+        sort: sort,
         limit: query.limit,
       })
       .toArray();
@@ -43,6 +45,7 @@ export class MongoRepository<
 
   async first(query: FirstQuery<Model>): Promise<DataOf<Model> | null> {
     const filter = new MongoWhereClauseInterpreter(query.where).toMongoFilter();
+
     const result = await this._collection.findOne(filter);
     if (result == null) {
       return null;
