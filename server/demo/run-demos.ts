@@ -17,7 +17,7 @@ export async function runDemos() {
   }
 
   const db = await initDatabase();
-  const result = await db.find(CRAYONS, {
+  const result = await db.of(CRAYONS).find({
     sort: { by: "length", direction: "asc" },
   });
   console.log(result);

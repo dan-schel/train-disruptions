@@ -2,80 +2,61 @@ import { DatabaseModel } from "./database-model";
 import { CountQuery, FindQuery, FirstQuery } from "./query-types";
 
 export abstract class Database {
-  /** Returns the record with the given id or null. */
-  abstract get<IdType extends string | number, DataType extends object>(
+  abstract of<IdType extends string | number, DataType extends object>(
     model: DatabaseModel<IdType, DataType>,
-    id: IdType,
-  ): Promise<DataType | null>;
+  ): ModelResolver<IdType, DataType>;
+}
+
+export abstract class ModelResolver<
+  IdType extends string | number,
+  DataType extends object,
+> {
+  constructor(protected readonly _model: DatabaseModel<IdType, DataType>) {}
+
+  /** Returns the record with the given id or null. */
+  abstract get(id: IdType): Promise<DataType | null>;
 
   /** Returns all records matching the query. */
-  abstract find<DataType extends object>(
-    model: DatabaseModel<string | number, DataType>,
-    query: FindQuery,
-  ): Promise<DataType[]>;
+  abstract find(query: FindQuery): Promise<DataType[]>;
 
   /** Returns the first record matching the query. */
-  abstract first<DataType extends object>(
-    model: DatabaseModel<string | number, DataType>,
-    query: FirstQuery,
-  ): Promise<DataType | null>;
+  abstract first(query: FirstQuery): Promise<DataType | null>;
 
   /** Returns the number of records which the query. */
-  abstract count(
-    model: DatabaseModel<string | number, object>,
-    query: CountQuery,
-  ): Promise<number>;
+  abstract count(query: CountQuery): Promise<number>;
 
   /** Creates a new record with the given value. */
-  abstract create<DataType extends object>(
-    model: DatabaseModel<string | number, DataType>,
-    item: DataType,
-  ): Promise<void>;
+  abstract create(item: DataType): Promise<void>;
 
   /** Replaces the record with the same id with the given value. */
-  abstract update<DataType extends object>(
-    model: DatabaseModel<string | number, DataType>,
-    item: DataType,
-  ): Promise<void>;
+  abstract update(item: DataType): Promise<void>;
 
   /** Deletes the record. */
-  abstract delete<IdType extends string | number>(
-    model: DatabaseModel<IdType, object>,
-    id: IdType,
-  ): Promise<void>;
+  abstract delete(id: IdType): Promise<void>;
 
   /** Returns the record with the given id or throws if not found. */
-  async require<IdType extends string | number, DataType extends object>(
-    model: DatabaseModel<IdType, DataType>,
-    id: IdType,
-  ): Promise<DataType> {
-    const item = await this.get(model, id);
+  async require(id: IdType): Promise<DataType> {
+    const item = await this.get(id);
     if (item == null) {
-      throw model.getErrorForRequire(id);
+      throw this._model.getErrorForRequire(id);
     }
     return item;
   }
 
   /** Returns the record with the given id or throws if not found. */
-  async requireFirst<IdType extends string | number, DataType extends object>(
-    model: DatabaseModel<IdType, DataType>,
-    query: FindQuery,
-  ): Promise<DataType> {
-    const item = await this.first(model, query);
+  async requireFirst(query: FindQuery): Promise<DataType> {
+    const item = await this.first(query);
     if (item == null) {
-      throw model.getErrorForRequireFirst(query);
+      throw this._model.getErrorForRequireFirst(query);
     }
     return item;
   }
 
   /** Returns the record matching the query or throws if zero/multiple match. */
-  async requireSingle<DataType extends object>(
-    model: DatabaseModel<string | number, DataType>,
-    query: FindQuery,
-  ): Promise<DataType> {
-    const items = await this.find(model, query);
+  async requireSingle(query: FindQuery): Promise<DataType> {
+    const items = await this.find(query);
     if (items.length !== 1) {
-      throw model.getErrorForRequireSingle(query, items.length);
+      throw this._model.getErrorForRequireSingle(query, items.length);
     }
     return items[0];
   }

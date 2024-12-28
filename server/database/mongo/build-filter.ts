@@ -1,6 +1,6 @@
 import { Filter } from "mongodb";
 import { FieldMatcher, EqualOrNot, Comparison } from "../query-types";
-import { ModelDocument } from "./mongo-database";
+import { ModelDocument } from "./mongo-model-resolver";
 
 /** Convert FieldMatcher queries into MongoDB syntax queries. */
 export function buildFilter(
