@@ -24,7 +24,7 @@ export abstract class DatabaseModel<
   abstract getId(item: DataType): IdType;
 
   abstract serialize(item: DataType): SerializedObject;
-  abstract deserialize(item: SerializedObject): DataType;
+  abstract deserialize(id: IdType, item: SerializedObject): DataType;
 
   abstract getErrorForRequire(id: IdType): Error;
   abstract getErrorForRequireFirst(query: FindQuery): Error;

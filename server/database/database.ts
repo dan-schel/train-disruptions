@@ -1,5 +1,5 @@
 import { DatabaseModel } from "./database-model";
-import { CountQuery, FindQuery } from "./query-types";
+import { CountQuery, FindQuery, FirstQuery } from "./query-types";
 
 export abstract class Database {
   /** Returns the record with the given id or null. */
@@ -17,7 +17,7 @@ export abstract class Database {
   /** Returns the first record matching the query. */
   abstract first<DataType extends object>(
     model: DatabaseModel<string | number, DataType>,
-    query: FindQuery,
+    query: FirstQuery,
   ): Promise<DataType | null>;
 
   /** Returns the number of records which the query. */

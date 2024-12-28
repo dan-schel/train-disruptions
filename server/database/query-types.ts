@@ -32,6 +32,11 @@ export type FindQuery = {
   limit?: number;
 };
 
+/** Arguments to a first query (like "find" but limits are useless). */
+export type FirstQuery = {
+  where?: FieldMatcher;
+};
+
 /** Arguments to a count query (like "find" but limits/sorting are useless). */
 export type CountQuery = {
   where?: FieldMatcher;

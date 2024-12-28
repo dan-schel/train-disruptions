@@ -1,13 +1,16 @@
-import { Filter, Document } from "mongodb";
+import { Filter } from "mongodb";
 import { FieldMatcher, EqualOrNot, Comparison } from "../query-types";
+import { ModelDocument } from "./mongo-database";
 
 /** Convert FieldMatcher queries into MongoDB syntax queries. */
-export function buildFilter(where: FieldMatcher | undefined): Filter<Document> {
+export function buildFilter(
+  where: FieldMatcher | undefined,
+): Filter<ModelDocument> {
   if (where == null) {
     return {};
   }
 
-  const filter: Filter<Document> = {};
+  const filter: Filter<ModelDocument> = {};
   for (const field in where) {
     filter[field] = buildFilterForField(where[field]);
   }

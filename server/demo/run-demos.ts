@@ -1,6 +1,7 @@
 import { config } from "../config";
+import { initDatabase } from "../database/init-database";
+import { CRAYONS } from "../database/models/models";
 import { env } from "../env";
-import { FakeDatabaseConnection, MongoDBConnection } from "./db-connection";
 import {
   FakeDisruptionSource,
   VtarDisruptionSource,
@@ -8,28 +9,18 @@ import {
 
 export async function runDemos() {
   try {
-    const db = await setupDb();
-    await db.saveDisruption("Hello world!");
-  } catch (error) {
-    console.warn("🔴 Failed to set up database connection.");
-    console.warn(error);
-  }
-
-  try {
     const disruptionSource = setupDisruptionSource();
     await disruptionSource.fetchDisruptions();
   } catch (error) {
     console.warn("🔴 Failed to fetch disruptions.");
     console.warn(error);
   }
-}
 
-async function setupDb() {
-  if (env.DATABASE_URL != null) {
-    return await MongoDBConnection.init(env.DATABASE_URL);
-  } else {
-    return new FakeDatabaseConnection();
-  }
+  const db = await initDatabase();
+  const result = await db.find(CRAYONS, {
+    sort: { by: "length", direction: "asc" },
+  });
+  console.log(result);
 }
 
 function setupDisruptionSource() {
