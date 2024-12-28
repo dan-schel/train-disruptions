@@ -1,9 +1,7 @@
 import { Database, ModelResolver } from "../general/database";
 import { DatabaseModel } from "../general/database-model";
-import {
-  InMemoryDatabaseCollection,
-  InMemoryModelResolver,
-} from "./in-memory-model-resolver";
+import { InMemoryDatabaseCollection } from "./in-memory-database-collection";
+import { InMemoryModelResolver } from "./in-memory-model-resolver";
 
 export class InMemoryDatabase extends Database {
   private readonly data: Map<string, InMemoryDatabaseCollection>;
