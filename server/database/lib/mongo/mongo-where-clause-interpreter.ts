@@ -1,12 +1,12 @@
 import { Filter } from "mongodb";
-import {
-  WhereClause,
-  EqualOrNot,
-  Comparison,
-  FieldConstraint,
-} from "../general/query-types";
 import { ModelDocument } from "./mongo-repository";
 import { DatabaseModel } from "../general/database-model";
+import {
+  WhereClause,
+  FieldConstraint,
+  EqualOrNot,
+  Comparison,
+} from "../general/where-clause";
 
 /** Takes a WhereClause and builds the equivalent filter in MongoDB syntax. */
 export class MongoWhereClauseInterpreter<Model extends DatabaseModel> {

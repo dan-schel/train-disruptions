@@ -4,7 +4,7 @@ import {
   FieldConstraint,
   EqualOrNot,
   Comparison,
-} from "../general/query-types";
+} from "../general/where-clause";
 import { InMemoryDatabaseItem } from "./in-memory-database-collection";
 
 /** Determines whether items match the provided WhereClause. */
