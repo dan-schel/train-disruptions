@@ -1,6 +1,6 @@
 # Querying the database
 
-All database functions require you to have a `Database` instance ([created here](/server/database/init-database.ts)) and a the model you wish to query. "Model" is a synonym for "entity", i.e. what relational databases call a "table" or what MongoDB calls "collection". Models will be kept in the [server/database/models](/server/database/models/models.ts) folder.
+All database functions require you to have a `Database` instance ([created here](/server/database/init-database.ts)) and the model you wish to query. "Model" is a synonym for "entity", i.e. what relational databases call a "table" or what MongoDB calls "collection". Models will be kept in the [server/database/models](/server/database/models/models.ts) folder.
 
 ```ts
 import { initDatabase } from "server/database/init-database";
@@ -13,7 +13,7 @@ const db = await initDatabase();
 Note that we've imported both `CRAYONS` and `Crayon`.
 
 - `CRAYONS` is a constant passed to the `db` object to tell it which table to query.
-- `Crayon` is the regular Typescript class we'll to persist/retrieve objects of.
+- `Crayon` is the regular Typescript class we'll be persisting/retrieving objects of.
 
 (A guide on creating your own database models can be found [here](/docs/database/creating-a-new-database-model.md).)
 
@@ -159,7 +159,7 @@ where: {
 
 - While storing objects with embedded fields is supported, you cannot use `where` or `sort` on embedded fields.
   - For example `where: { name: { first: "Dan" } }` doesn't work.
-  - This could be added, but would be quite complex.
+  - This could be added, but would _take effort_.
   - While MongoDB supports these types of queries, other DB engines (e.g. SQL) don't, so we can probably live without it?
 - No ability for multiple sorting tiers, e.g. "sort by year, then by month, then by date".
 - No ability to `skip` records (e.g. for pagination) at the moment.
