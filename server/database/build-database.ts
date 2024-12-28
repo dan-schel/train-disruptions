@@ -1,7 +1,7 @@
 import { env } from "../env";
 import { Database } from "./database";
-import { InMemoryDatabase } from "./in-memory-database";
-import { MongoDatabase } from "./mongo-database";
+import { InMemoryDatabase } from "./in-memory/in-memory-database";
+import { MongoDatabase } from "./mongo/mongo-database";
 
 export async function buildDatabase(): Promise<Database> {
   if (env.DATABASE_URL != null) {

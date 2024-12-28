@@ -1,4 +1,4 @@
-import { Database } from "./database";
+import { Database } from "../database";
 
 class InMemoryDatabaseCollection {
   private readonly values: object[];
