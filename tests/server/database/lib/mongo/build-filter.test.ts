@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { buildFilter } from "../../../../server/database/mongo/build-filter";
+import { buildFilter } from "../../../../../server/database/lib/mongo/build-filter";
 
 const date1 = Date.parse("2024-12-28T12:00:00Z");
 const date2 = Date.parse("2024-12-28T13:00:00Z");

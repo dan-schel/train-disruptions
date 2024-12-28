@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { buildSort } from "../../../../server/database/mongo/build-sort";
+import { buildSort } from "../../../../../server/database/lib/mongo/build-sort";
 
 describe("buildSort", () => {
   it("should handle array contains checking", () => {

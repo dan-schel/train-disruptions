@@ -7,6 +7,7 @@ import {
 } from "../general/query-types";
 import { InMemoryDatabaseItem } from "./in-memory-database-collection";
 
+/** Returns true if the item matches the where clause. */
 export function isMatchingItem(
   item: InMemoryDatabaseItem,
   where: FieldMatcher<DatabaseModel>,

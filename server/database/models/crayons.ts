@@ -1,7 +1,7 @@
 // For demonstration purposes.
 
 import { z } from "zod";
-import { DatabaseModel } from "../general/database-model";
+import { DatabaseModel } from "../lib/general/database-model";
 
 /** The class returned by the database. */
 export class Crayon {

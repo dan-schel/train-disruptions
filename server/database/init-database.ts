@@ -1,7 +1,7 @@
 import { env } from "../env";
-import { Database } from "./general/database";
-import { InMemoryDatabase } from "./in-memory/in-memory-database";
-import { MongoDatabase } from "./mongo/mongo-database";
+import { Database } from "./lib/general/database";
+import { InMemoryDatabase } from "./lib/in-memory/in-memory-database";
+import { MongoDatabase } from "./lib/mongo/mongo-database";
 
 /**
  * Ideally returns a MongoDatabase, but falls back to an InMemoryDatabase if

@@ -1,4 +1,4 @@
-import { InMemoryDatabase } from "../../../../server/database/in-memory/in-memory-database";
+import { InMemoryDatabase } from "../../../../../server/database/lib/in-memory/in-memory-database";
 import {
   BASS_3,
   MUSICAL_INSTRUMENTS,

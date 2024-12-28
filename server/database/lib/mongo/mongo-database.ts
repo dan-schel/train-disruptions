@@ -1,5 +1,5 @@
 import { Db, MongoClient } from "mongodb";
-import { config } from "../../config";
+import { config } from "../../../config";
 import { DatabaseModel } from "../general/database-model";
 import { Database, ModelResolver } from "../general/database";
 import { MongoModelResolver } from "./mongo-model-resolver";

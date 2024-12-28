@@ -2,6 +2,7 @@ import { DatabaseModel } from "../general/database-model";
 import { Sorting } from "../general/query-types";
 import { InMemoryDatabaseItem } from "./in-memory-database-collection";
 
+/** Returns a sorting function based on the sorting options given. */
 export function getItemSorter(sort: Sorting<DatabaseModel>) {
   return (a: InMemoryDatabaseItem, b: InMemoryDatabaseItem) => {
     const valueA = a[sort.by];
