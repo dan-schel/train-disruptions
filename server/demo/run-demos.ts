@@ -1,5 +1,8 @@
+import { uuid } from "@dan-schel/js-utils";
 import { config } from "../config";
 import { initDatabase } from "../database/init-database";
+import { InMemoryDatabase } from "../database/lib/in-memory/in-memory-database";
+import { Crayon } from "../database/models/crayons";
 import { CRAYONS } from "../database/models/models";
 import { env } from "../env";
 import {
@@ -16,15 +19,19 @@ export async function runDemos() {
     console.warn(error);
   }
 
-  // TODO: [DS] Update this to restore the traffic light status.
-  const db = await initDatabase();
-  const result = await db.of(CRAYONS).find({
-    where: {
-      usesLeft: { gt: 10 },
-    },
-  });
-  // eslint-disable-next-line no-console
-  console.log(result);
+  try {
+    const db = await initDatabase();
+    await db.of(CRAYONS).create(new Crayon(uuid(), "red", 100, []));
+    if (db instanceof InMemoryDatabase) {
+      console.warn("🟡 Database connection not set up yet.");
+    } else {
+      // eslint-disable-next-line no-console
+      console.log("🟢 Successfully connected to the database.");
+    }
+  } catch (error) {
+    console.warn("🔴 Failed to connect to the database.");
+    console.warn(error);
+  }
 }
 
 function setupDisruptionSource() {
