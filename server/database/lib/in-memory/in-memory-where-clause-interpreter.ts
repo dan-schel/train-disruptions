@@ -63,14 +63,18 @@ export class InMemoryWhereClauseInterpreter<Model extends DatabaseModel> {
     value: unknown,
   ) {
     // TODO: [DS] This sucks.
-    if (
-      comparison == null ||
-      typeof comparison !== "object" ||
-      comparison instanceof Date
-    ) {
+    if (comparison instanceof Date) {
+      return value instanceof Date && value.getTime() === comparison.getTime();
+    } else if (comparison == null || typeof comparison !== "object") {
       return value === comparison;
     } else if ("not" in comparison) {
-      return value !== comparison.not;
+      if (comparison.not instanceof Date) {
+        return !(
+          value instanceof Date && value.getTime() === comparison.not.getTime()
+        );
+      } else {
+        return value !== comparison.not;
+      }
     } else {
       if (typeof value !== "number" && !(value instanceof Date)) {
         return false;
@@ -79,13 +83,13 @@ export class InMemoryWhereClauseInterpreter<Model extends DatabaseModel> {
       if ("gt" in comparison && !(value > comparison.gt!)) {
         return false;
       }
-      if ("gte" in comparison && !(value >= comparison.gt!)) {
+      if ("gte" in comparison && !(value >= comparison.gte!)) {
         return false;
       }
-      if ("lt" in comparison && !(value < comparison.gt!)) {
+      if ("lt" in comparison && !(value < comparison.lt!)) {
         return false;
       }
-      if ("lte" in comparison && !(value <= comparison.gt!)) {
+      if ("lte" in comparison && !(value <= comparison.lte!)) {
         return false;
       }
       return true;
