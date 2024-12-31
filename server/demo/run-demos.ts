@@ -16,10 +16,11 @@ export async function runDemos() {
     console.warn(error);
   }
 
+  // TODO: [DS] Update this to restore the traffic light status.
   const db = await initDatabase();
   const result = await db.of(CRAYONS).find({
     where: {
-      length: { gt: 10 },
+      usesLeft: { gt: 10 },
     },
   });
   // eslint-disable-next-line no-console
