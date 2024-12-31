@@ -27,9 +27,9 @@ In the [crayon example](https://github.com/dan-schel/train-disruptions/blob/d166
 
 The model class, on the other hand, is very much a database-related class, and should always be placed in `server/database/models` so we have easy visibility into which models exist in our database.
 
-It's responsible for defining how the data class is converted into a format which can be stored in the database. Since MongoDB essentially stores JSON, put simply, it serializes (converts to JSON) and deserializes (parses from JSON) the data.
+It's responsible for defining how the data class is converted into a format which can be stored in the database. MongoDB essentially stores JSON, so put simply, it serializes (converts to JSON) and deserializes (parses from JSON) the data.
 
-It looks something like this:
+The full class looks something like this:
 
 ```ts
 class CrayonModel extends DatabaseModel<
@@ -80,7 +80,7 @@ class CrayonModel extends DatabaseModel<
 >
 ```
 
-What you choose here decides what certain methods (e.g. `serialize`) are required to return.
+What you choose here decides what certain methods (e.g. `serialize`) take as input and/or are required to return.
 
 In order, they are:
 
@@ -100,13 +100,13 @@ private static schema = z.object({
 });
 ```
 
-This is a [Zod schema](https://zod.dev/). Zod is a library that lets us any unknown value in Typescript and validate that it follows a certain shape. In our example we check that it's an object with `color`, `usesLeft`, and `drawings` fields. We check that `color` is one of the four supported values, `usesLeft` is a number, and `drawings` is an array of strings.
+This is a [Zod](https://zod.dev/) schema. Zod is a library that lets us take any unknown value in Typescript and validate that it follows a certain shape. In our example we check that it's an object with `color`, `usesLeft`, and `drawings` fields. We check that `color` is one of the four supported values, `usesLeft` is a number, and `drawings` is an array of strings.
 
-You'll notice these match the fields in our `Crayon` class, except we're missing ID. This is intentional (more on that soon)!
+You'll notice these match the fields in our `Crayon` class, except we're missing `id`. This is intentional (more on that soon)!
 
 ### The `deserialize` method
 
-Deserializing means parsing a raw JSON value, and convert it to our data class, `Crayon`. That's exactly what `deserialize` is for:
+Deserializing means parsing a raw JSON value, and converting it to our data class, `Crayon`. That's exactly what `deserialize` is doing:
 
 ```ts
 deserialize(id: string, item: unknown): Crayon {
@@ -133,7 +133,7 @@ serialize(item: Crayon): z.input<typeof CrayonModel.schema> {
 
 (In lots of cases, there's not much to do, but for example, if you were dealing with dates, here's where you'd convert them to ISO strings like `2024-12-31T18:17:38Z` or whatever.)
 
-Once again we've omitted the ID. The reason for doing this is because IDs require special treatment, and different database systems will represent the ID differently. For example, MongoDB requires the ID to be named `_id`, and PostgreSQL requires the ID to be labelled as a `PRIMARY KEY`.
+Once again we've omitted the ID. The reason for doing this is because IDs require special treatment, and different database systems will represent the ID differently. For example, MongoDB requires the ID to be named `_id`, and PostgreSQL requires the ID to be labelled with `PRIMARY KEY`.
 
 So, for that reason, there's a separate little `getId()` method:
 
