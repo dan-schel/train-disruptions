@@ -6,10 +6,10 @@ Every database model consists of two classes, a data class and a model class.
 
 ## The data class
 
-The data class is a plain typescript class which stores whatever it is we wish to store! For example:
+The data class is a plain Typescript class which stores whatever it is we wish to store! For example:
 
 ```ts
-class Crayon {
+export class Crayon {
   constructor(
     readonly id: string,
     readonly color: "red" | "yellow" | "green" | "blue",
@@ -32,7 +32,7 @@ It's responsible for defining how the data class is converted into a format whic
 The full class looks something like this:
 
 ```ts
-class CrayonModel extends DatabaseModel<
+export class CrayonModel extends DatabaseModel<
   Crayon,
   string,
   z.input<typeof CrayonModel.schema>
@@ -73,7 +73,7 @@ class CrayonModel extends DatabaseModel<
 The first thing you'll notice is the three generic types.
 
 ```ts
-class CrayonModel extends DatabaseModel<
+export class CrayonModel extends DatabaseModel<
   Crayon,                            // <-- This
   string,                            // <-- This
   z.input<typeof CrayonModel.schema> // <-- And this
