@@ -3,7 +3,12 @@
 import { z } from "zod";
 import { DatabaseModel } from "../lib/general/database-model";
 
-/** The class returned by the database. */
+/**
+ * The class returned by the database.
+ *
+ * (There's no reason this code needs to be stored here under
+ * `server/database/models`, this could be anything!)
+ */
 export class Crayon {
   constructor(
     readonly id: string,
