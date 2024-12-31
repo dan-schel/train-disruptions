@@ -12,8 +12,8 @@ const db = await initDatabase();
 
 Note that we've imported both `CRAYONS` and `Crayon`.
 
-- `CRAYONS` is a constant passed to the `db` object to tell it which table to query.
-- `Crayon` is the regular Typescript class we'll be persisting/retrieving objects of.
+- `CRAYONS` is a constant passed to the `db` object to tell it which model to query.
+- `Crayon` is the regular Typescript class we'll be persisting/retrieving objects of ([see code](/server/database/models/crayons.ts) (**TODO: Permalink**)).
 
 (A guide on creating your own database models can be found [here](/docs/database/creating-a-new-database-model.md).)
 
@@ -22,7 +22,7 @@ Note that we've imported both `CRAYONS` and `Crayon`.
 Use `create` to enter a new record into the database:
 
 ```ts
-const myCrayon = new Crayon("my-red-crayon", "red", 10, true);
+const myCrayon = new Crayon("my-red-crayon", "red", 10, []);
 await db.of(CRAYONS).create(myCrayon);
 ```
 
@@ -45,7 +45,7 @@ const myCrayon: Crayon = await db.of(CRAYONS).require("my-red-crayon");
 Use `update` and pass the new record. The existing record with the same ID in the database will be overwritten:
 
 ```ts
-const myCrayon = new Crayon("my-red-crayon", "red", 8, false);
+const myCrayon = new Crayon("my-red-crayon", "red", 8, []);
 await db.of(CRAYONS).update(myCrayon);
 ```
 
@@ -114,7 +114,7 @@ The `find` method also supports sorting and limiting the number of results:
 ```ts
 const results: Crayon[] = await db.of(CRAYONS).find({
   where: { color: "red" },
-  sort: { by: "length", direction: "desc" },
+  sort: { by: "usesLeft", direction: "desc" },
   limit: 5,
 });
 ```
@@ -173,7 +173,3 @@ My logic for this custom implementation is because we want to support an in-memo
 Apparently it's possible to run MongoDB in memory from an NPM package, so that would've been an alternative, but it probably comes with overhead, idk! This hopefully keeps our unit tests quick and lightweight.
 
 Another thing to consider is the plain MongoDB library for Typescript only gives interfaces to work with as your models, instead of classes. That means we can't define methods, and all the other things that're great about classes.
-
-```
-
-```

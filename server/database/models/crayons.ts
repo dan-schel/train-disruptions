@@ -8,8 +8,8 @@ export class Crayon {
   constructor(
     readonly id: string,
     readonly color: "red" | "yellow" | "green" | "blue",
-    readonly length: number,
-    readonly wrapped: boolean,
+    readonly usesLeft: number,
+    readonly drawings: string[],
   ) {}
 }
 
@@ -24,8 +24,8 @@ export class CrayonModel extends DatabaseModel<
   // All fields except the ID.
   private static schema = z.object({
     color: z.enum(["red", "yellow", "green", "blue"]),
-    length: z.number(),
-    wrapped: z.boolean(),
+    usesLeft: z.number(),
+    drawings: z.string().array(),
   });
 
   private constructor() {
@@ -39,13 +39,13 @@ export class CrayonModel extends DatabaseModel<
   serialize(item: Crayon): z.input<typeof CrayonModel.schema> {
     return {
       color: item.color,
-      length: item.length,
-      wrapped: item.wrapped,
+      usesLeft: item.usesLeft,
+      drawings: item.drawings,
     };
   }
 
   deserialize(id: string, item: unknown): Crayon {
     const parsed = CrayonModel.schema.parse(item);
-    return new Crayon(id, parsed.color, parsed.length, parsed.wrapped);
+    return new Crayon(id, parsed.color, parsed.usesLeft, parsed.drawings);
   }
 }
