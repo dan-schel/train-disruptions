@@ -21,7 +21,7 @@ export class InMemoryWhereClauseInterpreter<Model extends DatabaseModel> {
   }
 
   private static _isMatchingField(constraint: FieldConstraint, value: unknown) {
-    // TODO: [DS] This sucks.
+    // TODO: [DS] This can probably be improved!
     if (constraint instanceof Date) {
       return value instanceof Date && value.getTime() === constraint.getTime();
     } else if (constraint == null || typeof constraint !== "object") {

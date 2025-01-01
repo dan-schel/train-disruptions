@@ -77,7 +77,6 @@ export class InMemoryRepository<
   }
 
   private _deserialize(item: InMemoryDatabaseItem): DataOf<Model> {
-    // TODO: [DS] Can we avoid this type assertion?
     return this._model.deserialize(item.id, item) as DataOf<Model>;
   }
 }

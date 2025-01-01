@@ -21,7 +21,7 @@ export class MongoWhereClauseInterpreter<Model extends DatabaseModel> {
   }
 
   private static _buildFilterForField(constraint: FieldConstraint) {
-    // TODO: [DS] This sucks.
+    // TODO: [DS] This can probably be improved!
     if (
       constraint == null ||
       typeof constraint !== "object" ||

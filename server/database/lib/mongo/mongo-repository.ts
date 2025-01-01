@@ -84,7 +84,6 @@ export class MongoRepository<
   }
 
   private _deserialize(item: WithId<ModelDocument>): DataOf<Model> {
-    // TODO: [DS] Can we avoid this type assertion?
     return this._model.deserialize(item._id, item) as DataOf<Model>;
   }
 }
