@@ -36,7 +36,10 @@ export class InMemoryWhereClauseInterpreter<Model extends DatabaseModel> {
         if (!Array.isArray(value)) {
           return false;
         }
-        return field.length === value.length;
+        return InMemoryWhereClauseInterpreter._isMatchingComparison(
+          field.length,
+          value.length,
+        );
       } else if ("contains" in field) {
         if (!Array.isArray(value)) {
           return false;

@@ -19,14 +19,16 @@ export class InMemorySortClauseInterpreter<Model extends DatabaseModel> {
     return (a: InMemoryDatabaseItem, b: InMemoryDatabaseItem) => {
       const valueA = a[sort.by];
       const valueB = b[sort.by];
+      const direction = sort.direction === "asc" ? 1 : -1;
+
       if (typeof valueA === "number" && typeof valueB === "number") {
-        return valueA - valueB;
+        return (valueA - valueB) * direction;
       }
       if (valueA instanceof Date && valueB instanceof Date) {
-        return valueA.getTime() - valueB.getTime();
+        return (valueA.getTime() - valueB.getTime()) * direction;
       }
       if (typeof valueA === "string" && typeof valueB === "string") {
-        return valueA.localeCompare(valueB);
+        return valueA.localeCompare(valueB) * direction;
       }
       return 0;
     };
