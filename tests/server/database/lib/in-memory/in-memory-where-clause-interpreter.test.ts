@@ -41,7 +41,6 @@ describe("InMemoryWhereClauseInterpreter", () => {
       expect(matches(obj, { bool: "value" })).toBe(false);
       expect(matches(obj, { date: false })).toBe(false);
       expect(matches(obj, { id: "1" })).toBe(false);
-      expect(matches(obj, { id: { contains: "1" } })).toBe(false);
       expect(matches(obj, { array: false })).toBe(false);
     });
 
@@ -103,20 +102,6 @@ describe("InMemoryWhereClauseInterpreter", () => {
       expect(matches(obj, { null: null })).toBe(true);
       expect(matches(obj, { date: null })).toBe(false);
       expect(matches(obj, { null: date("2024-12-31T20:34:12Z") })).toBe(false);
-    });
-
-    it("handles array length checking", () => {
-      expect(matches(obj, { array: { length: 3 } })).toBe(true);
-      expect(matches(obj, { array: { length: 2 } })).toBe(false);
-      expect(matches(obj, { array: { length: { gt: 2 } } })).toBe(true);
-      expect(matches(obj, { array: { length: { gt: 3 } } })).toBe(false);
-    });
-
-    it("handles array contains checking", () => {
-      expect(matches(obj, { array: { contains: "a" } })).toBe(true);
-      expect(matches(obj, { array: { contains: "d" } })).toBe(false);
-      expect(matches(obj, { array: { notContains: "a" } })).toBe(false);
-      expect(matches(obj, { array: { notContains: "d" } })).toBe(true);
     });
 
     it("handles no filter", () => {

@@ -48,21 +48,6 @@ describe("MongoWhereClauseInterpreter", () => {
       });
     });
 
-    it("handles array length checking", () => {
-      expect(filter({ a: { length: { gt: 2 } } })).toStrictEqual({
-        a: { $size: { $gt: 2 } },
-      });
-    });
-
-    it("handles array contains checking", () => {
-      expect(filter({ a: { contains: "something" } })).toStrictEqual({
-        a: { $in: "something" },
-      });
-      expect(filter({ a: { notContains: "something" } })).toStrictEqual({
-        a: { $nin: "something" },
-      });
-    });
-
     it("handles no filter", () => {
       expect(filter(undefined)).toStrictEqual({});
       expect(filter({})).toStrictEqual({});

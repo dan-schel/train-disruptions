@@ -8,10 +8,7 @@ export type WhereClause<Model extends DatabaseModel> = {
 /** All supported queries on a field. */
 export type FieldConstraint =
   | EqualOrNot<string | boolean | null>
-  | Comparison<number | Date>
-  | { length: Comparison<number> }
-  | { contains: string | number }
-  | { notContains: string | number };
+  | Comparison<number | Date>;
 
 export type EqualOrNot<T> = T | { not: T };
 

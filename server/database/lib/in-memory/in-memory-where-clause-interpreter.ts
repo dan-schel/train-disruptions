@@ -1,10 +1,5 @@
 import { DatabaseModel } from "../general/database-model";
-import {
-  WhereClause,
-  FieldConstraint,
-  EqualOrNot,
-  Comparison,
-} from "../general/where-clause";
+import { WhereClause, FieldConstraint } from "../general/where-clause";
 import { InMemoryDatabaseItem } from "./in-memory-database-collection";
 
 /** Determines whether items match the provided WhereClause. */
@@ -25,74 +20,35 @@ export class InMemoryWhereClauseInterpreter<Model extends DatabaseModel> {
     });
   }
 
-  private static _isMatchingField(field: FieldConstraint, value: unknown) {
+  private static _isMatchingField(constraint: FieldConstraint, value: unknown) {
     // TODO: [DS] This sucks.
-    if (
-      field != null &&
-      typeof field === "object" &&
-      !(field instanceof Date)
-    ) {
-      if ("length" in field) {
-        if (!Array.isArray(value)) {
-          return false;
-        }
-        return InMemoryWhereClauseInterpreter._isMatchingComparison(
-          field.length,
-          value.length,
-        );
-      } else if ("contains" in field) {
-        if (!Array.isArray(value)) {
-          return false;
-        }
-        return value.includes(field.contains);
-      } else if ("notContains" in field) {
-        if (!Array.isArray(value)) {
-          return false;
-        }
-        return !value.includes(field.notContains);
-      } else {
-        return InMemoryWhereClauseInterpreter._isMatchingComparison(
-          field,
-          value,
-        );
-      }
-    } else {
-      return InMemoryWhereClauseInterpreter._isMatchingComparison(field, value);
-    }
-  }
-
-  private static _isMatchingComparison(
-    comparison: EqualOrNot<string | boolean | null> | Comparison<number | Date>,
-    value: unknown,
-  ) {
-    // TODO: [DS] This sucks.
-    if (comparison instanceof Date) {
-      return value instanceof Date && value.getTime() === comparison.getTime();
-    } else if (comparison == null || typeof comparison !== "object") {
-      return value === comparison;
-    } else if ("not" in comparison) {
-      if (comparison.not instanceof Date) {
+    if (constraint instanceof Date) {
+      return value instanceof Date && value.getTime() === constraint.getTime();
+    } else if (constraint == null || typeof constraint !== "object") {
+      return value === constraint;
+    } else if ("not" in constraint) {
+      if (constraint.not instanceof Date) {
         return !(
-          value instanceof Date && value.getTime() === comparison.not.getTime()
+          value instanceof Date && value.getTime() === constraint.not.getTime()
         );
       } else {
-        return value !== comparison.not;
+        return value !== constraint.not;
       }
     } else {
       if (typeof value !== "number" && !(value instanceof Date)) {
         return false;
       }
 
-      if ("gt" in comparison && !(value > comparison.gt!)) {
+      if ("gt" in constraint && !(value > constraint.gt!)) {
         return false;
       }
-      if ("gte" in comparison && !(value >= comparison.gte!)) {
+      if ("gte" in constraint && !(value >= constraint.gte!)) {
         return false;
       }
-      if ("lt" in comparison && !(value < comparison.lt!)) {
+      if ("lt" in constraint && !(value < constraint.lt!)) {
         return false;
       }
-      if ("lte" in comparison && !(value <= comparison.lte!)) {
+      if ("lte" in constraint && !(value <= constraint.lte!)) {
         return false;
       }
       return true;

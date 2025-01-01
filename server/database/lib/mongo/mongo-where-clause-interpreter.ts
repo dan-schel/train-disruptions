@@ -1,12 +1,7 @@
 import { Filter } from "mongodb";
 import { ModelDocument } from "./mongo-repository";
 import { DatabaseModel } from "../general/database-model";
-import {
-  WhereClause,
-  FieldConstraint,
-  EqualOrNot,
-  Comparison,
-} from "../general/where-clause";
+import { WhereClause, FieldConstraint } from "../general/where-clause";
 
 /** Takes a WhereClause and builds the equivalent filter in MongoDB syntax. */
 export class MongoWhereClauseInterpreter<Model extends DatabaseModel> {
@@ -25,43 +20,16 @@ export class MongoWhereClauseInterpreter<Model extends DatabaseModel> {
     return filter;
   }
 
-  private static _buildFilterForField(field: FieldConstraint) {
+  private static _buildFilterForField(constraint: FieldConstraint) {
     // TODO: [DS] This sucks.
     if (
-      field != null &&
-      typeof field === "object" &&
-      !(field instanceof Date)
+      constraint == null ||
+      typeof constraint !== "object" ||
+      constraint instanceof Date
     ) {
-      if ("length" in field) {
-        return {
-          $size: MongoWhereClauseInterpreter._buildFilterForComparison(
-            field.length,
-          ),
-        };
-      } else if ("contains" in field) {
-        return { $in: field.contains };
-      } else if ("notContains" in field) {
-        return { $nin: field.notContains };
-      } else {
-        return MongoWhereClauseInterpreter._buildFilterForComparison(field);
-      }
-    } else {
-      return MongoWhereClauseInterpreter._buildFilterForComparison(field);
-    }
-  }
-
-  private static _buildFilterForComparison(
-    comparison: EqualOrNot<string | boolean | null> | Comparison<number | Date>,
-  ) {
-    // TODO: [DS] This sucks.
-    if (
-      comparison == null ||
-      typeof comparison !== "object" ||
-      comparison instanceof Date
-    ) {
-      return comparison;
-    } else if ("not" in comparison) {
-      return { $ne: comparison.not };
+      return constraint;
+    } else if ("not" in constraint) {
+      return { $ne: constraint.not };
     } else {
       const result: {
         $gt?: number | Date;
@@ -70,17 +38,17 @@ export class MongoWhereClauseInterpreter<Model extends DatabaseModel> {
         $lte?: number | Date;
       } = {};
 
-      if ("gt" in comparison) {
-        result.$gt = comparison.gt;
+      if ("gt" in constraint) {
+        result.$gt = constraint.gt;
       }
-      if ("gte" in comparison) {
-        result.$gte = comparison.gte;
+      if ("gte" in constraint) {
+        result.$gte = constraint.gte;
       }
-      if ("lt" in comparison) {
-        result.$lt = comparison.lt;
+      if ("lt" in constraint) {
+        result.$lt = constraint.lt;
       }
-      if ("lte" in comparison) {
-        result.$lte = comparison.lte;
+      if ("lte" in constraint) {
+        result.$lte = constraint.lte;
       }
 
       return result;
