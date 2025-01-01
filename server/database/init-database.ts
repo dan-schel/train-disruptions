@@ -11,7 +11,6 @@ export async function initDatabase(): Promise<Database> {
   if (env.DATABASE_URL != null) {
     return await MongoDatabase.init(env.DATABASE_URL);
   } else {
-    // TODO: Log a warning that MongoDB is not setup.
     return new InMemoryDatabase();
   }
 }
