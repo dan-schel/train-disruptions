@@ -143,18 +143,6 @@ where: {
 
 (These same queries work with dates where `lt` is "earlier than" and `gt` is "later than".)
 
-### Array queries
-
-```ts
-where: {
-  drawings: { length: 5 },                   // Exactly 5 drawings.
-  drawings: { length: { not: 5 } },          // Any amount other than 5 drawings.
-  drawings: { length: { gt: 5 } },           // More than 5 drawings.
-  drawings: { contains: "Stick figure" },    // "Stick figure" is in the array.
-  drawings: { notContains: "Stick figure" }, // "Stick figure" is not in the array.
-}
-```
-
 ## Limitations
 
 - While storing objects with embedded fields is supported, you cannot use `where` or `sort` on embedded fields.
