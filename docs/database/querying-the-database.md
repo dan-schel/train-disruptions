@@ -163,6 +163,9 @@ where: {
   - While MongoDB supports these types of queries, other DB engines (e.g. SQL) don't, so we can probably live without it?
 - No ability for multiple sorting tiers, e.g. "sort by year, then by month, then by date".
 - No ability to `skip` records (e.g. for pagination) at the moment.
+- No ability to `create` records and have the database assign an ID automatically at the moment.
+  - This isn't a problem if we use UUIDs, and MongoDB doesn't natively support auto-incrementing IDs anyway.
+  - Right now we just represent the UUIDs as strings, which is not very efficient. We can fix this later.
 
 ## Why?
 
