@@ -34,7 +34,14 @@ Requires [NodeJS](https://nodejs.org/en) and [MongoDB](https://www.mongodb.com/)
 
 ## Docs
 
+### General
+
 - [Environment variables](/docs/environment-variables.md)
 - [Scripts](/docs/scripts.md)
 - [Tools](/docs/tools.md)
 - [Original Vike README.md](/docs/vike-readme.md)
+
+### Database
+
+- [Querying the database](/docs/database/querying-the-database.md)
+- [Creating a new database model](/docs/database/creating-a-new-database-model.md)
