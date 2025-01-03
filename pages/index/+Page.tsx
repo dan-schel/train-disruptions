@@ -1,17 +1,12 @@
 import React from "react";
-import { Counter } from "./Counter.js";
 
 export default function Page() {
   return (
     <>
-      <h1 className={"font-bold text-3xl pb-4"}>My Vike app</h1>
-      This page is:
-      <ul>
-        <li>Rendered to HTML.</li>
-        <li>
-          Interactive. <Counter />
-        </li>
-      </ul>
+      <div className="flex flex-col items-center p-16 gap-2">
+        <p className="text-lg">Is It Buses?</p>
+        <p className="font-bold text-orange-700">Maybe.</p>
+      </div>
     </>
   );
 }
