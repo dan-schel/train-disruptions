@@ -44,13 +44,13 @@ export function TodoList({
             onChange={(ev) => setNewTodo(ev.target.value)}
             value={newTodo}
             className={
-              "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full sm:w-auto p-2 mr-1 mb-1"
+              "mb-1 mr-1 w-full rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 sm:w-auto"
             }
           />
           <button
             type="submit"
             className={
-              "text-white bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto p-2"
+              "w-full rounded-lg bg-blue-700 p-2 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-300 sm:w-auto"
             }
           >
             Add to-do

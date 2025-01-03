@@ -12,7 +12,7 @@ export default function LayoutDefault({
   children: React.ReactNode;
 }) {
   return (
-    <div className={"flex max-w-5xl m-auto"}>
+    <div className={"m-auto flex max-w-5xl"}>
       <Sidebar>
         <Logo />
         <Link href="/">Welcome</Link>
@@ -29,7 +29,7 @@ function Sidebar({ children }: { children: React.ReactNode }) {
   return (
     <div
       id="sidebar"
-      className={"p-5 flex flex-col shrink-0 border-r-2 border-r-gray-200"}
+      className={"flex shrink-0 flex-col border-r-2 border-r-gray-200 p-5"}
     >
       {children}
     </div>
@@ -39,7 +39,7 @@ function Sidebar({ children }: { children: React.ReactNode }) {
 function Content({ children }: { children: React.ReactNode }) {
   return (
     <div id="page-container">
-      <div id="page-content" className={"p-5 pb-12 min-h-screen"}>
+      <div id="page-content" className={"min-h-screen p-5 pb-12"}>
         {children}
       </div>
     </div>
@@ -48,7 +48,7 @@ function Content({ children }: { children: React.ReactNode }) {
 
 function Logo() {
   return (
-    <div className={"p-5 mb-2"}>
+    <div className={"mb-2 p-5"}>
       <a href="/">
         <img src={logoUrl} height={64} width={64} alt="logo" />
       </a>
