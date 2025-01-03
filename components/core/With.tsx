@@ -19,11 +19,11 @@ export type WithProps = {
  * Think twice before using it for something else.
  */
 export function With(props: WithProps) {
-  const child = props.children;
+  const child = React.Children.only(props.children);
 
   // Using cloneElement is dodgy, but better than wrapping it inside a useless
-  // div, which we has to act invisible to the layout logic.
-  return React.cloneElement(props.children, {
+  // div, which has to act invisible to the layout logic.
+  return React.cloneElement(child, {
     className: clsx(child.props.className, props.className),
     style: {
       ...child.props.style,
