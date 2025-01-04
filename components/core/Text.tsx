@@ -2,6 +2,7 @@ import React from "react";
 import clsx from "clsx";
 
 const styles = {
+  // Mostly examples at this point - we'll add more to this as we go.
   regular: "",
   title: "text-lg",
   weak: "text-sm text-gray-500",
