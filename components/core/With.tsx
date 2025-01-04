@@ -12,7 +12,7 @@ export type WithProps = {
 
 /**
  * Designed to be used when:
- * - You need to add margin to a component (and can't use gap in its parent).
+ * - You need to add margin to a component (and can't use gap or <Spacer>).
  * - You need to set flex-grow on a component.
  * - You need to set the grid column/row/area of a component.
  *
