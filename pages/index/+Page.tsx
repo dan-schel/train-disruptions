@@ -1,12 +1,14 @@
 import React from "react";
+import { Column } from "../../components/core/Column";
+import { Text } from "../../components/core/Text";
 
 export default function Page() {
   return (
-    <>
-      <div className="flex flex-col items-center gap-2 p-16">
-        <p className="text-lg">Is It Buses?</p>
-        <p className="font-bold text-orange-700">Maybe.</p>
-      </div>
-    </>
+    <Column className="gap-2 p-16" align="center">
+      <Text style="title">Is It Buses?</Text>
+      <Text style="custom" className="font-bold text-orange-700">
+        Maybe.
+      </Text>
+    </Column>
   );
 }

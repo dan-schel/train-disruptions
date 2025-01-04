@@ -8,6 +8,13 @@ export type ColumnProps = {
   justify?: "top" | "center" | "bottom" | "space-between";
 };
 
+/**
+ * Has props for align and justify. Use `classNames` for things like padding,
+ * gap, background color, border, and drop shadows.
+ *
+ * If you're doing a more complex layout thing, e.g. media queries, write a
+ * custom component over using this one.
+ */
 export function Column(props: ColumnProps) {
   const align = {
     left: "items-start",

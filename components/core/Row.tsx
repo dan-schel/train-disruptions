@@ -8,6 +8,13 @@ export type RowProps = {
   justify?: "left" | "center" | "right" | "space-between";
 };
 
+/**
+ * Has props for align and justify. Use `classNames` for things like padding,
+ * gap, background color, border, and drop shadows.
+ *
+ * If you're doing a more complex layout thing, e.g. media queries, write a
+ * custom component over using this one.
+ */
 export function Row(props: RowProps) {
   const align = {
     top: "items-start",
