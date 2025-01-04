@@ -9,6 +9,8 @@ export type ColumnProps = {
 };
 
 /**
+ * Arranges items in a CSS Flexbox column.
+ *
  * Rules:
  * - Don't abuse `className` for complex layouts, e.g. media queries.
  *

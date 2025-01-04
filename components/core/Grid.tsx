@@ -10,6 +10,8 @@ export type GridProps = {
 };
 
 /**
+ * Arranges items in a CSS Grid.
+ *
  * Rules:
  * - Don't abuse `className` for complex layouts, e.g. media queries.
  *

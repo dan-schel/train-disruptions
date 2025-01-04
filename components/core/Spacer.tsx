@@ -44,6 +44,8 @@ export type SpacerProps = {
 };
 
 /**
+ * An invisible gap.
+ *
  * Notes:
  * - Units are in the Tailwind spacing scale, i.e. `4 = 1rem`.
  *

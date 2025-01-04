@@ -59,6 +59,8 @@ On top of this, I think there's a few additional rules we can follow to make UI 
 
 ### `<Text>`
 
+Renders text.
+
 Example usage:
 
 ```tsx
@@ -89,6 +91,8 @@ Example usage:
 
 ### `<Column>` and `<Row>`
 
+Arranges items in a CSS Flexbox column or row.
+
 Example usage:
 
 ```tsx
@@ -118,6 +122,8 @@ Example usage:
   - It's exposed for things like padding, gap, background color, border, and drop shadows.
 
 ### `<Grid>`
+
+Arranges items in a CSS Grid.
 
 Example usage:
 
@@ -155,6 +161,8 @@ Example usage:
 
 ### `<Spacer>`
 
+An invisible gap.
+
 Example usage:
 
 ```tsx
@@ -177,6 +185,8 @@ Example usage:
   - **Reasoning:** See "Philosophy" above.
 
 ### `<With>`
+
+Applies additional layout props to the inner element.
 
 Example usage:
 

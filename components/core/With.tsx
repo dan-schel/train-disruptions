@@ -11,6 +11,8 @@ export type WithProps = {
 };
 
 /**
+ * Applies additional layout props to the inner element.
+ *
  * Rules:
  * - Great for setting flex grow, or grid columns/row/area.
  * - This is a last resort for setting margin. Consider alternatives.

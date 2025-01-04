@@ -19,6 +19,8 @@ export type TextProps = {
 } & Style;
 
 /**
+ * Renders text.
+ *
  * Rules:
  * - Do not nest `<Text>` elements.
  * - Never use `className` for margin/padding on `<Text>`.
