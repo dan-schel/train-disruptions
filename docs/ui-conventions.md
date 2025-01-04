@@ -53,6 +53,8 @@ On top of this, I think there's a few additional rules we can follow to make UI 
 
   - An example is the `<Text>` component, which tries to get you to pick a style from a predefined list, rather than letting you choose your own font weight, size, color, etc.
 
+  - Most components we write should not expose `className` as a prop.
+
 ## Core Component Usage
 
 ### `<Text>`
