@@ -5,3 +5,23 @@
 * {
   flex-shrink: 0;
 }
+
+/* 
+ * Fixes single line text being affected by line height changes. Note I've 
+ * written a custom Tailwind plugin so that the `leading-*` classes change 
+ * `--line-spacing` instead of `line-height` directly. 
+ */
+:root {
+  --line-spacing: 0.5em;
+}
+._text {
+  line-height: calc(1em + var(--line-spacing));
+
+  &::before,
+  &::after {
+    content: "";
+    margin-top: calc(var(--line-spacing) / -2);
+    height: 0;
+    display: block;
+  }
+}

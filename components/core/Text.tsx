@@ -40,7 +40,7 @@ export function Text(props: TextProps) {
     justify: "text-justify",
   }[props.align ?? "left"];
 
-  // TODO: [DS] One-line mode and line-height fixes.
+  // TODO: [DS] One-line mode.
 
-  return <Tag className={clsx(style, align)}>{props.children}</Tag>;
+  return <Tag className={clsx(style, align, "_text")}>{props.children}</Tag>;
 }
