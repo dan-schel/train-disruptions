@@ -8,7 +8,6 @@
 - [Philosophy](#philosophy)
 - [Core Component Usage](#core-component-usage)
   - [`<Text>`](#text)
-  - [`<Link>`](#link)
 
 ## Philosophy
 
@@ -41,14 +40,6 @@ Do not nest another `<Text>` inside `<Text>`. Only the following tags should be 
 
 Why? Because `<Text>` uses pseudo-elements to size itself correctly and prevent changes in line height affecting the height of single-line text. This means they no longer behave like a normal `display: inline` `<span>` would, so when you just want to bold a section of a paragraph, etc. don't use `<Text>`.
 
-### `<Link>`
+Never use `className` for margin/padding, if you must, use `<With>` instead.
 
-Example usage:
-
-```tsx
-<Text>
-  <Link href="TODO">Click here</Link> for a free iPhone 6S.
-</Text>
-```
-
-Always use inside `<Text>`. Can use `onClick` as an alternative to `href`.
+Why? The `oneLine` mode uses a little bit of padding before clipping outside content with `overflow: hidden` to ensure lowercase letters drawn below the line aren't cut off. This is compensated for using a pseudo-element, but can't take custom margins/padding into account.

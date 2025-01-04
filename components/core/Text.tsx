@@ -19,12 +19,9 @@ export type TextProps = {
 } & Style;
 
 /**
- * Do not nest another `<Text>` inside `<Text>`. Only the following tags should
- * be used inside `<Text>`:
- * - `<Link>`
- * - `<b>` (or `<strong>`)
- * - `<i>` (or `<em>`)
- * - `<span>`
+ * Do not nest another `<Text>` inside `<Text>`.
+ *
+ * Never use `className` for margin/padding, if you must, use `<With>` instead.
  */
 export function Text(props: TextProps) {
   const Tag = props.as ?? "span";
