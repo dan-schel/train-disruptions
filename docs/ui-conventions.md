@@ -23,7 +23,7 @@ First, we're using [Tailwind](https://tailwindcss.com/), which comes with a phil
 
   - **Benefit:** The styles are right there in the JSX.
 
-- You never use cascading, i.e. you style the element at hand, not it's child elements.
+- You never use cascading, i.e. you style the element at hand, not its child elements.
 
   - **Benefit:** Never have to go looking to find where a style is set, it's always on the element itself.
 
@@ -33,7 +33,7 @@ First, we're using [Tailwind](https://tailwindcss.com/), which comes with a phil
 
 On top of this, I think there's a few additional rules we can follow to make UI development easier.
 
-- Prefer `display: flex/grid` to `display: block` (the default for `<div>`).
+- Prefer `display: flex/grid` to `display: block` (which is the default for `<div>`).
 
   - **Benefit:** `display: block` collapses vertical margins, and doesn't support `gap`, alignment, or growing to fill space.
 
@@ -61,7 +61,7 @@ On top of this, I think there's a few additional rules we can follow to make UI 
 
 Renders text.
 
-Example usage:
+#### Examples <!-- omit in toc -->
 
 ```tsx
 <Text style="title" align="center">
@@ -81,11 +81,13 @@ Example usage:
 
   - **Reasoning:** `<Text>` has some internal magic to more accurately measure line height, achieved by having some `display: block` pseudo-elements. So it won't behave correctly inside a paragraph.
 
-  - The only child elements of `<Text>` should be `<Link>`, `<b>`, `<strong>`, `<i>`, `<em>`, `<span>`.
+  - The only child elements of `<Text>` should be `<b>`, `<strong>`, `<i>`, `<em>`, and `<span>`.
+
+    - TODO: [DS] Add `<Link>` and icons to this list in the future.
 
 - Never use `className` for margin/padding on `<Text>`.
 
-  - **Reasoning:** The `oneLine` mode uses padding (which is cancelled out using a psuedo-element) to ensure text outside the bounding box (like lowercase j, g, p, etc.) aren't cut off.
+  - **Reasoning:** The `oneLine` mode uses padding (which is cancelled out using a pseudo-element) to ensure text outside the bounding box (like lowercase j, g, p, etc.) aren't cut off.
 
   - If you must set margin/padding, use `<With>` instead.
 
@@ -93,7 +95,7 @@ Example usage:
 
 Arranges items in a CSS Flexbox column or row.
 
-Example usage:
+#### Examples <!-- omit in toc -->
 
 ```tsx
 <Column align="center">
@@ -125,7 +127,7 @@ Example usage:
 
 Arranges items in a CSS Grid.
 
-Example usage:
+#### Examples <!-- omit in toc -->
 
 ```tsx
 <Grid columns="1fr auto">
@@ -163,7 +165,7 @@ Example usage:
 
 An invisible gap.
 
-Example usage:
+#### Examples <!-- omit in toc -->
 
 ```tsx
 <Column>
@@ -188,7 +190,7 @@ Example usage:
 
 Applies additional layout props to the inner element.
 
-Example usage:
+#### Examples <!-- omit in toc -->
 
 ```tsx
 <Grid columns="1fr auto">
