@@ -39,20 +39,25 @@ const scale = {
 };
 
 export type SpacerProps = {
-  width?: keyof typeof scale;
-  height?: keyof typeof scale;
+  w?: keyof typeof scale;
+  h?: keyof typeof scale;
 };
 
 /**
- * Used to add gaps in layouts. Measurements are in Tailwind units, i.e.
- * `1 = 0.25rem`.
+ * Notes:
+ * - Units are in the Tailwind spacing scale, i.e. `4 = 1rem`.
+ *
+ * Rules:
+ * - Consider using padding or gap in the parent container if possible.
+ *
+ * ([More info](https://github.com/dan-schel/train-disruptions/blob/master/docs/ui-conventions.md))
  */
 export function Spacer(props: SpacerProps) {
   return (
     <div
       style={{
-        width: props.width != null ? scale[props.width] : undefined,
-        height: props.height != null ? scale[props.height] : undefined,
+        width: props.w != null ? scale[props.w] : undefined,
+        height: props.h != null ? scale[props.h] : undefined,
       }}
     ></div>
   );

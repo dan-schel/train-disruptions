@@ -16,7 +16,7 @@
 }
 ._text {
   display: block;
-  line-height: calc(1em + var(--line-spacing));
+  line-height: calc(1em + var(--line-spacing)) !important;
 }
 ._text::before,
 ._text::after {

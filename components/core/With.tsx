@@ -11,26 +11,26 @@ export type WithProps = {
 };
 
 /**
- * Designed to be used when:
- * - You need to add margin to a component (and can't use gap or <Spacer>).
- * - You need to set flex-grow on a component.
- * - You need to set the grid column/row/area of a component.
+ * Rules:
+ * - Great for setting flex grow, or grid columns/row/area.
+ * - This is a last resort for setting margin. Consider alternatives.
  *
- * Think twice before using it for something else.
+ * ([More info](https://github.com/dan-schel/train-disruptions/blob/master/docs/ui-conventions.md))
  */
 export function With(props: WithProps) {
   const child = React.Children.only(props.children);
 
-  // Using cloneElement is dodgy, but better than wrapping it inside a useless
-  // div, which has to act invisible to the layout logic.
-  return React.cloneElement(child, {
-    className: clsx(child.props.className, props.className),
-    style: {
-      ...child.props.style,
-      flexGrow: props.flexGrow,
-      gridColumn: props.gridColumn,
-      gridRow: props.gridRow,
-      gridArea: props.gridArea,
-    },
-  });
+  return (
+    <div
+      className={clsx("grid", props.className)}
+      style={{
+        flexGrow: props.flexGrow,
+        gridColumn: props.gridColumn,
+        gridRow: props.gridRow,
+        gridArea: props.gridArea,
+      }}
+    >
+      {child}
+    </div>
+  );
 }

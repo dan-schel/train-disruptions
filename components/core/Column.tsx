@@ -9,11 +9,10 @@ export type ColumnProps = {
 };
 
 /**
- * Has props for align and justify. Use `classNames` for things like padding,
- * gap, background color, border, and drop shadows.
+ * Rules:
+ * - Don't abuse `className` for complex layouts, e.g. media queries.
  *
- * If you're doing a more complex layout thing, e.g. media queries, write a
- * custom component over using this one.
+ * ([More info](https://github.com/dan-schel/train-disruptions/blob/master/docs/ui-conventions.md))
  */
 export function Column(props: ColumnProps) {
   const align = {

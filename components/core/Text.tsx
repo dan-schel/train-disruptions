@@ -19,9 +19,11 @@ export type TextProps = {
 } & Style;
 
 /**
- * Do not nest another `<Text>` inside `<Text>`.
+ * Rules:
+ * - Do not nest `<Text>` elements.
+ * - Never use `className` for margin/padding on `<Text>`.
  *
- * Never use `className` for margin/padding, if you must, use `<With>` instead.
+ * ([More info](https://github.com/dan-schel/train-disruptions/blob/master/docs/ui-conventions.md))
  */
 export function Text(props: TextProps) {
   const Tag = props.as ?? "span";

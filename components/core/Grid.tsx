@@ -10,20 +10,24 @@ export type GridProps = {
 };
 
 /**
- * Has props for columns, rows, and areas. Use `classNames` for things like
- * padding, gap, background color, border, and drop shadows.
+ * Rules:
+ * - Don't abuse `className` for complex layouts, e.g. media queries.
  *
- * If you're doing a more complex layout thing, e.g. media queries, write a
- * custom component over using this one.
+ * ([More info](https://github.com/dan-schel/train-disruptions/blob/master/docs/ui-conventions.md))
  */
 export function Grid(props: GridProps) {
+  const areasString = props.areas
+    ?.split(",")
+    .map((area) => `"${area.trim()}"`)
+    .join(" ");
+
   return (
     <div
       className={clsx(`grid`, props.className)}
       style={{
         gridTemplateColumns: props.columns,
         gridTemplateRows: props.rows,
-        gridTemplateAreas: props.areas,
+        gridTemplateAreas: areasString,
       }}
     >
       {props.children}
