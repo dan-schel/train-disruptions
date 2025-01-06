@@ -37,13 +37,31 @@ export function SimpleButton(props: SimpleButtonProps) {
       </Button>
     );
   } else {
-    return (
-      <Button {...action} alt={props.alt}>
-        <Row className={clsx("h-8 gap-2 px-4", theme)} align="center">
-          {props.icon && <With className="-ml-0.5 text-lg">{props.icon}</With>}
-          {props.text && <Text>{props.text}</Text>}
-        </Row>
-      </Button>
-    );
+    const iconOnly = props.text == null;
+
+    if (iconOnly) {
+      return (
+        <Button {...action} alt={props.alt}>
+          <Row
+            className={clsx("h-8 w-8 gap-2 text-lg", theme)}
+            align="center"
+            justify="center"
+          >
+            {props.icon}
+          </Row>
+        </Button>
+      );
+    } else {
+      return (
+        <Button {...action} alt={props.alt}>
+          <Row className={clsx("h-8 gap-2 px-4", theme)} align="center">
+            {props.icon != null && (
+              <With className="-ml-0.5 text-lg">{props.icon}</With>
+            )}
+            <Text>{props.text}</Text>
+          </Row>
+        </Button>
+      );
+    }
   }
 }
