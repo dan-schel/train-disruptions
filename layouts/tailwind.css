@@ -49,8 +49,6 @@
 /* Loading spinner styles */
 svg._loading-spinner {
   animation: loading-spinner-flip 1s ease-out 0s infinite;
-  width: 1em;
-  height: 1em;
 }
 ._loading-spinner circle:nth-child(2) {
   animation: loading-spinner-pulse 1s linear 0s infinite;
