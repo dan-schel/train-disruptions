@@ -1,6 +1,8 @@
 import React from "react";
 import type { SVGProps } from "react";
 
+// Example of an iconify icon. Can remove once the first real icon is added.
+
 export function RiAddCircleLine(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
