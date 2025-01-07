@@ -14,6 +14,9 @@ Some notes on what I think is a good strategy for UI and how the core components
   - [`<Grid>`](#grid)
   - [`<Spacer>`](#spacer)
   - [`<With>`](#with)
+  - [`<Button>`](#button)
+  - [`<Link>`](#link)
+- [Adding icons](#adding-icons)
 
 ## Philosophy
 
