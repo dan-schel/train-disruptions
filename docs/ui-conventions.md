@@ -255,3 +255,23 @@ Clickable inline underlined text.
 - `<Button>` supports `href`, so only use this if you want the underlined text.
 
   - **Reasoning:** You'd just be working against the built-in styling of this component otherwise!
+
+## Adding icons
+
+An example of an icon is [RiAddCircleLine](/components/icons/RiAddCircleLine.tsx) (we can remove it once we've got our first real icon).
+
+For new icons, a great place to find them is [Iconify](https://icon-sets.iconify.design/uil/). For consistency, obviously it'd be great if we could stick to the same icon set for every icon, but that might not be feasible in practice.
+
+To generate the icon component code in Iconify, choose the following settings:
+
+- On the left, choose "Components".
+
+- On the top, choose "React".
+
+- For size, choose "1em".
+
+- You can then either download the file or copy to clipboard and paste.
+
+  - If you copy/paste, please be sure to name the file the same name as Iconify has, in `PascalCase`, e.g. `uil:arrow-circle-down` becomes `UilArrowCircleDown.tsx`.
+
+<img width="500" src="./img/iconify-settings.png" />

@@ -1,6 +1,6 @@
 import React from "react";
 
-// TODO: [DS] Codify routes rather than allowing any string.
+// TODO: Codify routes rather than allowing any string.
 export type Action =
   | { onClick: () => void; href?: undefined; submit?: boolean }
   | { onClick?: undefined; href: string; submit?: undefined };
