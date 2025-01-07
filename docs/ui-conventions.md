@@ -265,7 +265,7 @@ The code for an icon component looks something like [this](/components/icons/RiA
 
 For new icons, a great place to find them is [Iconify](https://icon-sets.iconify.design/). For consistency, obviously it'd be great if we could stick to the same icon set for every icon, but that might not be feasible in practice.
 
-To generate the icon component code in Iconify, choose the following settings:
+Once you've chosen your icon in Iconify, to generate the icon component code, choose the following settings:
 
 - On the left, choose "Components".
 
