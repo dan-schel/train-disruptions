@@ -33,11 +33,27 @@ const lineHeightOverridePlugin = plugin(
   },
 );
 
+// This plugin overrides the `hover` variant to only apply when the device
+// supports hovering. This prevents "sticky" hover styles on touch devices.
+//
+// Note: This is fixed in Tailwind 4.0, so we can remove it then!
+const touchFriendlyHoverPlugin = plugin(function ({ addVariant }) {
+  addVariant("hover", "@media (hover: hover) { &:hover }");
+  addVariant("group-hover", "@media (hover: hover) { :merge(.group):hover & }");
+  addVariant("peer-hover", "@media (hover: hover) { :merge(.peer):hover ~ & }");
+
+  // Unchanged from the default, but needed to redefine so it's ordered after
+  // :hover in the CSS and therefore takes precedence when it applies.
+  addVariant("active", "&:active");
+  addVariant("group-active", ":merge(.group):active &");
+  addVariant("peer-active", ":merge(.peer):active ~ &");
+});
+
 export default {
   content: ["./{pages,layouts,components,src}/**/*.{html,js,jsx,ts,tsx,vue}"],
   theme: {
     // Same as default Tailwind breakpoints, but defined in rem units.
-    // Note: This override shouldn't be necessary in Tailwind 4.0.
+    // Note: This is fixed in Tailwind 4.0, so we can remove it then!
     screens: {
       sm: "40rem",
       md: "48rem",
@@ -51,5 +67,5 @@ export default {
     // Disable the default `leading-*` utilities, so the override plugin works.
     lineHeight: false,
   },
-  plugins: [lineHeightOverridePlugin],
+  plugins: [lineHeightOverridePlugin, touchFriendlyHoverPlugin],
 } satisfies Config;
