@@ -20,10 +20,10 @@ export function LoadingSpinner(props: LoadingSpinnerProps) {
       role="img"
     >
       <title>Loading spinner</title>
-      <circle cx="8" cy="8" r="2" fill="currentColor"></circle>
-      <circle cx="16" cy="8" r="2" fill="currentColor"></circle>
-      <circle cx="16" cy="16" r="2" fill="currentColor"></circle>
-      <circle cx="8" cy="16" r="2" fill="currentColor"></circle>
+      <circle cx="8" cy="8" r="2" fill="currentColor" />
+      <circle cx="16" cy="8" r="2" fill="currentColor" />
+      <circle cx="16" cy="16" r="2" fill="currentColor" />
+      <circle cx="8" cy="16" r="2" fill="currentColor" />
     </svg>
   );
 }
