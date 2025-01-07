@@ -261,7 +261,7 @@ Clickable inline underlined text.
 
 ## Adding icons
 
-An example of an icon is [RiAddCircleLine](/components/icons/RiAddCircleLine.tsx) (we can remove it once we've got our first real icon).
+The code for an icon component looks something like [this](/components/icons/RiAddCircleLine.tsx).
 
 For new icons, a great place to find them is [Iconify](https://icon-sets.iconify.design/uil/). For consistency, obviously it'd be great if we could stick to the same icon set for every icon, but that might not be feasible in practice.
 
