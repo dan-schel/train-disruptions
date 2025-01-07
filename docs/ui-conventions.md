@@ -263,7 +263,7 @@ Clickable inline underlined text.
 
 The code for an icon component looks something like [this](/components/icons/RiAddCircleLine.tsx).
 
-For new icons, a great place to find them is [Iconify](https://icon-sets.iconify.design/uil/). For consistency, obviously it'd be great if we could stick to the same icon set for every icon, but that might not be feasible in practice.
+For new icons, a great place to find them is [Iconify](https://icon-sets.iconify.design/). For consistency, obviously it'd be great if we could stick to the same icon set for every icon, but that might not be feasible in practice.
 
 To generate the icon component code in Iconify, choose the following settings:
 
