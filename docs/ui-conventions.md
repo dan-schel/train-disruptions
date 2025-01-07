@@ -229,7 +229,7 @@ A clickable element (supports `onClick` or `href`).
 
 #### Rules of `<Button>` <!-- omit in toc -->
 
-- Check you're not after `<SimpleButton>`.
+- Are you sure you don't want `<SimpleButton>`?
 
   - **Reasoning:** `<Button>` is the low-level component that makes a clickable div. `<SimpleButton>` is the component which takes an icon and/or text and creates a basic button.
 

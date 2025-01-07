@@ -22,7 +22,7 @@ export type ButtonProps = {
  * A clickable element (supports `onClick` or `href`).
  *
  * Rules:
- * - Check you're not after `<SimpleButton>`.
+ * - Are you sure you don't want `<SimpleButton>`?
  * - Child elements should use `group-hover` and `group-active` for styling,
  *   over `hover` and `active`.
  *
