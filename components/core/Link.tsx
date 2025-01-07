@@ -5,6 +5,16 @@ export type LinkProps = {
   children: React.ReactNode;
 } & Action;
 
+/**
+ * Clickable inline underlined text.
+ *
+ * Rules:
+ * - Use inside a `<Text>` element.
+ * - `<Button>` supports `href`, so only use this if you want the underlined
+ *   text.
+ *
+ * ([More info](https://github.com/dan-schel/train-disruptions/blob/master/docs/ui-conventions.md))
+ */
 export function Link(props: LinkProps) {
   if (props.href != null) {
     return (

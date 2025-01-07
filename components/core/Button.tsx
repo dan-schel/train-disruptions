@@ -18,6 +18,16 @@ export type ButtonProps = {
   alt?: string;
 } & Action;
 
+/**
+ * A clickable element (supports `onClick` or `href`).
+ *
+ * Rules:
+ * - Check you're not after `<SimpleButton>`.
+ * - Child elements should use `group-hover` and `group-active` for styling,
+ *   over `hover` and `active`.
+ *
+ * ([More info](https://github.com/dan-schel/train-disruptions/blob/master/docs/ui-conventions.md))
+ */
 export function Button(props: ButtonProps) {
   if (props.onClick != null) {
     const type = props.submit === true ? "submit" : "button";

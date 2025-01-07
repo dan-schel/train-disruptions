@@ -81,9 +81,7 @@ Renders text.
 
   - **Reasoning:** `<Text>` has some internal magic to more accurately measure line height, achieved by having some `display: block` pseudo-elements. So it won't behave correctly inside a paragraph.
 
-  - The only child elements of `<Text>` should be `<b>`, `<strong>`, `<i>`, `<em>`, and `<span>`.
-
-    - TODO: [DS] Add `<Link>` and icons to this list in the future.
+  - The only child elements of `<Text>` should be `<Link>`, `<b>`, `<strong>`, `<i>`, `<em>`, and `<span>`.
 
 - Never use `className` for margin/padding on `<Text>`.
 
@@ -211,3 +209,49 @@ Applies additional layout props to the inner element.
 - This is a last resort for setting margin. Consider alternatives.
 
   - **Reasoning:** See "Philosophy" above in regards to margin. `<With>` also wraps the element you pass it in another `<div>` increasing the size of the DOM tree.
+
+### `<Button>`
+
+A clickable element (supports `onClick` or `href`).
+
+#### Examples <!-- omit in toc -->
+
+```tsx
+<Button onClick={() => console.log("Hello.")}>
+  <Column className="bg-slate-200 group-hover:bg-slate-300 group-active:bg-slate-400">
+    Hello.
+  </Column>
+</Button>
+```
+
+#### Rules of `<Button>` <!-- omit in toc -->
+
+- Check you're not after `<SimpleButton>`.
+
+  - **Reasoning:** `<Button>` is the low-level component that makes a clickable div. `<SimpleButton>` is the component which takes an icon and/or text and creates a basic button.
+
+- Child elements should use `group-hover` and `group-active` for styling, over `hover` and `active`.
+
+  - **Reasoning:** While the two should be equivalent, ideally your styling is controlled by whether the `<button>`/`<a>` tag inside `<Button>` is hovered, not whether the content within is.
+
+### `<Link>`
+
+Clickable inline underlined text.
+
+#### Examples <!-- omit in toc -->
+
+```tsx
+<Text>
+  Some text with a <Link href="https://isitbuses.com/">link</Link>.
+</Text>
+```
+
+#### Rules of `<Link>` <!-- omit in toc -->
+
+- Use inside a `<Text>` element.
+
+  - **Reasoning:** The text component has some magic to more accurately measure line height.
+
+- `<Button>` supports `href`, so only use this if you want the underlined text.
+
+  - **Reasoning:** You'd just be working against the built-in styling of this component otherwise!
