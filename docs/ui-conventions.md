@@ -16,7 +16,8 @@ Some notes on what I think is a good strategy for UI and how the core components
   - [`<With>`](#with)
   - [`<Button>`](#button)
   - [`<Link>`](#link)
-- [Adding icons](#adding-icons)
+- [Icons](#icons)
+  - [Adding new icons](#adding-new-icons)
 
 ## Philosophy
 
@@ -259,9 +260,19 @@ Clickable inline underlined text.
 
   - **Reasoning:** You'd just be working against the built-in styling of this component otherwise!
 
-## Adding icons
+## Icons
 
-The code for an icon component looks something like [this](/components/icons/RiAddCircleLine.tsx).
+All icons can be found under `/components/icons`, and the code for an icon component looks something like [this](/components/icons/RiAddCircleLine.tsx).
+
+Since they're just `<svg>` elements set to a size of `1em` and using `currentColor`, you can style them as you would with text, i.e.:
+
+- To set the color, use `text-[color]`, e.g. `text-white`.
+
+- To set the size, use `text-[size]`, e.g. `text-2xl`.
+
+See [this code](https://github.com/dan-schel/train-disruptions/blob/af77e069485c72c0db283480acdf24f056c46f85/components/common/SimpleButton.tsx#L34) for an example of this in action.
+
+### Adding new icons
 
 For new icons, a great place to find them is [Iconify](https://icon-sets.iconify.design/). For consistency, obviously it'd be great if we could stick to the same icon set for every icon, but that might not be feasible in practice.
 
