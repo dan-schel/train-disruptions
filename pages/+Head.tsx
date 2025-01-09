@@ -9,7 +9,7 @@ export default function HeadDefault() {
       <link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml" />
       <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
       <meta name="theme-color" content="#202020" />
-      <RegisterPwa></RegisterPwa>
+      <RegisterPwa />
     </>
   );
 }
@@ -24,7 +24,7 @@ function RegisterPwa() {
   return (
     <>
       <link rel="manifest" href="/manifest.webmanifest" />
-      <script defer src="/registerSW.js"></script>
+      <script defer src="/registerSW.js" />
     </>
   );
 }

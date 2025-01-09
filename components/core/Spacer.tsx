@@ -61,6 +61,6 @@ export function Spacer(props: SpacerProps) {
         width: props.w != null ? scale[props.w] : undefined,
         height: props.h != null ? scale[props.h] : undefined,
       }}
-    ></div>
+    />
   );
 }

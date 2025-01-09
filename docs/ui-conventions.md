@@ -14,6 +14,10 @@ Some notes on what I think is a good strategy for UI and how the core components
   - [`<Grid>`](#grid)
   - [`<Spacer>`](#spacer)
   - [`<With>`](#with)
+  - [`<Button>`](#button)
+  - [`<Link>`](#link)
+- [Icons](#icons)
+  - [Adding new icons](#adding-new-icons)
 
 ## Philosophy
 
@@ -81,9 +85,7 @@ Renders text.
 
   - **Reasoning:** `<Text>` has some internal magic to more accurately measure line height, achieved by having some `display: block` pseudo-elements. So it won't behave correctly inside a paragraph.
 
-  - The only child elements of `<Text>` should be `<b>`, `<strong>`, `<i>`, `<em>`, and `<span>`.
-
-    - TODO: [DS] Add `<Link>` and icons to this list in the future.
+  - The only child elements of `<Text>` should be `<Link>`, `<b>`, `<strong>`, `<i>`, `<em>`, and `<span>`.
 
 - Never use `className` for margin/padding on `<Text>`.
 
@@ -211,3 +213,79 @@ Applies additional layout props to the inner element.
 - This is a last resort for setting margin. Consider alternatives.
 
   - **Reasoning:** See "Philosophy" above in regards to margin. `<With>` also wraps the element you pass it in another `<div>` increasing the size of the DOM tree.
+
+### `<Button>`
+
+A clickable element (supports `onClick` or `href`).
+
+#### Examples <!-- omit in toc -->
+
+```tsx
+<Button onClick={() => console.log("Hello.")}>
+  <Column className="bg-slate-200 group-hover:bg-slate-300 group-active:bg-slate-400">
+    <Text>Hello.</Text>
+  </Column>
+</Button>
+```
+
+#### Rules of `<Button>` <!-- omit in toc -->
+
+- Are you sure you don't want `<SimpleButton>`?
+
+  - **Reasoning:** `<Button>` is the low-level component that makes a clickable div. `<SimpleButton>` is the component which takes an icon and/or text and creates a basic button.
+
+- Child elements should use `group-hover` and `group-active` for styling, over `hover` and `active`.
+
+  - **Reasoning:** While the two should be equivalent, ideally your styling is controlled by whether the `<button>`/`<a>` tag inside `<Button>` is hovered, not whether the content within is.
+
+### `<Link>`
+
+Clickable inline underlined text.
+
+#### Examples <!-- omit in toc -->
+
+```tsx
+<Text>
+  Some text with a <Link href="https://isitbuses.com/">link</Link>.
+</Text>
+```
+
+#### Rules of `<Link>` <!-- omit in toc -->
+
+- Use inside a `<Text>` element.
+
+  - **Reasoning:** The text component has some magic to more accurately measure line height.
+
+- `<Button>` supports `href`, so only use this if you want the underlined text.
+
+  - **Reasoning:** You'd just be working against the built-in styling of this component otherwise!
+
+## Icons
+
+All icons can be found under `/components/icons`, and the code for an icon component looks something like [this](/components/icons/RiAddCircleLine.tsx).
+
+Since they're just `<svg>` elements set to a size of `1em` and using `currentColor`, you can style them as you would with text, i.e.:
+
+- To set the color, use `text-[color]`, e.g. `text-white`.
+
+- To set the size, use `text-[size]`, e.g. `text-2xl`.
+
+See [this code](https://github.com/dan-schel/train-disruptions/blob/af77e069485c72c0db283480acdf24f056c46f85/components/common/SimpleButton.tsx#L34) for an example of this in action.
+
+### Adding new icons
+
+For new icons, a great place to find them is [Iconify](https://icon-sets.iconify.design/). For consistency, obviously it'd be great if we could stick to the same icon set for every icon, but that might not be feasible in practice.
+
+Once you've chosen your icon in Iconify, to generate the icon component code, choose the following settings:
+
+- On the left, choose "Components".
+
+- On the top, choose "React".
+
+- For size, choose "1em".
+
+- You can then either download the file or copy to clipboard and paste.
+
+  - If you copy/paste, please be sure to name the file the same name as Iconify has, in `PascalCase`, e.g. `uil:arrow-circle-down` becomes `UilArrowCircleDown.tsx`.
+
+<img width="500" src="./img/iconify-settings.png" />
