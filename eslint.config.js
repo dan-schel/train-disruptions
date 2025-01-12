@@ -24,11 +24,12 @@ const customRules = {
     // Warn about prettier violations.
     "prettier/prettier": "warn",
 
+    // Warn if <Thing></Thing> can be changed to <Thing />.
+    "react/self-closing-comp": "warn",
+
     // TODO: Consider other lint rules from
     // https://github.com/jsx-eslint/eslint-plugin-react?tab=readme-ov-file#list-of-supported-rules
     // such as `react/button-has-type`.
-
-    // TODO: Consider installing tailwind sort order plugin.
   },
 };
 
@@ -67,7 +68,7 @@ const reactConfig = [
 
 export default tseslint.config(
   {
-    ignores: ["node_modules/*", "dist/*", "coverage/*"],
+    ignores: ["node_modules/*", "dist/*", "coverage/*", "components/icons/*"],
   },
   eslint.configs.recommended,
   ...tseslint.configs.recommended,

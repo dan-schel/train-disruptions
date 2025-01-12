@@ -1,3 +1,10 @@
+@import "css/loading-spinner.css";
+@import "css/text.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+  flex-shrink: 0;
+}
