@@ -6,6 +6,7 @@ import { createHandler } from "@universal-middleware/express";
 import express from "express";
 import { runDemos } from "./server/demo/run-demos";
 import { env } from "./server/env";
+import APIRouter from "./server/routes/api";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -33,6 +34,9 @@ async function startServer() {
     ).middlewares;
     app.use(viteDevMiddleware);
   }
+
+  // API Routes
+  app.use("/api", express.json(), APIRouter);
 
   /**
    * Vike route
