@@ -42,7 +42,7 @@ export const disruptionSchema = z.object({
 export type Disruption = z.infer<typeof disruptionSchema>;
 
 export abstract class DisruptionSource {
-  abstract fetchDisruptions(): Promise<unknown[]>;
+  abstract fetchDisruptions(): Promise<Disruption[]>;
 }
 
 export class VtarDisruptionSource extends DisruptionSource {
@@ -91,9 +91,9 @@ export class VtarDisruptionSource extends DisruptionSource {
 
 // For testing purposes.
 export class FakeDisruptionSource extends DisruptionSource {
-  async fetchDisruptions(): Promise<string[]> {
+  async fetchDisruptions(): Promise<Disruption[]> {
     // eslint-disable-next-line no-console
     console.log("🟡 Relay connection not set up yet.");
-    return ["Buses replace trains between X and Y."];
+    return [];
   }
 }
