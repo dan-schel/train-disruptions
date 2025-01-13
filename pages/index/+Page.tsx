@@ -1,6 +1,7 @@
 import React from "react";
 import { Column } from "../../components/core/Column";
 import { Text } from "../../components/core/Text";
+import { PtvMap } from "../../components/ptv-map/PtvMap";
 
 export default function Page() {
   return (
@@ -9,6 +10,7 @@ export default function Page() {
       <Text style="custom" className="font-bold text-orange-700">
         Maybe.
       </Text>
+      <PtvMap amplification={0} />
     </Column>
   );
 }
