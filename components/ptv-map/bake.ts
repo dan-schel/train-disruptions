@@ -155,7 +155,7 @@ class PathBaker {
     centerMaxX += Math.cos(rad(centerAngle)) * piece.radius;
     centerMaxY += Math.sin(rad(centerAngle)) * piece.radius;
 
-    const segments = 5;
+    const segments = Math.round(Math.abs(piece.angle) / 9);
     for (let i = 1; i <= segments; i++) {
       const angle = centerAngle + 180 + (piece.angle / segments) * i;
       const minX = centerMinX + Math.cos(rad(angle)) * piece.radius;

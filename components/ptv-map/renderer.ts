@@ -1,4 +1,16 @@
 import { BakedGeometry, BakedPoint } from "./bake";
+import { LineColor } from "./geometry";
+
+const lineColors: Record<LineColor, string> = {
+  red: "#e42b23",
+  yellow: "#ffb531",
+  green: "#159943",
+  cyan: "#16b4e8",
+  blue: "#094c8d",
+  purple: "#6c3b9f",
+  pink: "#fc7fbb",
+  grey: "#9b9c9f",
+};
 
 export class Renderer {
   private readonly _ctx;
@@ -37,20 +49,12 @@ export class Renderer {
 
     ctx.save();
     ctx.translate(this._canvas.width / 2, this._canvas.height / 2);
-
-    for (const interchange of this._geometry.interchangeMarkers) {
-      const { x: x1, y: y1 } = amplify(interchange.a, this._amplification);
-      const { x: x2, y: y2 } = amplify(interchange.b, this._amplification);
-
-      ctx.beginPath();
-      ctx.moveTo(x1, y1);
-      ctx.lineTo(x2, y2);
-      ctx.stroke();
-    }
+    ctx.scale(4, 4);
 
     for (const line of this._geometry.lineSegments) {
+      ctx.lineCap = "butt";
       ctx.lineWidth = 4;
-      ctx.strokeStyle = line.color;
+      ctx.strokeStyle = lineColors[line.color];
       ctx.beginPath();
 
       let firstPoint = true;
@@ -66,6 +70,27 @@ export class Renderer {
         }
       }
 
+      ctx.stroke();
+    }
+
+    for (const interchange of this._geometry.interchangeMarkers) {
+      const { x: x1, y: y1 } = amplify(interchange.a, this._amplification);
+      const { x: x2, y: y2 } = amplify(interchange.b, this._amplification);
+
+      ctx.lineCap = "round";
+      ctx.lineWidth = 6;
+      ctx.strokeStyle = "#45474d";
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
+
+      ctx.lineCap = "round";
+      ctx.lineWidth = 4;
+      ctx.strokeStyle = "#ffffff";
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
       ctx.stroke();
     }
 
