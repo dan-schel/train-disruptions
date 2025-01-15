@@ -31,39 +31,35 @@ export const validateMiddleware = <
     res: Response<TResBody>,
     next: NextFunction,
   ) => {
-    try {
-      const errors: IValidationError = {};
+    const errors: IValidationError = {};
 
-      if (params) {
-        const { success, error } = params.safeParse(req.params);
-        if (!success) {
-          errors.params = parseError(error.errors[0]);
-        }
+    if (params) {
+      const { success, error } = params.safeParse(req.params);
+      if (!success) {
+        errors.params = parseError(error.errors[0]);
       }
-
-      if (query) {
-        const { success, error } = query.safeParse(req.query);
-        if (!success) {
-          errors.query = parseError(error.errors[0]);
-        }
-      }
-
-      if (body) {
-        const { success, error } = body.safeParse(req.body);
-        if (!success) {
-          errors.body = parseError(error.errors[0]);
-        }
-      }
-
-      // If there are any errors, return a bad request error
-      if (Object.values(errors).length) {
-        throw new ValidationError(errors);
-      }
-
-      next();
-    } catch (error) {
-      next(error);
     }
+
+    if (query) {
+      const { success, error } = query.safeParse(req.query);
+      if (!success) {
+        errors.query = parseError(error.errors[0]);
+      }
+    }
+
+    if (body) {
+      const { success, error } = body.safeParse(req.body);
+      if (!success) {
+        errors.body = parseError(error.errors[0]);
+      }
+    }
+
+    // If there are any errors, return a bad request error
+    if (Object.values(errors).length) {
+      throw new ValidationError(errors);
+    }
+
+    next();
   };
 };
 

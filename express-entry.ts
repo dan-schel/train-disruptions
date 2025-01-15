@@ -43,7 +43,7 @@ async function startServer() {
    *
    * @link {@see https://vike.dev}
    **/
-  app.all("*", createHandler(vikeHandler)());
+  app.all(/(.*)/, createHandler(vikeHandler)());
 
   app.listen(env.PORT, () => {
     // eslint-disable-next-line no-console
