@@ -1,6 +1,13 @@
 import { FLINDERS_STREET } from "../../server/data/station-ids";
 import { bake } from "./bake";
-import { curve, Geometry, interchangeMarker, Line, straight } from "./geometry";
+import {
+  curve,
+  Geometry,
+  interchangeMarker,
+  Line,
+  split,
+  straight,
+} from "./geometry";
 
 const northernGroup: Line = {
   x: 0,
@@ -12,6 +19,9 @@ const northernGroup: Line = {
     straight({ min: 20, max: 40 }),
     curve({ radius: 20, angle: 90 }),
     straight({ min: 20, max: 40 }),
+    split({ split: [curve({ radius: 20, angle: 90 })], reverse: true }),
+    straight({ min: 20, max: 40 }),
+    interchangeMarker({ id: FLINDERS_STREET }),
   ],
 };
 

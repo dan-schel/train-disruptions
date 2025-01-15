@@ -7,17 +7,13 @@ export type Straight = {
 export type Curve = {
   type: "curve";
   radius: number;
-  angle: -90 | -45 | 0 | 45 | 90;
+  angle: -90 | -45 | 45 | 90;
 };
 
 export type Split = {
   type: "split";
   split: Path[];
-};
-
-export type ReverseSplit = {
-  type: "reverse-split";
-  returner: Path[];
+  reverse: boolean;
 };
 
 // TODO: [DS] No way to create a split interchange marker, e.g. at Sunshine, so
@@ -28,7 +24,7 @@ export type InterchangeMarker = {
   id: number;
 };
 
-export type Path = Straight | Curve | Split | ReverseSplit | InterchangeMarker;
+export type Path = Straight | Curve | Split | InterchangeMarker;
 
 export type LineColor =
   | "red"
@@ -60,10 +56,6 @@ export function curve(args: Omit<Curve, "type">): Curve {
 
 export function split(args: Omit<Split, "type">): Split {
   return { type: "split", ...args };
-}
-
-export function reverseSplit(args: Omit<ReverseSplit, "type">): ReverseSplit {
-  return { type: "reverse-split", ...args };
 }
 
 export function interchangeMarker(

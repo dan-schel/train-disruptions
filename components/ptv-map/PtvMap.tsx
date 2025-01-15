@@ -30,5 +30,5 @@ export function PtvMap(props: PtvMapProps) {
     };
   }, [props.amplification]);
 
-  return <canvas ref={canvasRef} />;
+  return <canvas ref={canvasRef} width="1000" height="800" />;
 }

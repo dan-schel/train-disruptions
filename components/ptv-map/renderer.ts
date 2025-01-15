@@ -31,6 +31,10 @@ export class Renderer {
 
     ctx.clearRect(0, 0, this._canvas.width, this._canvas.height);
 
+    ctx.fillStyle = "#f0f0f0";
+    ctx.rect(0, 0, this._canvas.width, this._canvas.height);
+    ctx.fill();
+
     ctx.save();
     ctx.translate(this._canvas.width / 2, this._canvas.height / 2);
 
@@ -45,6 +49,7 @@ export class Renderer {
     }
 
     for (const line of this._geometry.lineSegments) {
+      ctx.lineWidth = 4;
       ctx.strokeStyle = line.color;
       ctx.beginPath();
 

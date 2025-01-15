@@ -4,7 +4,6 @@ import {
   InterchangeMarker,
   LineColor,
   Path,
-  ReverseSplit,
   Split,
   Straight,
 } from "./geometry";
@@ -49,10 +48,25 @@ export function bake(geometry: Geometry): BakedGeometry {
     locatedInterchanges.push(...bakedLine.locatedInterchanges);
   }
 
-  // TODO: [DS] Create interchange markers by looking for pairs of located
-  // interchange points with the same ID. They're each end of the line.
+  const interchangeMarkers: BakedInterchangeMarker[] = [];
+  locatedInterchanges.sort((a, b) => a.id - b.id);
+
+  collectedRepeatedValues(
+    locatedInterchanges,
+    (item) => item.id,
+    (items) => {
+      if (items.length === 2) {
+        interchangeMarkers.push({ a: items[0].point, b: items[1].point });
+      } else {
+        throw new Error(
+          `Interchange marker with ID ${items[0].id} has ${items.length} points.`,
+        );
+      }
+    },
+  );
+
   return {
-    interchangeMarkers: [],
+    interchangeMarkers,
     lineSegments,
   };
 }
@@ -112,9 +126,6 @@ class PathBaker {
       case "split":
         this.applySplit(piece);
         break;
-      case "reverse-split":
-        this.applyReverseSplit(piece);
-        break;
       case "interchange-marker":
         this.applyInterchangeMarker(piece);
         break;
@@ -133,37 +144,24 @@ class PathBaker {
   }
 
   applyCurve(piece: Curve) {
-    // TODO: [DS] This demonstrates that it's annoying to bake the min and max
-    // points at the same time, but the alternative (baking twice and lerping at
-    // render-time) is even worse. We'd have to create more types to represent
-    // the intermediate stages, because baking would become a four-step process:
-    //
-    //   1. Split the path into a min path and a max path.
-    //   2. Bake the min path.
-    //   3. Bake the max path.
-    //   4. Join min and max paths together (or lerp at render-time).
-    //
-    // I think this function will look nicer if we can split the curve building
-    // logic into a separate function and apply it twice.
-    //
-    // Also right now it's broken lol. The curve does not look right. The center
-    // should be different depending on whether we're curving clockwise or
-    // anticlockwise, and the current code doesn't seem to account for that, so
-    // that's something to look into.
+    let centerMinX = this._minX;
+    let centerMinY = this._minY;
+    let centerMaxX = this._maxX;
+    let centerMaxY = this._maxY;
 
-    const minCenterX = this._minX + Math.cos(rad(this._angle)) * piece.radius;
-    const minCenterY = this._minY + Math.sin(rad(this._angle)) * piece.radius;
-    const maxCenterX = this._maxX + Math.cos(rad(this._angle)) * piece.radius;
-    const maxCenterY = this._maxY + Math.sin(rad(this._angle)) * piece.radius;
+    const centerAngle = piece.angle < 0 ? this._angle - 90 : this._angle + 90;
+    centerMinX += Math.cos(rad(centerAngle)) * piece.radius;
+    centerMinY += Math.sin(rad(centerAngle)) * piece.radius;
+    centerMaxX += Math.cos(rad(centerAngle)) * piece.radius;
+    centerMaxY += Math.sin(rad(centerAngle)) * piece.radius;
 
-    const segments = 10;
-
-    for (let i = 0; i < segments; i++) {
-      const angle = this._angle + (piece.angle / segments) * i;
-      const minX = minCenterX + Math.cos(rad(angle)) * piece.radius;
-      const minY = minCenterY + Math.sin(rad(angle)) * piece.radius;
-      const maxX = maxCenterX + Math.cos(rad(angle)) * piece.radius;
-      const maxY = maxCenterY + Math.sin(rad(angle)) * piece.radius;
+    const segments = 5;
+    for (let i = 1; i <= segments; i++) {
+      const angle = centerAngle + 180 + (piece.angle / segments) * i;
+      const minX = centerMinX + Math.cos(rad(angle)) * piece.radius;
+      const minY = centerMinY + Math.sin(rad(angle)) * piece.radius;
+      const maxX = centerMaxX + Math.cos(rad(angle)) * piece.radius;
+      const maxY = centerMaxY + Math.sin(rad(angle)) * piece.radius;
 
       this._minX = minX;
       this._minY = minY;
@@ -171,16 +169,22 @@ class PathBaker {
       this._maxY = maxY;
       this._commitPoint();
     }
+
     this._angle += piece.angle;
   }
 
   applySplit(piece: Split) {
-    // TODO: [DS] Implement this.
-  }
-
-  applyReverseSplit(piece: ReverseSplit) {
-    // TODO: [DS] Might be better to make reverse-split a variant of split,
-    // rather than a separate type.
+    const split = PathBaker.bake(
+      this._minX,
+      this._minY,
+      this._maxX,
+      this._maxY,
+      this._angle + (piece.reverse ? 180 : 0),
+      this._color,
+      piece.split,
+    );
+    this._branches.push(...split.lineSegments);
+    this._locatedInterchanges.push(...split.locatedInterchanges);
   }
 
   applyInterchangeMarker(piece: InterchangeMarker) {
@@ -203,4 +207,31 @@ class PathBaker {
 
 function rad(deg: number) {
   return deg * (Math.PI / 180);
+}
+
+function collectedRepeatedValues<T>(
+  array: T[],
+  selector: (item: T) => number,
+  action: (item: T[]) => void,
+) {
+  let current: number | null = null;
+  const values: T[] = [];
+
+  for (const item of array) {
+    const value = selector(item);
+    if (value !== current) {
+      current = value;
+
+      if (values.length !== 0) {
+        action(values);
+        values.length = 0;
+      }
+    }
+
+    values.push(item);
+  }
+
+  if (values.length !== 0) {
+    action(values);
+  }
 }
