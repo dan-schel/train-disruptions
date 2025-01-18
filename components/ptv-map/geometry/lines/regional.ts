@@ -8,8 +8,7 @@ import { regionalSxsToNme } from "../segments/regional-sxs-to-nme";
  * east.
  */
 export const regionalEastern: Line = {
-  x: -80,
-  y: -22,
+  origin: { min: { x: -80, y: -22 }, max: { x: -80, y: -22 } },
   angle: 0,
   color: "purple",
   path: gippslandLine(),
@@ -21,8 +20,7 @@ export const regionalEastern: Line = {
  * Melbourne/Footscray.
  */
 export const regionalWestern: Line = {
-  x: -70,
-  y: -28,
+  origin: { min: { x: -70, y: -28 }, max: { x: -70, y: -28 } },
   angle: 180,
   color: "purple",
   path: regionalSxsToNme(),

@@ -36,10 +36,10 @@ export function bake(geometry: Geometry): BakedGeometry {
 
   for (const line of geometry) {
     const bakedLine = PathBaker.bake(
-      line.x,
-      line.y,
-      line.x,
-      line.y,
+      line.origin.min.x,
+      line.origin.min.y,
+      line.origin.max.x,
+      line.origin.max.y,
       line.angle,
       line.color,
       line.path,
@@ -71,6 +71,8 @@ export function bake(geometry: Geometry): BakedGeometry {
   };
 }
 
+// TODO: [DS] Can probably make this more concise by using a baked point class
+// with good methods, instead of always dealing with minX, minY, maxX, maxY.
 class PathBaker {
   private readonly _points: BakedPoint[] = [];
   private readonly _branches: BakedLineSegment[] = [];

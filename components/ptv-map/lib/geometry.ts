@@ -1,3 +1,5 @@
+import { BakedPoint } from "./bake";
+
 export type Straight = {
   type: "straight";
   min: number;
@@ -37,8 +39,7 @@ export type LineColor =
   | "grey";
 
 export type Line = {
-  x: number;
-  y: number;
+  origin: BakedPoint;
   angle: number;
   color: LineColor;
   path: Path[];
