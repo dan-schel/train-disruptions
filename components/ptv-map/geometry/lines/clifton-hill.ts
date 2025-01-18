@@ -1,5 +1,8 @@
 import { Line } from "../../lib/geometry";
-import { cliftonHillLoop } from "../segments/clifton-hill-loop";
+import { flagstaffToParliament } from "../segments/flagstaff-to-parliament";
+import { flindersStreetToSouthernCross } from "../segments/flinders-street-to-southern-cross";
+import { jolimontLoopPortal } from "../segments/jolimont-loop-portal";
+import { southernCrossToFlagstaff } from "../segments/southern-cross-to-flagstaff";
 import { flindersStreetCoords } from "../utils-city-loop";
 
 /**
@@ -10,5 +13,15 @@ export const cliftonHill: Line = {
   origin: flindersStreetCoords(1),
   angle: 180,
   color: "red",
-  path: cliftonHillLoop(),
+  path: [
+    // Flinders Street
+    ...flindersStreetToSouthernCross(1),
+    // Southern Cross
+    ...southernCrossToFlagstaff(1),
+    // Flagstaff
+    ...flagstaffToParliament(1),
+    // Parliament
+    ...jolimontLoopPortal(),
+    // Jolimont
+  ],
 };
