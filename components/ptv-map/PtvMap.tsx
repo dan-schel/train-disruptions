@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Renderer } from "./lib/renderer";
-import { ptvGeometry } from "./geometry/ptv-geometry";
+import { geometry } from "./geometry";
 
 export type PtvMapProps = {
   /** How much to exaggerate details (optimise for smaller screens.) */
@@ -15,11 +15,7 @@ export function PtvMap(props: PtvMapProps) {
   useEffect(() => {
     let renderer: Renderer | null = null;
     if (canvasRef.current != null) {
-      renderer = new Renderer(
-        canvasRef.current,
-        props.amplification,
-        ptvGeometry,
-      );
+      renderer = new Renderer(canvasRef.current, props.amplification, geometry);
       renderer.start();
     }
 
