@@ -1,7 +1,7 @@
 import { Line } from "../../lib/geometry";
 import { crossCityWest } from "../segments/cross-city-west";
 import { frankstonLine } from "../segments/frankston-line";
-import { fssCoords } from "../utils";
+import { fssCoords } from "../utils-city-loop";
 
 /**
  * The Frankston line, which makes up the eastern half of the "Cross City" group

@@ -1,4 +1,5 @@
 import { straight, curve, Path, split } from "../../lib/geometry";
+import { flagstaffToParliament } from "./flagstaff-to-parliament";
 
 export function cliftonHillLoop(): Path[] {
   return [
@@ -10,10 +11,7 @@ export function cliftonHillLoop(): Path[] {
     straight({ min: 20, max: 20 }),
     curve({ radius: 20, angle: 90 }),
     // FLAGSTAFF
-    straight({ min: 40, max: 40 }),
-    // MELBOURNE_CENTRAL
-    straight({ min: 20, max: 20 }),
-    curve({ radius: 20, angle: 90 }),
+    ...flagstaffToParliament(1),
     // PARLIAMENT
     straight({ min: 30, max: 30 }),
     curve({ radius: 20, angle: -90 }),

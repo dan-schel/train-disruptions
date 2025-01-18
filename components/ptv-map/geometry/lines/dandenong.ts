@@ -1,6 +1,6 @@
 import { Line } from "../../lib/geometry";
 import { caulfieldLoop } from "../segments/caulfield-loop";
-import { fssCoords } from "../utils";
+import { fssCoords } from "../utils-city-loop";
 
 /**
  * The Cranbourne and Pakenham lines, a.k.a. the "Dandenong group" (colored

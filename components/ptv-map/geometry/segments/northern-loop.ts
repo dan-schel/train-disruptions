@@ -14,6 +14,7 @@ import {
   split,
 } from "../../lib/geometry";
 import { diagonal, long45, short45 } from "../utils";
+import { flagstaffToParliament } from "./flagstaff-to-parliament";
 
 const x = 25 + 15 * short45 - 5 * diagonal;
 const y = 15 * long45 + 25 * diagonal;
@@ -47,10 +48,7 @@ export function northernLoop(): Path[] {
           angle: -45,
         }),
         interchangeMarker({ id: FLAGSTAFF }),
-        straight({ min: 40, max: 40 }),
-        interchangeMarker({ id: MELBOURNE_CENTRAL }),
-        straight({ min: 20, max: 20 }),
-        curve({ radius: 15, angle: 90 }),
+        ...flagstaffToParliament(0),
         interchangeMarker({ id: PARLIAMENT }),
         straight({ min: 30, max: 30 }),
         curve({ radius: 15, angle: 90 }),

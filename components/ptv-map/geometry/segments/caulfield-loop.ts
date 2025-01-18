@@ -10,6 +10,7 @@ import {
   split,
   straight,
 } from "../../lib/geometry";
+import { flagstaffToParliament } from "./flagstaff-to-parliament";
 
 function richmondLoopExit(dimensions: {
   width: number;
@@ -75,10 +76,7 @@ export function caulfieldLoop(): Path[] {
     straight({ min: 20, max: 20 }),
     curve({ radius: 30, angle: 90 }),
     interchangeMarker({ id: FLAGSTAFF }),
-    straight({ min: 40, max: 40 }),
-    interchangeMarker({ id: MELBOURNE_CENTRAL }),
-    straight({ min: 20, max: 20 }),
-    curve({ radius: 30, angle: 90 }),
+    ...flagstaffToParliament(3),
     interchangeMarker({ id: PARLIAMENT }),
     ...richmondLoopExit({
       width: 50,

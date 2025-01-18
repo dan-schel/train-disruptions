@@ -6,6 +6,7 @@ import {
   split,
   straight,
 } from "../../lib/geometry";
+import { flagstaffToParliament } from "./flagstaff-to-parliament";
 
 function richmondLoopExit(dimensions: {
   width: number;
@@ -71,10 +72,7 @@ export function burnleyLoop(): Path[] {
     straight({ min: 20, max: 20 }),
     curve({ radius: 25, angle: 90 }),
     // FLAGSTAFF
-    straight({ min: 40, max: 40 }),
-    // MELBOURNE_CENTRAL
-    straight({ min: 20, max: 20 }),
-    curve({ radius: 25, angle: 90 }),
+    ...flagstaffToParliament(2),
     // PARLIAMENT
     ...richmondLoopExit({
       width: 45,

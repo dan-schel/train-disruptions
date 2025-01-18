@@ -1,6 +1,6 @@
 import { Line } from "../../lib/geometry";
 import { northernLoop } from "../segments/northern-loop";
-import { fssCoords } from "../utils";
+import { fssCoords } from "../utils-city-loop";
 
 /**
  * The Craigieburn, Sunbury, and Upfield lines, a.k.a. the "Northern group"

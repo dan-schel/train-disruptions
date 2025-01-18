@@ -1,6 +1,6 @@
 import { Line } from "../../lib/geometry";
 import { cliftonHillLoop } from "../segments/clifton-hill-loop";
-import { fssCoords } from "../utils";
+import { fssCoords } from "../utils-city-loop";
 
 /**
  * The Hurstbridge and Mernda lines, a.k.a. the "Clifton Hill group" (colored

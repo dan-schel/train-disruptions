@@ -1,6 +1,6 @@
 import { Line } from "../../lib/geometry";
 import { burnleyLoop } from "../segments/burnley-loop";
-import { fssCoords } from "../utils";
+import { fssCoords } from "../utils-city-loop";
 
 /**
  * The Alamein, Belgrave, Glen Waverley and Lilydale lines, a.k.a. the "Burnley
