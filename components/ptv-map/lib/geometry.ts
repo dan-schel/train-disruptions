@@ -46,16 +46,25 @@ export type Line = {
 
 export type Geometry = Line[];
 
-export function straight(args: Omit<Straight, "type">): Straight {
-  return { type: "straight", ...args };
+export function straight(
+  args: Omit<Straight, "type"> | { len: number },
+): Straight {
+  if ("len" in args) {
+    return { type: "straight", min: args.len, max: args.len };
+  } else {
+    return { type: "straight", ...args };
+  }
 }
 
 export function curve(args: Omit<Curve, "type">): Curve {
   return { type: "curve", ...args };
 }
 
-export function split(args: Omit<Split, "type">): Split {
-  return { type: "split", ...args };
+export function split(
+  args: Omit<Split, "type" | "reverse"> & { reverse?: boolean },
+): Split {
+  const reverse = args.reverse ?? false;
+  return { type: "split", ...args, reverse };
 }
 
 export function interchangeMarker(
