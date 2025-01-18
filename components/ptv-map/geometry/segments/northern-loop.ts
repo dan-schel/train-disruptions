@@ -2,7 +2,6 @@ import {
   FLINDERS_STREET,
   SOUTHERN_CROSS,
   FLAGSTAFF,
-  MELBOURNE_CENTRAL,
   PARLIAMENT,
   NORTH_MELBOURNE,
 } from "../../../../server/data/station-ids";

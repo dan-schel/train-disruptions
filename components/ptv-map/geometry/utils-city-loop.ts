@@ -23,7 +23,7 @@ export function radius(lineNumber: number) {
  * The position of Flinders Street, based on the line number index from the
  * center.
  */
-export function fssCoords(lineNumber: number): BakedPoint {
+export function flindersStreetCoords(lineNumber: number): BakedPoint {
   return {
     min: { x: flindersStreetX, y: southEdgeY + lineNumber * lineGap },
     max: { x: flindersStreetX, y: southEdgeY + lineNumber * lineGap },
