@@ -1,25 +1,49 @@
+import { FlexiPoint } from "../../lib/flexi";
 import { curve, Path, straight } from "../../lib/geometry";
+import { diagonal, lineGap, long45, short45 } from "../utils";
 import * as loop from "../utils-city-loop";
 
-/**
- * South-east corner of the city loop from Parliament to Flinders Street. Does
- * not include portals to Richmond or Jolimont.
- */
-export function parliamentToFlindersStreet(
-  lineNumber: loop.LineNumber,
-): Path[] {
-  const parliamentPos = loop.pos.parliament(lineNumber);
-  const flindersStreetPos = loop.pos.flindersStreet(lineNumber);
+const innerRadius = 15;
 
-  const radius = loop.radius(lineNumber);
+export const flindersStreetStraight = 40;
+export const richmondStraight = 10;
 
+export function radius(lineNumber: loop.LineNumber): number {
+  return innerRadius + (6 - lineNumber) * lineGap;
+}
+
+export function richmondPos(lineNumber: loop.LineNumber): FlexiPoint {
+  return loop.pos
+    .flindersStreet(lineNumber)
+    .plus({ x: flindersStreetStraight })
+    .plus({ x: radius(lineNumber) * long45, y: radius(lineNumber) * short45 })
+    .plus({ x: richmondStraight * diagonal, y: richmondStraight * diagonal });
+}
+
+// TODO: [DS] Could this be calculated automatically, e.g. a Path.reverse()
+// method?
+export function reverse(flindersStreetLineNumber: loop.LineNumber): Path[] {
   return [
-    // Southern Cross
-    straight(parliamentPos.verticalDistanceTo(flindersStreetPos).minus(radius)),
-    curve({ radius: radius, angle: 90 }),
-    straight(
-      parliamentPos.horizontalDistanceTo(flindersStreetPos).minus(radius),
-    ),
-    // Flagstaff
+    // Richmond
+    straight(richmondStraight),
+    curve({ radius: radius(flindersStreetLineNumber), angle: -45 }),
+    straight(flindersStreetStraight),
+    // Flinders Street
+  ];
+}
+
+/**
+ * The direct path from Flinders Street to Richmond. Does not include city loop
+ * portals.
+ */
+export function flindersStreetToRichmond(
+  flindersStreetLineNumber: loop.LineNumber,
+): Path[] {
+  return [
+    // Flinders Street
+    straight(flindersStreetStraight),
+    curve({ radius: radius(flindersStreetLineNumber), angle: 45 }),
+    straight(richmondStraight),
+    // Richmond
   ];
 }

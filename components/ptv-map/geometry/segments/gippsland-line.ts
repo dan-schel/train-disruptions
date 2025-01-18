@@ -1,16 +1,16 @@
 import { curve, Path, straight } from "../../lib/geometry";
+import { flindersStreetToRichmond } from "./flinders-street-to-richmond";
+import * as loop from "../utils-city-loop";
 
 export function gippslandLine(): Path[] {
   return [
-    // SOUTHERN_CROSS
+    // Southern Cross
     curve({ radius: 5, angle: 90 }),
     straight({ min: 2, max: 2 }),
     curve({ radius: 35, angle: -90 }),
     straight({ min: 40, max: 40 }),
-    // FLINDERS_STREET
-    straight({ min: 40, max: 40 }),
-    curve({ radius: 25, angle: 45 }),
-    straight({ min: 10, max: 10 }),
-    // RICHMOND
+    // Flinders Street
+    ...flindersStreetToRichmond(loop.line.regional),
+    // Richmond
   ];
 }

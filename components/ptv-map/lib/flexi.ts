@@ -65,6 +65,30 @@ export class FlexiPoint {
       this.min.y + (this.max.y - this.min.y) * amplification,
     );
   }
+
+  plus(input: {
+    x?: InformalFlexiLength;
+    y?: InformalFlexiLength;
+  }): FlexiPoint {
+    const x = FlexiLength.formalize(input.x ?? 0);
+    const y = FlexiLength.formalize(input.y ?? 0);
+    return new FlexiPoint(
+      new Point(this.min.x + x.min, this.min.y + y.min),
+      new Point(this.max.x + x.max, this.max.y + y.max),
+    );
+  }
+
+  minus(input: {
+    x?: InformalFlexiLength;
+    y?: InformalFlexiLength;
+  }): FlexiPoint {
+    const x = FlexiLength.formalize(input.x ?? 0);
+    const y = FlexiLength.formalize(input.y ?? 0);
+    return new FlexiPoint(
+      new Point(this.min.x - x.min, this.min.y - y.min),
+      new Point(this.max.x - x.max, this.max.y - y.max),
+    );
+  }
 }
 
 export class FlexiLength {

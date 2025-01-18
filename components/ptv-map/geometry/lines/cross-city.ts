@@ -1,6 +1,6 @@
 import { Line } from "../../lib/geometry";
 import { crossCityWest } from "../segments/cross-city-west";
-import { frankstonLine } from "../segments/frankston-line";
+import { flindersStreetToRichmond } from "../segments/flinders-street-to-richmond";
 import * as loop from "../utils-city-loop";
 
 /**
@@ -11,7 +11,11 @@ export const crossCityEastern: Line = {
   origin: loop.pos.flindersStreet(loop.line.crossCity),
   angle: 0,
   color: "green",
-  path: frankstonLine(),
+  path: [
+    // Flinders Street
+    ...flindersStreetToRichmond(loop.line.crossCity),
+    // Richmond
+  ],
 };
 
 /**
