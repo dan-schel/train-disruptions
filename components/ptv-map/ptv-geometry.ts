@@ -24,6 +24,23 @@ function sizeOf45DegAngleBox(radius: number) {
   return radius * (-1 + Math.sin(Math.PI / 4) + Math.cos(Math.PI / 4));
 }
 
+function exitLoopRadius(dr: number, ds: number, ls: number, off: number) {
+  const cos45 = Math.cos(Math.PI / 4);
+  return (dr * cos45 + (ds - ls) / Math.sqrt(2) - off) / (1 - cos45);
+}
+
+function exitLoopStraight(
+  dr: number,
+  ds: number,
+  ls: number,
+  offX: number,
+  offY: number,
+) {
+  const sin45 = Math.sin(Math.PI / 4);
+  const r = exitLoopRadius(dr, ds, ls, offX);
+  return offY + (1 - sin45) * dr + (ds - ls) / Math.sqrt(2) - r * sin45;
+}
+
 const gippslandLine: Line = {
   x: -80,
   y: -22,
@@ -36,10 +53,10 @@ const gippslandLine: Line = {
     curve({ radius: 35, angle: -90 }),
     straight({ min: 40, max: 40 }),
     // FLINDERS_STREET
-    straight({ min: 30, max: 30 }),
+    straight({ min: 40, max: 40 }),
     curve({ radius: 25, angle: 45 }),
     straight({ min: 10, max: 10 }),
-    interchangeMarker({ id: RICHMOND }),
+    // RICHMOND
   ],
 };
 
@@ -147,22 +164,24 @@ const burnleyGroup: Line = {
     curve({ radius: 25, angle: 90 }),
     // PARLIAMENT
     straight({
-      min: 55 - sizeOf45DegAngleBox(30),
-      max: 55 - sizeOf45DegAngleBox(30),
+      min: exitLoopStraight(35, 10, 25, 5, 55),
+      max: exitLoopStraight(35, 10, 25, 5, 55),
     }),
-    curve({ radius: 30, angle: -45 }),
+    curve({ radius: exitLoopRadius(35, 10, 25, 5), angle: -45 }),
+    straight({ min: 25, max: 25 }),
     split({
       reverse: true,
       split: [
-        curve({ radius: 30, angle: -45 }),
+        straight({ min: 10, max: 10 }),
+        curve({ radius: 35, angle: -45 }),
         straight({
-          min: 45 - sizeOf45DegAngleBox(30),
-          max: 45 - sizeOf45DegAngleBox(30),
+          min: 40,
+          max: 40,
         }),
         // FLINDERS_STREET
       ],
     }),
-    // RICHMOND,
+    interchangeMarker({ id: RICHMOND }),
   ],
 };
 
@@ -186,17 +205,19 @@ const dandenongGroup: Line = {
     curve({ radius: 30, angle: 90 }),
     interchangeMarker({ id: PARLIAMENT }),
     straight({
-      min: 60 - sizeOf45DegAngleBox(30),
-      max: 60 - sizeOf45DegAngleBox(30),
+      min: exitLoopStraight(30, 10, 20, 10, 60),
+      max: exitLoopStraight(30, 10, 20, 10, 60),
     }),
-    curve({ radius: 30, angle: -45 }),
+    curve({ radius: exitLoopRadius(30, 10, 20, 10), angle: -45 }),
+    straight({ min: 20, max: 20 }),
     split({
       reverse: true,
       split: [
+        straight({ min: 10, max: 10 }),
         curve({ radius: 30, angle: -45 }),
         straight({
-          min: 50 - sizeOf45DegAngleBox(30),
-          max: 50 - sizeOf45DegAngleBox(30),
+          min: 40,
+          max: 40,
         }),
         // FLINDERS_STREET
       ],
@@ -227,7 +248,7 @@ const frankston: Line = {
   color: "green",
   path: [
     // FLINDERS_STREET
-    straight({ min: 30, max: 30 }),
+    straight({ min: 40, max: 40 }),
     curve({ radius: 20, angle: 45 }),
     straight({ min: 10, max: 10 }),
     // RICHMOND
@@ -241,7 +262,7 @@ const sandringham: Line = {
   color: "pink",
   path: [
     interchangeMarker({ id: FLINDERS_STREET }),
-    straight({ min: 30, max: 30 }),
+    straight({ min: 40, max: 40 }),
     curve({ radius: 15, angle: 45 }),
     straight({ min: 10, max: 10 }),
     interchangeMarker({ id: RICHMOND }),
@@ -253,8 +274,8 @@ const raw: Geometry = [
   otherRegionalLines,
 
   cliftonHillGroup,
-  burnleyGroup,
   dandenongGroup,
+  burnleyGroup,
   northernGroup,
   werribeeWilliamstown,
   frankston,
