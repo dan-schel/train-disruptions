@@ -2,6 +2,7 @@ import { MELBOURNE_CENTRAL } from "../../../../server/data/station-ids";
 import { curve, interchangeMarker, Path, straight } from "../../lib/geometry";
 import * as loop from "../utils-city-loop";
 
+/** Underground city loop section from Flagstaff to Parliament. */
 export function flagstaffToParliament(lineNumber: number): Path[] {
   const flagstaffPos = loop.flagstaffCoords(lineNumber);
   const melbourneCentralPos = loop.melbourneCentralCoords(lineNumber);

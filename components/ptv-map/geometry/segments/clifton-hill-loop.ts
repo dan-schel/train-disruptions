@@ -1,12 +1,11 @@
 import { straight, curve, Path, split } from "../../lib/geometry";
 import { flagstaffToParliament } from "./flagstaff-to-parliament";
+import { flindersStreetToSouthernCross } from "./flinders-street-to-southern-cross";
 
 export function cliftonHillLoop(): Path[] {
   return [
     // FLINDERS_STREET
-    straight({ min: 40, max: 40 }),
-    curve({ radius: 20, angle: 90 }),
-    straight({ min: 10, max: 10 }),
+    ...flindersStreetToSouthernCross(1),
     // SOUTHERN_CROSS
     straight({ min: 20, max: 20 }),
     curve({ radius: 20, angle: 90 }),

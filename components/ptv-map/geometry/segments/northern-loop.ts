@@ -15,6 +15,7 @@ import {
 } from "../../lib/geometry";
 import { diagonal, long45, short45 } from "../utils";
 import { flagstaffToParliament } from "./flagstaff-to-parliament";
+import { flindersStreetToSouthernCross } from "./flinders-street-to-southern-cross";
 
 const x = 25 + 15 * short45 - 5 * diagonal;
 const y = 15 * long45 + 25 * diagonal;
@@ -29,9 +30,7 @@ const l2 = h - l1 * diagonal - long45 * r2;
 export function northernLoop(): Path[] {
   return [
     interchangeMarker({ id: FLINDERS_STREET }),
-    straight({ min: 40, max: 40 }),
-    curve({ radius: 15, angle: 90 }),
-    straight({ min: 10, max: 10 }),
+    ...flindersStreetToSouthernCross(0),
     interchangeMarker({ id: SOUTHERN_CROSS }),
     straight({ min: l2, max: l2 }),
     curve({

@@ -3,13 +3,12 @@ import {
   NORTH_MELBOURNE,
 } from "../../../../server/data/station-ids";
 import { curve, interchangeMarker, Path, straight } from "../../lib/geometry";
+import { flindersStreetToSouthernCross } from "./flinders-street-to-southern-cross";
 
 export function crossCityWest(): Path[] {
   return [
     // FLINDERS_STREET
-    straight({ min: 40, max: 40 }),
-    curve({ radius: 40, angle: 90 }),
-    straight({ min: 10, max: 10 }),
+    ...flindersStreetToSouthernCross(5),
     interchangeMarker({ id: SOUTHERN_CROSS }),
     straight({ min: 35, max: 35 }),
     curve({ radius: 15, angle: -45 }),
