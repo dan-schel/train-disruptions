@@ -13,7 +13,6 @@ import {
   Geometry,
   interchangeMarker,
   Line,
-  Path,
   split,
   straight,
 } from "./geometry";
@@ -21,10 +20,6 @@ import {
 const long45 = Math.cos(Math.PI / 4);
 const short45 = 1 - Math.cos(Math.PI / 4);
 const diagonal = 1 / Math.sqrt(2);
-
-function radiusOf45DegAngleBox(size: number) {
-  return size / (-1 + Math.sin(Math.PI / 4) + Math.cos(Math.PI / 4));
-}
 
 function richmondLoopExit(dimensions: {
   width: number;
