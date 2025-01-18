@@ -1,3 +1,4 @@
+import { FlexiPoint } from "./flexi";
 import {
   Curve,
   Geometry,
@@ -8,19 +9,14 @@ import {
   Straight,
 } from "./geometry";
 
-export type BakedPoint = {
-  min: { x: number; y: number };
-  max: { x: number; y: number };
-};
-
 export type BakedInterchangeMarker = {
-  a: BakedPoint;
-  b: BakedPoint;
+  a: FlexiPoint;
+  b: FlexiPoint;
 };
 
 export type BakedLineSegment = {
   color: LineColor;
-  points: BakedPoint[];
+  points: FlexiPoint[];
 };
 
 export type BakedGeometry = {
@@ -28,18 +24,20 @@ export type BakedGeometry = {
   lineSegments: BakedLineSegment[];
 };
 
-type LocatedInterchange = { id: number; point: BakedPoint };
+type LocatedInterchange = { id: number; point: FlexiPoint };
 
 export function bake(geometry: Geometry): BakedGeometry {
   const lineSegments: BakedLineSegment[] = [];
   const locatedInterchanges: LocatedInterchange[] = [];
 
   for (const line of geometry) {
+    const origin = FlexiPoint.formalize(line.origin);
+
     const bakedLine = PathBaker.bake(
-      line.origin.min.x,
-      line.origin.min.y,
-      line.origin.max.x,
-      line.origin.max.y,
+      origin.min.x,
+      origin.min.y,
+      origin.max.x,
+      origin.max.y,
       line.angle,
       line.color,
       line.path,
@@ -74,7 +72,7 @@ export function bake(geometry: Geometry): BakedGeometry {
 // TODO: [DS] Can probably make this more concise by using a baked point class
 // with good methods, instead of always dealing with minX, minY, maxX, maxY.
 class PathBaker {
-  private readonly _points: BakedPoint[] = [];
+  private readonly _points: FlexiPoint[] = [];
   private readonly _branches: BakedLineSegment[] = [];
   private readonly _locatedInterchanges: LocatedInterchange[] = [];
 
@@ -137,7 +135,7 @@ class PathBaker {
   }
 
   applyStraight(piece: Straight) {
-    const { min, max } = piece;
+    const { min, max } = piece.length;
     this._minX += Math.cos(rad(this._angle)) * min;
     this._minY += Math.sin(rad(this._angle)) * min;
     this._maxX += Math.cos(rad(this._angle)) * max;
@@ -192,18 +190,20 @@ class PathBaker {
   applyInterchangeMarker(piece: InterchangeMarker) {
     this._locatedInterchanges.push({
       id: piece.id,
-      point: {
+      point: FlexiPoint.formalize({
         min: { x: this._minX, y: this._minY },
         max: { x: this._maxX, y: this._maxY },
-      },
+      }),
     });
   }
 
   _commitPoint() {
-    this._points.push({
-      min: { x: this._minX, y: this._minY },
-      max: { x: this._maxX, y: this._maxY },
-    });
+    this._points.push(
+      FlexiPoint.formalize({
+        min: { x: this._minX, y: this._minY },
+        max: { x: this._maxX, y: this._maxY },
+      }),
+    );
   }
 }
 

@@ -1,4 +1,4 @@
-import { BakedGeometry, BakedPoint } from "./bake";
+import { BakedGeometry } from "./bake";
 import { LineColor } from "./geometry";
 
 const lineColors: Record<LineColor, string> = {
@@ -60,7 +60,7 @@ export class Renderer {
       let firstPoint = true;
 
       for (const point of line.points) {
-        const { x, y } = amplify(point, this._amplification);
+        const { x, y } = point.amplify(this._amplification);
 
         if (firstPoint) {
           ctx.moveTo(x, y);
@@ -74,8 +74,8 @@ export class Renderer {
     }
 
     for (const interchange of this._geometry.interchangeMarkers) {
-      const { x: x1, y: y1 } = amplify(interchange.a, this._amplification);
-      const { x: x2, y: y2 } = amplify(interchange.b, this._amplification);
+      const { x: x1, y: y1 } = interchange.a.amplify(this._amplification);
+      const { x: x2, y: y2 } = interchange.b.amplify(this._amplification);
 
       ctx.lineCap = "round";
       ctx.lineWidth = 6;
@@ -96,15 +96,4 @@ export class Renderer {
 
     ctx.restore();
   }
-}
-
-function amplifyValue(min: number, max: number, amplification: number) {
-  return min + (max - min) * amplification;
-}
-
-export function amplify(point: BakedPoint, amplification: number) {
-  return {
-    x: amplifyValue(point.min.x, point.max.x, amplification),
-    y: amplifyValue(point.min.y, point.max.y, amplification),
-  };
 }

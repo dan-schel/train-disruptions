@@ -29,7 +29,7 @@ export function PtvMap(props: PtvMapProps) {
   function handleClick(e: MouseEvent) {
     const x = (e.nativeEvent.offsetX - 500) / 4;
     const y = (e.nativeEvent.offsetY - 400) / 4;
-    console.log(`Clicked at x=${x.toFixed()}, y=${y.toFixed()}`);
+    console.log(`Clicked at x=${x.toFixed()}, y=${y.toFixed}`);
   }
 
   return (

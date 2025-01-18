@@ -1,4 +1,4 @@
-import { BakedPoint } from "../lib/bake";
+import { FlexiPoint } from "../lib/flexi";
 import { lineGap } from "./utils";
 
 const innerRadius = 15;
@@ -23,47 +23,47 @@ export function radius(lineNumber: number) {
  * The position of Flinders Street, based on the line number index from the
  * center.
  */
-export function flindersStreetCoords(lineNumber: number): BakedPoint {
-  return {
-    min: { x: flindersStreetX, y: southEdgeY + lineNumber * lineGap },
-    max: { x: flindersStreetX, y: southEdgeY + lineNumber * lineGap },
-  };
+export function flindersStreetCoords(lineNumber: number): FlexiPoint {
+  return FlexiPoint.formalize({
+    x: flindersStreetX,
+    y: southEdgeY + lineNumber * lineGap,
+  });
 }
 
 /**
  * The position of Southern Cross, based on the line number index from the
  * center.
  */
-export function southernCrossCoords(lineNumber: number): BakedPoint {
-  return {
-    min: { x: westEdgeX - lineNumber * lineGap, y: southernCrossY },
-    max: { x: westEdgeX - lineNumber * lineGap, y: southernCrossY },
-  };
+export function southernCrossCoords(lineNumber: number): FlexiPoint {
+  return FlexiPoint.formalize({
+    x: westEdgeX - lineNumber * lineGap,
+    y: southernCrossY,
+  });
 }
 
 /** The position of Flagstaff, based on the line number index from the center. */
-export function flagstaffCoords(lineNumber: number): BakedPoint {
-  return {
-    min: { x: flagstaffX, y: northEdgeY - lineNumber * lineGap },
-    max: { x: flagstaffX, y: northEdgeY - lineNumber * lineGap },
-  };
+export function flagstaffCoords(lineNumber: number): FlexiPoint {
+  return FlexiPoint.formalize({
+    x: flagstaffX,
+    y: northEdgeY - lineNumber * lineGap,
+  });
 }
 
 /**
  * The position of Melbourne Central, based on the line number index from the
  * center.
  */
-export function melbourneCentralCoords(lineNumber: number): BakedPoint {
-  return {
-    min: { x: melbourneCentralX, y: northEdgeY - lineNumber * lineGap },
-    max: { x: melbourneCentralX, y: northEdgeY - lineNumber * lineGap },
-  };
+export function melbourneCentralCoords(lineNumber: number): FlexiPoint {
+  return FlexiPoint.formalize({
+    x: melbourneCentralX,
+    y: northEdgeY - lineNumber * lineGap,
+  });
 }
 
 /** The position of Parliament, based on the line number index from the center. */
-export function parliamentCoords(lineNumber: number): BakedPoint {
-  return {
-    min: { x: eastEdgeX + lineNumber * lineGap, y: parliamentY },
-    max: { x: eastEdgeX + lineNumber * lineGap, y: parliamentY },
-  };
+export function parliamentCoords(lineNumber: number): FlexiPoint {
+  return FlexiPoint.formalize({
+    x: eastEdgeX + lineNumber * lineGap,
+    y: parliamentY,
+  });
 }

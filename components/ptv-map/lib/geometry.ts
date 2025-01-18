@@ -1,9 +1,8 @@
-import { BakedPoint } from "./bake";
+import { FlexiLength, InformalFlexiLength, InformalFlexiPoint } from "./flexi";
 
 export type Straight = {
   type: "straight";
-  min: number;
-  max: number;
+  length: FlexiLength;
 };
 
 export type Curve = {
@@ -39,7 +38,7 @@ export type LineColor =
   | "grey";
 
 export type Line = {
-  origin: BakedPoint;
+  origin: InformalFlexiPoint;
   angle: number;
   color: LineColor;
   path: Path[];
@@ -47,14 +46,8 @@ export type Line = {
 
 export type Geometry = Line[];
 
-export function straight(
-  args: Omit<Straight, "type"> | { len: number },
-): Straight {
-  if ("len" in args) {
-    return { type: "straight", min: args.len, max: args.len };
-  } else {
-    return { type: "straight", ...args };
-  }
+export function straight(length: InformalFlexiLength): Straight {
+  return { type: "straight", length: FlexiLength.formalize(length) };
 }
 
 export function curve(args: Omit<Curve, "type">): Curve {
