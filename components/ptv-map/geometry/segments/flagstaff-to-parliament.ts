@@ -3,10 +3,10 @@ import { curve, interchangeMarker, Path, straight } from "../../lib/geometry";
 import * as loop from "../utils-city-loop";
 
 /** Underground city loop section from Flagstaff to Parliament. */
-export function flagstaffToParliament(lineNumber: number): Path[] {
-  const flagstaffPos = loop.flagstaffCoords(lineNumber);
-  const melbourneCentralPos = loop.melbourneCentralCoords(lineNumber);
-  const parliamentPos = loop.parliamentCoords(lineNumber);
+export function flagstaffToParliament(lineNumber: loop.LineNumber): Path[] {
+  const flagstaffPos = loop.pos.flagstaff(lineNumber);
+  const melbourneCentralPos = loop.pos.melbourneCentral(lineNumber);
+  const parliamentPos = loop.pos.parliament(lineNumber);
 
   const radius = loop.radius(lineNumber);
 

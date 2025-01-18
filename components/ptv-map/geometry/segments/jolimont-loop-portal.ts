@@ -1,11 +1,12 @@
 import { curve, Path, split, straight } from "../../lib/geometry";
 import * as loop from "../utils-city-loop";
 
-const radius = loop.radius(1);
+const radius = loop.radius(loop.line.cliftonHill);
 
+/** The curve from Parliament to Jolimont, and the split back to Flinders Street. */
 export function jolimontLoopPortal(): Path[] {
-  const parliamentPos = loop.parliamentCoords(1);
-  const flindersStreetPos = loop.flindersStreetCoords(1);
+  const parliamentPos = loop.pos.parliament(loop.line.cliftonHill);
+  const flindersStreetPos = loop.pos.flindersStreet(loop.line.cliftonHill);
 
   return [
     // Parliament

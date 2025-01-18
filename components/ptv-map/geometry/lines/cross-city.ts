@@ -1,14 +1,14 @@
 import { Line } from "../../lib/geometry";
 import { crossCityWest } from "../segments/cross-city-west";
 import { frankstonLine } from "../segments/frankston-line";
-import { flindersStreetCoords } from "../utils-city-loop";
+import * as loop from "../utils-city-loop";
 
 /**
  * The Frankston line, which makes up the eastern half of the "Cross City" group
  * (colored green on the map).
  */
 export const crossCityEastern: Line = {
-  origin: flindersStreetCoords(5),
+  origin: loop.pos.flindersStreet(loop.line.crossCity),
   angle: 0,
   color: "green",
   path: frankstonLine(),
@@ -19,7 +19,7 @@ export const crossCityEastern: Line = {
  * "Cross City" group (colored green on the map).
  */
 export const crossCityWestern: Line = {
-  origin: flindersStreetCoords(5),
+  origin: loop.pos.flindersStreet(loop.line.crossCity),
   angle: 180,
   color: "green",
   path: crossCityWest(),

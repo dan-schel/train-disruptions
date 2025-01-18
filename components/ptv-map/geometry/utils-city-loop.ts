@@ -14,56 +14,65 @@ const flagstaffX = -40;
 const melbourneCentralX = 0;
 const parliamentY = -45;
 
+export const line = {
+  northern: 0,
+  cliftonHill: 1,
+  burnley: 2,
+  dandenong: 3,
+  regional: 4,
+  crossCity: 5,
+  sandringham: 6,
+} as const;
+
+export type LineNumber = (typeof line)[keyof typeof line];
+
 /** The radius to use, based on the line number index from the center. */
-export function radius(lineNumber: number) {
+export function radius(lineNumber: LineNumber) {
   return innerRadius + lineNumber * lineGap;
 }
 
-/**
- * The position of Flinders Street, based on the line number index from the
- * center.
- */
-export function flindersStreetCoords(lineNumber: number): FlexiPoint {
-  return FlexiPoint.formalize({
-    x: flindersStreetX,
-    y: southEdgeY + lineNumber * lineGap,
-  });
-}
+export const pos = {
+  /**
+   * The position of Flinders Street, based on the line number index from the
+   * center.
+   */
+  flindersStreet: (lineNumber: LineNumber) =>
+    FlexiPoint.formalize({
+      x: flindersStreetX,
+      y: southEdgeY + lineNumber * lineGap,
+    }),
 
-/**
- * The position of Southern Cross, based on the line number index from the
- * center.
- */
-export function southernCrossCoords(lineNumber: number): FlexiPoint {
-  return FlexiPoint.formalize({
-    x: westEdgeX - lineNumber * lineGap,
-    y: southernCrossY,
-  });
-}
+  /**
+   * The position of Southern Cross, based on the line number index from the
+   * center.
+   */
+  southernCross: (lineNumber: LineNumber) =>
+    FlexiPoint.formalize({
+      x: westEdgeX - lineNumber * lineGap,
+      y: southernCrossY,
+    }),
 
-/** The position of Flagstaff, based on the line number index from the center. */
-export function flagstaffCoords(lineNumber: number): FlexiPoint {
-  return FlexiPoint.formalize({
-    x: flagstaffX,
-    y: northEdgeY - lineNumber * lineGap,
-  });
-}
+  /** The position of Flagstaff, based on the line number index from the center. */
+  flagstaff: (lineNumber: LineNumber) =>
+    FlexiPoint.formalize({
+      x: flagstaffX,
+      y: northEdgeY - lineNumber * lineGap,
+    }),
 
-/**
- * The position of Melbourne Central, based on the line number index from the
- * center.
- */
-export function melbourneCentralCoords(lineNumber: number): FlexiPoint {
-  return FlexiPoint.formalize({
-    x: melbourneCentralX,
-    y: northEdgeY - lineNumber * lineGap,
-  });
-}
+  /**
+   * The position of Melbourne Central, based on the line number index from the
+   * center.
+   */
+  melbourneCentral: (lineNumber: LineNumber) =>
+    FlexiPoint.formalize({
+      x: melbourneCentralX,
+      y: northEdgeY - lineNumber * lineGap,
+    }),
 
-/** The position of Parliament, based on the line number index from the center. */
-export function parliamentCoords(lineNumber: number): FlexiPoint {
-  return FlexiPoint.formalize({
-    x: eastEdgeX + lineNumber * lineGap,
-    y: parliamentY,
-  });
-}
+  /** The position of Parliament, based on the line number index from the center. */
+  parliament: (lineNumber: LineNumber) =>
+    FlexiPoint.formalize({
+      x: eastEdgeX + lineNumber * lineGap,
+      y: parliamentY,
+    }),
+};

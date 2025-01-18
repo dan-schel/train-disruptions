@@ -2,9 +2,9 @@ import { curve, Path, straight } from "../../lib/geometry";
 import * as loop from "../utils-city-loop";
 
 /** North-west corner of the city loop from Southern Cross to Flagstaff. */
-export function southernCrossToFlagstaff(lineNumber: number): Path[] {
-  const southernCrossPos = loop.southernCrossCoords(lineNumber);
-  const flagstaffPos = loop.flagstaffCoords(lineNumber);
+export function southernCrossToFlagstaff(lineNumber: loop.LineNumber): Path[] {
+  const southernCrossPos = loop.pos.southernCross(lineNumber);
+  const flagstaffPos = loop.pos.flagstaff(lineNumber);
 
   const radius = loop.radius(lineNumber);
 
