@@ -8,23 +8,11 @@ export function southernCrossToFlagstaff(lineNumber: number): Path[] {
 
   const radius = loop.radius(lineNumber);
 
-  const southernCrossToCorner = {
-    min: southernCrossPos.min.y - flagstaffPos.min.y - radius,
-    max: southernCrossPos.max.y - flagstaffPos.max.y - radius,
-  };
-
-  // TODO: [DS] southernCrossPos.horizontalDistance(flagstaffPos).minus(radius)
-  // TODO: [DS] Name idea: FlexiPoint (instead of BakedPoint), FlexiLength.
-  const cornerToFlagstaff = {
-    min: flagstaffPos.min.x - southernCrossPos.min.x - radius,
-    max: flagstaffPos.max.x - southernCrossPos.max.x - radius,
-  };
-
   return [
-    // SOUTHERN_CROSS
-    straight(southernCrossToCorner),
+    // Southern Cross
+    straight(southernCrossPos.verticalDistanceTo(flagstaffPos).minus(radius)),
     curve({ radius: radius, angle: 90 }),
-    straight(cornerToFlagstaff),
-    // FLAGSTAFF
+    straight(flagstaffPos.horizontalDistanceTo(southernCrossPos).minus(radius)),
+    // Flagstaff
   ];
 }

@@ -10,30 +10,21 @@ export function flagstaffToParliament(lineNumber: number): Path[] {
 
   const radius = loop.radius(lineNumber);
 
-  const flagstaffToMelbourneCentral = {
-    min: melbourneCentralPos.min.x - flagstaffPos.min.x,
-    max: melbourneCentralPos.max.x - flagstaffPos.max.x,
-  };
-
-  const melbourneCentralToCorner = {
-    min: parliamentPos.min.x - melbourneCentralPos.min.x - radius,
-    max: parliamentPos.max.x - melbourneCentralPos.max.x - radius,
-  };
-
-  const cornerToParliament = {
-    min: parliamentPos.min.y - melbourneCentralPos.min.y - radius,
-    max: parliamentPos.max.y - melbourneCentralPos.max.y - radius,
-  };
-
   const addInterchangeMarker = lineNumber === 0 || lineNumber === 3;
 
   return [
-    straight(flagstaffToMelbourneCentral),
+    // Flagstaff
+    straight(flagstaffPos.horizontalDistanceTo(melbourneCentralPos)),
     ...(addInterchangeMarker
       ? [interchangeMarker({ id: MELBOURNE_CENTRAL })]
       : []),
-    straight(melbourneCentralToCorner),
+    straight(
+      melbourneCentralPos.horizontalDistanceTo(parliamentPos).minus(radius),
+    ),
     curve({ radius: radius, angle: 90 }),
-    straight(cornerToParliament),
+    straight(
+      parliamentPos.verticalDistanceTo(melbourneCentralPos).minus(radius),
+    ),
+    // Parliament
   ];
 }

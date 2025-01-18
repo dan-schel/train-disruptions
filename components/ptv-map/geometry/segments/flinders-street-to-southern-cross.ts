@@ -8,21 +8,15 @@ export function flindersStreetToSouthernCross(lineNumber: number): Path[] {
 
   const radius = loop.radius(lineNumber);
 
-  const flindersStreetToCorner = {
-    min: flindersStreetPos.min.x - southernCrossPos.min.x - radius,
-    max: flindersStreetPos.max.x - southernCrossPos.max.x - radius,
-  };
-
-  const cornerToSouthernCross = {
-    min: flindersStreetPos.min.y - southernCrossPos.min.y - radius,
-    max: flindersStreetPos.max.y - southernCrossPos.max.y - radius,
-  };
-
   return [
-    // FLINDERS_STREET
-    straight(flindersStreetToCorner),
+    // Flinders Street
+    straight(
+      flindersStreetPos.horizontalDistanceTo(southernCrossPos).minus(radius),
+    ),
     curve({ radius: radius, angle: 90 }),
-    straight(cornerToSouthernCross),
-    // SOUTHERN_CROSS
+    straight(
+      southernCrossPos.verticalDistanceTo(flindersStreetPos).minus(radius),
+    ),
+    // Southern Cross
   ];
 }
