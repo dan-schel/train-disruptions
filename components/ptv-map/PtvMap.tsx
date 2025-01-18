@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
-import { Renderer } from "./renderer";
-import { ptvGeometry } from "./ptv-geometry";
+import { Renderer } from "./lib/renderer";
+import { ptvGeometry } from "./geometry/ptv-geometry";
 
 export type PtvMapProps = {
   /** How much to exaggerate details (optimise for smaller screens.) */

@@ -6,8 +6,8 @@ import {
   PARLIAMENT,
   RICHMOND,
   SOUTHERN_CROSS,
-} from "../../server/data/station-ids";
-import { bake } from "./bake";
+} from "../../../server/data/station-ids";
+import { bake } from "../lib/bake";
 import {
   curve,
   Geometry,
@@ -15,7 +15,7 @@ import {
   Line,
   split,
   straight,
-} from "./geometry";
+} from "../lib/geometry";
 
 const long45 = Math.cos(Math.PI / 4);
 const short45 = 1 - Math.cos(Math.PI / 4);
