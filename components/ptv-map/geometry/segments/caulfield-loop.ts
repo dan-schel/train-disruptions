@@ -8,6 +8,7 @@ import {
 } from "../../lib/geometry";
 import { flagstaffToParliament } from "./flagstaff-to-parliament";
 import { flindersStreetToSouthernCross } from "./flinders-street-to-southern-cross";
+import { southernCrossToFlagstaff } from "./southern-cross-to-flagstaff";
 
 function richmondLoopExit(dimensions: {
   width: number;
@@ -68,8 +69,7 @@ export function caulfieldLoop(): Path[] {
     // FLINDERS_STREET
     ...flindersStreetToSouthernCross(3),
     // SOUTHERN_CROSS
-    straight({ min: 20, max: 20 }),
-    curve({ radius: 30, angle: 90 }),
+    ...southernCrossToFlagstaff(3),
     interchangeMarker({ id: FLAGSTAFF }),
     ...flagstaffToParliament(3),
     interchangeMarker({ id: PARLIAMENT }),
