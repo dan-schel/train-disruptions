@@ -1,4 +1,4 @@
-import { FlexiLength } from "../flexi-length";
+import { FlexiLength } from "../dimensions/flexi-length";
 import { PathPiece } from "./path-piece";
 
 export class StraightPathPiece extends PathPiece {

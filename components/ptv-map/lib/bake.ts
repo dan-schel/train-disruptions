@@ -1,4 +1,4 @@
-import { FlexiPoint } from "./flexi-point";
+import { FlexiPoint } from "./dimensions/flexi-point";
 import { Geometry, LineColor } from "./geometry";
 import { CurvedPathPiece } from "./path/curved-path-piece";
 import { Path } from "./path/path";

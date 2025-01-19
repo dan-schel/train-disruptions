@@ -1,4 +1,7 @@
-import { FlexiLength, InformalFlexiLength } from "../../lib/flexi-length";
+import {
+  FlexiLength,
+  InformalFlexiLength,
+} from "../../lib/dimensions/flexi-length";
 import { Path } from "../../lib/path/path";
 import { flindersStreet } from "../interchanges";
 import { measure45CurveLockedDiagonal } from "../utils";

@@ -1,4 +1,4 @@
-import { InformalFlexiPoint } from "./flexi-point";
+import { InformalFlexiPoint } from "./dimensions/flexi-point";
 import { Path } from "./path/path";
 
 export type LineColor =

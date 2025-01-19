@@ -1,4 +1,4 @@
-import { FlexiPoint } from "../lib/flexi-point";
+import { FlexiPoint } from "../lib/dimensions/flexi-point";
 import { lineGap } from "./utils";
 
 const innerRadius = 15;

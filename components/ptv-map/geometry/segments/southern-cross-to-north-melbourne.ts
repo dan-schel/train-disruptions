@@ -1,5 +1,5 @@
-import { FlexiLength } from "../../lib/flexi-length";
-import { FlexiPoint } from "../../lib/flexi-point";
+import { FlexiLength } from "../../lib/dimensions/flexi-length";
+import { FlexiPoint } from "../../lib/dimensions/flexi-point";
 import { Path } from "../../lib/path/path";
 import { diagonal, lineGap, long45, short45 } from "../utils";
 import * as loop from "../utils-city-loop";

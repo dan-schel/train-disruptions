@@ -1,4 +1,4 @@
-import { FlexiLength, InformalFlexiLength } from "../flexi-length";
+import { FlexiLength, InformalFlexiLength } from "../dimensions/flexi-length";
 import { CurvedPathPiece } from "./curved-path-piece";
 import { PathPiece } from "./path-piece";
 import { SplitPathPiece } from "./split-path-piece";
