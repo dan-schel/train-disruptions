@@ -1,12 +1,12 @@
-import {
-  FLAGSTAFF,
-  FLINDERS_STREET,
-  JOLIMONT,
-  PARLIAMENT,
-  SOUTHERN_CROSS,
-} from "../../../../server/data/station-ids";
+import { JOLIMONT } from "../../../../server/data/station-ids";
 import { Line } from "../../lib/geometry";
 import { Path } from "../../lib/path";
+import {
+  flagstaff,
+  flindersStreet,
+  parliament,
+  southernCross,
+} from "../interchanges";
 import { flagstaffToParliament } from "../segments/flagstaff-to-parliament";
 import { flindersStreetToSouthernCross } from "../segments/flinders-street-to-southern-cross";
 import { jolimontLoopPortal } from "../segments/jolimont-loop-portal";
@@ -23,13 +23,13 @@ export const cliftonHill: Line = {
   color: "red",
 
   path: new Path()
-    .station(FLINDERS_STREET)
+    .station(flindersStreet.point("clifton-hill-loop"))
     .add(flindersStreetToSouthernCross(1, false))
-    .station(SOUTHERN_CROSS)
+    .station(southernCross.point("clifton-hill"))
     .add(southernCrossToFlagstaff(1))
-    .station(FLAGSTAFF)
-    .add(flagstaffToParliament(1))
-    .station(PARLIAMENT)
+    .station(flagstaff.point("clifton-hill"))
+    .add(flagstaffToParliament(1, "clifton-hill"))
+    .station(parliament.point("clifton-hill"))
     .add(jolimontLoopPortal())
     .station(JOLIMONT),
 };

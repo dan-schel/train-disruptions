@@ -1,12 +1,12 @@
-import {
-  FLAGSTAFF,
-  FLINDERS_STREET,
-  PARLIAMENT,
-  RICHMOND,
-  SOUTHERN_CROSS,
-} from "../../../../server/data/station-ids";
 import { Line } from "../../lib/geometry";
 import { Path } from "../../lib/path";
+import {
+  flagstaff,
+  flindersStreet,
+  parliament,
+  richmond,
+  southernCross,
+} from "../interchanges";
 import { flagstaffToParliament } from "../segments/flagstaff-to-parliament";
 import { flindersStreetToSouthernCross } from "../segments/flinders-street-to-southern-cross";
 import { richmondLoopPortal } from "../segments/richmond-loop-portal";
@@ -23,13 +23,13 @@ export const dandenong: Line = {
   color: "cyan",
 
   path: new Path()
-    .station(FLINDERS_STREET)
+    .station(flindersStreet.point("dandenong-loop"))
     .add(flindersStreetToSouthernCross(3, false))
-    .station(SOUTHERN_CROSS)
+    .station(southernCross.point("dandenong"))
     .add(southernCrossToFlagstaff(3))
-    .interchange(FLAGSTAFF)
-    .add(flagstaffToParliament(3))
-    .interchange(PARLIAMENT)
-    .add(richmondLoopPortal(loop.line.dandenong, 20))
-    .station(RICHMOND),
+    .station(flagstaff.point("dandenong"))
+    .add(flagstaffToParliament(3, "dandenong"))
+    .station(parliament.point("dandenong"))
+    .add(richmondLoopPortal(loop.line.dandenong, 20, "dandenong-direct"))
+    .station(richmond.point("dandenong")),
 };

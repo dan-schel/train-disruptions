@@ -1,11 +1,11 @@
-import {
-  FLINDERS_STREET,
-  NORTH_MELBOURNE,
-  RICHMOND,
-  SOUTHERN_CROSS,
-} from "../../../../server/data/station-ids";
 import { Line } from "../../lib/geometry";
 import { Path } from "../../lib/path";
+import {
+  flindersStreet,
+  northMelbourne,
+  richmond,
+  southernCross,
+} from "../interchanges";
 import { flindersStreetToRichmond } from "../segments/flinders-street-to-richmond";
 import { flindersStreetToSouthernCross } from "../segments/flinders-street-to-southern-cross";
 import { southernCrossToNorthMelbourneRegional } from "../segments/southern-cross-to-north-melbourne";
@@ -22,11 +22,11 @@ export const regionalEastern: Line = {
   color: "purple",
 
   path: new Path()
-    .station(SOUTHERN_CROSS)
+    .station(southernCross.point("regional-east"))
     .add(flindersStreetToSouthernCross(loop.line.regional, true).reverse())
-    .station(FLINDERS_STREET)
+    .station(flindersStreet.point("regional"))
     .add(flindersStreetToRichmond(loop.line.regional))
-    .station(RICHMOND),
+    .station(richmond.point("gippsland")),
 };
 
 /**
@@ -40,11 +40,11 @@ export const regionalWestern: Line = {
   color: "purple",
 
   path: new Path()
-    .station(SOUTHERN_CROSS)
+    .station(southernCross.point("regional-west"))
     .add(
       southernCrossToNorthMelbourneRegional(
-        new Path().station(NORTH_MELBOURNE),
+        new Path().station(northMelbourne.point("regional-seymour")),
       ),
     )
-    .station(NORTH_MELBOURNE),
+    .station(northMelbourne.point("regional-rrl")),
 };

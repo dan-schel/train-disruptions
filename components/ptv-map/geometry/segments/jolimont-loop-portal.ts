@@ -1,5 +1,5 @@
-import { FLINDERS_STREET } from "../../../../server/data/station-ids";
 import { Path } from "../../lib/path";
+import { flindersStreet } from "../interchanges";
 import * as loop from "../utils-city-loop";
 
 /** The curve from Parliament to Jolimont, and the split back to Flinders Street. */
@@ -17,7 +17,7 @@ export function jolimontLoopPortal(): Path {
         .straight(
           parliamentPos.horizontalDistanceTo(flindersStreetPos).plus(radius),
         )
-        .station(FLINDERS_STREET),
+        .station(flindersStreet.point("clifton-hill-direct")),
     })
     .curve(radius, -45);
 }

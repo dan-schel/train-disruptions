@@ -6,6 +6,7 @@ import {
   Path,
   PathPiece,
   SplitPathPiece,
+  StationLocation,
   StraightPathPiece,
 } from "./path";
 
@@ -125,6 +126,8 @@ class PathBaker {
       this.applySplit(piece);
     } else if (piece instanceof InterchangeMarker) {
       this.applyInterchangeMarker(piece);
+    } else if (piece instanceof StationLocation) {
+      this.applyStationLocation(piece);
     } else {
       throw new Error(`Unknown path piece type: ${piece}`);
     }
@@ -191,6 +194,18 @@ class PathBaker {
         max: { x: this._maxX, y: this._maxY },
       }),
     });
+  }
+
+  applyStationLocation(piece: StationLocation) {
+    if (piece.interchangePoint?.render) {
+      this._locatedInterchanges.push({
+        id: piece.id,
+        point: FlexiPoint.formalize({
+          min: { x: this._minX, y: this._minY },
+          max: { x: this._maxX, y: this._maxY },
+        }),
+      });
+    }
   }
 
   _commitPoint() {

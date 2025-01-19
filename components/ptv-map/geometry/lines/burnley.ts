@@ -1,12 +1,12 @@
-import {
-  FLAGSTAFF,
-  FLINDERS_STREET,
-  PARLIAMENT,
-  RICHMOND,
-  SOUTHERN_CROSS,
-} from "../../../../server/data/station-ids";
 import { Line } from "../../lib/geometry";
 import { Path } from "../../lib/path";
+import {
+  flagstaff,
+  flindersStreet,
+  parliament,
+  richmond,
+  southernCross,
+} from "../interchanges";
 import { flagstaffToParliament } from "../segments/flagstaff-to-parliament";
 import { flindersStreetToSouthernCross } from "../segments/flinders-street-to-southern-cross";
 import { richmondLoopPortal } from "../segments/richmond-loop-portal";
@@ -23,13 +23,13 @@ export const burnley: Line = {
   color: "blue",
 
   path: new Path()
-    .station(FLINDERS_STREET)
+    .station(flindersStreet.point("burnley-loop"))
     .add(flindersStreetToSouthernCross(2, false))
-    .station(SOUTHERN_CROSS)
+    .station(southernCross.point("burnley"))
     .add(southernCrossToFlagstaff(2))
-    .station(FLAGSTAFF)
-    .add(flagstaffToParliament(2))
-    .station(PARLIAMENT)
-    .add(richmondLoopPortal(loop.line.burnley, 25))
-    .interchange(RICHMOND),
+    .station(flagstaff.point("burnley"))
+    .add(flagstaffToParliament(2, "burnley"))
+    .station(parliament.point("burnley"))
+    .add(richmondLoopPortal(loop.line.burnley, 25, "burnley-direct"))
+    .station(richmond.point("burnley")),
 };

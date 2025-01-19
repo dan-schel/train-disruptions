@@ -1,6 +1,6 @@
-import { FLINDERS_STREET, RICHMOND } from "../../../../server/data/station-ids";
 import { Line } from "../../lib/geometry";
 import { Path } from "../../lib/path";
+import { flindersStreet, richmond } from "../interchanges";
 import { flindersStreetToRichmond } from "../segments/flinders-street-to-richmond";
 import * as loop from "../utils-city-loop";
 
@@ -11,7 +11,7 @@ export const sandringham: Line = {
   color: "pink",
 
   path: new Path()
-    .interchange(FLINDERS_STREET)
+    .station(flindersStreet.point("sandringham"))
     .add(flindersStreetToRichmond(loop.line.sandringham))
-    .interchange(RICHMOND),
+    .station(richmond.point("sandringham")),
 };

@@ -1,16 +1,11 @@
-// TODO: [DS] Station IDs should not be exclusive to the server. We need them on
-// the frontend here. The OTHER station/line data should stay on the server, but
-// the IDs can be shared (especially since we only import the ones we need, it
-// shouldn't explode the bundle size).
-import {
-  SOUTHERN_CROSS,
-  NORTH_MELBOURNE,
-  FLINDERS_STREET,
-  RICHMOND,
-} from "../../../../server/data/station-ids";
-
 import { Line } from "../../lib/geometry";
 import { Path } from "../../lib/path";
+import {
+  flindersStreet,
+  northMelbourne,
+  richmond,
+  southernCross,
+} from "../interchanges";
 import { flindersStreetToRichmond } from "../segments/flinders-street-to-richmond";
 import { flindersStreetToSouthernCross } from "../segments/flinders-street-to-southern-cross";
 import { southernCrossToNorthMelbourne } from "../segments/southern-cross-to-north-melbourne";
@@ -26,9 +21,9 @@ export const crossCityEastern: Line = {
   color: "green",
 
   path: new Path()
-    .station(FLINDERS_STREET)
+    .station(flindersStreet.point("cross-city-east"))
     .add(flindersStreetToRichmond(loop.line.crossCity))
-    .station(RICHMOND),
+    .station(richmond.point("frankston")),
 };
 
 /**
@@ -41,9 +36,9 @@ export const crossCityWestern: Line = {
   color: "green",
 
   path: new Path()
-    .station(FLINDERS_STREET)
+    .station(flindersStreet.point("cross-city-west"))
     .add(flindersStreetToSouthernCross(5, false))
-    .interchange(SOUTHERN_CROSS)
+    .station(southernCross.point("cross-city"))
     .add(southernCrossToNorthMelbourne(5))
-    .interchange(NORTH_MELBOURNE),
+    .station(northMelbourne.point("cross-city")),
 };
