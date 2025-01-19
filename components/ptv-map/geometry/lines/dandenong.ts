@@ -1,4 +1,4 @@
-import { Line } from "../../lib/geometry";
+import { Line } from "../../lib/line";
 import { Path } from "../../lib/path/path";
 import {
   flagstaff,
@@ -17,7 +17,7 @@ import * as loop from "../utils-city-loop";
  * The Cranbourne and Pakenham lines, a.k.a. the "Dandenong group" (colored
  * light blue/cyan on the map).
  */
-export const dandenong: Line = {
+export const dandenong = new Line({
   origin: loop.pos.flindersStreet(loop.line.dandenong),
   angle: 180,
   color: "cyan",
@@ -32,4 +32,4 @@ export const dandenong: Line = {
     .station(parliament.point("dandenong"))
     .add(richmondLoopPortal(loop.line.dandenong, 20, "dandenong-direct"))
     .station(richmond.point("dandenong")),
-};
+});

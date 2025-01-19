@@ -70,4 +70,12 @@ export class FlexiPoint {
       new Point(this.max.x - x.max, this.max.y - y.max),
     );
   }
+
+  move(length: InformalFlexiLength, angle: number): FlexiPoint {
+    const _length = FlexiLength.formalize(length);
+    return new FlexiPoint(
+      this.min.move(_length.min, angle),
+      this.max.move(_length.max, angle),
+    );
+  }
 }

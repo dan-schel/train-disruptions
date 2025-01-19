@@ -1,3 +1,5 @@
+import { LocatedInterchange } from "../baked/baked-path";
+import { PathBaker } from "../baked/path-baker";
 import { PathPiece } from "./path-piece";
 
 export class StationLocation extends PathPiece {
@@ -10,6 +12,14 @@ export class StationLocation extends PathPiece {
 
   reverse(): PathPiece {
     return this;
+  }
+
+  bake(baker: PathBaker): void {
+    if (this.interchangePoint != null) {
+      baker.addInterchange(
+        new LocatedInterchange(this.interchangePoint, baker.getCurrentPoint()),
+      );
+    }
   }
 }
 

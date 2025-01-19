@@ -1,4 +1,4 @@
-import { Line } from "../../lib/geometry";
+import { Line } from "../../lib/line";
 import { Path } from "../../lib/path/path";
 import {
   flindersStreet,
@@ -16,7 +16,7 @@ import * as loop from "../utils-city-loop";
  * map) to depart Southern Cross towards Flinders Street and ultimately heads
  * east.
  */
-export const regionalEastern: Line = {
+export const regionalEastern = new Line({
   origin: loop.pos.southernCross(loop.line.crossCity),
   angle: 45,
   color: "purple",
@@ -27,14 +27,14 @@ export const regionalEastern: Line = {
     .station(flindersStreet.point("regional"))
     .add(flindersStreetToRichmond(loop.line.regional))
     .station(richmond.point("gippsland")),
-};
+});
 
 /**
  * The Ballarat, Bendigo, Geelong, and Seymour lines, which are regional lines
  * (colored purple on the map) that depart Southern Cross toward North
  * Melbourne/Footscray.
  */
-export const regionalWestern: Line = {
+export const regionalWestern = new Line({
   origin: loop.pos.southernCross(loop.line.dandenong),
   angle: 225,
   color: "purple",
@@ -47,4 +47,4 @@ export const regionalWestern: Line = {
       ),
     )
     .station(northMelbourne.point("regional-rrl")),
-};
+});

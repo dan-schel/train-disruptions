@@ -1,4 +1,4 @@
-import { Line } from "../../lib/geometry";
+import { Line } from "../../lib/line";
 import { Path } from "../../lib/path/path";
 import {
   flagstaff,
@@ -17,7 +17,7 @@ import * as loop from "../utils-city-loop";
  * The Craigieburn, Sunbury, and Upfield lines, a.k.a. the "Northern group"
  * (colored yellow on the map).
  */
-export const northern: Line = {
+export const northern = new Line({
   origin: loop.pos.flindersStreet(loop.line.northern),
   angle: 180,
   color: "yellow",
@@ -37,4 +37,4 @@ export const northern: Line = {
       ),
     )
     .station(northMelbourne.point("northern")),
-};
+});

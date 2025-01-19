@@ -1,5 +1,5 @@
-import { BakedGeometry } from "./bake";
-import { LineColor } from "./geometry";
+import { BakedGeometry } from "./baked/baked-geometry";
+import { LineColor } from "./line";
 
 const lineColors: Record<LineColor, string> = {
   red: "#e42b23",
@@ -51,7 +51,7 @@ export class Renderer {
     ctx.translate(this._canvas.width / 2, this._canvas.height / 2);
     ctx.scale(4, 4);
 
-    for (const line of this._geometry.lineSegments) {
+    for (const line of this._geometry.lines) {
       ctx.lineCap = "butt";
       ctx.lineWidth = 4;
       ctx.strokeStyle = lineColors[line.color];
@@ -59,7 +59,7 @@ export class Renderer {
 
       let firstPoint = true;
 
-      for (const point of line.points) {
+      for (const point of line.path) {
         const { x, y } = point.amplify(this._amplification);
 
         if (firstPoint) {
@@ -73,9 +73,13 @@ export class Renderer {
       ctx.stroke();
     }
 
-    for (const interchange of this._geometry.interchangeMarkers) {
-      const { x: x1, y: y1 } = interchange.a.amplify(this._amplification);
-      const { x: x2, y: y2 } = interchange.b.amplify(this._amplification);
+    for (const interchange of this._geometry.interchanges) {
+      const { x: x1, y: y1 } = interchange.points[0].amplify(
+        this._amplification,
+      );
+      const { x: x2, y: y2 } = interchange.points[1].amplify(
+        this._amplification,
+      );
 
       ctx.lineCap = "round";
       ctx.lineWidth = 6;

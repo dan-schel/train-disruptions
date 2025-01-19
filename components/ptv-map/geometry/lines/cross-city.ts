@@ -1,4 +1,4 @@
-import { Line } from "../../lib/geometry";
+import { Line } from "../../lib/line";
 import { Path } from "../../lib/path/path";
 import {
   flindersStreet,
@@ -15,7 +15,7 @@ import * as loop from "../utils-city-loop";
  * The Frankston line, which makes up the eastern half of the "Cross City" group
  * (colored green on the map).
  */
-export const crossCityEastern: Line = {
+export const crossCityEastern = new Line({
   origin: loop.pos.flindersStreet(loop.line.crossCity),
   angle: 0,
   color: "green",
@@ -24,13 +24,13 @@ export const crossCityEastern: Line = {
     .station(flindersStreet.point("cross-city-east"))
     .add(flindersStreetToRichmond(loop.line.crossCity))
     .station(richmond.point("frankston")),
-};
+});
 
 /**
  * The Werribee and Williamstown lines, which make up the western half of the
  * "Cross City" group (colored green on the map).
  */
-export const crossCityWestern: Line = {
+export const crossCityWestern = new Line({
   origin: loop.pos.flindersStreet(loop.line.crossCity),
   angle: 180,
   color: "green",
@@ -41,4 +41,4 @@ export const crossCityWestern: Line = {
     .station(southernCross.point("cross-city"))
     .add(southernCrossToNorthMelbourne(5))
     .station(northMelbourne.point("cross-city")),
-};
+});

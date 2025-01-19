@@ -1,3 +1,4 @@
+import { PathBaker } from "../baked/path-baker";
 import { FlexiLength, InformalFlexiLength } from "../dimensions/flexi-length";
 import { CurvedPathPiece } from "./curved-path-piece";
 import { PathPiece } from "./path-piece";
@@ -17,6 +18,12 @@ export class Path {
       return new Path([...this.pieces, ...piece.pieces]);
     } else {
       return new Path([...this.pieces, piece]);
+    }
+  }
+
+  bake(baker: PathBaker) {
+    for (const piece of this.pieces) {
+      piece.bake(baker);
     }
   }
 

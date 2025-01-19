@@ -1,5 +1,5 @@
 import { JOLIMONT } from "../../../../server/data/station-ids";
-import { Line } from "../../lib/geometry";
+import { Line } from "../../lib/line";
 import { Path } from "../../lib/path/path";
 import {
   flagstaff,
@@ -17,7 +17,7 @@ import * as loop from "../utils-city-loop";
  * The Hurstbridge and Mernda lines, a.k.a. the "Clifton Hill group" (colored
  * red on the map).
  */
-export const cliftonHill: Line = {
+export const cliftonHill = new Line({
   origin: loop.pos.flindersStreet(loop.line.cliftonHill),
   angle: 180,
   color: "red",
@@ -32,4 +32,4 @@ export const cliftonHill: Line = {
     .station(parliament.point("clifton-hill"))
     .add(jolimontLoopPortal())
     .station(JOLIMONT),
-};
+});
