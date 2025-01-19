@@ -1,14 +1,11 @@
 import { FlexiPoint } from "./flexi-point";
 import { Geometry, LineColor } from "./geometry";
-import {
-  CurvedPathPiece,
-  InterchangeMarker,
-  Path,
-  PathPiece,
-  SplitPathPiece,
-  StationLocation,
-  StraightPathPiece,
-} from "./path/path";
+import { CurvedPathPiece } from "./path/curved-path-piece";
+import { Path } from "./path/path";
+import { PathPiece } from "./path/path-piece";
+import { SplitPathPiece } from "./path/split-path-piece";
+import { StationLocation } from "./path/station-location";
+import { StraightPathPiece } from "./path/straight-path-piece";
 
 export type BakedInterchangeMarker = {
   a: FlexiPoint;
@@ -124,8 +121,6 @@ class PathBaker {
       this.applyCurve(piece);
     } else if (piece instanceof SplitPathPiece) {
       this.applySplit(piece);
-    } else if (piece instanceof InterchangeMarker) {
-      this.applyInterchangeMarker(piece);
     } else if (piece instanceof StationLocation) {
       this.applyStationLocation(piece);
     } else {
@@ -184,16 +179,6 @@ class PathBaker {
     );
     this._branches.push(...split.lineSegments);
     this._locatedInterchanges.push(...split.locatedInterchanges);
-  }
-
-  applyInterchangeMarker(piece: InterchangeMarker) {
-    this._locatedInterchanges.push({
-      id: piece.id,
-      point: FlexiPoint.formalize({
-        min: { x: this._minX, y: this._minY },
-        max: { x: this._maxX, y: this._maxY },
-      }),
-    });
   }
 
   applyStationLocation(piece: StationLocation) {
