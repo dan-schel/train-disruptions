@@ -1,13 +1,13 @@
 import { FlexiPoint } from "./flexi-point";
+import { Geometry, LineColor } from "./geometry";
 import {
-  Curve,
-  Geometry,
+  CurvedPathPiece,
   InterchangeMarker,
-  LineColor,
   Path,
-  Split,
-  Straight,
-} from "./geometry";
+  PathPiece,
+  SplitPathPiece,
+  StraightPathPiece,
+} from "./path";
 
 export type BakedInterchangeMarker = {
   a: FlexiPoint;
@@ -94,11 +94,11 @@ class PathBaker {
     maxY: number,
     angle: number,
     color: LineColor,
-    path: Path[],
+    path: Path,
   ) {
     const baker = new PathBaker(minX, minY, maxX, maxY, angle, color);
 
-    for (const piece of path) {
+    for (const piece of path.pieces) {
       baker.applyPiece(piece);
     }
 
@@ -115,26 +115,22 @@ class PathBaker {
     };
   }
 
-  applyPiece(piece: Path) {
-    switch (piece.type) {
-      case "straight":
-        this.applyStraight(piece);
-        break;
-      case "curve":
-        this.applyCurve(piece);
-        break;
-      case "split":
-        this.applySplit(piece);
-        break;
-      case "interchange-marker":
-        this.applyInterchangeMarker(piece);
-        break;
-      default:
-        throw new Error(`Unknown path piece type: ${piece}`);
+  // TODO: [DS] Move this logic to the pieces themsleves.
+  applyPiece(piece: PathPiece) {
+    if (piece instanceof StraightPathPiece) {
+      this.applyStraight(piece);
+    } else if (piece instanceof CurvedPathPiece) {
+      this.applyCurve(piece);
+    } else if (piece instanceof SplitPathPiece) {
+      this.applySplit(piece);
+    } else if (piece instanceof InterchangeMarker) {
+      this.applyInterchangeMarker(piece);
+    } else {
+      throw new Error(`Unknown path piece type: ${piece}`);
     }
   }
 
-  applyStraight(piece: Straight) {
+  applyStraight(piece: StraightPathPiece) {
     const { min, max } = piece.length;
     this._minX += Math.cos(rad(this._angle)) * min;
     this._minY += Math.sin(rad(this._angle)) * min;
@@ -143,7 +139,7 @@ class PathBaker {
     this._commitPoint();
   }
 
-  applyCurve(piece: Curve) {
+  applyCurve(piece: CurvedPathPiece) {
     let centerMinX = this._minX;
     let centerMinY = this._minY;
     let centerMaxX = this._maxX;
@@ -173,13 +169,13 @@ class PathBaker {
     this._angle += piece.angle;
   }
 
-  applySplit(piece: Split) {
+  applySplit(piece: SplitPathPiece) {
     const split = PathBaker.bake(
       this._minX,
       this._minY,
       this._maxX,
       this._maxY,
-      this._angle + (piece.reverse ? 180 : 0),
+      this._angle + (piece.reversed ? 180 : 0),
       this._color,
       piece.split,
     );

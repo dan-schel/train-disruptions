@@ -1,6 +1,5 @@
 import { FlexiLength } from "../../lib/flexi-length";
 import { FlexiPoint } from "../../lib/flexi-point";
-import { curve, split, straight } from "../../lib/geometry";
 import { Path } from "../../lib/path";
 import { diagonal, lineGap, long45, short45 } from "../utils";
 import * as loop from "../utils-city-loop";
@@ -15,19 +14,18 @@ const northMelbourneStraight = 10;
  */
 export function southernCrossToNorthMelbourne(
   southernCrossLineNumber: loop.LineNumber,
-): Path[] {
-  return [
-    straight(southernCrossStraight),
-    curve({ radius: radius(southernCrossLineNumber), angle: -45 }),
-    straight(northMelbourneStraight),
-  ];
+): Path {
+  return new Path()
+    .straight(southernCrossStraight)
+    .curve(radius(southernCrossLineNumber), -45)
+    .straight(northMelbourneStraight);
 }
 
 /**
  * The direct path from Southern Cross to North Melbourne that the regional
  * lines use, including the split just before North Melbourne.
  */
-export function southernCrossToNorthMelbourneRegional(branch: Path): Path[] {
+export function southernCrossToNorthMelbourneRegional(branch: Path): Path {
   const curveRadius = lineGap / short45;
   const curveHeight = curveRadius * long45;
 
@@ -38,24 +36,18 @@ export function southernCrossToNorthMelbourneRegional(branch: Path): Path[] {
   const branchSouthernCrossStraight = 10 * diagonal;
   const branchNorthMelbourneStraight = 5;
 
-  return [
-    // Southern Cross
-    curve({ radius: curveRadius, angle: 45 }),
-    straight(straightLength),
-    split({
-      reverse: false,
-      split: [
-        straight(branchSouthernCrossStraight),
-        curve({ radius: radius(loop.line.regional), angle: -45 }),
-        straight(branchNorthMelbourneStraight),
-        // North Melbourne (Seymour line branch)
-        ...branch,
-      ],
-    }),
-    curve({ radius: radius(loop.line.regional), angle: -45 }),
-    straight(northMelbourneStraight),
-    // North Melbourne (RRL branch)
-  ];
+  return new Path()
+    .curve(curveRadius, 45)
+    .straight(straightLength)
+    .split({
+      split: new Path()
+        .straight(branchSouthernCrossStraight)
+        .curve(radius(loop.line.regional), -45)
+        .straight(branchNorthMelbourneStraight)
+        .add(branch),
+    })
+    .curve(radius(loop.line.regional), -45)
+    .straight(northMelbourneStraight);
 }
 
 export function northMelbournePos(lineNumber: loop.LineNumber): FlexiPoint {

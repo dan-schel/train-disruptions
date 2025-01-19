@@ -15,6 +15,10 @@ export class Path {
     }
   }
 
+  reverse(): Path {
+    return new Path(this.pieces.map((p) => p.reverse()).reverse());
+  }
+
   straight(length: InformalFlexiLength): Path {
     return this.add(new StraightPathPiece(FlexiLength.formalize(length)));
   }
@@ -32,42 +36,60 @@ export class Path {
   }
 
   // TODO: [DS] Does nothing... so far.
-  station(id: number) {
+  station(_id: number) {
     return this;
   }
 }
 
-export abstract class PathPiece {}
+export abstract class PathPiece {
+  abstract reverse(): PathPiece;
+}
 
-class StraightPathPiece extends PathPiece {
+export class StraightPathPiece extends PathPiece {
   constructor(readonly length: FlexiLength) {
     super();
   }
+
+  reverse(): PathPiece {
+    return this;
+  }
 }
 
-class CurvedPathPiece extends PathPiece {
+export class CurvedPathPiece extends PathPiece {
   constructor(
     readonly radius: number,
     readonly angle: -90 | -45 | 45 | 90,
   ) {
     super();
   }
+
+  reverse(): PathPiece {
+    return new CurvedPathPiece(this.radius, -this.angle as -90 | -45 | 45 | 90);
+  }
 }
 
-class SplitPathPiece extends PathPiece {
+export class SplitPathPiece extends PathPiece {
   constructor(
     readonly split: Path,
-    readonly reverse: boolean,
+    readonly reversed: boolean,
   ) {
     super();
+  }
+
+  reverse(): PathPiece {
+    return new SplitPathPiece(this.split.reverse(), !this.reversed);
   }
 }
 
 // TODO: [DS] No way to create a split interchange marker, e.g. at Sunshine, so
 // far. Maybe that's a case where there's three markers with some sort of index
 // and a prop to say which one has the thin line.
-class InterchangeMarker extends PathPiece {
+export class InterchangeMarker extends PathPiece {
   constructor(readonly id: number) {
     super();
+  }
+
+  reverse(): PathPiece {
+    return this;
   }
 }

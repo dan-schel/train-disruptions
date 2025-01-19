@@ -24,7 +24,7 @@ export const burnley: Line = {
 
   path: new Path()
     .station(FLINDERS_STREET)
-    .add(flindersStreetToSouthernCross(2, true))
+    .add(flindersStreetToSouthernCross(2, false))
     .station(SOUTHERN_CROSS)
     .add(southernCrossToFlagstaff(2))
     .station(FLAGSTAFF)

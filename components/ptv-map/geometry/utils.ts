@@ -1,5 +1,3 @@
-import { Curve, Path, Split } from "../lib/geometry";
-
 export const lineWidth = 4;
 export const lineGap = 5;
 export const long45 = Math.cos(Math.PI / 4);
@@ -38,31 +36,4 @@ export function measure45CurveLockedRadius(
   const straightLength =
     longLength - long45 * radius - diagonalLength * diagonal;
   return { diagonalLength, straightLength };
-}
-
-export function reversePath(path: Path[]): Path[] {
-  // TODO: [DS] If every path type was a class, they could have a reverse method.
-  return path
-    .map((segment) => {
-      if (segment.type === "curve") {
-        const result: Curve = {
-          type: "curve",
-          radius: segment.radius,
-          angle: -segment.angle as -90 | -45 | 45 | 90,
-        };
-        return result;
-      } else if (segment.type === "split") {
-        // TODO: [DS] This probably works. Idk. I didn't test it.
-        const result: Split = {
-          type: "split",
-          reverse: !segment.reverse,
-          split: reversePath(segment.split),
-        };
-        return result;
-      } else {
-        // Straights and interchange markers don't change.
-        return segment;
-      }
-    })
-    .reverse();
 }

@@ -1,5 +1,5 @@
 import { FlexiPoint } from "../../lib/flexi-point";
-import { curve, Path, straight } from "../../lib/geometry";
+import { Path } from "../../lib/path";
 import { diagonal, lineGap, long45, short45 } from "../utils";
 import * as loop from "../utils-city-loop";
 
@@ -13,14 +13,11 @@ const richmondStraight = 10;
  */
 export function flindersStreetToRichmond(
   flindersStreetLineNumber: loop.LineNumber,
-): Path[] {
-  return [
-    // Flinders Street
-    straight(flindersStreetStraight),
-    curve({ radius: radius(flindersStreetLineNumber), angle: 45 }),
-    straight(richmondStraight),
-    // Richmond
-  ];
+): Path {
+  return new Path()
+    .straight(flindersStreetStraight)
+    .curve(radius(flindersStreetLineNumber), 45)
+    .straight(richmondStraight);
 }
 
 export function richmondPos(lineNumber: loop.LineNumber): FlexiPoint {

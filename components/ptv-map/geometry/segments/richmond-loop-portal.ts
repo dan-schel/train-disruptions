@@ -1,6 +1,7 @@
+import { FLINDERS_STREET } from "../../../../server/data/station-ids";
 import { FlexiLength, InformalFlexiLength } from "../../lib/flexi-length";
-import { curve, Path, split, straight } from "../../lib/geometry";
-import { measure45CurveLockedDiagonal, reversePath } from "../utils";
+import { Path } from "../../lib/path";
+import { measure45CurveLockedDiagonal } from "../utils";
 import * as loop from "../utils-city-loop";
 import * as direct from "./flinders-street-to-richmond";
 
@@ -8,7 +9,7 @@ import * as direct from "./flinders-street-to-richmond";
 export function richmondLoopPortal(
   lineNumber: loop.LineNumber,
   portalStraight: InformalFlexiLength,
-): Path[] {
+): Path {
   const parliamentPos = loop.pos.parliament(lineNumber);
   const richmondPos = direct.richmondPos(lineNumber);
 
@@ -25,19 +26,15 @@ export function richmondLoopPortal(
     diagonalLength,
   );
 
-  return [
-    // Parliament
-    straight(straightLength),
-    curve({ radius: radius, angle: -45 }),
-    straight(diagonalLength),
-    split({
+  return new Path()
+    .straight(straightLength)
+    .curve(radius, -45)
+    .straight(diagonalLength)
+    .split({
       reverse: true,
-      split: [
-        // Richmond
-        ...reversePath(direct.flindersStreetToRichmond(lineNumber)),
-        // Flinders Street
-      ],
-    }),
-    // Richmond
-  ];
+      split: direct
+        .flindersStreetToRichmond(lineNumber)
+        .reverse()
+        .station(FLINDERS_STREET),
+    });
 }

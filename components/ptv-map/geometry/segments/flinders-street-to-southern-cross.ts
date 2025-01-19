@@ -1,4 +1,4 @@
-import { curve, Path, straight } from "../../lib/geometry";
+import { Path } from "../../lib/path";
 import { lineGap, long45, short45 } from "../utils";
 import * as loop from "../utils-city-loop";
 
@@ -6,7 +6,7 @@ import * as loop from "../utils-city-loop";
 export function flindersStreetToSouthernCross(
   lineNumber: loop.LineNumber,
   curveEnd: boolean,
-): Path[] {
+): Path {
   const flindersStreetPos = loop.pos.flindersStreet(lineNumber);
   const southernCrossPos = loop.pos.southernCross(lineNumber);
 
@@ -15,29 +15,26 @@ export function flindersStreetToSouthernCross(
   const curveRadius = lineGap / short45;
   const curveHeight = curveRadius * long45;
 
-  return [
-    // Flinders Street
-    straight(
+  let result = new Path()
+    .straight(
       flindersStreetPos.horizontalDistanceTo(southernCrossPos).minus(radius),
-    ),
-    curve({ radius: radius, angle: 90 }),
-    ...(curveEnd
-      ? [
-          straight(
-            southernCrossPos
-              .verticalDistanceTo(flindersStreetPos)
-              .minus(radius)
-              .minus(curveHeight),
-          ),
-          curve({ radius: curveRadius, angle: -45 }),
-        ]
-      : [
-          straight(
-            southernCrossPos
-              .verticalDistanceTo(flindersStreetPos)
-              .minus(radius),
-          ),
-        ]),
-    // Southern Cross
-  ];
+    )
+    .curve(radius, 90);
+
+  if (curveEnd) {
+    result = result
+      .straight(
+        southernCrossPos
+          .verticalDistanceTo(flindersStreetPos)
+          .minus(radius)
+          .minus(curveHeight),
+      )
+      .curve(curveRadius, -45);
+  } else {
+    result = result.straight(
+      southernCrossPos.verticalDistanceTo(flindersStreetPos).minus(radius),
+    );
+  }
+
+  return result;
 }
