@@ -1,4 +1,4 @@
-import { Path } from "../../lib/path";
+import { Path } from "../../lib/path/path";
 import { melbourneCentral } from "../interchanges";
 import * as loop from "../utils-city-loop";
 

@@ -1,4 +1,4 @@
-import { Path } from "../../lib/path";
+import { Path } from "../../lib/path/path";
 import { lineGap, long45, short45 } from "../utils";
 import * as loop from "../utils-city-loop";
 

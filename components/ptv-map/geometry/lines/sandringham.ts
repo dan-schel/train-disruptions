@@ -1,5 +1,5 @@
 import { Line } from "../../lib/geometry";
-import { Path } from "../../lib/path";
+import { Path } from "../../lib/path/path";
 import { flindersStreet, richmond } from "../interchanges";
 import { flindersStreetToRichmond } from "../segments/flinders-street-to-richmond";
 import * as loop from "../utils-city-loop";

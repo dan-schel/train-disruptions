@@ -1,4 +1,4 @@
-import { Path } from "../../lib/path";
+import { Path } from "../../lib/path/path";
 import * as loop from "../utils-city-loop";
 
 /** North-west corner of the city loop from Southern Cross to Flagstaff. */

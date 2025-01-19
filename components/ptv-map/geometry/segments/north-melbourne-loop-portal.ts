@@ -1,4 +1,4 @@
-import { Path } from "../../lib/path";
+import { Path } from "../../lib/path/path";
 import {
   measure45CurveLockedRadius,
   measure45CurveLockedStraight,

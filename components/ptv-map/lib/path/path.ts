@@ -1,4 +1,4 @@
-import { FlexiLength, InformalFlexiLength } from "./flexi-length";
+import { FlexiLength, InformalFlexiLength } from "../flexi-length";
 
 export class Path {
   readonly pieces: readonly PathPiece[];

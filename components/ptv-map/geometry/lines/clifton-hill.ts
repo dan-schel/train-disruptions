@@ -1,6 +1,6 @@
 import { JOLIMONT } from "../../../../server/data/station-ids";
 import { Line } from "../../lib/geometry";
-import { Path } from "../../lib/path";
+import { Path } from "../../lib/path/path";
 import {
   flagstaff,
   flindersStreet,

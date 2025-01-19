@@ -8,7 +8,7 @@ import {
   SplitPathPiece,
   StationLocation,
   StraightPathPiece,
-} from "./path";
+} from "./path/path";
 
 export type BakedInterchangeMarker = {
   a: FlexiPoint;

@@ -12,7 +12,7 @@ import {
   SOUTHERN_CROSS,
 } from "../../../server/data/station-ids";
 
-import { Interchange } from "../lib/path";
+import { Interchange } from "../lib/path/path";
 
 export const flindersStreet = new Interchange(
   FLINDERS_STREET,
