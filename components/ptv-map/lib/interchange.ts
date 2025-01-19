@@ -13,6 +13,7 @@ export class Interchange<T extends string[] = string[]> {
   point(id: T[number]) {
     return new InterchangePoint(
       this,
+      id,
       this.renderedPoints.includes(id),
       // this.points[id],
       // this.thinPoints.includes(id),

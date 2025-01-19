@@ -27,6 +27,7 @@ export class StationLocation extends PathPiece {
 export class InterchangePoint<T extends string[] = string[]> {
   constructor(
     readonly interchange: Interchange<T>,
+    readonly id: string,
     readonly render: boolean,
   ) {}
 }

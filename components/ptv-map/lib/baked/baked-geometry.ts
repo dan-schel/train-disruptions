@@ -1,5 +1,6 @@
 import { FlexiPoint } from "../dimensions/flexi-point";
 import { Line, LineColor } from "../line";
+import { LocatedInterchange } from "./baked-path";
 
 export class BakedLine {
   constructor(
@@ -46,6 +47,8 @@ export class BakedGeometry {
       locatedInterchanges,
       (item) => item.interchangePoint.interchange.station,
       (station, items) => {
+        LocatedInterchange.validate(items);
+
         interchanges.push(
           new BakedInterchange(
             station,
