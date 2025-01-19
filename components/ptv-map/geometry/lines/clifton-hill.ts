@@ -12,6 +12,7 @@ import { flagstaffToParliament } from "../segments/flagstaff-to-parliament";
 import { flindersStreetToSouthernCross } from "../segments/flinders-street-to-southern-cross";
 import { jolimontLoopPortal } from "../segments/jolimont-loop-portal";
 import { southernCrossToFlagstaff } from "../segments/southern-cross-to-flagstaff";
+import { defaultRadius } from "../utils";
 import * as loop from "../utils-city-loop";
 
 /**
@@ -36,12 +37,12 @@ export const cliftonHill = new Line({
     .straight(50)
     .station(cliftonHillInterchange.point("clifton-hill"))
     .split({
-      split: new Path().straight(50).curve(20, 45).straight(50),
+      split: new Path().straight(50).curve(defaultRadius, 45).straight(50),
     })
-    .curve(20, -45)
+    .curve(defaultRadius, -45)
     .straight(30)
-    .curve(20, 45)
+    .curve(defaultRadius, 45)
     .straight(10)
-    .curve(20, 45)
+    .curve(defaultRadius, 45)
     .straight(50),
 });

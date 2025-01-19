@@ -6,11 +6,14 @@ import {
   BURNLEY,
   CAMBERWELL,
   CAULFIELD,
+  CLAYTON,
   CLIFTON_HILL,
+  DANDENONG,
   FLAGSTAFF,
   FLINDERS_STREET,
   MELBOURNE_CENTRAL,
   NORTH_MELBOURNE,
+  PAKENHAM,
   PARLIAMENT,
   RICHMOND,
   RINGWOOD,
@@ -111,4 +114,22 @@ export const caulfield = new Interchange(
   CAULFIELD,
   ["frankston", "gippsland", "dandenong"] as const,
   ["frankston", "dandenong"],
+);
+
+export const clayton = new Interchange(
+  CLAYTON,
+  ["gippsland", "dandenong"] as const,
+  ["gippsland", "dandenong"],
+);
+
+export const dandenong = new Interchange(
+  DANDENONG,
+  ["gippsland", "dandenong"] as const,
+  ["gippsland", "dandenong"],
+);
+
+export const pakenham = new Interchange(
+  PAKENHAM,
+  ["gippsland", "pakenham"] as const,
+  ["gippsland", "pakenham"],
 );

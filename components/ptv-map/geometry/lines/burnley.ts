@@ -14,6 +14,7 @@ import { flagstaffToParliament } from "../segments/flagstaff-to-parliament";
 import { flindersStreetToSouthernCross } from "../segments/flinders-street-to-southern-cross";
 import { richmondLoopPortal } from "../segments/richmond-loop-portal";
 import { southernCrossToFlagstaff } from "../segments/southern-cross-to-flagstaff";
+import { defaultRadius } from "../utils";
 import * as loop from "../utils-city-loop";
 
 /**
@@ -35,24 +36,32 @@ export const burnley = new Line({
     .station(parliament.point("burnley"))
     .add(richmondLoopPortal(loop.line.burnley, 25, "burnley-direct"))
     .station(richmond.point("burnley"))
-    .curve(20, -45)
-    .straight(10)
+    .curve(defaultRadius, -45)
+    .straight(20)
     .station(burnleyInterchange.point("burnley"))
     .split({
-      split: new Path().curve(20, 45).straight(30).curve(20, -45).straight(30),
+      split: new Path()
+        .curve(defaultRadius, 45)
+        .straight(30)
+        .curve(defaultRadius, -45)
+        .straight(30),
     })
-    .curve(20, -45)
-    .straight(15)
+    .curve(defaultRadius, -45)
+    .straight(20)
     .station(camberwell.point("camberwell"))
     .split({
-      split: new Path().curve(20, 45).straight(10).curve(20, 45).straight(30),
+      split: new Path()
+        .curve(defaultRadius, 45)
+        .straight(10)
+        .curve(defaultRadius, 45)
+        .straight(30),
     })
     .straight(30)
-    .curve(20, 45)
+    .curve(defaultRadius, 45)
     .straight(10)
     .station(ringwood.point("ringwood"))
     .split({
-      split: new Path().curve(20, 45).straight(30),
+      split: new Path().curve(defaultRadius, 45).straight(30),
     })
     .straight(40),
 });

@@ -1,9 +1,13 @@
+import { EAST_PAKENHAM } from "../../../../server/data/station-ids";
 import { Line } from "../../lib/line";
 import { Path } from "../../lib/path/path";
 import {
   caulfield,
+  clayton,
+  dandenong,
   flindersStreet,
   northMelbourne,
+  pakenham,
   richmond,
   southernCross,
   southYarra,
@@ -11,6 +15,7 @@ import {
 import { flindersStreetToRichmond } from "../segments/flinders-street-to-richmond";
 import { flindersStreetToSouthernCross } from "../segments/flinders-street-to-southern-cross";
 import { southernCrossToNorthMelbourneRegional } from "../segments/southern-cross-to-north-melbourne";
+import { defaultRadius, lineGap } from "../utils";
 import * as loop from "../utils-city-loop";
 
 /**
@@ -32,7 +37,22 @@ export const regionalEastern = new Line({
     .straight(15)
     .station(southYarra.point("gippsland"))
     .straight(30)
-    .station(caulfield.point("gippsland")),
+    .station(caulfield.point("gippsland"))
+    .straight(30)
+    .station(clayton.point("gippsland"))
+    .straight(30)
+    .station(dandenong.point("gippsland"))
+    .straight(20)
+    .curve(defaultRadius + lineGap, -45)
+    .straight(20)
+    .station(pakenham.point("gippsland"))
+    .straight(10)
+    .station(EAST_PAKENHAM)
+    .straight(10)
+    .curve(defaultRadius, -45)
+    .straight(10)
+    .curve(defaultRadius, -45)
+    .straight(50),
 });
 
 /**

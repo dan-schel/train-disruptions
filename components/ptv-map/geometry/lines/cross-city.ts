@@ -11,6 +11,7 @@ import {
 import { flindersStreetToRichmond } from "../segments/flinders-street-to-richmond";
 import { flindersStreetToSouthernCross } from "../segments/flinders-street-to-southern-cross";
 import { southernCrossToNorthMelbourne } from "../segments/southern-cross-to-north-melbourne";
+import { defaultRadius } from "../utils";
 import * as loop from "../utils-city-loop";
 
 /**
@@ -30,11 +31,11 @@ export const crossCityEastern = new Line({
     .station(southYarra.point("frankston"))
     .straight(30)
     .station(caulfield.point("frankston"))
-    .curve(20, 45)
+    .curve(defaultRadius, 45)
     .straight(50)
-    .curve(20, -45)
+    .curve(defaultRadius, -45)
     .straight(10)
-    .curve(20, -45)
+    .curve(defaultRadius, -45)
     .straight(20),
 });
 
