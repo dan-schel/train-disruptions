@@ -26,6 +26,8 @@ export const burnley = new Line({
   angle: 180,
   color: "blue",
 
+  // TODO: [DS] Need a way to specify the stations between defined points, as
+  // well as to draw the terminus symbol.
   path: new Path()
     .station(flindersStreet.point("burnley-loop"))
     .add(flindersStreetToSouthernCross(2, false))
@@ -38,6 +40,7 @@ export const burnley = new Line({
     .station(richmond.point("burnley"))
     .curve(defaultRadius, -45)
     .straight(20)
+    //.stations([EAST_RICHMOND])
     .station(burnleyInterchange.point("burnley"))
     .split({
       split: new Path()
@@ -45,9 +48,12 @@ export const burnley = new Line({
         .straight(30)
         .curve(defaultRadius, -45)
         .straight(30),
+      //.stations([HEYINGTON, KOOYONG, TOORONGA, etc.])
+      //.terminus(),
     })
     .curve(defaultRadius, -45)
     .straight(20)
+    //.stations([HAWTHORN, GLENFERRIE, AUBURN])
     .station(camberwell.point("camberwell"))
     .split({
       split: new Path()
