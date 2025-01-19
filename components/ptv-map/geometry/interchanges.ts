@@ -5,6 +5,7 @@
 import {
   BURNLEY,
   CAMBERWELL,
+  CAULFIELD,
   CLIFTON_HILL,
   FLAGSTAFF,
   FLINDERS_STREET,
@@ -13,6 +14,7 @@ import {
   PARLIAMENT,
   RICHMOND,
   RINGWOOD,
+  SOUTH_YARRA,
   SOUTHERN_CROSS,
 } from "../../../server/data/station-ids";
 
@@ -98,3 +100,15 @@ export const camberwell = new Interchange(CAMBERWELL, ["camberwell"] as const, [
 export const ringwood = new Interchange(RINGWOOD, ["ringwood"] as const, [
   "ringwood",
 ]);
+
+export const southYarra = new Interchange(
+  SOUTH_YARRA,
+  ["sandringham", "frankston", "gippsland", "dandenong"] as const,
+  ["sandringham", "dandenong"],
+);
+
+export const caulfield = new Interchange(
+  CAULFIELD,
+  ["frankston", "gippsland", "dandenong"] as const,
+  ["frankston", "dandenong"],
+);

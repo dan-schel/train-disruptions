@@ -1,11 +1,13 @@
 import { Line } from "../../lib/line";
 import { Path } from "../../lib/path/path";
 import {
+  caulfield,
   flagstaff,
   flindersStreet,
   parliament,
   richmond,
   southernCross,
+  southYarra,
 } from "../interchanges";
 import { flagstaffToParliament } from "../segments/flagstaff-to-parliament";
 import { flindersStreetToSouthernCross } from "../segments/flinders-street-to-southern-cross";
@@ -31,5 +33,9 @@ export const dandenong = new Line({
     .add(flagstaffToParliament(3, "dandenong"))
     .station(parliament.point("dandenong"))
     .add(richmondLoopPortal(loop.line.dandenong, 20, "dandenong-direct"))
-    .station(richmond.point("dandenong")),
+    .station(richmond.point("dandenong"))
+    .straight(15)
+    .station(southYarra.point("dandenong"))
+    .straight(30)
+    .station(caulfield.point("dandenong")),
 });

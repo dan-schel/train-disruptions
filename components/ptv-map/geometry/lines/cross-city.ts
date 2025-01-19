@@ -1,10 +1,12 @@
 import { Line } from "../../lib/line";
 import { Path } from "../../lib/path/path";
 import {
+  caulfield,
   flindersStreet,
   northMelbourne,
   richmond,
   southernCross,
+  southYarra,
 } from "../interchanges";
 import { flindersStreetToRichmond } from "../segments/flinders-street-to-richmond";
 import { flindersStreetToSouthernCross } from "../segments/flinders-street-to-southern-cross";
@@ -23,8 +25,20 @@ export const crossCityEastern = new Line({
   path: new Path()
     .station(flindersStreet.point("cross-city-east"))
     .add(flindersStreetToRichmond(loop.line.crossCity))
-    .station(richmond.point("frankston")),
+    .station(richmond.point("frankston"))
+    .straight(15)
+    .station(southYarra.point("frankston"))
+    .straight(30)
+    .station(caulfield.point("frankston"))
+    .curve(20, 45)
+    .straight(50)
+    .curve(20, -45)
+    .straight(10)
+    .curve(20, -45)
+    .straight(20),
 });
+
+// TODO: [DS] The Stony Point line!
 
 /**
  * The Werribee and Williamstown lines, which make up the western half of the

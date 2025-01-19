@@ -1,10 +1,12 @@
 import { Line } from "../../lib/line";
 import { Path } from "../../lib/path/path";
 import {
+  caulfield,
   flindersStreet,
   northMelbourne,
   richmond,
   southernCross,
+  southYarra,
 } from "../interchanges";
 import { flindersStreetToRichmond } from "../segments/flinders-street-to-richmond";
 import { flindersStreetToSouthernCross } from "../segments/flinders-street-to-southern-cross";
@@ -26,7 +28,11 @@ export const regionalEastern = new Line({
     .add(flindersStreetToSouthernCross(loop.line.regional, true).reverse())
     .station(flindersStreet.point("regional"))
     .add(flindersStreetToRichmond(loop.line.regional))
-    .station(richmond.point("gippsland")),
+    .station(richmond.point("gippsland"))
+    .straight(15)
+    .station(southYarra.point("gippsland"))
+    .straight(30)
+    .station(caulfield.point("gippsland")),
 });
 
 /**
