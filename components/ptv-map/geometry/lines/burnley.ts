@@ -16,7 +16,7 @@ export const burnley: Line = {
   color: "blue",
   path: [
     // Flinders Street
-    ...flindersStreetToSouthernCross(2),
+    ...flindersStreetToSouthernCross(2, false),
     // Southern Cross
     ...southernCrossToFlagstaff(2),
     // Flagstaff

@@ -15,7 +15,7 @@ export const cliftonHill: Line = {
   color: "red",
   path: [
     // Flinders Street
-    ...flindersStreetToSouthernCross(1),
+    ...flindersStreetToSouthernCross(1, false),
     // Southern Cross
     ...southernCrossToFlagstaff(1),
     // Flagstaff

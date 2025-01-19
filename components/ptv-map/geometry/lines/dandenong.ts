@@ -16,7 +16,7 @@ export const dandenong: Line = {
   color: "cyan",
   path: [
     // Flinders Street
-    ...flindersStreetToSouthernCross(3),
+    ...flindersStreetToSouthernCross(3, false),
     // Southern Cross
     ...southernCrossToFlagstaff(3),
     interchangeMarker({ id: FLAGSTAFF }),

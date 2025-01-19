@@ -1,6 +1,9 @@
 import { Line } from "../../lib/geometry";
-import { gippslandLine } from "../segments/gippsland-line";
-import { regionalSxsToNme } from "../segments/regional-sxs-to-nme";
+import { flindersStreetToRichmond } from "../segments/flinders-street-to-richmond";
+import { flindersStreetToSouthernCross } from "../segments/flinders-street-to-southern-cross";
+import { southernCrossToNorthMelbourneRegional } from "../segments/southern-cross-to-north-melbourne";
+import { reversePath } from "../utils";
+import * as loop from "../utils-city-loop";
 
 /**
  * The Gippsland line, which is the only regional line (colored purple on the
@@ -8,10 +11,16 @@ import { regionalSxsToNme } from "../segments/regional-sxs-to-nme";
  * east.
  */
 export const regionalEastern: Line = {
-  origin: { min: { x: -80, y: -22 }, max: { x: -80, y: -22 } },
-  angle: 0,
+  origin: loop.pos.southernCross(loop.line.crossCity),
+  angle: 45,
   color: "purple",
-  path: gippslandLine(),
+  path: [
+    // Southern Cross
+    ...reversePath(flindersStreetToSouthernCross(loop.line.regional, true)),
+    // Flinders Street
+    ...flindersStreetToRichmond(loop.line.regional),
+    // Richmond
+  ],
 };
 
 /**
@@ -20,8 +29,14 @@ export const regionalEastern: Line = {
  * Melbourne/Footscray.
  */
 export const regionalWestern: Line = {
-  origin: { min: { x: -70, y: -28 }, max: { x: -70, y: -28 } },
-  angle: 180,
+  origin: loop.pos.southernCross(loop.line.dandenong),
+  angle: 225,
   color: "purple",
-  path: regionalSxsToNme(),
+  path: [
+    // Southern Cross
+    ...southernCrossToNorthMelbourneRegional([
+      // North Melbourne (Seymour line branch)
+    ]),
+    // North Melbourne (RRL branch)
+  ],
 };

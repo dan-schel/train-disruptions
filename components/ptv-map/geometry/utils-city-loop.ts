@@ -9,7 +9,7 @@ const northEdgeY = -60;
 const eastEdgeX = 35;
 
 const flindersStreetX = 0;
-const southernCrossY = -25;
+const southernCrossY = -30;
 const flagstaffX = -40;
 const melbourneCentralX = 0;
 const parliamentY = -45;

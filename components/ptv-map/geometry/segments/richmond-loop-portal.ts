@@ -1,15 +1,15 @@
 import { FlexiLength, InformalFlexiLength } from "../../lib/flexi";
 import { curve, Path, split, straight } from "../../lib/geometry";
-import { measure45Curve } from "../utils";
+import { measure45CurveLockedDiagonal, reversePath } from "../utils";
 import * as loop from "../utils-city-loop";
 import * as direct from "./flinders-street-to-richmond";
 
+/** The curve from Parliament to Richmond, and the split back to Flinders Street. */
 export function richmondLoopPortal(
   lineNumber: loop.LineNumber,
   portalStraight: InformalFlexiLength,
 ): Path[] {
   const parliamentPos = loop.pos.parliament(lineNumber);
-  // const flindersStreetPos = loop.pos.flindersStreet(lineNumber);
   const richmondPos = direct.richmondPos(lineNumber);
 
   // TODO: [DS] Radius cannot be flexi at the moment (I think enabling to be
@@ -19,7 +19,7 @@ export function richmondLoopPortal(
   const shortLength = parliamentPos.horizontalDistanceTo(richmondPos).min;
   const diagonalLength = FlexiLength.formalize(portalStraight).min;
 
-  const { straightLength, radius } = measure45Curve(
+  const { straightLength, radius } = measure45CurveLockedDiagonal(
     longLength,
     shortLength,
     diagonalLength,
@@ -34,7 +34,7 @@ export function richmondLoopPortal(
       reverse: true,
       split: [
         // Richmond
-        ...direct.reverse(lineNumber),
+        ...reversePath(direct.flindersStreetToRichmond(lineNumber)),
         // Flinders Street
       ],
     }),
