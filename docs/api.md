@@ -50,7 +50,7 @@ apiRouter.use("/crayons", CrayonRouter);
 Request and Response can be typed using `validateMiddle`
 
 ```ts
-validateMiddleware({ 
+validateMiddleware({
   params?: ZodSchema; // Object
   query?: ZodSchema; // Object
   body?: ZodSchema; // Object
@@ -62,17 +62,16 @@ The function validates the request body, params, query and response body with th
 <br>
 If the schema is not provided for a property, the respective property will resolve to their default type.
 <br>
-As express parses the request body, params and query as objects, the schemas provided must be an object schema (```z.object({ ... })```).
+As express parses the request body, params and query as objects, the schemas provided must be an object schema (`z.object({ ... })`).
 <br>
 Although it isn't required to provide a schema for the response, it's generally a good idea since we'll be using the types in the frontend as well.
-
 
 An example below is how it would be used to type the body of the request and response.
 
 ```ts
 CrayonRouter.post(
   "/draw",
-  validateMiddleware({ 
+  validateMiddleware({
     body: z.object({
       crayon: z.string(),
     }),
@@ -81,9 +80,9 @@ CrayonRouter.post(
     }),
   }),
   (req, res) => {
-    // crayon is now of type `string`, 
+    // crayon is now of type `string`,
     // without the middleware, crayon would have been typed as `any`
-    const { crayon } = req.body; 
+    const { crayon } = req.body;
     // Handle draw on painting
     res.json({ uses: 0 });
   },
