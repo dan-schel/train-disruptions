@@ -6,6 +6,9 @@ import {
   parliament,
   richmond,
   southernCross,
+  burnley as burnleyInterchange,
+  camberwell,
+  ringwood,
 } from "../interchanges";
 import { flagstaffToParliament } from "../segments/flagstaff-to-parliament";
 import { flindersStreetToSouthernCross } from "../segments/flinders-street-to-southern-cross";
@@ -31,5 +34,25 @@ export const burnley = new Line({
     .add(flagstaffToParliament(2, "burnley"))
     .station(parliament.point("burnley"))
     .add(richmondLoopPortal(loop.line.burnley, 25, "burnley-direct"))
-    .station(richmond.point("burnley")),
+    .station(richmond.point("burnley"))
+    .curve(20, -45)
+    .straight(10)
+    .station(burnleyInterchange.point("burnley"))
+    .split({
+      split: new Path().curve(20, 45).straight(30).curve(20, -45).straight(30),
+    })
+    .curve(20, -45)
+    .straight(15)
+    .station(camberwell.point("camberwell"))
+    .split({
+      split: new Path().curve(20, 45).straight(10).curve(20, 45).straight(30),
+    })
+    .straight(30)
+    .curve(20, 45)
+    .straight(10)
+    .station(ringwood.point("ringwood"))
+    .split({
+      split: new Path().curve(20, 45).straight(30),
+    })
+    .straight(40),
 });

@@ -3,6 +3,8 @@
 // the IDs can be shared (especially since we only import the ones we need, it
 // shouldn't explode the bundle size).
 import {
+  BURNLEY,
+  CAMBERWELL,
   CLIFTON_HILL,
   FLAGSTAFF,
   FLINDERS_STREET,
@@ -10,6 +12,7 @@ import {
   NORTH_MELBOURNE,
   PARLIAMENT,
   RICHMOND,
+  RINGWOOD,
   SOUTHERN_CROSS,
 } from "../../../server/data/station-ids";
 
@@ -83,3 +86,15 @@ export const cliftonHill = new Interchange(
   ["clifton-hill"] as const,
   ["clifton-hill"],
 );
+
+export const burnley = new Interchange(BURNLEY, ["burnley"] as const, [
+  "burnley",
+]);
+
+export const camberwell = new Interchange(CAMBERWELL, ["camberwell"] as const, [
+  "camberwell",
+]);
+
+export const ringwood = new Interchange(RINGWOOD, ["ringwood"] as const, [
+  "ringwood",
+]);
