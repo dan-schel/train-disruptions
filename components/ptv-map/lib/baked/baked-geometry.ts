@@ -14,8 +14,8 @@ export class BakedInterchange {
     readonly station: number,
     readonly points: readonly FlexiPoint[],
   ) {
-    if (points.length !== 2) {
-      throw new Error("Baked interchange should contain 2 points.");
+    if (points.length < 1 || points.length > 2) {
+      throw new Error("Baked interchange should contain 1-2 points.");
     }
   }
 }

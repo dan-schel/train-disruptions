@@ -3,6 +3,7 @@
 // the IDs can be shared (especially since we only import the ones we need, it
 // shouldn't explode the bundle size).
 import {
+  CLIFTON_HILL,
   FLAGSTAFF,
   FLINDERS_STREET,
   MELBOURNE_CENTRAL,
@@ -75,4 +76,10 @@ export const northMelbourne = new Interchange(
   NORTH_MELBOURNE,
   ["cross-city", "regional-rrl", "regional-seymour", "northern"] as const,
   ["cross-city", "northern"],
+);
+
+export const cliftonHill = new Interchange(
+  CLIFTON_HILL,
+  ["clifton-hill"] as const,
+  ["clifton-hill"],
 );

@@ -49,7 +49,7 @@ export class Renderer {
 
     ctx.save();
     ctx.translate(this._canvas.width / 2, this._canvas.height / 2);
-    ctx.scale(4, 4);
+    ctx.scale(2, 2);
 
     for (const line of this._geometry.lines) {
       ctx.lineCap = "butt";
@@ -77,9 +77,11 @@ export class Renderer {
       const { x: x1, y: y1 } = interchange.points[0].amplify(
         this._amplification,
       );
-      const { x: x2, y: y2 } = interchange.points[1].amplify(
-        this._amplification,
-      );
+
+      // TODO: [DS] Temporary hack so that single point interchanges work.
+      const { x: x2, y: y2 } = (
+        interchange.points[1] ?? interchange.points[0]
+      ).amplify(this._amplification);
 
       ctx.lineCap = "round";
       ctx.lineWidth = 6;

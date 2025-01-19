@@ -6,6 +6,7 @@ import {
   flindersStreet,
   parliament,
   southernCross,
+  cliftonHill as cliftonHillInterchange,
 } from "../interchanges";
 import { flagstaffToParliament } from "../segments/flagstaff-to-parliament";
 import { flindersStreetToSouthernCross } from "../segments/flinders-street-to-southern-cross";
@@ -31,5 +32,16 @@ export const cliftonHill = new Line({
     .add(flagstaffToParliament(1, "clifton-hill"))
     .station(parliament.point("clifton-hill"))
     .add(jolimontLoopPortal())
-    .station(JOLIMONT),
+    .station(JOLIMONT)
+    .straight(50)
+    .station(cliftonHillInterchange.point("clifton-hill"))
+    .split({
+      split: new Path().straight(50).curve(20, 45).straight(50),
+    })
+    .curve(20, -45)
+    .straight(30)
+    .curve(20, 45)
+    .straight(10)
+    .curve(20, 45)
+    .straight(50),
 });
