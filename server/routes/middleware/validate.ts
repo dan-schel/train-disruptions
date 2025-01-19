@@ -1,4 +1,4 @@
-import { ZodIssue, ZodSchema } from "zod";
+import { ZodIssue, ZodObjectDef, ZodSchema } from "zod";
 import { NextFunction, Request, Response } from "express";
 import { ParamsDictionary } from "express-serve-static-core";
 import {
@@ -7,9 +7,9 @@ import {
 } from "../../../types/errors/validation";
 
 type ValidationRequest<TParams, TQuery, TBody, TResBody> = {
-  params?: ZodSchema<TParams>;
-  query?: ZodSchema<TQuery>;
-  body?: ZodSchema<TBody>;
+  params?: ZodSchema<TParams, ZodObjectDef>;
+  query?: ZodSchema<TQuery, ZodObjectDef>;
+  body?: ZodSchema<TBody, ZodObjectDef>;
   response?: ZodSchema<TResBody>;
 };
 

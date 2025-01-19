@@ -14,7 +14,7 @@ DisruptionRouter.get(
     response: disruptionSchema.array(),
   }),
   async (_, res) => {
-    //   // Temporary - only need this while `RELAY_KEY` is optional in the schema
+    // Temporary - only need this while `RELAY_KEY` is optional in the schema
     if (!env.RELAY_KEY) {
       // eslint-disable-next-line no-console
       console.log("🟡 Relay connection not set up yet.");
