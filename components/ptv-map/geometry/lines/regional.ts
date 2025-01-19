@@ -1,8 +1,14 @@
+import {
+  FLINDERS_STREET,
+  NORTH_MELBOURNE,
+  RICHMOND,
+  SOUTHERN_CROSS,
+} from "../../../../server/data/station-ids";
 import { Line } from "../../lib/geometry";
+import { Path } from "../../lib/path";
 import { flindersStreetToRichmond } from "../segments/flinders-street-to-richmond";
 import { flindersStreetToSouthernCross } from "../segments/flinders-street-to-southern-cross";
 import { southernCrossToNorthMelbourneRegional } from "../segments/southern-cross-to-north-melbourne";
-import { reversePath } from "../utils";
 import * as loop from "../utils-city-loop";
 
 /**
@@ -14,13 +20,13 @@ export const regionalEastern: Line = {
   origin: loop.pos.southernCross(loop.line.crossCity),
   angle: 45,
   color: "purple",
-  path: [
-    // Southern Cross
-    ...reversePath(flindersStreetToSouthernCross(loop.line.regional, true)),
-    // Flinders Street
-    ...flindersStreetToRichmond(loop.line.regional),
-    // Richmond
-  ],
+
+  path: new Path()
+    .station(SOUTHERN_CROSS)
+    .add(flindersStreetToSouthernCross(loop.line.regional, true).reverse())
+    .station(FLINDERS_STREET)
+    .add(flindersStreetToRichmond(loop.line.regional))
+    .station(RICHMOND),
 };
 
 /**
@@ -32,11 +38,13 @@ export const regionalWestern: Line = {
   origin: loop.pos.southernCross(loop.line.dandenong),
   angle: 225,
   color: "purple",
-  path: [
-    // Southern Cross
-    ...southernCrossToNorthMelbourneRegional([
-      // North Melbourne (Seymour line branch)
-    ]),
-    // North Melbourne (RRL branch)
-  ],
+
+  path: new Path()
+    .station(SOUTHERN_CROSS)
+    .add(
+      southernCrossToNorthMelbourneRegional(
+        new Path().station(NORTH_MELBOURNE),
+      ),
+    )
+    .station(NORTH_MELBOURNE),
 };

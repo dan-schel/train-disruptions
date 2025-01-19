@@ -5,7 +5,8 @@ import {
   PARLIAMENT,
   NORTH_MELBOURNE,
 } from "../../../../server/data/station-ids";
-import { interchangeMarker, Line } from "../../lib/geometry";
+import { Line } from "../../lib/geometry";
+import { Path } from "../../lib/path";
 import { flagstaffToParliament } from "../segments/flagstaff-to-parliament";
 import { flindersStreetToSouthernCross } from "../segments/flinders-street-to-southern-cross";
 import { northMelbourneLoopPortal } from "../segments/north-melbourne-loop-portal";
@@ -20,17 +21,20 @@ export const northern: Line = {
   origin: loop.pos.flindersStreet(loop.line.northern),
   angle: 180,
   color: "yellow",
-  path: [
-    interchangeMarker({ id: FLINDERS_STREET }),
-    ...flindersStreetToSouthernCross(0, false),
-    interchangeMarker({ id: SOUTHERN_CROSS }),
-    ...northMelbourneLoopPortal([
-      interchangeMarker({ id: FLAGSTAFF }),
-      ...flagstaffToParliament(0),
-      interchangeMarker({ id: PARLIAMENT }),
-      ...parliamentToFlindersStreet(0),
-      // Flinders Street
-    ]),
-    interchangeMarker({ id: NORTH_MELBOURNE }),
-  ],
+
+  path: new Path()
+    .interchange(FLINDERS_STREET)
+    .add(flindersStreetToSouthernCross(0, false))
+    .interchange(SOUTHERN_CROSS)
+    .add(
+      northMelbourneLoopPortal(
+        new Path()
+          .interchange(FLAGSTAFF)
+          .add(flagstaffToParliament(0))
+          .interchange(PARLIAMENT)
+          .add(parliamentToFlindersStreet(0))
+          .station(FLINDERS_STREET),
+      ),
+    )
+    .interchange(NORTH_MELBOURNE),
 };

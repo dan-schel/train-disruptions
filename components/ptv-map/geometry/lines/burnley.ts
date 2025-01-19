@@ -1,5 +1,12 @@
-import { RICHMOND } from "../../../../server/data/station-ids";
-import { interchangeMarker, Line } from "../../lib/geometry";
+import {
+  FLAGSTAFF,
+  FLINDERS_STREET,
+  PARLIAMENT,
+  RICHMOND,
+  SOUTHERN_CROSS,
+} from "../../../../server/data/station-ids";
+import { Line } from "../../lib/geometry";
+import { Path } from "../../lib/path";
 import { flagstaffToParliament } from "../segments/flagstaff-to-parliament";
 import { flindersStreetToSouthernCross } from "../segments/flinders-street-to-southern-cross";
 import { richmondLoopPortal } from "../segments/richmond-loop-portal";
@@ -14,15 +21,15 @@ export const burnley: Line = {
   origin: loop.pos.flindersStreet(loop.line.burnley),
   angle: 180,
   color: "blue",
-  path: [
-    // Flinders Street
-    ...flindersStreetToSouthernCross(2, false),
-    // Southern Cross
-    ...southernCrossToFlagstaff(2),
-    // Flagstaff
-    ...flagstaffToParliament(2),
-    // Parliament
-    ...richmondLoopPortal(loop.line.burnley, 25),
-    interchangeMarker({ id: RICHMOND }),
-  ],
+
+  path: new Path()
+    .station(FLINDERS_STREET)
+    .add(flindersStreetToSouthernCross(2, true))
+    .station(SOUTHERN_CROSS)
+    .add(southernCrossToFlagstaff(2))
+    .station(FLAGSTAFF)
+    .add(flagstaffToParliament(2))
+    .station(PARLIAMENT)
+    .add(richmondLoopPortal(loop.line.burnley, 25))
+    .interchange(RICHMOND),
 };

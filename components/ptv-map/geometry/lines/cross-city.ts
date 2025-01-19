@@ -5,9 +5,12 @@
 import {
   SOUTHERN_CROSS,
   NORTH_MELBOURNE,
+  FLINDERS_STREET,
+  RICHMOND,
 } from "../../../../server/data/station-ids";
 
-import { interchangeMarker, Line } from "../../lib/geometry";
+import { Line } from "../../lib/geometry";
+import { Path } from "../../lib/path";
 import { flindersStreetToRichmond } from "../segments/flinders-street-to-richmond";
 import { flindersStreetToSouthernCross } from "../segments/flinders-street-to-southern-cross";
 import { southernCrossToNorthMelbourne } from "../segments/southern-cross-to-north-melbourne";
@@ -21,11 +24,11 @@ export const crossCityEastern: Line = {
   origin: loop.pos.flindersStreet(loop.line.crossCity),
   angle: 0,
   color: "green",
-  path: [
-    // Flinders Street
-    ...flindersStreetToRichmond(loop.line.crossCity),
-    // Richmond
-  ],
+
+  path: new Path()
+    .station(FLINDERS_STREET)
+    .add(flindersStreetToRichmond(loop.line.crossCity))
+    .station(RICHMOND),
 };
 
 /**
@@ -36,12 +39,11 @@ export const crossCityWestern: Line = {
   origin: loop.pos.flindersStreet(loop.line.crossCity),
   angle: 180,
   color: "green",
-  path: [
-    // Flinders Street
-    ...flindersStreetToSouthernCross(5, false),
-    interchangeMarker({ id: SOUTHERN_CROSS }),
-    ...southernCrossToNorthMelbourne(5),
-    interchangeMarker({ id: NORTH_MELBOURNE }),
-    // North Melbourne
-  ],
+
+  path: new Path()
+    .station(FLINDERS_STREET)
+    .add(flindersStreetToSouthernCross(5, false))
+    .interchange(SOUTHERN_CROSS)
+    .add(southernCrossToNorthMelbourne(5))
+    .interchange(NORTH_MELBOURNE),
 };

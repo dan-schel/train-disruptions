@@ -1,6 +1,7 @@
 import { FlexiLength } from "../../lib/flexi-length";
 import { FlexiPoint } from "../../lib/flexi-point";
-import { curve, Path, split, straight } from "../../lib/geometry";
+import { curve, split, straight } from "../../lib/geometry";
+import { Path } from "../../lib/path";
 import { diagonal, lineGap, long45, short45 } from "../utils";
 import * as loop from "../utils-city-loop";
 
@@ -26,7 +27,7 @@ export function southernCrossToNorthMelbourne(
  * The direct path from Southern Cross to North Melbourne that the regional
  * lines use, including the split just before North Melbourne.
  */
-export function southernCrossToNorthMelbourneRegional(branch: Path[]): Path[] {
+export function southernCrossToNorthMelbourneRegional(branch: Path): Path[] {
   const curveRadius = lineGap / short45;
   const curveHeight = curveRadius * long45;
 

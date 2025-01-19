@@ -1,4 +1,5 @@
-import { straight, curve, Path, split } from "../../lib/geometry";
+import { straight, curve, split } from "../../lib/geometry";
+import { Path } from "../../lib/path";
 import {
   measure45CurveLockedRadius,
   measure45CurveLockedStraight,
@@ -12,7 +13,7 @@ const directRadius = 20;
  * The curve from Southern Cross to North Melbourne, and the split back to
  * Flagstaff.
  */
-export function northMelbourneLoopPortal(branch: Path[]): Path[] {
+export function northMelbourneLoopPortal(branch: Path): Path[] {
   const southernCrossPos = loop.pos.southernCross(loop.line.northern);
   const flagstaffPos = loop.pos.flagstaff(loop.line.northern);
 
