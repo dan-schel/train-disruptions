@@ -1,4 +1,4 @@
-import { FlexiPoint } from "./flexi";
+import { FlexiPoint } from "./flexi-point";
 import {
   Curve,
   Geometry,

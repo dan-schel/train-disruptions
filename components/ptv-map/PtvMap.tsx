@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, MouseEvent } from "react";
+import React, { useEffect, useRef } from "react";
 import { Renderer } from "./lib/renderer";
 import { geometry } from "./geometry";
 
@@ -26,13 +26,5 @@ export function PtvMap(props: PtvMapProps) {
     };
   }, [props.amplification]);
 
-  function handleClick(e: MouseEvent) {
-    const x = (e.nativeEvent.offsetX - 500) / 4;
-    const y = (e.nativeEvent.offsetY - 400) / 4;
-    console.log(`Clicked at x=${x.toFixed()}, y=${y.toFixed()}`);
-  }
-
-  return (
-    <canvas ref={canvasRef} width="1000" height="800" onClick={handleClick} />
-  );
+  return <canvas ref={canvasRef} width="1000" height="800" />;
 }

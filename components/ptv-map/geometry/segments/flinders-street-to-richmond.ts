@@ -1,4 +1,4 @@
-import { FlexiPoint } from "../../lib/flexi";
+import { FlexiPoint } from "../../lib/flexi-point";
 import { curve, Path, straight } from "../../lib/geometry";
 import { diagonal, lineGap, long45, short45 } from "../utils";
 import * as loop from "../utils-city-loop";

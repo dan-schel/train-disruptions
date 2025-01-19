@@ -1,4 +1,5 @@
-import { FlexiLength, InformalFlexiLength, InformalFlexiPoint } from "./flexi";
+import { FlexiLength, InformalFlexiLength } from "./flexi-length";
+import { InformalFlexiPoint } from "./flexi-point";
 
 export type Straight = {
   type: "straight";

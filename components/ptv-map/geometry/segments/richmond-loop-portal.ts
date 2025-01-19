@@ -1,4 +1,4 @@
-import { FlexiLength, InformalFlexiLength } from "../../lib/flexi";
+import { FlexiLength, InformalFlexiLength } from "../../lib/flexi-length";
 import { curve, Path, split, straight } from "../../lib/geometry";
 import { measure45CurveLockedDiagonal, reversePath } from "../utils";
 import * as loop from "../utils-city-loop";
