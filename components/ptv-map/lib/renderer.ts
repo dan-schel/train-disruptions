@@ -32,6 +32,10 @@ export class Renderer {
   private _dpiRatio = 1;
   private _amplification = 1;
 
+  // <temp>
+  private _image: HTMLImageElement | null = null;
+  // </temp>
+
   private _resizeListener: () => void;
 
   constructor(
@@ -52,6 +56,15 @@ export class Renderer {
     this._fitCanvas();
     this._render();
     window.addEventListener("resize", this._resizeListener);
+
+    // <temp>
+    const image = new Image();
+    image.src = "/ptv-map.png";
+    image.onload = () => {
+      this._image = image;
+      this._render();
+    };
+    // </temp>
   }
 
   destroy() {
@@ -82,12 +95,29 @@ export class Renderer {
 
   private _render() {
     const ctx = this._ctx;
+    ctx.save();
 
     const pxWidth = this._width * this._dpiRatio;
     const pxHeight = this._height * this._dpiRatio;
     ctx.clearRect(0, 0, pxWidth, pxHeight);
     ctx.scale(this._dpiRatio, this._dpiRatio);
     ctx.translate(this._width / 2, this._height / 2);
+
+    // <temp>
+    ctx.scale(1, 1);
+    ctx.translate(0, 0);
+    // </temp>
+
+    // <temp>
+    if (this._image) {
+      ctx.save();
+      ctx.scale(0.5, 0.5);
+      ctx.translate(-1240, -868);
+      ctx.globalAlpha = 0.2;
+      ctx.drawImage(this._image, 0, 0);
+      ctx.restore();
+    }
+    // </temp>
 
     for (const line of this._geometry.lines) {
       this._renderLine(line);
@@ -96,6 +126,8 @@ export class Renderer {
     for (const interchange of this._geometry.interchanges) {
       this._renderInterchange(interchange);
     }
+
+    ctx.restore();
   }
 
   private _renderLine(line: BakedLine) {
