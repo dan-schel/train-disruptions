@@ -11,6 +11,7 @@ import {
   DANDENONG,
   FLAGSTAFF,
   FLINDERS_STREET,
+  FOOTSCRAY,
   MELBOURNE_CENTRAL,
   NORTH_MELBOURNE,
   PAKENHAM,
@@ -132,4 +133,10 @@ export const pakenham = new Interchange(
   PAKENHAM,
   ["gippsland", "pakenham"] as const,
   ["gippsland", "pakenham"],
+);
+
+export const footscray = new Interchange(
+  FOOTSCRAY,
+  ["cross-city", "regional", "sunbury"] as const,
+  ["cross-city", "sunbury"],
 );

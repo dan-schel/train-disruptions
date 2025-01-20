@@ -3,6 +3,7 @@ import { Path } from "../../lib/path/path";
 import {
   flagstaff,
   flindersStreet,
+  footscray,
   northMelbourne,
   parliament,
   southernCross,
@@ -10,7 +11,9 @@ import {
 import { flagstaffToParliament } from "../segments/flagstaff-to-parliament";
 import { flindersStreetToSouthernCross } from "../segments/flinders-street-to-southern-cross";
 import { northMelbourneLoopPortal } from "../segments/north-melbourne-loop-portal";
+import { northMelbourneToFootscray } from "../segments/north-melbourne-to-footscray";
 import { parliamentToFlindersStreet } from "../segments/parliament-to-flinders-street";
+import { defaultRadius } from "../utils";
 import * as loop from "../utils-city-loop";
 
 /**
@@ -36,5 +39,18 @@ export const northern = new Line({
           .station(flindersStreet.point("northern-loop")),
       ),
     )
-    .station(northMelbourne.point("northern")),
+    .station(northMelbourne.point("northern"))
+    .split({
+      split: new Path()
+        .straight(5)
+        .curve(defaultRadius, 45)
+        .straight(10)
+        .curve(defaultRadius, 45)
+        .straight(5),
+    })
+    .split({
+      split: new Path().straight(50),
+    })
+    .add(northMelbourneToFootscray("sunbury"))
+    .station(footscray.point("sunbury")),
 });

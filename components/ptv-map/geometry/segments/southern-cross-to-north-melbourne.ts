@@ -50,11 +50,23 @@ export function southernCrossToNorthMelbourneRegional(branch: Path): Path {
     .straight(northMelbourneStraight);
 }
 
-export function northMelbournePos(lineNumber: loop.LineNumber): FlexiPoint {
+export function northMelbournePos(
+  track: "cross-city" | "regional-rrl" | "regional-seymour" | "northern",
+): FlexiPoint {
+  const southernCrossLineNumber = {
+    "cross-city": loop.line.crossCity,
+    "regional-rrl": loop.line.regional,
+    "regional-seymour": loop.line.dandenong,
+    northern: loop.line.burnley,
+  }[track];
+
   return loop.pos
-    .southernCross(lineNumber)
+    .southernCross(southernCrossLineNumber)
     .minus({ y: southernCrossStraight })
-    .minus({ x: radius(lineNumber) * short45, y: radius(lineNumber) * long45 })
+    .minus({
+      x: radius(southernCrossLineNumber) * short45,
+      y: radius(southernCrossLineNumber) * long45,
+    })
     .minus({
       x: northMelbourneStraight * diagonal,
       y: northMelbourneStraight * diagonal,

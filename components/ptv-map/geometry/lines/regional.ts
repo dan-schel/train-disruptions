@@ -6,6 +6,7 @@ import {
   clayton,
   dandenong,
   flindersStreet,
+  footscray,
   northMelbourne,
   pakenham,
   richmond,
@@ -14,6 +15,7 @@ import {
 } from "../interchanges";
 import { flindersStreetToRichmond } from "../segments/flinders-street-to-richmond";
 import { flindersStreetToSouthernCross } from "../segments/flinders-street-to-southern-cross";
+import { northMelbourneToFootscray } from "../segments/north-melbourne-to-footscray";
 import { southernCrossToNorthMelbourneRegional } from "../segments/southern-cross-to-north-melbourne";
 import { defaultRadius, lineGap } from "../utils";
 import * as loop from "../utils-city-loop";
@@ -69,8 +71,12 @@ export const regionalWestern = new Line({
     .station(southernCross.point("regional-west"))
     .add(
       southernCrossToNorthMelbourneRegional(
-        new Path().station(northMelbourne.point("regional-seymour")),
+        new Path()
+          .station(northMelbourne.point("regional-seymour"))
+          .straight(50),
       ),
     )
-    .station(northMelbourne.point("regional-rrl")),
+    .station(northMelbourne.point("regional-rrl"))
+    .add(northMelbourneToFootscray("regional-rrl"))
+    .station(footscray.point("regional")),
 });

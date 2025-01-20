@@ -15,11 +15,7 @@ const directRadius = 20;
 export function northMelbourneLoopPortal(branch: Path): Path {
   const southernCrossPos = loop.pos.southernCross(loop.line.northern);
   const flagstaffPos = loop.pos.flagstaff(loop.line.northern);
-
-  // If the Burnley line (dark blue) continued around to North Melbourne
-  // (following the curve of the Werribee/Williamstown line), it would be drawn
-  // where we want to draw the Northern loop portal.
-  const northMelbournePos = direct.northMelbournePos(loop.line.burnley);
+  const northMelbournePos = direct.northMelbournePos("northern");
 
   // TODO: [DS] Radius cannot be flexi at the moment (I think enabling to be
   // would be fine), so always use the min. This will break if the city loop

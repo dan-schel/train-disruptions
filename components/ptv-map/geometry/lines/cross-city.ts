@@ -3,6 +3,7 @@ import { Path } from "../../lib/path/path";
 import {
   caulfield,
   flindersStreet,
+  footscray,
   northMelbourne,
   richmond,
   southernCross,
@@ -10,6 +11,7 @@ import {
 } from "../interchanges";
 import { flindersStreetToRichmond } from "../segments/flinders-street-to-richmond";
 import { flindersStreetToSouthernCross } from "../segments/flinders-street-to-southern-cross";
+import { northMelbourneToFootscray } from "../segments/north-melbourne-to-footscray";
 import { southernCrossToNorthMelbourne } from "../segments/southern-cross-to-north-melbourne";
 import { defaultRadius } from "../utils";
 import * as loop from "../utils-city-loop";
@@ -55,5 +57,7 @@ export const crossCityWestern = new Line({
     .add(flindersStreetToSouthernCross(5, false))
     .station(southernCross.point("cross-city"))
     .add(southernCrossToNorthMelbourne(5))
-    .station(northMelbourne.point("cross-city")),
+    .station(northMelbourne.point("cross-city"))
+    .add(northMelbourneToFootscray("cross-city"))
+    .station(footscray.point("cross-city")),
 });
