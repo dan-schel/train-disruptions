@@ -2,29 +2,41 @@ import React, { useEffect, useRef } from "react";
 import { Renderer } from "./lib/renderer";
 import { geometry } from "./geometry";
 
-export type PtvMapProps = {
-  /** How much to exaggerate details (optimise for smaller screens.) */
-  amplification: number;
-};
-
-export function PtvMap(props: PtvMapProps) {
+export function PtvMap() {
+  const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  // TODO [DS]: Let's not recreate the renderer every time the amplification
-  // changes. It will change with the screen size, so often while resizing.
   useEffect(() => {
-    let renderer: Renderer | null = null;
-    if (canvasRef.current != null) {
-      renderer = new Renderer(canvasRef.current, props.amplification, geometry);
-      renderer.start();
+    if (containerRef.current == null || canvasRef.current == null) {
+      return;
     }
+
+    const renderer = new Renderer(
+      containerRef.current,
+      canvasRef.current,
+      geometry,
+    );
+
+    renderer.start();
 
     return () => {
       if (renderer != null) {
         renderer.destroy();
       }
     };
-  }, [props.amplification]);
+  }, []);
 
-  return <canvas ref={canvasRef} width="1000" height="800" />;
+  return (
+    <div
+      ref={containerRef}
+      className="relative aspect-video overflow-hidden border border-gray-300"
+    >
+      <canvas
+        className="absolute left-0 top-0"
+        ref={canvasRef}
+        width="1000"
+        height="800"
+      />
+    </div>
+  );
 }

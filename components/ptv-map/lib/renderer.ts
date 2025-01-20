@@ -1,5 +1,17 @@
-import { BakedGeometry } from "./baked/baked-geometry";
+import {
+  BakedGeometry,
+  BakedInterchange,
+  BakedLine,
+} from "./baked/baked-geometry";
 import { LineColor } from "./line";
+
+// Canvas has `backingStorePixelRatio`, but Typescript doesn't know about it for
+// some reason. (Probably the target "ES____" version we're using idk.)
+declare global {
+  interface CanvasRenderingContext2D {
+    backingStorePixelRatio?: number;
+  }
+}
 
 const lineColors: Record<LineColor, string> = {
   red: "#e42b23",
@@ -15,9 +27,16 @@ const lineColors: Record<LineColor, string> = {
 export class Renderer {
   private readonly _ctx;
 
+  private _width = 0;
+  private _height = 0;
+  private _dpiRatio = 1;
+  private _amplification = 1;
+
+  private _resizeListener: () => void;
+
   constructor(
+    private readonly _canvasContainer: HTMLDivElement,
     private readonly _canvas: HTMLCanvasElement,
-    private _amplification: number,
     private _geometry: BakedGeometry,
   ) {
     const ctx = this._canvas.getContext("2d");
@@ -25,81 +44,108 @@ export class Renderer {
       throw new Error("Canvas not supported.");
     }
     this._ctx = ctx;
+
+    this._resizeListener = this._onResize.bind(this);
   }
 
   start() {
-    this.render();
+    this._fitCanvas();
+    this._render();
+    window.addEventListener("resize", this._resizeListener);
   }
 
-  destroy() {}
-
-  setAmplification(amplification: number) {
-    this._amplification = amplification;
-    this.render();
+  destroy() {
+    window.removeEventListener("resize", this._resizeListener);
   }
 
-  render() {
+  private _onResize() {
+    this._fitCanvas();
+    this._render();
+  }
+
+  private _fitCanvas() {
+    const containerSize = this._canvasContainer.getBoundingClientRect();
+    this._width = containerSize.width;
+    this._height = containerSize.height;
+
+    const dpr = window.devicePixelRatio ?? 1;
+    const bsr = this._ctx.backingStorePixelRatio ?? 1;
+    this._dpiRatio = dpr / bsr;
+
+    this._amplification = 1;
+
+    this._canvas.style.width = `${this._width}px`;
+    this._canvas.style.height = `${this._height}px`;
+    this._canvas.width = this._width * this._dpiRatio;
+    this._canvas.height = this._height * this._dpiRatio;
+  }
+
+  private _render() {
     const ctx = this._ctx;
 
-    ctx.clearRect(0, 0, this._canvas.width, this._canvas.height);
-
-    ctx.fillStyle = "#f0f0f0";
-    ctx.rect(0, 0, this._canvas.width, this._canvas.height);
-    ctx.fill();
-
-    ctx.save();
-    ctx.translate(this._canvas.width / 2, this._canvas.height / 2);
-    ctx.scale(2, 2);
+    const pxWidth = this._width * this._dpiRatio;
+    const pxHeight = this._height * this._dpiRatio;
+    ctx.clearRect(0, 0, pxWidth, pxHeight);
+    ctx.scale(this._dpiRatio, this._dpiRatio);
+    ctx.translate(this._width / 2, this._height / 2);
 
     for (const line of this._geometry.lines) {
-      ctx.lineCap = "butt";
-      ctx.lineWidth = 4;
-      ctx.strokeStyle = lineColors[line.color];
-      ctx.beginPath();
-
-      let firstPoint = true;
-
-      for (const point of line.path) {
-        const { x, y } = point.amplify(this._amplification);
-
-        if (firstPoint) {
-          ctx.moveTo(x, y);
-          firstPoint = false;
-        } else {
-          ctx.lineTo(x, y);
-        }
-      }
-
-      ctx.stroke();
+      this._renderLine(line);
     }
 
     for (const interchange of this._geometry.interchanges) {
-      const { x: x1, y: y1 } = interchange.points[0].amplify(
-        this._amplification,
-      );
+      this._renderInterchange(interchange);
+    }
+  }
 
-      // TODO: [DS] Temporary hack so that single point interchanges work.
-      const { x: x2, y: y2 } = (
-        interchange.points[1] ?? interchange.points[0]
-      ).amplify(this._amplification);
+  private _renderLine(line: BakedLine) {
+    const ctx = this._ctx;
 
-      ctx.lineCap = "round";
-      ctx.lineWidth = 6;
-      ctx.strokeStyle = "#45474d";
-      ctx.beginPath();
-      ctx.moveTo(x1, y1);
-      ctx.lineTo(x2, y2);
-      ctx.stroke();
+    ctx.lineCap = "butt";
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = lineColors[line.color];
+    ctx.beginPath();
 
-      ctx.lineCap = "round";
-      ctx.lineWidth = 4;
-      ctx.strokeStyle = "#ffffff";
-      ctx.beginPath();
-      ctx.moveTo(x1, y1);
-      ctx.lineTo(x2, y2);
-      ctx.stroke();
+    let firstPoint = true;
+
+    for (const point of line.path) {
+      const { x, y } = point.amplify(this._amplification);
+
+      if (firstPoint) {
+        ctx.moveTo(x, y);
+        firstPoint = false;
+      } else {
+        ctx.lineTo(x, y);
+      }
     }
 
-    ctx.restore();
+    ctx.stroke();
+  }
+
+  private _renderInterchange(interchange: BakedInterchange) {
+    const ctx = this._ctx;
+
+    const { x: x1, y: y1 } = interchange.points[0].amplify(this._amplification);
+
+    // TODO: [DS] Temporary hack so that single point interchanges work.
+    const { x: x2, y: y2 } = (
+      interchange.points[1] ?? interchange.points[0]
+    ).amplify(this._amplification);
+
+    ctx.lineCap = "round";
+    ctx.lineWidth = 6;
+    ctx.strokeStyle = "#45474d";
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.stroke();
+
+    ctx.lineCap = "round";
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = "#ffffff";
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.stroke();
   }
 }
