@@ -32,10 +32,6 @@ export class Renderer {
   private _dpiRatio = 1;
   private _amplification = 1;
 
-  // <temp>
-  private _image: HTMLImageElement | null = null;
-  // </temp>
-
   private _resizeListener: () => void;
 
   constructor(
@@ -56,15 +52,6 @@ export class Renderer {
     this._fitCanvas();
     this._render();
     window.addEventListener("resize", this._resizeListener);
-
-    // <temp>
-    const image = new Image();
-    image.src = "/ptv-map.png";
-    image.onload = () => {
-      this._image = image;
-      this._render();
-    };
-    // </temp>
   }
 
   destroy() {
@@ -105,17 +92,6 @@ export class Renderer {
 
     // <temp>
     ctx.scale(0.5, 0.5);
-    // </temp>
-
-    // <temp>
-    if (this._image) {
-      ctx.save();
-      ctx.scale(0.5, 0.5);
-      ctx.translate(-1240, -868);
-      ctx.globalAlpha = 0.2;
-      ctx.drawImage(this._image, 0, 0);
-      ctx.restore();
-    }
     // </temp>
 
     for (const line of this._geometry.lines) {
