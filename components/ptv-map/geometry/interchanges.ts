@@ -3,6 +3,8 @@
 // the IDs can be shared (especially since we only import the ones we need, it
 // shouldn't explode the bundle size).
 import {
+  BALLARAT,
+  BENDIGO,
   BROADMEADOWS,
   BURNLEY,
   CAMBERWELL,
@@ -11,6 +13,7 @@ import {
   CLIFTON_HILL,
   CRAIGIEBURN,
   DANDENONG,
+  DEER_PARK,
   FLAGSTAFF,
   FLINDERS_STREET,
   FOOTSCRAY,
@@ -26,6 +29,9 @@ import {
   SEYMOUR,
   SOUTH_YARRA,
   SOUTHERN_CROSS,
+  SUNBURY,
+  SUNSHINE,
+  WATERGARDENS,
 } from "../../../server/data/station-ids";
 
 import { Interchange } from "../lib/interchange";
@@ -175,4 +181,34 @@ export const newport = new Interchange(NEWPORT, ["cross-city"] as const, [
 
 export const laverton = new Interchange(LAVERTON, ["werribee"] as const, [
   "werribee",
+]);
+
+export const sunshine = new Interchange(
+  SUNSHINE,
+  ["sunbury", "bendigo", "deer-park"] as const,
+  ["sunbury", "deer-park"],
+);
+
+export const watergardens = new Interchange(
+  WATERGARDENS,
+  ["sunbury", "bendigo"] as const,
+  ["sunbury", "bendigo"],
+);
+
+export const sunbury = new Interchange(
+  SUNBURY,
+  ["sunbury", "bendigo"] as const,
+  ["sunbury", "bendigo"],
+);
+
+export const bendigo = new Interchange(BENDIGO, ["bendigo"] as const, [
+  "bendigo",
+]);
+
+export const ballarat = new Interchange(BALLARAT, ["ballarat"] as const, [
+  "ballarat",
+]);
+
+export const deerPark = new Interchange(DEER_PARK, ["deer-park"] as const, [
+  "deer-park",
 ]);

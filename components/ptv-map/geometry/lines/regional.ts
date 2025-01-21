@@ -2,11 +2,13 @@ import { EAST_PAKENHAM } from "../../../../server/data/station-ids";
 import { Line } from "../../lib/line";
 import { Path } from "../../lib/path/path";
 import {
+  bendigo,
   broadmeadows,
   caulfield,
   clayton,
   craigieburn,
   dandenong,
+  deerPark,
   flindersStreet,
   footscray,
   northMelbourne,
@@ -15,6 +17,9 @@ import {
   seymour,
   southernCross,
   southYarra,
+  sunbury,
+  sunshine,
+  watergardens,
 } from "../interchanges";
 import { flindersStreetToRichmond } from "../segments/flinders-street-to-richmond";
 import { flindersStreetToSouthernCross } from "../segments/flinders-street-to-southern-cross";
@@ -35,6 +40,11 @@ import {
   pakenhamToEastPakenham,
   richmondToSouthYarra,
   southYarraToCaulfield,
+  sunburyStraight,
+  sunshineCurvesBendigo,
+  sunshineDiagonals,
+  tottenhamStraight,
+  watergardensStraight,
 } from "../utils-shared-corridors";
 
 const eastPakenhamToCurve = 25;
@@ -46,6 +56,21 @@ const seymourStraight = 195;
 const sheppartonStraight = 140;
 const avenelStraight = 45;
 const alburyStraight = 250;
+
+const kangarooFlatStraight = 135;
+const bendigoDiagonal = 25;
+const bendigoStraight = 10;
+const eaglehawkStraight = 45;
+const swanHillStraight = 130;
+const echucaStraight = 160;
+
+const deerParkStraight = 60;
+const ballaratStraight = 165;
+const araratStraight = 50;
+const maryboroughStraight = 50;
+const wyndhamValeStraight = 135;
+const laraStraight = 15;
+const warrnamboolStraight = 210;
 
 /**
  * The Gippsland line, which is the only regional line (colored purple on the
@@ -122,5 +147,50 @@ export const regionalWestern = new Line({
     )
     .station(northMelbourne.point("regional-rrl"))
     .add(northMelbourneToFootscray("regional-rrl"))
-    .station(footscray.point("regional")),
+    .station(footscray.point("regional"))
+    .straight(tottenhamStraight)
+    .split({
+      split: new Path()
+        .curve(sunshineCurvesBendigo, 45)
+        .straight(sunshineDiagonals)
+        .station(sunshine.point("bendigo"))
+        .straight(sunshineDiagonals)
+        .curve(sunshineCurvesBendigo, 45)
+        .straight(watergardensStraight)
+        .station(watergardens.point("bendigo"))
+        .straight(sunburyStraight)
+        .station(sunbury.point("bendigo"))
+        .straight(kangarooFlatStraight)
+        .curve(defaultRadius, -45)
+        .straight(bendigoDiagonal)
+        .curve(defaultRadius, -45)
+        .straight(bendigoStraight)
+        .station(bendigo.point("bendigo"))
+        .split({
+          split: new Path().straight(echucaStraight),
+        })
+        .curve(defaultRadius, -45)
+        .straight(eaglehawkStraight)
+        .curve(defaultRadius, 45)
+        .straight(swanHillStraight),
+    })
+    .straight(20)
+    .station(sunshine.point("deer-park"))
+    .straight(deerParkStraight)
+    .station(deerPark.point("deer-park"))
+    .split({
+      split: new Path()
+        .straight(wyndhamValeStraight)
+        .curve(defaultRadius, -45)
+        .straight(laraStraight)
+        .curve(defaultRadius, -45)
+        .straight(warrnamboolStraight),
+    })
+    .curve(defaultRadius, 45)
+    .straight(ballaratStraight)
+    .split({
+      split: new Path().straight(araratStraight),
+    })
+    .curve(defaultRadius, 45)
+    .straight(maryboroughStraight),
 });

@@ -9,6 +9,9 @@ import {
   northMelbourne,
   parliament,
   southernCross,
+  sunbury,
+  sunshine,
+  watergardens,
 } from "../interchanges";
 import { flagstaffToParliament } from "../segments/flagstaff-to-parliament";
 import { flindersStreetToSouthernCross } from "../segments/flinders-street-to-southern-cross";
@@ -22,6 +25,11 @@ import {
   craigieburnStraight,
   newmarketCurveCraigieburn,
   newmarketStraight,
+  sunburyStraight,
+  sunshineCurvesSunbury,
+  sunshineDiagonals,
+  tottenhamStraight,
+  watergardensStraight,
 } from "../utils-shared-corridors";
 
 const upfieldJunctionStraight = 5;
@@ -67,11 +75,23 @@ export const northern = new Line({
       split: new Path()
         .straight(newmarketStraight)
         .curve(newmarketCurveCraigieburn, 45)
+        // TODO: [DS] The Flemington Racecourse line branches off here. Not sure
+        // whether we'd want to show it or not.
         .straight(broadmeadowsStraight)
         .station(broadmeadows.point("craigieburn"))
         .straight(craigieburnStraight)
         .station(craigieburn.point("craigieburn")),
     })
     .add(northMelbourneToFootscray("sunbury"))
-    .station(footscray.point("sunbury")),
+    .station(footscray.point("sunbury"))
+    .straight(tottenhamStraight)
+    .curve(sunshineCurvesSunbury, 45)
+    .straight(sunshineDiagonals)
+    .station(sunshine.point("sunbury"))
+    .straight(sunshineDiagonals)
+    .curve(sunshineCurvesSunbury, 45)
+    .straight(watergardensStraight)
+    .station(watergardens.point("sunbury"))
+    .straight(sunburyStraight)
+    .station(sunbury.point("sunbury")),
 });

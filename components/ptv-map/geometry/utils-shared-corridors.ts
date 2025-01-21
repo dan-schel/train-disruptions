@@ -16,6 +16,13 @@ export const newmarketCurveCraigieburn = defaultRadius;
 export const newmarketCurveSeymour = defaultRadius + lineGap;
 export const broadmeadowsStraight = 150;
 export const craigieburnStraight = 45;
+
+export const tottenhamStraight = 135;
+export const sunshineDiagonals = 5;
+export const sunshineCurvesSunbury = defaultRadius;
+export const sunshineCurvesBendigo = defaultRadius + lineGap;
+export const watergardensStraight = 65;
+export const sunburyStraight = 30;
 // etc.
 
 // Can also put coordinated radii here, e.g. at Dandenong, where the Gippsland

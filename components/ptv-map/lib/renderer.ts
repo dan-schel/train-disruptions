@@ -104,8 +104,7 @@ export class Renderer {
     ctx.translate(this._width / 2, this._height / 2);
 
     // <temp>
-    ctx.scale(1, 1);
-    ctx.translate(200, 150);
+    ctx.scale(0.5, 0.5);
     // </temp>
 
     // <temp>
