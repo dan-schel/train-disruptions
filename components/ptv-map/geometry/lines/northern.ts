@@ -1,6 +1,8 @@
 import { Line } from "../../lib/line";
 import { Path } from "../../lib/path/path";
 import {
+  broadmeadows,
+  craigieburn,
   flagstaff,
   flindersStreet,
   footscray,
@@ -15,6 +17,17 @@ import { northMelbourneToFootscray } from "../segments/north-melbourne-to-footsc
 import { parliamentToFlindersStreet } from "../segments/parliament-to-flinders-street";
 import { defaultRadius } from "../utils";
 import * as loop from "../utils-city-loop";
+import {
+  broadmeadowsStraight,
+  craigieburnStraight,
+  newmarketCurveCraigieburn,
+  newmarketStraight,
+} from "../utils-shared-corridors";
+
+const upfieldJunctionStraight = 5;
+const macaulayStraight = 10;
+const brunswickStraight = 90;
+const upfieldStraight = 110;
 
 /**
  * The Craigieburn, Sunbury, and Upfield lines, a.k.a. the "Northern group"
@@ -42,14 +55,22 @@ export const northern = new Line({
     .station(northMelbourne.point("northern"))
     .split({
       split: new Path()
-        .straight(5)
+        .straight(upfieldJunctionStraight)
         .curve(defaultRadius, 45)
-        .straight(10)
+        .straight(macaulayStraight)
         .curve(defaultRadius, 45)
-        .straight(5),
+        .straight(brunswickStraight)
+        .curve(defaultRadius, -45)
+        .straight(upfieldStraight),
     })
     .split({
-      split: new Path().straight(50),
+      split: new Path()
+        .straight(newmarketStraight)
+        .curve(newmarketCurveCraigieburn, 45)
+        .straight(broadmeadowsStraight)
+        .station(broadmeadows.point("craigieburn"))
+        .straight(craigieburnStraight)
+        .station(craigieburn.point("craigieburn")),
     })
     .add(northMelbourneToFootscray("sunbury"))
     .station(footscray.point("sunbury")),

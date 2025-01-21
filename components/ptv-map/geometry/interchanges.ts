@@ -3,22 +3,27 @@
 // the IDs can be shared (especially since we only import the ones we need, it
 // shouldn't explode the bundle size).
 import {
+  BROADMEADOWS,
   BURNLEY,
   CAMBERWELL,
   CAULFIELD,
   CLAYTON,
   CLIFTON_HILL,
+  CRAIGIEBURN,
   DANDENONG,
   FLAGSTAFF,
   FLINDERS_STREET,
   FOOTSCRAY,
   FRANKSTON,
+  LAVERTON,
   MELBOURNE_CENTRAL,
+  NEWPORT,
   NORTH_MELBOURNE,
   PAKENHAM,
   PARLIAMENT,
   RICHMOND,
   RINGWOOD,
+  SEYMOUR,
   SOUTH_YARRA,
   SOUTHERN_CROSS,
 } from "../../../server/data/station-ids";
@@ -147,3 +152,27 @@ export const frankston = new Interchange(
   ["frankston", "stony-point"] as const,
   ["frankston", "stony-point"],
 );
+
+export const broadmeadows = new Interchange(
+  BROADMEADOWS,
+  ["craigieburn", "seymour"] as const,
+  ["craigieburn", "seymour"],
+);
+
+export const craigieburn = new Interchange(
+  CRAIGIEBURN,
+  ["craigieburn", "seymour"] as const,
+  ["craigieburn", "seymour"],
+);
+
+export const seymour = new Interchange(SEYMOUR, ["seymour"] as const, [
+  "seymour",
+]);
+
+export const newport = new Interchange(NEWPORT, ["cross-city"] as const, [
+  "cross-city",
+]);
+
+export const laverton = new Interchange(LAVERTON, ["werribee"] as const, [
+  "werribee",
+]);

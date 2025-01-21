@@ -2,14 +2,17 @@ import { EAST_PAKENHAM } from "../../../../server/data/station-ids";
 import { Line } from "../../lib/line";
 import { Path } from "../../lib/path/path";
 import {
+  broadmeadows,
   caulfield,
   clayton,
+  craigieburn,
   dandenong,
   flindersStreet,
   footscray,
   northMelbourne,
   pakenham,
   richmond,
+  seymour,
   southernCross,
   southYarra,
 } from "../interchanges";
@@ -20,11 +23,15 @@ import { southernCrossToNorthMelbourneRegional } from "../segments/southern-cros
 import { defaultRadius } from "../utils";
 import * as loop from "../utils-city-loop";
 import {
+  broadmeadowsStraight,
   caulfieldToClayton,
   claytonToDandenong,
+  craigieburnStraight,
   dandenongToHallamCurve,
   hallamCurveGippland,
   hallamToPakenham,
+  newmarketCurveSeymour,
+  newmarketStraight,
   pakenhamToEastPakenham,
   richmondToSouthYarra,
   southYarraToCaulfield,
@@ -33,6 +40,12 @@ import {
 const eastPakenhamToCurve = 25;
 const diagonalStraight = 10;
 const bairnsdaleStraight = 235;
+
+const donnybrookStraight = 25;
+const seymourStraight = 195;
+const sheppartonStraight = 140;
+const avenelStraight = 45;
+const alburyStraight = 250;
 
 /**
  * The Gippsland line, which is the only regional line (colored purple on the
@@ -87,7 +100,24 @@ export const regionalWestern = new Line({
       southernCrossToNorthMelbourneRegional(
         new Path()
           .station(northMelbourne.point("regional-seymour"))
-          .straight(50),
+          .straight(newmarketStraight)
+          .curve(newmarketCurveSeymour, 45)
+          .straight(broadmeadowsStraight)
+          .station(broadmeadows.point("seymour"))
+          .straight(craigieburnStraight)
+          .station(craigieburn.point("seymour"))
+          .curve(defaultRadius, 45)
+          .straight(donnybrookStraight)
+          .curve(defaultRadius, 45)
+          .straight(seymourStraight)
+          .station(seymour.point("seymour"))
+          .split({
+            split: new Path().straight(sheppartonStraight),
+          })
+          .curve(defaultRadius, 45)
+          .straight(avenelStraight)
+          .curve(defaultRadius, -45)
+          .straight(alburyStraight),
       ),
     )
     .station(northMelbourne.point("regional-rrl"))

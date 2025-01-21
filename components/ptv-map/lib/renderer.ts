@@ -105,7 +105,7 @@ export class Renderer {
 
     // <temp>
     ctx.scale(1, 1);
-    ctx.translate(-200, 100);
+    ctx.translate(200, 150);
     // </temp>
 
     // <temp>

@@ -1,3 +1,4 @@
+import { L } from "vitest/dist/chunks/reporters.D7Jzd9GS.js";
 import { Line } from "../../lib/line";
 import { Path } from "../../lib/path/path";
 import {
@@ -5,6 +6,8 @@ import {
   flindersStreet,
   footscray,
   frankston,
+  laverton,
+  newport,
   northMelbourne,
   richmond,
   southernCross,
@@ -28,6 +31,14 @@ const aspendaleStraight = 190;
 const bonbeachStraight = 45;
 const frankstonStraight = 85;
 const stonyPointStraight = 245;
+
+const newportStraight = 110;
+const williamstownStraight = 55;
+const westonaStraight = 70;
+const altonaLoopDiagonals = 35;
+const lavertonExpressStraight =
+  westonaStraight + altonaLoopDiagonals * diagonal * 2;
+const werribeeStraight = 75;
 
 /**
  * The Frankston line, which makes up the eastern half of the "Cross City" group
@@ -73,7 +84,28 @@ export const crossCityWestern = new Line({
     .add(southernCrossToNorthMelbourne(5))
     .station(northMelbourne.point("cross-city"))
     .add(northMelbourneToFootscray("cross-city"))
-    .station(footscray.point("cross-city")),
+    .station(footscray.point("cross-city"))
+    .curve(defaultRadius, -45)
+    .straight(newportStraight)
+    .station(newport.point("cross-city"))
+    .split({
+      split: new Path()
+        .curve(defaultRadius, -45)
+        .straight(williamstownStraight),
+    })
+    .split({
+      split: new Path()
+        .curve(defaultRadius, 45)
+        .straight(lavertonExpressStraight)
+        .curve(defaultRadius, 45),
+    })
+    .straight(altonaLoopDiagonals)
+    .curve(defaultRadius, 45)
+    .straight(westonaStraight)
+    .curve(defaultRadius, 45)
+    .straight(altonaLoopDiagonals)
+    .station(laverton.point("werribee"))
+    .straight(werribeeStraight),
 });
 
 export const stonyPoint = new Line({

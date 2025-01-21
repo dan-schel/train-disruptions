@@ -10,6 +10,12 @@ export const pakenhamToEastPakenham = 20;
 
 export const hallamCurvePakenham = defaultRadius;
 export const hallamCurveGippland = defaultRadius + lineGap;
+
+export const newmarketStraight = 85;
+export const newmarketCurveCraigieburn = defaultRadius;
+export const newmarketCurveSeymour = defaultRadius + lineGap;
+export const broadmeadowsStraight = 150;
+export const craigieburnStraight = 45;
 // etc.
 
 // Can also put coordinated radii here, e.g. at Dandenong, where the Gippsland
