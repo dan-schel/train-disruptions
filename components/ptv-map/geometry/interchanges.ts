@@ -12,6 +12,7 @@ import {
   FLAGSTAFF,
   FLINDERS_STREET,
   FOOTSCRAY,
+  FRANKSTON,
   MELBOURNE_CENTRAL,
   NORTH_MELBOURNE,
   PAKENHAM,
@@ -139,4 +140,10 @@ export const footscray = new Interchange(
   FOOTSCRAY,
   ["cross-city", "regional", "sunbury"] as const,
   ["cross-city", "sunbury"],
+);
+
+export const frankston = new Interchange(
+  FRANKSTON,
+  ["frankston", "stony-point"] as const,
+  ["frankston", "stony-point"],
 );

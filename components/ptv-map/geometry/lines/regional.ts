@@ -17,8 +17,22 @@ import { flindersStreetToRichmond } from "../segments/flinders-street-to-richmon
 import { flindersStreetToSouthernCross } from "../segments/flinders-street-to-southern-cross";
 import { northMelbourneToFootscray } from "../segments/north-melbourne-to-footscray";
 import { southernCrossToNorthMelbourneRegional } from "../segments/southern-cross-to-north-melbourne";
-import { defaultRadius, lineGap } from "../utils";
+import { defaultRadius } from "../utils";
 import * as loop from "../utils-city-loop";
+import {
+  caulfieldToClayton,
+  claytonToDandenong,
+  dandenongToHallamCurve,
+  hallamCurveGippland,
+  hallamToPakenham,
+  pakenhamToEastPakenham,
+  richmondToSouthYarra,
+  southYarraToCaulfield,
+} from "../utils-shared-corridors";
+
+const eastPakenhamToCurve = 25;
+const diagonalStraight = 10;
+const bairnsdaleStraight = 235;
 
 /**
  * The Gippsland line, which is the only regional line (colored purple on the
@@ -36,25 +50,25 @@ export const regionalEastern = new Line({
     .station(flindersStreet.point("regional"))
     .add(flindersStreetToRichmond(loop.line.regional))
     .station(richmond.point("gippsland"))
-    .straight(15)
+    .straight(richmondToSouthYarra)
     .station(southYarra.point("gippsland"))
-    .straight(30)
+    .straight(southYarraToCaulfield)
     .station(caulfield.point("gippsland"))
-    .straight(30)
+    .straight(caulfieldToClayton)
     .station(clayton.point("gippsland"))
-    .straight(30)
+    .straight(claytonToDandenong)
     .station(dandenong.point("gippsland"))
-    .straight(20)
-    .curve(defaultRadius + lineGap, -45)
-    .straight(20)
+    .straight(dandenongToHallamCurve)
+    .curve(hallamCurveGippland, -45)
+    .straight(hallamToPakenham)
     .station(pakenham.point("gippsland"))
-    .straight(10)
+    .straight(pakenhamToEastPakenham)
     .station(EAST_PAKENHAM)
-    .straight(10)
+    .straight(eastPakenhamToCurve)
     .curve(defaultRadius, -45)
-    .straight(10)
+    .straight(diagonalStraight)
     .curve(defaultRadius, -45)
-    .straight(50),
+    .straight(bairnsdaleStraight),
 });
 
 /**

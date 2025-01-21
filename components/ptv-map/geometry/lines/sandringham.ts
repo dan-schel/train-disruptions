@@ -4,6 +4,11 @@ import { flindersStreet, richmond, southYarra } from "../interchanges";
 import { flindersStreetToRichmond } from "../segments/flinders-street-to-richmond";
 import { defaultRadius } from "../utils";
 import * as loop from "../utils-city-loop";
+import { richmondToSouthYarra } from "../utils-shared-corridors";
+
+const divergeStraight = 5;
+const diagonalStraight = 15;
+const sandringhamStraight = 145;
 
 /** The Sandringham line (colored pink on the map). */
 export const sandringham = new Line({
@@ -15,12 +20,12 @@ export const sandringham = new Line({
     .station(flindersStreet.point("sandringham"))
     .add(flindersStreetToRichmond(loop.line.sandringham))
     .station(richmond.point("sandringham"))
-    .straight(15)
+    .straight(richmondToSouthYarra)
     .station(southYarra.point("sandringham"))
     .curve(defaultRadius, 45)
-    .straight(10)
+    .straight(divergeStraight)
     .curve(defaultRadius, 45)
-    .straight(10)
+    .straight(diagonalStraight)
     .curve(defaultRadius, -45)
-    .straight(30),
+    .straight(sandringhamStraight),
 });

@@ -17,6 +17,17 @@ import { southernCrossToFlagstaff } from "../segments/southern-cross-to-flagstaf
 import { defaultRadius } from "../utils";
 import * as loop from "../utils-city-loop";
 
+const burnleyStraight = 60;
+const glenIrisStraight = 110;
+const glenWaverleyStraight = 180;
+const camberwellStraight = 75;
+const riversdaleStraight = 40;
+const alameinStraight = 110;
+const laburnumStraight = 165;
+const ringwoodStraight = 140;
+const belgraveStraight = 150;
+const lilydaleStraight = 125;
+
 /**
  * The Alamein, Belgrave, Glen Waverley and Lilydale lines, a.k.a. the "Burnley
  * group" (colored dark blue on the map).
@@ -39,35 +50,35 @@ export const burnley = new Line({
     .add(richmondLoopPortal(loop.line.burnley, 25, "burnley-direct"))
     .station(richmond.point("burnley"))
     .curve(defaultRadius, -45)
-    .straight(20)
+    .straight(burnleyStraight)
     //.stations([EAST_RICHMOND])
     .station(burnleyInterchange.point("burnley"))
     .split({
       split: new Path()
         .curve(defaultRadius, 45)
-        .straight(30)
+        .straight(glenIrisStraight)
         .curve(defaultRadius, -45)
-        .straight(30),
+        .straight(glenWaverleyStraight),
       //.stations([HEYINGTON, KOOYONG, TOORONGA, etc.])
       //.terminus(),
     })
     .curve(defaultRadius, -45)
-    .straight(20)
+    .straight(camberwellStraight)
     //.stations([HAWTHORN, GLENFERRIE, AUBURN])
     .station(camberwell.point("camberwell"))
     .split({
       split: new Path()
         .curve(defaultRadius, 45)
-        .straight(10)
+        .straight(riversdaleStraight)
         .curve(defaultRadius, 45)
-        .straight(30),
+        .straight(alameinStraight),
     })
-    .straight(30)
+    .straight(laburnumStraight)
     .curve(defaultRadius, 45)
-    .straight(10)
+    .straight(ringwoodStraight)
     .station(ringwood.point("ringwood"))
     .split({
-      split: new Path().curve(defaultRadius, 45).straight(30),
+      split: new Path().curve(defaultRadius, 45).straight(belgraveStraight),
     })
-    .straight(40),
+    .straight(lilydaleStraight),
 });

@@ -15,6 +15,13 @@ import { southernCrossToFlagstaff } from "../segments/southern-cross-to-flagstaf
 import { defaultRadius } from "../utils";
 import * as loop from "../utils-city-loop";
 
+const cliftonHillStraight = 120;
+const heidelbergStraight = 170;
+const hurstbridgeStraight = 255;
+const prestonStraight = 115;
+const keonParkStraight = 60;
+const merndaStraight = 195;
+
 /**
  * The Hurstbridge and Mernda lines, a.k.a. the "Clifton Hill group" (colored
  * red on the map).
@@ -34,15 +41,18 @@ export const cliftonHill = new Line({
     .station(parliament.point("clifton-hill"))
     .add(jolimontLoopPortal())
     .station(JOLIMONT)
-    .straight(50)
+    .straight(cliftonHillStraight)
     .station(cliftonHillInterchange.point("clifton-hill"))
     .split({
-      split: new Path().straight(50).curve(defaultRadius, 45).straight(50),
+      split: new Path()
+        .straight(heidelbergStraight)
+        .curve(defaultRadius, 45)
+        .straight(hurstbridgeStraight),
     })
     .curve(defaultRadius, -45)
-    .straight(30)
+    .straight(prestonStraight)
     .curve(defaultRadius, 45)
-    .straight(10)
+    .straight(keonParkStraight)
     .curve(defaultRadius, 45)
-    .straight(50),
+    .straight(merndaStraight),
 });

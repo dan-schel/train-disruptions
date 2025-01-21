@@ -4,17 +4,30 @@ import {
   caulfield,
   flindersStreet,
   footscray,
+  frankston,
   northMelbourne,
   richmond,
   southernCross,
   southYarra,
 } from "../interchanges";
-import { flindersStreetToRichmond } from "../segments/flinders-street-to-richmond";
+import {
+  flindersStreetToRichmond,
+  richmondPos,
+} from "../segments/flinders-street-to-richmond";
 import { flindersStreetToSouthernCross } from "../segments/flinders-street-to-southern-cross";
 import { northMelbourneToFootscray } from "../segments/north-melbourne-to-footscray";
 import { southernCrossToNorthMelbourne } from "../segments/southern-cross-to-north-melbourne";
-import { defaultRadius } from "../utils";
+import { defaultRadius, diagonal, lineGap, long45, short45 } from "../utils";
 import * as loop from "../utils-city-loop";
+import {
+  richmondToSouthYarra,
+  southYarraToCaulfield,
+} from "../utils-shared-corridors";
+
+const aspendaleStraight = 190;
+const bonbeachStraight = 45;
+const frankstonStraight = 85;
+const stonyPointStraight = 245;
 
 /**
  * The Frankston line, which makes up the eastern half of the "Cross City" group
@@ -29,16 +42,17 @@ export const crossCityEastern = new Line({
     .station(flindersStreet.point("cross-city-east"))
     .add(flindersStreetToRichmond(loop.line.crossCity))
     .station(richmond.point("frankston"))
-    .straight(15)
+    .straight(richmondToSouthYarra)
     .station(southYarra.point("frankston"))
-    .straight(30)
+    .straight(southYarraToCaulfield)
     .station(caulfield.point("frankston"))
     .curve(defaultRadius, 45)
-    .straight(50)
+    .straight(aspendaleStraight)
     .curve(defaultRadius, -45)
-    .straight(10)
+    .straight(bonbeachStraight)
     .curve(defaultRadius, -45)
-    .straight(20),
+    .straight(frankstonStraight)
+    .station(frankston.point("frankston")),
 });
 
 // TODO: [DS] The Stony Point line!
@@ -61,3 +75,35 @@ export const crossCityWestern = new Line({
     .add(northMelbourneToFootscray("cross-city"))
     .station(footscray.point("cross-city")),
 });
+
+export const stonyPoint = new Line({
+  origin: frankstonStationPos("stony-point"),
+  angle: 0,
+  color: "green",
+
+  path: new Path()
+    .station(frankston.point("stony-point"))
+    .straight(stonyPointStraight),
+});
+
+function frankstonStationPos(line: "frankston" | "stony-point") {
+  const offset = {
+    frankston: 0,
+    "stony-point": 1,
+  }[line];
+
+  const richmondToCaufield = richmondToSouthYarra + southYarraToCaulfield;
+
+  return richmondPos(loop.line.crossCity)
+    .plus({
+      x: richmondToCaufield * diagonal,
+      y: richmondToCaufield * diagonal,
+    })
+    .plus({ x: defaultRadius * short45, y: defaultRadius * long45 })
+    .plus({ y: aspendaleStraight })
+    .plus({ x: defaultRadius * short45, y: defaultRadius * long45 })
+    .plus({ x: bonbeachStraight * diagonal, y: bonbeachStraight * diagonal })
+    .plus({ x: defaultRadius * long45, y: defaultRadius * short45 })
+    .plus({ x: frankstonStraight })
+    .plus({ y: offset * lineGap });
+}

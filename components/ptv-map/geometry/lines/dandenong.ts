@@ -18,6 +18,18 @@ import { richmondLoopPortal } from "../segments/richmond-loop-portal";
 import { southernCrossToFlagstaff } from "../segments/southern-cross-to-flagstaff";
 import { defaultRadius } from "../utils";
 import * as loop from "../utils-city-loop";
+import {
+  caulfieldToClayton,
+  claytonToDandenong,
+  dandenongToHallamCurve,
+  hallamCurvePakenham,
+  hallamToPakenham,
+  pakenhamToEastPakenham,
+  richmondToSouthYarra,
+  southYarraToCaulfield,
+} from "../utils-shared-corridors";
+
+const cranbourneStraight = 45;
 
 /**
  * The Cranbourne and Pakenham lines, a.k.a. the "Dandenong group" (colored
@@ -38,20 +50,20 @@ export const dandenong = new Line({
     .station(parliament.point("dandenong"))
     .add(richmondLoopPortal(loop.line.dandenong, 20, "dandenong-direct"))
     .station(richmond.point("dandenong"))
-    .straight(15)
+    .straight(richmondToSouthYarra)
     .station(southYarra.point("dandenong"))
-    .straight(30)
+    .straight(southYarraToCaulfield)
     .station(caulfield.point("dandenong"))
-    .straight(30)
+    .straight(caulfieldToClayton)
     .station(clayton.point("dandenong"))
-    .straight(30)
+    .straight(claytonToDandenong)
     .station(dandenongInterchange.point("dandenong"))
     .split({
-      split: new Path().curve(defaultRadius, 45).straight(30),
+      split: new Path().curve(defaultRadius, 45).straight(cranbourneStraight),
     })
-    .straight(20)
-    .curve(defaultRadius, -45)
-    .straight(20)
+    .straight(dandenongToHallamCurve)
+    .curve(hallamCurvePakenham, -45)
+    .straight(hallamToPakenham)
     .station(pakenham.point("pakenham"))
-    .straight(10),
+    .straight(pakenhamToEastPakenham),
 });
