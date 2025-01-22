@@ -2,6 +2,7 @@ import { EAST_PAKENHAM } from "../../../../server/data/station-ids";
 import { Line } from "../../lib/line";
 import { Path } from "../../lib/path/path";
 import {
+  ballarat,
   bendigo,
   broadmeadows,
   caulfield,
@@ -192,6 +193,7 @@ export const regionalWestern = new Line({
     })
     .curve(defaultRadius, 45)
     .straight(ballaratStraight)
+    .station(ballarat.point("ballarat"))
     .split({
       split: new Path().straight(araratStraight).terminus(),
     })
