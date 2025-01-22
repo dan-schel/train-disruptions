@@ -27,5 +27,6 @@ export const sandringham = new Line({
     .curve(defaultRadius, 45)
     .straight(diagonalStraight)
     .curve(defaultRadius, -45)
-    .straight(sandringhamStraight),
+    .straight(sandringhamStraight)
+    .terminus(),
 });

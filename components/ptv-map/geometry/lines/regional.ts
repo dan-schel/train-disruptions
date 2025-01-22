@@ -106,7 +106,8 @@ export const regionalEastern = new Line({
     .curve(defaultRadius, -45)
     .straight(diagonalStraight)
     .curve(defaultRadius, -45)
-    .straight(bairnsdaleStraight),
+    .straight(bairnsdaleStraight)
+    .terminus(),
 });
 
 /**
@@ -137,12 +138,13 @@ export const regionalWestern = new Line({
           .straight(seymourStraight)
           .station(seymour.point("seymour"))
           .split({
-            split: new Path().straight(sheppartonStraight),
+            split: new Path().straight(sheppartonStraight).terminus(),
           })
           .curve(defaultRadius, 45)
           .straight(avenelStraight)
           .curve(defaultRadius, -45)
-          .straight(alburyStraight),
+          .straight(alburyStraight)
+          .terminus(),
       ),
     )
     .station(northMelbourne.point("regional-rrl"))
@@ -167,12 +169,13 @@ export const regionalWestern = new Line({
         .straight(bendigoStraight)
         .station(bendigo.point("bendigo"))
         .split({
-          split: new Path().straight(echucaStraight),
+          split: new Path().straight(echucaStraight).terminus(),
         })
         .curve(defaultRadius, -45)
         .straight(eaglehawkStraight)
         .curve(defaultRadius, 45)
-        .straight(swanHillStraight),
+        .straight(swanHillStraight)
+        .terminus(),
     })
     .straight(20)
     .station(sunshine.point("deer-park"))
@@ -184,13 +187,15 @@ export const regionalWestern = new Line({
         .curve(defaultRadius, -45)
         .straight(laraStraight)
         .curve(defaultRadius, -45)
-        .straight(warrnamboolStraight),
+        .straight(warrnamboolStraight)
+        .terminus(),
     })
     .curve(defaultRadius, 45)
     .straight(ballaratStraight)
     .split({
-      split: new Path().straight(araratStraight),
+      split: new Path().straight(araratStraight).terminus(),
     })
     .curve(defaultRadius, 45)
-    .straight(maryboroughStraight),
+    .straight(maryboroughStraight)
+    .terminus(),
 });

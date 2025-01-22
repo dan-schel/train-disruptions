@@ -58,7 +58,8 @@ export const burnley = new Line({
         .curve(defaultRadius, 45)
         .straight(glenIrisStraight)
         .curve(defaultRadius, -45)
-        .straight(glenWaverleyStraight),
+        .straight(glenWaverleyStraight)
+        .terminus(),
       //.stations([HEYINGTON, KOOYONG, TOORONGA, etc.])
       //.terminus(),
     })
@@ -71,14 +72,19 @@ export const burnley = new Line({
         .curve(defaultRadius, 45)
         .straight(riversdaleStraight)
         .curve(defaultRadius, 45)
-        .straight(alameinStraight),
+        .straight(alameinStraight)
+        .terminus(),
     })
     .straight(laburnumStraight)
     .curve(defaultRadius, 45)
     .straight(ringwoodStraight)
     .station(ringwood.point("ringwood"))
     .split({
-      split: new Path().curve(defaultRadius, 45).straight(belgraveStraight),
+      split: new Path()
+        .curve(defaultRadius, 45)
+        .straight(belgraveStraight)
+        .terminus(),
     })
-    .straight(lilydaleStraight),
+    .straight(lilydaleStraight)
+    .terminus(),
 });

@@ -35,10 +35,18 @@ export class LocatedInterchange {
   }
 }
 
+export class LocatedTerminus {
+  constructor(
+    readonly point: FlexiPoint,
+    readonly angle: number,
+  ) {}
+}
+
 export class BakedPath {
   constructor(
     readonly points: readonly FlexiPoint[],
     readonly locatedInterchanges: readonly LocatedInterchange[],
+    readonly terminii: readonly LocatedTerminus[],
   ) {}
 }
 

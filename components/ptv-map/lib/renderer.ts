@@ -2,6 +2,7 @@ import {
   BakedGeometry,
   BakedInterchange,
   BakedLine,
+  BakedTerminus,
 } from "./baked/baked-geometry";
 import { LineColor } from "./line";
 
@@ -98,6 +99,10 @@ export class Renderer {
       this._renderLine(line);
     }
 
+    for (const terminus of this._geometry.terminii) {
+      this._renderTerminus(terminus);
+    }
+
     for (const interchange of this._geometry.interchanges) {
       this._renderInterchange(interchange);
     }
@@ -150,6 +155,23 @@ export class Renderer {
     ctx.lineCap = "round";
     ctx.lineWidth = 4;
     ctx.strokeStyle = "#ffffff";
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.stroke();
+  }
+
+  private _renderTerminus(terminus: BakedTerminus) {
+    const ctx = this._ctx;
+
+    const center = terminus.point.amplify(this._amplification);
+    const angle = terminus.angle;
+    const { x: x1, y: y1 } = center.move(5, angle - 90);
+    const { x: x2, y: y2 } = center.move(5, angle + 90);
+
+    ctx.lineCap = "butt";
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = lineColors[terminus.color];
     ctx.beginPath();
     ctx.moveTo(x1, y1);
     ctx.lineTo(x2, y2);

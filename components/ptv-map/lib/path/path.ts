@@ -5,6 +5,7 @@ import { PathPiece } from "./path-piece";
 import { SplitPathPiece } from "./split-path-piece";
 import { InterchangePoint, StationLocation } from "./station-location";
 import { StraightPathPiece } from "./straight-path-piece";
+import { Terminus } from "./terminus";
 
 export class Path {
   readonly pieces: readonly PathPiece[];
@@ -49,5 +50,9 @@ export class Path {
     } else {
       return this.add(new StationLocation(input, null));
     }
+  }
+
+  terminus() {
+    return this.add(new Terminus());
   }
 }

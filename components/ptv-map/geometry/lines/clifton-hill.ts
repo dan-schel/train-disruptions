@@ -47,12 +47,14 @@ export const cliftonHill = new Line({
       split: new Path()
         .straight(heidelbergStraight)
         .curve(defaultRadius, 45)
-        .straight(hurstbridgeStraight),
+        .straight(hurstbridgeStraight)
+        .terminus(),
     })
     .curve(defaultRadius, -45)
     .straight(prestonStraight)
     .curve(defaultRadius, 45)
     .straight(keonParkStraight)
     .curve(defaultRadius, 45)
-    .straight(merndaStraight),
+    .straight(merndaStraight)
+    .terminus(),
 });

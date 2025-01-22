@@ -90,7 +90,8 @@ export const crossCityWestern = new Line({
     .split({
       split: new Path()
         .curve(defaultRadius, -45)
-        .straight(williamstownStraight),
+        .straight(williamstownStraight)
+        .terminus(),
     })
     .split({
       split: new Path()
@@ -104,7 +105,8 @@ export const crossCityWestern = new Line({
     .curve(defaultRadius, 45)
     .straight(altonaLoopDiagonals)
     .station(laverton.point("werribee"))
-    .straight(werribeeStraight),
+    .straight(werribeeStraight)
+    .terminus(),
 });
 
 export const stonyPoint = new Line({
@@ -114,7 +116,8 @@ export const stonyPoint = new Line({
 
   path: new Path()
     .station(frankston.point("stony-point"))
-    .straight(stonyPointStraight),
+    .straight(stonyPointStraight)
+    .terminus(),
 });
 
 function frankstonStationPos(line: "frankston" | "stony-point") {

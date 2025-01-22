@@ -69,7 +69,8 @@ export const northern = new Line({
         .curve(defaultRadius, 45)
         .straight(brunswickStraight)
         .curve(defaultRadius, -45)
-        .straight(upfieldStraight),
+        .straight(upfieldStraight)
+        .terminus(),
     })
     .split({
       split: new Path()

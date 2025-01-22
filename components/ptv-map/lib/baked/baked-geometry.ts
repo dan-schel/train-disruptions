@@ -20,10 +20,19 @@ export class BakedInterchange {
   }
 }
 
+export class BakedTerminus {
+  constructor(
+    readonly point: FlexiPoint,
+    readonly angle: number,
+    readonly color: LineColor,
+  ) {}
+}
+
 export class BakedGeometry {
   constructor(
     readonly lines: readonly BakedLine[],
     readonly interchanges: readonly BakedInterchange[],
+    readonly terminii: readonly BakedTerminus[],
   ) {}
 
   static bake(lines: Line[]): BakedGeometry {
@@ -58,7 +67,13 @@ export class BakedGeometry {
       },
     );
 
-    return new BakedGeometry(bakedLines, interchanges);
+    const terminii = bakedPaths.flatMap((l) =>
+      l.paths.flatMap((p) =>
+        p.terminii.map((t) => new BakedTerminus(t.point, t.angle, l.color)),
+      ),
+    );
+
+    return new BakedGeometry(bakedLines, interchanges, terminii);
   }
 }
 

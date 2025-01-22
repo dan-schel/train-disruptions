@@ -59,11 +59,15 @@ export const dandenong = new Line({
     .straight(claytonToDandenong)
     .station(dandenongInterchange.point("dandenong"))
     .split({
-      split: new Path().curve(defaultRadius, 45).straight(cranbourneStraight),
+      split: new Path()
+        .curve(defaultRadius, 45)
+        .straight(cranbourneStraight)
+        .terminus(),
     })
     .straight(dandenongToHallamCurve)
     .curve(hallamCurvePakenham, -45)
     .straight(hallamToPakenham)
     .station(pakenham.point("pakenham"))
-    .straight(pakenhamToEastPakenham),
+    .straight(pakenhamToEastPakenham)
+    .terminus(),
 });
