@@ -61,6 +61,10 @@ export default {
       xl: "80rem",
       "2xl": "96rem",
     },
+    gridTemplateColumns: {
+      center: "0px 1fr 0px",
+      "center-lg": "1fr 64rem 1fr",
+    },
     extend: {},
   },
   corePlugins: {
