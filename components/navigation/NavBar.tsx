@@ -32,14 +32,17 @@ export const NavBar = () => {
     <nav className="sticky bottom-0 order-last grid w-full border border-black bg-white lg:top-0 lg:order-first">
       <PageCenterer>
         <div className="flex items-center justify-center lg:justify-start lg:gap-10 lg:px-4 lg:py-2">
+          {/* Branding- hidden on mobile */}
           <div className="grid items-center max-lg:hidden">
             <Text style="custom" className="text-3xl" oneLine>
               Is it buses?
             </Text>
           </div>
+
+          {/* Tab buttons */}
           <div className="grid grid-flow-col grid-cols-4 items-center lg:flex lg:flex-grow lg:justify-between">
             <div className="col-span-3 grid grid-flow-col grid-cols-3 lg:flex lg:items-center">
-              {Routes.slice(-3).map((route) => (
+              {Routes.map((route) => (
                 <TabButton
                   key={route.name}
                   href={route.path}
