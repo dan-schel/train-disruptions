@@ -21,9 +21,6 @@ export const tottenhamStraight = 135;
 export const sunshineDiagonals = 5;
 export const sunshineCurvesSunbury = defaultRadius;
 export const sunshineCurvesBendigo = defaultRadius + lineGap;
+export const sunshineJunctionStraight = 25; // TODO: [DS] Calculate so the interchange is 45 degrees.
 export const watergardensStraight = 65;
 export const sunburyStraight = 30;
-// etc.
-
-// Can also put coordinated radii here, e.g. at Dandenong, where the Gippsland
-// line needs +5 extra radius.

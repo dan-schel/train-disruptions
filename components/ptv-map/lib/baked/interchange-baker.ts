@@ -1,12 +1,8 @@
-import { lineWidth } from "../../geometry/utils";
+import { interchangeEdgeOffset, interchangeInnerOffset } from "../dimensions";
 import { FlexiPoint } from "../dimensions/flexi-point";
 import { Interchange, PointPosition } from "../interchange";
 import { BakedInterchange } from "./baked-geometry";
 import { LocatedInterchange } from "./baked-path";
-
-// TODO: [DS] These lengths don't belong here.
-const edgeOffset = lineWidth / 2;
-const innerOffset = edgeOffset * 0.5;
 
 export class InterchangeBaker {
   constructor(
@@ -55,10 +51,10 @@ export class InterchangeBaker {
     const point = this._locatePoint(pointPosition.point);
 
     const offset = {
-      "left-edge": { length: edgeOffset, angle: -90 },
-      "left-inner": { length: innerOffset, angle: -90 },
-      "right-inner": { length: innerOffset, angle: 90 },
-      "right-edge": { length: edgeOffset, angle: 90 },
+      "left-edge": { length: interchangeEdgeOffset, angle: -90 },
+      "left-inner": { length: interchangeInnerOffset, angle: -90 },
+      "right-inner": { length: interchangeInnerOffset, angle: 90 },
+      "right-edge": { length: interchangeEdgeOffset, angle: 90 },
     }[pointPosition.position];
 
     return point.point.move(offset.length, point.angle + offset.angle);

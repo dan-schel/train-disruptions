@@ -3,6 +3,14 @@ import {
   BakedInterchange,
   BakedTerminus,
 } from "./baked/baked-geometry";
+import {
+  interchangeBorderWidth,
+  interchangeThickLineWidth,
+  interchangeThinLineWidth,
+  lineWidth,
+  terminusExtents,
+  terminusLineWidth,
+} from "./dimensions";
 import { FlexiPoint } from "./dimensions/flexi-point";
 import { LineColor } from "./line";
 
@@ -96,7 +104,7 @@ export class Renderer {
     // </temp>
 
     for (const line of this._geometry.lines) {
-      this._renderLine(line.path, 4, lineColors[line.color]);
+      this._renderLine(line.path, lineWidth, lineColors[line.color]);
     }
 
     for (const terminus of this._geometry.terminii) {
@@ -113,36 +121,35 @@ export class Renderer {
   private _renderInterchange(interchange: BakedInterchange) {
     // The grey "border".
     if (interchange.thinLine != null) {
-      this._renderLine(interchange.thinLine, 3, "#45474d", "round");
+      const line = interchange.thinLine;
+      const width = interchangeThinLineWidth + 2 * interchangeBorderWidth;
+      this._renderLine(line, width, "#45474d", "round");
     }
     for (const line of interchange.thickLines) {
-      this._renderLine(line, 6, "#45474d", "round");
+      const width = interchangeThickLineWidth + 2 * interchangeBorderWidth;
+      this._renderLine(line, width, "#45474d", "round");
     }
 
     // The white "fill".
     if (interchange.thinLine != null) {
-      this._renderLine(interchange.thinLine, 1, "#ffffff", "round");
+      const line = interchange.thinLine;
+      this._renderLine(line, interchangeThinLineWidth, "#ffffff", "round");
     }
     for (const line of interchange.thickLines) {
-      this._renderLine(line, 4, "#ffffff", "round");
+      this._renderLine(line, interchangeThickLineWidth, "#ffffff", "round");
     }
   }
 
   private _renderTerminus(terminus: BakedTerminus) {
-    const ctx = this._ctx;
-
-    const center = terminus.point.amplify(this._amplification);
     const angle = terminus.angle;
-    const { x: x1, y: y1 } = center.move(5, angle - 90);
-    const { x: x2, y: y2 } = center.move(5, angle + 90);
+    const point1 = terminus.point.move(terminusExtents, angle - 90);
+    const point2 = terminus.point.move(terminusExtents, angle + 90);
 
-    ctx.lineCap = "butt";
-    ctx.lineWidth = 3;
-    ctx.strokeStyle = lineColors[terminus.color];
-    ctx.beginPath();
-    ctx.moveTo(x1, y1);
-    ctx.lineTo(x2, y2);
-    ctx.stroke();
+    this._renderLine(
+      [point1, point2],
+      terminusLineWidth,
+      lineColors[terminus.color],
+    );
   }
 
   private _renderLine(

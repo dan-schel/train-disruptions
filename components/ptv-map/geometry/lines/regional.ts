@@ -65,7 +65,8 @@ const eaglehawkStraight = 45;
 const swanHillStraight = 130;
 const echucaStraight = 160;
 
-const deerParkStraight = 60;
+const sunshineJunctionStraight = 25;
+const deerParkStraight = 55;
 const ballaratStraight = 165;
 const araratStraight = 50;
 const maryboroughStraight = 50;
@@ -178,7 +179,7 @@ export const regionalWestern = new Line({
         .straight(swanHillStraight)
         .terminus(),
     })
-    .straight(20)
+    .straight(sunshineJunctionStraight)
     .station(sunshine.point("deer-park"))
     .straight(deerParkStraight)
     .station(deerPark.point("deer-park"))
