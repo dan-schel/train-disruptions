@@ -10,22 +10,22 @@ export class BakedGeometry {
   constructor(
     readonly lines: readonly BakedLine[],
     readonly interchanges: readonly BakedInterchange[],
-    readonly terminii: readonly BakedTerminus[],
+    readonly termini: readonly BakedTerminus[],
   ) {}
 
   static readonly json = z
     .object({
       lines: BakedLine.json.array(),
       interchanges: BakedInterchange.json.array(),
-      terminii: BakedTerminus.json.array(),
+      termini: BakedTerminus.json.array(),
     })
-    .transform((x) => new BakedGeometry(x.lines, x.interchanges, x.terminii));
+    .transform((x) => new BakedGeometry(x.lines, x.interchanges, x.termini));
 
   toJSON(): z.input<typeof BakedGeometry.json> {
     return {
       lines: this.lines.map((l) => l.toJSON()),
       interchanges: this.interchanges.map((i) => i.toJSON()),
-      terminii: this.terminii.map((t) => t.toJSON()),
+      termini: this.termini.map((t) => t.toJSON()),
     };
   }
 }

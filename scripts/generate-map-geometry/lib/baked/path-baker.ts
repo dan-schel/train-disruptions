@@ -7,7 +7,7 @@ export class PathBaker {
 
   private readonly _points: FlexiPoint[];
   private readonly _locatedInterchanges: LocatedInterchange[];
-  private readonly _terminii: LocatedTerminus[];
+  private readonly _termini: LocatedTerminus[];
   private readonly _subPaths: BakedPath[];
 
   constructor(start: FlexiPoint, startAngle: number) {
@@ -16,7 +16,7 @@ export class PathBaker {
 
     this._points = [start];
     this._locatedInterchanges = [];
-    this._terminii = [];
+    this._termini = [];
     this._subPaths = [];
   }
 
@@ -42,7 +42,7 @@ export class PathBaker {
   }
 
   addTerminus(terminus: LocatedTerminus) {
-    this._terminii.push(terminus);
+    this._termini.push(terminus);
   }
 
   subpath(build: (baker: PathBaker) => void) {
@@ -55,7 +55,7 @@ export class PathBaker {
     const myPath = new BakedPath(
       this._points,
       this._locatedInterchanges,
-      this._terminii,
+      this._termini,
     );
     return [myPath, ...this._subPaths];
   }

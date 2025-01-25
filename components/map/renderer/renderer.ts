@@ -95,7 +95,7 @@ export class Renderer {
       this._renderLine(line.path, lineWidth, color);
     }
 
-    for (const terminus of this._geometry.terminii) {
+    for (const terminus of this._geometry.termini) {
       const color = lineColorCodes[terminus.color];
       this._renderLine(terminus.path, terminusLineWidth, color);
     }

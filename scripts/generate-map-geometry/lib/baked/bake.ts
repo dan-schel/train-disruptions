@@ -35,9 +35,9 @@ export function bake(lines: Line[]): BakedGeometry {
     return new InterchangeBaker(interchange, locations).bake();
   });
 
-  const terminii = bakedPaths.flatMap((l) =>
+  const termini = bakedPaths.flatMap((l) =>
     l.paths.flatMap((p) =>
-      p.terminii.map((t) => {
+      p.termini.map((t) => {
         const pointA = t.point.move(terminusExtents, t.angle - 90).bake();
         const pointB = t.point.move(terminusExtents, t.angle + 90).bake();
         return new BakedTerminus(l.color, [pointA, pointB]);
@@ -45,5 +45,5 @@ export function bake(lines: Line[]): BakedGeometry {
     ),
   );
 
-  return new BakedGeometry(bakedLines, interchanges, terminii);
+  return new BakedGeometry(bakedLines, interchanges, termini);
 }
