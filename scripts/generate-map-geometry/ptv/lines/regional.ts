@@ -1,4 +1,4 @@
-import { EAST_PAKENHAM } from "../../../../../server/data/station-ids";
+import { EAST_PAKENHAM } from "../../../../server/data/station-ids";
 import { Line } from "../../lib/line";
 import { Path } from "../../lib/path/path";
 import {

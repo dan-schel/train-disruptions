@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import { Renderer } from "./renderer";
-import { geometry } from "./geometry/ptv";
+
+// TODO: [DS] Use the pre-generated geometry, rather than generating it here.
+import { geometry } from "../../scripts/generate-map-geometry/ptv";
 
 export function Map() {
   const containerRef = useRef<HTMLDivElement>(null);

@@ -4,9 +4,9 @@ import {
   BakedGeometry,
   BakedLine,
   BakedTerminus,
-} from "../../../baked-geometry";
+} from "../../../../components/map/baked-geometry";
 import { InterchangeBaker } from "./interchange-baker";
-import { terminusExtents } from "../../../utils";
+import { terminusExtents } from "../../../../components/map/utils";
 
 export function bake(lines: Line[]): BakedGeometry {
   const bakedPaths = lines.map((l) => l.bake());
