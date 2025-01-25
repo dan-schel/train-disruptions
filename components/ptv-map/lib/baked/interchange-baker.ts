@@ -1,4 +1,4 @@
-import { interchangeEdgeOffset, interchangeInnerOffset } from "../dimensions";
+import { interchangeEdgeOffset, interchangeInnerOffset } from "../utils";
 import { FlexiPoint } from "../dimensions/flexi-point";
 import { Interchange, PointPosition } from "../interchange";
 import { BakedInterchange } from "./baked-geometry";

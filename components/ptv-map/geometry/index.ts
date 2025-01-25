@@ -1,4 +1,4 @@
-import { BakedGeometry } from "../lib/baked/baked-geometry";
+import { bake } from "../lib/baked/bake";
 import { burnley } from "./lines/burnley";
 import { cliftonHill } from "./lines/clifton-hill";
 import {
@@ -11,7 +11,7 @@ import { northern } from "./lines/northern";
 import { regionalEastern, regionalWestern } from "./lines/regional";
 import { sandringham } from "./lines/sandringham";
 
-export const geometry = BakedGeometry.bake([
+export const geometry = bake([
   regionalEastern,
   regionalWestern,
   cliftonHill,

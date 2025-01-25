@@ -7,12 +7,12 @@ import {
   interchangeBorderWidth,
   interchangeThickLineWidth,
   interchangeThinLineWidth,
+  lineColors,
   lineWidth,
   terminusExtents,
   terminusLineWidth,
-} from "./dimensions";
+} from "./utils";
 import { FlexiPoint } from "./dimensions/flexi-point";
-import { LineColor } from "./line";
 
 // Canvas has `backingStorePixelRatio`, but Typescript doesn't know about it for
 // some reason. (Probably the target "ES____" version we're using idk.)
@@ -21,17 +21,6 @@ declare global {
     backingStorePixelRatio?: number;
   }
 }
-
-const lineColors: Record<LineColor, string> = {
-  red: "#e42b23",
-  yellow: "#ffb531",
-  green: "#159943",
-  cyan: "#16b4e8",
-  blue: "#094c8d",
-  purple: "#6c3b9f",
-  pink: "#fc7fbb",
-  grey: "#9b9c9f",
-};
 
 export class Renderer {
   private readonly _ctx;

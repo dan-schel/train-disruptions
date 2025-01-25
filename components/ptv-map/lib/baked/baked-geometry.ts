@@ -1,7 +1,5 @@
-import { groupBy } from "@dan-schel/js-utils";
 import { FlexiPoint } from "../dimensions/flexi-point";
-import { Line, LineColor } from "../line";
-import { InterchangeBaker } from "./interchange-baker";
+import { LineColor } from "../utils";
 
 export class BakedLine {
   constructor(
@@ -39,36 +37,4 @@ export class BakedGeometry {
     readonly interchanges: readonly BakedInterchange[],
     readonly terminii: readonly BakedTerminus[],
   ) {}
-
-  static bake(lines: Line[]): BakedGeometry {
-    const bakedPaths = lines.map((l) => l.bake());
-
-    const bakedLines = bakedPaths.flatMap((l) =>
-      l.paths.map((p) => new BakedLine(l.color, p.points)),
-    );
-
-    const locatedInterchanges = bakedPaths
-      .flatMap((l) => l.paths.flatMap((p) => p.locatedInterchanges))
-      .sort(
-        (a, b) =>
-          a.interchangePoint.interchange.station -
-          b.interchangePoint.interchange.station,
-      );
-
-    const interchanges = groupBy(
-      locatedInterchanges,
-      (i) => i.interchangePoint.interchange.station,
-    ).map(({ items: locations }) => {
-      const interchange = locations[0].interchangePoint.interchange;
-      return new InterchangeBaker(interchange, locations).bake();
-    });
-
-    const terminii = bakedPaths.flatMap((l) =>
-      l.paths.flatMap((p) =>
-        p.terminii.map((t) => new BakedTerminus(t.point, t.angle, l.color)),
-      ),
-    );
-
-    return new BakedGeometry(bakedLines, interchanges, terminii);
-  }
 }
