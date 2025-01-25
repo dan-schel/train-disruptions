@@ -60,7 +60,7 @@ export class BakedGeometry {
       (i) => i.interchangePoint.interchange.station,
     ).map(({ items: locations }) => {
       const interchange = locations[0].interchangePoint.interchange;
-      return new InterchangeBaker(interchange).bake(locations);
+      return new InterchangeBaker(interchange, locations).bake();
     });
 
     const terminii = bakedPaths.flatMap((l) =>

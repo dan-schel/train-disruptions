@@ -1,22 +1,76 @@
-import { Interchange } from "../interchange";
+import { lineWidth } from "../../geometry/utils";
+import { FlexiPoint } from "../dimensions/flexi-point";
+import { Interchange, PointPosition } from "../interchange";
 import { BakedInterchange } from "./baked-geometry";
 import { LocatedInterchange } from "./baked-path";
 
+// TODO: [DS] These lengths don't belong here.
+const edgeOffset = lineWidth / 2;
+const innerOffset = edgeOffset * 0.5;
+
 export class InterchangeBaker {
-  constructor(readonly interchange: Interchange) {}
+  constructor(
+    private readonly _interchange: Interchange,
+    private readonly _locatedPoints: readonly LocatedInterchange[],
+  ) {
+    const notFound = _interchange.points.find((x) =>
+      _locatedPoints.every((y) => y.interchangePoint.id !== x),
+    );
 
-  bake(locatedPoints: LocatedInterchange[]): BakedInterchange {
-    LocatedInterchange.validate(locatedPoints);
-
-    const points = locatedPoints
-      .filter((i) => i.interchangePoint.render)
-      .map((i) => i.point);
-
-    // TEMP
-    if (points.length === 1) {
-      points.push(points[0]);
+    if (notFound != null) {
+      throw new Error(
+        `No point "${notFound}" found for interchange "${_interchange.station}".`,
+      );
     }
 
-    return new BakedInterchange(this.interchange.station, [points], null);
+    const duplicate = _locatedPoints.find((y) =>
+      _locatedPoints.some(
+        (x) => x !== y && x.interchangePoint.id === y.interchangePoint.id,
+      ),
+    );
+
+    if (duplicate != null) {
+      throw new Error(
+        `Duplicate point "${duplicate.interchangePoint.id}" found for interchange "${_interchange.station}".`,
+      );
+    }
+  }
+
+  bake(): BakedInterchange {
+    const thickLines = this._interchange.thickLines.map((segment) =>
+      segment.map((pos) => this._point(pos)),
+    );
+
+    const thinLine =
+      this._interchange.thinLine?.map((pos) => this._point(pos)) ?? null;
+
+    return new BakedInterchange(
+      this._interchange.station,
+      thickLines,
+      thinLine,
+    );
+  }
+
+  _point(pointPosition: PointPosition): FlexiPoint {
+    const point = this._locatePoint(pointPosition.point);
+
+    const offset = {
+      "left-edge": { length: edgeOffset, angle: -90 },
+      "left-inner": { length: innerOffset, angle: -90 },
+      "right-inner": { length: innerOffset, angle: 90 },
+      "right-edge": { length: edgeOffset, angle: 90 },
+    }[pointPosition.position];
+
+    return point.point.move(offset.length, point.angle + offset.angle);
+  }
+
+  _locatePoint(id: string): LocatedInterchange {
+    const point = this._locatedPoints.find((x) => x.interchangePoint.id === id);
+
+    if (point == null) {
+      throw new Error(`Point "${id}" not found.`);
+    }
+
+    return point;
   }
 }
