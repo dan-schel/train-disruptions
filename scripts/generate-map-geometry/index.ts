@@ -4,6 +4,7 @@
 // Usage:
 // npx tsx scripts/generate-map-geometry/index.ts
 
+/* eslint-disable no-console */
 import fsp, { rm } from "fs/promises";
 import path from "path";
 import ptv from "./ptv";
@@ -19,10 +20,15 @@ async function run() {
   await fsp.mkdir(outDir, { recursive: true });
 
   for (const [name, data] of Object.entries(geometry)) {
-    const fileName = `${name}.json`;
+    const fileName = path.join(outDir, `${name}.json`);
+
+    console.log(`Generating ${fileName}...`);
+
     const json = JSON.stringify(data.toJSON(), null, 2);
-    await fsp.writeFile(path.join(outDir, fileName), json);
+    await fsp.writeFile(fileName, json);
   }
+
+  console.log("✅ Done.");
 }
 
 run();
