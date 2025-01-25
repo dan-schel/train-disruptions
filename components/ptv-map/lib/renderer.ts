@@ -1,9 +1,9 @@
 import {
   BakedGeometry,
   BakedInterchange,
-  BakedLine,
   BakedTerminus,
 } from "./baked/baked-geometry";
+import { FlexiPoint } from "./dimensions/flexi-point";
 import { LineColor } from "./line";
 
 // Canvas has `backingStorePixelRatio`, but Typescript doesn't know about it for
@@ -96,7 +96,7 @@ export class Renderer {
     // </temp>
 
     for (const line of this._geometry.lines) {
-      this._renderLine(line);
+      this._renderLine(line.path, 4, lineColors[line.color]);
     }
 
     for (const terminus of this._geometry.terminii) {
@@ -110,55 +110,22 @@ export class Renderer {
     ctx.restore();
   }
 
-  private _renderLine(line: BakedLine) {
-    const ctx = this._ctx;
-
-    ctx.lineCap = "butt";
-    ctx.lineWidth = 4;
-    ctx.strokeStyle = lineColors[line.color];
-    ctx.beginPath();
-
-    let firstPoint = true;
-
-    for (const point of line.path) {
-      const { x, y } = point.amplify(this._amplification);
-
-      if (firstPoint) {
-        ctx.moveTo(x, y);
-        firstPoint = false;
-      } else {
-        ctx.lineTo(x, y);
-      }
+  private _renderInterchange(interchange: BakedInterchange) {
+    // The grey "border".
+    if (interchange.thinLine != null) {
+      this._renderLine(interchange.thinLine, 4, "#45474d", "round");
+    }
+    for (const line of interchange.thickLines) {
+      this._renderLine(line, 6, "#45474d", "round");
     }
 
-    ctx.stroke();
-  }
-
-  private _renderInterchange(interchange: BakedInterchange) {
-    const ctx = this._ctx;
-
-    const { x: x1, y: y1 } = interchange.points[0].amplify(this._amplification);
-
-    // TODO: [DS] Temporary hack so that single point interchanges work.
-    const { x: x2, y: y2 } = (
-      interchange.points[1] ?? interchange.points[0]
-    ).amplify(this._amplification);
-
-    ctx.lineCap = "round";
-    ctx.lineWidth = 6;
-    ctx.strokeStyle = "#45474d";
-    ctx.beginPath();
-    ctx.moveTo(x1, y1);
-    ctx.lineTo(x2, y2);
-    ctx.stroke();
-
-    ctx.lineCap = "round";
-    ctx.lineWidth = 4;
-    ctx.strokeStyle = "#ffffff";
-    ctx.beginPath();
-    ctx.moveTo(x1, y1);
-    ctx.lineTo(x2, y2);
-    ctx.stroke();
+    // The white "fill".
+    if (interchange.thinLine != null) {
+      this._renderLine(interchange.thinLine, 2, "#ffffff", "round");
+    }
+    for (const line of interchange.thickLines) {
+      this._renderLine(line, 4, "#ffffff", "round");
+    }
   }
 
   private _renderTerminus(terminus: BakedTerminus) {
@@ -175,6 +142,35 @@ export class Renderer {
     ctx.beginPath();
     ctx.moveTo(x1, y1);
     ctx.lineTo(x2, y2);
+    ctx.stroke();
+  }
+
+  private _renderLine(
+    points: readonly FlexiPoint[],
+    lineWidth: number,
+    color: string,
+    lineCap: CanvasLineCap = "butt",
+  ) {
+    const ctx = this._ctx;
+
+    ctx.lineCap = lineCap;
+    ctx.lineWidth = lineWidth;
+    ctx.strokeStyle = color;
+    ctx.beginPath();
+
+    let firstPoint = true;
+
+    for (const point of points) {
+      const { x, y } = point.amplify(this._amplification);
+
+      if (firstPoint) {
+        ctx.moveTo(x, y);
+        firstPoint = false;
+      } else {
+        ctx.lineTo(x, y);
+      }
+    }
+
     ctx.stroke();
   }
 }
