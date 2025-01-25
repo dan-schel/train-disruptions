@@ -27,7 +27,8 @@ import {
   newmarketStraight,
   sunburyStraight,
   sunshineCurvesSunbury,
-  sunshineDiagonals,
+  sunshineExitDiagonal,
+  sunshineJunctionDiagonal,
   tottenhamStraight,
   watergardensStraight,
 } from "../utils-shared-corridors";
@@ -87,9 +88,9 @@ export const northern = new Line({
     .station(footscray.point("sunbury"))
     .straight(tottenhamStraight)
     .curve(sunshineCurvesSunbury, 45)
-    .straight(sunshineDiagonals)
+    .straight(sunshineJunctionDiagonal)
     .station(sunshine.point("sunbury"))
-    .straight(sunshineDiagonals)
+    .straight(sunshineExitDiagonal)
     .curve(sunshineCurvesSunbury, 45)
     .straight(watergardensStraight)
     .station(watergardens.point("sunbury"))

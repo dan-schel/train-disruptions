@@ -34,6 +34,7 @@ import {
   claytonToDandenong,
   craigieburnStraight,
   dandenongToHallamCurve,
+  deerParkStraight,
   hallamCurveGippland,
   hallamToPakenham,
   newmarketCurveSeymour,
@@ -43,7 +44,9 @@ import {
   southYarraToCaulfield,
   sunburyStraight,
   sunshineCurvesBendigo,
-  sunshineDiagonals,
+  sunshineExitDiagonal,
+  sunshineJunctionDiagonal,
+  sunshineJunctionStraight,
   tottenhamStraight,
   watergardensStraight,
 } from "../utils-shared-corridors";
@@ -65,8 +68,6 @@ const eaglehawkStraight = 45;
 const swanHillStraight = 130;
 const echucaStraight = 160;
 
-const sunshineJunctionStraight = 25;
-const deerParkStraight = 55;
 const ballaratStraight = 165;
 const araratStraight = 50;
 const maryboroughStraight = 50;
@@ -156,9 +157,9 @@ export const regionalWestern = new Line({
     .split({
       split: new Path()
         .curve(sunshineCurvesBendigo, 45)
-        .straight(sunshineDiagonals)
+        .straight(sunshineJunctionDiagonal)
         .station(sunshine.point("bendigo"))
-        .straight(sunshineDiagonals)
+        .straight(sunshineExitDiagonal)
         .curve(sunshineCurvesBendigo, 45)
         .straight(watergardensStraight)
         .station(watergardens.point("bendigo"))
