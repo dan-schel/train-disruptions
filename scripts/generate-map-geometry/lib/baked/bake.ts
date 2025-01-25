@@ -5,6 +5,7 @@ import { InterchangeBaker } from "./interchange-baker";
 import { terminusExtents } from "../../../../components/map/renderer/utils";
 import { BakedLine } from "../../../../components/map/renderer/baked-line";
 import { BakedTerminus } from "../../../../components/map/renderer/baked-terminus";
+import { BakedViewport } from "../../../../components/map/renderer/baked-viewport";
 
 export function bake(lines: Line[]): BakedGeometry {
   const bakedPaths = lines.map((l) => l.bake());
@@ -45,5 +46,37 @@ export function bake(lines: Line[]): BakedGeometry {
     ),
   );
 
-  return new BakedGeometry(bakedLines, interchanges, termini);
+  const viewport = bakeViewport(bakedLines);
+
+  return new BakedGeometry(bakedLines, interchanges, termini, viewport);
+}
+
+function bakeViewport(bakedLines: BakedLine[]): BakedViewport {
+  const points = bakedLines.flatMap((l) => l.path);
+
+  // Min amplification
+  const lowestMinX = Math.min(...points.map((p) => p.minX));
+  const highestMinX = Math.max(...points.map((p) => p.minX));
+  const lowestMinY = Math.min(...points.map((p) => p.minY));
+  const highestMinY = Math.max(...points.map((p) => p.minY));
+  const minViewport = {
+    x: (lowestMinX + highestMinX) / 2,
+    y: (lowestMinY + highestMinY) / 2,
+    w: highestMinX - lowestMinX,
+    h: highestMinY - lowestMinY,
+  };
+
+  // Max amplification
+  const lowestMaxX = Math.min(...points.map((p) => p.maxX));
+  const highestMaxX = Math.max(...points.map((p) => p.maxX));
+  const lowestMaxY = Math.min(...points.map((p) => p.maxY));
+  const highestMaxY = Math.max(...points.map((p) => p.maxY));
+  const maxViewport = {
+    x: (lowestMaxX + highestMaxX) / 2,
+    y: (lowestMaxY + highestMaxY) / 2,
+    w: highestMaxX - lowestMaxX,
+    h: highestMaxY - lowestMaxY,
+  };
+
+  return new BakedViewport(minViewport, maxViewport);
 }

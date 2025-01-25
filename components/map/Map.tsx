@@ -1,14 +1,16 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import { Renderer } from "./renderer/renderer";
 import { BakedGeometry } from "./renderer/baked-geometry";
 
 // To debug geometry without needing to re-run the generator:
 // import geometry from "../../scripts/generate-map-geometry/ptv";
-import geometry from "./geometry/ptv.json";
+import geometryJson from "./geometry/ptv.json";
 
 export function Map() {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  const geometry = useMemo(() => BakedGeometry.json.parse(geometryJson), []);
 
   useEffect(() => {
     if (containerRef.current == null || canvasRef.current == null) {
@@ -18,9 +20,8 @@ export function Map() {
     const renderer = new Renderer(
       containerRef.current,
       canvasRef.current,
-      BakedGeometry.json.parse(geometry),
+      geometry,
     );
-
     renderer.start();
 
     return () => {
@@ -28,19 +29,15 @@ export function Map() {
         renderer.destroy();
       }
     };
-  }, []);
+  }, [geometry]);
 
   return (
     <div
       ref={containerRef}
-      className="relative aspect-video overflow-hidden border border-gray-300"
+      className="relative overflow-hidden border border-gray-300"
+      style={{ aspectRatio: geometry.suggestedAspectRatio().toFixed(2) }}
     >
-      <canvas
-        className="absolute left-0 top-0"
-        ref={canvasRef}
-        width="1000"
-        height="800"
-      />
+      <canvas className="absolute left-0 top-0" ref={canvasRef} />
     </div>
   );
 }

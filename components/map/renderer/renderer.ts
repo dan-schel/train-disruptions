@@ -10,6 +10,7 @@ import {
   lineColorCodes,
   lineWidth,
   terminusLineWidth,
+  viewportPadding,
 } from "./utils";
 
 // Canvas has `backingStorePixelRatio`, but Typescript doesn't know about it for
@@ -86,9 +87,13 @@ export class Renderer {
     ctx.scale(this._dpiRatio, this._dpiRatio);
     ctx.translate(this._width / 2, this._height / 2);
 
-    // <temp>
-    ctx.scale(1, 1);
-    // </temp>
+    const viewport = this._geometry.viewport.amplify(this._amplification);
+    const scale = Math.min(
+      this._width / (viewport.w + viewportPadding * 2),
+      this._height / (viewport.h + viewportPadding * 2),
+    );
+    ctx.scale(scale, scale);
+    ctx.translate(-viewport.x, -viewport.y);
 
     for (const line of this._geometry.lines) {
       const color = lineColorCodes[line.color];

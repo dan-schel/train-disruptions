@@ -1,5 +1,7 @@
 export const lineWidth = 4;
 
+export const viewportPadding = 10;
+
 export const interchangeThinLineWidth = 1;
 export const interchangeThickLineWidth = 4;
 export const interchangeBorderWidth = 1;
