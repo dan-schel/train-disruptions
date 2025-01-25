@@ -1,7 +1,7 @@
 import React from "react";
 import { Column } from "../../components/core/Column";
 import { Text } from "../../components/core/Text";
-import { PtvMap } from "../../components/ptv-map/PtvMap";
+import { Map } from "../../components/map/Map";
 import { PageCenterer } from "../../components/common/PageCenterer";
 
 export default function Page() {
@@ -12,7 +12,7 @@ export default function Page() {
         <Text style="custom" className="font-bold text-orange-700">
           Maybe.
         </Text>
-        <PtvMap />
+        <Map />
       </Column>
     </PageCenterer>
   );

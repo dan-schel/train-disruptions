@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { Renderer } from "./renderer";
 import { geometry } from "./geometry/ptv";
 
-export function PtvMap() {
+export function Map() {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
