@@ -1,6 +1,6 @@
 import { FlexiPoint } from "../dimensions/flexi-point";
 import { InterchangePoint } from "../path/station-location";
-import { LineColor } from "../utils";
+import { LineColor } from "../../utils";
 
 export class LocatedInterchange {
   constructor(

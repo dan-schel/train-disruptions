@@ -1,7 +1,6 @@
-import { interchangeEdgeOffset, interchangeInnerOffset } from "../utils";
-import { FlexiPoint } from "../dimensions/flexi-point";
+import { interchangeEdgeOffset, interchangeInnerOffset } from "../../utils";
 import { Interchange, PointPosition } from "../interchange";
-import { BakedInterchange } from "./baked-geometry";
+import { BakedInterchange, BakedPoint } from "../../baked-geometry";
 import { LocatedInterchange } from "./baked-path";
 
 export class InterchangeBaker {
@@ -47,7 +46,7 @@ export class InterchangeBaker {
     );
   }
 
-  _point(pointPosition: PointPosition): FlexiPoint {
+  _point(pointPosition: PointPosition): BakedPoint {
     const point = this._locatePoint(pointPosition.point);
 
     const offset = {
@@ -57,7 +56,7 @@ export class InterchangeBaker {
       "right-edge": { length: interchangeEdgeOffset, angle: 90 },
     }[pointPosition.position];
 
-    return point.point.move(offset.length, point.angle + offset.angle);
+    return point.point.move(offset.length, point.angle + offset.angle).bake();
   }
 
   _locatePoint(id: string): LocatedInterchange {

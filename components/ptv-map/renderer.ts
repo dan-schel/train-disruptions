@@ -1,18 +1,17 @@
 import {
   BakedGeometry,
   BakedInterchange,
+  BakedPoint,
   BakedTerminus,
-} from "./baked/baked-geometry";
+} from "./baked-geometry";
 import {
   interchangeBorderWidth,
   interchangeThickLineWidth,
   interchangeThinLineWidth,
   lineColors,
   lineWidth,
-  terminusExtents,
   terminusLineWidth,
 } from "./utils";
-import { FlexiPoint } from "./dimensions/flexi-point";
 
 // Canvas has `backingStorePixelRatio`, but Typescript doesn't know about it for
 // some reason. (Probably the target "ES____" version we're using idk.)
@@ -130,19 +129,15 @@ export class Renderer {
   }
 
   private _renderTerminus(terminus: BakedTerminus) {
-    const angle = terminus.angle;
-    const point1 = terminus.point.move(terminusExtents, angle - 90);
-    const point2 = terminus.point.move(terminusExtents, angle + 90);
-
     this._renderLine(
-      [point1, point2],
+      [terminus.point1, terminus.point2],
       terminusLineWidth,
       lineColors[terminus.color],
     );
   }
 
   private _renderLine(
-    points: readonly FlexiPoint[],
+    points: readonly BakedPoint[],
     lineWidth: number,
     color: string,
     lineCap: CanvasLineCap = "butt",

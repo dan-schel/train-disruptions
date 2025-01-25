@@ -1,3 +1,4 @@
+import { BakedPoint } from "../../baked-geometry";
 import { FlexiLength, InformalFlexiLength } from "./flexi-length";
 import { InformalPoint, Point } from "./point";
 
@@ -40,13 +41,6 @@ export class FlexiPoint {
     );
   }
 
-  amplify(amplification: number): Point {
-    return new Point(
-      this.min.x + (this.max.x - this.min.x) * amplification,
-      this.min.y + (this.max.y - this.min.y) * amplification,
-    );
-  }
-
   plus(input: {
     x?: InformalFlexiLength;
     y?: InformalFlexiLength;
@@ -77,5 +71,9 @@ export class FlexiPoint {
       this.min.move(_length.min, angle),
       this.max.move(_length.max, angle),
     );
+  }
+
+  bake(): BakedPoint {
+    return new BakedPoint(this.min.x, this.min.y, this.max.x, this.max.y);
   }
 }

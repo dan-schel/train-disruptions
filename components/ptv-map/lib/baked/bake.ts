@@ -1,13 +1,20 @@
 import { groupBy } from "@dan-schel/js-utils";
 import { Line } from "../line";
-import { BakedGeometry, BakedLine, BakedTerminus } from "./baked-geometry";
+import { BakedGeometry, BakedLine, BakedTerminus } from "../../baked-geometry";
 import { InterchangeBaker } from "./interchange-baker";
+import { terminusExtents } from "../../utils";
 
 export function bake(lines: Line[]): BakedGeometry {
   const bakedPaths = lines.map((l) => l.bake());
 
   const bakedLines = bakedPaths.flatMap((l) =>
-    l.paths.map((p) => new BakedLine(l.color, p.points)),
+    l.paths.map(
+      (p) =>
+        new BakedLine(
+          l.color,
+          p.points.map((x) => x.bake()),
+        ),
+    ),
   );
 
   const locatedInterchanges = bakedPaths
@@ -28,7 +35,11 @@ export function bake(lines: Line[]): BakedGeometry {
 
   const terminii = bakedPaths.flatMap((l) =>
     l.paths.flatMap((p) =>
-      p.terminii.map((t) => new BakedTerminus(t.point, t.angle, l.color)),
+      p.terminii.map((t) => {
+        const pointA = t.point.move(terminusExtents, t.angle - 90).bake();
+        const pointB = t.point.move(terminusExtents, t.angle + 90).bake();
+        return new BakedTerminus(pointA, pointB, l.color);
+      }),
     ),
   );
 

@@ -1,18 +1,33 @@
-import { FlexiPoint } from "../dimensions/flexi-point";
-import { LineColor } from "../utils";
+import { LineColor } from "./utils";
+
+export class BakedPoint {
+  constructor(
+    readonly minX: number,
+    readonly minY: number,
+    readonly maxX: number,
+    readonly maxY: number,
+  ) {}
+
+  amplify(amplification: number) {
+    return {
+      x: this.minX + (this.maxX - this.minX) * amplification,
+      y: this.minY + (this.maxY - this.minY) * amplification,
+    };
+  }
+}
 
 export class BakedLine {
   constructor(
     readonly color: LineColor,
-    readonly path: readonly FlexiPoint[],
+    readonly path: readonly BakedPoint[],
   ) {}
 }
 
 export class BakedInterchange {
   constructor(
     readonly station: number,
-    readonly thickLines: readonly (readonly FlexiPoint[])[],
-    readonly thinLine: readonly FlexiPoint[] | null,
+    readonly thickLines: readonly (readonly BakedPoint[])[],
+    readonly thinLine: readonly BakedPoint[] | null,
   ) {
     const noThickLines = thickLines.length === 0;
     const thickLinesInvalid = thickLines.some((l) => l.length < 2);
@@ -25,8 +40,8 @@ export class BakedInterchange {
 
 export class BakedTerminus {
   constructor(
-    readonly point: FlexiPoint,
-    readonly angle: number,
+    readonly point1: BakedPoint,
+    readonly point2: BakedPoint,
     readonly color: LineColor,
   ) {}
 }
