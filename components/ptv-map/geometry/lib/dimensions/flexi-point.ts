@@ -1,4 +1,4 @@
-import { BakedPoint } from "../../baked-geometry";
+import { BakedPoint } from "../../../baked-geometry";
 import { FlexiLength, InformalFlexiLength } from "./flexi-length";
 import { InformalPoint, Point } from "./point";
 

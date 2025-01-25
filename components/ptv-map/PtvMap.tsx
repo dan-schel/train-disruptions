@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Renderer } from "./renderer";
-import { geometry } from "./ptv";
+import { geometry } from "./geometry/ptv";
 
 export function PtvMap() {
   const containerRef = useRef<HTMLDivElement>(null);

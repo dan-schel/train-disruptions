@@ -1,6 +1,6 @@
-import { interchangeEdgeOffset, interchangeInnerOffset } from "../../utils";
+import { interchangeEdgeOffset, interchangeInnerOffset } from "../../../utils";
 import { Interchange, PointPosition } from "../interchange";
-import { BakedInterchange, BakedPoint } from "../../baked-geometry";
+import { BakedInterchange, BakedPoint } from "../../../baked-geometry";
 import { LocatedInterchange } from "./baked-path";
 
 export class InterchangeBaker {

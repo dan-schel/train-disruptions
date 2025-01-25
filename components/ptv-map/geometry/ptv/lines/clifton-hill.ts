@@ -1,4 +1,4 @@
-import { JOLIMONT } from "../../../../server/data/station-ids";
+import { JOLIMONT } from "../../../../../server/data/station-ids";
 import { Line } from "../../lib/line";
 import { Path } from "../../lib/path/path";
 import {

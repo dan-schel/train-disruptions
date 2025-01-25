@@ -2,7 +2,7 @@ import { PathBaker } from "./baked/path-baker";
 import { FlexiPoint, InformalFlexiPoint } from "./dimensions/flexi-point";
 import { Path } from "./path/path";
 import { ColoredBakedPathCollection } from "./baked/baked-path";
-import { LineColor } from "../utils";
+import { LineColor } from "../../utils";
 
 export class Line {
   readonly origin: FlexiPoint;

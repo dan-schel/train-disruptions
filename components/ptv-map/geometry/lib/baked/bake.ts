@@ -1,8 +1,12 @@
 import { groupBy } from "@dan-schel/js-utils";
 import { Line } from "../line";
-import { BakedGeometry, BakedLine, BakedTerminus } from "../../baked-geometry";
+import {
+  BakedGeometry,
+  BakedLine,
+  BakedTerminus,
+} from "../../../baked-geometry";
 import { InterchangeBaker } from "./interchange-baker";
-import { terminusExtents } from "../../utils";
+import { terminusExtents } from "../../../utils";
 
 export function bake(lines: Line[]): BakedGeometry {
   const bakedPaths = lines.map((l) => l.bake());

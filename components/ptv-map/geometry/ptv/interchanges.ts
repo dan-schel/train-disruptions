@@ -32,7 +32,7 @@ import {
   SUNBURY,
   SUNSHINE,
   WATERGARDENS,
-} from "../../../server/data/station-ids";
+} from "../../../../server/data/station-ids";
 
 import { Interchange } from "../lib/interchange";
 
