@@ -58,7 +58,7 @@ export const flindersStreet = Interchange.simple(
   "right-edge",
 );
 
-export const southernCross = Interchange.simple(
+export const southernCross = new Interchange(
   SOUTHERN_CROSS,
   [
     "northern",
@@ -69,55 +69,75 @@ export const southernCross = Interchange.simple(
     "regional-west",
     "cross-city",
   ] as const,
-  "northern",
-  "right-edge",
-  "cross-city",
-  "left-edge",
+  [
+    [
+      { point: "cross-city", position: "left-edge" },
+      { point: "cross-city", position: "right-inner" },
+    ],
+    [
+      { point: "dandenong", position: "left-inner" },
+      { point: "northern", position: "right-edge" },
+    ],
+  ],
+  [
+    { point: "cross-city", position: "left-edge" },
+    { point: "northern", position: "right-edge" },
+  ],
 );
 
 export const flagstaff = Interchange.simple(
   FLAGSTAFF,
   ["northern", "clifton-hill", "burnley", "dandenong"] as const,
-  "northern",
-  "right-edge",
   "dandenong",
   "left-edge",
+  "northern",
+  "right-edge",
 );
 
 export const melbourneCentral = Interchange.simple(
   MELBOURNE_CENTRAL,
   ["northern", "clifton-hill", "burnley", "dandenong"] as const,
-  "northern",
-  "right-edge",
   "dandenong",
   "left-edge",
+  "northern",
+  "right-edge",
 );
 
 export const parliament = Interchange.simple(
   PARLIAMENT,
   ["northern", "clifton-hill", "burnley", "dandenong"] as const,
-  "northern",
-  "right-edge",
   "dandenong",
   "left-edge",
+  "northern",
+  "right-edge",
 );
 
 export const richmond = Interchange.simple(
   RICHMOND,
   ["sandringham", "frankston", "gippsland", "dandenong", "burnley"] as const,
-  "sandringham",
-  "right-edge",
   "burnley",
   "left-edge",
+  "sandringham",
+  "right-edge",
 );
 
-export const northMelbourne = Interchange.simple(
+export const northMelbourne = new Interchange(
   NORTH_MELBOURNE,
   ["cross-city", "regional-rrl", "regional-seymour", "northern"] as const,
-  "cross-city",
-  "left-edge",
-  "northern",
-  "right-edge",
+  [
+    [
+      { point: "cross-city", position: "left-edge" },
+      { point: "cross-city", position: "right-inner" },
+    ],
+    [
+      { point: "regional-seymour", position: "left-inner" },
+      { point: "northern", position: "right-edge" },
+    ],
+  ],
+  [
+    { point: "cross-city", position: "left-edge" },
+    { point: "northern", position: "right-edge" },
+  ],
 );
 
 export const cliftonHill = Interchange.single(CLIFTON_HILL, "clifton-hill");
@@ -128,49 +148,59 @@ export const camberwell = Interchange.single(CAMBERWELL, "camberwell");
 
 export const ringwood = Interchange.single(RINGWOOD, "ringwood");
 
-export const southYarra = Interchange.simple(
+export const southYarra = new Interchange(
   SOUTH_YARRA,
   ["sandringham", "frankston", "gippsland", "dandenong"] as const,
-  "sandringham",
-  "right-edge",
-  "dandenong",
-  "left-edge",
+  [
+    [
+      { point: "dandenong", position: "left-edge" },
+      { point: "dandenong", position: "right-inner" },
+    ],
+    [
+      { point: "frankston", position: "left-inner" },
+      { point: "sandringham", position: "right-edge" },
+    ],
+  ],
+  [
+    { point: "dandenong", position: "left-edge" },
+    { point: "sandringham", position: "right-edge" },
+  ],
 );
 
 export const caulfield = Interchange.simple(
   CAULFIELD,
   ["frankston", "gippsland", "dandenong"] as const,
-  "frankston",
-  "right-edge",
   "dandenong",
   "left-edge",
+  "frankston",
+  "right-edge",
 );
 
 export const clayton = Interchange.simple(
   CLAYTON,
   ["gippsland", "dandenong"] as const,
-  "gippsland",
-  "right-edge",
   "dandenong",
   "left-edge",
+  "gippsland",
+  "right-edge",
 );
 
 export const dandenong = Interchange.simple(
   DANDENONG,
   ["gippsland", "dandenong"] as const,
-  "gippsland",
-  "right-edge",
   "dandenong",
   "left-edge",
+  "gippsland",
+  "right-edge",
 );
 
 export const pakenham = Interchange.simple(
   PAKENHAM,
   ["gippsland", "pakenham"] as const,
-  "gippsland",
-  "right-edge",
   "pakenham",
   "left-edge",
+  "gippsland",
+  "right-edge",
 );
 
 export const footscray = Interchange.simple(
@@ -186,27 +216,27 @@ export const frankston = Interchange.simple(
   FRANKSTON,
   ["frankston", "stony-point"] as const,
   "frankston",
-  "right-edge",
-  "stony-point",
   "left-edge",
+  "stony-point",
+  "right-edge",
 );
 
 export const broadmeadows = Interchange.simple(
   BROADMEADOWS,
   ["craigieburn", "seymour"] as const,
-  "craigieburn",
-  "right-edge",
   "seymour",
   "left-edge",
+  "craigieburn",
+  "right-edge",
 );
 
 export const craigieburn = Interchange.simple(
   CRAIGIEBURN,
   ["craigieburn", "seymour"] as const,
-  "craigieburn",
-  "right-edge",
   "seymour",
   "left-edge",
+  "craigieburn",
+  "right-edge",
 );
 
 export const seymour = Interchange.single(SEYMOUR, "seymour");
@@ -215,31 +245,42 @@ export const newport = Interchange.single(NEWPORT, "cross-city");
 
 export const laverton = Interchange.single(LAVERTON, "werribee");
 
-export const sunshine = Interchange.simple(
+export const sunshine = new Interchange(
   SUNSHINE,
   ["sunbury", "bendigo", "deer-park"] as const,
-  "sunbury",
-  "right-edge",
-  "deer-park",
-  "left-edge",
+  [
+    [
+      { point: "deer-park", position: "left-edge" },
+      { point: "deer-park", position: "right-edge" },
+    ],
+    [
+      { point: "sunbury", position: "left-inner" },
+      { point: "sunbury", position: "right-edge" },
+    ],
+  ],
+  [
+    { point: "deer-park", position: "left-edge" },
+    { point: "deer-park", position: "right-edge" },
+    { point: "sunbury", position: "right-edge" },
+  ],
 );
 
 export const watergardens = Interchange.simple(
   WATERGARDENS,
   ["sunbury", "bendigo"] as const,
-  "sunbury",
-  "right-edge",
   "bendigo",
   "left-edge",
+  "sunbury",
+  "right-edge",
 );
 
 export const sunbury = Interchange.simple(
   SUNBURY,
   ["sunbury", "bendigo"] as const,
-  "sunbury",
-  "right-edge",
   "bendigo",
   "left-edge",
+  "sunbury",
+  "right-edge",
 );
 
 export const bendigo = Interchange.single(BENDIGO, "bendigo");

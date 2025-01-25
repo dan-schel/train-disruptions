@@ -92,7 +92,7 @@ export class Renderer {
     ctx.translate(this._width / 2, this._height / 2);
 
     // <temp>
-    ctx.scale(0.5, 0.5);
+    ctx.scale(1, 1);
     // </temp>
 
     for (const line of this._geometry.lines) {
@@ -113,7 +113,7 @@ export class Renderer {
   private _renderInterchange(interchange: BakedInterchange) {
     // The grey "border".
     if (interchange.thinLine != null) {
-      this._renderLine(interchange.thinLine, 4, "#45474d", "round");
+      this._renderLine(interchange.thinLine, 3, "#45474d", "round");
     }
     for (const line of interchange.thickLines) {
       this._renderLine(line, 6, "#45474d", "round");
@@ -121,7 +121,7 @@ export class Renderer {
 
     // The white "fill".
     if (interchange.thinLine != null) {
-      this._renderLine(interchange.thinLine, 2, "#ffffff", "round");
+      this._renderLine(interchange.thinLine, 1, "#ffffff", "round");
     }
     for (const line of interchange.thickLines) {
       this._renderLine(line, 4, "#ffffff", "round");
