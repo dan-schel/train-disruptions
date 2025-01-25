@@ -1,4 +1,8 @@
+// Script to regenerate the map geometry. Should be run anytime the contents of
+// this directory is changed.
 //
+// Usage:
+// npx tsx scripts/generate-map-geometry/index.ts
 
 import fsp, { rm } from "fs/promises";
 import path from "path";

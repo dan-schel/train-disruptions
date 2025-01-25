@@ -1,4 +1,4 @@
-import { nonNull, parseFloatThrow } from "@dan-schel/js-utils";
+import { nonNull, parseFloatNull } from "@dan-schel/js-utils";
 import { z } from "zod";
 
 export class BakedPoint {
@@ -25,14 +25,16 @@ export class BakedPoint {
   }
 
   static fromString(s: string) {
-    if (!/^\d\.\d\d \d\.\d\d \d\.\d\d \d\.\d\d$/.test(s)) {
+    const parsed = s
+      .split(" ")
+      .map((n) => parseFloatNull(n))
+      .filter(nonNull);
+
+    if (parsed.length !== 4) {
       return null;
     }
 
-    const [minX, minY, maxX, maxY] = s
-      .split(" ")
-      .map((n) => parseFloatThrow(n));
-    return new BakedPoint(minX, minY, maxX, maxY);
+    return new BakedPoint(parsed[0], parsed[1], parsed[2], parsed[3]);
   }
 
   static readonly pathJson = z.string().transform((x, ctx) => {

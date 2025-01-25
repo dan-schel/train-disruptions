@@ -1,8 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import { Renderer } from "./renderer/renderer";
+import { BakedGeometry } from "./renderer/baked-geometry";
 
-// TODO: [DS] Use the pre-generated geometry, rather than generating it here.
-import geometry from "../../scripts/generate-map-geometry/ptv";
+// To debug geometry without needing to re-run the generator:
+// import geometry from "../../scripts/generate-map-geometry/ptv";
+import geometry from "./geometry/ptv.json";
 
 export function Map() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -16,7 +18,7 @@ export function Map() {
     const renderer = new Renderer(
       containerRef.current,
       canvasRef.current,
-      geometry,
+      BakedGeometry.json.parse(geometry),
     );
 
     renderer.start();
