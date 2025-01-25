@@ -3,6 +3,7 @@ import { BakedInterchange } from "./baked-interchange";
 import { BakedTerminus } from "./baked-terminus";
 import { z } from "zod";
 import { BakedViewport } from "./baked-viewport";
+import { viewportPadding } from "./utils";
 
 // TODO: [DS] Would be cool if this was just "geometry" not "baked geometry".
 // Only the script cares about the distinction.
@@ -36,9 +37,10 @@ export class BakedGeometry {
   }
 
   suggestedAspectRatio() {
+    const padding = viewportPadding * 2;
     return Math.max(
-      this.viewport.min.w / this.viewport.min.h,
-      this.viewport.max.w / this.viewport.max.h,
+      (this.viewport.min.w + padding) / (this.viewport.min.h + padding),
+      (this.viewport.max.w + padding) / (this.viewport.max.h + padding),
     );
   }
 }
