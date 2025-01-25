@@ -1,14 +1,12 @@
-import {
-  BakedGeometry,
-  BakedInterchange,
-  BakedPoint,
-  BakedTerminus,
-} from "./baked-geometry";
+import { BakedGeometry } from "./baked-geometry";
+import { BakedInterchange } from "./baked-interchange";
+import { BakedPoint } from "./baked-point";
+import { BakedTerminus } from "./baked-terminus";
 import {
   interchangeBorderWidth,
   interchangeThickLineWidth,
   interchangeThinLineWidth,
-  lineColors,
+  lineColorCodes,
   lineWidth,
   terminusLineWidth,
 } from "./utils";
@@ -92,7 +90,7 @@ export class Renderer {
     // </temp>
 
     for (const line of this._geometry.lines) {
-      this._renderLine(line.path, lineWidth, lineColors[line.color]);
+      this._renderLine(line.path, lineWidth, lineColorCodes[line.color]);
     }
 
     for (const terminus of this._geometry.terminii) {
@@ -132,7 +130,7 @@ export class Renderer {
     this._renderLine(
       [terminus.point1, terminus.point2],
       terminusLineWidth,
-      lineColors[terminus.color],
+      lineColorCodes[terminus.color],
     );
   }
 

@@ -9,17 +9,19 @@ export const interchangeInnerOffset = 1;
 export const terminusLineWidth = 3;
 export const terminusExtents = 5;
 
-export type LineColor =
-  | "red"
-  | "yellow"
-  | "green"
-  | "cyan"
-  | "blue"
-  | "purple"
-  | "pink"
-  | "grey";
+export const lineColors = [
+  "red",
+  "yellow",
+  "green",
+  "cyan",
+  "blue",
+  "purple",
+  "pink",
+  "grey",
+] as const;
+export type LineColor = (typeof lineColors)[number];
 
-export const lineColors: Record<LineColor, string> = {
+export const lineColorCodes: Record<LineColor, string> = {
   red: "#e42b23",
   yellow: "#ffb531",
   green: "#159943",

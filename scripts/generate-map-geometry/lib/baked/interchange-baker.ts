@@ -1,12 +1,10 @@
+import { BakedInterchange } from "../../../../components/map/renderer/baked-interchange";
+import { BakedPoint } from "../../../../components/map/renderer/baked-point";
 import {
   interchangeEdgeOffset,
   interchangeInnerOffset,
-} from "../../../../components/map/utils";
+} from "../../../../components/map/renderer/utils";
 import { Interchange, PointPosition } from "../interchange";
-import {
-  BakedInterchange,
-  BakedPoint,
-} from "../../../../components/map/baked-geometry";
 import { LocatedInterchange } from "./baked-path";
 
 export class InterchangeBaker {

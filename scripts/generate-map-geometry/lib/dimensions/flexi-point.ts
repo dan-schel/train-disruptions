@@ -1,4 +1,4 @@
-import { BakedPoint } from "../../../../components/map/baked-geometry";
+import { BakedPoint } from "../../../../components/map/renderer/baked-point";
 import { FlexiLength, InformalFlexiLength } from "./flexi-length";
 import { InformalPoint, Point } from "./point";
 

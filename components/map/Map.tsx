@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Renderer } from "./renderer";
+import { Renderer } from "./renderer/renderer";
 
 // TODO: [DS] Use the pre-generated geometry, rather than generating it here.
 import { geometry } from "../../scripts/generate-map-geometry/ptv";
