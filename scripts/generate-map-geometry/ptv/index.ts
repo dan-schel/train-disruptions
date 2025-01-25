@@ -11,7 +11,7 @@ import { northern } from "./lines/northern";
 import { regionalEastern, regionalWestern } from "./lines/regional";
 import { sandringham } from "./lines/sandringham";
 
-export const geometry = bake([
+const geometry = bake([
   regionalEastern,
   regionalWestern,
   cliftonHill,
@@ -23,3 +23,5 @@ export const geometry = bake([
   sandringham,
   stonyPoint,
 ]);
+
+export default geometry;

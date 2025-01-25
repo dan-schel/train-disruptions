@@ -1,9 +1,10 @@
 import { BakedGeometry } from "./baked-geometry";
 import { BakedInterchange } from "./baked-interchange";
 import { BakedPoint } from "./baked-point";
-import { BakedTerminus } from "./baked-terminus";
 import {
   interchangeBorderWidth,
+  interchangeFillColor,
+  interchangeStrokeColor,
   interchangeThickLineWidth,
   interchangeThinLineWidth,
   lineColorCodes,
@@ -90,11 +91,13 @@ export class Renderer {
     // </temp>
 
     for (const line of this._geometry.lines) {
-      this._renderLine(line.path, lineWidth, lineColorCodes[line.color]);
+      const color = lineColorCodes[line.color];
+      this._renderLine(line.path, lineWidth, color);
     }
 
     for (const terminus of this._geometry.terminii) {
-      this._renderTerminus(terminus);
+      const color = lineColorCodes[terminus.color];
+      this._renderLine(terminus.path, terminusLineWidth, color);
     }
 
     for (const interchange of this._geometry.interchanges) {
@@ -109,29 +112,23 @@ export class Renderer {
     if (interchange.thinLine != null) {
       const line = interchange.thinLine;
       const width = interchangeThinLineWidth + 2 * interchangeBorderWidth;
-      this._renderLine(line, width, "#45474d", "round");
+      this._renderLine(line, width, interchangeStrokeColor, "round");
     }
     for (const line of interchange.thickLines) {
       const width = interchangeThickLineWidth + 2 * interchangeBorderWidth;
-      this._renderLine(line, width, "#45474d", "round");
+      this._renderLine(line, width, interchangeStrokeColor, "round");
     }
 
     // The white "fill".
     if (interchange.thinLine != null) {
       const line = interchange.thinLine;
-      this._renderLine(line, interchangeThinLineWidth, "#ffffff", "round");
+      const width = interchangeThinLineWidth;
+      this._renderLine(line, width, interchangeFillColor, "round");
     }
     for (const line of interchange.thickLines) {
-      this._renderLine(line, interchangeThickLineWidth, "#ffffff", "round");
+      const width = interchangeThickLineWidth;
+      this._renderLine(line, width, interchangeFillColor, "round");
     }
-  }
-
-  private _renderTerminus(terminus: BakedTerminus) {
-    this._renderLine(
-      [terminus.point1, terminus.point2],
-      terminusLineWidth,
-      lineColorCodes[terminus.color],
-    );
   }
 
   private _renderLine(

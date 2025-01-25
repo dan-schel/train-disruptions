@@ -43,11 +43,7 @@ export class InterchangeBaker {
     const thinLine =
       this._interchange.thinLine?.map((pos) => this._point(pos)) ?? null;
 
-    return new BakedInterchange(
-      this._interchange.station,
-      thickLines,
-      thinLine,
-    );
+    return new BakedInterchange(thickLines, thinLine);
   }
 
   _point(pointPosition: PointPosition): BakedPoint {

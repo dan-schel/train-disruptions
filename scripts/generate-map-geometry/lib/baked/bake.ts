@@ -40,7 +40,7 @@ export function bake(lines: Line[]): BakedGeometry {
       p.terminii.map((t) => {
         const pointA = t.point.move(terminusExtents, t.angle - 90).bake();
         const pointB = t.point.move(terminusExtents, t.angle + 90).bake();
-        return new BakedTerminus(pointA, pointB, l.color);
+        return new BakedTerminus(l.color, [pointA, pointB]);
       }),
     ),
   );

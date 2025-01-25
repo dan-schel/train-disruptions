@@ -31,3 +31,6 @@ export const lineColorCodes: Record<LineColor, string> = {
   pink: "#fc7fbb",
   grey: "#9b9c9f",
 };
+
+export const interchangeStrokeColor = "#45474d";
+export const interchangeFillColor = "#ffffff";
