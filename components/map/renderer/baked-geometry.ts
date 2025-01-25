@@ -3,6 +3,9 @@ import { BakedInterchange } from "./baked-interchange";
 import { BakedTerminus } from "./baked-terminus";
 import { z } from "zod";
 
+// TODO: [DS] Would be cool if this was just "geometry" not "baked geometry".
+// Only the script cares about the distinction.
+
 export class BakedGeometry {
   constructor(
     readonly lines: readonly BakedLine[],

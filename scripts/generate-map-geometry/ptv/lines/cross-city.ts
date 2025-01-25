@@ -65,8 +65,6 @@ export const crossCityEastern = new Line({
     .station(frankston.point("frankston")),
 });
 
-// TODO: [DS] The Stony Point line!
-
 /**
  * The Werribee and Williamstown lines, which make up the western half of the
  * "Cross City" group (colored green on the map).

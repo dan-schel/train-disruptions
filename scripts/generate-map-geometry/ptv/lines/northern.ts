@@ -76,8 +76,8 @@ export const northern = new Line({
       split: new Path()
         .straight(newmarketStraight)
         .curve(newmarketCurveCraigieburn, 45)
-        // TODO: [DS] The Flemington Racecourse line branches off here. Not sure
-        // whether we'd want to show it or not.
+        // TODO: The Flemington Racecourse line branches off here. Not sure
+        // whether we need to show it or not.
         .straight(broadmeadowsStraight)
         .station(broadmeadows.point("craigieburn"))
         .straight(craigieburnStraight)

@@ -1,7 +1,8 @@
-// TODO: [DS] Station IDs should not be exclusive to the server. We need them on
-// the frontend here. The OTHER station/line data should stay on the server, but
-// the IDs can be shared (especially since we only import the ones we need, it
-// shouldn't explode the bundle size).
+// TODO: Station IDs should not be exclusive to the server.
+//
+// The OTHER station/line data should stay on the server, but the IDs can be
+// shared (especially since we only import the ones we need, it shouldn't
+// explode the bundle size).
 import {
   BALLARAT,
   BENDIGO,

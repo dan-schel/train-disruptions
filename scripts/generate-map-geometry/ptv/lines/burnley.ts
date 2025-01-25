@@ -37,8 +37,7 @@ export const burnley = new Line({
   angle: 180,
   color: "blue",
 
-  // TODO: [DS] Need a way to specify the stations between defined points, as
-  // well as to draw the terminus symbol.
+  // TODO: Need a way to specify the stations between defined points.
   path: new Path()
     .station(flindersStreet.point("burnley-loop"))
     .add(flindersStreetToSouthernCross(2, false))
