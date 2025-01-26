@@ -17,12 +17,9 @@ export function richmondLoopPortal(
   const parliamentPos = loop.pos.parliament(lineNumber);
   const richmondPos = direct.richmondPos(lineNumber);
 
-  // TODO: [DS] Radius cannot be flexi at the moment (I think enabling to be
-  // would be fine), so always use the min. This will break if the city loop
-  // ever uses flexi lengths!
-  const longLength = parliamentPos.verticalDistanceTo(richmondPos).min;
-  const shortLength = parliamentPos.horizontalDistanceTo(richmondPos).min;
-  const diagonalLength = FlexiLength.formalize(portalStraight).min;
+  const longLength = parliamentPos.verticalDistanceTo(richmondPos);
+  const shortLength = parliamentPos.horizontalDistanceTo(richmondPos);
+  const diagonalLength = FlexiLength.formalize(portalStraight);
 
   const { straightLength, radius } = measure45CurveLockedDiagonal(
     longLength,

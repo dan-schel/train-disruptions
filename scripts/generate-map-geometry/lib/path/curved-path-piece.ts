@@ -1,9 +1,10 @@
 import { PathBaker } from "../baked/path-baker";
+import { FlexiLength } from "../dimensions/flexi-length";
 import { PathPiece } from "./path-piece";
 
 export class CurvedPathPiece extends PathPiece {
   constructor(
-    readonly radius: number,
+    readonly radius: FlexiLength,
     readonly angle: -90 | -45 | 45 | 90,
   ) {
     super();

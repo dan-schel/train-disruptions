@@ -36,8 +36,8 @@ export class Path {
     return this.add(new StraightPathPiece(FlexiLength.formalize(length)));
   }
 
-  curve(radius: number, angle: -90 | -45 | 45 | 90): Path {
-    return this.add(new CurvedPathPiece(radius, angle));
+  curve(radius: InformalFlexiLength, angle: -90 | -45 | 45 | 90): Path {
+    return this.add(new CurvedPathPiece(FlexiLength.formalize(radius), angle));
   }
 
   split({ split, reverse = false }: { split: Path; reverse?: boolean }): Path {

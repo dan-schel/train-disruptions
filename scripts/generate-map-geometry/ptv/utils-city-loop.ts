@@ -1,3 +1,4 @@
+import { FlexiLength } from "../lib/dimensions/flexi-length";
 import { FlexiPoint } from "../lib/dimensions/flexi-point";
 import { lineGap } from "./utils";
 
@@ -28,7 +29,7 @@ export type LineNumber = (typeof line)[keyof typeof line];
 
 /** The radius to use, based on the line number index from the center. */
 export function radius(lineNumber: LineNumber) {
-  return innerRadius + lineNumber * lineGap;
+  return FlexiLength.formalize(innerRadius + lineNumber * lineGap);
 }
 
 export const pos = {

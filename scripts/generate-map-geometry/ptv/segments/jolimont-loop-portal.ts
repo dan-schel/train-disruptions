@@ -8,7 +8,7 @@ const radiusReduction = 5;
 export function jolimontLoopPortal(): Path {
   const parliamentPos = loop.pos.parliament(loop.line.cliftonHill);
   const flindersStreetPos = loop.pos.flindersStreet(loop.line.cliftonHill);
-  const radius = loop.radius(loop.line.cliftonHill) - radiusReduction;
+  const radius = loop.radius(loop.line.cliftonHill).minus(radiusReduction);
 
   return new Path()
     .straight(parliamentPos.verticalDistanceTo(flindersStreetPos).minus(radius))

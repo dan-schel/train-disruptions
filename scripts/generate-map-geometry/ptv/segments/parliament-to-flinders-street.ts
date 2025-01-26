@@ -11,7 +11,7 @@ export function parliamentToFlindersStreet(lineNumber: loop.LineNumber): Path {
   const parliamentPos = loop.pos.parliament(lineNumber);
   const flindersStreetPos = loop.pos.flindersStreet(lineNumber);
 
-  const radius = loop.radius(lineNumber) - radiusReduction;
+  const radius = loop.radius(lineNumber).minus(radiusReduction);
 
   return new Path()
     .straight(parliamentPos.verticalDistanceTo(flindersStreetPos).minus(radius))

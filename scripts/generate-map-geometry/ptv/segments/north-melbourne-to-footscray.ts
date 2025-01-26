@@ -20,11 +20,8 @@ export function northMelbourneToFootscray(
     const northMelbournePos = northMelbournePosFunc("northern");
     const footscrayPos = footscrayPosFunc("sunbury");
 
-    // TODO: [DS] Radius cannot be flexi at the moment (I think enabling to be
-    // would be fine), so always use the min. If this area ever uses flexi
-    // lengths!
-    const longLength = northMelbournePos.horizontalDistanceTo(footscrayPos).min;
-    const shortLength = northMelbournePos.verticalDistanceTo(footscrayPos).min;
+    const longLength = northMelbournePos.horizontalDistanceTo(footscrayPos);
+    const shortLength = northMelbournePos.verticalDistanceTo(footscrayPos);
     const { straightLength, radius } = measure45CurveLockedDiagonal(
       longLength,
       shortLength,

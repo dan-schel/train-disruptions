@@ -17,17 +17,12 @@ export function northMelbourneLoopPortal(branch: Path): Path {
   const flagstaffPos = loop.pos.flagstaff(loop.line.northern);
   const northMelbournePos = direct.northMelbournePos("northern");
 
-  // TODO: [DS] Radius cannot be flexi at the moment (I think enabling to be
-  // would be fine), so always use the min. This will break if the city loop
-  // ever uses flexi lengths!
-  const portalLongLength =
-    northMelbournePos.horizontalDistanceTo(flagstaffPos).min;
-  const portalShortLength =
-    northMelbournePos.verticalDistanceTo(flagstaffPos).min;
+  const portalLongLength = northMelbournePos.horizontalDistanceTo(flagstaffPos);
+  const portalShortLength = northMelbournePos.verticalDistanceTo(flagstaffPos);
   const directLongLength =
-    northMelbournePos.verticalDistanceTo(southernCrossPos).min;
+    northMelbournePos.verticalDistanceTo(southernCrossPos);
   const directShortLength =
-    northMelbournePos.horizontalDistanceTo(southernCrossPos).min;
+    northMelbournePos.horizontalDistanceTo(southernCrossPos);
 
   const {
     diagonalLength: loopNorthMelbourneStraight,
