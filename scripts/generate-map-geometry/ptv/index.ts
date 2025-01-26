@@ -1,4 +1,3 @@
-import { bake } from "../lib/baked/bake";
 import { burnley } from "./lines/burnley";
 import { cliftonHill } from "./lines/clifton-hill";
 import { frankston, stonyPoint } from "./lines/frankston-and-stony-point";
@@ -8,8 +7,9 @@ import { regionalWestern } from "./lines/regional-western";
 import { sandringham } from "./lines/sandringham";
 import { newport } from "./lines/newport";
 import { gippsland } from "./lines/gippsland";
+import { GeometryBuilder } from "../lib/builder/geometry-builder";
 
-const geometry = bake([
+const geometry = new GeometryBuilder().build([
   gippsland,
   regionalWestern,
   cliftonHill,
