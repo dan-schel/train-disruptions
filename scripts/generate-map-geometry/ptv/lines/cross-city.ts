@@ -19,25 +19,32 @@ import {
 import { flindersStreetToSouthernCross } from "../segments/flinders-street-to-southern-cross";
 import { northMelbourneToFootscray } from "../segments/north-melbourne-to-footscray";
 import { southernCrossToNorthMelbourne } from "../segments/southern-cross-to-north-melbourne";
-import { defaultRadius, diagonal, lineGap, long45, short45 } from "../utils";
+import {
+  defaultRadius,
+  diagonal,
+  lineGap,
+  long45,
+  short45,
+  standardDiagonal,
+} from "../utils";
 import * as loop from "../utils-city-loop";
 import {
   richmondToSouthYarra,
   southYarraToCaulfield,
 } from "../utils-shared-corridors";
 
-const aspendaleStraight = 190;
-const bonbeachStraight = 45;
-const frankstonStraight = 85;
-const stonyPointStraight = 245;
+const aspendaleStraight = 120;
+const bonbeachStraight = standardDiagonal;
+const frankstonStraight = 60;
+const stonyPointStraight = 100;
 
-const newportStraight = 110;
-const williamstownStraight = 55;
-const westonaStraight = 70;
-const altonaLoopDiagonals = 35;
+const newportStraight = 80;
+const williamstownStraight = 40;
+const westonaStraight = 30;
+const altonaLoopDiagonals = 30;
 const lavertonExpressStraight =
   westonaStraight + altonaLoopDiagonals * diagonal * 2;
-const werribeeStraight = 75;
+const werribeeStraight = 50;
 
 /**
  * The Frankston line, which makes up the eastern half of the "Cross City" group
@@ -107,6 +114,7 @@ export const crossCityWestern = new Line({
     .terminus(),
 });
 
+/** The Stony Point line (colored green on the map). */
 export const stonyPoint = new Line({
   origin: frankstonStationPos("stony-point"),
   angle: 0,

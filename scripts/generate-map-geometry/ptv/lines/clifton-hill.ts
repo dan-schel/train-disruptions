@@ -12,15 +12,15 @@ import { flagstaffToParliament } from "../segments/flagstaff-to-parliament";
 import { flindersStreetToSouthernCross } from "../segments/flinders-street-to-southern-cross";
 import { jolimontLoopPortal } from "../segments/jolimont-loop-portal";
 import { southernCrossToFlagstaff } from "../segments/southern-cross-to-flagstaff";
-import { defaultRadius } from "../utils";
+import { defaultRadius, standardDiagonal } from "../utils";
 import * as loop from "../utils-city-loop";
 
-const cliftonHillStraight = 120;
-const heidelbergStraight = 170;
-const hurstbridgeStraight = 255;
-const prestonStraight = 115;
-const keonParkStraight = 60;
-const merndaStraight = 195;
+const cliftonHillStraight = 80;
+const heidelbergStraight = 80;
+const hurstbridgeStraight = 100;
+const prestonStraight = 80;
+const keonParkStraight = standardDiagonal;
+const merndaStraight = 100;
 
 /**
  * The Hurstbridge and Mernda lines, a.k.a. the "Clifton Hill group" (colored

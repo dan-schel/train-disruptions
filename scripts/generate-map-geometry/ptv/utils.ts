@@ -3,6 +3,7 @@ export const long45 = Math.cos(Math.PI / 4);
 export const short45 = 1 - long45;
 export const diagonal = 1 / Math.sqrt(2);
 export const defaultRadius = 15;
+export const standardDiagonal = 15;
 
 export function measure45CurveLockedDiagonal(
   longLength: number,

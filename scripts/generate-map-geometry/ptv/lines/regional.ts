@@ -26,7 +26,7 @@ import { flindersStreetToRichmond } from "../segments/flinders-street-to-richmon
 import { flindersStreetToSouthernCross } from "../segments/flinders-street-to-southern-cross";
 import { northMelbourneToFootscray } from "../segments/north-melbourne-to-footscray";
 import { southernCrossToNorthMelbourneRegional } from "../segments/southern-cross-to-north-melbourne";
-import { defaultRadius } from "../utils";
+import { defaultRadius, standardDiagonal } from "../utils";
 import * as loop from "../utils-city-loop";
 import {
   broadmeadowsStraight,
@@ -52,28 +52,28 @@ import {
 } from "../utils-shared-corridors";
 
 const eastPakenhamToCurve = 25;
-const diagonalStraight = 10;
-const bairnsdaleStraight = 235;
+const diagonalStraight = standardDiagonal;
+const bairnsdaleStraight = 130;
 
-const donnybrookStraight = 25;
-const seymourStraight = 195;
-const sheppartonStraight = 140;
+const donnybrookStraight = standardDiagonal;
+const seymourStraight = 100;
+const sheppartonStraight = 150;
 const avenelStraight = 45;
-const alburyStraight = 250;
+const alburyStraight = 150;
 
-const kangarooFlatStraight = 135;
-const bendigoDiagonal = 25;
+const kangarooFlatStraight = 60;
+const bendigoDiagonal = standardDiagonal;
 const bendigoStraight = 10;
-const eaglehawkStraight = 45;
-const swanHillStraight = 130;
-const echucaStraight = 160;
+const eaglehawkStraight = 30;
+const swanHillStraight = 80;
+const echucaStraight = 100;
 
-const ballaratStraight = 165;
-const araratStraight = 50;
+const ballaratStraight = 80;
+const araratStraight = 60;
 const maryboroughStraight = 50;
-const wyndhamValeStraight = 135;
-const laraStraight = 15;
-const warrnamboolStraight = 210;
+const wyndhamValeStraight = 100;
+const laraStraight = standardDiagonal;
+const warrnamboolStraight = 150;
 
 /**
  * The Gippsland line, which is the only regional line (colored purple on the

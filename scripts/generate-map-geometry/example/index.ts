@@ -18,11 +18,11 @@ export const line1 = new Line({
   color: "cyan",
   path: new Path()
     .terminus()
-    .straight(45)
+    .straight({ min: 45, max: 90 })
     .station(interchange.point("line1"))
     .straight(5)
     .curve(10, -45)
-    .straight(50)
+    .straight({ min: 45, max: 90 })
     .terminus(),
 });
 export const line2 = new Line({
@@ -31,11 +31,11 @@ export const line2 = new Line({
   color: "purple",
   path: new Path()
     .terminus()
-    .straight(45)
+    .straight({ min: 45, max: 90 })
     .station(interchange.point("line2"))
     .straight(5)
     .curve(10, 45)
-    .straight(50)
+    .straight({ min: 45, max: 90 })
     .terminus(),
 });
 

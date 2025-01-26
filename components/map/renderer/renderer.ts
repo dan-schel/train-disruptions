@@ -21,6 +21,9 @@ declare global {
   }
 }
 
+const minAmplificationWidth = 400;
+const maxAmplificationWidth = 800;
+
 export class Renderer {
   private readonly _ctx;
 
@@ -69,7 +72,7 @@ export class Renderer {
     const bsr = this._ctx.backingStorePixelRatio ?? 1;
     this._dpiRatio = dpr / bsr;
 
-    this._amplification = 1;
+    this._amplification = this._selectAmplification();
 
     this._canvas.style.width = `${this._width}px`;
     this._canvas.style.height = `${this._height}px`;
@@ -77,21 +80,49 @@ export class Renderer {
     this._canvas.height = this._height * this._dpiRatio;
   }
 
+  private _selectAmplification(): number {
+    if (this._width > maxAmplificationWidth) {
+      return 1;
+    }
+    if (this._width < minAmplificationWidth) {
+      return 0;
+    }
+    return (
+      (this._width - minAmplificationWidth) /
+      (maxAmplificationWidth - minAmplificationWidth)
+    );
+  }
+
   private _render() {
     const ctx = this._ctx;
     ctx.save();
-
-    const pxWidth = this._width * this._dpiRatio;
-    const pxHeight = this._height * this._dpiRatio;
-    ctx.clearRect(0, 0, pxWidth, pxHeight);
-    ctx.scale(this._dpiRatio, this._dpiRatio);
-    ctx.translate(this._width / 2, this._height / 2);
 
     const viewport = this._geometry.viewport.amplify(this._amplification);
     const scale = Math.min(
       this._width / (viewport.w + viewportPadding * 2),
       this._height / (viewport.h + viewportPadding * 2),
     );
+
+    const pxWidth = this._width * this._dpiRatio;
+    const pxHeight = this._height * this._dpiRatio;
+    ctx.clearRect(0, 0, pxWidth, pxHeight);
+    ctx.scale(this._dpiRatio, this._dpiRatio);
+
+    // <temp>
+    ctx.fillText(`scale: ${scale.toFixed(2)}`, 0, 10);
+    ctx.strokeStyle = "#e0e0e0";
+    ctx.beginPath();
+    ctx.moveTo(this._width / 2, 0);
+    ctx.lineTo(this._width / 2, this._height);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(0, this._height / 2);
+    ctx.lineTo(this._width, this._height / 2);
+    ctx.stroke();
+    // </temp>
+
+    ctx.translate(this._width / 2, this._height / 2);
+
     ctx.scale(scale, scale);
     ctx.translate(-viewport.x, -viewport.y);
 

@@ -3,14 +3,14 @@ import { Renderer } from "./renderer/renderer";
 import { BakedGeometry } from "./renderer/baked-geometry";
 
 // To debug geometry without needing to re-run the generator:
-// import geometry from "../../scripts/generate-map-geometry/ptv";
-import geometryJson from "./geometry/example.json";
+import geometry from "../../scripts/generate-map-geometry/ptv";
+// import geometryJson from "./geometry/ptv.json";
 
 export function Map() {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  const geometry = useMemo(() => BakedGeometry.json.parse(geometryJson), []);
+  // const geometry = useMemo(() => BakedGeometry.json.parse(geometryJson), []);
 
   useEffect(() => {
     if (containerRef.current == null || canvasRef.current == null) {

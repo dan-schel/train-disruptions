@@ -35,8 +35,8 @@ import {
 
 const upfieldJunctionStraight = 5;
 const macaulayStraight = 10;
-const brunswickStraight = 90;
-const upfieldStraight = 110;
+const brunswickStraight = 60;
+const upfieldStraight = 60;
 
 /**
  * The Craigieburn, Sunbury, and Upfield lines, a.k.a. the "Northern group"

@@ -17,16 +17,16 @@ import { southernCrossToFlagstaff } from "../segments/southern-cross-to-flagstaf
 import { defaultRadius } from "../utils";
 import * as loop from "../utils-city-loop";
 
-const burnleyStraight = 60;
-const glenIrisStraight = 110;
-const glenWaverleyStraight = 180;
-const camberwellStraight = 75;
-const riversdaleStraight = 40;
-const alameinStraight = 110;
-const laburnumStraight = 165;
-const ringwoodStraight = 140;
-const belgraveStraight = 150;
-const lilydaleStraight = 125;
+const burnleyStraight = 40;
+const glenIrisStraight = 70;
+const glenWaverleyStraight = 90;
+const camberwellStraight = 50;
+const riversdaleStraight = 30;
+const alameinStraight = 50;
+const laburnumStraight = 70;
+const ringwoodStraight = 60;
+const belgraveStraight = 80;
+const lilydaleStraight = 80;
 
 /**
  * The Alamein, Belgrave, Glen Waverley and Lilydale lines, a.k.a. the "Burnley

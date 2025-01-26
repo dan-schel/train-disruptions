@@ -5,7 +5,7 @@ import * as loop from "../utils-city-loop";
 
 const innerRadius = 15;
 const flindersStreetStraight = 40;
-const richmondStraight = 10;
+const richmondStraight = 5;
 
 /**
  * The direct path from Flinders Street to Richmond. Does not include city loop

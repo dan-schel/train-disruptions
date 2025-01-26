@@ -11,7 +11,7 @@ import {
 import { northMelbournePos as northMelbournePosFunc } from "./southern-cross-to-north-melbourne";
 
 const northMelbourneStraight = 10;
-const footscrayStraight = 50;
+const footscrayStraight = 30;
 
 export function northMelbourneToFootscray(
   track: "cross-city" | "regional-rrl" | "sunbury",

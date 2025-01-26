@@ -6,9 +6,9 @@ import { defaultRadius } from "../utils";
 import * as loop from "../utils-city-loop";
 import { richmondToSouthYarra } from "../utils-shared-corridors";
 
-const divergeStraight = 5;
-const diagonalStraight = 15;
-const sandringhamStraight = 145;
+const divergeStraight = 10;
+const diagonalStraight = 20;
+const sandringhamStraight = 80;
 
 /** The Sandringham line (colored pink on the map). */
 export const sandringham = new Line({
