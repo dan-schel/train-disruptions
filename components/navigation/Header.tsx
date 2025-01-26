@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { usePageContext } from "vike-react/usePageContext";
 
+import { SimpleButton } from "../common/SimpleButton";
+import { PageCenterer } from "../common/PageCenterer";
 import { MaterialSymbolsChevronLeftRounded } from "../icons/MaterialSymbolsChevronLeftRounded";
 
 import { lines } from "../../server/data/lines";
@@ -44,14 +46,15 @@ export function Header() {
     return null;
 
   return (
-    <header className="grid w-full grid-cols-center bg-white p-2 px-1 max-lg:sticky max-lg:top-0 max-lg:z-10 max-lg:border max-lg:border-black lg:grid-cols-center-lg">
-      <button
-        className="col-start-2 flex w-full items-center justify-start gap-2 font-medium"
-        onClick={() => window.history.back()}
-      >
-        <MaterialSymbolsChevronLeftRounded className="size-10" />
-        {name}
-      </button>
+    <header className="grid bg-white py-2 max-lg:sticky max-lg:top-0 max-lg:z-10 max-lg:border max-lg:border-black">
+      <PageCenterer>
+        <SimpleButton
+          onClick={() => window.history.back()}
+          icon={<MaterialSymbolsChevronLeftRounded className="size-10" />}
+          text={name}
+          theme="header"
+        />
+      </PageCenterer>
     </header>
   );
 }

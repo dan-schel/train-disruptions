@@ -3,6 +3,7 @@ import { usePageContext } from "vike-react/usePageContext";
 
 import { Text } from "../../../components/core/Text";
 import { Column } from "../../../components/core/Column";
+import { PageCenterer } from "../../../components/common/PageCenterer";
 
 import { Line } from "../../../server/data/line";
 import { lines } from "../../../server/data/lines";
@@ -22,8 +23,14 @@ export default function Page() {
   );
 
   return (
-    <Column className="p-4">
-      <Text>Is it buses on the {line?.name} line</Text>
-    </Column>
+    <PageCenterer>
+      <Column className="p-4">
+        {line ? (
+          <Text>Is it buses on the {line.name} line</Text>
+        ) : (
+          <Text>We don&apos;t know about this line 😔</Text>
+        )}
+      </Column>
+    </PageCenterer>
   );
 }
