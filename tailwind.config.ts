@@ -61,7 +61,12 @@ export default {
       xl: "80rem",
       "2xl": "96rem",
     },
-    extend: {},
+    extend: {
+      gridTemplateColumns: {
+        center: "0px 1fr 0px",
+        "center-lg": "1fr 64rem 1fr",
+      },
+    },
   },
   corePlugins: {
     // Disable the default `leading-*` utilities, so the override plugin works.

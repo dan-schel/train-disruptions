@@ -7,8 +7,8 @@ export type PageCentererProps = {
 
 export function PageCenterer(props: PageCentererProps) {
   return (
-    <div className="grid grid-cols-[0_1fr_0] lg:grid-cols-[1fr_64rem_1fr]">
-      <With gridColumn="2">{props.children}</With>
+    <div className="grid grid-cols-center lg:grid-cols-center-lg">
+      <With className="col-start-2">{props.children}</With>
     </div>
   );
 }

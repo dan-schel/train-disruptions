@@ -10,6 +10,8 @@ const themes = {
   default: "bg-slate-200 group-hover:bg-slate-300 group-active:bg-slate-400",
   primary:
     "bg-blue-600 group-hover:bg-blue-700 group-active:bg-blue-900 text-white",
+  header:
+    "bg-white font-medium group-hover:bg-gray-100 group-active:bg-gray-200",
 };
 
 type Content =
