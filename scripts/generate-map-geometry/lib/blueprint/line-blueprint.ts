@@ -1,14 +1,14 @@
-import { PathBaker } from "./baked/path-baker";
-import { FlexiPoint } from "./dimensions/flexi-point";
-import { Path } from "./path/path";
-import { ColoredBakedPathCollection } from "./baked/baked-path";
-import { LineColor } from "../../../components/map/renderer/utils";
+import { PathBaker } from "../baked/path-baker";
+import { FlexiPoint } from "../dimensions/flexi-point";
+import { PathBlueprint } from "./path-blueprint";
+import { ColoredBakedPathCollection } from "../baked/baked-path";
+import { LineColor } from "../../../../components/map/renderer/utils";
 
-export class Line {
+export class LineBlueprint {
   readonly origin: FlexiPoint;
   readonly angle: number;
   readonly color: LineColor;
-  readonly path: Path;
+  readonly path: PathBlueprint;
 
   constructor({
     origin,
@@ -19,7 +19,7 @@ export class Line {
     origin: FlexiPoint;
     angle: number;
     color: LineColor;
-    path: Path;
+    path: PathBlueprint;
   }) {
     this.origin = origin;
     this.angle = angle;

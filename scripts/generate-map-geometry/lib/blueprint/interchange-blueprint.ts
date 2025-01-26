@@ -1,4 +1,4 @@
-import { InterchangePoint } from "./path/station-location";
+import { InterchangePoint } from "./path-blueprint-piece/station-location";
 
 export type RelativePosition =
   | "left-edge"
@@ -11,7 +11,7 @@ export type PointPosition<T extends string[] = string[]> = {
   readonly position: RelativePosition;
 };
 
-export class Interchange<T extends string[] = string[]> {
+export class InterchangeBlueprint<T extends string[] = string[]> {
   constructor(
     readonly station: number,
     readonly points: T,
@@ -30,8 +30,11 @@ export class Interchange<T extends string[] = string[]> {
     return new InterchangePoint(this, id);
   }
 
-  static single<T extends string>(station: number, point: T): Interchange<[T]> {
-    return new Interchange(
+  static single<T extends string>(
+    station: number,
+    point: T,
+  ): InterchangeBlueprint<[T]> {
+    return new InterchangeBlueprint(
       station,
       [point],
       [
@@ -51,8 +54,8 @@ export class Interchange<T extends string[] = string[]> {
     startEdge: RelativePosition,
     endPoint: T[number],
     endEdge: RelativePosition,
-  ): Interchange<T> {
-    return new Interchange(
+  ): InterchangeBlueprint<T> {
+    return new InterchangeBlueprint(
       station,
       points,
       [

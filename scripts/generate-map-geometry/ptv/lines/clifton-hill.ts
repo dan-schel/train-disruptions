@@ -1,7 +1,7 @@
 import { JOLIMONT } from "../../../../server/data/station-ids";
 import { flexi } from "../../lib/dimensions/flexi-length";
-import { Line } from "../../lib/line";
-import { Path } from "../../lib/path/path";
+import { LineBlueprint } from "../../lib/blueprint/line-blueprint";
+import { PathBlueprint } from "../../lib/blueprint/path-blueprint";
 import {
   flagstaff,
   flindersStreet,
@@ -27,12 +27,12 @@ const merndaStraight = flexi(50, 100);
  * The Hurstbridge and Mernda lines, a.k.a. the "Clifton Hill group" (colored
  * red on the map).
  */
-export const cliftonHill = new Line({
+export const cliftonHill = new LineBlueprint({
   origin: loop.pos.flindersStreet(loop.line.cliftonHill),
   angle: 180,
   color: "red",
 
-  path: new Path()
+  path: new PathBlueprint()
     .station(flindersStreet.point("clifton-hill-loop"))
     .add(flindersStreetToSouthernCross(1, false))
     .station(southernCross.point("clifton-hill"))
@@ -45,7 +45,7 @@ export const cliftonHill = new Line({
     .straight(cliftonHillStraight)
     .station(cliftonHillInterchange.point("clifton-hill"))
     .split({
-      split: new Path()
+      split: new PathBlueprint()
         .straight(heidelbergStraight)
         .curve(defaultRadius, 45)
         .straight(hurstbridgeStraight)

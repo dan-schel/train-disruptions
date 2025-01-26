@@ -1,6 +1,6 @@
 import { flexi } from "../../lib/dimensions/flexi-length";
-import { Line } from "../../lib/line";
-import { Path } from "../../lib/path/path";
+import { LineBlueprint } from "../../lib/blueprint/line-blueprint";
+import { PathBlueprint } from "../../lib/blueprint/path-blueprint";
 import {
   broadmeadows,
   craigieburn,
@@ -43,18 +43,18 @@ const upfieldStraight = flexi(25, 50);
  * The Craigieburn, Sunbury, and Upfield lines, a.k.a. the "Northern group"
  * (colored yellow on the map).
  */
-export const northern = new Line({
+export const northern = new LineBlueprint({
   origin: loop.pos.flindersStreet(loop.line.northern),
   angle: 180,
   color: "yellow",
 
-  path: new Path()
+  path: new PathBlueprint()
     .station(flindersStreet.point("northern-direct"))
     .add(flindersStreetToSouthernCross(0, false))
     .station(southernCross.point("northern"))
     .add(
       northMelbourneLoopPortal(
-        new Path()
+        new PathBlueprint()
           .station(flagstaff.point("northern"))
           .add(flagstaffToParliament(0, "northern"))
           .station(parliament.point("northern"))
@@ -64,7 +64,7 @@ export const northern = new Line({
     )
     .station(northMelbourne.point("northern"))
     .split({
-      split: new Path()
+      split: new PathBlueprint()
         .straight(upfieldJunctionStraight)
         .curve(defaultRadius, 45)
         .straight(macaulayStraight)
@@ -75,7 +75,7 @@ export const northern = new Line({
         .terminus(),
     })
     .split({
-      split: new Path()
+      split: new PathBlueprint()
         .straight(newmarketStraight)
         .curve(newmarketCurveCraigieburn, 45)
         // TODO: The Flemington Racecourse line branches off here. Not sure

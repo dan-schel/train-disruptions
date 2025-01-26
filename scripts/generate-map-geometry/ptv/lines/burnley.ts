@@ -1,6 +1,6 @@
 import { flexi } from "../../lib/dimensions/flexi-length";
-import { Line } from "../../lib/line";
-import { Path } from "../../lib/path/path";
+import { LineBlueprint } from "../../lib/blueprint/line-blueprint";
+import { PathBlueprint } from "../../lib/blueprint/path-blueprint";
 import {
   flagstaff,
   flindersStreet,
@@ -34,13 +34,13 @@ const lilydaleStraight = flexi(40, 80);
  * The Alamein, Belgrave, Glen Waverley and Lilydale lines, a.k.a. the "Burnley
  * group" (colored dark blue on the map).
  */
-export const burnley = new Line({
+export const burnley = new LineBlueprint({
   origin: loop.pos.flindersStreet(loop.line.burnley),
   angle: 180,
   color: "blue",
 
   // TODO: Need a way to specify the stations between defined points.
-  path: new Path()
+  path: new PathBlueprint()
     .station(flindersStreet.point("burnley-loop"))
     .add(flindersStreetToSouthernCross(2, false))
     .station(southernCross.point("burnley"))
@@ -61,7 +61,7 @@ export const burnley = new Line({
     //.stations([EAST_RICHMOND])
     .station(burnleyInterchange.point("burnley"))
     .split({
-      split: new Path()
+      split: new PathBlueprint()
         .curve(defaultRadius, 45)
         .straight(glenIrisStraight)
         .curve(defaultRadius, -45)
@@ -75,7 +75,7 @@ export const burnley = new Line({
     //.stations([HAWTHORN, GLENFERRIE, AUBURN])
     .station(camberwell.point("camberwell"))
     .split({
-      split: new Path()
+      split: new PathBlueprint()
         .curve(defaultRadius, 45)
         .straight(riversdaleStraight)
         .curve(defaultRadius, 45)
@@ -87,7 +87,7 @@ export const burnley = new Line({
     .straight(ringwoodStraight)
     .station(ringwood.point("ringwood"))
     .split({
-      split: new Path()
+      split: new PathBlueprint()
         .curve(defaultRadius, 45)
         .straight(belgraveStraight)
         .terminus(),

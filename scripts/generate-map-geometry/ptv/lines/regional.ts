@@ -1,7 +1,7 @@
 import { EAST_PAKENHAM } from "../../../../server/data/station-ids";
 import { flexi } from "../../lib/dimensions/flexi-length";
-import { Line } from "../../lib/line";
-import { Path } from "../../lib/path/path";
+import { LineBlueprint } from "../../lib/blueprint/line-blueprint";
+import { PathBlueprint } from "../../lib/blueprint/path-blueprint";
 import {
   ballarat,
   bendigo,
@@ -81,12 +81,12 @@ const warrnamboolStraight = flexi(75, 150);
  * map) to depart Southern Cross towards Flinders Street and ultimately heads
  * east.
  */
-export const regionalEastern = new Line({
+export const regionalEastern = new LineBlueprint({
   origin: loop.pos.southernCross(loop.line.crossCity),
   angle: 45,
   color: "purple",
 
-  path: new Path()
+  path: new PathBlueprint()
     .station(southernCross.point("regional-east"))
     .add(flindersStreetToSouthernCross(loop.line.regional, true).reverse())
     .station(flindersStreet.point("regional"))
@@ -119,16 +119,16 @@ export const regionalEastern = new Line({
  * (colored purple on the map) that depart Southern Cross toward North
  * Melbourne/Footscray.
  */
-export const regionalWestern = new Line({
+export const regionalWestern = new LineBlueprint({
   origin: loop.pos.southernCross(loop.line.dandenong),
   angle: 225,
   color: "purple",
 
-  path: new Path()
+  path: new PathBlueprint()
     .station(southernCross.point("regional-west"))
     .add(
       southernCrossToNorthMelbourneRegional(
-        new Path()
+        new PathBlueprint()
           .station(northMelbourne.point("regional-seymour"))
           .straight(newmarketStraight)
           .curve(newmarketCurveSeymour, 45)
@@ -142,7 +142,7 @@ export const regionalWestern = new Line({
           .straight(seymourStraight)
           .station(seymour.point("seymour"))
           .split({
-            split: new Path().straight(sheppartonStraight).terminus(),
+            split: new PathBlueprint().straight(sheppartonStraight).terminus(),
           })
           .curve(defaultRadius, 45)
           .straight(avenelStraight)
@@ -156,7 +156,7 @@ export const regionalWestern = new Line({
     .station(footscray.point("regional"))
     .straight(tottenhamStraight)
     .split({
-      split: new Path()
+      split: new PathBlueprint()
         .curve(sunshineCurvesBendigo, 45)
         .straight(sunshineJunctionDiagonal)
         .station(sunshine.point("bendigo"))
@@ -173,7 +173,7 @@ export const regionalWestern = new Line({
         .straight(bendigoStraight)
         .station(bendigo.point("bendigo"))
         .split({
-          split: new Path().straight(echucaStraight).terminus(),
+          split: new PathBlueprint().straight(echucaStraight).terminus(),
         })
         .curve(defaultRadius, -45)
         .straight(eaglehawkStraight)
@@ -186,7 +186,7 @@ export const regionalWestern = new Line({
     .straight(deerParkStraight)
     .station(deerPark.point("deer-park"))
     .split({
-      split: new Path()
+      split: new PathBlueprint()
         .straight(wyndhamValeStraight)
         .curve(defaultRadius, -45)
         .straight(laraStraight)
@@ -198,7 +198,7 @@ export const regionalWestern = new Line({
     .straight(ballaratStraight)
     .station(ballarat.point("ballarat"))
     .split({
-      split: new Path().straight(araratStraight).terminus(),
+      split: new PathBlueprint().straight(araratStraight).terminus(),
     })
     .curve(defaultRadius, 45)
     .straight(maryboroughStraight)

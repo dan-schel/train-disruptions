@@ -1,5 +1,5 @@
 import { groupBy } from "@dan-schel/js-utils";
-import { Line } from "../line";
+import { LineBlueprint } from "../blueprint/line-blueprint";
 import { BakedGeometry } from "../../../../components/map/renderer/baked-geometry";
 import { InterchangeBaker } from "./interchange-baker";
 import { terminusExtents } from "../../../../components/map/renderer/utils";
@@ -7,7 +7,7 @@ import { BakedLine } from "../../../../components/map/renderer/baked-line";
 import { BakedTerminus } from "../../../../components/map/renderer/baked-terminus";
 import { BakedViewport } from "../../../../components/map/renderer/baked-viewport";
 
-export function bake(lines: Line[]): BakedGeometry {
+export function bake(lines: LineBlueprint[]): BakedGeometry {
   const bakedPaths = lines.map((l) => l.bake());
 
   const bakedLines = bakedPaths.flatMap((l) =>

@@ -1,4 +1,4 @@
-import { Path } from "../../lib/path/path";
+import { PathBlueprint } from "../../lib/blueprint/path-blueprint";
 import { melbourneCentral } from "../interchanges";
 import * as loop from "../utils-city-loop";
 
@@ -6,14 +6,14 @@ import * as loop from "../utils-city-loop";
 export function flagstaffToParliament(
   lineNumber: loop.LineNumber,
   melbourneCentralPoint: (typeof melbourneCentral.points)[number],
-): Path {
+): PathBlueprint {
   const flagstaffPos = loop.pos.flagstaff(lineNumber);
   const melbourneCentralPos = loop.pos.melbourneCentral(lineNumber);
   const parliamentPos = loop.pos.parliament(lineNumber);
 
   const radius = loop.radius(lineNumber);
 
-  return new Path()
+  return new PathBlueprint()
     .straight(flagstaffPos.horizontalDistanceTo(melbourneCentralPos))
     .station(melbourneCentral.point(melbourneCentralPoint))
     .straight(

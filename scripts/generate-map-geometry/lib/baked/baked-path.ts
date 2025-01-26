@@ -1,5 +1,5 @@
 import { FlexiPoint } from "../dimensions/flexi-point";
-import { InterchangePoint } from "../path/station-location";
+import { InterchangePoint } from "../blueprint/path-blueprint-piece/station-location";
 import { LineColor } from "../../../../components/map/renderer/utils";
 
 export class LocatedInterchange {

@@ -1,8 +1,8 @@
-import { PathBaker } from "../baked/path-baker";
-import { FlexiLength } from "../dimensions/flexi-length";
-import { PathPiece } from "./path-piece";
+import { PathBaker } from "../../baked/path-baker";
+import { FlexiLength } from "../../dimensions/flexi-length";
+import { PathBlueprintPiece } from "./path-blueprint-piece";
 
-export class StraightPathPiece extends PathPiece {
+export class Straight extends PathBlueprintPiece {
   constructor(readonly length: FlexiLength) {
     super();
 
@@ -11,7 +11,7 @@ export class StraightPathPiece extends PathPiece {
     }
   }
 
-  reverse(): PathPiece {
+  reverse(): PathBlueprintPiece {
     return this;
   }
 

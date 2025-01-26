@@ -1,9 +1,9 @@
-import { LocatedInterchange } from "../baked/baked-path";
-import { PathBaker } from "../baked/path-baker";
-import { Interchange } from "../interchange";
-import { PathPiece } from "./path-piece";
+import { LocatedInterchange } from "../../baked/baked-path";
+import { PathBaker } from "../../baked/path-baker";
+import { InterchangeBlueprint } from "../interchange-blueprint";
+import { PathBlueprintPiece } from "./path-blueprint-piece";
 
-export class StationLocation extends PathPiece {
+export class StationLocation extends PathBlueprintPiece {
   constructor(
     readonly id: number,
     readonly interchangePoint: InterchangePoint | null,
@@ -11,7 +11,7 @@ export class StationLocation extends PathPiece {
     super();
   }
 
-  reverse(): PathPiece {
+  reverse(): PathBlueprintPiece {
     return this;
   }
 
@@ -30,7 +30,7 @@ export class StationLocation extends PathPiece {
 
 export class InterchangePoint<T extends string[] = string[]> {
   constructor(
-    readonly interchange: Interchange<T>,
+    readonly interchange: InterchangeBlueprint<T>,
     readonly id: string,
   ) {}
 }

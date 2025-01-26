@@ -1,6 +1,6 @@
 import { flexi } from "../../lib/dimensions/flexi-length";
 import { FlexiPoint } from "../../lib/dimensions/flexi-point";
-import { Path } from "../../lib/path/path";
+import { PathBlueprint } from "../../lib/blueprint/path-blueprint";
 import { diagonal, lineGap, long45, short45 } from "../utils";
 import * as loop from "../utils-city-loop";
 
@@ -14,8 +14,8 @@ const richmondStraight = flexi(5);
  */
 export function flindersStreetToRichmond(
   flindersStreetLineNumber: loop.LineNumber,
-): Path {
-  return new Path()
+): PathBlueprint {
+  return new PathBlueprint()
     .straight(flindersStreetStraight)
     .curve(radius(flindersStreetLineNumber), 45)
     .straight(richmondStraight);

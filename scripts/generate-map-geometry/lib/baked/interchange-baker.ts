@@ -4,12 +4,15 @@ import {
   interchangeEdgeOffset,
   interchangeInnerOffset,
 } from "../../../../components/map/renderer/utils";
-import { Interchange, PointPosition } from "../interchange";
+import {
+  InterchangeBlueprint,
+  PointPosition,
+} from "../blueprint/interchange-blueprint";
 import { LocatedInterchange } from "./baked-path";
 
 export class InterchangeBaker {
   constructor(
-    private readonly _interchange: Interchange,
+    private readonly _interchange: InterchangeBlueprint,
     private readonly _locatedPoints: readonly LocatedInterchange[],
   ) {
     const notFound = _interchange.points.find((x) =>

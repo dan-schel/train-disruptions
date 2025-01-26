@@ -1,11 +1,11 @@
 import { bake } from "../lib/baked/bake";
 import { flexi } from "../lib/dimensions/flexi-length";
 import { fp } from "../lib/dimensions/flexi-point";
-import { Interchange } from "../lib/interchange";
-import { Line } from "../lib/line";
-import { Path } from "../lib/path/path";
+import { InterchangeBlueprint } from "../lib/blueprint/interchange-blueprint";
+import { LineBlueprint } from "../lib/blueprint/line-blueprint";
+import { PathBlueprint } from "../lib/blueprint/path-blueprint";
 
-const interchange = Interchange.simple(
+const interchange = InterchangeBlueprint.simple(
   1,
   ["line1", "line2"],
   "line1",
@@ -14,11 +14,11 @@ const interchange = Interchange.simple(
   "right-edge",
 );
 
-export const line1 = new Line({
+export const line1 = new LineBlueprint({
   origin: fp([0, 0]),
   angle: 0,
   color: "cyan",
-  path: new Path()
+  path: new PathBlueprint()
     .terminus()
     .straight(flexi(45, 90))
     .station(interchange.point("line1"))
@@ -28,11 +28,11 @@ export const line1 = new Line({
     .terminus(),
 });
 
-export const line2 = new Line({
+export const line2 = new LineBlueprint({
   origin: fp([0, 5]),
   angle: 0,
   color: "purple",
-  path: new Path()
+  path: new PathBlueprint()
     .terminus()
     .straight(flexi(45, 90))
     .station(interchange.point("line2"))

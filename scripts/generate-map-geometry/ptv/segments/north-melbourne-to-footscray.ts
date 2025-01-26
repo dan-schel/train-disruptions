@@ -1,6 +1,6 @@
 import { flexi } from "../../lib/dimensions/flexi-length";
 import { FlexiPoint } from "../../lib/dimensions/flexi-point";
-import { Path } from "../../lib/path/path";
+import { PathBlueprint } from "../../lib/blueprint/path-blueprint";
 import {
   defaultRadius,
   diagonal,
@@ -17,7 +17,7 @@ const footscrayStraight = flexi(30);
 
 export function northMelbourneToFootscray(
   track: "cross-city" | "regional-rrl" | "sunbury",
-): Path {
+): PathBlueprint {
   if (track === "sunbury") {
     const northMelbournePos = northMelbournePosFunc("northern");
     const footscrayPos = footscrayPosFunc("sunbury");
@@ -30,12 +30,12 @@ export function northMelbourneToFootscray(
       northMelbourneStraightSunbury,
     );
 
-    return new Path()
+    return new PathBlueprint()
       .straight(northMelbourneStraightSunbury)
       .curve(radius, -45)
       .straight(straightLength);
   } else {
-    return new Path()
+    return new PathBlueprint()
       .straight(northMelbourneStraight)
       .curve(radius(track), -45)
       .straight(footscrayStraight);

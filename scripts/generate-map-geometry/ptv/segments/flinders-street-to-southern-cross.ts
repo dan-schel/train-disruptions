@@ -1,4 +1,4 @@
-import { Path } from "../../lib/path/path";
+import { PathBlueprint } from "../../lib/blueprint/path-blueprint";
 import { lineGap, long45, short45 } from "../utils";
 import * as loop from "../utils-city-loop";
 
@@ -6,7 +6,7 @@ import * as loop from "../utils-city-loop";
 export function flindersStreetToSouthernCross(
   lineNumber: loop.LineNumber,
   curveEnd: boolean,
-): Path {
+): PathBlueprint {
   const flindersStreetPos = loop.pos.flindersStreet(lineNumber);
   const southernCrossPos = loop.pos.southernCross(lineNumber);
 
@@ -15,7 +15,7 @@ export function flindersStreetToSouthernCross(
   const curveRadius = lineGap.divide(short45);
   const curveHeight = curveRadius.times(long45);
 
-  let result = new Path()
+  let result = new PathBlueprint()
     .straight(
       flindersStreetPos.horizontalDistanceTo(southernCrossPos).minus(radius),
     )

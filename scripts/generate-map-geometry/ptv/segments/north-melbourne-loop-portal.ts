@@ -1,5 +1,5 @@
 import { flexi } from "../../lib/dimensions/flexi-length";
-import { Path } from "../../lib/path/path";
+import { PathBlueprint } from "../../lib/blueprint/path-blueprint";
 import {
   measure45CurveLockedRadius,
   measure45CurveLockedStraight,
@@ -13,7 +13,7 @@ const directRadius = flexi(20);
  * The curve from Southern Cross to North Melbourne, and the split back to
  * Flagstaff.
  */
-export function northMelbourneLoopPortal(branch: Path): Path {
+export function northMelbourneLoopPortal(branch: PathBlueprint): PathBlueprint {
   const southernCrossPos = loop.pos.southernCross(loop.line.northern);
   const flagstaffPos = loop.pos.flagstaff(loop.line.northern);
   const northMelbournePos = direct.northMelbournePos("northern");
@@ -43,13 +43,13 @@ export function northMelbourneLoopPortal(branch: Path): Path {
     directRadius,
   );
 
-  return new Path()
+  return new PathBlueprint()
     .straight(southernCrossStraight)
     .curve(directRadius, -45)
     .straight(directNorthMelbourneStraight)
     .split({
       reverse: true,
-      split: new Path()
+      split: new PathBlueprint()
         .straight(loopNorthMelbourneStraight)
         .curve(loopPortalRadius, -45)
         .add(branch),

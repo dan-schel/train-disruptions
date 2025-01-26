@@ -1,5 +1,5 @@
 import { FlexiLength } from "../../lib/dimensions/flexi-length";
-import { Path } from "../../lib/path/path";
+import { PathBlueprint } from "../../lib/blueprint/path-blueprint";
 import { flindersStreet } from "../interchanges";
 import { measure45CurveLockedDiagonal } from "../utils";
 import * as loop from "../utils-city-loop";
@@ -10,7 +10,7 @@ export function richmondLoopPortal(
   lineNumber: loop.LineNumber,
   portalStraight: FlexiLength,
   flindersStreetPoint: (typeof flindersStreet.points)[number],
-): Path {
+): PathBlueprint {
   const parliamentPos = loop.pos.parliament(lineNumber);
   const richmondPos = direct.richmondPos(lineNumber);
 
@@ -23,7 +23,7 @@ export function richmondLoopPortal(
     portalStraight,
   );
 
-  return new Path()
+  return new PathBlueprint()
     .straight(straightLength)
     .curve(radius, -45)
     .straight(portalStraight)

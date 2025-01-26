@@ -35,9 +35,9 @@ import {
   WATERGARDENS,
 } from "../../../server/data/station-ids";
 
-import { Interchange } from "../lib/interchange";
+import { InterchangeBlueprint } from "../lib/blueprint/interchange-blueprint";
 
-export const flindersStreet = Interchange.simple(
+export const flindersStreet = InterchangeBlueprint.simple(
   FLINDERS_STREET,
   [
     "northern-direct",
@@ -59,7 +59,7 @@ export const flindersStreet = Interchange.simple(
   "right-edge",
 );
 
-export const southernCross = new Interchange(
+export const southernCross = new InterchangeBlueprint(
   SOUTHERN_CROSS,
   [
     "northern",
@@ -86,7 +86,7 @@ export const southernCross = new Interchange(
   ],
 );
 
-export const flagstaff = Interchange.simple(
+export const flagstaff = InterchangeBlueprint.simple(
   FLAGSTAFF,
   ["northern", "clifton-hill", "burnley", "dandenong"] as const,
   "dandenong",
@@ -95,7 +95,7 @@ export const flagstaff = Interchange.simple(
   "right-edge",
 );
 
-export const melbourneCentral = Interchange.simple(
+export const melbourneCentral = InterchangeBlueprint.simple(
   MELBOURNE_CENTRAL,
   ["northern", "clifton-hill", "burnley", "dandenong"] as const,
   "dandenong",
@@ -104,7 +104,7 @@ export const melbourneCentral = Interchange.simple(
   "right-edge",
 );
 
-export const parliament = Interchange.simple(
+export const parliament = InterchangeBlueprint.simple(
   PARLIAMENT,
   ["northern", "clifton-hill", "burnley", "dandenong"] as const,
   "dandenong",
@@ -113,7 +113,7 @@ export const parliament = Interchange.simple(
   "right-edge",
 );
 
-export const richmond = Interchange.simple(
+export const richmond = InterchangeBlueprint.simple(
   RICHMOND,
   ["sandringham", "frankston", "gippsland", "dandenong", "burnley"] as const,
   "burnley",
@@ -122,7 +122,7 @@ export const richmond = Interchange.simple(
   "right-edge",
 );
 
-export const northMelbourne = new Interchange(
+export const northMelbourne = new InterchangeBlueprint(
   NORTH_MELBOURNE,
   ["cross-city", "regional-rrl", "regional-seymour", "northern"] as const,
   [
@@ -141,15 +141,18 @@ export const northMelbourne = new Interchange(
   ],
 );
 
-export const cliftonHill = Interchange.single(CLIFTON_HILL, "clifton-hill");
+export const cliftonHill = InterchangeBlueprint.single(
+  CLIFTON_HILL,
+  "clifton-hill",
+);
 
-export const burnley = Interchange.single(BURNLEY, "burnley");
+export const burnley = InterchangeBlueprint.single(BURNLEY, "burnley");
 
-export const camberwell = Interchange.single(CAMBERWELL, "camberwell");
+export const camberwell = InterchangeBlueprint.single(CAMBERWELL, "camberwell");
 
-export const ringwood = Interchange.single(RINGWOOD, "ringwood");
+export const ringwood = InterchangeBlueprint.single(RINGWOOD, "ringwood");
 
-export const southYarra = new Interchange(
+export const southYarra = new InterchangeBlueprint(
   SOUTH_YARRA,
   ["sandringham", "frankston", "gippsland", "dandenong"] as const,
   [
@@ -168,7 +171,7 @@ export const southYarra = new Interchange(
   ],
 );
 
-export const caulfield = Interchange.simple(
+export const caulfield = InterchangeBlueprint.simple(
   CAULFIELD,
   ["frankston", "gippsland", "dandenong"] as const,
   "dandenong",
@@ -177,7 +180,7 @@ export const caulfield = Interchange.simple(
   "right-edge",
 );
 
-export const clayton = Interchange.simple(
+export const clayton = InterchangeBlueprint.simple(
   CLAYTON,
   ["gippsland", "dandenong"] as const,
   "dandenong",
@@ -186,7 +189,7 @@ export const clayton = Interchange.simple(
   "right-edge",
 );
 
-export const dandenong = Interchange.simple(
+export const dandenong = InterchangeBlueprint.simple(
   DANDENONG,
   ["gippsland", "dandenong"] as const,
   "dandenong",
@@ -195,7 +198,7 @@ export const dandenong = Interchange.simple(
   "right-edge",
 );
 
-export const pakenham = Interchange.simple(
+export const pakenham = InterchangeBlueprint.simple(
   PAKENHAM,
   ["gippsland", "pakenham"] as const,
   "pakenham",
@@ -204,7 +207,7 @@ export const pakenham = Interchange.simple(
   "right-edge",
 );
 
-export const footscray = Interchange.simple(
+export const footscray = InterchangeBlueprint.simple(
   FOOTSCRAY,
   ["cross-city", "regional", "sunbury"] as const,
   "cross-city",
@@ -213,7 +216,7 @@ export const footscray = Interchange.simple(
   "right-edge",
 );
 
-export const frankston = Interchange.simple(
+export const frankston = InterchangeBlueprint.simple(
   FRANKSTON,
   ["frankston", "stony-point"] as const,
   "frankston",
@@ -222,7 +225,7 @@ export const frankston = Interchange.simple(
   "right-edge",
 );
 
-export const broadmeadows = Interchange.simple(
+export const broadmeadows = InterchangeBlueprint.simple(
   BROADMEADOWS,
   ["craigieburn", "seymour"] as const,
   "seymour",
@@ -231,7 +234,7 @@ export const broadmeadows = Interchange.simple(
   "right-edge",
 );
 
-export const craigieburn = Interchange.simple(
+export const craigieburn = InterchangeBlueprint.simple(
   CRAIGIEBURN,
   ["craigieburn", "seymour"] as const,
   "seymour",
@@ -240,13 +243,13 @@ export const craigieburn = Interchange.simple(
   "right-edge",
 );
 
-export const seymour = Interchange.single(SEYMOUR, "seymour");
+export const seymour = InterchangeBlueprint.single(SEYMOUR, "seymour");
 
-export const newport = Interchange.single(NEWPORT, "cross-city");
+export const newport = InterchangeBlueprint.single(NEWPORT, "cross-city");
 
-export const laverton = Interchange.single(LAVERTON, "werribee");
+export const laverton = InterchangeBlueprint.single(LAVERTON, "werribee");
 
-export const sunshine = new Interchange(
+export const sunshine = new InterchangeBlueprint(
   SUNSHINE,
   ["sunbury", "bendigo", "deer-park"] as const,
   [
@@ -266,7 +269,7 @@ export const sunshine = new Interchange(
   ],
 );
 
-export const watergardens = Interchange.simple(
+export const watergardens = InterchangeBlueprint.simple(
   WATERGARDENS,
   ["sunbury", "bendigo"] as const,
   "bendigo",
@@ -275,7 +278,7 @@ export const watergardens = Interchange.simple(
   "right-edge",
 );
 
-export const sunbury = Interchange.simple(
+export const sunbury = InterchangeBlueprint.simple(
   SUNBURY,
   ["sunbury", "bendigo"] as const,
   "bendigo",
@@ -284,8 +287,8 @@ export const sunbury = Interchange.simple(
   "right-edge",
 );
 
-export const bendigo = Interchange.single(BENDIGO, "bendigo");
+export const bendigo = InterchangeBlueprint.single(BENDIGO, "bendigo");
 
-export const ballarat = Interchange.single(BALLARAT, "ballarat");
+export const ballarat = InterchangeBlueprint.single(BALLARAT, "ballarat");
 
-export const deerPark = Interchange.single(DEER_PARK, "deer-park");
+export const deerPark = InterchangeBlueprint.single(DEER_PARK, "deer-park");

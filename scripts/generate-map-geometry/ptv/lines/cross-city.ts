@@ -1,6 +1,6 @@
 import { flexi } from "../../lib/dimensions/flexi-length";
-import { Line } from "../../lib/line";
-import { Path } from "../../lib/path/path";
+import { LineBlueprint } from "../../lib/blueprint/line-blueprint";
+import { PathBlueprint } from "../../lib/blueprint/path-blueprint";
 import {
   caulfield,
   flindersStreet,
@@ -52,12 +52,12 @@ const werribeeStraight = flexi(25, 50);
  * The Frankston line, which makes up the eastern half of the "Cross City" group
  * (colored green on the map).
  */
-export const crossCityEastern = new Line({
+export const crossCityEastern = new LineBlueprint({
   origin: loop.pos.flindersStreet(loop.line.crossCity),
   angle: 0,
   color: "green",
 
-  path: new Path()
+  path: new PathBlueprint()
     .station(flindersStreet.point("cross-city-east"))
     .add(flindersStreetToRichmond(loop.line.crossCity))
     .station(richmond.point("frankston"))
@@ -78,12 +78,12 @@ export const crossCityEastern = new Line({
  * The Werribee and Williamstown lines, which make up the western half of the
  * "Cross City" group (colored green on the map).
  */
-export const crossCityWestern = new Line({
+export const crossCityWestern = new LineBlueprint({
   origin: loop.pos.flindersStreet(loop.line.crossCity),
   angle: 180,
   color: "green",
 
-  path: new Path()
+  path: new PathBlueprint()
     .station(flindersStreet.point("cross-city-west"))
     .add(flindersStreetToSouthernCross(5, false))
     .station(southernCross.point("cross-city"))
@@ -95,13 +95,13 @@ export const crossCityWestern = new Line({
     .straight(newportStraight)
     .station(newport.point("cross-city"))
     .split({
-      split: new Path()
+      split: new PathBlueprint()
         .curve(defaultRadius, -45)
         .straight(williamstownStraight)
         .terminus(),
     })
     .split({
-      split: new Path()
+      split: new PathBlueprint()
         .curve(defaultRadius, 45)
         .straight(lavertonExpressStraight)
         .curve(defaultRadius, 45),
@@ -117,12 +117,12 @@ export const crossCityWestern = new Line({
 });
 
 /** The Stony Point line (colored green on the map). */
-export const stonyPoint = new Line({
+export const stonyPoint = new LineBlueprint({
   origin: frankstonStationPos("stony-point"),
   angle: 0,
   color: "green",
 
-  path: new Path()
+  path: new PathBlueprint()
     .station(frankston.point("stony-point"))
     .straight(stonyPointStraight)
     .terminus(),

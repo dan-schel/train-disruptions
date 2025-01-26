@@ -1,6 +1,6 @@
 import { flexi } from "../../lib/dimensions/flexi-length";
 import { FlexiPoint } from "../../lib/dimensions/flexi-point";
-import { Path } from "../../lib/path/path";
+import { PathBlueprint } from "../../lib/blueprint/path-blueprint";
 import { diagonal, lineGap, long45, short45 } from "../utils";
 import * as loop from "../utils-city-loop";
 
@@ -14,8 +14,8 @@ const northMelbourneStraight = flexi(10);
  */
 export function southernCrossToNorthMelbourne(
   southernCrossLineNumber: loop.LineNumber,
-): Path {
-  return new Path()
+): PathBlueprint {
+  return new PathBlueprint()
     .straight(southernCrossStraight)
     .curve(radius(southernCrossLineNumber), -45)
     .straight(northMelbourneStraight);
@@ -25,7 +25,9 @@ export function southernCrossToNorthMelbourne(
  * The direct path from Southern Cross to North Melbourne that the regional
  * lines use, including the split just before North Melbourne.
  */
-export function southernCrossToNorthMelbourneRegional(branch: Path): Path {
+export function southernCrossToNorthMelbourneRegional(
+  branch: PathBlueprint,
+): PathBlueprint {
   const curveRadius = lineGap.divide(short45);
   const curveHeight = curveRadius.times(long45);
 
@@ -34,11 +36,11 @@ export function southernCrossToNorthMelbourneRegional(branch: Path): Path {
   const branchSouthernCrossStraight = flexi(10).times(diagonal);
   const branchNorthMelbourneStraight = flexi(5);
 
-  return new Path()
+  return new PathBlueprint()
     .curve(curveRadius, 45)
     .straight(straightLength)
     .split({
-      split: new Path()
+      split: new PathBlueprint()
         .straight(branchSouthernCrossStraight)
         .curve(radius(loop.line.regional), -45)
         .straight(branchNorthMelbourneStraight)

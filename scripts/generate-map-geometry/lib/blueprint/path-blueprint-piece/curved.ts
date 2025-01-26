@@ -1,8 +1,8 @@
-import { PathBaker } from "../baked/path-baker";
-import { FlexiLength } from "../dimensions/flexi-length";
-import { PathPiece } from "./path-piece";
+import { PathBaker } from "../../baked/path-baker";
+import { FlexiLength } from "../../dimensions/flexi-length";
+import { PathBlueprintPiece } from "./path-blueprint-piece";
 
-export class CurvedPathPiece extends PathPiece {
+export class Curved extends PathBlueprintPiece {
   constructor(
     readonly radius: FlexiLength,
     readonly angle: -90 | -45 | 45 | 90,
@@ -14,8 +14,8 @@ export class CurvedPathPiece extends PathPiece {
     }
   }
 
-  reverse(): PathPiece {
-    return new CurvedPathPiece(this.radius, -this.angle as -90 | -45 | 45 | 90);
+  reverse(): PathBlueprintPiece {
+    return new Curved(this.radius, -this.angle as -90 | -45 | 45 | 90);
   }
 
   bake(baker: PathBaker): void {

@@ -1,6 +1,6 @@
 import { flexi } from "../../lib/dimensions/flexi-length";
-import { Line } from "../../lib/line";
-import { Path } from "../../lib/path/path";
+import { LineBlueprint } from "../../lib/blueprint/line-blueprint";
+import { PathBlueprint } from "../../lib/blueprint/path-blueprint";
 import {
   caulfield,
   clayton,
@@ -37,12 +37,12 @@ const cranbourneStraight = flexi(30, 45);
  * The Cranbourne and Pakenham lines, a.k.a. the "Dandenong group" (colored
  * light blue/cyan on the map).
  */
-export const dandenong = new Line({
+export const dandenong = new LineBlueprint({
   origin: loop.pos.flindersStreet(loop.line.dandenong),
   angle: 180,
   color: "cyan",
 
-  path: new Path()
+  path: new PathBlueprint()
     .station(flindersStreet.point("dandenong-loop"))
     .add(flindersStreetToSouthernCross(3, false))
     .station(southernCross.point("dandenong"))
@@ -67,7 +67,7 @@ export const dandenong = new Line({
     .straight(claytonToDandenong)
     .station(dandenongInterchange.point("dandenong"))
     .split({
-      split: new Path()
+      split: new PathBlueprint()
         .curve(defaultRadius, 45)
         .straight(cranbourneStraight)
         .terminus(),
