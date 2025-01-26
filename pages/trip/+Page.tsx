@@ -1,12 +1,12 @@
 import React from "react";
-import { usePageContext } from "vike-react/usePageContext";
+import { useData } from "vike-react/useData";
+
+import { Data } from "./+data";
 
 import { Row } from "../../components/core/Row";
 import { Text } from "../../components/core/Text";
 import { Column } from "../../components/core/Column";
 import { PageCenterer } from "../../components/common/PageCenterer";
-
-import { stations } from "../../server/data/stations";
 
 /**
  * TODO: Handle scenarios where the query string doesn't correspond to a station.
@@ -17,20 +17,17 @@ import { stations } from "../../server/data/stations";
  */
 
 export default function Page() {
-  const pageContext = usePageContext();
-
-  // Query String
-  const { to, from } = pageContext.urlParsed.search;
+  const { toStation, fromStation, stations } = useData<Data>();
 
   return (
     <PageCenterer>
       <Column className="gap-4 p-4">
         <Text>Trip</Text>
 
-        {to && from ? (
+        {toStation && fromStation ? (
           <>
-            <Text>From: {stations.get(parseInt(from))?.name}</Text>
-            <Text>To: {stations.get(parseInt(to))?.name}</Text>
+            <Text>From: {fromStation.name}</Text>
+            <Text>To: {toStation.name}</Text>
           </>
         ) : (
           <form className="flex flex-col gap-2">
@@ -39,7 +36,7 @@ export default function Page() {
               <select
                 id="from"
                 name="from"
-                defaultValue={from}
+                defaultValue={fromStation?.id}
                 className="border border-black"
               >
                 {stations.map((station) => (
@@ -55,7 +52,7 @@ export default function Page() {
               <select
                 id="to"
                 name="to"
-                defaultValue={to}
+                defaultValue={toStation?.id}
                 className="border border-black"
               >
                 {stations.map((station) => (

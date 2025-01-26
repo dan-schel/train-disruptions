@@ -9,6 +9,9 @@ export default {
   // https://vike.dev/Layout
   Layout,
 
+  // onBeforeRender - Needed to pass data to the header
+  passToClient: ["hide", "name"],
+
   // https://vike.dev/head-tags
   title: "My Vike App",
   description: "Demo showcasing Vike",

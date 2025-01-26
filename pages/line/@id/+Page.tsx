@@ -1,12 +1,11 @@
-import React, { useState } from "react";
-import { usePageContext } from "vike-react/usePageContext";
+import React from "react";
+import { useData } from "vike-react/useData";
+
+import { Data } from "./+data";
 
 import { Text } from "../../../components/core/Text";
 import { Column } from "../../../components/core/Column";
 import { PageCenterer } from "../../../components/common/PageCenterer";
-
-import { Line } from "../../../server/data/line";
-import { lines } from "../../../server/data/lines";
 
 /**
  * TODO: Handle scenarios where the provided id doesn't correspond to a line.
@@ -17,10 +16,7 @@ import { lines } from "../../../server/data/lines";
  */
 
 export default function Page() {
-  const pageContext = usePageContext();
-  const [line] = useState<Line | null>(
-    lines.get(parseInt(pageContext.routeParams.id)),
-  );
+  const { line } = useData<Data>();
 
   return (
     <PageCenterer>
