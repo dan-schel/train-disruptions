@@ -3,14 +3,14 @@ import { Renderer } from "./renderer/renderer";
 import { BakedGeometry } from "./renderer/baked-geometry";
 
 // To debug geometry without needing to re-run the generator:
-import geometry from "../../scripts/generate-map-geometry/ptv";
-// import geometryJson from "./geometry/ptv.json";
+// import geometry from "../../scripts/generate-map-geometry/ptv";
+import geometryJson from "./geometry/ptv.json";
 
 export function Map() {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  // const geometry = useMemo(() => BakedGeometry.json.parse(geometryJson), []);
+  const geometry = useMemo(() => BakedGeometry.json.parse(geometryJson), []);
 
   useEffect(() => {
     if (containerRef.current == null || canvasRef.current == null) {
@@ -34,7 +34,7 @@ export function Map() {
   return (
     <div
       ref={containerRef}
-      className="relative overflow-hidden border border-gray-300"
+      className="relative overflow-hidden"
       style={{ aspectRatio: geometry.suggestedAspectRatio().toFixed(2) }}
     >
       <canvas className="absolute left-0 top-0" ref={canvasRef} />

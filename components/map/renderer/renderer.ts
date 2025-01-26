@@ -107,20 +107,6 @@ export class Renderer {
     const pxHeight = this._height * this._dpiRatio;
     ctx.clearRect(0, 0, pxWidth, pxHeight);
     ctx.scale(this._dpiRatio, this._dpiRatio);
-
-    // <temp>
-    ctx.fillText(`scale: ${scale.toFixed(2)}`, 0, 10);
-    ctx.strokeStyle = "#e0e0e0";
-    ctx.beginPath();
-    ctx.moveTo(this._width / 2, 0);
-    ctx.lineTo(this._width / 2, this._height);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(0, this._height / 2);
-    ctx.lineTo(this._width, this._height / 2);
-    ctx.stroke();
-    // </temp>
-
     ctx.translate(this._width / 2, this._height / 2);
 
     ctx.scale(scale, scale);
