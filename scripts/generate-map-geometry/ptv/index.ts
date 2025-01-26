@@ -1,25 +1,23 @@
 import { bake } from "../lib/baked/bake";
 import { burnley } from "./lines/burnley";
 import { cliftonHill } from "./lines/clifton-hill";
-import {
-  crossCityEastern,
-  crossCityWestern,
-  stonyPoint,
-} from "./lines/cross-city";
+import { frankston, stonyPoint } from "./lines/frankston-and-stony-point";
 import { dandenong } from "./lines/dandenong";
 import { northern } from "./lines/northern";
-import { regionalEastern, regionalWestern } from "./lines/regional";
+import { regionalWestern } from "./lines/regional-western";
 import { sandringham } from "./lines/sandringham";
+import { newport } from "./lines/newport";
+import { gippsland } from "./lines/gippsland";
 
 const geometry = bake([
-  regionalEastern,
+  gippsland,
   regionalWestern,
   cliftonHill,
   dandenong,
   burnley,
   northern,
-  crossCityWestern,
-  crossCityEastern,
+  newport,
+  frankston,
   sandringham,
   stonyPoint,
 ]);

@@ -20,7 +20,6 @@ const cliftonHillStraight = flexi(40, 80);
 const heidelbergStraight = flexi(40, 80);
 const hurstbridgeStraight = flexi(50, 100);
 const prestonStraight = flexi(40, 80);
-const keonParkStraight = standardDiagonal;
 const merndaStraight = flexi(50, 100);
 
 /**
@@ -54,7 +53,7 @@ export const cliftonHill = new LineBlueprint({
     .curve(defaultRadius, -45)
     .straight(prestonStraight)
     .curve(defaultRadius, 45)
-    .straight(keonParkStraight)
+    .straight(standardDiagonal)
     .curve(defaultRadius, 45)
     .straight(merndaStraight)
     .terminus(),
