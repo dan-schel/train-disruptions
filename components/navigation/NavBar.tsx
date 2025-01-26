@@ -14,14 +14,18 @@ const Routes = [
   {
     name: "Overview",
     path: "/",
+    active: (url: string) =>
+      url === "/" || url.startsWith("/disruption") || url.startsWith("/line"),
   },
   {
     name: "My commute",
     path: "/commute",
+    active: (url: string) => url === "/commute" || url.startsWith("/trip"),
   },
   {
     name: "Admin",
     path: "/admin",
+    active: (url: string) => url === "/admin",
   },
 ];
 
@@ -32,7 +36,7 @@ export const NavBar = () => {
     <nav className="sticky bottom-0 order-last grid w-full border border-black bg-white lg:top-0 lg:order-first">
       <PageCenterer>
         <div className="flex items-center justify-center lg:justify-start lg:gap-10 lg:px-4 lg:py-2">
-          {/* Branding- hidden on mobile */}
+          {/* Branding - hidden on mobile */}
           <div className="grid items-center max-lg:hidden">
             <Text style="custom" className="text-3xl" oneLine>
               Is it buses?
@@ -47,10 +51,7 @@ export const NavBar = () => {
                   key={route.name}
                   href={route.path}
                   label={route.name}
-                  active={
-                    route.path !== "/" &&
-                    pageContext.urlPathname.startsWith(route.path)
-                  }
+                  active={route.active(pageContext.urlPathname)}
                 />
               ))}
             </div>
