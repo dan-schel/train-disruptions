@@ -1,5 +1,5 @@
 import { EAST_PAKENHAM } from "../../../../server/data/station-ids";
-import { FlexiLength } from "../../lib/dimensions/flexi-length";
+import { flexi, FlexiLength } from "../../lib/dimensions/flexi-length";
 import { Line } from "../../lib/line";
 import { Path } from "../../lib/path/path";
 import {
@@ -64,7 +64,7 @@ const alburyStraight = new FlexiLength(75, 150);
 
 const kangarooFlatStraight = new FlexiLength(30, 60);
 const bendigoDiagonal = standardDiagonal;
-const bendigoStraight = 10;
+const bendigoStraight = flexi(10);
 const eaglehawkStraight = new FlexiLength(20, 30);
 const swanHillStraight = new FlexiLength(30, 80);
 const echucaStraight = new FlexiLength(50, 100);

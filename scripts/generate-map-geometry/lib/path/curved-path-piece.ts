@@ -8,6 +8,10 @@ export class CurvedPathPiece extends PathPiece {
     readonly angle: -90 | -45 | 45 | 90,
   ) {
     super();
+
+    if (radius.min < 0 || radius.max < 0) {
+      throw new Error("Radius cannot be negative.");
+    }
   }
 
   reverse(): PathPiece {

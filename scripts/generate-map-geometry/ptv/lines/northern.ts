@@ -1,4 +1,4 @@
-import { FlexiLength } from "../../lib/dimensions/flexi-length";
+import { flexi, FlexiLength } from "../../lib/dimensions/flexi-length";
 import { Line } from "../../lib/line";
 import { Path } from "../../lib/path/path";
 import {
@@ -34,8 +34,8 @@ import {
   watergardensStraight,
 } from "../utils-shared-corridors";
 
-const upfieldJunctionStraight = 5;
-const macaulayStraight = 10;
+const upfieldJunctionStraight = flexi(5);
+const macaulayStraight = flexi(10);
 const brunswickStraight = new FlexiLength(30, 60);
 const upfieldStraight = new FlexiLength(25, 50);
 

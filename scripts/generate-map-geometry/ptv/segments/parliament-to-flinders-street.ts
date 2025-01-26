@@ -1,7 +1,8 @@
+import { flexi } from "../../lib/dimensions/flexi-length";
 import { Path } from "../../lib/path/path";
 import * as loop from "../utils-city-loop";
 
-const radiusReduction = 5;
+const radiusReduction = flexi(5);
 
 /**
  * South-east corner of the city loop from Parliament to Flinders Street. Does

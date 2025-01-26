@@ -1,5 +1,5 @@
 import { PathBaker } from "../baked/path-baker";
-import { FlexiLength, InformalFlexiLength } from "../dimensions/flexi-length";
+import { FlexiLength } from "../dimensions/flexi-length";
 import { CurvedPathPiece } from "./curved-path-piece";
 import { PathPiece } from "./path-piece";
 import { SplitPathPiece } from "./split-path-piece";
@@ -32,12 +32,12 @@ export class Path {
     return new Path(this.pieces.map((p) => p.reverse()).reverse());
   }
 
-  straight(length: InformalFlexiLength): Path {
-    return this.add(new StraightPathPiece(FlexiLength.formalize(length)));
+  straight(length: FlexiLength): Path {
+    return this.add(new StraightPathPiece(length));
   }
 
-  curve(radius: InformalFlexiLength, angle: -90 | -45 | 45 | 90): Path {
-    return this.add(new CurvedPathPiece(FlexiLength.formalize(radius), angle));
+  curve(radius: FlexiLength, angle: -90 | -45 | 45 | 90): Path {
+    return this.add(new CurvedPathPiece(radius, angle));
   }
 
   split({ split, reverse = false }: { split: Path; reverse?: boolean }): Path {

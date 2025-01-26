@@ -1,3 +1,4 @@
+import { flexi } from "../../lib/dimensions/flexi-length";
 import { Path } from "../../lib/path/path";
 import {
   measure45CurveLockedRadius,
@@ -6,7 +7,7 @@ import {
 import * as loop from "../utils-city-loop";
 import * as direct from "./southern-cross-to-north-melbourne";
 
-const directRadius = 20;
+const directRadius = flexi(20);
 
 /**
  * The curve from Southern Cross to North Melbourne, and the split back to
@@ -27,12 +28,20 @@ export function northMelbourneLoopPortal(branch: Path): Path {
   const {
     diagonalLength: loopNorthMelbourneStraight,
     radius: loopPortalRadius,
-  } = measure45CurveLockedStraight(portalLongLength, portalShortLength, 0);
+  } = measure45CurveLockedStraight(
+    portalLongLength,
+    portalShortLength,
+    flexi(0),
+  );
 
   const {
     straightLength: southernCrossStraight,
     diagonalLength: directNorthMelbourneStraight,
-  } = measure45CurveLockedRadius(directLongLength, directShortLength, 20);
+  } = measure45CurveLockedRadius(
+    directLongLength,
+    directShortLength,
+    directRadius,
+  );
 
   return new Path()
     .straight(southernCrossStraight)

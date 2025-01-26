@@ -1,4 +1,4 @@
-import { FlexiLength } from "../../lib/dimensions/flexi-length";
+import { flexi, FlexiLength } from "../../lib/dimensions/flexi-length";
 import { Line } from "../../lib/line";
 import { Path } from "../../lib/path/path";
 import {
@@ -30,6 +30,7 @@ import {
   southYarraToCaulfield,
 } from "../utils-shared-corridors";
 
+const loopPortalStraight = flexi(20);
 const cranbourneStraight = new FlexiLength(30, 45);
 
 /**
@@ -49,7 +50,13 @@ export const dandenong = new Line({
     .station(flagstaff.point("dandenong"))
     .add(flagstaffToParliament(3, "dandenong"))
     .station(parliament.point("dandenong"))
-    .add(richmondLoopPortal(loop.line.dandenong, 20, "dandenong-direct"))
+    .add(
+      richmondLoopPortal(
+        loop.line.dandenong,
+        loopPortalStraight,
+        "dandenong-direct",
+      ),
+    )
     .station(richmond.point("dandenong"))
     .straight(richmondToSouthYarra)
     .station(southYarra.point("dandenong"))

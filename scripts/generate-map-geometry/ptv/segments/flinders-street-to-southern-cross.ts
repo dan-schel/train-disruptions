@@ -12,8 +12,8 @@ export function flindersStreetToSouthernCross(
 
   const radius = loop.radius(lineNumber);
 
-  const curveRadius = lineGap / short45;
-  const curveHeight = curveRadius * long45;
+  const curveRadius = lineGap.divide(short45);
+  const curveHeight = curveRadius.times(long45);
 
   let result = new Path()
     .straight(

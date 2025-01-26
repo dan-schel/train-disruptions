@@ -5,6 +5,10 @@ import { PathPiece } from "./path-piece";
 export class StraightPathPiece extends PathPiece {
   constructor(readonly length: FlexiLength) {
     super();
+
+    if (length.min < 0 || length.max < 0) {
+      throw new Error("Length cannot be negative.");
+    }
   }
 
   reverse(): PathPiece {

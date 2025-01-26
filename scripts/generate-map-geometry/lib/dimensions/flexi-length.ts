@@ -1,43 +1,17 @@
-export type InformalFlexiLength =
-  | FlexiLength
-  | { min: number; max: number }
-  | { len: number }
-  | number;
-
 export class FlexiLength {
+  // Note: "min" == the compressed length, "max" == the stretched length. In
+  // some rare cases, "max" may be less than "min"!
   constructor(
     readonly min: number,
     readonly max: number,
-  ) {
-    if (min < 0 || max < 0) {
-      throw new Error("Length cannot be negative.");
-    }
+  ) {}
 
-    // Note that min > max is allowed. "Min" is just the length when using
-    // amplification = 0, and "max" is the length when using amplification = 1.
-    // Usually min <= max, but it's not guaranteed.
+  plus(other: FlexiLength): FlexiLength {
+    return new FlexiLength(this.min + other.min, this.max + other.max);
   }
 
-  static formalize(length: InformalFlexiLength): FlexiLength {
-    if (length instanceof FlexiLength) {
-      return length;
-    } else if (typeof length === "number") {
-      return new FlexiLength(length, length);
-    } else if ("len" in length) {
-      return new FlexiLength(length.len, length.len);
-    } else {
-      return new FlexiLength(length.min, length.max);
-    }
-  }
-
-  plus(other: InformalFlexiLength): FlexiLength {
-    const _other = FlexiLength.formalize(other);
-    return new FlexiLength(this.min + _other.min, this.max + _other.max);
-  }
-
-  minus(other: InformalFlexiLength): FlexiLength {
-    const _other = FlexiLength.formalize(other);
-    return new FlexiLength(this.min - _other.min, this.max - _other.max);
+  minus(other: FlexiLength): FlexiLength {
+    return new FlexiLength(this.min - other.min, this.max - other.max);
   }
 
   times(factor: number): FlexiLength {
@@ -47,4 +21,8 @@ export class FlexiLength {
   divide(factor: number): FlexiLength {
     return new FlexiLength(this.min / factor, this.max / factor);
   }
+}
+
+export function flexi(min: number, max?: number) {
+  return new FlexiLength(min, max ?? min);
 }

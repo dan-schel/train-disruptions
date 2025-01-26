@@ -1,5 +1,5 @@
 import { PathBaker } from "./baked/path-baker";
-import { FlexiPoint, InformalFlexiPoint } from "./dimensions/flexi-point";
+import { FlexiPoint } from "./dimensions/flexi-point";
 import { Path } from "./path/path";
 import { ColoredBakedPathCollection } from "./baked/baked-path";
 import { LineColor } from "../../../components/map/renderer/utils";
@@ -16,12 +16,12 @@ export class Line {
     color,
     path,
   }: {
-    origin: InformalFlexiPoint;
+    origin: FlexiPoint;
     angle: number;
     color: LineColor;
     path: Path;
   }) {
-    this.origin = FlexiPoint.formalize(origin);
+    this.origin = origin;
     this.angle = angle;
     this.color = color;
     this.path = path;

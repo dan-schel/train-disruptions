@@ -1,4 +1,4 @@
-import { FlexiLength } from "../../lib/dimensions/flexi-length";
+import { flexi, FlexiLength } from "../../lib/dimensions/flexi-length";
 import { Line } from "../../lib/line";
 import { Path } from "../../lib/path/path";
 import {
@@ -18,6 +18,7 @@ import { southernCrossToFlagstaff } from "../segments/southern-cross-to-flagstaf
 import { defaultRadius } from "../utils";
 import * as loop from "../utils-city-loop";
 
+const loopPortalStraight = flexi(25);
 const burnleyStraight = new FlexiLength(20, 40);
 const glenIrisStraight = new FlexiLength(35, 70);
 const glenWaverleyStraight = new FlexiLength(45, 90);
@@ -47,7 +48,13 @@ export const burnley = new Line({
     .station(flagstaff.point("burnley"))
     .add(flagstaffToParliament(2, "burnley"))
     .station(parliament.point("burnley"))
-    .add(richmondLoopPortal(loop.line.burnley, 25, "burnley-direct"))
+    .add(
+      richmondLoopPortal(
+        loop.line.burnley,
+        loopPortalStraight,
+        "burnley-direct",
+      ),
+    )
     .station(richmond.point("burnley"))
     .curve(defaultRadius, -45)
     .straight(burnleyStraight)

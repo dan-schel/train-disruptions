@@ -1,11 +1,12 @@
+import { flexi } from "../../lib/dimensions/flexi-length";
 import { FlexiPoint } from "../../lib/dimensions/flexi-point";
 import { Path } from "../../lib/path/path";
 import { diagonal, lineGap, long45, short45 } from "../utils";
 import * as loop from "../utils-city-loop";
 
-const innerRadius = 15;
-const flindersStreetStraight = 40;
-const richmondStraight = 5;
+const innerRadius = flexi(15);
+const flindersStreetStraight = flexi(40);
+const richmondStraight = flexi(5);
 
 /**
  * The direct path from Flinders Street to Richmond. Does not include city loop
@@ -24,10 +25,16 @@ export function richmondPos(lineNumber: loop.LineNumber): FlexiPoint {
   return loop.pos
     .flindersStreet(lineNumber)
     .plus({ x: flindersStreetStraight })
-    .plus({ x: radius(lineNumber) * long45, y: radius(lineNumber) * short45 })
-    .plus({ x: richmondStraight * diagonal, y: richmondStraight * diagonal });
+    .plus({
+      x: radius(lineNumber).times(long45),
+      y: radius(lineNumber).times(short45),
+    })
+    .plus({
+      x: richmondStraight.times(diagonal),
+      y: richmondStraight.times(diagonal),
+    });
 }
 
-function radius(lineNumber: loop.LineNumber): number {
-  return innerRadius + (6 - lineNumber) * lineGap;
+function radius(lineNumber: loop.LineNumber) {
+  return innerRadius.plus(lineGap.times(6 - lineNumber));
 }

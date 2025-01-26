@@ -1,12 +1,12 @@
-import { FlexiLength } from "../../lib/dimensions/flexi-length";
+import { flexi } from "../../lib/dimensions/flexi-length";
 import { FlexiPoint } from "../../lib/dimensions/flexi-point";
 import { Path } from "../../lib/path/path";
 import { diagonal, lineGap, long45, short45 } from "../utils";
 import * as loop from "../utils-city-loop";
 
-const innerRadius = 15;
-const southernCrossStraight = 30;
-const northMelbourneStraight = 10;
+const innerRadius = flexi(15);
+const southernCrossStraight = flexi(30);
+const northMelbourneStraight = flexi(10);
 
 /**
  * The direct path from Southern Cross to North Melbourne. Does not include city
@@ -26,15 +26,13 @@ export function southernCrossToNorthMelbourne(
  * lines use, including the split just before North Melbourne.
  */
 export function southernCrossToNorthMelbourneRegional(branch: Path): Path {
-  const curveRadius = lineGap / short45;
-  const curveHeight = curveRadius * long45;
+  const curveRadius = lineGap.divide(short45);
+  const curveHeight = curveRadius.times(long45);
 
-  const straightLength = FlexiLength.formalize(southernCrossStraight).minus(
-    curveHeight,
-  );
+  const straightLength = southernCrossStraight.minus(curveHeight);
 
-  const branchSouthernCrossStraight = 10 * diagonal;
-  const branchNorthMelbourneStraight = 5;
+  const branchSouthernCrossStraight = flexi(10).times(diagonal);
+  const branchNorthMelbourneStraight = flexi(5);
 
   return new Path()
     .curve(curveRadius, 45)
@@ -64,15 +62,15 @@ export function northMelbournePos(
     .southernCross(southernCrossLineNumber)
     .minus({ y: southernCrossStraight })
     .minus({
-      x: radius(southernCrossLineNumber) * short45,
-      y: radius(southernCrossLineNumber) * long45,
+      x: radius(southernCrossLineNumber).times(short45),
+      y: radius(southernCrossLineNumber).times(long45),
     })
     .minus({
-      x: northMelbourneStraight * diagonal,
-      y: northMelbourneStraight * diagonal,
+      x: northMelbourneStraight.times(diagonal),
+      y: northMelbourneStraight.times(diagonal),
     });
 }
 
-function radius(lineNumber: loop.LineNumber): number {
-  return innerRadius + (5 - lineNumber) * lineGap;
+function radius(lineNumber: loop.LineNumber) {
+  return innerRadius.plus(lineGap.times(5 - lineNumber));
 }

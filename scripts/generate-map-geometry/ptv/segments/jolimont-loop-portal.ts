@@ -1,8 +1,9 @@
+import { flexi } from "../../lib/dimensions/flexi-length";
 import { Path } from "../../lib/path/path";
 import { flindersStreet } from "../interchanges";
 import * as loop from "../utils-city-loop";
 
-const radiusReduction = 5;
+const radiusReduction = flexi(5);
 
 /** The curve from Parliament to Jolimont, and the split back to Flinders Street. */
 export function jolimontLoopPortal(): Path {

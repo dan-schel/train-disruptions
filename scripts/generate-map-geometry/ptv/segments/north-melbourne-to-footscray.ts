@@ -1,3 +1,4 @@
+import { flexi } from "../../lib/dimensions/flexi-length";
 import { FlexiPoint } from "../../lib/dimensions/flexi-point";
 import { Path } from "../../lib/path/path";
 import {
@@ -10,8 +11,9 @@ import {
 } from "../utils";
 import { northMelbournePos as northMelbournePosFunc } from "./southern-cross-to-north-melbourne";
 
-const northMelbourneStraight = 10;
-const footscrayStraight = 30;
+const northMelbourneStraight = flexi(10);
+const northMelbourneStraightSunbury = flexi(5);
+const footscrayStraight = flexi(30);
 
 export function northMelbourneToFootscray(
   track: "cross-city" | "regional-rrl" | "sunbury",
@@ -25,10 +27,13 @@ export function northMelbourneToFootscray(
     const { straightLength, radius } = measure45CurveLockedDiagonal(
       longLength,
       shortLength,
-      5,
+      northMelbourneStraightSunbury,
     );
 
-    return new Path().straight(5).curve(radius, -45).straight(straightLength);
+    return new Path()
+      .straight(northMelbourneStraightSunbury)
+      .curve(radius, -45)
+      .straight(straightLength);
   } else {
     return new Path()
       .straight(northMelbourneStraight)
@@ -38,7 +43,7 @@ export function northMelbourneToFootscray(
 }
 
 function radius(track: "cross-city" | "regional-rrl") {
-  return track === "cross-city" ? defaultRadius : defaultRadius + lineGap;
+  return track === "cross-city" ? defaultRadius : defaultRadius.plus(lineGap);
 }
 
 function footscrayPosFunc(
@@ -52,15 +57,15 @@ function footscrayPosFunc(
 
   return northMelbournePosFunc("cross-city")
     .minus({
-      x: northMelbourneStraight * diagonal,
-      y: northMelbourneStraight * diagonal,
+      x: northMelbourneStraight.times(diagonal),
+      y: northMelbourneStraight.times(diagonal),
     })
     .minus({
-      x: radius("cross-city") * long45,
-      y: radius("cross-city") * short45,
+      x: radius("cross-city").times(long45),
+      y: radius("cross-city").times(short45),
     })
     .minus({ x: footscrayStraight })
     .minus({
-      y: trackNumber * lineGap,
+      y: lineGap.times(trackNumber),
     });
 }

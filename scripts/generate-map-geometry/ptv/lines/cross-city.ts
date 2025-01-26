@@ -141,14 +141,14 @@ function frankstonStationPos(line: "frankston" | "stony-point") {
       x: richmondToCaufield.times(diagonal),
       y: richmondToCaufield.times(diagonal),
     })
-    .plus({ x: defaultRadius * short45, y: defaultRadius * long45 })
+    .plus({ x: defaultRadius.times(short45), y: defaultRadius.times(long45) })
     .plus({ y: aspendaleStraight })
-    .plus({ x: defaultRadius * short45, y: defaultRadius * long45 })
+    .plus({ x: defaultRadius.times(short45), y: defaultRadius.times(long45) })
     .plus({
       x: bonbeachStraight.times(diagonal),
       y: bonbeachStraight.times(diagonal),
     })
-    .plus({ x: defaultRadius * long45, y: defaultRadius * short45 })
+    .plus({ x: defaultRadius.times(long45), y: defaultRadius.times(short45) })
     .plus({ x: frankstonStraight })
-    .plus({ y: offset * lineGap });
+    .plus({ y: lineGap.times(offset) });
 }
