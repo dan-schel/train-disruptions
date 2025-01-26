@@ -38,4 +38,8 @@ export class FlexiLength {
     const _other = FlexiLength.formalize(other);
     return new FlexiLength(this.min - _other.max, this.max - _other.min);
   }
+
+  times(factor: number): FlexiLength {
+    return new FlexiLength(this.min * factor, this.max * factor);
+  }
 }

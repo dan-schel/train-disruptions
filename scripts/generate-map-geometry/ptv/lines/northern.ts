@@ -1,3 +1,4 @@
+import { FlexiLength } from "../../lib/dimensions/flexi-length";
 import { Line } from "../../lib/line";
 import { Path } from "../../lib/path/path";
 import {
@@ -35,8 +36,8 @@ import {
 
 const upfieldJunctionStraight = 5;
 const macaulayStraight = 10;
-const brunswickStraight = 60;
-const upfieldStraight = 60;
+const brunswickStraight = new FlexiLength(30, 60);
+const upfieldStraight = new FlexiLength(25, 50);
 
 /**
  * The Craigieburn, Sunbury, and Upfield lines, a.k.a. the "Northern group"

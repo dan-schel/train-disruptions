@@ -70,7 +70,7 @@ export class Renderer {
 
     const dpr = window.devicePixelRatio ?? 1;
     const bsr = this._ctx.backingStorePixelRatio ?? 1;
-    this._dpiRatio = dpr / bsr;
+    this._dpiRatio = (dpr / bsr) * 2;
 
     this._amplification = this._selectAmplification();
 

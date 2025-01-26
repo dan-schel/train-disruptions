@@ -38,7 +38,7 @@ export class BakedGeometry {
 
   suggestedAspectRatio() {
     const padding = viewportPadding * 2;
-    return Math.max(
+    return Math.min(
       (this.viewport.min.w + padding) / (this.viewport.min.h + padding),
       (this.viewport.max.w + padding) / (this.viewport.max.h + padding),
     );

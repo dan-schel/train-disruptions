@@ -1,3 +1,4 @@
+import { FlexiLength } from "../../lib/dimensions/flexi-length";
 import { Line } from "../../lib/line";
 import { Path } from "../../lib/path/path";
 import {
@@ -33,18 +34,19 @@ import {
   southYarraToCaulfield,
 } from "../utils-shared-corridors";
 
-const aspendaleStraight = 120;
+const aspendaleStraight = new FlexiLength(60, 120);
 const bonbeachStraight = standardDiagonal;
-const frankstonStraight = 60;
-const stonyPointStraight = 100;
+const frankstonStraight = new FlexiLength(30, 60);
+const stonyPointStraight = new FlexiLength(50, 100);
 
-const newportStraight = 80;
-const williamstownStraight = 40;
-const westonaStraight = 30;
-const altonaLoopDiagonals = 30;
-const lavertonExpressStraight =
-  westonaStraight + altonaLoopDiagonals * diagonal * 2;
-const werribeeStraight = 50;
+const newportStraight = new FlexiLength(40, 80);
+const williamstownStraight = new FlexiLength(30, 40);
+const westonaStraight = new FlexiLength(10, 30);
+const altonaLoopDiagonals = new FlexiLength(20, 30);
+const lavertonExpressStraight = westonaStraight.plus(
+  altonaLoopDiagonals.times(diagonal).times(2),
+);
+const werribeeStraight = new FlexiLength(25, 50);
 
 /**
  * The Frankston line, which makes up the eastern half of the "Cross City" group
@@ -132,17 +134,20 @@ function frankstonStationPos(line: "frankston" | "stony-point") {
     "stony-point": 1,
   }[line];
 
-  const richmondToCaufield = richmondToSouthYarra + southYarraToCaulfield;
+  const richmondToCaufield = richmondToSouthYarra.plus(southYarraToCaulfield);
 
   return richmondPos(loop.line.crossCity)
     .plus({
-      x: richmondToCaufield * diagonal,
-      y: richmondToCaufield * diagonal,
+      x: richmondToCaufield.times(diagonal),
+      y: richmondToCaufield.times(diagonal),
     })
     .plus({ x: defaultRadius * short45, y: defaultRadius * long45 })
     .plus({ y: aspendaleStraight })
     .plus({ x: defaultRadius * short45, y: defaultRadius * long45 })
-    .plus({ x: bonbeachStraight * diagonal, y: bonbeachStraight * diagonal })
+    .plus({
+      x: bonbeachStraight.times(diagonal),
+      y: bonbeachStraight.times(diagonal),
+    })
     .plus({ x: defaultRadius * long45, y: defaultRadius * short45 })
     .plus({ x: frankstonStraight })
     .plus({ y: offset * lineGap });

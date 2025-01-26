@@ -1,3 +1,4 @@
+import { FlexiLength } from "../../lib/dimensions/flexi-length";
 import { Line } from "../../lib/line";
 import { Path } from "../../lib/path/path";
 import {
@@ -17,16 +18,16 @@ import { southernCrossToFlagstaff } from "../segments/southern-cross-to-flagstaf
 import { defaultRadius } from "../utils";
 import * as loop from "../utils-city-loop";
 
-const burnleyStraight = 40;
-const glenIrisStraight = 70;
-const glenWaverleyStraight = 90;
-const camberwellStraight = 50;
-const riversdaleStraight = 30;
-const alameinStraight = 50;
-const laburnumStraight = 70;
-const ringwoodStraight = 60;
-const belgraveStraight = 80;
-const lilydaleStraight = 80;
+const burnleyStraight = new FlexiLength(20, 40);
+const glenIrisStraight = new FlexiLength(35, 70);
+const glenWaverleyStraight = new FlexiLength(45, 90);
+const camberwellStraight = new FlexiLength(25, 50);
+const riversdaleStraight = new FlexiLength(15, 30);
+const alameinStraight = new FlexiLength(25, 50);
+const laburnumStraight = new FlexiLength(35, 70);
+const ringwoodStraight = new FlexiLength(30, 60);
+const belgraveStraight = new FlexiLength(40, 80);
+const lilydaleStraight = new FlexiLength(40, 80);
 
 /**
  * The Alamein, Belgrave, Glen Waverley and Lilydale lines, a.k.a. the "Burnley

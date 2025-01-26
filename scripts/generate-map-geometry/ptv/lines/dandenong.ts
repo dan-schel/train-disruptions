@@ -1,3 +1,4 @@
+import { FlexiLength } from "../../lib/dimensions/flexi-length";
 import { Line } from "../../lib/line";
 import { Path } from "../../lib/path/path";
 import {
@@ -29,7 +30,7 @@ import {
   southYarraToCaulfield,
 } from "../utils-shared-corridors";
 
-const cranbourneStraight = 45;
+const cranbourneStraight = new FlexiLength(30, 45);
 
 /**
  * The Cranbourne and Pakenham lines, a.k.a. the "Dandenong group" (colored

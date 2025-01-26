@@ -1,4 +1,5 @@
 import { EAST_PAKENHAM } from "../../../../server/data/station-ids";
+import { FlexiLength } from "../../lib/dimensions/flexi-length";
 import { Line } from "../../lib/line";
 import { Path } from "../../lib/path/path";
 import {
@@ -51,29 +52,29 @@ import {
   watergardensStraight,
 } from "../utils-shared-corridors";
 
-const eastPakenhamToCurve = 25;
+const eastPakenhamToCurve = new FlexiLength(10, 25);
 const diagonalStraight = standardDiagonal;
-const bairnsdaleStraight = 130;
+const bairnsdaleStraight = new FlexiLength(60, 120);
 
 const donnybrookStraight = standardDiagonal;
-const seymourStraight = 100;
-const sheppartonStraight = 150;
-const avenelStraight = 45;
-const alburyStraight = 150;
+const seymourStraight = new FlexiLength(50, 100);
+const sheppartonStraight = new FlexiLength(75, 150);
+const avenelStraight = new FlexiLength(20, 40);
+const alburyStraight = new FlexiLength(75, 150);
 
-const kangarooFlatStraight = 60;
+const kangarooFlatStraight = new FlexiLength(30, 60);
 const bendigoDiagonal = standardDiagonal;
 const bendigoStraight = 10;
-const eaglehawkStraight = 30;
-const swanHillStraight = 80;
-const echucaStraight = 100;
+const eaglehawkStraight = new FlexiLength(20, 30);
+const swanHillStraight = new FlexiLength(30, 80);
+const echucaStraight = new FlexiLength(50, 100);
 
-const ballaratStraight = 80;
-const araratStraight = 60;
-const maryboroughStraight = 50;
-const wyndhamValeStraight = 100;
+const ballaratStraight = new FlexiLength(40, 80);
+const araratStraight = new FlexiLength(30, 60);
+const maryboroughStraight = new FlexiLength(25, 50);
+const wyndhamValeStraight = new FlexiLength(50, 100);
 const laraStraight = standardDiagonal;
-const warrnamboolStraight = 150;
+const warrnamboolStraight = new FlexiLength(75, 150);
 
 /**
  * The Gippsland line, which is the only regional line (colored purple on the

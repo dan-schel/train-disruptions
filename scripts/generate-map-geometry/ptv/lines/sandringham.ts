@@ -1,3 +1,4 @@
+import { FlexiLength } from "../../lib/dimensions/flexi-length";
 import { Line } from "../../lib/line";
 import { Path } from "../../lib/path/path";
 import { flindersStreet, richmond, southYarra } from "../interchanges";
@@ -7,8 +8,8 @@ import * as loop from "../utils-city-loop";
 import { richmondToSouthYarra } from "../utils-shared-corridors";
 
 const divergeStraight = 10;
-const diagonalStraight = 20;
-const sandringhamStraight = 80;
+const diagonalStraight = new FlexiLength(10, 20);
+const sandringhamStraight = new FlexiLength(40, 80);
 
 /** The Sandringham line (colored pink on the map). */
 export const sandringham = new Line({
