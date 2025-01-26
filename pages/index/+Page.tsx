@@ -1,27 +1,35 @@
 import React from "react";
-import { Column } from "../../components/core/Column";
+
 import { Text } from "../../components/core/Text";
+import { With } from "../../components/core/With";
+import { Button } from "../../components/core/Button";
+import { Column } from "../../components/core/Column";
 import { Map } from "../../components/map/Map";
 import { PageCenterer } from "../../components/common/PageCenterer";
-import { Spacer } from "../../components/core/Spacer";
 
 export default function Page() {
   return (
     <PageCenterer>
-      <Column className="px-4 py-8">
-        <Text style="title" align="center">
-          Is It Buses?
-        </Text>
-        <Spacer h="4" />
-        <Text
-          style="custom"
-          align="center"
-          className="font-bold text-orange-700"
-        >
-          Maybe.
-        </Text>
-        <Spacer h="8" />
+      <Column className="gap-8 px-4 py-8">
+        <Column className="gap-4" align="center">
+          <Text style="title">Is It Buses?</Text>
+          <Text style="custom" className="font-bold text-orange-700">
+            Maybe.
+          </Text>
+        </Column>
         <Map />
+        <Column className="gap-4" align="center">
+          <Button href="/disruption/1">
+            <With className="border border-black p-4">
+              <Text>View A Disruption</Text>
+            </With>
+          </Button>
+          <Button href="/line/17">
+            <With className="border border-black p-4">
+              <Text>Sunbury Line</Text>
+            </With>
+          </Button>
+        </Column>
       </Column>
     </PageCenterer>
   );

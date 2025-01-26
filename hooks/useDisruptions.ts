@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { type Disruption } from "../server/demo/disruption-source";
+import { type Disruption } from "../types/disruption";
 
 /**
  * React hook used to retrieve disruptions from the API
