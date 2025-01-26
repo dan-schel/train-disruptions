@@ -1,4 +1,4 @@
-import { flexi, FlexiLength } from "../../lib/dimensions/flexi-length";
+import { flexi } from "../../lib/dimensions/flexi-length";
 import { Line } from "../../lib/line";
 import { Path } from "../../lib/path/path";
 import {
@@ -19,16 +19,16 @@ import { defaultRadius } from "../utils";
 import * as loop from "../utils-city-loop";
 
 const loopPortalStraight = flexi(25);
-const burnleyStraight = new FlexiLength(20, 40);
-const glenIrisStraight = new FlexiLength(35, 70);
-const glenWaverleyStraight = new FlexiLength(45, 90);
-const camberwellStraight = new FlexiLength(25, 50);
-const riversdaleStraight = new FlexiLength(15, 30);
-const alameinStraight = new FlexiLength(25, 50);
-const laburnumStraight = new FlexiLength(35, 70);
-const ringwoodStraight = new FlexiLength(30, 60);
-const belgraveStraight = new FlexiLength(40, 80);
-const lilydaleStraight = new FlexiLength(40, 80);
+const burnleyStraight = flexi(20, 40);
+const glenIrisStraight = flexi(35, 70);
+const glenWaverleyStraight = flexi(45, 90);
+const camberwellStraight = flexi(25, 50);
+const riversdaleStraight = flexi(15, 30);
+const alameinStraight = flexi(25, 50);
+const laburnumStraight = flexi(35, 70);
+const ringwoodStraight = flexi(30, 60);
+const belgraveStraight = flexi(40, 80);
+const lilydaleStraight = flexi(40, 80);
 
 /**
  * The Alamein, Belgrave, Glen Waverley and Lilydale lines, a.k.a. the "Burnley

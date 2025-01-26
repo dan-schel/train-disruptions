@@ -1,5 +1,5 @@
 import { JOLIMONT } from "../../../../server/data/station-ids";
-import { FlexiLength } from "../../lib/dimensions/flexi-length";
+import { flexi } from "../../lib/dimensions/flexi-length";
 import { Line } from "../../lib/line";
 import { Path } from "../../lib/path/path";
 import {
@@ -16,12 +16,12 @@ import { southernCrossToFlagstaff } from "../segments/southern-cross-to-flagstaf
 import { defaultRadius, standardDiagonal } from "../utils";
 import * as loop from "../utils-city-loop";
 
-const cliftonHillStraight = new FlexiLength(40, 80);
-const heidelbergStraight = new FlexiLength(40, 80);
-const hurstbridgeStraight = new FlexiLength(50, 100);
-const prestonStraight = new FlexiLength(40, 80);
+const cliftonHillStraight = flexi(40, 80);
+const heidelbergStraight = flexi(40, 80);
+const hurstbridgeStraight = flexi(50, 100);
+const prestonStraight = flexi(40, 80);
 const keonParkStraight = standardDiagonal;
-const merndaStraight = new FlexiLength(50, 100);
+const merndaStraight = flexi(50, 100);
 
 /**
  * The Hurstbridge and Mernda lines, a.k.a. the "Clifton Hill group" (colored

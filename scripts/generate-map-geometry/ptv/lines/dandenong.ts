@@ -1,4 +1,4 @@
-import { flexi, FlexiLength } from "../../lib/dimensions/flexi-length";
+import { flexi } from "../../lib/dimensions/flexi-length";
 import { Line } from "../../lib/line";
 import { Path } from "../../lib/path/path";
 import {
@@ -31,7 +31,7 @@ import {
 } from "../utils-shared-corridors";
 
 const loopPortalStraight = flexi(20);
-const cranbourneStraight = new FlexiLength(30, 45);
+const cranbourneStraight = flexi(30, 45);
 
 /**
  * The Cranbourne and Pakenham lines, a.k.a. the "Dandenong group" (colored

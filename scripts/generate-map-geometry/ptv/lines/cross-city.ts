@@ -1,4 +1,4 @@
-import { FlexiLength } from "../../lib/dimensions/flexi-length";
+import { flexi } from "../../lib/dimensions/flexi-length";
 import { Line } from "../../lib/line";
 import { Path } from "../../lib/path/path";
 import {
@@ -34,19 +34,19 @@ import {
   southYarraToCaulfield,
 } from "../utils-shared-corridors";
 
-const aspendaleStraight = new FlexiLength(60, 120);
+const aspendaleStraight = flexi(60, 120);
 const bonbeachStraight = standardDiagonal;
-const frankstonStraight = new FlexiLength(30, 60);
-const stonyPointStraight = new FlexiLength(50, 100);
+const frankstonStraight = flexi(30, 60);
+const stonyPointStraight = flexi(50, 100);
 
-const newportStraight = new FlexiLength(40, 80);
-const williamstownStraight = new FlexiLength(30, 40);
-const westonaStraight = new FlexiLength(10, 30);
-const altonaLoopDiagonals = new FlexiLength(20, 30);
+const newportStraight = flexi(40, 80);
+const williamstownStraight = flexi(30, 40);
+const westonaStraight = flexi(10, 30);
+const altonaLoopDiagonals = flexi(20, 30);
 const lavertonExpressStraight = westonaStraight.plus(
   altonaLoopDiagonals.times(diagonal).times(2),
 );
-const werribeeStraight = new FlexiLength(25, 50);
+const werribeeStraight = flexi(25, 50);
 
 /**
  * The Frankston line, which makes up the eastern half of the "Cross City" group

@@ -1,14 +1,14 @@
 import { interchangeEdgeOffset } from "../../../components/map/renderer/utils";
-import { flexi, FlexiLength } from "../lib/dimensions/flexi-length";
+import { flexi } from "../lib/dimensions/flexi-length";
 import { defaultRadius, diagonal, lineGap, long45, short45 } from "./utils";
 
-export const richmondToSouthYarra = new FlexiLength(20, 20);
-export const southYarraToCaulfield = new FlexiLength(30, 60);
-export const caulfieldToClayton = new FlexiLength(30, 60);
-export const claytonToDandenong = new FlexiLength(30, 60);
+export const richmondToSouthYarra = flexi(20, 20);
+export const southYarraToCaulfield = flexi(30, 60);
+export const caulfieldToClayton = flexi(30, 60);
+export const claytonToDandenong = flexi(30, 60);
 export const dandenongToHallamCurve = flexi(20);
-export const hallamToPakenham = new FlexiLength(30, 80);
-export const pakenhamToEastPakenham = new FlexiLength(15, 20);
+export const hallamToPakenham = flexi(30, 80);
+export const pakenhamToEastPakenham = flexi(15, 20);
 
 export const hallamCurvePakenham = defaultRadius;
 export const hallamCurveGippland = hallamCurvePakenham.plus(lineGap);
@@ -16,10 +16,10 @@ export const hallamCurveGippland = hallamCurvePakenham.plus(lineGap);
 export const newmarketStraight = flexi(40);
 export const newmarketCurveCraigieburn = defaultRadius;
 export const newmarketCurveSeymour = newmarketCurveCraigieburn.plus(lineGap);
-export const broadmeadowsStraight = new FlexiLength(40, 80);
-export const craigieburnStraight = new FlexiLength(25, 50);
+export const broadmeadowsStraight = flexi(40, 80);
+export const craigieburnStraight = flexi(25, 50);
 
-export const tottenhamStraight = new FlexiLength(30, 60);
+export const tottenhamStraight = flexi(30, 60);
 export const sunshineJunctionDiagonal = flexi(0);
 export const sunshineExitDiagonal = flexi(5);
 export const sunshineCurvesSunbury = defaultRadius;
@@ -31,8 +31,6 @@ export const sunshineJunctionStraight = sunshineCurvesSunbury
   .plus(sunshineCurvesSunbury.times(short45))
   .plus(sunshineJunctionDiagonal.times(diagonal))
   .minus(interchangeEdgeOffset);
-export const deerParkStraight = new FlexiLength(50, 60).minus(
-  sunshineJunctionStraight,
-);
-export const watergardensStraight = new FlexiLength(25, 50);
-export const sunburyStraight = new FlexiLength(20, 30);
+export const deerParkStraight = flexi(50, 60).minus(sunshineJunctionStraight);
+export const watergardensStraight = flexi(25, 50);
+export const sunburyStraight = flexi(20, 30);
