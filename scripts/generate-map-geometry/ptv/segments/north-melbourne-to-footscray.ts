@@ -15,6 +15,7 @@ const northMelbourneStraight = flexi(10);
 const northMelbourneStraightSunbury = flexi(5);
 const footscrayStraight = flexi(30);
 
+/** The curves from North Melbourne to Footscray. */
 export function northMelbourneToFootscray(
   track: "cross-city" | "regional-rrl" | "sunbury",
 ): PathBlueprint {
