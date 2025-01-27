@@ -27,9 +27,9 @@ export class LineBlueprint {
     this.path = path;
   }
 
-  bake(): ColoredPathCollection {
-    const baker = new PathBuilder(this.origin, this.angle);
-    this.path.bake(baker);
-    return new ColoredPathCollection(this.color, baker.getResult());
+  build(): ColoredPathCollection {
+    const builder = new PathBuilder(this.origin, this.angle);
+    this.path.build(builder);
+    return new ColoredPathCollection(this.color, builder.getResult());
   }
 }

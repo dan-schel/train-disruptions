@@ -59,7 +59,9 @@ export class InterchangeBuilder {
       "right-edge": { length: interchangeEdgeOffset, angle: 90 },
     }[pointPosition.position];
 
-    return point.point.move(offset.length, point.angle + offset.angle).bake();
+    return point.point
+      .move(offset.length, point.angle + offset.angle)
+      .toDualPoint();
   }
 
   _locatePoint(id: string): LocatedInterchange {

@@ -14,12 +14,12 @@ export class Split extends PathBlueprintPiece {
     return new Split(this.split.reverse(), !this.reversed);
   }
 
-  bake(baker: PathBuilder): void {
-    baker.subpath((baker) => {
+  build(builder: PathBuilder): void {
+    builder.subpath((builder) => {
       if (this.reversed) {
-        baker.addAngle(180);
+        builder.addAngle(180);
       }
-      this.split.bake(baker);
+      this.split.build(builder);
     });
   }
 }

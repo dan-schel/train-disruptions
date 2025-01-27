@@ -10,7 +10,7 @@ export class Interchange {
     const thickLinesInvalid = thickLines.some((l) => l.length < 2);
     const thinLineInvalid = thinLine != null && thinLine.length < 2;
     if (noThickLines || thickLinesInvalid || thinLineInvalid) {
-      throw new Error("Invalid baked interchange geometry.");
+      throw new Error("Invalid interchange geometry.");
     }
   }
 

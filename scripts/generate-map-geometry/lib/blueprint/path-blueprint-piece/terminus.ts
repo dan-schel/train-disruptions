@@ -11,9 +11,9 @@ export class Terminus extends PathBlueprintPiece {
     return this;
   }
 
-  bake(baker: PathBuilder): void {
-    baker.addTerminus(
-      new LocatedTerminus(baker.getCurrentPoint(), baker.getCurrentAngle()),
+  build(builder: PathBuilder): void {
+    builder.addTerminus(
+      new LocatedTerminus(builder.getCurrentPoint(), builder.getCurrentAngle()),
     );
   }
 }

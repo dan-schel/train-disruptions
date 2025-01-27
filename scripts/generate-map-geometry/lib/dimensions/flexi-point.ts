@@ -47,7 +47,7 @@ export class FlexiPoint {
     );
   }
 
-  bake(): DualPoint {
+  toDualPoint(): DualPoint {
     return new DualPoint(this.min.x, this.min.y, this.max.x, this.max.y);
   }
 }

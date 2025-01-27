@@ -15,13 +15,13 @@ export class StationLocation extends PathBlueprintPiece {
     return this;
   }
 
-  bake(baker: PathBuilder): void {
+  build(builder: PathBuilder): void {
     if (this.interchangePoint != null) {
-      baker.addInterchange(
+      builder.addInterchange(
         new LocatedInterchange(
           this.interchangePoint,
-          baker.getCurrentPoint(),
-          baker.getCurrentAngle(),
+          builder.getCurrentPoint(),
+          builder.getCurrentAngle(),
         ),
       );
     }

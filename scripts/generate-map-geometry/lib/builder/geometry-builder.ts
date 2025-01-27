@@ -10,20 +10,20 @@ import { DualViewport } from "../../../../components/map/renderer/dual-viewport"
 export class GeometryBuilder {
   constructor() {}
 
-  build(lines: LineBlueprint[]): Geometry {
-    const bakedPaths = lines.map((l) => l.bake());
+  build(blueprints: LineBlueprint[]): Geometry {
+    const paths = blueprints.map((l) => l.build());
 
-    const bakedLines = bakedPaths.flatMap((l) =>
+    const lines = paths.flatMap((l) =>
       l.paths.map(
         (p) =>
           new Line(
             l.color,
-            p.points.map((x) => x.bake()),
+            p.points.map((x) => x.toDualPoint()),
           ),
       ),
     );
 
-    const locatedInterchanges = bakedPaths
+    const locatedInterchanges = paths
       .flatMap((l) => l.paths.flatMap((p) => p.locatedInterchanges))
       .sort(
         (a, b) =>
@@ -39,23 +39,27 @@ export class GeometryBuilder {
       return new InterchangeBuilder(interchange, locations).build();
     });
 
-    const termini = bakedPaths.flatMap((l) =>
+    const termini = paths.flatMap((l) =>
       l.paths.flatMap((p) =>
         p.locatedTermini.map((t) => {
-          const pointA = t.point.move(terminusExtents, t.angle - 90).bake();
-          const pointB = t.point.move(terminusExtents, t.angle + 90).bake();
+          const pointA = t.point
+            .move(terminusExtents, t.angle - 90)
+            .toDualPoint();
+          const pointB = t.point
+            .move(terminusExtents, t.angle + 90)
+            .toDualPoint();
           return new Terminus(l.color, [pointA, pointB]);
         }),
       ),
     );
 
-    const viewport = this._buildViewport(bakedLines);
+    const viewport = this._buildViewport(lines);
 
-    return new Geometry(bakedLines, interchanges, termini, viewport);
+    return new Geometry(lines, interchanges, termini, viewport);
   }
 
-  private _buildViewport(bakedLines: Line[]): DualViewport {
-    const points = bakedLines.flatMap((l) => l.path);
+  private _buildViewport(lines: Line[]): DualViewport {
+    const points = lines.flatMap((l) => l.path);
 
     // Min amplification
     const lowestMinX = Math.min(...points.map((p) => p.minX));

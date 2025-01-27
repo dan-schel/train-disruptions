@@ -18,22 +18,22 @@ export class Curved extends PathBlueprintPiece {
     return new Curved(this.radius, -this.angle as -90 | -45 | 45 | 90);
   }
 
-  bake(baker: PathBuilder): void {
-    const segments = this.bakedPointsCount();
+  build(builder: PathBuilder): void {
+    const segments = this._pointsCount();
 
-    const centerAngle = baker.getCurrentAngle() + (this.angle < 0 ? -90 : 90);
-    const center = baker.getCurrentPoint().move(this.radius, centerAngle);
+    const centerAngle = builder.getCurrentAngle() + (this.angle < 0 ? -90 : 90);
+    const center = builder.getCurrentPoint().move(this.radius, centerAngle);
 
     for (let i = 1; i <= segments; i++) {
       const angle = centerAngle + 180 + (this.angle / segments) * i;
       const point = center.move(this.radius, angle);
-      baker.addPoint(point);
+      builder.addPoint(point);
     }
 
-    baker.addAngle(this.angle);
+    builder.addAngle(this.angle);
   }
 
-  bakedPointsCount(): number {
+  private _pointsCount(): number {
     const factor = Math.abs(this.angle) / 45;
     return 5 * factor;
   }

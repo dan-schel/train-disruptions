@@ -25,9 +25,9 @@ export class PathBlueprint {
     }
   }
 
-  bake(baker: PathBuilder) {
+  build(builder: PathBuilder) {
     for (const piece of this.pieces) {
-      piece.bake(baker);
+      piece.build(builder);
     }
   }
 

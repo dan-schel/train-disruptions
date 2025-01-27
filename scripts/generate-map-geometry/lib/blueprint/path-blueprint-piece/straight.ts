@@ -15,9 +15,9 @@ export class Straight extends PathBlueprintPiece {
     return this;
   }
 
-  bake(baker: PathBuilder): void {
-    baker.addPoint(
-      baker.getCurrentPoint().move(this.length, baker.getCurrentAngle()),
+  build(builder: PathBuilder): void {
+    builder.addPoint(
+      builder.getCurrentPoint().move(this.length, builder.getCurrentAngle()),
     );
   }
 }

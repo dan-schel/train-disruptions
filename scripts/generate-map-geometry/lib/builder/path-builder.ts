@@ -45,7 +45,7 @@ export class PathBuilder {
     this._termini.push(terminus);
   }
 
-  subpath(build: (baker: PathBuilder) => void) {
+  subpath(build: (builder: PathBuilder) => void) {
     const builder = new PathBuilder(this._currentPoint, this._currentAngle);
     build(builder);
     this._subPaths.push(...builder.getResult());
