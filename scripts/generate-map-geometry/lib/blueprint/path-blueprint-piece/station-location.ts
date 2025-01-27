@@ -1,5 +1,5 @@
 import { LocatedInterchange } from "../../baked/baked-path";
-import { PathBaker } from "../../baked/path-baker";
+import { PathBuilder } from "../../builder/path-builder";
 import { InterchangeBlueprint } from "../interchange-blueprint";
 import { PathBlueprintPiece } from "./path-blueprint-piece";
 
@@ -15,7 +15,7 @@ export class StationLocation extends PathBlueprintPiece {
     return this;
   }
 
-  bake(baker: PathBaker): void {
+  bake(baker: PathBuilder): void {
     if (this.interchangePoint != null) {
       baker.addInterchange(
         new LocatedInterchange(

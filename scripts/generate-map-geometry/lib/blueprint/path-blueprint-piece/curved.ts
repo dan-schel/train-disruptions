@@ -1,4 +1,4 @@
-import { PathBaker } from "../../baked/path-baker";
+import { PathBuilder } from "../../builder/path-builder";
 import { FlexiLength } from "../../dimensions/flexi-length";
 import { PathBlueprintPiece } from "./path-blueprint-piece";
 
@@ -18,7 +18,7 @@ export class Curved extends PathBlueprintPiece {
     return new Curved(this.radius, -this.angle as -90 | -45 | 45 | 90);
   }
 
-  bake(baker: PathBaker): void {
+  bake(baker: PathBuilder): void {
     const segments = this.bakedPointsCount();
 
     const centerAngle = baker.getCurrentAngle() + (this.angle < 0 ? -90 : 90);

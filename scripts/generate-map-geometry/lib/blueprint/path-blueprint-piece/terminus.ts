@@ -1,5 +1,5 @@
 import { LocatedTerminus } from "../../baked/baked-path";
-import { PathBaker } from "../../baked/path-baker";
+import { PathBuilder } from "../../builder/path-builder";
 import { PathBlueprintPiece } from "./path-blueprint-piece";
 
 export class Terminus extends PathBlueprintPiece {
@@ -11,7 +11,7 @@ export class Terminus extends PathBlueprintPiece {
     return this;
   }
 
-  bake(baker: PathBaker): void {
+  bake(baker: PathBuilder): void {
     baker.addTerminus(
       new LocatedTerminus(baker.getCurrentPoint(), baker.getCurrentAngle()),
     );

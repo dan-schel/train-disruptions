@@ -1,4 +1,4 @@
-import { PathBaker } from "../../baked/path-baker";
+import { PathBuilder } from "../../builder/path-builder";
 import { FlexiLength } from "../../dimensions/flexi-length";
 import { PathBlueprintPiece } from "./path-blueprint-piece";
 
@@ -15,7 +15,7 @@ export class Straight extends PathBlueprintPiece {
     return this;
   }
 
-  bake(baker: PathBaker): void {
+  bake(baker: PathBuilder): void {
     baker.addPoint(
       baker.getCurrentPoint().move(this.length, baker.getCurrentAngle()),
     );

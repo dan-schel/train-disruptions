@@ -1,4 +1,4 @@
-import { PathBaker } from "./../baked/path-baker";
+import { PathBuilder } from "../builder/path-builder";
 import { FlexiLength } from "./../dimensions/flexi-length";
 import { Curved } from "./path-blueprint-piece/curved";
 import { PathBlueprintPiece } from "./path-blueprint-piece/path-blueprint-piece";
@@ -25,7 +25,7 @@ export class PathBlueprint {
     }
   }
 
-  bake(baker: PathBaker) {
+  bake(baker: PathBuilder) {
     for (const piece of this.pieces) {
       piece.bake(baker);
     }

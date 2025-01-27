@@ -8,9 +8,9 @@ import {
   InterchangeBlueprint,
   PointPosition,
 } from "../blueprint/interchange-blueprint";
-import { LocatedInterchange } from "./baked-path";
+import { LocatedInterchange } from "../baked/baked-path";
 
-export class InterchangeBaker {
+export class InterchangeBuilder {
   constructor(
     private readonly _interchange: InterchangeBlueprint,
     private readonly _locatedPoints: readonly LocatedInterchange[],
@@ -38,7 +38,7 @@ export class InterchangeBaker {
     }
   }
 
-  bake(): BakedInterchange {
+  build(): BakedInterchange {
     const thickLines = this._interchange.thickLines.map((segment) =>
       segment.map((pos) => this._point(pos)),
     );

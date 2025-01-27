@@ -1,4 +1,4 @@
-import { PathBaker } from "../baked/path-baker";
+import { PathBuilder } from "../builder/path-builder";
 import { FlexiPoint } from "../dimensions/flexi-point";
 import { PathBlueprint } from "./path-blueprint";
 import { ColoredBakedPathCollection } from "../baked/baked-path";
@@ -28,7 +28,7 @@ export class LineBlueprint {
   }
 
   bake(): ColoredBakedPathCollection {
-    const baker = new PathBaker(this.origin, this.angle);
+    const baker = new PathBuilder(this.origin, this.angle);
     this.path.bake(baker);
     return new ColoredBakedPathCollection(this.color, baker.getResult());
   }

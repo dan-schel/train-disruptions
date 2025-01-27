@@ -1,7 +1,7 @@
 import { groupBy } from "@dan-schel/js-utils";
 import { LineBlueprint } from "../blueprint/line-blueprint";
 import { BakedGeometry } from "../../../../components/map/renderer/baked-geometry";
-import { InterchangeBaker } from "../baked/interchange-baker";
+import { InterchangeBuilder } from "./interchange-builder";
 import { terminusExtents } from "../../../../components/map/renderer/utils";
 import { BakedLine } from "../../../../components/map/renderer/baked-line";
 import { BakedTerminus } from "../../../../components/map/renderer/baked-terminus";
@@ -36,7 +36,7 @@ export class GeometryBuilder {
       (i) => i.interchangePoint.interchange.station,
     ).map(({ items: locations }) => {
       const interchange = locations[0].interchangePoint.interchange;
-      return new InterchangeBaker(interchange, locations).bake();
+      return new InterchangeBuilder(interchange, locations).build();
     });
 
     const termini = bakedPaths.flatMap((l) =>
@@ -49,12 +49,12 @@ export class GeometryBuilder {
       ),
     );
 
-    const viewport = this._bakeViewport(bakedLines);
+    const viewport = this._buildViewport(bakedLines);
 
     return new BakedGeometry(bakedLines, interchanges, termini, viewport);
   }
 
-  private _bakeViewport(bakedLines: BakedLine[]): BakedViewport {
+  private _buildViewport(bakedLines: BakedLine[]): BakedViewport {
     const points = bakedLines.flatMap((l) => l.path);
 
     // Min amplification
