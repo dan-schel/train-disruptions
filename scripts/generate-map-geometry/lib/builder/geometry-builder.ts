@@ -9,6 +9,8 @@ import {
   DualViewport,
   Viewport,
 } from "../../../../components/map/renderer/dual-viewport";
+import { ColoredPathCollection } from "./path";
+import { Point } from "../dimensions/point";
 
 export class GeometryBuilder {
   constructor() {}
@@ -16,7 +18,16 @@ export class GeometryBuilder {
   build(blueprints: LineBlueprint[]): Geometry {
     const paths = blueprints.map((l) => l.build());
 
-    const lines = paths.flatMap((l) =>
+    const lines = this._buildLines(paths);
+    const interchanges = this._buildInterchanges(paths);
+    const termini = this._buildTermini(paths);
+    const viewport = this._buildDualViewport(paths);
+
+    return new Geometry(lines, interchanges, termini, viewport);
+  }
+
+  private _buildLines(paths: ColoredPathCollection[]) {
+    return paths.flatMap((l) =>
       l.paths.map(
         (p) =>
           new Line(
@@ -25,7 +36,9 @@ export class GeometryBuilder {
           ),
       ),
     );
+  }
 
+  private _buildInterchanges(paths: ColoredPathCollection[]) {
     const locatedInterchanges = paths
       .flatMap((l) => l.paths.flatMap((p) => p.locatedInterchanges))
       .sort(
@@ -34,15 +47,17 @@ export class GeometryBuilder {
           b.interchangePoint.interchange.station,
       );
 
-    const interchanges = groupBy(
+    return groupBy(
       locatedInterchanges,
       (i) => i.interchangePoint.interchange.station,
     ).map(({ items: locations }) => {
       const interchange = locations[0].interchangePoint.interchange;
       return new InterchangeBuilder(interchange, locations).build();
     });
+  }
 
-    const termini = paths.flatMap((l) =>
+  private _buildTermini(paths: ColoredPathCollection[]) {
+    return paths.flatMap((l) =>
       l.paths.flatMap((p) =>
         p.locatedTermini.map((t) => {
           const pointA = t.point
@@ -55,39 +70,26 @@ export class GeometryBuilder {
         }),
       ),
     );
-
-    const viewport = this._buildViewport(lines);
-
-    return new Geometry(lines, interchanges, termini, viewport);
   }
 
-  private _buildViewport(lines: Line[]): DualViewport {
-    const points = lines.flatMap((l) => l.path);
+  private _buildDualViewport(paths: ColoredPathCollection[]): DualViewport {
+    const points = paths.flatMap((p) => p.paths.flatMap((x) => x.points));
+    return new DualViewport(
+      this._buildViewport(points.map((p) => p.min)),
+      this._buildViewport(points.map((p) => p.max)),
+    );
+  }
 
-    // Min amplification
-    const lowestMinX = Math.min(...points.map((p) => p.minX));
-    const highestMinX = Math.max(...points.map((p) => p.minX));
-    const lowestMinY = Math.min(...points.map((p) => p.minY));
-    const highestMinY = Math.max(...points.map((p) => p.minY));
-    const minViewport = new Viewport(
+  private _buildViewport(points: Point[]) {
+    const lowestMinX = Math.min(...points.map((p) => p.x));
+    const highestMinX = Math.max(...points.map((p) => p.x));
+    const lowestMinY = Math.min(...points.map((p) => p.y));
+    const highestMinY = Math.max(...points.map((p) => p.y));
+    return new Viewport(
       (lowestMinX + highestMinX) / 2,
       (lowestMinY + highestMinY) / 2,
       highestMinX - lowestMinX,
       highestMinY - lowestMinY,
     );
-
-    // Max amplification
-    const lowestMaxX = Math.min(...points.map((p) => p.maxX));
-    const highestMaxX = Math.max(...points.map((p) => p.maxX));
-    const lowestMaxY = Math.min(...points.map((p) => p.maxY));
-    const highestMaxY = Math.max(...points.map((p) => p.maxY));
-    const maxViewport = new Viewport(
-      (lowestMaxX + highestMaxX) / 2,
-      (lowestMaxY + highestMaxY) / 2,
-      highestMaxX - lowestMaxX,
-      highestMaxY - lowestMaxY,
-    );
-
-    return new DualViewport(minViewport, maxViewport);
   }
 }
