@@ -5,7 +5,10 @@ import { InterchangeBuilder } from "./interchange-builder";
 import { terminusExtents } from "../../../../components/map/renderer/utils";
 import { Line } from "../../../../components/map/renderer/line";
 import { Terminus } from "../../../../components/map/renderer/terminus";
-import { DualViewport } from "../../../../components/map/renderer/dual-viewport";
+import {
+  DualViewport,
+  Viewport,
+} from "../../../../components/map/renderer/dual-viewport";
 
 export class GeometryBuilder {
   constructor() {}
@@ -66,24 +69,24 @@ export class GeometryBuilder {
     const highestMinX = Math.max(...points.map((p) => p.minX));
     const lowestMinY = Math.min(...points.map((p) => p.minY));
     const highestMinY = Math.max(...points.map((p) => p.minY));
-    const minViewport = {
-      x: (lowestMinX + highestMinX) / 2,
-      y: (lowestMinY + highestMinY) / 2,
-      w: highestMinX - lowestMinX,
-      h: highestMinY - lowestMinY,
-    };
+    const minViewport = new Viewport(
+      (lowestMinX + highestMinX) / 2,
+      (lowestMinY + highestMinY) / 2,
+      highestMinX - lowestMinX,
+      highestMinY - lowestMinY,
+    );
 
     // Max amplification
     const lowestMaxX = Math.min(...points.map((p) => p.maxX));
     const highestMaxX = Math.max(...points.map((p) => p.maxX));
     const lowestMaxY = Math.min(...points.map((p) => p.maxY));
     const highestMaxY = Math.max(...points.map((p) => p.maxY));
-    const maxViewport = {
-      x: (lowestMaxX + highestMaxX) / 2,
-      y: (lowestMaxY + highestMaxY) / 2,
-      w: highestMaxX - lowestMaxX,
-      h: highestMaxY - lowestMaxY,
-    };
+    const maxViewport = new Viewport(
+      (lowestMaxX + highestMaxX) / 2,
+      (lowestMaxY + highestMaxY) / 2,
+      highestMaxX - lowestMaxX,
+      highestMaxY - lowestMaxY,
+    );
 
     return new DualViewport(minViewport, maxViewport);
   }
