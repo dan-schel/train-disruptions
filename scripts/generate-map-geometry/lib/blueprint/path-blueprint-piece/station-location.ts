@@ -1,4 +1,4 @@
-import { LocatedInterchange } from "../../baked/baked-path";
+import { LocatedInterchange } from "../../builder/path";
 import { PathBuilder } from "../../builder/path-builder";
 import { InterchangeBlueprint } from "../interchange-blueprint";
 import { PathBlueprintPiece } from "./path-blueprint-piece";

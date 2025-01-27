@@ -8,7 +8,7 @@ import {
   InterchangeBlueprint,
   PointPosition,
 } from "../blueprint/interchange-blueprint";
-import { LocatedInterchange } from "../baked/baked-path";
+import { LocatedInterchange } from "./path";
 
 export class InterchangeBuilder {
   constructor(

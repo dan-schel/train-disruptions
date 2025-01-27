@@ -1,4 +1,4 @@
-import { LocatedTerminus } from "../../baked/baked-path";
+import { LocatedTerminus } from "../../builder/path";
 import { PathBuilder } from "../../builder/path-builder";
 import { PathBlueprintPiece } from "./path-blueprint-piece";
 

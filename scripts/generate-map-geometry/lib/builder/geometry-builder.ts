@@ -41,7 +41,7 @@ export class GeometryBuilder {
 
     const termini = bakedPaths.flatMap((l) =>
       l.paths.flatMap((p) =>
-        p.termini.map((t) => {
+        p.locatedTermini.map((t) => {
           const pointA = t.point.move(terminusExtents, t.angle - 90).bake();
           const pointB = t.point.move(terminusExtents, t.angle + 90).bake();
           return new BakedTerminus(l.color, [pointA, pointB]);
