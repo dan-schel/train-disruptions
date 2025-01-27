@@ -1,17 +1,10 @@
-import { flexi } from "../../../scripts/generate-map-geometry/lib/dimensions/flexi-length";
-
 export const lineWidth = 4;
-
-export const viewportPadding = 10;
-
 export const interchangeThinLineWidth = 1;
 export const interchangeThickLineWidth = 4;
 export const interchangeBorderWidth = 1;
-export const interchangeEdgeOffset = flexi(lineWidth / 2);
-export const interchangeInnerOffset = flexi(1);
-
 export const terminusLineWidth = 3;
-export const terminusExtents = flexi(5);
+
+export const viewportPadding = 10;
 
 export const lineColors = [
   "red",

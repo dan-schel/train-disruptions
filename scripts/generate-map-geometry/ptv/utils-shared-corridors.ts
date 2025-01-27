@@ -1,5 +1,5 @@
-import { interchangeEdgeOffset } from "../../../components/map/renderer/utils";
 import { flexi } from "../lib/dimensions/flexi-length";
+import { interchangeEdgeOffset } from "../lib/utils";
 import { defaultRadius, diagonal, lineGap, long45, short45 } from "./utils";
 
 export const richmondToSouthYarra = flexi(20, 20);

@@ -2,7 +2,6 @@ import { groupBy } from "@dan-schel/js-utils";
 import { LineBlueprint } from "../blueprint/line-blueprint";
 import { Geometry } from "../../../../components/map/renderer/geometry";
 import { InterchangeBuilder } from "./interchange-builder";
-import { terminusExtents } from "../../../../components/map/renderer/utils";
 import { Line } from "../../../../components/map/renderer/line";
 import { Terminus } from "../../../../components/map/renderer/terminus";
 import {
@@ -11,6 +10,7 @@ import {
 } from "../../../../components/map/renderer/dual-viewport";
 import { ColoredPathCollection } from "./path";
 import { Point } from "../dimensions/point";
+import { terminusExtents } from "../utils";
 
 export class GeometryBuilder {
   constructor() {}
