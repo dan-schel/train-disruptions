@@ -1,4 +1,5 @@
-import { PathBuilder } from "../../builder/path-builder";
+import { PathPieceBuilder } from "../../builder/path-piece-builder/path-piece-builder";
+import { StraightBuilder } from "../../builder/path-piece-builder/straight-builder";
 import { FlexiLength } from "../../dimensions/flexi-length";
 import { PathBlueprintPiece } from "./path-blueprint-piece";
 
@@ -15,9 +16,7 @@ export class Straight extends PathBlueprintPiece {
     return this;
   }
 
-  build(builder: PathBuilder): void {
-    builder.addPoint(
-      builder.getCurrentPoint().move(this.length, builder.getCurrentAngle()),
-    );
+  getBuilder(): PathPieceBuilder {
+    return new StraightBuilder(this);
   }
 }

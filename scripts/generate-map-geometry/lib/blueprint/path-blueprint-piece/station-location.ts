@@ -1,5 +1,5 @@
-import { LocatedInterchange } from "../../builder/path";
-import { PathBuilder } from "../../builder/path-builder";
+import { PathPieceBuilder } from "../../builder/path-piece-builder/path-piece-builder";
+import { StationLocationBuilder } from "../../builder/path-piece-builder/station-location-builder";
 import { InterchangeBlueprint } from "../interchange-blueprint";
 import { PathBlueprintPiece } from "./path-blueprint-piece";
 
@@ -15,16 +15,8 @@ export class StationLocation extends PathBlueprintPiece {
     return this;
   }
 
-  build(builder: PathBuilder): void {
-    if (this.interchangePoint != null) {
-      builder.addInterchange(
-        new LocatedInterchange(
-          this.interchangePoint,
-          builder.getCurrentPoint(),
-          builder.getCurrentAngle(),
-        ),
-      );
-    }
+  getBuilder(): PathPieceBuilder {
+    return new StationLocationBuilder(this);
   }
 }
 

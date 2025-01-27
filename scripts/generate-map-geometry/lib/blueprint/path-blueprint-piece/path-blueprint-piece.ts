@@ -1,7 +1,6 @@
-import { PathBuilder } from "../../builder/path-builder";
+import { PathPieceBuilder } from "../../builder/path-piece-builder/path-piece-builder";
 
 export abstract class PathBlueprintPiece {
   abstract reverse(): PathBlueprintPiece;
-
-  abstract build(builder: PathBuilder): void;
+  abstract getBuilder(): PathPieceBuilder;
 }

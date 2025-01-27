@@ -1,6 +1,6 @@
 import { PathBuilder } from "../builder/path-builder";
 import { FlexiLength } from "./../dimensions/flexi-length";
-import { Curved } from "./path-blueprint-piece/curved";
+import { Curve } from "./path-blueprint-piece/curve";
 import { PathBlueprintPiece } from "./path-blueprint-piece/path-blueprint-piece";
 import { Split } from "./path-blueprint-piece/split";
 import {
@@ -27,7 +27,7 @@ export class PathBlueprint {
 
   build(builder: PathBuilder) {
     for (const piece of this.pieces) {
-      piece.build(builder);
+      piece.getBuilder().build(builder);
     }
   }
 
@@ -40,7 +40,7 @@ export class PathBlueprint {
   }
 
   curve(radius: FlexiLength, angle: -90 | -45 | 45 | 90): PathBlueprint {
-    return this.add(new Curved(radius, angle));
+    return this.add(new Curve(radius, angle));
   }
 
   split({

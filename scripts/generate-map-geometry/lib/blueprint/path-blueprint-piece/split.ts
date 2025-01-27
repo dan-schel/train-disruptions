@@ -1,4 +1,5 @@
-import { PathBuilder } from "../../builder/path-builder";
+import { PathPieceBuilder } from "../../builder/path-piece-builder/path-piece-builder";
+import { SplitBuilder } from "../../builder/path-piece-builder/split-builder";
 import { PathBlueprint } from "../path-blueprint";
 import { PathBlueprintPiece } from "./path-blueprint-piece";
 
@@ -14,12 +15,7 @@ export class Split extends PathBlueprintPiece {
     return new Split(this.split.reverse(), !this.reversed);
   }
 
-  build(builder: PathBuilder): void {
-    builder.subpath((builder) => {
-      if (this.reversed) {
-        builder.addAngle(180);
-      }
-      this.split.build(builder);
-    });
+  getBuilder(): PathPieceBuilder {
+    return new SplitBuilder(this);
   }
 }
