@@ -2,6 +2,12 @@ import { DualPoint } from "../../../../components/map/renderer/dual-point";
 import { FlexiLength } from "./flexi-length";
 import { Point } from "./point";
 
+// TODO: I kinda hate that this is just a clone of DualPoint, with some extra
+// methods. But the reason it's this way is:
+//   - Keeps unnecessary logic out of DualPoint. DualPoint is in the client JS
+//     bundle, so I don't want to bloat it with logic that only the script needs.
+//   - FlexiLength kinda goes along with this class, but again, only the script
+//     needs it.
 export class FlexiPoint {
   constructor(
     readonly min: Point,

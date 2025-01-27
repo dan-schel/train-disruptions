@@ -1,20 +1,32 @@
 import { z } from "zod";
 
-type Viewport = {
-  readonly x: number;
-  readonly y: number;
-  readonly w: number;
-  readonly h: number;
-};
+export class Viewport {
+  constructor(
+    readonly x: number,
+    readonly y: number,
+    readonly w: number,
+    readonly h: number,
+  ) {}
 
-const viewportJson = z.object({
-  x: z.number(),
-  y: z.number(),
-  h: z.number(),
-  w: z.number(),
-});
+  static readonly json = z
+    .object({
+      x: z.number(),
+      y: z.number(),
+      h: z.number(),
+      w: z.number(),
+    })
+    .transform((x) => new Viewport(x.x, x.y, x.w, x.h));
 
-// TODO: Rename FlexiViewport?
+  toJSON(): z.input<typeof Viewport.json> {
+    return {
+      x: this.x,
+      y: this.y,
+      w: this.w,
+      h: this.h,
+    };
+  }
+}
+
 export class DualViewport {
   constructor(
     readonly min: Viewport,
@@ -32,8 +44,8 @@ export class DualViewport {
 
   static readonly json = z
     .object({
-      min: viewportJson,
-      max: viewportJson,
+      min: Viewport.json,
+      max: Viewport.json,
     })
     .transform((x) => new DualViewport(x.min, x.max));
 

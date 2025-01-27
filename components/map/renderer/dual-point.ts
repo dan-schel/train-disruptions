@@ -1,9 +1,6 @@
 import { nonNull, parseFloatNull } from "@dan-schel/js-utils";
 import { z } from "zod";
 
-// TODO: This is basically a copy of FlexiPoint. It's like that because I don't
-// want this one to have the addition/subtraction/etc. methods, because once the
-// Geometry is built by the script, we don't need those anymore.
 export class DualPoint {
   constructor(
     readonly minX: number,
