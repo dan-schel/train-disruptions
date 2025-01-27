@@ -8,11 +8,13 @@
 import fsp, { rm } from "fs/promises";
 import path from "path";
 import example from "./example";
+import ptv from "./ptv";
 
 const outDir = "./components/map/geometry";
 
 const geometry = {
   example,
+  ptv,
 };
 
 async function run() {

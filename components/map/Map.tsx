@@ -3,8 +3,8 @@ import { Renderer } from "./renderer/renderer";
 import { Geometry } from "./renderer/geometry";
 
 // To debug geometry without needing to re-run the generator:
-// import geometry from "../../scripts/generate-map-geometry/example";
-import geometryJson from "./geometry/example.json";
+// import geometry from "../../scripts/generate-map-geometry/ptv";
+import geometryJson from "./geometry/ptv.json";
 
 export function Map() {
   const containerRef = useRef<HTMLDivElement>(null);
