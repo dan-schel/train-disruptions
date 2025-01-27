@@ -14,7 +14,7 @@ const interchange = InterchangeBlueprint.simple(
   "right-edge",
 );
 
-export const line1 = new LineBlueprint({
+const line1 = new LineBlueprint({
   origin: fp([0, 0]),
   angle: 0,
   color: "cyan",
@@ -23,12 +23,18 @@ export const line1 = new LineBlueprint({
     .straight(flexi(45, 90))
     .station(interchange.point("line1"))
     .straight(flexi(5))
+    .split({
+      split: new PathBlueprint()
+        .curve(flexi(15), 45)
+        .straight(flexi(25, 50))
+        .terminus(),
+    })
     .curve(flexi(10), -45)
     .straight(flexi(45, 90))
     .terminus(),
 });
 
-export const line2 = new LineBlueprint({
+const line2 = new LineBlueprint({
   origin: fp([0, 5]),
   angle: 0,
   color: "purple",

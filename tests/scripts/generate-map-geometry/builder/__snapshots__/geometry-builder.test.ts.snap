@@ -1,4 +1,7 @@
-{
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`GeometryBuilder > builds the geometry as expected 1`] = `
+"{
   "lines": [
     {
       "color": "cyan",
@@ -56,4 +59,5 @@
       "h": 138.1370849898476
     }
   }
-}
+}"
+`;
