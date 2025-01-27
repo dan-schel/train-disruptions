@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef } from "react";
 import { Renderer } from "./renderer/renderer";
-import { BakedGeometry } from "./renderer/baked-geometry";
+import { Geometry } from "./renderer/geometry";
 
 // To debug geometry without needing to re-run the generator:
 // import geometry from "../../scripts/generate-map-geometry/ptv";
@@ -10,7 +10,7 @@ export function Map() {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  const geometry = useMemo(() => BakedGeometry.json.parse(geometryJson), []);
+  const geometry = useMemo(() => Geometry.json.parse(geometryJson), []);
 
   useEffect(() => {
     if (containerRef.current == null || canvasRef.current == null) {

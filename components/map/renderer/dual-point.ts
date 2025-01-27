@@ -1,7 +1,10 @@
 import { nonNull, parseFloatNull } from "@dan-schel/js-utils";
 import { z } from "zod";
 
-export class BakedPoint {
+// TODO: This is basically a copy of FlexiPoint. It's like that because I don't
+// want this one to have the addition/subtraction/etc. methods, because once the
+// Geometry is built by the script, we don't need those anymore.
+export class DualPoint {
   constructor(
     readonly minX: number,
     readonly minY: number,
@@ -34,11 +37,11 @@ export class BakedPoint {
       return null;
     }
 
-    return new BakedPoint(parsed[0], parsed[1], parsed[2], parsed[3]);
+    return new DualPoint(parsed[0], parsed[1], parsed[2], parsed[3]);
   }
 
   static readonly pathJson = z.string().transform((x, ctx) => {
-    const points = x.split(",").map((x) => BakedPoint.fromString(x));
+    const points = x.split(",").map((x) => DualPoint.fromString(x));
     const parsed = points.filter(nonNull);
 
     if (parsed.length !== points.length) {
@@ -53,8 +56,8 @@ export class BakedPoint {
   });
 
   static pathToJson(
-    path: readonly BakedPoint[],
-  ): z.input<typeof BakedPoint.pathJson> {
+    path: readonly DualPoint[],
+  ): z.input<typeof DualPoint.pathJson> {
     return path.map((x) => x.toString()).join(",");
   }
 }

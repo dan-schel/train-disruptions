@@ -14,7 +14,8 @@ const viewportJson = z.object({
   w: z.number(),
 });
 
-export class BakedViewport {
+// TODO: Rename FlexiViewport?
+export class DualViewport {
   constructor(
     readonly min: Viewport,
     readonly max: Viewport,
@@ -34,9 +35,9 @@ export class BakedViewport {
       min: viewportJson,
       max: viewportJson,
     })
-    .transform((x) => new BakedViewport(x.min, x.max));
+    .transform((x) => new DualViewport(x.min, x.max));
 
-  toJSON(): z.input<typeof BakedViewport.json> {
+  toJSON(): z.input<typeof DualViewport.json> {
     return {
       min: this.min,
       max: this.max,

@@ -1,6 +1,6 @@
-import { BakedGeometry } from "./baked-geometry";
-import { BakedInterchange } from "./baked-interchange";
-import { BakedPoint } from "./baked-point";
+import { Geometry } from "./geometry";
+import { Interchange } from "./interchange";
+import { DualPoint } from "./dual-point";
 import {
   interchangeBorderWidth,
   interchangeFillColor,
@@ -37,7 +37,7 @@ export class Renderer {
   constructor(
     private readonly _canvasContainer: HTMLDivElement,
     private readonly _canvas: HTMLCanvasElement,
-    private _geometry: BakedGeometry,
+    private _geometry: Geometry,
   ) {
     const ctx = this._canvas.getContext("2d");
     if (!ctx) {
@@ -129,7 +129,7 @@ export class Renderer {
     ctx.restore();
   }
 
-  private _renderInterchange(interchange: BakedInterchange) {
+  private _renderInterchange(interchange: Interchange) {
     // The grey "border".
     if (interchange.thinLine != null) {
       const line = interchange.thinLine;
@@ -154,7 +154,7 @@ export class Renderer {
   }
 
   private _renderLine(
-    points: readonly BakedPoint[],
+    points: readonly DualPoint[],
     lineWidth: number,
     color: string,
     lineCap: CanvasLineCap = "butt",

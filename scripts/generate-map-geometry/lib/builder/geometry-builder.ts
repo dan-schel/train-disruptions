@@ -1,22 +1,22 @@
 import { groupBy } from "@dan-schel/js-utils";
 import { LineBlueprint } from "../blueprint/line-blueprint";
-import { BakedGeometry } from "../../../../components/map/renderer/baked-geometry";
+import { Geometry } from "../../../../components/map/renderer/geometry";
 import { InterchangeBuilder } from "./interchange-builder";
 import { terminusExtents } from "../../../../components/map/renderer/utils";
-import { BakedLine } from "../../../../components/map/renderer/baked-line";
-import { BakedTerminus } from "../../../../components/map/renderer/baked-terminus";
-import { BakedViewport } from "../../../../components/map/renderer/baked-viewport";
+import { Line } from "../../../../components/map/renderer/line";
+import { Terminus } from "../../../../components/map/renderer/terminus";
+import { DualViewport } from "../../../../components/map/renderer/dual-viewport";
 
 export class GeometryBuilder {
   constructor() {}
 
-  build(lines: LineBlueprint[]): BakedGeometry {
+  build(lines: LineBlueprint[]): Geometry {
     const bakedPaths = lines.map((l) => l.bake());
 
     const bakedLines = bakedPaths.flatMap((l) =>
       l.paths.map(
         (p) =>
-          new BakedLine(
+          new Line(
             l.color,
             p.points.map((x) => x.bake()),
           ),
@@ -44,17 +44,17 @@ export class GeometryBuilder {
         p.locatedTermini.map((t) => {
           const pointA = t.point.move(terminusExtents, t.angle - 90).bake();
           const pointB = t.point.move(terminusExtents, t.angle + 90).bake();
-          return new BakedTerminus(l.color, [pointA, pointB]);
+          return new Terminus(l.color, [pointA, pointB]);
         }),
       ),
     );
 
     const viewport = this._buildViewport(bakedLines);
 
-    return new BakedGeometry(bakedLines, interchanges, termini, viewport);
+    return new Geometry(bakedLines, interchanges, termini, viewport);
   }
 
-  private _buildViewport(bakedLines: BakedLine[]): BakedViewport {
+  private _buildViewport(bakedLines: Line[]): DualViewport {
     const points = bakedLines.flatMap((l) => l.path);
 
     // Min amplification
@@ -81,6 +81,6 @@ export class GeometryBuilder {
       h: highestMaxY - lowestMaxY,
     };
 
-    return new BakedViewport(minViewport, maxViewport);
+    return new DualViewport(minViewport, maxViewport);
   }
 }

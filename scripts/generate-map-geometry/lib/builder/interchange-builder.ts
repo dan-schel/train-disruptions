@@ -1,5 +1,5 @@
-import { BakedInterchange } from "../../../../components/map/renderer/baked-interchange";
-import { BakedPoint } from "../../../../components/map/renderer/baked-point";
+import { Interchange } from "../../../../components/map/renderer/interchange";
+import { DualPoint } from "../../../../components/map/renderer/dual-point";
 import {
   interchangeEdgeOffset,
   interchangeInnerOffset,
@@ -38,7 +38,7 @@ export class InterchangeBuilder {
     }
   }
 
-  build(): BakedInterchange {
+  build(): Interchange {
     const thickLines = this._interchange.thickLines.map((segment) =>
       segment.map((pos) => this._point(pos)),
     );
@@ -46,10 +46,10 @@ export class InterchangeBuilder {
     const thinLine =
       this._interchange.thinLine?.map((pos) => this._point(pos)) ?? null;
 
-    return new BakedInterchange(thickLines, thinLine);
+    return new Interchange(thickLines, thinLine);
   }
 
-  _point(pointPosition: PointPosition): BakedPoint {
+  _point(pointPosition: PointPosition): DualPoint {
     const point = this._locatePoint(pointPosition.point);
 
     const offset = {

@@ -1,21 +1,21 @@
 import { z } from "zod";
-import { BakedPoint } from "./baked-point";
+import { DualPoint } from "./dual-point";
 import { LineColor, lineColors } from "./utils";
 
-export class BakedLine {
+export class Terminus {
   constructor(
     readonly color: LineColor,
-    readonly path: readonly BakedPoint[],
+    readonly path: readonly DualPoint[],
   ) {}
 
   static readonly json = z
     .object({
       color: z.enum(lineColors),
-      path: BakedPoint.pathJson,
+      path: DualPoint.pathJson,
     })
-    .transform((x) => new BakedLine(x.color, x.path));
+    .transform((x) => new Terminus(x.color, x.path));
 
-  toJSON(): z.input<typeof BakedLine.json> {
+  toJSON(): z.input<typeof Terminus.json> {
     return {
       color: this.color,
       path: this.path.map((x) => x.toString()).join(","),

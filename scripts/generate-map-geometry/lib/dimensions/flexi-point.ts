@@ -1,4 +1,4 @@
-import { BakedPoint } from "../../../../components/map/renderer/baked-point";
+import { DualPoint } from "../../../../components/map/renderer/dual-point";
 import { FlexiLength } from "./flexi-length";
 import { Point } from "./point";
 
@@ -47,8 +47,8 @@ export class FlexiPoint {
     );
   }
 
-  bake(): BakedPoint {
-    return new BakedPoint(this.min.x, this.min.y, this.max.x, this.max.y);
+  bake(): DualPoint {
+    return new DualPoint(this.min.x, this.min.y, this.max.x, this.max.y);
   }
 }
 
