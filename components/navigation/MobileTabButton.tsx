@@ -1,11 +1,11 @@
 import React from "react";
 import { Button } from "../core/Button";
-import { Row } from "../core/Row";
 import { Text } from "../core/Text";
 import { With } from "../core/With";
 import clsx from "clsx";
 import { NavTab } from "./utils";
 import { usePageContext } from "vike-react/usePageContext";
+import { Column } from "../core/Column";
 
 export type MobileTabButtonProps = {
   tab: NavTab;
@@ -16,15 +16,18 @@ export function MobileTabButton(props: MobileTabButtonProps) {
 
   return (
     <Button href={props.tab.path}>
-      <Row
+      <Column
         className={clsx(
-          "h-8 gap-2 bg-slate-200 px-4 group-hover:bg-slate-300 group-active:bg-slate-400",
+          "gap-2 py-2 group-hover:bg-slate-100 group-active:bg-slate-200",
         )}
         align="center"
+        justify="center"
       >
-        <With className="-ml-0.5 text-lg">{props.tab.icon}</With>
-        <Text>{props.tab.name}</Text>
-      </Row>
+        <With className="-ml-0.5 text-xl">{props.tab.icon}</With>
+        <Text style="small" oneLine>
+          {props.tab.name}
+        </Text>
+      </Column>
     </Button>
   );
 }

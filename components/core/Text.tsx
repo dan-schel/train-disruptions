@@ -22,6 +22,7 @@ const styles = {
   regular: "",
   title: "text-lg",
   weak: "text-sm text-gray-500",
+  small: "text-xs",
 };
 
 type Style =

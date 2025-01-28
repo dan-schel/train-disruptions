@@ -1,14 +1,12 @@
 import React from "react";
 import { PageCenterer } from "../common/PageCenterer";
 import { Text } from "../core/Text";
-import { getNavTabs, settings } from "./utils";
+import { admin, myCommute, overview, settings } from "./utils";
 import { Grid } from "../core/Grid";
 import { Row } from "../core/Row";
 import { DesktopTabButton } from "./DesktopTabButton";
 
 export const DesktopNavBar = () => {
-  const routes = getNavTabs({ includeAdmin: true });
-
   return (
     <nav className="fixed left-0 right-0 top-0 z-50 hidden border-b border-b-slate-200 bg-white md:block">
       <PageCenterer>
@@ -21,7 +19,7 @@ export const DesktopNavBar = () => {
             Is it buses?
           </Text>
           <Row>
-            {routes.map((route) => (
+            {[overview, myCommute, admin].map((route) => (
               <DesktopTabButton key={route.name} tab={route} />
             ))}
           </Row>
