@@ -10,7 +10,7 @@ export default function Page() {
     <PageCenterer>
       <PagePadding>
         <Column>
-          <Text>Settings</Text>
+          <Text style="title">Settings</Text>
         </Column>
       </PagePadding>
     </PageCenterer>

@@ -31,7 +31,10 @@ export function MobileTabButton(props: MobileTabButtonProps) {
         >
           {active ? props.tab.iconFill : props.tab.icon}
         </With>
-        <Text style={active ? "mobileNavBarActive" : "mobileNavBar"} oneLine>
+        <Text
+          style={active ? "mobile-nav-bar-active" : "mobile-nav-bar"}
+          oneLine
+        >
           {props.tab.name}
         </Text>
       </Column>

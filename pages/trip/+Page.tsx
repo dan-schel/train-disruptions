@@ -25,7 +25,7 @@ export default function Page() {
     <PageCenterer>
       <PagePadding>
         <Column className="gap-4">
-          <Text>Trip</Text>
+          <Text style="title">Trip</Text>
 
           {toStation && fromStation ? (
             <>

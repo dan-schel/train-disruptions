@@ -10,10 +10,8 @@ export default function Page() {
     <PageCenterer>
       <PagePadding>
         <Column className="gap-4" align="left">
-          <Text style="title">Is It Buses?</Text>
-          <Text style="custom" className="font-bold text-orange-700">
-            Maybe.
-          </Text>
+          <Text style="title">Is it buses?</Text>
+          <Text>Maybe. 🤷</Text>
           <SimpleButton href="/disruption/1" text="View a disruption" />
           <SimpleButton href="/line/17" text="Sunbury line" />
         </Column>

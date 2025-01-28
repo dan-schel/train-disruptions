@@ -18,12 +18,10 @@ const sizeScale = [
 ];
 
 const styles = {
-  // Mostly examples at this point - we'll add more to this as we go.
   regular: "",
-  title: "text-lg",
-  weak: "text-sm text-gray-500",
-  mobileNavBar: "text-xs",
-  mobileNavBarActive: "text-xs text-blue-800",
+  title: "text-2xl",
+  "mobile-nav-bar": "text-xs",
+  "mobile-nav-bar-active": "text-xs text-blue-800",
 };
 
 type Style =

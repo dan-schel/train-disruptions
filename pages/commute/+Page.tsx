@@ -11,7 +11,7 @@ export default function Page() {
     <PageCenterer>
       <PagePadding>
         <Column className="gap-4" align="left">
-          <Text>Commute</Text>
+          <Text style="title">Commute</Text>
           <SimpleButton href="/trip" text="Click here to go to Trips" />
         </Column>
       </PagePadding>

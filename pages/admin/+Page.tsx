@@ -10,7 +10,7 @@ export default function Page() {
     <PageCenterer>
       <PagePadding>
         <Column>
-          <Text>Admin</Text>
+          <Text style="title">Admin</Text>
         </Column>
       </PagePadding>
     </PageCenterer>

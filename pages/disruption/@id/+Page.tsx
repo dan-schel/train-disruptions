@@ -26,6 +26,7 @@ export default function Page() {
       <PageCenterer>
         <PagePadding>
           <Column className="gap-4">
+            <Text style="title">Disruption</Text>
             <Text>
               DisruptionID: {id} <em>(⬆ ID set in query string)</em>
             </Text>

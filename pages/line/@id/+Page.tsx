@@ -22,9 +22,14 @@ export default function Page() {
   return (
     <PageCenterer>
       <PagePadding>
-        <Column>
+        <Column className="gap-4">
           {line ? (
-            <Text>Is it buses on the {line.name} line</Text>
+            <>
+              <Text style="title">Is it buses...</Text>
+              <Text>
+                on the <b>{line.name}</b> line?
+              </Text>
+            </>
           ) : (
             <Text>We don&apos;t know about this line 😔</Text>
           )}
