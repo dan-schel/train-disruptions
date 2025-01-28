@@ -29,7 +29,7 @@ export function MobileTabButton(props: MobileTabButtonProps) {
             "bg-blue-100 text-blue-800": active,
           })}
         >
-          {props.tab.icon}
+          {active ? props.tab.iconFill : props.tab.icon}
         </With>
         <Text style={active ? "mobileNavBarActive" : "mobileNavBar"} oneLine>
           {props.tab.name}
