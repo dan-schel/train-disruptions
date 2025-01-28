@@ -13,12 +13,14 @@ export type DesktopTabButtonProps = {
 
 export function DesktopTabButton(props: DesktopTabButtonProps) {
   const { urlPathname } = usePageContext();
+  const active = props.tab.active(urlPathname);
 
   return (
     <Button href={props.tab.path}>
       <Row
         className={clsx(
-          "h-8 gap-2 bg-slate-200 px-4 group-hover:bg-slate-300 group-active:bg-slate-400",
+          "h-12 gap-2 border-y-2 border-transparent px-4 group-hover:bg-slate-100 group-active:bg-slate-200",
+          { "border-b-blue-800": active },
         )}
         align="center"
       >
