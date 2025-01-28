@@ -5,20 +5,22 @@ import React from "react";
 import { Header } from "../components/navigation/Header";
 import { DesktopNavBar } from "../components/navigation/DesktopNavBar";
 import { MobileNavBar } from "../components/navigation/MobileNavBar";
+import { Column } from "../components/core/Column";
+import { With } from "../components/core/With";
 
 export default function LayoutDefault({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactElement;
 }) {
   return (
-    <div className="flex h-screen flex-col items-center justify-between lg:justify-start">
+    <Column className="min-h-screen">
       <DesktopNavBar />
       <MobileNavBar />
-      <div className="grid w-full">
-        <Header />
+      <Header />
+      <With flexGrow="1" className="pb-16 md:pb-0 md:pt-12">
         {children}
-      </div>
-    </div>
+      </With>
+    </Column>
   );
 }

@@ -19,7 +19,7 @@ export function MobileTabButton(props: MobileTabButtonProps) {
     <Button href={props.tab.path}>
       <Column
         className={clsx(
-          "gap-1 py-4 group-hover:bg-slate-100 group-active:bg-slate-200",
+          "h-16 gap-1 group-hover:bg-slate-100 group-active:bg-slate-200",
         )}
         align="center"
         justify="center"
