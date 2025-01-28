@@ -7,6 +7,7 @@ import { Row } from "../../components/core/Row";
 import { Text } from "../../components/core/Text";
 import { Column } from "../../components/core/Column";
 import { PageCenterer } from "../../components/common/PageCenterer";
+import { SimpleButton } from "../../components/common/SimpleButton";
 
 /**
  * TODO: Handle scenarios where the query string doesn't correspond to a station.
@@ -63,9 +64,7 @@ export default function Page() {
               </select>
             </Row>
 
-            <button type="submit" className="border border-black p-1">
-              <Text align="center">Go!</Text>
-            </button>
+            <SimpleButton submit text="Go!" />
           </form>
         )}
       </Column>

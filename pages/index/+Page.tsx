@@ -1,10 +1,9 @@
 import React from "react";
 
 import { Text } from "../../components/core/Text";
-import { With } from "../../components/core/With";
-import { Button } from "../../components/core/Button";
 import { Spacer } from "../../components/core/Spacer";
 import { Column } from "../../components/core/Column";
+import { SimpleButton } from "../../components/common/SimpleButton";
 
 export default function Page() {
   return (
@@ -14,16 +13,8 @@ export default function Page() {
         Maybe.
       </Text>
       <Spacer h="96" />
-      <Button href="/disruption/1">
-        <With className="border border-black p-4">
-          <Text>View A Disruption</Text>
-        </With>
-      </Button>
-      <Button href="/line/17">
-        <With className="border border-black p-4">
-          <Text>Sunbury Line</Text>
-        </With>
-      </Button>
+      <SimpleButton href="/disruption/1" text="View a disruption" />
+      <SimpleButton href="/line/17" text="Sunbury line" />
     </Column>
   );
 }
