@@ -3,7 +3,8 @@ import "./tailwind.css";
 import React from "react";
 
 import { Header } from "../components/navigation/Header";
-import { NavBar } from "../components/navigation/NavBar";
+import { DesktopNavBar } from "../components/navigation/DesktopNavBar";
+import { MobileNavBar } from "../components/navigation/MobileNavBar";
 
 export default function LayoutDefault({
   children,
@@ -12,11 +13,12 @@ export default function LayoutDefault({
 }) {
   return (
     <div className="flex h-screen flex-col items-center justify-between lg:justify-start">
+      <DesktopNavBar />
+      <MobileNavBar />
       <div className="grid w-full">
         <Header />
         {children}
       </div>
-      <NavBar />
     </div>
   );
 }
