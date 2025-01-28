@@ -3,6 +3,9 @@ import { OnBeforeRenderAsync } from "vike/types";
 import { lines } from "../server/data/lines";
 import { stations } from "../server/data/stations";
 
+// TODO: [DS] Using new <BackNavigation /> component, I think most of this can
+// be removed.
+
 const MAIN_TABS = ["/", "/commute", "/admin", "/settings"];
 
 export const onBeforeRender: OnBeforeRenderAsync = async (

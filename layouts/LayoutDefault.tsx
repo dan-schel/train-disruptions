@@ -2,7 +2,6 @@ import "./tailwind.css";
 
 import React from "react";
 
-import { Header } from "../components/navigation/Header";
 import { DesktopNavBar } from "../components/navigation/DesktopNavBar";
 import { MobileNavBar } from "../components/navigation/MobileNavBar";
 import { Column } from "../components/core/Column";
@@ -17,7 +16,6 @@ export default function LayoutDefault({
     <Column className="min-h-screen">
       <DesktopNavBar />
       <MobileNavBar />
-      <Header />
       <With flexGrow="1" className="pb-16 md:pb-0 md:pt-12">
         {children}
       </With>

@@ -6,6 +6,7 @@ import { Data } from "./+data";
 import { Text } from "../../../components/core/Text";
 import { Column } from "../../../components/core/Column";
 import { PageCenterer } from "../../../components/common/PageCenterer";
+import { PagePadding } from "../../../components/common/PagePadding";
 
 /**
  * TODO: Handle scenarios where the provided id doesn't correspond to a line.
@@ -20,13 +21,15 @@ export default function Page() {
 
   return (
     <PageCenterer>
-      <Column className="p-4">
-        {line ? (
-          <Text>Is it buses on the {line.name} line</Text>
-        ) : (
-          <Text>We don&apos;t know about this line 😔</Text>
-        )}
-      </Column>
+      <PagePadding>
+        <Column>
+          {line ? (
+            <Text>Is it buses on the {line.name} line</Text>
+          ) : (
+            <Text>We don&apos;t know about this line 😔</Text>
+          )}
+        </Column>
+      </PagePadding>
     </PageCenterer>
   );
 }

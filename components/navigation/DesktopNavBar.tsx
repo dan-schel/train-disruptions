@@ -7,7 +7,7 @@ import { Row } from "../core/Row";
 import { DesktopTabButton } from "./DesktopTabButton";
 import { Favicon } from "../icons/Favicon";
 
-export const DesktopNavBar = () => {
+export function DesktopNavBar() {
   return (
     <nav className="fixed left-0 right-0 top-0 z-50 hidden border-b border-b-slate-200 bg-white md:block">
       <PageCenterer>
@@ -28,4 +28,4 @@ export const DesktopNavBar = () => {
       </PageCenterer>
     </nav>
   );
-};
+}
