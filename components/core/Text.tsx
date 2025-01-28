@@ -1,6 +1,22 @@
 import React from "react";
 import clsx from "clsx";
 
+const sizeScale = [
+  "xs",
+  "sm",
+  "base",
+  "lg",
+  "xl",
+  "2xl",
+  "3xl",
+  "4xl",
+  "5xl",
+  "6xl",
+  "7xl",
+  "8xl",
+  "9xl",
+];
+
 const styles = {
   // Mostly examples at this point - we'll add more to this as we go.
   regular: "",
@@ -44,12 +60,35 @@ export function Text(props: TextProps) {
   }[props.align ?? "left"];
 
   if (props.oneLine) {
+    const { sizeStyles, otherStyles } = extractTextSizeStyles(style);
+
     return (
-      <div className="_one-line">
-        <Tag className={clsx(style, align, "_text")}>{props.children}</Tag>
+      <div className={clsx("_one-line", sizeStyles)}>
+        <Tag className={clsx(otherStyles, align, "_text")}>
+          {props.children}
+        </Tag>
       </div>
     );
   } else {
     return <Tag className={clsx(style, align, "_text")}>{props.children}</Tag>;
   }
+}
+
+function extractTextSizeStyles(className: string) {
+  const classes = className.split(" ");
+  const sizeStyles: string[] = [];
+  const otherStyles: string[] = [];
+
+  for (const c of classes) {
+    if (sizeScale.some((s) => c === `text-${s}`) || c.startsWith("text-[")) {
+      sizeStyles.push(c);
+    } else {
+      otherStyles.push(c);
+    }
+  }
+
+  return {
+    sizeStyles: sizeStyles.join(" "),
+    otherStyles: otherStyles.join(" "),
+  };
 }
