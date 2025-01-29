@@ -10,7 +10,7 @@
     "format-check": "prettier --check ."
   },
   "dependencies": {
-    "@dan-schel/js-utils": "^3.2.2",
+    "@dan-schel/js-utils": "^3.3.0",
     "@universal-middleware/core": "^0.2.13",
     "@universal-middleware/express": "^0.2.9",
     "@vitejs/plugin-react": "^4.3.3",
