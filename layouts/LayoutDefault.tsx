@@ -10,8 +10,12 @@ import { With } from "../components/core/With";
 export default function LayoutDefault({
   children,
 }: {
-  children: React.ReactElement;
+  children: React.ReactNode;
 }) {
+  if (!isReactElement(children)) {
+    throw new Error("Layout expects one child.");
+  }
+
   return (
     <Column className="min-h-screen">
       <DesktopNavBar />
@@ -20,5 +24,15 @@ export default function LayoutDefault({
         {children}
       </With>
     </Column>
+  );
+}
+
+function isReactElement(node: React.ReactNode): node is React.ReactElement {
+  return (
+    typeof node === "object" &&
+    node !== null &&
+    "type" in node &&
+    "props" in node &&
+    "key" in node
   );
 }
