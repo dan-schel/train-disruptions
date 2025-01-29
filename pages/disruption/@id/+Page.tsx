@@ -4,6 +4,7 @@ import { usePageContext } from "vike-react/usePageContext";
 import { Text } from "../../../components/core/Text";
 import { Column } from "../../../components/core/Column";
 import { PageCenterer } from "../../../components/common/PageCenterer";
+import { Calendar } from "../../../components/calendar/Calendar";
 
 /**
  * TODO: Handle scenarios where the provided id doesn't correspond to a disruption.
@@ -20,10 +21,21 @@ export default function Page() {
 
   return (
     <PageCenterer>
-      <Column className="gap-4 p-4">
+      <Column className="gap-4 p-6">
         <Text>
           DisruptionID: {id} <em>(⬆ ID set in query string)</em>
         </Text>
+
+        <Calendar
+          disruptions={[
+            {
+              from: new Date("2025-02-28T18:00:00Z"),
+              to: new Date("2025-03-02T16:00:00Z"),
+              evenings: false,
+            },
+          ]}
+          glance
+        />
       </Column>
     </PageCenterer>
   );
