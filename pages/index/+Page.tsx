@@ -20,7 +20,7 @@ export default function Page() {
           <With className="rounded-md border border-slate-200">
             <Map />
           </With>
-          <Spacer h="4" />
+          <Spacer h="8" />
           <Column className="gap-4" align="left">
             <SimpleButton href="/disruption/1" text="View a disruption" />
             <SimpleButton href="/line/17" text="Sunbury line" />
