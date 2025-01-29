@@ -17,13 +17,7 @@ export function MobileTabButton(props: MobileTabButtonProps) {
 
   return (
     <Button href={props.tab.path}>
-      <Column
-        className={clsx(
-          "h-16 gap-1 group-hover:bg-slate-100 group-active:bg-slate-200",
-        )}
-        align="center"
-        justify="center"
-      >
+      <Column className={clsx("h-16 gap-1")} align="center" justify="center">
         <With
           className={clsx("-mt-1 rounded-full px-4 py-1 text-xl", {
             "bg-blue-100 text-blue-800": active,

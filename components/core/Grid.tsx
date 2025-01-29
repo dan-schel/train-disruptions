@@ -2,6 +2,7 @@ import React from "react";
 import clsx from "clsx";
 
 export type GridProps = {
+  as?: "div" | "form" | "section" | "main" | "nav";
   children: React.ReactNode;
   className?: string;
   columns?: string;
@@ -20,6 +21,8 @@ export type GridProps = {
  * ([More info](https://github.com/dan-schel/train-disruptions/blob/master/docs/ui-conventions.md))
  */
 export function Grid(props: GridProps) {
+  const Tag = props.as ?? "div";
+
   const align = {
     top: "items-start",
     center: "items-center",
@@ -40,7 +43,7 @@ export function Grid(props: GridProps) {
     .join(" ");
 
   return (
-    <div
+    <Tag
       className={clsx(`grid`, props.className, align, justify)}
       style={{
         gridTemplateColumns: props.columns,
@@ -49,6 +52,6 @@ export function Grid(props: GridProps) {
       }}
     >
       {props.children}
-    </div>
+    </Tag>
   );
 }
