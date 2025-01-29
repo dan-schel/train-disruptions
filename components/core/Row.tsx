@@ -2,7 +2,7 @@ import React from "react";
 import clsx from "clsx";
 
 export type RowProps = {
-  as?: "div" | "form" | "section" | "main" | "nav";
+  as?: "div" | "form" | "section" | "main" | "nav" | "header" | "footer";
   children: React.ReactNode;
   className?: string;
   align?: "stretch" | "top" | "center" | "bottom";

@@ -8,7 +8,6 @@ import { PagePadding } from "../../components/common/PagePadding";
 import { BackNavigation } from "../../components/navigation/BackNavigation";
 import { Station } from "../../server/data/station";
 import { Spacer } from "../../components/core/Spacer";
-import { MingcuteArrowRightCircleLine } from "../../components/icons/MingcuteArrowRightCircleLine";
 import { MingcuteSearch2Line } from "../../components/icons/MingcureSearch2Line";
 
 export type ChooseTripPageProps = {
