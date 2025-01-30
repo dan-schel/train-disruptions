@@ -2,6 +2,7 @@ import React from "react";
 import clsx from "clsx";
 
 export type RowProps = {
+  as?: "div" | "form" | "section" | "main" | "nav" | "header" | "footer";
   children: React.ReactNode;
   className?: string;
   align?: "stretch" | "top" | "center" | "bottom";
@@ -17,6 +18,8 @@ export type RowProps = {
  * ([More info](https://github.com/dan-schel/train-disruptions/blob/master/docs/ui-conventions.md))
  */
 export function Row(props: RowProps) {
+  const Tag = props.as ?? "div";
+
   const align = {
     top: "items-start",
     center: "items-center",
@@ -32,8 +35,8 @@ export function Row(props: RowProps) {
   }[props.justify ?? "left"];
 
   return (
-    <div className={clsx("flex flex-row", justify, align, props.className)}>
+    <Tag className={clsx("flex flex-row", justify, align, props.className)}>
       {props.children}
-    </div>
+    </Tag>
   );
 }

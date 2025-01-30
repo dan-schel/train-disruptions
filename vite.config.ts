@@ -38,10 +38,10 @@ const pwaConfig: Partial<VitePWAOptions> = {
 
     // Acts as a default value for 'theme-color' if not set in the HTML.
     // Probably not needed in our case?
-    theme_color: "#202020",
+    theme_color: "#ffffff",
 
     // Splash screen background color.
-    background_color: "#FFFFFF",
+    background_color: "#ffffff",
 
     // Icons generated using https://favicon.inbrowser.app/tools/favicon-generator.
     icons: [

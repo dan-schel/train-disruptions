@@ -2,21 +2,37 @@ import "./tailwind.css";
 
 import React from "react";
 
-import { Header } from "../components/navigation/Header";
-import { NavBar } from "../components/navigation/NavBar";
+import { DesktopNavBar } from "../components/navigation/DesktopNavBar";
+import { MobileNavBar } from "../components/navigation/MobileNavBar";
+import { Column } from "../components/core/Column";
+import { With } from "../components/core/With";
 
 export default function LayoutDefault({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  if (!isReactElement(children)) {
+    throw new Error("Layout expects one child.");
+  }
+
   return (
-    <div className="flex h-screen flex-col items-center justify-between lg:justify-start">
-      <div className="grid w-full">
-        <Header />
+    <Column className="min-h-screen">
+      <DesktopNavBar />
+      <MobileNavBar />
+      <With flexGrow="1" className="pb-16 md:pb-0 md:pt-12">
         {children}
-      </div>
-      <NavBar />
-    </div>
+      </With>
+    </Column>
+  );
+}
+
+function isReactElement(node: React.ReactNode): node is React.ReactElement {
+  return (
+    typeof node === "object" &&
+    node !== null &&
+    "type" in node &&
+    "props" in node &&
+    "key" in node
   );
 }

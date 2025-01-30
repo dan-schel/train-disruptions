@@ -1,23 +1,20 @@
 import React from "react";
 
 import { Text } from "../../components/core/Text";
-import { With } from "../../components/core/With";
-import { Button } from "../../components/core/Button";
 import { Column } from "../../components/core/Column";
 import { PageCenterer } from "../../components/common/PageCenterer";
+import { SimpleButton } from "../../components/common/SimpleButton";
+import { PagePadding } from "../../components/common/PagePadding";
 
 export default function Page() {
   return (
     <PageCenterer>
-      <Column className="gap-4 p-4">
-        <Text>Commute</Text>
-
-        <Button href="/trip">
-          <With className="border border-black p-4">
-            <Text>Click here to go to Trips</Text>
-          </With>
-        </Button>
-      </Column>
+      <PagePadding>
+        <Column className="gap-4" align="left">
+          <Text style="title">Commute</Text>
+          <SimpleButton href="/trip" text="Click here to go to Trips" />
+        </Column>
+      </PagePadding>
     </PageCenterer>
   );
 }
