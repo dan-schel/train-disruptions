@@ -2,14 +2,19 @@ import React from "react";
 
 // TODO: Codify routes rather than allowing any string.
 export type Action =
-  | { onClick: () => void; href?: undefined; submit?: boolean }
-  | { onClick?: undefined; href: string; submit?: undefined };
+  | { onClick: () => void; href?: undefined; submit?: undefined }
+  | { onClick?: undefined; href: string; submit?: undefined }
+  | { onClick?: undefined; href?: undefined; submit: true };
 
 export function extractAction(props: Action): Action {
   if (props.onClick != null) {
-    return { onClick: props.onClick, submit: props.submit };
-  } else {
+    return { onClick: props.onClick };
+  } else if (props.href != null) {
     return { href: props.href };
+  } else if (props.submit === true) {
+    return { submit: true };
+  } else {
+    throw new Error("Invalid action");
   }
 }
 
@@ -29,7 +34,7 @@ export type ButtonProps = {
  * ([More info](https://github.com/dan-schel/train-disruptions/blob/master/docs/ui-conventions.md))
  */
 export function Button(props: ButtonProps) {
-  if (props.onClick != null) {
+  if (props.onClick != null || props.submit) {
     const type = props.submit === true ? "submit" : "button";
     return (
       <button
