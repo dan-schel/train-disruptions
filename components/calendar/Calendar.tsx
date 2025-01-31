@@ -1,30 +1,21 @@
-import React from "react";
 import clsx from "clsx";
-import {
-  addDays,
-  differenceInCalendarDays,
-  eachMonthOfInterval,
-  format,
-  getDaysInMonth,
-  isToday,
-} from "date-fns";
-
-import { Grid } from "../core/Grid";
-import { Column } from "../core/Column";
-import { Text } from "../core/Text";
-import { daysInWeek } from "date-fns/constants";
+import React from "react";
 import { range } from "@dan-schel/js-utils";
+import { addDays, format, isThisWeek, isToday } from "date-fns";
+
 import { Row } from "../core/Row";
+import { Grid } from "../core/Grid";
+import { Text } from "../core/Text";
+import { Column } from "../core/Column";
 import {
-  maxDates,
   disruption,
   column,
   isInitial,
-  getRange,
   isThereDisruption,
+  getMonthsToRender,
 } from "./utils";
 
-// Dumbed down version for debugging
+// TODO: Dumbed down version for debugging, would need to be changed to what's stored on the database
 export type Disruption = {
   from: Date;
   to: Date;
@@ -32,68 +23,65 @@ export type Disruption = {
 };
 
 type Props = {
-  disruptions: Disruption[];
-  glance?: boolean; // Look up to the next 4 weeks
+  disruptions: Disruption | Disruption[];
 };
 
-export function Calendar(props: Props) {
-  const { startDate, endDate } = getRange(props.disruptions);
-  const datesToRender = props.glance
-    ? maxDates - startDate.getDay()
-    : differenceInCalendarDays(endDate, startDate) + // Get days to between the two dates
-      (daysInWeek - endDate.getDay()); // Pad with additional dates to fill out the rest of the row
-
-  const months = eachMonthOfInterval({
-    start: startDate,
-    end: props.glance ? addDays(startDate, datesToRender) : endDate,
-  })
-    .map((date, i) => {
-      return {
-        start: isInitial(i) ? startDate : date,
-        days:
-          getDaysInMonth(date) - (isInitial(i) ? startDate.getDate() - 1 : 0), // Gets days in the month, removes dates in the past
-      };
-    })
-    .map((x, i, a) => ({
-      ...x,
-      days: Math.min(
-        x.days,
-        datesToRender -
-          a.slice(0, i).reduce((prev, curr) => prev + curr.days, 0), // Dates consumed by the previous months
-      ),
-    }));
-
+/**
+ * React component to render disruptions in a calendar view.
+ *
+ * Accepts a `disruption` object or array of `disruptions`.
+ *
+ * An object should be provided if you want to only render calendar weeks in which a disruption is active.
+ * _Useful for viewing a specific disruption_
+ *
+ * An array should be provided if you want to render disruptions across a period of 4 weeks from the current date (upto 28 days).
+ * _Useful for having an overview for a specific line/trip_
+ */
+export function Calendar({ disruptions }: Props) {
   return (
-    <>
-      <Column className="gap-4">
-        {months.map(({ start, days }, i) => (
-          <Column key={i} className="gap-1">
-            {/* Month Year */}
-            <Text align="center" style="custom" className="text-sm">
-              {format(start, "MMMM yyyy")}
-            </Text>
+    <Column className="gap-4">
+      {getMonthsToRender(disruptions).map(({ start, days }, i) => (
+        <Column key={i} className="gap-2">
+          {/* Month Year */}
+          <Text align="center" style="custom" className="text-sm lg:text-base">
+            {format(start, "MMMM yyyy")}
+          </Text>
 
+          <Column className="gap-1">
             {/* Today indicator */}
-            {isToday(start) && (
-              <Grid
-                columns="repeat(7, minmax(0, 1fr))"
-                className="w-full gap-1"
-              >
-                <div
-                  className={clsx("relative grid bg-black py-1", column(start))}
-                >
-                  <Text
-                    oneLine
-                    style="custom"
-                    className="text-xs font-medium text-white"
-                    align="center"
+            {isThisWeek(start) &&
+              range(0, days).map((day) =>
+                isToday(addDays(start, day)) ? (
+                  <Grid
+                    key={"today"}
+                    columns="repeat(7, minmax(0, 1fr))"
+                    className="w-full gap-1"
                   >
-                    TODAY
-                  </Text>
-                  <div className="absolute -bottom-2 h-0 w-0 place-self-center border-l-[8px] border-r-[8px] border-t-[8px] border-l-transparent border-r-transparent border-t-black" />
-                </div>
-              </Grid>
-            )}
+                    <div
+                      className={clsx(
+                        "relative z-10 grid bg-black py-1",
+                        column(addDays(start, day)),
+                      )}
+                    >
+                      <Text
+                        oneLine
+                        style="custom"
+                        className="text-xs font-medium text-white max-xs:text-[10px] lg:text-base"
+                        align="center"
+                      >
+                        TODAY
+                      </Text>
+
+                      {/* Triangle */}
+                      <div
+                        className={
+                          "absolute -bottom-2 -z-10 size-4 rotate-45 place-self-center bg-black lg:-bottom-3 lg:size-6"
+                        }
+                      />
+                    </div>
+                  </Grid>
+                ) : null,
+              )}
 
             {/* Calendar */}
             <Grid columns="repeat(7, minmax(0, 1fr))" className="w-full gap-1">
@@ -101,9 +89,9 @@ export function Calendar(props: Props) {
                 <div
                   key={day}
                   className={clsx(
-                    "grid h-8 items-center justify-center",
+                    "grid h-8 items-center justify-center lg:h-12",
                     isInitial(day) && column(start),
-                    isThereDisruption(addDays(start, day), props.disruptions),
+                    isThereDisruption(addDays(start, day), disruptions),
                   )}
                 >
                   {addDays(start, day).getDate()}
@@ -111,30 +99,30 @@ export function Calendar(props: Props) {
               ))}
             </Grid>
           </Column>
-        ))}
+        </Column>
+      ))}
 
-        {/* Legends */}
-        <Row className="gap-4">
-          <div className="flex items-center gap-2">
-            <div className={clsx("size-4", disruption["buses"])} />
-            <Text oneLine style="custom" className="text-xs">
-              All day
-            </Text>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className={clsx("size-4", disruption["night"])} />
-            <Text oneLine style="custom" className="text-xs">
-              Evening only
-            </Text>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className={clsx("size-4", disruption["trains"])} />
-            <Text oneLine style="custom" className="text-xs">
-              Trains
-            </Text>
-          </div>
-        </Row>
-      </Column>
-    </>
+      {/* Legends */}
+      <Row className="gap-4">
+        <div className="flex items-center gap-2">
+          <div className={clsx("size-4 lg:size-6", disruption["buses"])} />
+          <Text oneLine style="custom" className="text-xs lg:text-sm">
+            All day
+          </Text>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className={clsx("size-4 lg:size-6", disruption["night"])} />
+          <Text oneLine style="custom" className="text-xs lg:text-sm">
+            Evening only
+          </Text>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className={clsx("size-4 lg:size-6", disruption["trains"])} />
+          <Text oneLine style="custom" className="text-xs lg:text-sm">
+            Trains
+          </Text>
+        </div>
+      </Row>
+    </Column>
   );
 }

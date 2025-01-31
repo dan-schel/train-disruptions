@@ -55,6 +55,7 @@ export default {
     // Same as default Tailwind breakpoints, but defined in rem units.
     // Note: This is fixed in Tailwind 4.0, so we can remove it then!
     screens: {
+      xs: "21.875rem",
       sm: "40rem",
       md: "48rem",
       lg: "64rem",
