@@ -1,7 +1,8 @@
-import { daysInWeek } from "date-fns/constants";
 import { Disruption } from "./Calendar";
+import { daysInWeek } from "date-fns/constants";
 import {
   addDays,
+  clamp,
   differenceInCalendarDays,
   eachMonthOfInterval,
   endOfDay,
@@ -43,7 +44,9 @@ const getRange = (disruptions: Disruption | Disruption[]) => {
   const toDates = isArray ? disruptions.map((d) => d.to) : [disruptions.to];
 
   const fromDates = isArray
-    ? disruptions.map((d) => d.from).concat(new Date())
+    ? disruptions
+        .map((d) => clamp(d.from, { start: new Date(), end: d.to }))
+        .concat(new Date())
     : [disruptions.from];
 
   return { startDate: min(fromDates), endDate: max(toDates) };

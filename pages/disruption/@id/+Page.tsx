@@ -18,7 +18,7 @@ import { Calendar } from "../../../components/calendar/Calendar";
 
 export default function Page() {
   const disruption = {
-    from: new Date("2025-02-13T09:40:00Z"),
+    from: new Date("2025-01-29T09:40:00Z"),
     // A lot of disruptions sourced from PTV mark disruptions as ending at 3am the following day,
     // so we'll need to do some manipulating to make sure the days are correct
     to: new Date("2025-02-18T12:00:00Z"),
