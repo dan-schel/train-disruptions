@@ -2,6 +2,9 @@
 
 For this project we are using [ExpressJS](https://expressjs.com/) for our API server.
 
+<!-- Table of contents created using "Markdown All in One" VSCode extension. -->
+<!-- Command palette: "> Markdown All in One: Update Table of Contents" -->
+
 ## Contents <!-- omit in toc -->
 
 - [Routing](#routing)
