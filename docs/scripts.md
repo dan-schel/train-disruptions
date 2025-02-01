@@ -31,3 +31,11 @@ Runs the server in production-mode (i.e. without hot-reloading and with `NODE_EN
 ```
 npm run build && npm run start
 ```
+
+## Regenerate map geometry
+
+Regenerates the geometry `*.json` files used by the `<Map>` component. Required after any code changes within `scripts/generate-map-geometry`.
+
+```
+npx tsx scripts/generate-map-geometry/index.ts
+```
