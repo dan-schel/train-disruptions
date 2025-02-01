@@ -10,7 +10,9 @@ export class AlertModel extends DatabaseModel<
   static instance = new AlertModel();
 
   private static schema = z.object({
+    // Entirely calculated from other fields, but included for ease of querying.
     state: z.enum(["new", "processed", "ignored", "updated"]),
+
     data: AlertData.bson,
     updatedData: AlertData.bson.nullable(),
     appearedAt: z.date(),
@@ -30,7 +32,8 @@ export class AlertModel extends DatabaseModel<
 
   serialize(item: Alert): z.input<typeof AlertModel.schema> {
     return {
-      state: item.state,
+      state: item.getState(),
+
       data: item.data.toBson(),
       updatedData: item.updatedData?.toBson() ?? null,
       appearedAt: item.appearedAt,
@@ -45,7 +48,6 @@ export class AlertModel extends DatabaseModel<
     const parsed = AlertModel.schema.parse(item);
     return new Alert(
       id,
-      parsed.state,
       parsed.data,
       parsed.updatedData,
       parsed.appearedAt,

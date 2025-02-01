@@ -37,6 +37,8 @@ export class DisruptionModel extends DatabaseModel<
     return {
       data: item.data.toBson(),
       sourceAlertIds: item.sourceAlertIds,
+      // TODO: There's probably other (computed) fields we could add to make
+      // queries more efficient, e.g. the date range, or the affected lines.
     };
   }
 

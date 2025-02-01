@@ -10,7 +10,6 @@ import { z } from "zod";
 export class Alert {
   constructor(
     readonly id: string,
-    readonly state: "new" | "processed" | "ignored" | "updated",
     readonly data: AlertData,
     readonly updatedData: AlertData | null,
     readonly appearedAt: Date,
@@ -18,7 +17,37 @@ export class Alert {
     readonly updatedAt: Date | null,
     readonly ignoreFutureUpdates: boolean,
     readonly deleteAt: Date | null,
-  ) {}
+  ) {
+    if ((this.updatedAt == null) !== (this.updatedData == null)) {
+      throw new Error(
+        "Cannot have one of updatedAt or updatedData be null/set without the other.",
+      );
+    }
+    if (this.processedAt == null) {
+      if (this.updatedData != null) {
+        throw new Error(
+          "Cannot have updatedData set without processedAt being set.",
+        );
+      }
+      if (this.ignoreFutureUpdates) {
+        throw new Error(
+          "Cannot have ignoreFutureUpdates set without processedAt being set.",
+        );
+      }
+    }
+  }
+
+  getState() {
+    if (this.processedAt === null) {
+      return "new";
+    } else if (this.ignoreFutureUpdates) {
+      return "ignored";
+    } else if (this.updatedData !== null) {
+      return "updated";
+    } else {
+      return "processed";
+    }
+  }
 }
 
 /**
