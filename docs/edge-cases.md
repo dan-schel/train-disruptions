@@ -28,6 +28,14 @@ If only the Albury line was affected (e.g. from Broadmeadows to Southern Cross),
 
 **Solution:** We need a way to show partial suspensions/bus replacements. Likely with a way to display custom text. Ideally the map would show a dotted line or something to indicate a partial disruption.
 
+## Branching lines
+
+🔴 Solution required for Day 1
+
+If buses replace all trains beyond Ballarat, there's no way to fit that into a "between X and Y" sentence. It would be between "Ballarat, Ararat, **_and_** Maryborough". How should we represent that?
+
+**Solution:** As two separate disruptions? One for Ballarat to Ararat, and another for Ballarat to Maryborough? 😢
+
 ## The Metro Tunnel
 
 🟠 Solution required relatively soon
@@ -48,7 +56,17 @@ For example, if Sunbury line trains are not running from Sunshine to the city, S
 
 **Solution:** If we handle commutes across lines in the future (i.e. we don't require people to select two stations on the same line), our route finding algorithm will need to know when regional trains are off the table.
 
-## Burnley Interchanges
+## North Melbourne regional lines split
+
+🟡 Low impact
+
+Every section on the `<Map>` can be uniquely identified by a pair of station IDs and a line group... except for Southern Cross to North Melbourne, where the regional line splits _before_ reaching North Melbourne! How can we identify one line without the other.
+
+If this problem doesn't have a neat solution, it won't be so bad if the highlight doesn't handle the split perfectly correctly I guess!
+
+**Solution:** TBD?
+
+## Interchanging at Burnley
 
 🟢 Non-issue
 
