@@ -1,4 +1,25 @@
-# Querying the database
+# Querying the database <!-- omit in toc -->
+
+<!-- Table of contents created using "Markdown All in One" VSCode extension. -->
+<!-- Command palette: "> Markdown All in One: Update Table of Contents" -->
+
+## Contents <!-- omit in toc -->
+
+- [Introduction](#introduction)
+- [Creating a new record](#creating-a-new-record)
+- [Retrieve record by ID](#retrieve-record-by-id)
+- [Update a record](#update-a-record)
+- [Delete a record](#delete-a-record)
+- [Counting records](#counting-records)
+- [Searching with conditions](#searching-with-conditions)
+- [Sorting and limits](#sorting-and-limits)
+- [Syntax for `where`](#syntax-for-where)
+  - [Not equal](#not-equal)
+  - [Number/date ranges](#numberdate-ranges)
+- [Limitations](#limitations)
+- [Why?](#why)
+
+## Introduction
 
 All database functions require you to have a `Database` instance ([created here](/server/database/init-database.ts)) and the model you wish to query. "Model" is a synonym for "entity", i.e. what relational databases call a "table" or what MongoDB calls "collection". Models will be kept in the [server/database/models](/server/database/models/models.ts) folder.
 

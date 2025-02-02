@@ -41,6 +41,7 @@ Requires [NodeJS](https://nodejs.org/en) and [MongoDB](https://www.mongodb.com/)
 - [Tools](/docs/tools.md)
 - [UI Conventions](/docs/ui-conventions.md)
 - [Original Vike README.md](/docs/vike-readme.md)
+- [Creating APIs](/docs/creating-apis.md)
 
 ### Database
 
