@@ -55,6 +55,7 @@ export default {
     // Same as default Tailwind breakpoints, but defined in rem units.
     // Note: This is fixed in Tailwind 4.0, so we can remove it then!
     screens: {
+      xs: "21.875rem",
       sm: "40rem",
       md: "48rem",
       lg: "64rem",
@@ -65,6 +66,12 @@ export default {
       gridTemplateColumns: {
         center: "0px 1fr 0px",
         "center-lg": "1fr 64rem 1fr",
+      },
+      colors: {
+        disruption: "oklch(65% 0.23 35)", // #FC4000
+      },
+      borderWidth: {
+        3: "3px",
       },
     },
   },
