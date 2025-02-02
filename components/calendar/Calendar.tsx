@@ -11,7 +11,6 @@ import { DaysOfTheWeek } from "./Days";
 import { TodayIndicator } from "./Today";
 import { getMonthsToRender, isInitial } from "./utils";
 
-// TODO: Dumbed down version for debugging, would need to be changed to what's stored on the database
 export type Disruption = {
   from: Date;
   to: Date;
