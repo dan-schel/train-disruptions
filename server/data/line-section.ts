@@ -5,7 +5,8 @@ export class LineSection {
   ) {}
 
   // TODO: Will have some sort of toMapSection() method, which takes in the line
-  // route and returns the data the map needs to highlight this section.
+  // route and returns the more granular data the map needs to highlight this
+  // section.
 
   // TODO: Also some sort of validate() method? If we include a station not on
   // the line, that's an issue!
