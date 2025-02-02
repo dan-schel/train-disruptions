@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import React from "react";
 import { range } from "@dan-schel/js-utils";
-import { addDays, isSameWeek, isToday } from "date-fns";
+import { addDays, isSameISOWeek, isToday } from "date-fns";
 
 import { Grid } from "../core/Grid";
 import { Text } from "../core/Text";
@@ -22,7 +22,7 @@ export const CalendarGrid = ({ start, days, disruptions }: Props) => {
         <div
           key={day}
           className={clsx(
-            "flex h-8 items-center justify-center lg:h-12",
+            "flex h-8 items-center justify-center md:h-12",
             isInitial(day) && column(start),
             isThereDisruption(addDays(start, day), disruptions),
           )}
@@ -31,7 +31,7 @@ export const CalendarGrid = ({ start, days, disruptions }: Props) => {
             // Wrap the date if the date is today but not in the first row
             className={clsx(
               "flex items-center justify-center",
-              !isSameWeek(addDays(start, day), start) &&
+              !isSameISOWeek(addDays(start, day), start) &&
                 isToday(addDays(start, day)) &&
                 "size-6 rounded bg-black text-white",
             )}

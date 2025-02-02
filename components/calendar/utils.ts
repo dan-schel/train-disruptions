@@ -8,6 +8,7 @@ import {
   endOfDay,
   getDaysInMonth,
   getHours,
+  getISODay,
   isSameDay,
   isWithinInterval,
   max,
@@ -18,17 +19,17 @@ import {
 const SixPM = 18;
 const maxDates = 28;
 const startPosition = [
+  "col-start-7",
   "col-start-1",
   "col-start-2",
   "col-start-3",
   "col-start-4",
   "col-start-5",
   "col-start-6",
-  "col-start-7",
 ];
 export const disruption = {
-  buses: "bg-orange-600 text-gray-100",
-  night: "bg-gray-200 border-[3px] border-orange-600",
+  buses: "bg-disruption text-white",
+  night: "bg-gray-200 border-3 border-disruption",
   trains: "bg-gray-200",
 };
 
@@ -92,20 +93,22 @@ export const getMonthsToRender = (disruptions: Disruption | Disruption[]) => {
 
   // Get the number of cells to render
   const datesToRender = isArray
-    ? maxDates - startDate.getDay()
-    : differenceInCalendarDays(endDate, startDate) + // Get days between the two dates
-      (daysInWeek - endDate.getDay()); // Pad with additional dates to fill out the rest of the row
+    ? maxDates - getISODay(startDate) + 1
+    : // Get days between the two dates
+      differenceInCalendarDays(endDate, startDate) +
+      // Pad with additional dates to fill out the rest of the row
+      (daysInWeek - getISODay(endDate) + 1);
 
-  // Get array of objects containing the date to start from and the number of days to render in that month
   return eachMonthOfInterval({
     start: startDate,
-    end: isArray ? endDate : addDays(startDate, datesToRender),
+    end: isArray ? addDays(startDate, datesToRender) : endDate,
   })
     .map((date, i) => {
       return {
         start: isInitial(i) ? startDate : date,
         days:
-          getDaysInMonth(date) - (isInitial(i) ? startDate.getDate() - 1 : 0), // Gets days in the month, removes dates in the past
+          // Gets days in the month, removes dates in the past
+          getDaysInMonth(date) - (isInitial(i) ? startDate.getDate() - 1 : 0),
       };
     })
     .map((x, i, a) => ({
@@ -113,7 +116,8 @@ export const getMonthsToRender = (disruptions: Disruption | Disruption[]) => {
       days: Math.min(
         x.days,
         datesToRender -
-          a.slice(0, i).reduce((prev, curr) => prev + curr.days, 0), // Date slots consumed by the previous months
+          // Date slots consumed by the previous months
+          a.slice(0, i).reduce((prev, curr) => prev + curr.days, 0),
       ),
     }));
 };

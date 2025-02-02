@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import React from "react";
-import { isThisWeek, isPast, isToday } from "date-fns";
+import { isSameMonth, isThisISOWeek } from "date-fns";
 
 import { Grid } from "../core/Grid";
 import { Text } from "../core/Text";
@@ -8,13 +8,13 @@ import { Text } from "../core/Text";
 import { column } from "./utils";
 
 type Props = {
-  start: Date;
+  date: Date;
 };
 
-export const TodayIndicator = ({ start }: Props) => {
-  if (isThisWeek(start) && (!isPast(start) || isToday(start)))
+export const TodayIndicator = ({ date }: Props) => {
+  if (isThisISOWeek(date) && isSameMonth(date, new Date()))
     return (
-      <Grid key={"today"} columns="repeat(7, minmax(0, 1fr))" className="gap-1">
+      <Grid columns="repeat(7, minmax(0, 1fr))" className="gap-1">
         <div
           className={clsx(
             "relative z-10 grid bg-black py-1",
@@ -24,7 +24,7 @@ export const TodayIndicator = ({ start }: Props) => {
           <Text
             oneLine
             style="custom"
-            className="text-xs font-medium text-white max-xs:text-[10px] lg:text-base"
+            className="text-xs font-medium text-white max-xs:text-[10px] md:text-base"
             align="center"
           >
             TODAY
@@ -33,7 +33,7 @@ export const TodayIndicator = ({ start }: Props) => {
           {/* Triangle */}
           <div
             className={
-              "absolute -bottom-2 -z-10 size-4 rotate-45 place-self-center bg-black lg:-bottom-3 lg:size-6"
+              "absolute top-2 -z-10 size-4 rotate-45 place-self-center bg-black md:size-5"
             }
           />
         </div>

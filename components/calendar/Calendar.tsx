@@ -1,13 +1,15 @@
 import React from "react";
-import { format } from "date-fns";
 
-import { Text } from "../core/Text";
+import { Grid } from "../core/Grid";
+import { With } from "../core/With";
 import { Column } from "../core/Column";
 
 import { Legends } from "./Legends";
+import { MonthTitle } from "./Title";
 import { CalendarGrid } from "./Grid";
+import { DaysOfTheWeek } from "./Days";
 import { TodayIndicator } from "./Today";
-import { getMonthsToRender } from "./utils";
+import { getMonthsToRender, isInitial } from "./utils";
 
 // TODO: Dumbed down version for debugging, would need to be changed to what's stored on the database
 export type Disruption = {
@@ -33,23 +35,30 @@ type Props = {
  */
 export function Calendar({ disruptions }: Props) {
   return (
-    <Column className="gap-4">
-      {getMonthsToRender(disruptions).map(({ start, days }) => (
-        <Column key={start.getTime()} className="gap-2">
-          {/* Month Year */}
-          <Text align="center" style="custom" className="text-sm lg:text-base">
-            {format(start, "MMMM yyyy")}
-          </Text>
+    <Grid columns="auto minmax(auto, 48rem) auto">
+      <With className="col-start-2">
+        <Column className="gap-4">
+          {getMonthsToRender(disruptions).map(({ start, days }, i) => (
+            <Column key={start.getTime()} className="gap-2">
+              <MonthTitle date={start} />
 
-          <Column className="gap-1">
-            <TodayIndicator start={start} />
+              {isInitial(i) && <DaysOfTheWeek />}
 
-            <CalendarGrid disruptions={disruptions} start={start} days={days} />
-          </Column>
+              <Column className="gap-1">
+                <TodayIndicator date={start} />
+
+                <CalendarGrid
+                  disruptions={disruptions}
+                  start={start}
+                  days={days}
+                />
+              </Column>
+            </Column>
+          ))}
+
+          <Legends />
         </Column>
-      ))}
-
-      <Legends />
-    </Column>
+      </With>
+    </Grid>
   );
 }

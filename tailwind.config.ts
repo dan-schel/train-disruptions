@@ -67,6 +67,12 @@ export default {
         center: "0px 1fr 0px",
         "center-lg": "1fr 64rem 1fr",
       },
+      colors: {
+        disruption: "oklch(65% 0.23 35)", // #FC4000
+      },
+      borderWidth: {
+        3: "3px",
+      },
     },
   },
   corePlugins: {
