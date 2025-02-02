@@ -1,4 +1,15 @@
-# Scripts
+# Scripts <!-- omit in toc -->
+
+<!-- Table of contents created using "Markdown All in One" VSCode extension. -->
+<!-- Command palette: "> Markdown All in One: Update Table of Contents" -->
+
+## Contents <!-- omit in toc -->
+
+- [Check for errors](#check-for-errors)
+- [Format code](#format-code)
+- [Run unit tests](#run-unit-tests)
+- [Preview production-style build](#preview-production-style-build)
+- [Regenerate map geometry](#regenerate-map-geometry)
 
 ## Check for errors
 
@@ -30,4 +41,12 @@ Runs the server in production-mode (i.e. without hot-reloading and with `NODE_EN
 
 ```
 npm run build && npm run start
+```
+
+## Regenerate map geometry
+
+Regenerates the geometry `*.json` files used by the `<Map>` component. Required after any code changes within `scripts/generate-map-geometry`.
+
+```
+npx tsx scripts/generate-map-geometry/index.ts
 ```

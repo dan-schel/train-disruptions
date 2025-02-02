@@ -1,4 +1,21 @@
-# Creating a new database model
+# Creating a new database model <!-- omit in toc -->
+
+<!-- Table of contents created using "Markdown All in One" VSCode extension. -->
+<!-- Command palette: "> Markdown All in One: Update Table of Contents" -->
+
+## Contents <!-- omit in toc -->
+
+- [Introduction](#introduction)
+- [The data class](#the-data-class)
+- [The model class](#the-model-class)
+  - [The generics](#the-generics)
+  - [The schema](#the-schema)
+  - [The `deserialize` method](#the-deserialize-method)
+  - [The `serialize` and `getId` methods](#the-serialize-and-getid-methods)
+  - [The instance](#the-instance)
+- [Limitations](#limitations)
+
+## Introduction
 
 Every database model consists of two classes, a data class and a model class.
 
