@@ -55,3 +55,15 @@ For example, if Sunbury line trains are not running from Sunshine to the city, S
 Belgrave/Lilydale Line trains often run express through Burnley. If Glen Waverley line trains are not running between Burnley and the city, transferring to any old Belgrave/Lilydale line train will not work.
 
 I can't forsee any situation where a stops-all-stations train wouldn't also be running on the Belgrave/Lilydale lines, so classifying this one as a non-issue. (Just noting down in case I forget my logic for ignoring it.)
+
+## Completely unforeseen situation
+
+🔴 Solution required for Day 1
+
+Try as we may, I'm confident PTV will come up with something we never thought possible. When that happens we won't have a predefined disruption category to sort it into, and yet our site should still be capable of displaying it.
+
+**Solution:** At the end of the day, all disruption types will input into a few different subsystems, e.g. the map highlighting, status text for the line, the list of affected commutes, squares filled in on a calendar, etc.
+
+There should be a disruption type (call it "custom"?) that allows us to just set these inputs directly, i.e. the admin manually types the name of the disruption, selects areas on the map to highlight, etc.
+
+Hopefully we won't need to use it too often!
