@@ -33,7 +33,7 @@ export const CalendarGrid = ({ start, days, disruptions }: Props) => {
               "flex items-center justify-center",
               !isSameISOWeek(addDays(start, day), start) &&
                 isToday(addDays(start, day)) &&
-                "size-6 rounded bg-black text-white",
+                "size-6 rounded-sm bg-black text-white",
             )}
           >
             <Text>{addDays(start, day).getDate()}</Text>
