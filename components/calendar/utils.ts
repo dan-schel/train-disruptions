@@ -17,7 +17,6 @@ import {
   startOfDay,
 } from "date-fns";
 
-const IANAMelbourneTimezone = "Australia/Melbourne";
 const SixPM = 18;
 const maxDates = 28;
 const startPosition = [
@@ -29,6 +28,7 @@ const startPosition = [
   "col-start-5",
   "col-start-6",
 ];
+export const IANAMelbourneTimezone = "Australia/Melbourne";
 export const disruption = {
   buses: "bg-disruption text-white",
   night: "bg-gray-200 border-3 border-disruption",
