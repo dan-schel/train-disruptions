@@ -3,7 +3,7 @@ import {
   SimpleLineRoute,
   LoopLineRoute,
   BranchingLineRoute,
-  WerribeeLineRoute,
+  ExpressLineRoute,
 } from "./line-route";
 
 export const SANDRINGHAM = new SimpleLineRoute([
@@ -522,7 +522,7 @@ export const GEELONG = new SimpleLineRoute([
   station.WARRNAMBOOL,
 ]);
 
-export const WERRIBEE = new WerribeeLineRoute(
+export const WERRIBEE = new ExpressLineRoute(
   [
     station.FLINDERS_STREET,
     station.SOUTHERN_CROSS,

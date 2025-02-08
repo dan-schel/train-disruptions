@@ -1,4 +1,5 @@
 import * as station from "./station-ids";
+import { stations as allStations } from "./stations";
 
 export abstract class LineRoute {}
 
@@ -8,22 +9,27 @@ export class SimpleLineRoute extends LineRoute {
   }
 }
 
+export type LoopPortal = "richmond" | "jolimont" | "north-melbourne";
+
 export class LoopLineRoute extends LineRoute {
+  static readonly portalStations: Partial<Record<number, LoopPortal>> = {
+    [station.RICHMOND]: "richmond",
+    [station.JOLIMONT]: "jolimont",
+    [station.NORTH_MELBOURNE]: "north-melbourne",
+  };
+
+  readonly portal: LoopPortal;
+
   constructor(readonly stations: readonly number[]) {
     super();
 
-    const portalStation = stations[0];
-    if (
-      ![station.RICHMOND, station.JOLIMONT, station.NORTH_MELBOURNE].includes(
-        portalStation,
-      )
-    ) {
-      throw new Error(`Invalid portal station: ${portalStation}`);
+    const firstStation = this.stations[0];
+    const portal = LoopLineRoute.portalStations[firstStation];
+    if (portal == null) {
+      const name = allStations.require(firstStation).name;
+      throw new Error(`Invalid loop portal station: ${name} (${firstStation})`);
     }
-  }
-
-  getPortal() {
-    return this.stations[0];
+    this.portal = portal;
   }
 }
 
@@ -37,12 +43,11 @@ export class BranchingLineRoute extends LineRoute {
   }
 }
 
-export class WerribeeLineRoute extends LineRoute {
-  // Shrug
+export class ExpressLineRoute extends LineRoute {
   constructor(
-    readonly cityToNewport: readonly number[],
-    readonly altonaLoop: readonly number[],
-    readonly lavertonToWerribee: readonly number[],
+    readonly beforeExpressStations: readonly number[],
+    readonly localOnlyStations: readonly number[],
+    readonly afterExpressStations: readonly number[],
   ) {
     super();
   }
