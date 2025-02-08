@@ -1,6 +1,6 @@
 import * as station from "../station-ids";
 import { BranchingLineRoute } from "./branching-line-route";
-import { ExpressLineRoute } from "./express-line-route";
+import { DualPathLineRoute } from "./dual-path-line-route";
 import { LoopLineRoute } from "./loop-line-route";
 import { SimpleLineRoute } from "./simple-line-route";
 
@@ -383,6 +383,7 @@ export const SEYMOUR = new BranchingLineRoute(
     station.SEYMOUR,
   ],
   [
+    // Albury branch.
     station.AVENEL,
     station.EUROA,
     station.VIOLET_TOWN,
@@ -394,6 +395,7 @@ export const SEYMOUR = new BranchingLineRoute(
     station.ALBURY,
   ],
   [
+    // Shepparton branch.
     station.NAGAMBIE,
     station.MURCHISON_EAST,
     station.MOOROOPNA,
@@ -457,6 +459,7 @@ export const BENDIGO = new BranchingLineRoute(
     station.BENDIGO,
   ],
   [
+    // Echuca branch.
     station.EPSOM,
     station.HUNTLY,
     station.GOORNONG,
@@ -465,6 +468,7 @@ export const BENDIGO = new BranchingLineRoute(
     station.ECHUCA,
   ],
   [
+    // Swan Hill branch.
     station.EAGLEHAWK,
     station.RAYWOOD,
     station.DINGEE,
@@ -494,18 +498,18 @@ export const BALLARAT = new BranchingLineRoute(
     station.BALLAN,
     station.BALLARAT,
   ],
-  // prettier-ignore
   [
+    // Maryborough branch.
     station.CRESWICK,
     station.CLUNES,
     station.TALBOT,
-    station.MARYBOROUGH
+    station.MARYBOROUGH,
   ],
-  // prettier-ignore
   [
+    // Ararat branch.
     station.WENDOUREE,
     station.BEAUFORT,
-    station.ARARAT
+    station.ARARAT,
   ],
 );
 
@@ -540,7 +544,7 @@ export const GEELONG = new SimpleLineRoute([
   station.WARRNAMBOOL,
 ]);
 
-export const WERRIBEE = new ExpressLineRoute(
+export const WERRIBEE = new DualPathLineRoute(
   [
     station.FLINDERS_STREET,
     station.SOUTHERN_CROSS,
@@ -552,11 +556,14 @@ export const WERRIBEE = new ExpressLineRoute(
     station.SPOTSWOOD,
     station.NEWPORT,
   ],
-  // prettier-ignore
   [
+    // The Altona loop.
     station.SEAHOLME,
     station.ALTONA,
-    station.WESTONA
+    station.WESTONA,
+  ],
+  [
+    // The express route.
   ],
   [
     station.LAVERTON,

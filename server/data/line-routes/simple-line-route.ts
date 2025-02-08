@@ -4,6 +4,7 @@ import {
   InformalLineRouteStation,
 } from "./line-route";
 
+/** A line which doesn't do anything annoying. */
 export class SimpleLineRoute extends LineRoute {
   readonly stations: readonly LineRouteStation[];
   constructor(stations: readonly InformalLineRouteStation[]) {

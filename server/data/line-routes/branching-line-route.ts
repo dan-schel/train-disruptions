@@ -4,6 +4,7 @@ import {
   InformalLineRouteStation,
 } from "./line-route";
 
+/** A line which splits into two branches. */
 export class BranchingLineRoute extends LineRoute {
   readonly sharedStations: readonly LineRouteStation[];
   readonly branchAstations: readonly LineRouteStation[];

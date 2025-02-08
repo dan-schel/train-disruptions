@@ -8,6 +8,7 @@ import { stations as allStations } from "../stations";
 
 export type LoopPortal = "richmond" | "jolimont" | "north-melbourne";
 
+/** A line which uses the City Loop. */
 export class LoopLineRoute extends LineRoute {
   static readonly portalStations: Partial<Record<number, LoopPortal>> = {
     [station.RICHMOND]: "richmond",
