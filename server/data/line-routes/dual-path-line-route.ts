@@ -21,7 +21,7 @@ export class DualPathLineRoute extends LineRoute {
 
     if (sharedBeforeStations.length < 1 || sharedAfterStations.length < 1) {
       throw new Error(
-        "Express line route must have at least one station in each section.",
+        "Dual path line route must have at least one station in each shared section.",
       );
     }
 
