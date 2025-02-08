@@ -24,7 +24,7 @@ export const TodayIndicator = ({ date }: Props) => {
           <Text
             oneLine
             style="custom"
-            className="text-xs font-medium text-white max-xs:text-[10px] md:text-base"
+            className="max-xs:text-[10px] text-xs font-medium text-white md:text-base"
             align="center"
           >
             TODAY
