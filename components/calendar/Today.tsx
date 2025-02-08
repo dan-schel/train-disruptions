@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import React from "react";
-import { isSameMonth, isThisISOWeek } from "date-fns";
+import { getISODay, isSameMonth, isThisISOWeek } from "date-fns";
 
 import { Grid } from "../core/Grid";
 import { Text } from "../core/Text";
@@ -12,7 +12,11 @@ type Props = {
 };
 
 export const TodayIndicator = ({ date }: Props) => {
-  if (isThisISOWeek(date) && isSameMonth(date, new Date()))
+  if (
+    isThisISOWeek(date) &&
+    isSameMonth(date, new Date()) &&
+    getISODay(new Date()) >= getISODay(date)
+  )
     return (
       <Grid columns="repeat(7, minmax(0, 1fr))" className="gap-1">
         <div
