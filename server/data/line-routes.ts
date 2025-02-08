@@ -487,8 +487,19 @@ export const BALLARAT = new BranchingLineRoute(
     station.BALLAN,
     station.BALLARAT,
   ],
-  [station.CRESWICK, station.CLUNES, station.TALBOT, station.MARYBOROUGH],
-  [station.WENDOUREE, station.BEAUFORT, station.ARARAT],
+  // prettier-ignore
+  [
+    station.CRESWICK,
+    station.CLUNES,
+    station.TALBOT,
+    station.MARYBOROUGH
+  ],
+  // prettier-ignore
+  [
+    station.WENDOUREE,
+    station.BEAUFORT,
+    station.ARARAT
+  ],
 );
 
 export const GEELONG = new SimpleLineRoute([
@@ -534,7 +545,12 @@ export const WERRIBEE = new ExpressLineRoute(
     station.SPOTSWOOD,
     station.NEWPORT,
   ],
-  [station.SEAHOLME, station.ALTONA, station.WESTONA],
+  // prettier-ignore
+  [
+    station.SEAHOLME,
+    station.ALTONA,
+    station.WESTONA
+  ],
   [
     station.LAVERTON,
     station.AIRCRAFT,
