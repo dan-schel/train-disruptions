@@ -1,3 +1,4 @@
+import { DisruptionPeriod } from "./disruptions/disruption-period";
 import { StationClosureDisruptionData } from "./disruptions/station-closure";
 
 /**
@@ -20,6 +21,7 @@ export class Disruption {
     // as more types are added.
     readonly data: StationClosureDisruptionData,
     readonly sourceAlertIds: string[],
+    readonly period: DisruptionPeriod,
   ) {}
 }
 
