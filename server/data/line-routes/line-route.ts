@@ -1,14 +1,19 @@
+export type LineRouteStationType =
+  | "served"
+  | "always-express"
+  | "often-express";
+
+const defaultStationType = "served" as const;
+
 export type InformalLineRouteStation =
   | LineRouteStation
   | number
-  | { id: number; type?: "served" | "always-express" | "often-express" };
+  | { id: number; type?: LineRouteStationType };
 
 export class LineRouteStation {
-  private static _defaultType = "served" as const;
-
   constructor(
     readonly stationId: number,
-    readonly type: "served" | "always-express" | "often-express",
+    readonly type: LineRouteStationType,
   ) {}
 
   static formalize(station: InformalLineRouteStation): LineRouteStation {
@@ -16,12 +21,9 @@ export class LineRouteStation {
       return station;
     }
     if (typeof station === "number") {
-      return new LineRouteStation(station, LineRouteStation._defaultType);
+      return new LineRouteStation(station, defaultStationType);
     }
-    return new LineRouteStation(
-      station.id,
-      station.type ?? LineRouteStation._defaultType,
-    );
+    return new LineRouteStation(station.id, station.type ?? defaultStationType);
   }
 }
 
