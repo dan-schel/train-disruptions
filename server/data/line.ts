@@ -1,4 +1,4 @@
-import { LineRoute } from "./line-route";
+import { LineRoute } from "./line-routes/line-route";
 
 export class Line {
   readonly id: number;

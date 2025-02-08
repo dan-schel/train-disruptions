@@ -1,7 +1,7 @@
 import { Line } from "./line";
 import { LineCollection } from "./line-collection";
 import * as line from "./line-ids";
-import * as route from "./line-routes";
+import * as route from "./line-routes/line-routes";
 
 const data = [
   new Line({
