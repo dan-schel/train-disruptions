@@ -2,9 +2,27 @@
 @import "./css/loading-spinner.css" layer(base);
 @import "./css/text.css" layer(base);
 
-* {
-  flex-shrink: 0;
-  font-family: "Outfit", sans-serif;
+/* https://tailwindcss.com/docs/theme#default-theme-variable-reference */
+@theme {
+  --font-sans: "Outfit", sans-serif;
+
+  --breakpoint-xs: 21.875rem;
+
+  --color-disruption: oklch(65% 0.23 35); /* #FC4000 */
+
+  --leading-*: initial;
+  --leading-none: 0em;
+  --leading-tight: 0.25em;
+  --leading-snug: 0.375em;
+  --leading-normal: 0.5em;
+  --leading-relaxed: 0.625em;
+  --leading-loose: 1em;
+}
+
+/* Override leading to set --line-spacing instead (see ./css/text.css). */
+@utility leading-* {
+  /* prettier-ignore */
+  --line-spacing: --value(--leading-*);
 }
 
 @font-face {
@@ -18,12 +36,14 @@
     U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-/* https://tailwindcss.com/docs/theme#default-theme-variable-reference */
-@theme {
-  --breakpoint-xs: 21.875rem;
+* {
+  flex-shrink: 0;
+}
 
-  /* Potential solution for disabling default leading behaviour. */
-  --leading-*: initial;
-
-  --color-disruption: oklch(65% 0.23 35); /* #FC4000 */
+/* Always use pointer cursor on buttons. */
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
 }

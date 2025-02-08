@@ -1,7 +1,9 @@
 /* 
- * Fixes single line text being affected by line height changes. Note I've 
- * written a custom Tailwind plugin so that the `leading-*` classes change 
- * `--line-spacing` instead of `line-height` directly. 
+ * Fixes single line text being affected by line height changes. I've also 
+ * overridden the `leading-*` Tailwind utility to set `--line-spacing` instead.
+ *
+ * Note: One day this can be avoided by setting a couple lines of CSS (see
+ * https://caniuse.com/css-text-box-trim).
  */
 :root {
   --line-spacing: 0.5em;
