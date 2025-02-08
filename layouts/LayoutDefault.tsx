@@ -20,7 +20,7 @@ export default function LayoutDefault({
     <Column className="min-h-screen">
       <DesktopNavBar />
       <MobileNavBar />
-      <With flexGrow="1" className="pb-16 md:pb-0 md:pt-12">
+      <With flexGrow="1" className="pb-16 md:pt-12 md:pb-0">
         {children}
       </With>
     </Column>

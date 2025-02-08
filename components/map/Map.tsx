@@ -37,7 +37,7 @@ export function Map() {
       className="relative overflow-hidden"
       style={{ aspectRatio: geometry.suggestedAspectRatio().toFixed(2) }}
     >
-      <canvas className="absolute left-0 top-0" ref={canvasRef} />
+      <canvas className="absolute top-0 left-0" ref={canvasRef} />
     </div>
   );
 }
