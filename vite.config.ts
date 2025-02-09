@@ -2,6 +2,7 @@ import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import vike from "vike/plugin";
 import { VitePWA, VitePWAOptions } from "vite-plugin-pwa";
+import tailwindcss from "@tailwindcss/vite";
 
 const pwaConfig: Partial<VitePWAOptions> = {
   // TODO: It looks like there's no way to create a custom "You're offline" page
@@ -74,5 +75,5 @@ const pwaConfig: Partial<VitePWAOptions> = {
 };
 
 export default defineConfig({
-  plugins: [vike({}), react({}), VitePWA(pwaConfig)],
+  plugins: [vike({}), react({}), VitePWA(pwaConfig), tailwindcss()],
 });
