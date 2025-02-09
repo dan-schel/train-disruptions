@@ -18,6 +18,10 @@ export class LineRouteStation {
     readonly type: LineRouteStationType,
   ) {}
 
+  get express() {
+    return this.type !== "served";
+  }
+
   static formalize(station: InformalLineRouteStation): LineRouteStation {
     if (station instanceof LineRouteStation) {
       return station;
@@ -32,6 +36,7 @@ export class LineRouteStation {
 export abstract class LineRoute {
   abstract validateLineSection(
     section: LineSection,
+    options?: { ignoreExpressStops?: boolean },
   ): LineSectionValidationResult;
 
   // abstract toMapSection(section: LineSection, line: Line): MapSection[];
@@ -53,6 +58,11 @@ export function invalid(reason: string): LineSectionValidationResult {
 export function contains(
   station: number,
   stations: readonly LineRouteStation[],
+  options: { ignoreExpressStops?: boolean } | undefined,
 ) {
-  return stations.some((x) => x.stationId === station);
+  const stationsToCheck =
+    options?.ignoreExpressStops === true
+      ? stations.filter((x) => !x.express)
+      : stations;
+  return stationsToCheck.some((x) => x.stationId === station);
 }

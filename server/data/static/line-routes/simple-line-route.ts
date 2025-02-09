@@ -22,14 +22,17 @@ export class SimpleLineRoute extends LineRoute {
     this.stations = stations.map(LineRouteStation.formalize);
   }
 
-  validateLineSection(section: LineSection): LineSectionValidationResult {
+  validateLineSection(
+    section: LineSection,
+    options?: { ignoreExpressStops?: boolean },
+  ): LineSectionValidationResult {
     if (section.from === "the-city" || section.to === "the-city") {
       return invalid("'The city' is invalid for simple line routes.");
     }
-    if (!contains(section.from, this.stations)) {
+    if (!contains(section.from, this.stations, options)) {
       return invalid(`Station ${section.from} is not in this line.`);
     }
-    if (!contains(section.to, this.stations)) {
+    if (!contains(section.to, this.stations, options)) {
       return invalid(`Station ${section.to} is not in this line.`);
     }
     return { valid: true };
