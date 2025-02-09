@@ -1,3 +1,4 @@
+import { z } from "zod";
 import { StationClosureDisruptionData } from "./station-closure";
 
 /**
@@ -7,4 +8,14 @@ import { StationClosureDisruptionData } from "./station-closure";
  */
 export type DisruptionData = StationClosureDisruptionData; // | NoCityLoopDisruptionData | BusReplacementsDisruptionData | etc.
 
-export const disruptionDataBson = StationClosureDisruptionData.bson; // z.union([StationClosureDisruptionData.bson, NoCityLoopDisruptionData.bson, BusReplacementsDisruptionData.bson, etc.]);
+export const disruptionDataBson = z.union([
+  StationClosureDisruptionData.bson,
+  // NoCityLoopDisruptionData.bson,
+  // BusReplacementsDisruptionData.bson,
+  // etc.
+
+  // TEMP: Silence errors about only having one type in the union.
+  z.object({
+    type: z.literal("temp"),
+  }),
+]);
