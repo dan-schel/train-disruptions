@@ -15,7 +15,5 @@ export const disruptionDataBson = z.union([
   // etc.
 
   // TEMP: Silence errors about only having one type in the union.
-  z.object({
-    type: z.literal("temp"),
-  }),
+  StationClosureDisruptionData.bson,
 ]);
