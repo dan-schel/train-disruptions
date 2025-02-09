@@ -1,8 +1,8 @@
 import { z } from "zod";
-import { Ends } from "./ends";
+import { EndsBase } from "./ends-base";
 
 /** The disruption ends sometime between two implied dates, e.g. "late March". */
-export class EndsApproximately extends Ends {
+export class EndsApproximately extends EndsBase {
   constructor(
     /** E.g. "late March" or "Spring 2025". */
     public displayText: string,

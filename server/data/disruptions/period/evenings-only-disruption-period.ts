@@ -1,21 +1,12 @@
 import { z } from "zod";
 import { DisruptionPeriod } from "./disruption-period";
-import { EndsAfterLastService } from "./ends/ends-after-last-service";
-import { EndsApproximately } from "./ends/ends-approximately";
-import { EndsExactly } from "./ends/ends-exactly";
-import { EndsNever } from "./ends/ends-never";
-import { EndsWhenAlertEnds } from "./ends/ends-when-alert-ends";
+import { Ends, endsBson } from "./ends/ends";
 
 /** Disruption is active every evening from the start date to the end date. */
 export class EveningsOnlyDisruptionPeriod extends DisruptionPeriod {
   constructor(
     public start: Date | null,
-    public end:
-      | EndsAfterLastService
-      | EndsApproximately
-      | EndsExactly
-      | EndsNever
-      | EndsWhenAlertEnds,
+    public end: Ends,
 
     /** E.g. `18` for 6pm to last service each day. */
     public startHourEachDay: number,
@@ -27,13 +18,7 @@ export class EveningsOnlyDisruptionPeriod extends DisruptionPeriod {
     .object({
       type: z.literal("evenings-only"),
       start: z.date().nullable(),
-      end: z.union([
-        EndsAfterLastService.bson,
-        EndsApproximately.bson,
-        EndsExactly.bson,
-        EndsNever.bson,
-        EndsWhenAlertEnds.bson,
-      ]),
+      end: endsBson,
       startHourEachDay: z.number(),
     })
     .transform(

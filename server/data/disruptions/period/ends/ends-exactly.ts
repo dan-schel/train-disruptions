@@ -1,8 +1,8 @@
 import { z } from "zod";
-import { Ends } from "./ends";
+import { EndsBase } from "./ends-base";
 
 /** The disruption ends after an exact timestamp. */
-export class EndsExactly extends Ends {
+export class EndsExactly extends EndsBase {
   constructor(public date: Date) {
     super();
   }

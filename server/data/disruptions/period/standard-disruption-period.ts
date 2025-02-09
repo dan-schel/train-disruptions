@@ -1,21 +1,12 @@
 import { z } from "zod";
 import { DisruptionPeriod } from "./disruption-period";
-import { EndsAfterLastService } from "./ends/ends-after-last-service";
-import { EndsApproximately } from "./ends/ends-approximately";
-import { EndsExactly } from "./ends/ends-exactly";
-import { EndsNever } from "./ends/ends-never";
-import { EndsWhenAlertEnds } from "./ends/ends-when-alert-ends";
+import { Ends, endsBson } from "./ends/ends";
 
 /** Disruption is active continuously from the start date to the end date. */
 export class StandardDisruptionPeriod extends DisruptionPeriod {
   constructor(
     public start: Date | null,
-    public end:
-      | EndsAfterLastService
-      | EndsApproximately
-      | EndsExactly
-      | EndsNever
-      | EndsWhenAlertEnds,
+    public end: Ends,
   ) {
     super();
   }
@@ -24,13 +15,7 @@ export class StandardDisruptionPeriod extends DisruptionPeriod {
     .object({
       type: z.literal("standard"),
       start: z.date().nullable(),
-      end: z.union([
-        EndsAfterLastService.bson,
-        EndsApproximately.bson,
-        EndsExactly.bson,
-        EndsNever.bson,
-        EndsWhenAlertEnds.bson,
-      ]),
+      end: endsBson,
     })
     .transform((x) => new StandardDisruptionPeriod(x.start, x.end));
 

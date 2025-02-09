@@ -1,8 +1,8 @@
 import { z } from "zod";
-import { Ends } from "./ends";
+import { EndsBase } from "./ends-base";
 
 /** The disruption has no known end date. */
-export class EndsNever extends Ends {
+export class EndsNever extends EndsBase {
   static readonly bson = z
     .object({
       type: z.literal("never"),

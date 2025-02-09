@@ -1,8 +1,8 @@
 import { z } from "zod";
-import { Ends } from "./ends";
+import { EndsBase } from "./ends-base";
 
 /** The disruption ends after the last service on a given date. */
-export class EndsAfterLastService extends Ends {
+export class EndsAfterLastService extends EndsBase {
   constructor(
     /** The timetable date, e.g. Sun 9 Feb is translated to 3am, Mon 10 Feb. */
     public date: Date,

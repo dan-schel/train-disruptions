@@ -1,8 +1,8 @@
 import { z } from "zod";
-import { Ends } from "./ends";
+import { EndsBase } from "./ends-base";
 
 /** The disruption ends when the source alert ends. */
-export class EndsWhenAlertEnds extends Ends {
+export class EndsWhenAlertEnds extends EndsBase {
   constructor(
     /** The alert ID to track. */
     public alertId: string,
