@@ -1,4 +1,4 @@
-import { EAST_PAKENHAM } from "../../../../server/data/station-ids";
+import { EAST_PAKENHAM } from "../../../../shared/station-ids";
 import { flexi } from "../../lib/dimensions/flexi-length";
 import { LineBlueprint } from "../../lib/blueprint/line-blueprint";
 import { PathBlueprint } from "../../lib/blueprint/path-blueprint";

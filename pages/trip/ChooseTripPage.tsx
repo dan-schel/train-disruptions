@@ -6,7 +6,7 @@ import { PageCenterer } from "../../components/common/PageCenterer";
 import { SimpleButton } from "../../components/common/SimpleButton";
 import { PagePadding } from "../../components/common/PagePadding";
 import { BackNavigation } from "../../components/navigation/BackNavigation";
-import { Station } from "../../server/data/station";
+import { Station } from "../../server/data/static/station";
 import { Spacer } from "../../components/core/Spacer";
 import { MingcuteSearch2Line } from "../../components/icons/MingcureSearch2Line";
 
