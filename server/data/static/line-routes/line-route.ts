@@ -1,3 +1,5 @@
+import { LineSection } from "../../line-section";
+
 export type LineRouteStationType =
   | "served"
   | "always-express"
@@ -27,4 +29,30 @@ export class LineRouteStation {
   }
 }
 
-export abstract class LineRoute {}
+export abstract class LineRoute {
+  abstract validateLineSection(
+    section: LineSection,
+  ): LineSectionValidationResult;
+
+  // abstract toMapSection(section: LineSection, line: Line): MapSection[];
+}
+
+export type LineSectionValidationResult =
+  | {
+      valid: true;
+    }
+  | {
+      valid: false;
+      reason: string;
+    };
+
+export function invalid(reason: string): LineSectionValidationResult {
+  return { valid: false, reason };
+}
+
+export function contains(
+  station: number,
+  stations: readonly LineRouteStation[],
+) {
+  return stations.some((x) => x.stationId === station);
+}
