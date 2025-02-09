@@ -1,6 +1,6 @@
 import { DataAsync } from "vike/types";
-import { lines } from "../../../server/data/lines";
-import { Line } from "../../../server/data/line";
+import { lines } from "../../../server/data/static/lines";
+import { Line } from "../../../server/data/static/line";
 
 export { data };
 export type Data = {
