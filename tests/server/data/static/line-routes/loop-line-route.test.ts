@@ -11,19 +11,19 @@ describe("LoopLineRoute", () => {
       const section1 = new LineSection("the-city", 3);
       const section2 = new LineSection(4, "the-city");
       const section3 = new LineSection(4, 2);
-      expect(route.validateLineSection(section1).valid).toBe(true);
-      expect(route.validateLineSection(section2).valid).toBe(true);
-      expect(route.validateLineSection(section3).valid).toBe(true);
+      expect(section1.validate(route, true)).toBe(true);
+      expect(section2.validate(route, true)).toBe(true);
+      expect(section3.validate(route, true)).toBe(true);
     });
 
     it("rejects a section with a station not in the line", () => {
       const section = new LineSection(1, 6);
-      expect(route.validateLineSection(section).valid).toBe(false);
+      expect(section.validate(route, true)).toBe(false);
     });
 
     it("rejects direct mentions of city loop stations", () => {
       const section = new LineSection(station.FLINDERS_STREET, 4);
-      expect(route.validateLineSection(section).valid).toBe(false);
+      expect(section.validate(route, true)).toBe(false);
     });
   });
 });

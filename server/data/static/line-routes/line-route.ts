@@ -1,5 +1,3 @@
-import { LineSection } from "../../line-section";
-
 export type LineRouteStationType =
   | "served"
   | "always-express"
@@ -11,6 +9,10 @@ export type InformalLineRouteStation =
   | LineRouteStation
   | number
   | { id: number; type?: LineRouteStationType };
+
+export type LinearPath =
+  | readonly LineRouteStation[]
+  | readonly ["the-city", ...LineRouteStation[]];
 
 export class LineRouteStation {
   constructor(
@@ -34,35 +36,8 @@ export class LineRouteStation {
 }
 
 export abstract class LineRoute {
-  abstract validateLineSection(
-    section: LineSection,
-    options?: { ignoreExpressStops?: boolean },
-  ): LineSectionValidationResult;
-
-  // abstract toMapSection(section: LineSection, line: Line): MapSection[];
-}
-
-export type LineSectionValidationResult =
-  | {
-      valid: true;
-    }
-  | {
-      valid: false;
-      reason: string;
-    };
-
-export function invalid(reason: string): LineSectionValidationResult {
-  return { valid: false, reason };
-}
-
-export function contains(
-  station: number,
-  stations: readonly LineRouteStation[],
-  options: { ignoreExpressStops?: boolean } | undefined,
-) {
-  const stationsToCheck =
-    options?.ignoreExpressStops === true
-      ? stations.filter((x) => !x.express)
-      : stations;
-  return stationsToCheck.some((x) => x.stationId === station);
+  // TODO: [DS] If this is the only thing LineRoute ever has to do, there's
+  // probably no point having it at all (just put LinearPath[] in the Line), and
+  // certainly no point having it abstract with four unique implementations!
+  abstract asLinearPaths(): LinearPath[];
 }

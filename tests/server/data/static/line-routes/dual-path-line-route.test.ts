@@ -11,20 +11,20 @@ describe("DualPathLineRoute", () => {
       const section2 = new LineSection(2, 5);
       const section3 = new LineSection(7, 9);
       const section4 = new LineSection(4, 6);
-      expect(route.validateLineSection(section1).valid).toBe(true);
-      expect(route.validateLineSection(section2).valid).toBe(true);
-      expect(route.validateLineSection(section3).valid).toBe(true);
-      expect(route.validateLineSection(section4).valid).toBe(true);
+      expect(section1.validate(route, true)).toBe(true);
+      expect(section2.validate(route, true)).toBe(true);
+      expect(section3.validate(route, true)).toBe(true);
+      expect(section4.validate(route, true)).toBe(true);
     });
 
     it("rejects 'the-city' as a station", () => {
       const section = new LineSection("the-city", 3);
-      expect(route.validateLineSection(section).valid).toBe(false);
+      expect(section.validate(route, true)).toBe(false);
     });
 
     it("rejects sections that cross paths", () => {
       const section = new LineSection(5, 7);
-      expect(route.validateLineSection(section).valid).toBe(false);
+      expect(section.validate(route, true)).toBe(false);
     });
   });
 });

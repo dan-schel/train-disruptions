@@ -14,27 +14,23 @@ describe("SimpleLineRoute", () => {
   describe("#validateLineSection", () => {
     it("accepts a valid section", () => {
       const section = new LineSection(1, 2);
-      expect(route.validateLineSection(section).valid).toBe(true);
+      expect(section.validate(route, true)).toBe(true);
     });
 
     it("rejects 'the-city' as a station", () => {
       const section = new LineSection("the-city", 3);
-      expect(route.validateLineSection(section).valid).toBe(false);
+      expect(section.validate(route, true)).toBe(false);
     });
 
     it("rejects a section with a station not in the line", () => {
       const section = new LineSection(1, 6);
-      expect(route.validateLineSection(section).valid).toBe(false);
+      expect(section.validate(route, true)).toBe(false);
     });
 
     it("rejects express stations if asked", () => {
       const section = new LineSection(1, 4);
-      const result1 = route.validateLineSection(section);
-      const result2 = route.validateLineSection(section, {
-        ignoreExpressStops: true,
-      });
-      expect(result1.valid).toBe(true);
-      expect(result2.valid).toBe(false);
+      expect(section.validate(route, true)).toBe(true);
+      expect(section.validate(route, false)).toBe(false);
     });
   });
 });

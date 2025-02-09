@@ -10,19 +10,19 @@ describe("BranchingLineRoute", () => {
       const section1 = new LineSection(1, 9);
       const section2 = new LineSection(5, 7);
       const section3 = new LineSection(1, 4);
-      expect(route.validateLineSection(section1).valid).toBe(true);
-      expect(route.validateLineSection(section2).valid).toBe(true);
-      expect(route.validateLineSection(section3).valid).toBe(true);
+      expect(section1.validate(route, true)).toBe(true);
+      expect(section2.validate(route, true)).toBe(true);
+      expect(section3.validate(route, true)).toBe(true);
     });
 
     it("rejects 'the-city' as a station", () => {
       const section = new LineSection("the-city", 4);
-      expect(route.validateLineSection(section).valid).toBe(false);
+      expect(section.validate(route, true)).toBe(false);
     });
 
     it("rejects sections that cross branches", () => {
       const section = new LineSection(5, 9);
-      expect(route.validateLineSection(section).valid).toBe(false);
+      expect(section.validate(route, true)).toBe(false);
     });
   });
 });

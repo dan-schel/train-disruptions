@@ -1,11 +1,8 @@
-import { LineSection } from "../../line-section";
 import {
   LineRoute,
   LineRouteStation,
   InformalLineRouteStation,
-  LineSectionValidationResult,
-  invalid,
-  contains,
+  LinearPath,
 } from "./line-route";
 
 /** A line which doesn't do anything annoying. */
@@ -22,19 +19,7 @@ export class SimpleLineRoute extends LineRoute {
     this.stations = stations.map(LineRouteStation.formalize);
   }
 
-  validateLineSection(
-    section: LineSection,
-    options?: { ignoreExpressStops?: boolean },
-  ): LineSectionValidationResult {
-    if (section.from === "the-city" || section.to === "the-city") {
-      return invalid("'The city' is invalid for simple line routes.");
-    }
-    if (!contains(section.from, this.stations, options)) {
-      return invalid(`Station ${section.from} is not in this line.`);
-    }
-    if (!contains(section.to, this.stations, options)) {
-      return invalid(`Station ${section.to} is not in this line.`);
-    }
-    return { valid: true };
+  asLinearPaths(): LinearPath[] {
+    return [this.stations];
   }
 }
