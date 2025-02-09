@@ -2,8 +2,7 @@ import { z } from "zod";
 import { DatabaseModel } from "../lib/general/database-model";
 import { Disruption } from "../../data/disruption";
 import { StationClosureDisruptionData } from "../../data/disruptions/station-closure";
-import { StandardDisruptionPeriod } from "../../data/disruptions/period/standard-disruption-period";
-import { EveningsOnlyDisruptionPeriod } from "../../data/disruptions/period/evenings-only-disruption-period";
+import { disruptionPeriodBson } from "../../data/disruptions/period/disruption-period";
 
 export class DisruptionModel extends DatabaseModel<
   Disruption,
@@ -25,10 +24,7 @@ export class DisruptionModel extends DatabaseModel<
     // as more types are added.
     data: StationClosureDisruptionData.bson,
     sourceAlertIds: z.string().array(),
-    period: z.union([
-      StandardDisruptionPeriod.bson,
-      EveningsOnlyDisruptionPeriod.bson,
-    ]),
+    period: disruptionPeriodBson,
   });
 
   private constructor() {

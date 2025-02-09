@@ -1,9 +1,9 @@
 import { z } from "zod";
-import { DisruptionPeriod } from "./disruption-period";
+import { DisruptionPeriodBase } from "./disruption-period-base";
 import { Ends, endsBson } from "./ends/ends";
 
 /** Disruption is active every evening from the start date to the end date. */
-export class EveningsOnlyDisruptionPeriod extends DisruptionPeriod {
+export class EveningsOnlyDisruptionPeriod extends DisruptionPeriodBase {
   constructor(
     public start: Date | null,
     public end: Ends,

@@ -5,7 +5,11 @@ import { EndsExactly } from "./ends-exactly";
 import { EndsNever } from "./ends-never";
 import { EndsWhenAlertEnds } from "./ends-when-alert-ends";
 
-/** All implementations of EndsBase. */
+/**
+ * Defines how/when the disruption ends.
+ *
+ * (All implementations of EndsBase.)
+ */
 export type Ends =
   | EndsAfterLastService
   | EndsApproximately
