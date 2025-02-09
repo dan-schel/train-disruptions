@@ -2,9 +2,13 @@ import {
   LineRoute,
   LineRouteStation,
   InformalLineRouteStation,
+  LineSectionValidationResult,
+  contains,
+  invalid,
 } from "./line-route";
 import * as station from "../../../../shared/station-ids";
 import { stations as allStations } from "../stations";
+import { LineSection } from "../../line-section";
 
 export type LoopPortal = "richmond" | "jolimont" | "north-melbourne";
 
@@ -35,5 +39,24 @@ export class LoopLineRoute extends LineRoute {
       throw new Error(`Invalid loop portal station: ${name} (${firstStation})`);
     }
     this.portal = portal;
+  }
+
+  validateLineSection(
+    section: LineSection,
+    options?: { ignoreExpressStops?: boolean },
+  ): LineSectionValidationResult {
+    if (
+      section.from !== "the-city" &&
+      !contains(section.from, this.stations, options)
+    ) {
+      return invalid(`Station ${section.from} is not in this line.`);
+    }
+    if (
+      section.to !== "the-city" &&
+      !contains(section.to, this.stations, options)
+    ) {
+      return invalid(`Station ${section.to} is not in this line.`);
+    }
+    return { valid: true };
   }
 }
