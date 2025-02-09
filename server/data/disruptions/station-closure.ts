@@ -6,11 +6,7 @@ import { DisruptionData } from "../disruption";
  * the station.)
  */
 export class StationClosureDisruptionData extends DisruptionData<"station-closure"> {
-  constructor(
-    readonly stationId: number,
-    readonly startsAt: Date,
-    readonly endsAt: Date,
-  ) {
+  constructor(readonly stationId: number) {
     super("station-closure");
   }
 
@@ -18,20 +14,13 @@ export class StationClosureDisruptionData extends DisruptionData<"station-closur
     .object({
       type: z.literal("station-closure"),
       stationId: z.number(),
-      startsAt: z.date(),
-      endsAt: z.date(),
     })
-    .transform(
-      (x) =>
-        new StationClosureDisruptionData(x.stationId, x.startsAt, x.endsAt),
-    );
+    .transform((x) => new StationClosureDisruptionData(x.stationId));
 
   toBson(): z.input<typeof StationClosureDisruptionData.bson> {
     return {
       type: "station-closure",
       stationId: this.stationId,
-      startsAt: this.startsAt,
-      endsAt: this.endsAt,
     };
   }
 }

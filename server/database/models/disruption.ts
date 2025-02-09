@@ -2,6 +2,8 @@ import { z } from "zod";
 import { DatabaseModel } from "../lib/general/database-model";
 import { Disruption } from "../../data/disruption";
 import { StationClosureDisruptionData } from "../../data/disruptions/station-closure";
+import { StandardDisruptionPeriod } from "../../data/disruptions/period/standard-disruption-period";
+import { EveningsOnlyDisruptionPeriod } from "../../data/disruptions/period/evenings-only-disruption-period";
 
 export class DisruptionModel extends DatabaseModel<
   Disruption,
@@ -23,6 +25,10 @@ export class DisruptionModel extends DatabaseModel<
     // as more types are added.
     data: StationClosureDisruptionData.bson,
     sourceAlertIds: z.string().array(),
+    period: z.union([
+      StandardDisruptionPeriod.bson,
+      EveningsOnlyDisruptionPeriod.bson,
+    ]),
   });
 
   private constructor() {
@@ -37,6 +43,7 @@ export class DisruptionModel extends DatabaseModel<
     return {
       data: item.data.toBson(),
       sourceAlertIds: item.sourceAlertIds,
+      period: item.period.toBson(),
       // TODO: There's probably other (computed) fields we could add to make
       // queries more efficient, e.g. the date range, or the affected lines.
     };
@@ -44,6 +51,11 @@ export class DisruptionModel extends DatabaseModel<
 
   deserialize(id: string, item: unknown): Disruption {
     const parsed = DisruptionModel.schema.parse(item);
-    return new Disruption(id, parsed.data, parsed.sourceAlertIds);
+    return new Disruption(
+      id,
+      parsed.data,
+      parsed.sourceAlertIds,
+      parsed.period,
+    );
   }
 }
