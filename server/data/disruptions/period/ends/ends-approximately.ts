@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { Ends } from "./ends";
 
-/** The disruption ends on a roughly given time. */
+/** The disruption ends sometime between two implied dates, e.g. "late March". */
 export class EndsApproximately extends Ends {
   constructor(
     /** E.g. "late March" or "Spring 2025". */
