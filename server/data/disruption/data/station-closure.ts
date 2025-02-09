@@ -1,13 +1,13 @@
 import { z } from "zod";
-import { DisruptionData } from "../disruption";
+import { DisruptionDataBase } from "./disruption-data-base";
 
 /**
  * A single station is closed. (Trains may be continuing to run express through
  * the station.)
  */
-export class StationClosureDisruptionData extends DisruptionData<"station-closure"> {
+export class StationClosureDisruptionData extends DisruptionDataBase {
   constructor(readonly stationId: number) {
-    super("station-closure");
+    super();
   }
 
   static readonly bson = z

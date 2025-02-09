@@ -1,9 +1,8 @@
 import { z } from "zod";
 import { DatabaseModel } from "../lib/general/database-model";
-import { Disruption } from "../../data/disruption";
-import { StationClosureDisruptionData } from "../../data/disruptions/station-closure";
-import { StandardDisruptionPeriod } from "../../data/disruptions/period/standard-disruption-period";
-import { EveningsOnlyDisruptionPeriod } from "../../data/disruptions/period/evenings-only-disruption-period";
+import { Disruption } from "../../data/disruption/disruption";
+import { disruptionPeriodBson } from "../../data/disruption/period/disruption-period";
+import { disruptionDataBson } from "../../data/disruption/data/disruption-data";
 
 export class DisruptionModel extends DatabaseModel<
   Disruption,
@@ -13,22 +12,9 @@ export class DisruptionModel extends DatabaseModel<
   static instance = new DisruptionModel();
 
   private static schema = z.object({
-    // TODO: Becomes:
-    // ```
-    // data: z.union([
-    //   StationClosureDisruptionData.bson,
-    //   NoCityLoopDisruptionData.bson,
-    //   BusReplacementsDisruptionData.bson,
-    //   etc.
-    // ])
-    // ```
-    // as more types are added.
-    data: StationClosureDisruptionData.bson,
+    data: disruptionDataBson,
     sourceAlertIds: z.string().array(),
-    period: z.union([
-      StandardDisruptionPeriod.bson,
-      EveningsOnlyDisruptionPeriod.bson,
-    ]),
+    period: disruptionPeriodBson,
   });
 
   private constructor() {
