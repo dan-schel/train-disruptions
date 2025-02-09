@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { Ends } from "./ends";
 
-/** The disruption never ends. */
+/** The disruption has no known end date. */
 export class EndsNever extends Ends {
   static readonly bson = z
     .object({
