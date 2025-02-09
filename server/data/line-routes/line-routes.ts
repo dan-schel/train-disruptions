@@ -1,4 +1,4 @@
-import * as station from "../station-ids";
+import * as station from "../../../shared/station-ids";
 import { BranchingLineRoute } from "./branching-line-route";
 import { DualPathLineRoute } from "./dual-path-line-route";
 import { LoopLineRoute } from "./loop-line-route";

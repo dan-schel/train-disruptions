@@ -1,6 +1,6 @@
 import { Line } from "./line";
 import { LineCollection } from "./line-collection";
-import * as line from "./line-ids";
+import * as line from "../../shared/line-ids";
 import * as route from "./line-routes/line-routes";
 
 const data = [

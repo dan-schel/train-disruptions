@@ -3,7 +3,7 @@ import {
   LineRouteStation,
   InformalLineRouteStation,
 } from "./line-route";
-import * as station from "../station-ids";
+import * as station from "../../../shared/station-ids";
 import { stations as allStations } from "../stations";
 
 export type LoopPortal = "richmond" | "jolimont" | "north-melbourne";

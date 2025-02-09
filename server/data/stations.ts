@@ -1,6 +1,6 @@
 import { Station } from "./station";
 import { StationCollection } from "./station-collection";
-import * as station from "./station-ids";
+import * as station from "../../shared/station-ids";
 
 const data = [
   new Station({ id: station.AIRCRAFT, name: "Aircraft", ptvIds: [1220] }),
