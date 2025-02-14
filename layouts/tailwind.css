@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "./css/loading-spinner.css" layer(base);
 @import "./css/text.css" layer(base);
+@import "./css/marquee.css" layer(base);
 
 /* https://tailwindcss.com/docs/theme#default-theme-variable-reference */
 @theme {
