@@ -10,6 +10,9 @@
   --breakpoint-xs: 21.875rem;
 
   --color-disruption: oklch(65% 0.23 35); /* #FC4000 */
+  --color-status-clear: oklch(76.47% 0.2289 146.12); /* #14D64B */
+  --color-status-delays: oklch(77.48% 0.1544 78.87); /* #EAA81F */
+  --color-status-buses: oklch(61.76% 0.2511 28.06); /* #F90514 */
 
   --leading-*: initial;
   --leading-none: 0em;
