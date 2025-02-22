@@ -11,6 +11,11 @@ export class StandardDisruptionPeriod extends DisruptionPeriodBase {
     super();
   }
 
+  toDisplayString(): string {
+    // TODO: I imagine these dates won't be accurate for every disruption.
+    return `Sat 22 Feb to early May`;
+  }
+
   static readonly bson = z
     .object({
       type: z.literal("standard"),

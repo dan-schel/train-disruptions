@@ -14,6 +14,11 @@ export class EveningsOnlyDisruptionPeriod extends DisruptionPeriodBase {
     super();
   }
 
+  toDisplayString(): string {
+    // TODO: I imagine these dates won't be accurate for every disruption.
+    return `6pm to last service every evening, Sat 22 Feb to Sun 23 Feb`;
+  }
+
   static readonly bson = z
     .object({
       type: z.literal("evenings-only"),
