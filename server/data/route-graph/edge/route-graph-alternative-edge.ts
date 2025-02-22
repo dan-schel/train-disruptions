@@ -3,6 +3,12 @@ import { RouteGraphEdgeBase } from "./route-graph-edge-base";
 
 export type RouteGraphAlternativeEdgeMode = "bus" | "tram" | "walk";
 
+/**
+ * A path between two stations not achievable by train, but achievable by other
+ * recommended means, such as bus, tram, or walking. Allows the route finding
+ * algorithm to provide specific advice, i.e. "Take the train to Burnley,
+ * replacement buses to Caulfield, then the train to Noble Park".
+ */
 export class RouteGraphAlternativeEdge extends RouteGraphEdgeBase {
   constructor(
     public readonly stationA: number,

@@ -1,5 +1,9 @@
 import { z } from "zod";
-import { DisruptionDataBase } from "./disruption-data-base";
+import {
+  DisruptionDataBase,
+  LineStatusIndicatorPriorities,
+  LineStatusIndicatorPriority,
+} from "./disruption-data-base";
 import { DisruptionWriteup } from "../writeup/disruption-writeup";
 import { RouteGraphImplications } from "../../route-graph/route-graph-implications";
 import { DisruptionWriteupAuthor } from "../writeup/disruption-writeup-author";
@@ -14,6 +18,7 @@ export class CustomDisruptionData extends DisruptionDataBase {
   constructor(
     readonly writeup: DisruptionWriteup,
     readonly routeGraphImplications: RouteGraphImplications,
+    readonly lineStatusIndicatorPriority: LineStatusIndicatorPriority,
   ) {
     super();
   }
@@ -26,14 +31,24 @@ export class CustomDisruptionData extends DisruptionDataBase {
     return this.routeGraphImplications;
   }
 
+  getLineStatusIndicatorPriority(): LineStatusIndicatorPriority {
+    return this.lineStatusIndicatorPriority;
+  }
+
   static readonly bson = z
     .object({
       type: z.literal("custom"),
       writeup: DisruptionWriteup.bson,
       routeGraphImplications: RouteGraphImplications.bson,
+      lineStatusIndicatorPriority: z.enum(LineStatusIndicatorPriorities),
     })
     .transform(
-      (x) => new CustomDisruptionData(x.writeup, x.routeGraphImplications),
+      (x) =>
+        new CustomDisruptionData(
+          x.writeup,
+          x.routeGraphImplications,
+          x.lineStatusIndicatorPriority,
+        ),
     );
 
   toBson(): z.input<typeof CustomDisruptionData.bson> {
@@ -41,6 +56,7 @@ export class CustomDisruptionData extends DisruptionDataBase {
       type: "custom",
       writeup: this.writeup.toBson(),
       routeGraphImplications: this.routeGraphImplications.toBson(),
+      lineStatusIndicatorPriority: this.lineStatusIndicatorPriority,
     };
   }
 }

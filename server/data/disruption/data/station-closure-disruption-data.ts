@@ -1,5 +1,8 @@
 import { z } from "zod";
-import { DisruptionDataBase } from "./disruption-data-base";
+import {
+  DisruptionDataBase,
+  LineStatusIndicatorPriority,
+} from "./disruption-data-base";
 import { RouteGraphImplications } from "../../route-graph/route-graph-implications";
 import { DisruptionWriteupAuthor } from "../writeup/disruption-writeup-author";
 import { StationClosureDisruptionWriteupAuthor } from "../writeup/station-closure-disruption-writeup-author";
@@ -37,6 +40,10 @@ export class StationClosureDisruptionData extends DisruptionDataBase {
     // edges to it, and query it for route finding), but we want something
     // that's essentially an instruction to remove all regular edges from a
     // certain node.
+  }
+
+  getLineStatusIndicatorPriority(): LineStatusIndicatorPriority {
+    return "very-low";
   }
 
   static readonly bson = z

@@ -2,9 +2,13 @@ import { stations } from "../../static/stations";
 import { StationClosureDisruptionData } from "../data/station-closure-disruption-data";
 import { Disruption } from "../disruption";
 import { DisruptionWriteup } from "./disruption-writeup";
+import { DisruptionWriteupAuthor } from "./disruption-writeup-author";
 
-export class StationClosureDisruptionWriteupAuthor {
-  constructor(private readonly _data: StationClosureDisruptionData) {}
+/** DisruptionWriteupAuther for StationClosureDisruptionData. */
+export class StationClosureDisruptionWriteupAuthor extends DisruptionWriteupAuthor {
+  constructor(private readonly _data: StationClosureDisruptionData) {
+    super();
+  }
 
   write(disruption: Disruption): DisruptionWriteup {
     const stationName = stations.require(this._data.stationId).name;
@@ -15,6 +19,8 @@ export class StationClosureDisruptionWriteupAuthor {
 
       // TODO: Mostly just an example. Further info to be added, no doubt.
       `${periodString}\n\nAll trains will run express through ${stationName} Station.`,
+
+      `${stationName} closed`,
     );
   }
 }
