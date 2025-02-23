@@ -23,7 +23,7 @@ export class StationClosureRouteGraphModifier extends RouteGraphModifier {
     //   .filter(x => x instanceof RouteGraphTrainEdge);
     //
     // const connectedNodes = oldEdges
-    //   .flatMap(x => [x.from, x.to])
+    //   .flatMap(x => [x.stationA, x.stationB])
     //   .filter(x => x !== this.stationID);
     //
     // const expressEdges = mapEachPair(connectedNodes, (a, b) => {

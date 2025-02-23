@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { CalendarMark, DisruptionPeriodBase } from "./disruption-period-base";
 
+/** A start date and end date. */
 class TimeRange {
   constructor(
     readonly start: Date,
