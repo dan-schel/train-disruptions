@@ -18,6 +18,7 @@ import { SimpleRouteGraphModifier } from "../route-graph-modifier/simple-route-g
  */
 export class CustomDisruptionData extends DisruptionDataBase {
   constructor(
+    readonly impactedLines: readonly number[],
     readonly writeup: DisruptionWriteup,
     readonly edgesToRemove: readonly RouteGraphTrainEdge[],
     readonly edgesToAdd: readonly RouteGraphEdge[],
@@ -28,21 +29,33 @@ export class CustomDisruptionData extends DisruptionDataBase {
   static readonly bson = z
     .object({
       type: z.literal("custom"),
+      impactedLines: z.number().array().readonly(),
       writeup: DisruptionWriteup.bson,
       edgesToRemove: RouteGraphTrainEdge.bson.array(),
       edgesToAdd: routeGraphEdgeBson.array(),
     })
     .transform(
-      (x) => new CustomDisruptionData(x.writeup, x.edgesToRemove, x.edgesToAdd),
+      (x) =>
+        new CustomDisruptionData(
+          x.impactedLines,
+          x.writeup,
+          x.edgesToRemove,
+          x.edgesToAdd,
+        ),
     );
 
   toBson(): z.input<typeof CustomDisruptionData.bson> {
     return {
       type: "custom",
+      impactedLines: this.impactedLines,
       writeup: this.writeup.toBson(),
       edgesToRemove: this.edgesToRemove.map((x) => x.toBson()),
       edgesToAdd: this.edgesToAdd.map((x) => x.toBson()),
     };
+  }
+
+  getImpactedLines(): readonly number[] {
+    return this.impactedLines;
   }
 
   getWriteupAuthor(): DisruptionWriteupAuthor {

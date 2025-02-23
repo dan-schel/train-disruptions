@@ -28,6 +28,11 @@ export class StationClosureDisruptionData extends DisruptionDataBase {
     };
   }
 
+  getImpactedLines(): readonly number[] {
+    // TODO: lines.whichStopAt(this._data.stationId);
+    return [];
+  }
+
   getWriteupAuthor(): DisruptionWriteupAuthor {
     return new StationClosureDisruptionWriteupAuthor(this);
   }
