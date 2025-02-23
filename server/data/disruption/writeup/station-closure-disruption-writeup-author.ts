@@ -21,6 +21,7 @@ export class StationClosureDisruptionWriteupAuthor extends DisruptionWriteupAuth
       `${periodString}\n\nAll trains will run express through ${stationName} Station.`,
 
       `${stationName} closed`,
+      "very-low",
     );
   }
 }

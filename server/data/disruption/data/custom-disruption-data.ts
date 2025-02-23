@@ -1,13 +1,15 @@
 import { z } from "zod";
-import {
-  DisruptionDataBase,
-  LineStatusIndicatorPriorities,
-  LineStatusIndicatorPriority,
-} from "./disruption-data-base";
+import { DisruptionDataBase } from "./disruption-data-base";
 import { DisruptionWriteup } from "../writeup/disruption-writeup";
-import { RouteGraphImplications } from "../../route-graph/route-graph-implications";
 import { DisruptionWriteupAuthor } from "../writeup/disruption-writeup-author";
 import { CustomDisruptionWriteupAuthor } from "../writeup/custom-disruption-writeup-author";
+import { RouteGraphTrainEdge } from "../../route-graph/edge/route-graph-train-edge";
+import {
+  RouteGraphEdge,
+  routeGraphEdgeBson,
+} from "../../route-graph/edge/route-graph-edge";
+import { RouteGraphModifier } from "../route-graph-modifier/route-graph-modifier";
+import { SimpleRouteGraphModifier } from "../route-graph-modifier/simple-route-graph-modifier";
 
 /**
  * Used in edge cases where the normal disruption types we have don't cut it.
@@ -17,46 +19,37 @@ import { CustomDisruptionWriteupAuthor } from "../writeup/custom-disruption-writ
 export class CustomDisruptionData extends DisruptionDataBase {
   constructor(
     readonly writeup: DisruptionWriteup,
-    readonly routeGraphImplications: RouteGraphImplications,
-    readonly lineStatusIndicatorPriority: LineStatusIndicatorPriority,
+    readonly edgesToRemove: readonly RouteGraphTrainEdge[],
+    readonly edgesToAdd: readonly RouteGraphEdge[],
   ) {
     super();
-  }
-
-  getWriteupAuthor(): DisruptionWriteupAuthor {
-    return new CustomDisruptionWriteupAuthor(this);
-  }
-
-  getRouteGraphImplications(): RouteGraphImplications {
-    return this.routeGraphImplications;
-  }
-
-  getLineStatusIndicatorPriority(): LineStatusIndicatorPriority {
-    return this.lineStatusIndicatorPriority;
   }
 
   static readonly bson = z
     .object({
       type: z.literal("custom"),
       writeup: DisruptionWriteup.bson,
-      routeGraphImplications: RouteGraphImplications.bson,
-      lineStatusIndicatorPriority: z.enum(LineStatusIndicatorPriorities),
+      edgesToRemove: RouteGraphTrainEdge.bson.array(),
+      edgesToAdd: routeGraphEdgeBson.array(),
     })
     .transform(
-      (x) =>
-        new CustomDisruptionData(
-          x.writeup,
-          x.routeGraphImplications,
-          x.lineStatusIndicatorPriority,
-        ),
+      (x) => new CustomDisruptionData(x.writeup, x.edgesToRemove, x.edgesToAdd),
     );
 
   toBson(): z.input<typeof CustomDisruptionData.bson> {
     return {
       type: "custom",
       writeup: this.writeup.toBson(),
-      routeGraphImplications: this.routeGraphImplications.toBson(),
-      lineStatusIndicatorPriority: this.lineStatusIndicatorPriority,
+      edgesToRemove: this.edgesToRemove.map((x) => x.toBson()),
+      edgesToAdd: this.edgesToAdd.map((x) => x.toBson()),
     };
+  }
+
+  getWriteupAuthor(): DisruptionWriteupAuthor {
+    return new CustomDisruptionWriteupAuthor(this);
+  }
+
+  getRouteGraphModifier(): RouteGraphModifier {
+    return new SimpleRouteGraphModifier(this.edgesToRemove, this.edgesToAdd);
   }
 }
