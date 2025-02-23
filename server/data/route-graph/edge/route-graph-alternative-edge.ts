@@ -11,9 +11,9 @@ export type RouteGraphAlternativeEdgeMode = "bus" | "tram" | "walk";
  */
 export class RouteGraphAlternativeEdge extends RouteGraphEdgeBase {
   constructor(
-    public readonly stationA: number,
-    public readonly stationB: number,
-    public readonly mode: RouteGraphAlternativeEdgeMode,
+    readonly stationA: number,
+    readonly stationB: number,
+    readonly mode: RouteGraphAlternativeEdgeMode,
   ) {
     super(stationA, stationB);
   }

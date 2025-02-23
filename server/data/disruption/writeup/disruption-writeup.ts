@@ -27,16 +27,16 @@ export type LineStatusIndicatorPriority =
 export class DisruptionWriteup {
   constructor(
     /** Disruption page title. */
-    public readonly title: string,
+    readonly title: string,
     /** Disruption page body. */
-    public readonly bodyMarkdown: string,
+    readonly bodyMarkdown: string,
     /** Line status indicator text on the overview page. */
-    public readonly lineStatusIndicatorSummary: string,
+    readonly lineStatusIndicatorSummary: string,
     /**
      * In the case of multiple disruptions, defines which takes precedence on
      * the line status indicator.
      */
-    public readonly lineStatusIndicatorPriority: LineStatusIndicatorPriority,
+    readonly lineStatusIndicatorPriority: LineStatusIndicatorPriority,
   ) {}
 
   static readonly bson = z

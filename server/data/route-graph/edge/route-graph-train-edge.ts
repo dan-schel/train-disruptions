@@ -4,10 +4,10 @@ import { RouteGraphEdgeBase } from "./route-graph-edge-base";
 /** A path between two stations achievable by train. */
 export class RouteGraphTrainEdge extends RouteGraphEdgeBase {
   constructor(
-    public readonly stationA: number,
-    public readonly stationB: number,
-    public readonly line: number,
-    public readonly isRegionalTrain: boolean,
+    readonly stationA: number,
+    readonly stationB: number,
+    readonly line: number,
+    readonly isRegionalTrain: boolean,
   ) {
     super(stationA, stationB);
   }

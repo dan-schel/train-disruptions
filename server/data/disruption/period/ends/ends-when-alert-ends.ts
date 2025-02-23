@@ -5,7 +5,7 @@ import { EndsBase } from "./ends-base";
 export class EndsWhenAlertEnds extends EndsBase {
   constructor(
     /** The alert ID to track. */
-    public alertId: string,
+    readonly alertId: string,
   ) {
     super();
   }

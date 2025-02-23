@@ -1,19 +1,24 @@
 import { z } from "zod";
-import { DisruptionPeriodBase } from "./disruption-period-base";
+import { CalendarMark, DisruptionPeriodBase } from "./disruption-period-base";
 import { Ends, endsBson } from "./ends/ends";
 
 /** Disruption is active continuously from the start date to the end date. */
 export class StandardDisruptionPeriod extends DisruptionPeriodBase {
   constructor(
-    public start: Date | null,
-    public end: Ends,
+    readonly start: Date | null,
+    readonly end: Ends,
   ) {
     super();
   }
 
   toDisplayString(): string {
-    // TODO: I imagine these dates won't be accurate for every disruption.
+    // TODO: Implement this.
     return `Sat 22 Feb to early May`;
+  }
+
+  getCalendarMarks(): readonly CalendarMark[] {
+    // TODO: Implement this.
+    return [];
   }
 
   static readonly bson = z

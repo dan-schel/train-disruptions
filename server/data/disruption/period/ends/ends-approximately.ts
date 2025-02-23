@@ -5,11 +5,11 @@ import { EndsBase } from "./ends-base";
 export class EndsApproximately extends EndsBase {
   constructor(
     /** E.g. "late March" or "Spring 2025". */
-    public displayText: string,
+    readonly displayText: string,
     /** The earliest reasonable date/time which it could be interpreted as. */
-    public earliest: Date,
+    readonly earliest: Date,
     /** The latest reasonable date/time which it could be interpreted as. */
-    public latest: Date,
+    readonly latest: Date,
   ) {
     super();
   }
