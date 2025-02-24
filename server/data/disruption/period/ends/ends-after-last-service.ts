@@ -5,7 +5,7 @@ import { EndsBase } from "./ends-base";
 export class EndsAfterLastService extends EndsBase {
   constructor(
     /** The timetable date, e.g. Sun 9 Feb is translated to 3am, Mon 10 Feb. */
-    public date: Date,
+    readonly date: Date,
   ) {
     super();
   }

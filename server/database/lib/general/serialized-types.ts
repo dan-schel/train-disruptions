@@ -16,4 +16,4 @@ export type SerializedData =
   | Date
   | null
   | { [field: string]: SerializedData }
-  | SerializedData[];
+  | readonly SerializedData[];

@@ -3,7 +3,7 @@ import { EndsBase } from "./ends-base";
 
 /** The disruption ends after an exact timestamp. */
 export class EndsExactly extends EndsBase {
-  constructor(public date: Date) {
+  constructor(readonly date: Date) {
     super();
   }
 
