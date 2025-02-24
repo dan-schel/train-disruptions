@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import { vikeHandler } from "./server/vike-handler";
 import { createHandler } from "@universal-middleware/express";
 import express from "express";
+import cookieParser from "cookie-parser";
 import { runDemos } from "./server/demo/run-demos";
 import { env } from "./server/env";
 import APIRouter from "./server/routes/api";
@@ -18,6 +19,7 @@ async function startServer() {
   await runDemos();
 
   const app = express();
+  app.use(cookieParser());
 
   if (env.NODE_ENV === "production") {
     app.use(express.static(`${root}/dist/client`));
