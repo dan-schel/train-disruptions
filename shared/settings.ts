@@ -1,7 +1,10 @@
 import { z } from "zod";
 
 export const cookieSettings = {
+  // Using "lax" means only sent if it's the same site, but still send on the
+  // when navigating from an external site.
   sameSite: "lax",
+
   secure: true,
   maxAgeDays: 9999,
   maxAgeMillis: 9999 * 24 * 60 * 60 * 1000,
@@ -30,7 +33,7 @@ export class Settings {
 
   // Consider that anything we add here is stored in a cookie, and we only have
   // 4KB (4096 characters!) to work with. We also might have to share that limit
-  // with the auth token, so let's hope there's not much more to add!
+  // with the admin auth token, so let's hope there's not much more to add!
   static readonly json = z
     .object({
       commute: z

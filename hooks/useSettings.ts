@@ -9,8 +9,6 @@ const cookies = Cookies.withAttributes({
 
 /** Hook to retrieve and set the user settings cookie. */
 export function useSettings() {
-  // Using "lax" means only sent if it's the same site, but still send on the
-  // when navigating from an external site.
   const settingsStr = cookies.get("settings");
 
   const settings =
