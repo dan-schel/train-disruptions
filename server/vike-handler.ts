@@ -1,24 +1,35 @@
-/// <reference lib="webworker" />
 import { renderPage } from "vike/server";
-// TODO: stop using universal-middleware and directly integrate server middlewares instead. (Bati generates boilerplates that use universal-middleware https://github.com/magne4000/universal-middleware to make Bati's internal logic easier. This is temporary and will be removed soon.)
-import type { Get, UniversalHandler } from "@universal-middleware/core";
+import express from "express";
 
-export const vikeHandler: Get<[], UniversalHandler> =
-  () => async (request, context, runtime) => {
-    const pageContextInit = {
-      ...context,
-      ...runtime,
-      urlOriginal: request.url,
-      headersOriginal: request.headers,
-    };
-    const pageContext = await renderPage(pageContextInit);
-    const response = pageContext.httpResponse;
+declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace Vike {
+    interface PageContext {
+      // TODO: Anything we add to pageContext should be added here too for
+      // TypeScript support.
 
-    const { readable, writable } = new TransformStream();
-    response.pipe(writable);
+      // This cannot be removed. It's required by renderPage.
+      urlOriginal: string;
+    }
+  }
+}
 
-    return new Response(readable, {
-      status: response.statusCode,
-      headers: response.headers,
-    });
-  };
+export async function vikeHandler(req: express.Request, res: express.Response) {
+  const { body, statusCode, headers } = (
+    await renderPage({
+      // Anything added here becomes available in pageContext.
+
+      // TODO: Add stuff? The original implementation from the template included
+      // essentially the entire req object.
+
+      urlOriginal: req.url,
+    } satisfies Vike.PageContext)
+  ).httpResponse;
+
+  const headersObj: Record<string, string> = {};
+  headers.forEach(([name, value]) => {
+    headersObj[name] = value;
+  });
+
+  res.status(statusCode).set(headersObj).send(body);
+}

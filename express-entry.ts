@@ -2,7 +2,6 @@ import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { vikeHandler } from "./server/vike-handler";
-import { createHandler } from "@universal-middleware/express";
 import express from "express";
 import cookieParser from "cookie-parser";
 import { runDemos } from "./server/demo/run-demos";
@@ -45,7 +44,7 @@ async function startServer() {
    *
    * @link {@see https://vike.dev}
    **/
-  app.all(/(.*)/, createHandler(vikeHandler)());
+  app.all(/(.*)/, vikeHandler);
 
   app.listen(env.PORT, () => {
     // eslint-disable-next-line no-console
