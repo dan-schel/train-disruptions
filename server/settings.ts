@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { cookieSettings, Settings } from "../shared/settings";
+import { StationCollection } from "./data/static/station-collection";
 
 /** Extracts the user settings from an Express request's cookies. */
 export function getSettings(req: Request): Settings {
@@ -20,4 +21,24 @@ export function setSettings(res: Response, settings: Settings): Response {
     secure: cookieSettings.secure,
     expires: new Date(Date.now() + cookieSettings.maxAgeMillis),
   });
+}
+
+/**
+ * Returns the same settings object, but with any settings which can no longer
+ * valid updated to valid values (e.g. reset the commute if a station no longer
+ * exists).
+ */
+export function validateSettings(
+  settings: Settings,
+  stations: StationCollection,
+): Settings {
+  // Reset commutes to stations that no longer exist.
+  if (
+    settings.commute !== null &&
+    (!stations.has(settings.commute.a) || !stations.has(settings.commute.b))
+  ) {
+    return settings.with({ commute: null });
+  }
+
+  return settings;
 }
