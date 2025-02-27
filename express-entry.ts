@@ -1,55 +1,51 @@
 import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { vikeHandler } from "./server/vike-handler";
+import { createVikeHandler } from "./server/vike-handler";
 import express from "express";
 import cookieParser from "cookie-parser";
-import { runDemos } from "./server/demo/run-demos";
 import { env } from "./server/env";
-import APIRouter from "./server/routes/api";
+import { createApiRouter } from "./server/routes/api";
+import { createDevMiddleware } from "vike/server";
+import { App } from "./server/app";
+import { lines } from "./server/data/static/lines";
+import { stations } from "./server/data/static/stations";
+import { initDatabase } from "./server/database/init-database";
+import { initDisruptionSource } from "./server/disruption-source/init-disruption-source";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const root = __dirname;
 
-export default (await startServer()) as unknown;
+export default (await main()) as unknown;
 
-async function startServer() {
-  await runDemos();
+async function main() {
+  const database = await initDatabase();
+  const disruptionSource = initDisruptionSource();
 
-  const app = express();
-  app.use(cookieParser());
+  const app = new App(lines, stations, database, disruptionSource);
+  await app.init();
+
+  await startWebServer(app);
+}
+
+async function startWebServer(app: App) {
+  const server = express();
+  server.use(cookieParser());
 
   if (env.NODE_ENV === "production") {
-    app.use(express.static(`${root}/dist/client`));
+    server.use(express.static(`${root}/dist/client`));
   } else {
-    // Instantiate Vite's development server and integrate its middleware to our server.
-    // ⚠️ We should instantiate it *only* in development. (It isn't needed in production
-    // and would unnecessarily bloat our server in production.)
-    const vite = await import("vite");
-    const viteDevMiddleware = (
-      await vite.createServer({
-        root,
-        server: { middlewareMode: true, hmr: { port: env.HMR_PORT } },
-      })
-    ).middlewares;
-    app.use(viteDevMiddleware);
+    const { devMiddleware } = await createDevMiddleware({ root });
+    server.use(devMiddleware);
   }
 
-  // API Routes
-  app.use("/api", express.json(), APIRouter);
+  server.use("/api", express.json(), createApiRouter(app));
+  server.all(/(.*)/, createVikeHandler(app));
 
-  /**
-   * Vike route
-   *
-   * @link {@see https://vike.dev}
-   **/
-  app.all(/(.*)/, vikeHandler);
-
-  app.listen(env.PORT, () => {
-    // eslint-disable-next-line no-console
-    console.log(`🟢 Server listening on http://localhost:${env.PORT}`);
+  server.listen(env.PORT, () => {
+    app.onServerStarted(env.PORT);
   });
 
-  return app;
+  return server;
 }

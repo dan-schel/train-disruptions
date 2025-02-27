@@ -1,35 +1,39 @@
 import { renderPage } from "vike/server";
 import express from "express";
+import { getSettings } from "./settings";
+import { App } from "./app";
+import { Settings } from "../shared/settings";
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Vike {
     interface PageContext {
-      // TODO: Anything we add to pageContext should be added here too for
-      // TypeScript support.
-
-      // This cannot be removed. It's required by renderPage.
+      custom: CustomPageContext;
       urlOriginal: string;
     }
   }
 }
 
-export async function vikeHandler(req: express.Request, res: express.Response) {
-  const { body, statusCode, headers } = (
-    await renderPage({
-      // Anything added here becomes available in pageContext.
+export type CustomPageContext = {
+  app: App;
+  settings: Settings;
+};
 
-      // TODO: Add stuff? The original implementation from the template included
-      // essentially the entire req object.
+export function createVikeHandler(app: App) {
+  return async (req: express.Request, res: express.Response) => {
+    const settings = getSettings(req);
 
-      urlOriginal: req.url,
-    } satisfies Vike.PageContext)
-  ).httpResponse;
+    const { body, statusCode, headers } = (
+      await renderPage({
+        custom: {
+          app,
+          settings,
+        },
+        urlOriginal: req.url,
+      } satisfies Vike.PageContext)
+    ).httpResponse;
 
-  const headersObj: Record<string, string> = {};
-  headers.forEach(([name, value]) => {
-    headersObj[name] = value;
-  });
-
-  res.status(statusCode).set(headersObj).send(body);
+    headers.forEach(([name, value]) => res.setHeader(name, value));
+    res.status(statusCode).send(body);
+  };
 }
