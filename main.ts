@@ -13,11 +13,7 @@ import { stations } from "./server/data/static/stations";
 import { initDatabase } from "./server/database/init-database";
 import { initDisruptionSource } from "./server/disruption-source/init-disruption-source";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-const root = __dirname;
-
-export default (await main()) as unknown;
+await main();
 
 async function main() {
   const database = await initDatabase();
@@ -30,6 +26,9 @@ async function main() {
 }
 
 async function startWebServer(app: App) {
+  const fileName = fileURLToPath(import.meta.url);
+  const root = dirname(fileName);
+
   const server = express();
   server.use(cookieParser());
 
