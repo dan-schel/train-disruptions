@@ -5,7 +5,10 @@ export const cookieSettings = {
   // when navigating from an external site.
   sameSite: "lax",
 
+  // TODO: This means I can't test on my phone over the local network :(
+  // We definitely want to set this to `true` in prod though!
   secure: true,
+
   maxAgeDays: 9999,
   maxAgeMillis: 9999 * 24 * 60 * 60 * 1000,
 } as const;
@@ -76,6 +79,19 @@ export class Settings {
       commute: this.commute ?? undefined,
       hiddenCategories: this.hiddenCategories,
     };
+  }
+
+  with({
+    commute,
+    hiddenCategories,
+  }: {
+    commute?: { readonly a: number; readonly b: number } | null;
+    hiddenCategories?: readonly FilterableDisruptionCategory[];
+  }): Settings {
+    return new Settings(
+      commute !== undefined ? commute : this.commute,
+      hiddenCategories ?? this.hiddenCategories,
+    );
   }
 }
 

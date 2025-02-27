@@ -1,7 +1,25 @@
-// import { PageContext } from "vike/types";
+import { PageContext } from "vike/types";
 
-export async function data(/* pageContext: PageContext */) {
+export type Data = {
+  commute: {
+    stationAName: string;
+    stationBName: string;
+  } | null;
+};
+
+export async function data(pageContext: PageContext): Promise<Data> {
+  const { app, settings } = pageContext.custom;
+
+  if (settings.commute == null) {
+    return {
+      commute: null,
+    };
+  }
+
   return {
-    something: "else",
+    commute: {
+      stationAName: app.stations.require(settings.commute.a).name,
+      stationBName: app.stations.require(settings.commute.b).name,
+    },
   };
 }
