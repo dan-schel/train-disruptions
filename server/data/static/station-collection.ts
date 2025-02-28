@@ -1,4 +1,4 @@
-import { Collection } from "./collection";
+import { Collection } from "../utils/collection";
 import { Station } from "./station";
 
 export class StationCollection extends Collection<number, Station> {

@@ -4,7 +4,7 @@ import { Column } from "../../components/core/Column";
 import { PageCenterer } from "../../components/common/PageCenterer";
 import { PagePadding } from "../../components/common/PagePadding";
 import { BackNavigation } from "../../components/navigation/BackNavigation";
-import { Station } from "../../server/data/station";
+import { Station } from "../../server/data/static/station";
 
 export type DisplayTripPageProps = {
   toStation: Station;
