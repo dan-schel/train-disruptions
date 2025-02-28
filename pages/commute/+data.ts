@@ -7,7 +7,7 @@ export type Data = {
   } | null;
 };
 
-export async function data(pageContext: PageContext): Promise<Data> {
+export function data(pageContext: PageContext): Data {
   const { app, settings } = pageContext.custom;
 
   if (settings.commute == null) {

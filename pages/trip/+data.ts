@@ -27,7 +27,7 @@ export type DisplayData = {
 
 export type Data = ChooseData | DisplayData;
 
-export async function data(pageContext: PageContext): Promise<Data> {
+export function data(pageContext: PageContext): Data {
   const { app, settings } = pageContext.custom;
   const to = tryGetStation(app.stations, pageContext.urlParsed.search.to);
   const from = tryGetStation(app.stations, pageContext.urlParsed.search.from);

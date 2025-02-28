@@ -2,7 +2,7 @@ import Cookies from "js-cookie";
 import { cookieSettings, Settings } from "../shared/settings";
 
 const fetchSettingsSsrError =
-  "fetchSettings (from useSettings) failed, as it was used during SSR! Pass" +
+  "fetchSettings (from useSettings) failed, as it was used during SSR! Pass " +
   "the settings you need through a Vike +data hook instead.";
 
 const setSettingsSsrError =
