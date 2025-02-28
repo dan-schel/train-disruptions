@@ -1,24 +1,41 @@
-/// <reference lib="webworker" />
 import { renderPage } from "vike/server";
-// TODO: stop using universal-middleware and directly integrate server middlewares instead. (Bati generates boilerplates that use universal-middleware https://github.com/magne4000/universal-middleware to make Bati's internal logic easier. This is temporary and will be removed soon.)
-import type { Get, UniversalHandler } from "@universal-middleware/core";
+import express from "express";
+import { getSettings, validateSettings } from "./settings";
+import { App } from "./app";
+import { Settings } from "../shared/settings";
 
-export const vikeHandler: Get<[], UniversalHandler> =
-  () => async (request, context, runtime) => {
-    const pageContextInit = {
-      ...context,
-      ...runtime,
-      urlOriginal: request.url,
-      headersOriginal: request.headers,
-    };
-    const pageContext = await renderPage(pageContextInit);
-    const response = pageContext.httpResponse;
+declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace Vike {
+    interface PageContext {
+      custom: CustomPageContext;
+      urlOriginal: string;
+    }
+  }
+}
 
-    const { readable, writable } = new TransformStream();
-    response.pipe(writable);
+export type CustomPageContext = {
+  app: App;
+  settings: Settings;
+};
 
-    return new Response(readable, {
-      status: response.statusCode,
-      headers: response.headers,
-    });
+export function createVikeHandler(app: App) {
+  return async (req: express.Request, res: express.Response) => {
+    // TODO: Arguably, we should also update the cookie if the validation causes
+    // the settings to change.
+    const settings = validateSettings(getSettings(req), app.stations);
+
+    const { body, statusCode, headers } = (
+      await renderPage({
+        custom: {
+          app,
+          settings,
+        },
+        urlOriginal: req.url,
+      } satisfies Vike.PageContext)
+    ).httpResponse;
+
+    headers.forEach(([name, value]) => res.setHeader(name, value));
+    res.status(statusCode).send(body);
   };
+}

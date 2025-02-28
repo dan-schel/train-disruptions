@@ -27,6 +27,10 @@ export abstract class Collection<IdType extends string | number, T> {
     return item;
   }
 
+  has(id: IdType): boolean {
+    return this._map.has(id);
+  }
+
   map<X>(callback: (item: T) => X): X[] {
     return this._array.map(callback);
   }
