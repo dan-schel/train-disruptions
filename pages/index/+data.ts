@@ -1,13 +1,13 @@
 import { DataAsync } from "vike/types";
-import { Line } from "../../server/data/line";
-import { lines } from "../../server/data/lines";
+import { Line } from "../../server/data/static/line";
+import { lines } from "../../server/data/static/lines";
 import {
   BALLARAT,
   BENDIGO,
   GEELONG,
   GIPPSLAND,
   SEYMOUR,
-} from "../../server/data/line-routes/line-routes";
+} from "../../server/data/static/line-routes/line-routes";
 
 export { data };
 export type Data = {

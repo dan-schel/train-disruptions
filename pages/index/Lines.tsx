@@ -1,8 +1,8 @@
 import React from "react";
 
 import { LineButton } from "./LineButton";
-import { Line } from "../../server/data/line";
 import { Text } from "../../components/core/Text";
+import { Line } from "../../server/data/static/line";
 import { Column } from "../../components/core/Column";
 
 type LinesProps = {
