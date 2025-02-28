@@ -37,10 +37,12 @@ export function DisruptionButton(props: DisruptionButtonProps) {
     }
 
     return (
-      <div
-        className="grid size-8 rounded-full"
-        style={{ backgroundColor: props.colour }}
-      />
+      <div className="flex size-8 items-center justify-center overflow-hidden rounded-full bg-gray-200">
+        <div
+          className="grid h-full w-2 rotate-45"
+          style={{ backgroundColor: props.colour }}
+        />
+      </div>
     );
   };
 

@@ -34,7 +34,7 @@ export function LineButton({ line, status }: LineButtonProps) {
             {line.name}
           </Text>
         </Row>
-        <div className="overflow-hidden text-end">
+        <div className="flex overflow-hidden text-end">
           <span
             className={clsx(
               "marquee text-sm lg:text-base",
