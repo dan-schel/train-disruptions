@@ -1,7 +1,8 @@
 import { Router } from "express";
 import cors, { type CorsOptions } from "cors";
-import DisruptionRouter from "./disruptions";
 import { errorHandler } from "./middleware/error";
+import { App } from "../app";
+import { createDisruptionRouter } from "./disruptions";
 
 // CORS enabled to prevent API abuse from origins outside our domain(s)
 const corsOptions: CorsOptions = {
@@ -14,19 +15,15 @@ const corsOptions: CorsOptions = {
   },
 };
 
-const apiRouter = Router();
+export function createApiRouter(app: App) {
+  const apiRouter = Router();
+  apiRouter.use(cors(corsOptions));
 
-apiRouter.use(cors(corsOptions));
+  // Start of routes.
+  apiRouter.use("/disruptions", createDisruptionRouter(app));
+  // (...add additional routes here.)
 
-/**
- * Routes - START
- */
-apiRouter.use("/disruptions", DisruptionRouter);
-
-/**
- * Routes - END
- */
-
-apiRouter.use(errorHandler);
-
-export default apiRouter;
+  // Must go last.
+  apiRouter.use(errorHandler);
+  return apiRouter;
+}

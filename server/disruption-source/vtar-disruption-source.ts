@@ -1,9 +1,6 @@
 import { z } from "zod";
 import { Disruption, disruptionSchema } from "../../types/disruption";
-
-export abstract class DisruptionSource {
-  abstract fetchDisruptions(): Promise<Disruption[]>;
-}
+import { DisruptionSource } from "./disruption-source";
 
 export class VtarDisruptionSource extends DisruptionSource {
   constructor(
@@ -41,19 +38,6 @@ export class VtarDisruptionSource extends DisruptionSource {
       ...data.disruptions.regional_train,
     ];
 
-    // eslint-disable-next-line no-console
-    console.log(
-      `🟢 Successfully fetched ${combined.length} disruption(s) from VTAR.`,
-    );
     return combined;
-  }
-}
-
-// For testing purposes.
-export class FakeDisruptionSource extends DisruptionSource {
-  async fetchDisruptions(): Promise<Disruption[]> {
-    // eslint-disable-next-line no-console
-    console.log("🟡 Relay connection not set up yet.");
-    return [];
   }
 }
