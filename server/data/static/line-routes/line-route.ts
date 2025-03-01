@@ -30,25 +30,27 @@ export class LineRoute {
   }
 
   getEdgesInSection(lineSection: LineSection): StationPair[] {
-    const matchingPath = this._pathMatchingSection(lineSection);
-    if (matchingPath == null) {
+    const matchingPaths = this._getMatchingPaths(lineSection);
+    if (matchingPaths.length === 0) {
       throw new Error(
         `Line section ${lineSection.a} to ${lineSection.b} is not valid for this line.`,
       );
     }
 
-    // Shouldn't be any need to unique. A single path shouldn't have any
-    // duplicate edges.
-    return StationPair.arrayToPairs(matchingPath.trimToSection(lineSection));
+    const matchingPairs = matchingPaths.flatMap((p) =>
+      StationPair.arrayToPairs(p.trimToSection(lineSection)),
+    );
+
+    return unique(matchingPairs, (a, b) => a.equals(b));
   }
 
   isValidSection(lineSection: LineSection): boolean {
-    return this._pathMatchingSection(lineSection) != null;
+    return this._getMatchingPaths(lineSection).length !== 0;
   }
 
-  private _pathMatchingSection(lineSection: LineSection): LineRoutePath | null {
+  private _getMatchingPaths(lineSection: LineSection): LineRoutePath[] {
     return (
-      this._paths.find(
+      this._paths.filter(
         (p) =>
           p.includesBoundary(lineSection.a) &&
           p.includesBoundary(lineSection.b),

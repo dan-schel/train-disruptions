@@ -67,5 +67,39 @@ describe("LineRoute", () => {
     });
   });
 
-  describe("#getEdgesInSection", () => {});
+  describe("#getEdgesInSection", () => {
+    it("returns the correct pairs", () => {
+      const pairsSection1 = lineRoute1.getEdgesInSection(
+        section("the-city", 5),
+      );
+      expect(pairsSection1.length).toBe(5);
+      expectPair(pairsSection1, 1, 2);
+      expectPair(pairsSection1, 2, 3);
+      expectPair(pairsSection1, 3, 4);
+      expectPair(pairsSection1, 1, 4);
+      expectPair(pairsSection1, 4, 5); // Ideally
+
+      const pairsSection2 = lineRoute1.getEdgesInSection(section(4, 7));
+      expect(pairsSection2.length).toBe(4);
+      expectPair(pairsSection2, 4, 6);
+      expectPair(pairsSection2, 6, 7);
+      expectPair(pairsSection2, 4, 5); // Ideally
+      expectPair(pairsSection2, 5, 6); // Ideally
+
+      const pairsSection3 = lineRoute2.getEdgesInSection(section(2, 3));
+      expect(pairsSection3.length).toBe(1);
+      expectPair(pairsSection3, 2, 3);
+    });
+
+    // it throws for invalid paths
+    it("throws for invalid paths", () => {
+      expect(() =>
+        lineRoute1.getEdgesInSection(section("the-city", 8)),
+      ).toThrow();
+      expect(() => lineRoute1.getEdgesInSection(section(2, 5))).toThrow();
+      expect(() =>
+        lineRoute2.getEdgesInSection(section("the-city", 4)),
+      ).toThrow();
+    });
+  });
 });
