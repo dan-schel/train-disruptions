@@ -450,12 +450,7 @@ export const BENDIGO = regionalBranch({
 });
 
 export const BALLARAT = regionalBranch({
-  // prettier-ignore
-  setDownOnly: [
-    station.SOUTHERN_CROSS,
-    station.FOOTSCRAY,
-    station.SUNSHINE
-  ],
+  setDownOnly: [station.SOUTHERN_CROSS, station.FOOTSCRAY, station.SUNSHINE],
   shared: [
     station.ARDEER,
     station.DEER_PARK,
@@ -483,12 +478,7 @@ export const BALLARAT = regionalBranch({
 });
 
 export const GEELONG = regionalSimple({
-  // prettier-ignore
-  setDownOnly: [
-    station.SOUTHERN_CROSS,
-    station.FOOTSCRAY,
-    station.SUNSHINE
-  ],
+  setDownOnly: [station.SOUTHERN_CROSS, station.FOOTSCRAY, station.SUNSHINE],
   stations: [
     // The Geelong line doesn't stop at Ardeer.
     station.DEER_PARK,

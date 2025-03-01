@@ -10,10 +10,6 @@ describe("LineRoutePath", () => {
   const route2 = new LineRoutePath([1], [2, 3, 4, 5, 6]);
   const route3 = new LineRoutePath([], [1, 2, 3, 4, 5, 6]);
 
-  function section(a: LineSectionBoundary, b: LineSectionBoundary) {
-    return new LineSection(1, a, b);
-  }
-
   it("should throw an error if not enough stations are given", () => {
     expect(() => new LineRoutePath([], [])).toThrow();
     expect(() => new LineRoutePath([], [1])).toThrow();
@@ -74,4 +70,8 @@ describe("LineRoutePath", () => {
       expect(() => route3.trimToSection(section(2, 2))).toThrow();
     });
   });
+
+  function section(a: LineSectionBoundary, b: LineSectionBoundary) {
+    return new LineSection(1, a, b);
+  }
 });
