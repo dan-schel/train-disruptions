@@ -25,7 +25,9 @@ export class SimpleLineRoute extends LineRoute {
   }
 
   protected _buildEdges(): StationPair[] {
-    throw new Error("Method not implemented.");
+    return StationPair.arrayToPairs(
+      this.stations.map((station) => station.stationId),
+    );
   }
 
   getEdgesInSection(lineSection: LineSection): StationPair[] {
