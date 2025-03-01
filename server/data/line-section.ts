@@ -11,5 +11,9 @@ export class LineSection {
     readonly line: number,
     readonly a: LineSectionBoundary,
     readonly b: LineSectionBoundary,
-  ) {}
+  ) {
+    if (a === b) {
+      throw new Error("Line section boundaries must be different.");
+    }
+  }
 }

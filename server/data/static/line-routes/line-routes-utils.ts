@@ -1,5 +1,6 @@
-import { LineRoute, LineRoutePath } from "./line-route";
+import { LineRoute } from "./line-route";
 import * as station from "../../../../shared/station-ids";
+import { LineRoutePath } from "./line-route-path";
 
 const directWestern = [station.FLINDERS_STREET, station.SOUTHERN_CROSS];
 const directEastern = [station.FLINDERS_STREET];
