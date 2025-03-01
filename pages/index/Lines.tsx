@@ -18,7 +18,11 @@ export function Lines(props: LinesProps) {
       </Text>
       <Column className="divide-y-1 divide-slate-200">
         {props.lines.map((line) => (
-          <LineButton key={line.id} line={line} status={getRandomStatus()} />
+          <LineButton
+            key={line.id}
+            line={line}
+            status={getRandomStatus(line)}
+          />
         ))}
       </Column>
     </Column>
@@ -26,8 +30,8 @@ export function Lines(props: LinesProps) {
 }
 
 // For visualisation only
-function getRandomStatus() {
-  const random = Math.random() * 10;
+function getRandomStatus(line: Line) {
+  const random = (8 * line.id) % 10;
 
   if (random < 5) return "clear";
   if (random < 8) return "delays";
