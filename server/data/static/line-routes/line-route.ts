@@ -1,3 +1,5 @@
+import { LineSection } from "../../line-section";
+
 export type LineRouteStationType =
   | "served"
   | "always-express"
@@ -27,4 +29,33 @@ export class LineRouteStation {
   }
 }
 
-export abstract class LineRoute {}
+export class StationPair {
+  constructor(
+    readonly a: number,
+    readonly b: number,
+  ) {
+    if (a === b) {
+      throw new Error(`Invalid station pair: ${a} and ${b}.`);
+    }
+  }
+
+  includes(station: number) {
+    return this.a === station || this.b === station;
+  }
+}
+
+export abstract class LineRoute {
+  _edges: StationPair[] | null = null;
+
+  // Memoize the edges so we don't have to rebuild them every time.
+  get edges(): StationPair[] {
+    if (this._edges == null) {
+      this._edges = this._buildEdges();
+    }
+    return this._edges;
+  }
+
+  protected abstract _buildEdges(): StationPair[];
+  abstract getEdgesInSection(lineSection: LineSection): StationPair[];
+  abstract isValidSection(lineSection: LineSection): boolean;
+}

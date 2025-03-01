@@ -1,7 +1,9 @@
+import { LineSection } from "../../line-section";
 import {
   LineRoute,
   LineRouteStation,
   InformalLineRouteStation,
+  StationPair,
 } from "./line-route";
 import * as station from "../../../../shared/station-ids";
 import { stations as allStations } from "../stations";
@@ -35,5 +37,17 @@ export class LoopLineRoute extends LineRoute {
       throw new Error(`Invalid loop portal station: ${name} (${firstStation})`);
     }
     this.portal = portal;
+  }
+
+  protected _buildEdges(): StationPair[] {
+    throw new Error("Method not implemented.");
+  }
+
+  getEdgesInSection(lineSection: LineSection): StationPair[] {
+    throw new Error("Method not implemented.");
+  }
+
+  isValidSection(lineSection: LineSection): boolean {
+    throw new Error("Method not implemented.");
   }
 }

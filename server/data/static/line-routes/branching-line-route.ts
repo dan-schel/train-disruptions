@@ -1,7 +1,10 @@
+import { LineSection } from "../../line-section";
+import { RouteGraphTrainEdge } from "../../route-graph/edge/route-graph-train-edge";
 import {
   LineRoute,
   LineRouteStation,
   InformalLineRouteStation,
+  StationPair,
 } from "./line-route";
 
 /** A line which splits into two branches. */
@@ -30,5 +33,17 @@ export class BranchingLineRoute extends LineRoute {
     this.sharedStations = sharedStations.map(LineRouteStation.formalize);
     this.branchAstations = branchAstations.map(LineRouteStation.formalize);
     this.branchBstations = branchBstations.map(LineRouteStation.formalize);
+  }
+
+  protected _buildEdges(): StationPair[] {
+    throw new Error("Method not implemented.");
+  }
+
+  getEdgesInSection(lineSection: LineSection): StationPair[] {
+    throw new Error("Method not implemented.");
+  }
+
+  isValidSection(lineSection: LineSection): boolean {
+    throw new Error("Method not implemented.");
   }
 }

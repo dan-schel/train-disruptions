@@ -1,7 +1,9 @@
+import { LineSection } from "../../line-section";
 import {
   LineRoute,
   LineRouteStation,
   InformalLineRouteStation,
+  StationPair,
 } from "./line-route";
 
 /** A line which splits into two branches but rejoins again. */
@@ -33,5 +35,17 @@ export class DualPathLineRoute extends LineRoute {
     this.sharedAfterStations = sharedAfterStations.map(
       LineRouteStation.formalize,
     );
+  }
+
+  protected _buildEdges(): StationPair[] {
+    throw new Error("Method not implemented.");
+  }
+
+  getEdgesInSection(lineSection: LineSection): StationPair[] {
+    throw new Error("Method not implemented.");
+  }
+
+  isValidSection(lineSection: LineSection): boolean {
+    throw new Error("Method not implemented.");
   }
 }
