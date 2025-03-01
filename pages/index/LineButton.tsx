@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import React from "react";
-import { Line } from "../../server/data/static/line";
+import { Line } from "./+data";
 
 import { Row } from "../../components/core/Row";
 import { Grid } from "../../components/core/Grid";
