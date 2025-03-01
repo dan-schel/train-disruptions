@@ -1,13 +1,32 @@
-@import "css/loading-spinner.css";
-@import "css/text.css";
+@import "tailwindcss";
+@import "./css/loading-spinner.css" layer(base);
+@import "./css/text.css" layer(base);
+@import "./css/marquee.css" layer(base);
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* https://tailwindcss.com/docs/theme#default-theme-variable-reference */
+@theme {
+  --font-sans: "Outfit", sans-serif;
 
-* {
-  flex-shrink: 0;
-  font-family: "Outfit", sans-serif;
+  --breakpoint-xs: 21.875rem;
+
+  --color-disruption: oklch(65% 0.23 35); /* #FC4000 */
+  --color-status-clear: oklch(76.47% 0.2289 146.12); /* #14D64B */
+  --color-status-delays: oklch(77.48% 0.1544 78.87); /* #EAA81F */
+  --color-status-buses: oklch(61.76% 0.2511 28.06); /* #F90514 */
+
+  --leading-*: initial;
+  --leading-none: 0em;
+  --leading-tight: 0.25em;
+  --leading-snug: 0.375em;
+  --leading-normal: 0.5em;
+  --leading-relaxed: 0.625em;
+  --leading-loose: 1em;
+}
+
+/* Override leading to set --line-spacing instead (see ./css/text.css). */
+@utility leading-* {
+  /* prettier-ignore */
+  --line-spacing: --value(--leading-*);
 }
 
 @font-face {
@@ -19,4 +38,16 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
     U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
     U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+* {
+  flex-shrink: 0;
+}
+
+/* Always use pointer cursor on buttons. */
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
 }

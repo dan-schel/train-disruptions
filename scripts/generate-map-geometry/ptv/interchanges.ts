@@ -33,7 +33,7 @@ import {
   SUNBURY,
   SUNSHINE,
   WATERGARDENS,
-} from "../../../server/data/station-ids";
+} from "../../../shared/station-ids";
 
 import { InterchangeBlueprint } from "../lib/blueprint/interchange-blueprint";
 

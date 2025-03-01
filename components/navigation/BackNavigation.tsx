@@ -14,7 +14,7 @@ export function BackNavigation(props: BackNavigationProps) {
   return (
     <With className="border-b border-b-slate-200 bg-white md:border-b-0">
       <PageCenterer>
-        <Row className="px-4 py-3 md:px-6 md:pb-0 md:pt-4">
+        <Row className="px-4 py-3 md:px-6 md:pt-4 md:pb-0">
           <SimpleButton
             icon={<MingcuteLeftLine />}
             text={props.name}

@@ -1,4 +1,5 @@
 import { Disruption } from "./Calendar";
+import { toZonedTime } from "date-fns-tz";
 import { daysInWeek } from "date-fns/constants";
 import {
   addDays,
@@ -27,6 +28,7 @@ const startPosition = [
   "col-start-5",
   "col-start-6",
 ];
+export const IANAMelbourneTimezone = "Australia/Melbourne";
 export const disruption = {
   buses: "bg-disruption text-white",
   night: "bg-gray-200 border-3 border-disruption",
@@ -46,11 +48,17 @@ const getRange = (disruptions: Disruption | Disruption[]) => {
 
   const fromDates = isArray
     ? disruptions
-        .map((d) => clamp(d.from, { start: new Date(), end: d.to }))
-        .concat(new Date())
+        .map((d) => d.from)
+        .concat(toZonedTime(new Date(), IANAMelbourneTimezone))
     : [disruptions.from];
 
-  return { startDate: min(fromDates), endDate: max(toDates) };
+  return {
+    startDate: clamp(min(fromDates), {
+      start: toZonedTime(new Date(), IANAMelbourneTimezone),
+      end: max(toDates),
+    }),
+    endDate: max(toDates),
+  };
 };
 
 /**
@@ -65,15 +73,14 @@ export const isThereDisruption = (
 ) => {
   const _disruptions = Array.isArray(disruptions) ? disruptions : [disruptions];
   for (const _disruption of _disruptions) {
-    const start = startOfDay(_disruption.from);
-    const end = endOfDay(_disruption.to);
+    const start = startOfDay(
+      toZonedTime(_disruption.from, IANAMelbourneTimezone),
+    );
+    const end = endOfDay(toZonedTime(_disruption.to, IANAMelbourneTimezone));
 
     if (isWithinInterval(date, { start, end })) {
       // Handle situations where bus replacements occur in the evening, only on the first day
-      if (
-        isSameDay(date, _disruption.from) &&
-        getHours(_disruption.from) >= SixPM
-      ) {
+      if (isSameDay(date, start) && getHours(_disruption.from) >= SixPM) {
         return disruption.night;
       }
       return _disruption.evenings ? disruption.night : disruption.buses;
