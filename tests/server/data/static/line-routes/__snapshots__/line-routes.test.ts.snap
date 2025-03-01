@@ -1,0 +1,502 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Melbourne default line route edges > should match the snapshot 1`] = `
+"
+Sandringham:
+  Flinders Street -> Richmond
+  Richmond -> South Yarra
+  South Yarra -> Prahran
+  Prahran -> Windsor
+  Windsor -> Balaclava
+  Balaclava -> Ripponlea
+  Ripponlea -> Elsternwick
+  Elsternwick -> Gardenvale
+  Gardenvale -> North Brighton
+  North Brighton -> Middle Brighton
+  Middle Brighton -> Brighton Beach
+  Brighton Beach -> Hampton
+  Hampton -> Sandringham
+
+Frankston:
+  Flinders Street -> Richmond
+  Richmond -> South Yarra
+  South Yarra -> Hawksburn
+  Hawksburn -> Toorak
+  Toorak -> Armadale
+  Armadale -> Malvern
+  Malvern -> Caulfield
+  Caulfield -> Glen Huntly
+  Glen Huntly -> Ormond
+  Ormond -> McKinnon
+  McKinnon -> Bentleigh
+  Bentleigh -> Patterson
+  Patterson -> Moorabbin
+  Moorabbin -> Highett
+  Highett -> Southland
+  Southland -> Cheltenham
+  Cheltenham -> Mentone
+  Mentone -> Parkdale
+  Parkdale -> Mordialloc
+  Mordialloc -> Aspendale
+  Aspendale -> Edithvale
+  Edithvale -> Chelsea
+  Chelsea -> Bonbeach
+  Bonbeach -> Carrum
+  Carrum -> Seaford
+  Seaford -> Kananook
+  Kananook -> Frankston
+
+Stony Point:
+  Frankston -> Leawarra
+  Leawarra -> Baxter
+  Baxter -> Somerville
+  Somerville -> Tyabb
+  Tyabb -> Hastings
+  Hastings -> Bittern
+  Bittern -> Morradoo
+  Morradoo -> Crib Point
+  Crib Point -> Stony Point
+
+Cranbourne:
+  Flinders Street -> Richmond
+  Richmond -> South Yarra
+  South Yarra -> Caulfield
+  Caulfield -> Carnegie
+  Carnegie -> Murrumbeena
+  Murrumbeena -> Hughesdale
+  Hughesdale -> Oakleigh
+  Oakleigh -> Huntingdale
+  Huntingdale -> Clayton
+  Clayton -> Westall
+  Westall -> Springvale
+  Springvale -> Sandown Park
+  Sandown Park -> Noble Park
+  Noble Park -> Yarraman
+  Yarraman -> Dandenong
+  Dandenong -> Lynbrook
+  Lynbrook -> Merinda Park
+  Merinda Park -> Cranbourne
+  Flinders Street -> Southern Cross
+  Southern Cross -> Flagstaff
+  Flagstaff -> Melbourne Central
+  Melbourne Central -> Parliament
+  Parliament -> Richmond
+
+Pakenham:
+  Flinders Street -> Richmond
+  Richmond -> South Yarra
+  South Yarra -> Caulfield
+  Caulfield -> Carnegie
+  Carnegie -> Murrumbeena
+  Murrumbeena -> Hughesdale
+  Hughesdale -> Oakleigh
+  Oakleigh -> Huntingdale
+  Huntingdale -> Clayton
+  Clayton -> Westall
+  Westall -> Springvale
+  Springvale -> Sandown Park
+  Sandown Park -> Noble Park
+  Noble Park -> Yarraman
+  Yarraman -> Dandenong
+  Dandenong -> Hallam
+  Hallam -> Narre Warren
+  Narre Warren -> Berwick
+  Berwick -> Beaconsfield
+  Beaconsfield -> Officer
+  Officer -> Cardinia Road
+  Cardinia Road -> Pakenham
+  Pakenham -> East Pakenham
+  Flinders Street -> Southern Cross
+  Southern Cross -> Flagstaff
+  Flagstaff -> Melbourne Central
+  Melbourne Central -> Parliament
+  Parliament -> Richmond
+
+Gippsland:
+  Southern Cross -> Pakenham
+  Pakenham -> Nar Nar Goon
+  Nar Nar Goon -> Tynong
+  Tynong -> Garfield
+  Garfield -> Bunyip
+  Bunyip -> Longwarry
+  Longwarry -> Drouin
+  Drouin -> Warragul
+  Warragul -> Yarragon
+  Yarragon -> Trafalgar
+  Trafalgar -> Moe
+  Moe -> Morwell
+  Morwell -> Traralgon
+  Traralgon -> Rosedale
+  Rosedale -> Sale
+  Sale -> Stratford
+  Stratford -> Bairnsdale
+  Flinders Street -> Pakenham
+  Richmond -> Pakenham
+  Caulfield -> Pakenham
+  Clayton -> Pakenham
+  Dandenong -> Pakenham
+
+Glen Waverley:
+  Flinders Street -> Richmond
+  Richmond -> East Richmond
+  East Richmond -> Burnley
+  Burnley -> Heyington
+  Heyington -> Kooyong
+  Kooyong -> Tooronga
+  Tooronga -> Gardiner
+  Gardiner -> Glen Iris
+  Glen Iris -> Darling
+  Darling -> East Malvern
+  East Malvern -> Holmesglen
+  Holmesglen -> Jordanville
+  Jordanville -> Mount Waverley
+  Mount Waverley -> Syndal
+  Syndal -> Glen Waverley
+  Flinders Street -> Southern Cross
+  Southern Cross -> Flagstaff
+  Flagstaff -> Melbourne Central
+  Melbourne Central -> Parliament
+  Parliament -> Richmond
+
+Alamein:
+  Flinders Street -> Richmond
+  Richmond -> East Richmond
+  East Richmond -> Burnley
+  Burnley -> Hawthorn
+  Hawthorn -> Glenferrie
+  Glenferrie -> Auburn
+  Auburn -> Camberwell
+  Camberwell -> Riversdale
+  Riversdale -> Willison
+  Willison -> Hartwell
+  Hartwell -> Burwood
+  Burwood -> Ashburton
+  Ashburton -> Alamein
+  Flinders Street -> Southern Cross
+  Southern Cross -> Flagstaff
+  Flagstaff -> Melbourne Central
+  Melbourne Central -> Parliament
+  Parliament -> Richmond
+
+Belgrave:
+  Flinders Street -> Richmond
+  Richmond -> East Richmond
+  East Richmond -> Burnley
+  Burnley -> Hawthorn
+  Hawthorn -> Glenferrie
+  Glenferrie -> Auburn
+  Auburn -> Camberwell
+  Camberwell -> East Camberwell
+  East Camberwell -> Canterbury
+  Canterbury -> Chatham
+  Chatham -> Union
+  Union -> Box Hill
+  Box Hill -> Laburnum
+  Laburnum -> Blackburn
+  Blackburn -> Nunawading
+  Nunawading -> Mitcham
+  Mitcham -> Heatherdale
+  Heatherdale -> Ringwood
+  Ringwood -> Heathmont
+  Heathmont -> Bayswater
+  Bayswater -> Boronia
+  Boronia -> Ferntree Gully
+  Ferntree Gully -> Upper Ferntree Gully
+  Upper Ferntree Gully -> Upwey
+  Upwey -> Tecoma
+  Tecoma -> Belgrave
+  Flinders Street -> Southern Cross
+  Southern Cross -> Flagstaff
+  Flagstaff -> Melbourne Central
+  Melbourne Central -> Parliament
+  Parliament -> Richmond
+
+Lilydale:
+  Flinders Street -> Richmond
+  Richmond -> East Richmond
+  East Richmond -> Burnley
+  Burnley -> Hawthorn
+  Hawthorn -> Glenferrie
+  Glenferrie -> Auburn
+  Auburn -> Camberwell
+  Camberwell -> East Camberwell
+  East Camberwell -> Canterbury
+  Canterbury -> Chatham
+  Chatham -> Union
+  Union -> Box Hill
+  Box Hill -> Laburnum
+  Laburnum -> Blackburn
+  Blackburn -> Nunawading
+  Nunawading -> Mitcham
+  Mitcham -> Heatherdale
+  Heatherdale -> Ringwood
+  Ringwood -> Ringwood East
+  Ringwood East -> Croydon
+  Croydon -> Mooroolbark
+  Mooroolbark -> Lilydale
+  Flinders Street -> Southern Cross
+  Southern Cross -> Flagstaff
+  Flagstaff -> Melbourne Central
+  Melbourne Central -> Parliament
+  Parliament -> Richmond
+
+Hurstbridge:
+  Flinders Street -> Jolimont
+  Jolimont -> West Richmond
+  West Richmond -> North Richmond
+  North Richmond -> Collingwood
+  Collingwood -> Victoria Park
+  Victoria Park -> Clifton Hill
+  Clifton Hill -> Westgarth
+  Westgarth -> Dennis
+  Dennis -> Fairfield
+  Fairfield -> Alphington
+  Alphington -> Darebin
+  Darebin -> Ivanhoe
+  Ivanhoe -> Eaglemont
+  Eaglemont -> Heidelberg
+  Heidelberg -> Rosanna
+  Rosanna -> Macleod
+  Macleod -> Watsonia
+  Watsonia -> Greensborough
+  Greensborough -> Montmorency
+  Montmorency -> Eltham
+  Eltham -> Diamond Creek
+  Diamond Creek -> Wattle Glen
+  Wattle Glen -> Hurstbridge
+  Flinders Street -> Southern Cross
+  Southern Cross -> Flagstaff
+  Flagstaff -> Melbourne Central
+  Melbourne Central -> Parliament
+  Parliament -> Jolimont
+
+Mernda:
+  Flinders Street -> Jolimont
+  Jolimont -> West Richmond
+  West Richmond -> North Richmond
+  North Richmond -> Collingwood
+  Collingwood -> Victoria Park
+  Victoria Park -> Clifton Hill
+  Clifton Hill -> Rushall
+  Rushall -> Merri
+  Merri -> Northcote
+  Northcote -> Croxton
+  Croxton -> Thornbury
+  Thornbury -> Bell
+  Bell -> Preston
+  Preston -> Regent
+  Regent -> Reservoir
+  Reservoir -> Ruthven
+  Ruthven -> Keon Park
+  Keon Park -> Thomastown
+  Thomastown -> Lalor
+  Lalor -> Epping
+  Epping -> South Morang
+  South Morang -> Middle Gorge
+  Middle Gorge -> Hawkstowe
+  Hawkstowe -> Mernda
+  Flinders Street -> Southern Cross
+  Southern Cross -> Flagstaff
+  Flagstaff -> Melbourne Central
+  Melbourne Central -> Parliament
+  Parliament -> Jolimont
+
+Upfield:
+  Flinders Street -> Southern Cross
+  Southern Cross -> North Melbourne
+  North Melbourne -> Macaulay
+  Macaulay -> Flemington Bridge
+  Flemington Bridge -> Royal Park
+  Royal Park -> Jewell
+  Jewell -> Brunswick
+  Brunswick -> Anstey
+  Anstey -> Moreland
+  Moreland -> Coburg
+  Coburg -> Batman
+  Batman -> Merlynston
+  Merlynston -> Fawkner
+  Fawkner -> Gowrie
+  Gowrie -> Upfield
+  Flinders Street -> Parliament
+  Parliament -> Melbourne Central
+  Melbourne Central -> Flagstaff
+  Flagstaff -> North Melbourne
+
+Craigieburn:
+  Flinders Street -> Southern Cross
+  Southern Cross -> North Melbourne
+  North Melbourne -> Kensington
+  Kensington -> Newmarket
+  Newmarket -> Ascot Vale
+  Ascot Vale -> Moonee Ponds
+  Moonee Ponds -> Essendon
+  Essendon -> Glenbervie
+  Glenbervie -> Strathmore
+  Strathmore -> Pascoe Vale
+  Pascoe Vale -> Oak Park
+  Oak Park -> Glenroy
+  Glenroy -> Jacana
+  Jacana -> Broadmeadows
+  Broadmeadows -> Coolaroo
+  Coolaroo -> Roxburgh Park
+  Roxburgh Park -> Craigieburn
+  Flinders Street -> Parliament
+  Parliament -> Melbourne Central
+  Melbourne Central -> Flagstaff
+  Flagstaff -> North Melbourne
+
+Seymour:
+  Southern Cross -> Donnybrook
+  Donnybrook -> Wallan
+  Wallan -> Heathcote Junction
+  Heathcote Junction -> Wandong
+  Wandong -> Kilmore East
+  Kilmore East -> Broadford
+  Broadford -> Tallarook
+  Tallarook -> Seymour
+  Seymour -> Avenel
+  Avenel -> Euroa
+  Euroa -> Violet Town
+  Violet Town -> Benalla
+  Benalla -> Wangaratta
+  Wangaratta -> Springhurst
+  Springhurst -> Chiltern
+  Chiltern -> Wodonga
+  Wodonga -> Albury
+  Seymour -> Nagambie
+  Nagambie -> Murchison East
+  Murchison East -> Mooroopna
+  Mooroopna -> Shepparton
+  North Melbourne -> Donnybrook
+  Broadmeadows -> Donnybrook
+  Craigieburn -> Donnybrook
+
+Flemington Racecourse:
+  Flinders Street -> Southern Cross
+  Southern Cross -> North Melbourne
+  North Melbourne -> Showgrounds
+  Showgrounds -> Flemington Racecourse
+
+Sunbury:
+  Flinders Street -> Southern Cross
+  Southern Cross -> North Melbourne
+  North Melbourne -> Footscray
+  Footscray -> Middle Footscray
+  Middle Footscray -> West Footscray
+  West Footscray -> Tottenham
+  Tottenham -> Sunshine
+  Sunshine -> Albion
+  Albion -> Ginifer
+  Ginifer -> St Albans
+  St Albans -> Keilor Plains
+  Keilor Plains -> Watergardens
+  Watergardens -> Diggers Rest
+  Diggers Rest -> Sunbury
+  Flinders Street -> Parliament
+  Parliament -> Melbourne Central
+  Melbourne Central -> Flagstaff
+  Flagstaff -> North Melbourne
+
+Bendigo:
+  Southern Cross -> Sunbury
+  Sunbury -> Clarkefield
+  Clarkefield -> Riddells Creek
+  Riddells Creek -> Gisborne
+  Gisborne -> Macedon
+  Macedon -> Woodend
+  Woodend -> Kyneton
+  Kyneton -> Malmsbury
+  Malmsbury -> Castlemaine
+  Castlemaine -> Kangaroo Flat
+  Kangaroo Flat -> Bendigo
+  Bendigo -> Epsom
+  Epsom -> Huntly
+  Huntly -> Goornong
+  Goornong -> Elmore
+  Elmore -> Rochester
+  Rochester -> Echuca
+  Bendigo -> Eaglehawk
+  Eaglehawk -> Raywood
+  Raywood -> Dingee
+  Dingee -> Pyramid
+  Pyramid -> Kerang
+  Kerang -> Swan Hill
+  Footscray -> Sunbury
+  Watergardens -> Sunbury
+
+Ballarat:
+  Southern Cross -> Ardeer
+  Ardeer -> Deer Park
+  Deer Park -> Caroline Springs
+  Caroline Springs -> Rockbank
+  Rockbank -> Cobblebank
+  Cobblebank -> Melton
+  Melton -> Bacchus Marsh
+  Bacchus Marsh -> Ballan
+  Ballan -> Ballarat
+  Ballarat -> Creswick
+  Creswick -> Clunes
+  Clunes -> Talbot
+  Talbot -> Maryborough
+  Ballarat -> Wendouree
+  Wendouree -> Beaufort
+  Beaufort -> Ararat
+  Footscray -> Ardeer
+  Sunshine -> Ardeer
+
+Geelong:
+  Southern Cross -> Deer Park
+  Deer Park -> Tarneit
+  Tarneit -> Wyndham Vale
+  Wyndham Vale -> Little River
+  Little River -> Lara
+  Lara -> Corio
+  Corio -> North Shore
+  North Shore -> North Geelong
+  North Geelong -> Geelong
+  Geelong -> South Geelong
+  South Geelong -> Marshall
+  Marshall -> Waurn Ponds
+  Waurn Ponds -> Winchelsea
+  Winchelsea -> Birregurra
+  Birregurra -> Colac
+  Colac -> Camperdown
+  Camperdown -> Terang
+  Terang -> Sherwood Park
+  Sherwood Park -> Warrnambool
+  Footscray -> Deer Park
+  Sunshine -> Deer Park
+
+Werribee:
+  Flinders Street -> Southern Cross
+  Southern Cross -> North Melbourne
+  North Melbourne -> South Kensington
+  South Kensington -> Footscray
+  Footscray -> Seddon
+  Seddon -> Yarraville
+  Yarraville -> Spotswood
+  Spotswood -> Newport
+  Newport -> Seaholme
+  Seaholme -> Altona
+  Altona -> Westona
+  Westona -> Laverton
+  Laverton -> Aircraft
+  Aircraft -> Williams Landing
+  Williams Landing -> Hoppers Crossing
+  Hoppers Crossing -> Werribee
+  Newport -> Laverton
+
+Williamstown:
+  Flinders Street -> Southern Cross
+  Southern Cross -> North Melbourne
+  North Melbourne -> South Kensington
+  South Kensington -> Footscray
+  Footscray -> Seddon
+  Seddon -> Yarraville
+  Yarraville -> Spotswood
+  Spotswood -> Newport
+  Newport -> North Williamstown
+  North Williamstown -> Williamstown Beach
+  Williamstown Beach -> Williamstown
+"
+`;

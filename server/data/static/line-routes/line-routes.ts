@@ -1,10 +1,13 @@
 import * as station from "../../../../shared/station-ids";
-import { BranchingLineRoute } from "./branching-line-route";
-import { DualPathLineRoute } from "./dual-path-line-route";
-import { LoopLineRoute } from "./loop-line-route";
-import { SimpleLineRoute } from "./simple-line-route";
+import {
+  loop,
+  simple,
+  dualPath,
+  regionalSimple,
+  regionalBranch,
+} from "./line-routes-utils";
 
-export const SANDRINGHAM = new SimpleLineRoute([
+export const SANDRINGHAM = simple([
   station.FLINDERS_STREET,
   station.RICHMOND,
   station.SOUTH_YARRA,
@@ -21,7 +24,7 @@ export const SANDRINGHAM = new SimpleLineRoute([
   station.SANDRINGHAM,
 ]);
 
-export const FRANKSTON = new SimpleLineRoute([
+export const FRANKSTON = simple([
   station.FLINDERS_STREET,
   station.RICHMOND,
   station.SOUTH_YARRA,
@@ -52,7 +55,7 @@ export const FRANKSTON = new SimpleLineRoute([
   station.FRANKSTON,
 ]);
 
-export const STONY_POINT = new SimpleLineRoute([
+export const STONY_POINT = simple([
   station.FRANKSTON,
   station.LEAWARRA,
   station.BAXTER,
@@ -65,16 +68,11 @@ export const STONY_POINT = new SimpleLineRoute([
   station.STONY_POINT,
 ]);
 
-export const CRANBOURNE = new LoopLineRoute([
+export const CRANBOURNE = loop([
   station.RICHMOND,
   station.SOUTH_YARRA,
-  { id: station.HAWKSBURN, type: "always-express" },
-  { id: station.TOORAK, type: "always-express" },
-  { id: station.ARMADALE, type: "always-express" },
-
-  // Dealing with this will be fun.
-  { id: station.MALVERN, type: "often-express" },
-
+  // The Cranbourne line runs express South Yarra to Caulfield most of the time.
+  // It sometimes stops at Malvern.
   station.CAULFIELD,
   station.CARNEGIE,
   station.MURRUMBEENA,
@@ -93,16 +91,11 @@ export const CRANBOURNE = new LoopLineRoute([
   station.CRANBOURNE,
 ]);
 
-export const PAKENHAM = new LoopLineRoute([
+export const PAKENHAM = loop([
   station.RICHMOND,
   station.SOUTH_YARRA,
-  { id: station.HAWKSBURN, type: "always-express" },
-  { id: station.TOORAK, type: "always-express" },
-  { id: station.ARMADALE, type: "always-express" },
-
-  // Dealing with this will be fun.
-  { id: station.MALVERN, type: "often-express" },
-
+  // The Pakenham line runs express South Yarra to Caulfield most of the time.
+  // It sometimes stops at Malvern.
   station.CAULFIELD,
   station.CARNEGIE,
   station.MURRUMBEENA,
@@ -126,58 +119,49 @@ export const PAKENHAM = new LoopLineRoute([
   station.EAST_PAKENHAM,
 ]);
 
-export const GIPPSLAND = new SimpleLineRoute([
-  station.SOUTHERN_CROSS,
-  station.FLINDERS_STREET,
-  station.RICHMOND,
-  { id: station.SOUTH_YARRA, type: "always-express" },
-  { id: station.HAWKSBURN, type: "always-express" },
-  { id: station.TOORAK, type: "always-express" },
-  { id: station.ARMADALE, type: "always-express" },
-  { id: station.MALVERN, type: "always-express" },
-  station.CAULFIELD,
-  { id: station.CARNEGIE, type: "always-express" },
-  { id: station.MURRUMBEENA, type: "always-express" },
-  { id: station.HUGHESDALE, type: "always-express" },
-  { id: station.OAKLEIGH, type: "always-express" },
-  { id: station.HUNTINGDALE, type: "always-express" },
-  station.CLAYTON,
-  { id: station.WESTALL, type: "always-express" },
-  { id: station.SPRINGVALE, type: "always-express" },
-  { id: station.SANDOWN_PARK, type: "always-express" },
-  { id: station.NOBLE_PARK, type: "always-express" },
-  { id: station.YARRAMAN, type: "always-express" },
-  station.DANDENONG,
-  { id: station.HALLAM, type: "always-express" },
-  { id: station.NARRE_WARREN, type: "always-express" },
+export const GIPPSLAND = regionalSimple({
+  setDownOnly: [
+    station.SOUTHERN_CROSS,
+    station.FLINDERS_STREET,
+    station.RICHMOND,
+    station.CAULFIELD,
+    station.CLAYTON,
+    station.DANDENONG,
+    // The Gippsland line sometimes stops at Berwick.
+  ],
+  stations: [
+    // Pakenham is an exception to the "no surburban passengers" rule.
+    station.PAKENHAM,
 
-  // Bordering on always express for this one (1 train per day, max).
-  { id: station.BERWICK, type: "often-express" },
+    // TODO: The Gippsland line will need special handling for East Pakenham. When
+    // buses replace trains from Pakenham to the City, the Gippsland line
+    // terminates at East Pakenham instead. We need to add a train edge from Nar
+    // Nar Goon to East Pakenham, and remove all edges for Pakenham and beyond.
+    //
+    // Come to think of it, this also has interesting implications for the map,
+    // if we want to show it accurately. We need to add an interchange marker at
+    // East Pakenham, but only during disruptions.
 
-  { id: station.BEACONSFIELD, type: "always-express" },
-  { id: station.OFFICER, type: "always-express" },
-  { id: station.CARDINIA_ROAD, type: "always-express" },
-  station.PAKENHAM,
-  { id: station.EAST_PAKENHAM, type: "always-express" },
-  station.NAR_NAR_GOON,
-  station.TYNONG,
-  station.GARFIELD,
-  station.BUNYIP,
-  station.LONGWARRY,
-  station.DROUIN,
-  station.WARRAGUL,
-  station.YARRAGON,
-  station.TRAFALGAR,
-  station.MOE,
-  station.MORWELL,
-  station.TRARALGON,
-  station.ROSEDALE,
-  station.SALE,
-  station.STRATFORD,
-  station.BAIRNSDALE,
-]);
+    station.NAR_NAR_GOON,
+    station.TYNONG,
+    station.GARFIELD,
+    station.BUNYIP,
+    station.LONGWARRY,
+    station.DROUIN,
+    station.WARRAGUL,
+    station.YARRAGON,
+    station.TRAFALGAR,
+    station.MOE,
+    station.MORWELL,
+    station.TRARALGON,
+    station.ROSEDALE,
+    station.SALE,
+    station.STRATFORD,
+    station.BAIRNSDALE,
+  ],
+});
 
-export const GLEN_WAVERLEY = new LoopLineRoute([
+export const GLEN_WAVERLEY = loop([
   station.RICHMOND,
   station.EAST_RICHMOND,
   station.BURNLEY,
@@ -195,7 +179,7 @@ export const GLEN_WAVERLEY = new LoopLineRoute([
   station.GLEN_WAVERLEY,
 ]);
 
-export const ALAMEIN = new LoopLineRoute([
+export const ALAMEIN = loop([
   station.RICHMOND,
   station.EAST_RICHMOND,
   station.BURNLEY,
@@ -211,7 +195,7 @@ export const ALAMEIN = new LoopLineRoute([
   station.ALAMEIN,
 ]);
 
-export const BELGRAVE = new LoopLineRoute([
+export const BELGRAVE = loop([
   station.RICHMOND,
   station.EAST_RICHMOND,
   station.BURNLEY,
@@ -240,7 +224,7 @@ export const BELGRAVE = new LoopLineRoute([
   station.BELGRAVE,
 ]);
 
-export const LILYDALE = new LoopLineRoute([
+export const LILYDALE = loop([
   station.RICHMOND,
   station.EAST_RICHMOND,
   station.BURNLEY,
@@ -265,7 +249,7 @@ export const LILYDALE = new LoopLineRoute([
   station.LILYDALE,
 ]);
 
-export const HURSTBRIDGE = new LoopLineRoute([
+export const HURSTBRIDGE = loop([
   station.JOLIMONT,
   station.WEST_RICHMOND,
   station.NORTH_RICHMOND,
@@ -291,7 +275,7 @@ export const HURSTBRIDGE = new LoopLineRoute([
   station.HURSTBRIDGE,
 ]);
 
-export const MERNDA = new LoopLineRoute([
+export const MERNDA = loop([
   station.JOLIMONT,
   station.WEST_RICHMOND,
   station.NORTH_RICHMOND,
@@ -318,7 +302,7 @@ export const MERNDA = new LoopLineRoute([
   station.MERNDA,
 ]);
 
-export const UPFIELD = new LoopLineRoute([
+export const UPFIELD = loop([
   station.NORTH_MELBOURNE,
   station.MACAULAY,
   station.FLEMINGTON_BRIDGE,
@@ -335,7 +319,7 @@ export const UPFIELD = new LoopLineRoute([
   station.UPFIELD,
 ]);
 
-export const CRAIGIEBURN = new LoopLineRoute([
+export const CRAIGIEBURN = loop([
   station.NORTH_MELBOURNE,
   station.KENSINGTON,
   station.NEWMARKET,
@@ -354,25 +338,15 @@ export const CRAIGIEBURN = new LoopLineRoute([
   station.CRAIGIEBURN,
 ]);
 
-export const SEYMOUR = new BranchingLineRoute(
-  [
+export const SEYMOUR = regionalBranch({
+  setDownOnly: [
     station.SOUTHERN_CROSS,
     station.NORTH_MELBOURNE,
-    { id: station.KENSINGTON, type: "always-express" },
-    { id: station.NEWMARKET, type: "always-express" },
-    { id: station.ASCOT_VALE, type: "always-express" },
-    { id: station.MOONEE_PONDS, type: "always-express" },
-    station.ESSENDON,
-    { id: station.GLENBERVIE, type: "always-express" },
-    { id: station.STRATHMORE, type: "always-express" },
-    { id: station.PASCOE_VALE, type: "always-express" },
-    { id: station.OAK_PARK, type: "always-express" },
-    { id: station.GLENROY, type: "always-express" },
-    { id: station.JACANA, type: "always-express" },
+    // The Seymour line sometimes stops at Essendon.
     station.BROADMEADOWS,
-    { id: station.COOLAROO, type: "always-express" },
-    { id: station.ROXBURGH_PARK, type: "always-express" },
     station.CRAIGIEBURN,
+  ],
+  shared: [
     station.DONNYBROOK,
     station.WALLAN,
     station.HEATHCOTE_JUNCTION,
@@ -382,7 +356,7 @@ export const SEYMOUR = new BranchingLineRoute(
     station.TALLAROOK,
     station.SEYMOUR,
   ],
-  [
+  branchA: [
     // Albury branch.
     station.AVENEL,
     station.EUROA,
@@ -394,28 +368,31 @@ export const SEYMOUR = new BranchingLineRoute(
     station.WODONGA,
     station.ALBURY,
   ],
-  [
+  branchB: [
     // Shepparton branch.
     station.NAGAMBIE,
     station.MURCHISON_EAST,
     station.MOOROOPNA,
     station.SHEPPARTON,
   ],
-);
+});
 
-export const FLEMINGTON_RACECOURSE = new SimpleLineRoute([
+export const FLEMINGTON_RACECOURSE = simple([
   station.FLINDERS_STREET,
   station.SOUTHERN_CROSS,
   station.NORTH_MELBOURNE,
-  station.KENSINGTON,
-  station.NEWMARKET,
+  // The Flemington Racecourse line doesn't stop at Kensington and Newmarket.
+
+  // TODO: This line will require special treatment too. Usually it doesn't
+  // run at all, and when it does, it usually only serves of one these two. Not
+  // both.
   station.SHOWGROUNDS,
   station.FLEMINGTON_RACECOURSE,
 ]);
 
-export const SUNBURY = new LoopLineRoute([
+export const SUNBURY = loop([
   station.NORTH_MELBOURNE,
-  { id: station.SOUTH_KENSINGTON, type: "always-express" },
+  // The Sunbury line doesn't stop at South Kensington.
   station.FOOTSCRAY,
   station.MIDDLE_FOOTSCRAY,
   station.WEST_FOOTSCRAY,
@@ -430,23 +407,17 @@ export const SUNBURY = new LoopLineRoute([
   station.SUNBURY,
 ]);
 
-export const BENDIGO = new BranchingLineRoute(
-  [
+export const BENDIGO = regionalBranch({
+  setDownOnly: [
     station.SOUTHERN_CROSS,
-    { id: station.NORTH_MELBOURNE, type: "always-express" },
-    { id: station.SOUTH_KENSINGTON, type: "always-express" },
     station.FOOTSCRAY,
-    { id: station.MIDDLE_FOOTSCRAY, type: "always-express" },
-    { id: station.WEST_FOOTSCRAY, type: "always-express" },
-    { id: station.TOTTENHAM, type: "always-express" },
-    { id: station.SUNSHINE, type: "always-express" },
-    { id: station.ALBION, type: "always-express" },
-    { id: station.GINIFER, type: "always-express" },
-    { id: station.ST_ALBANS, type: "always-express" },
-    { id: station.KEILOR_PLAINS, type: "always-express" },
+    // The Bendigo line doesn't stop at Sunshine.
     station.WATERGARDENS,
-    { id: station.DIGGERS_REST, type: "always-express" },
+  ],
+  shared: [
+    // Sunbury is an exception to the "no surburban passengers" rule.
     station.SUNBURY,
+
     station.CLARKEFIELD,
     station.RIDDELLS_CREEK,
     station.GISBORNE,
@@ -458,7 +429,7 @@ export const BENDIGO = new BranchingLineRoute(
     station.KANGAROO_FLAT,
     station.BENDIGO,
   ],
-  [
+  branchA: [
     // Echuca branch.
     station.EPSOM,
     station.HUNTLY,
@@ -467,7 +438,7 @@ export const BENDIGO = new BranchingLineRoute(
     station.ROCHESTER,
     station.ECHUCA,
   ],
-  [
+  branchB: [
     // Swan Hill branch.
     station.EAGLEHAWK,
     station.RAYWOOD,
@@ -476,18 +447,16 @@ export const BENDIGO = new BranchingLineRoute(
     station.KERANG,
     station.SWAN_HILL,
   ],
-);
+});
 
-export const BALLARAT = new BranchingLineRoute(
-  [
+export const BALLARAT = regionalBranch({
+  // prettier-ignore
+  setDownOnly: [
     station.SOUTHERN_CROSS,
-    { id: station.NORTH_MELBOURNE, type: "always-express" },
-    { id: station.SOUTH_KENSINGTON, type: "always-express" },
     station.FOOTSCRAY,
-    { id: station.MIDDLE_FOOTSCRAY, type: "always-express" },
-    { id: station.WEST_FOOTSCRAY, type: "always-express" },
-    { id: station.TOTTENHAM, type: "always-express" },
-    station.SUNSHINE,
+    station.SUNSHINE
+  ],
+  shared: [
     station.ARDEER,
     station.DEER_PARK,
     station.CAROLINE_SPRINGS,
@@ -498,54 +467,54 @@ export const BALLARAT = new BranchingLineRoute(
     station.BALLAN,
     station.BALLARAT,
   ],
-  [
+  branchA: [
     // Maryborough branch.
     station.CRESWICK,
     station.CLUNES,
     station.TALBOT,
     station.MARYBOROUGH,
   ],
-  [
+  branchB: [
     // Ararat branch.
     station.WENDOUREE,
     station.BEAUFORT,
     station.ARARAT,
   ],
-);
+});
 
-export const GEELONG = new SimpleLineRoute([
-  station.SOUTHERN_CROSS,
-  { id: station.NORTH_MELBOURNE, type: "always-express" },
-  { id: station.SOUTH_KENSINGTON, type: "always-express" },
-  station.FOOTSCRAY,
-  { id: station.MIDDLE_FOOTSCRAY, type: "always-express" },
-  { id: station.WEST_FOOTSCRAY, type: "always-express" },
-  { id: station.TOTTENHAM, type: "always-express" },
-  station.SUNSHINE,
-  { id: station.ARDEER, type: "always-express" },
-  station.DEER_PARK,
-  station.TARNEIT,
-  station.WYNDHAM_VALE,
-  station.LITTLE_RIVER,
-  station.LARA,
-  station.CORIO,
-  station.NORTH_SHORE,
-  station.NORTH_GEELONG,
-  station.GEELONG,
-  station.SOUTH_GEELONG,
-  station.MARSHALL,
-  station.WAURN_PONDS,
-  station.WINCHELSEA,
-  station.BIRREGURRA,
-  station.COLAC,
-  station.CAMPERDOWN,
-  station.TERANG,
-  station.SHERWOOD_PARK,
-  station.WARRNAMBOOL,
-]);
+export const GEELONG = regionalSimple({
+  // prettier-ignore
+  setDownOnly: [
+    station.SOUTHERN_CROSS,
+    station.FOOTSCRAY,
+    station.SUNSHINE
+  ],
+  stations: [
+    // The Geelong line doesn't stop at Ardeer.
+    station.DEER_PARK,
+    station.TARNEIT,
+    station.WYNDHAM_VALE,
+    station.LITTLE_RIVER,
+    station.LARA,
+    station.CORIO,
+    station.NORTH_SHORE,
+    station.NORTH_GEELONG,
+    station.GEELONG,
+    station.SOUTH_GEELONG,
+    station.MARSHALL,
+    station.WAURN_PONDS,
+    station.WINCHELSEA,
+    station.BIRREGURRA,
+    station.COLAC,
+    station.CAMPERDOWN,
+    station.TERANG,
+    station.SHERWOOD_PARK,
+    station.WARRNAMBOOL,
+  ],
+});
 
-export const WERRIBEE = new DualPathLineRoute(
-  [
+export const WERRIBEE = dualPath({
+  shared: [
     station.FLINDERS_STREET,
     station.SOUTHERN_CROSS,
     station.NORTH_MELBOURNE,
@@ -556,25 +525,25 @@ export const WERRIBEE = new DualPathLineRoute(
     station.SPOTSWOOD,
     station.NEWPORT,
   ],
-  [
+  pathA: [
     // The Altona loop.
     station.SEAHOLME,
     station.ALTONA,
     station.WESTONA,
   ],
-  [
+  pathB: [
     // The express route.
   ],
-  [
+  rejoined: [
     station.LAVERTON,
     station.AIRCRAFT,
     station.WILLIAMS_LANDING,
     station.HOPPERS_CROSSING,
     station.WERRIBEE,
   ],
-);
+});
 
-export const WILLIAMSTOWN = new SimpleLineRoute([
+export const WILLIAMSTOWN = simple([
   station.FLINDERS_STREET,
   station.SOUTHERN_CROSS,
   station.NORTH_MELBOURNE,

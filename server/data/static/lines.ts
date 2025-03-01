@@ -38,7 +38,7 @@ const data = [
     id: line.GIPPSLAND,
     name: "Gippsland",
     ptvIds: [1823, 1824],
-    route: route.SANDRINGHAM,
+    route: route.GIPPSLAND,
   }),
   new Line({
     id: line.GLEN_WAVERLEY,
