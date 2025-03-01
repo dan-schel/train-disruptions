@@ -1,10 +1,10 @@
 import { LineSection } from "../../line-section";
+import { LineRoute } from "./line-route";
 import {
-  LineRoute,
-  LineRouteStation,
   InformalLineRouteStation,
-  StationPair,
-} from "./line-route";
+  LineRouteStation,
+} from "./line-route-station";
+import { StationPair } from "./station-pair";
 
 /** A line which doesn't do anything annoying. */
 export class SimpleLineRoute extends LineRoute {

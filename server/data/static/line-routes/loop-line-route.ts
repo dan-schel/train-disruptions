@@ -1,12 +1,12 @@
 import { LineSection } from "../../line-section";
-import {
-  LineRoute,
-  LineRouteStation,
-  InformalLineRouteStation,
-  StationPair,
-} from "./line-route";
 import * as station from "../../../../shared/station-ids";
 import { stations as allStations } from "../stations";
+import { LineRoute } from "./line-route";
+import {
+  InformalLineRouteStation,
+  LineRouteStation,
+} from "./line-route-station";
+import { StationPair } from "./station-pair";
 
 export type LoopPortal = "richmond" | "jolimont" | "north-melbourne";
 

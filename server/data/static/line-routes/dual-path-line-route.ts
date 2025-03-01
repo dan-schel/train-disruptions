@@ -1,10 +1,10 @@
 import { LineSection } from "../../line-section";
+import { LineRoute } from "./line-route";
 import {
-  LineRoute,
-  LineRouteStation,
   InformalLineRouteStation,
-  StationPair,
-} from "./line-route";
+  LineRouteStation,
+} from "./line-route-station";
+import { StationPair } from "./station-pair";
 
 /** A line which splits into two branches but rejoins again. */
 export class DualPathLineRoute extends LineRoute {

@@ -1,11 +1,10 @@
 import { LineSection } from "../../line-section";
-import { RouteGraphTrainEdge } from "../../route-graph/edge/route-graph-train-edge";
+import { LineRoute } from "./line-route";
 import {
-  LineRoute,
-  LineRouteStation,
   InformalLineRouteStation,
-  StationPair,
-} from "./line-route";
+  LineRouteStation,
+} from "./line-route-station";
+import { StationPair } from "./station-pair";
 
 /** A line which splits into two branches. */
 export class BranchingLineRoute extends LineRoute {
