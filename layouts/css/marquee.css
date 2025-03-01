@@ -1,0 +1,17 @@
+.marquee {
+  display: inline-block;
+  min-width: 100%; /* This is to prevent shorter text from needing to animate */
+  white-space: nowrap;
+  animation: marqueeAnimation 8s ease-in-out infinite;
+}
+
+@keyframes marqueeAnimation {
+  20% {
+    transform: translateX(0);
+    margin-left: 0;
+  }
+  80% {
+    transform: translateX(-100%);
+    margin-left: 100%;
+  }
+}
