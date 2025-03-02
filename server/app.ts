@@ -3,10 +3,11 @@ import { LineCollection } from "./data/static/line-collection";
 import { StationCollection } from "./data/static/station-collection";
 import { Database } from "./database/lib/general/database";
 import { Crayon } from "./database/models/crayons";
-import { CRAYONS } from "./database/models/models";
+import { CRAYONS, HISTORICAL_ALERTS } from "./database/models/models";
 import { DisruptionSource } from "./disruption-source/disruption-source";
 import { InMemoryDatabase } from "./database/lib/in-memory/in-memory-database";
 import { FakeDisruptionSource } from "./disruption-source/fake-disruption-source";
+import { HistoricalAlert } from "./data/historical-alert";
 
 export class App {
   constructor(
@@ -20,6 +21,7 @@ export class App {
     // TODO: This is temporary.
     await this._runDatabaseDemo();
     await this._runDisruptionSourceDemo();
+    this._runHistoricalAlertLogger();
   }
 
   onServerStarted(port: number) {
@@ -61,5 +63,31 @@ export class App {
       console.warn("🔴 Failed to fetch disruptions.");
       console.warn(error);
     }
+  }
+
+  private _runHistoricalAlertLogger() {
+    setInterval(
+      async () => {
+        const disruptions = await this.disruptionSource.fetchDisruptions();
+
+        disruptions.forEach(async (disruption) => {
+          const x = await this.database
+            .of(HISTORICAL_ALERTS)
+            .get(disruption.disruption_id);
+          if (x == null) {
+            await this.database
+              .of(HISTORICAL_ALERTS)
+              .create(
+                new HistoricalAlert(
+                  disruption.disruption_id,
+                  disruption.title,
+                  disruption.description,
+                ),
+              );
+          }
+        });
+      },
+      1000 * 60 * 5,
+    );
   }
 }
