@@ -5,6 +5,7 @@ import { Edge, Tree } from "./tree";
 
 export type CanonicalLineShapeEdgeData = { routeGraphPairs: StationPair[] };
 
+/** An edge in the CanonicalLineShape tree. Each edge stores the route graph pairs that exist to serve */
 export class CanonicalLineShapeEdge extends Edge<
   LineSectionBoundary,
   CanonicalLineShapeEdgeData
@@ -24,6 +25,10 @@ export class CanonicalLineShapeEdge extends Edge<
   }
 }
 
+/**
+ * A tree which helps evaluate expressions like "Pakenham to Dandenong" to the
+ * actual implicated Route Graph Edges. (See docs/line-routes.md for more info.)
+ */
 export class CanonicalLineShape {
   private readonly _tree: Tree<LineSectionBoundary, CanonicalLineShapeEdgeData>;
 
@@ -48,5 +53,12 @@ export class CanonicalLineShape {
       .flatMap((e) => e.data.routeGraphPairs);
 
     return unique(pairs, (a, b) => a.equals(b));
+  }
+
+  getAllRouteGraphPairs(): StationPair[] {
+    return unique(
+      this.edges.flatMap((e) => e.data.routeGraphPairs),
+      (a, b) => a.equals(b),
+    );
   }
 }

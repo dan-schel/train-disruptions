@@ -1,3 +1,4 @@
+/** Literally a pair of station IDs, in no particular order. */
 export class StationPair {
   constructor(
     readonly a: number,
@@ -14,11 +15,5 @@ export class StationPair {
 
   equals(other: StationPair) {
     return this.includes(other.a) && this.includes(other.b);
-  }
-
-  static arrayToPairs(array: readonly number[]): StationPair[] {
-    return array
-      .slice(0, -1)
-      .map((station, i) => new StationPair(station, array[i + 1]));
   }
 }

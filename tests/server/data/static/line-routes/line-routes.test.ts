@@ -16,7 +16,7 @@ describe("Melbourne default line route edges", () => {
 
       output += `[${line.name.toUpperCase()} LINE]\n`;
       output += `\nAll route graph pairs:\n`;
-      for (const edge of line.route.getAllPairs()) {
+      for (const edge of line.route.getAllRouteGraphPairs()) {
         const a = stations.require(edge.a).name;
         const b = stations.require(edge.b).name;
         output += `  ${a} -> ${b}\n`;

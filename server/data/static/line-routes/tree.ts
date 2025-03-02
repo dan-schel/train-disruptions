@@ -1,5 +1,6 @@
 import { unique } from "@dan-schel/js-utils";
 
+/** Generic class to represent a tree (i.e. a graph without cycles). */
 export class Tree<Node, EdgeData> {
   constructor(
     readonly root: Node,
@@ -82,6 +83,7 @@ export class Tree<Node, EdgeData> {
   }
 }
 
+/** Represents an edge in a tree. */
 export class Edge<Node, EdgeData> {
   constructor(
     readonly from: Node,
