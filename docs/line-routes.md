@@ -1,6 +1,6 @@
 # Line Routes <!-- omit in toc -->
 
-If you've taken a look at the `LineRoute` class, or the ways they're constructed for each line, you'll probably agree it's... ah... quite complex!
+If you've taken a look at the `LineRoute` class (or related concepts `LineSection`, `RouteGraph`, `CanonicalLineShape`, etc.) and the ways they're constructed for each line, you'll probably agree it's... quite complex.
 
 I considered many simpler representations, and kept finding that they broke down in certain edge cases. The model I've landed on is difficult to understand at a glance, but once you do, I think you'll find it handles all sorts of edge cases quite elegantly, and also enables us to provide quite effective travel advice during any given disruption without requiring complex custom logic for each commute.
 

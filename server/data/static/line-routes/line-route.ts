@@ -5,7 +5,8 @@ import { CanonicalLineShape } from "./canonical-line-shape";
 /**
  * Knows deeply about the stations this line serves, and in which manner. It's
  * primary responsibility is to provide a list of station pairs which form the
- * basis of the route graph edges this line offers.
+ * basis of the route graph edges this line offers. (See docs/line-routes.md for
+ * more info.)
  */
 export class LineRoute {
   private readonly _allRouteGraphPairs: readonly StationPair[];
