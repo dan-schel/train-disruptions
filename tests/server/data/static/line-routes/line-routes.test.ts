@@ -10,7 +10,7 @@ describe("Melbourne default line route edges", () => {
       output += "\n";
 
       output += `${line.name}:\n`;
-      for (const edge of line.route.edges) {
+      for (const edge of line.route.getAllPairs()) {
         const a = stations.require(edge.a).name;
         const b = stations.require(edge.b).name;
         output += `  ${a} -> ${b}\n`;

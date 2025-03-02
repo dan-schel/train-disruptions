@@ -1,60 +1,39 @@
-import { unique } from "@dan-schel/js-utils";
 import { LineSection } from "../../line-section";
 import { StationPair } from "./station-pair";
-import { LineRoutePath } from "./line-route-path";
+import { CanonicalLineShape } from "./canonical-line-shape";
+import { unique } from "@dan-schel/js-utils";
 
 export class LineRoute {
-  // Memoize the edges so we don't have to rebuild them every time.
-  _edges: StationPair[] | null = null;
+  private readonly allRouteGraphPairs: readonly StationPair[];
 
-  constructor(
-    /** 2-dimensional array of possible linear journeys on this line. */
-    private readonly _paths: readonly LineRoutePath[],
-  ) {
-    if (_paths.length < 1) {
-      throw new Error("Line route must have at least one path.");
-    }
-  }
-
-  get edges(): StationPair[] {
-    if (this._edges == null) {
-      const allEdges = this._paths
-        .map((p) => StationPair.arrayToPairs(p.asLinear()))
-        .flat();
-
-      // Branching lines will have duplicate edges for the sections shared on
-      // both paths.
-      this._edges = unique(allEdges, (a, b) => a.equals(b));
-    }
-    return this._edges;
-  }
-
-  getEdgesInSection(lineSection: LineSection): StationPair[] {
-    const matchingPaths = this._getMatchingPaths(lineSection);
-    if (matchingPaths.length === 0) {
-      throw new Error(
-        `Line section ${lineSection.a} to ${lineSection.b} is not valid for this line.`,
-      );
-    }
-
-    const matchingPairs = matchingPaths.flatMap((p) =>
-      StationPair.arrayToPairs(p.trimToSection(lineSection)),
+  constructor(private readonly canonicalLineShape: CanonicalLineShape) {
+    // Assume there's no such thing as a route graph pair that cannot be removed
+    // by some section of the canonical line shape.
+    //
+    // If it does become the case one day that there's a group of route graph
+    // pairs that exist entirely separate from the canonical line shape, we can
+    // change this constructor to provide them separately.
+    this.allRouteGraphPairs = unique(
+      canonicalLineShape.edges.flatMap((e) => e.data.routeGraphPairs),
+      (a, b) => a.equals(b),
     );
+  }
 
-    return unique(matchingPairs, (a, b) => a.equals(b));
+  getAllPairs(): readonly StationPair[] {
+    return this.allRouteGraphPairs;
+  }
+
+  getPairsInSection(lineSection: LineSection): StationPair[] {
+    return this.canonicalLineShape.getRouteGraphPairsBetween(
+      lineSection.a,
+      lineSection.b,
+    );
   }
 
   isValidSection(lineSection: LineSection): boolean {
-    return this._getMatchingPaths(lineSection).length !== 0;
-  }
-
-  private _getMatchingPaths(lineSection: LineSection): LineRoutePath[] {
     return (
-      this._paths.filter(
-        (p) =>
-          p.includesBoundary(lineSection.a) &&
-          p.includesBoundary(lineSection.b),
-      ) ?? null
+      this.canonicalLineShape.validBoundary(lineSection.a) &&
+      this.canonicalLineShape.validBoundary(lineSection.b)
     );
   }
 }
