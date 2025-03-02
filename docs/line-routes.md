@@ -102,11 +102,11 @@ As flexible as the route graph is, editing it directly is a pain. If buses repla
 - Murrumbeena to Hughesdale
 - etc.
 
-(In reality, it's actually more than 12. There's two lines implicated, the Pakenham AND Cranbourne line, and also likely the Gippsland line too!)
+(In reality, it's actually more than 12. There's two lines implicated, the Pakenham **and** Cranbourne line, and also likely the Gippsland line too!)
 
 Instead we should be able to enter "Caulfield to Dandenong", and the app should just be able to _figure it out_! Sounds easy, just trace the path on the route graph and list each edge along the way, right?
 
-Unfortunately, that doesn't quite work for two reasons:
+Unfortunately, that doesn't quite work, for two reasons:
 
 - "X to Y" can be ambiguous on the route graph.
   - e.g. The edges on the Pakenham line indicate two possible routes from Richmond to Flagstaff. If we were to say "buses replace trains from Richmond to Flagstaff", which edges should be swapped out for bus edges?
@@ -126,6 +126,8 @@ Canonical line shapes solve two problems. First, they are represented as a tree,
 [TODO: Add images and further explanation of canonical line shapes, "the-city", Werribee line, handling regional lines, etc.]
 
 [TODO: Explain that the canonical line shape ultimately is a translation tool, and outputs a list of route graph edges.]
+
+[TODO: An explanation on where that name came from?]
 
 ## Summary
 
