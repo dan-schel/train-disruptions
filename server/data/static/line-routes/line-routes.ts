@@ -344,6 +344,7 @@ export const SEYMOUR = regionalBranch({
     station.NORTH_MELBOURNE,
     // The Seymour line sometimes stops at Essendon.
     station.BROADMEADOWS,
+    // TODO: Consider removing Craigieburn too, as it's only a sometimes stop?
     station.CRAIGIEBURN,
   ],
   shared: [
