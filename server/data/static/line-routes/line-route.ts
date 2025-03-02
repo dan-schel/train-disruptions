@@ -7,8 +7,8 @@ export class LineRoute {
   private readonly allRouteGraphPairs: readonly StationPair[];
 
   constructor(private readonly canonicalLineShape: CanonicalLineShape) {
-    // Assume there's no such thing as a route graph pair that cannot be removed
-    // by some section of the canonical line shape.
+    // This assumes there's no such thing as a route graph pair that cannot be
+    // removed by some section of the canonical line shape.
     //
     // If it does become the case one day that there's a group of route graph
     // pairs that exist entirely separate from the canonical line shape, we can

@@ -59,6 +59,11 @@ Stony Point:
 
 Cranbourne:
   Flinders Street -> Richmond
+  Flinders Street -> Southern Cross
+  Southern Cross -> Flagstaff
+  Flagstaff -> Melbourne Central
+  Melbourne Central -> Parliament
+  Parliament -> Richmond
   Richmond -> South Yarra
   South Yarra -> Caulfield
   Caulfield -> Carnegie
@@ -76,14 +81,14 @@ Cranbourne:
   Dandenong -> Lynbrook
   Lynbrook -> Merinda Park
   Merinda Park -> Cranbourne
+
+Pakenham:
+  Flinders Street -> Richmond
   Flinders Street -> Southern Cross
   Southern Cross -> Flagstaff
   Flagstaff -> Melbourne Central
   Melbourne Central -> Parliament
   Parliament -> Richmond
-
-Pakenham:
-  Flinders Street -> Richmond
   Richmond -> South Yarra
   South Yarra -> Caulfield
   Caulfield -> Carnegie
@@ -106,14 +111,14 @@ Pakenham:
   Officer -> Cardinia Road
   Cardinia Road -> Pakenham
   Pakenham -> East Pakenham
-  Flinders Street -> Southern Cross
-  Southern Cross -> Flagstaff
-  Flagstaff -> Melbourne Central
-  Melbourne Central -> Parliament
-  Parliament -> Richmond
 
 Gippsland:
   Southern Cross -> Pakenham
+  Flinders Street -> Pakenham
+  Richmond -> Pakenham
+  Caulfield -> Pakenham
+  Clayton -> Pakenham
+  Dandenong -> Pakenham
   Pakenham -> Nar Nar Goon
   Nar Nar Goon -> Tynong
   Tynong -> Garfield
@@ -130,14 +135,14 @@ Gippsland:
   Rosedale -> Sale
   Sale -> Stratford
   Stratford -> Bairnsdale
-  Flinders Street -> Pakenham
-  Richmond -> Pakenham
-  Caulfield -> Pakenham
-  Clayton -> Pakenham
-  Dandenong -> Pakenham
 
 Glen Waverley:
   Flinders Street -> Richmond
+  Flinders Street -> Southern Cross
+  Southern Cross -> Flagstaff
+  Flagstaff -> Melbourne Central
+  Melbourne Central -> Parliament
+  Parliament -> Richmond
   Richmond -> East Richmond
   East Richmond -> Burnley
   Burnley -> Heyington
@@ -152,14 +157,14 @@ Glen Waverley:
   Jordanville -> Mount Waverley
   Mount Waverley -> Syndal
   Syndal -> Glen Waverley
+
+Alamein:
+  Flinders Street -> Richmond
   Flinders Street -> Southern Cross
   Southern Cross -> Flagstaff
   Flagstaff -> Melbourne Central
   Melbourne Central -> Parliament
   Parliament -> Richmond
-
-Alamein:
-  Flinders Street -> Richmond
   Richmond -> East Richmond
   East Richmond -> Burnley
   Burnley -> Hawthorn
@@ -172,14 +177,14 @@ Alamein:
   Hartwell -> Burwood
   Burwood -> Ashburton
   Ashburton -> Alamein
+
+Belgrave:
+  Flinders Street -> Richmond
   Flinders Street -> Southern Cross
   Southern Cross -> Flagstaff
   Flagstaff -> Melbourne Central
   Melbourne Central -> Parliament
   Parliament -> Richmond
-
-Belgrave:
-  Flinders Street -> Richmond
   Richmond -> East Richmond
   East Richmond -> Burnley
   Burnley -> Hawthorn
@@ -205,14 +210,14 @@ Belgrave:
   Upper Ferntree Gully -> Upwey
   Upwey -> Tecoma
   Tecoma -> Belgrave
+
+Lilydale:
+  Flinders Street -> Richmond
   Flinders Street -> Southern Cross
   Southern Cross -> Flagstaff
   Flagstaff -> Melbourne Central
   Melbourne Central -> Parliament
   Parliament -> Richmond
-
-Lilydale:
-  Flinders Street -> Richmond
   Richmond -> East Richmond
   East Richmond -> Burnley
   Burnley -> Hawthorn
@@ -234,14 +239,14 @@ Lilydale:
   Ringwood East -> Croydon
   Croydon -> Mooroolbark
   Mooroolbark -> Lilydale
+
+Hurstbridge:
+  Flinders Street -> Jolimont
   Flinders Street -> Southern Cross
   Southern Cross -> Flagstaff
   Flagstaff -> Melbourne Central
   Melbourne Central -> Parliament
-  Parliament -> Richmond
-
-Hurstbridge:
-  Flinders Street -> Jolimont
+  Parliament -> Jolimont
   Jolimont -> West Richmond
   West Richmond -> North Richmond
   North Richmond -> Collingwood
@@ -264,14 +269,14 @@ Hurstbridge:
   Eltham -> Diamond Creek
   Diamond Creek -> Wattle Glen
   Wattle Glen -> Hurstbridge
+
+Mernda:
+  Flinders Street -> Jolimont
   Flinders Street -> Southern Cross
   Southern Cross -> Flagstaff
   Flagstaff -> Melbourne Central
   Melbourne Central -> Parliament
   Parliament -> Jolimont
-
-Mernda:
-  Flinders Street -> Jolimont
   Jolimont -> West Richmond
   West Richmond -> North Richmond
   North Richmond -> Collingwood
@@ -295,15 +300,14 @@ Mernda:
   South Morang -> Middle Gorge
   Middle Gorge -> Hawkstowe
   Hawkstowe -> Mernda
-  Flinders Street -> Southern Cross
-  Southern Cross -> Flagstaff
-  Flagstaff -> Melbourne Central
-  Melbourne Central -> Parliament
-  Parliament -> Jolimont
 
 Upfield:
   Flinders Street -> Southern Cross
   Southern Cross -> North Melbourne
+  Flinders Street -> Parliament
+  Parliament -> Melbourne Central
+  Melbourne Central -> Flagstaff
+  Flagstaff -> North Melbourne
   North Melbourne -> Macaulay
   Macaulay -> Flemington Bridge
   Flemington Bridge -> Royal Park
@@ -317,14 +321,14 @@ Upfield:
   Merlynston -> Fawkner
   Fawkner -> Gowrie
   Gowrie -> Upfield
-  Flinders Street -> Parliament
-  Parliament -> Melbourne Central
-  Melbourne Central -> Flagstaff
-  Flagstaff -> North Melbourne
 
 Craigieburn:
   Flinders Street -> Southern Cross
   Southern Cross -> North Melbourne
+  Flinders Street -> Parliament
+  Parliament -> Melbourne Central
+  Melbourne Central -> Flagstaff
+  Flagstaff -> North Melbourne
   North Melbourne -> Kensington
   Kensington -> Newmarket
   Newmarket -> Ascot Vale
@@ -340,13 +344,12 @@ Craigieburn:
   Broadmeadows -> Coolaroo
   Coolaroo -> Roxburgh Park
   Roxburgh Park -> Craigieburn
-  Flinders Street -> Parliament
-  Parliament -> Melbourne Central
-  Melbourne Central -> Flagstaff
-  Flagstaff -> North Melbourne
 
 Seymour:
   Southern Cross -> Donnybrook
+  North Melbourne -> Donnybrook
+  Broadmeadows -> Donnybrook
+  Craigieburn -> Donnybrook
   Donnybrook -> Wallan
   Wallan -> Heathcote Junction
   Heathcote Junction -> Wandong
@@ -367,9 +370,6 @@ Seymour:
   Nagambie -> Murchison East
   Murchison East -> Mooroopna
   Mooroopna -> Shepparton
-  North Melbourne -> Donnybrook
-  Broadmeadows -> Donnybrook
-  Craigieburn -> Donnybrook
 
 Flemington Racecourse:
   Flinders Street -> Southern Cross
@@ -380,6 +380,10 @@ Flemington Racecourse:
 Sunbury:
   Flinders Street -> Southern Cross
   Southern Cross -> North Melbourne
+  Flinders Street -> Parliament
+  Parliament -> Melbourne Central
+  Melbourne Central -> Flagstaff
+  Flagstaff -> North Melbourne
   North Melbourne -> Footscray
   Footscray -> Middle Footscray
   Middle Footscray -> West Footscray
@@ -392,13 +396,11 @@ Sunbury:
   Keilor Plains -> Watergardens
   Watergardens -> Diggers Rest
   Diggers Rest -> Sunbury
-  Flinders Street -> Parliament
-  Parliament -> Melbourne Central
-  Melbourne Central -> Flagstaff
-  Flagstaff -> North Melbourne
 
 Bendigo:
   Southern Cross -> Sunbury
+  Footscray -> Sunbury
+  Watergardens -> Sunbury
   Sunbury -> Clarkefield
   Clarkefield -> Riddells Creek
   Riddells Creek -> Gisborne
@@ -421,11 +423,11 @@ Bendigo:
   Dingee -> Pyramid
   Pyramid -> Kerang
   Kerang -> Swan Hill
-  Footscray -> Sunbury
-  Watergardens -> Sunbury
 
 Ballarat:
   Southern Cross -> Ardeer
+  Footscray -> Ardeer
+  Sunshine -> Ardeer
   Ardeer -> Deer Park
   Deer Park -> Caroline Springs
   Caroline Springs -> Rockbank
@@ -441,11 +443,11 @@ Ballarat:
   Ballarat -> Wendouree
   Wendouree -> Beaufort
   Beaufort -> Ararat
-  Footscray -> Ardeer
-  Sunshine -> Ardeer
 
 Geelong:
   Southern Cross -> Deer Park
+  Footscray -> Deer Park
+  Sunshine -> Deer Park
   Deer Park -> Tarneit
   Tarneit -> Wyndham Vale
   Wyndham Vale -> Little River
@@ -464,8 +466,6 @@ Geelong:
   Camperdown -> Terang
   Terang -> Sherwood Park
   Sherwood Park -> Warrnambool
-  Footscray -> Deer Park
-  Sunshine -> Deer Park
 
 Werribee:
   Flinders Street -> Southern Cross
@@ -480,11 +480,11 @@ Werribee:
   Seaholme -> Altona
   Altona -> Westona
   Westona -> Laverton
+  Newport -> Laverton
   Laverton -> Aircraft
   Aircraft -> Williams Landing
   Williams Landing -> Hoppers Crossing
   Hoppers Crossing -> Werribee
-  Newport -> Laverton
 
 Williamstown:
   Flinders Street -> Southern Cross
