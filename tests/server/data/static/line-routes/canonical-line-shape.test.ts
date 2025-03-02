@@ -77,7 +77,14 @@ describe("CanonicalLineShape", () => {
     });
 
     it("can cross branches", () => {
-      // Ahh... I didn't mean to make this work, but that's neat I guess.
+      // TODO: Ahh... I didn't mean to make this work, but that's neat I guess?
+      // It's traversing the path between two different branches, like saying
+      // there's a disruption between Ararat and Maryborough, and it's
+      // translating that to "Ararat-Ballarat" + "Ballarat-Maryborough".
+      //
+      // If I wanted to prevent that, maybe I could mark some nodes as "not
+      // allowed to be the common ancestor"? (Or y'know, just admit that a tree
+      // was overkill for this!)
       expectPairs(lineShape.getRouteGraphPairsBetween(7, 5), [
         [7, 6],
         [6, 3],
