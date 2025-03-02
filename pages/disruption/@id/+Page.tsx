@@ -1,55 +1,42 @@
 import React from "react";
-import { format } from "date-fns";
+import { Data } from "./+data";
+import { useData } from "vike-react/useData";
 
-import { Text } from "../../../components/core/Text";
+import { Delay } from "./Delay";
+import { NotFound } from "./NotFound";
+import { StationClosure } from "./StationClosure";
+import { BusReplacement } from "./BusReplacements";
+import { With } from "../../../components/core/With";
 import { Column } from "../../../components/core/Column";
+import { PagePadding } from "../../../components/common/PagePadding";
 import { PageCenterer } from "../../../components/common/PageCenterer";
 import { BackNavigation } from "../../../components/navigation/BackNavigation";
-import { PagePadding } from "../../../components/common/PagePadding";
-import { Calendar } from "../../../components/calendar/Calendar";
-import { Link } from "../../../components/core/Link";
-import { useData } from "vike-react/useData";
-import { Data } from "./+data";
-
-/**
- * TODO: Handle scenarios where the provided id doesn't correspond to a disruption.
- *
- * Options:
- * - Show an error page
- * - Navigate back straight away
- */
 
 export default function Page() {
-  const { disruption, link, station, backHref } = useData<Data>();
+  const { data, backHref } = useData<Data>();
+
+  function renderDisruption() {
+    switch (data.type) {
+      case "bus-replacement":
+        return <BusReplacement {...data} />;
+      case "delay":
+        return <Delay {...data} />;
+      case "station-closure":
+        return <StationClosure {...data} />;
+      case "not-found":
+        return <NotFound />;
+    }
+  }
 
   return (
     <Column>
       {/* The previous page won't always be the overview. We'll probably need to set a query param, e.g. `?from=overview` or `?from=line-12`. */}
       <BackNavigation name="Overview" href={backHref} />
-      <PageCenterer>
-        <PagePadding>
-          <Column className="gap-8">
-            <Text style="title">
-              {typeof station === "string"
-                ? `Buses replace trains at ${station}`
-                : `Buses replace trains from ${station.from} to ${station.to}`}
-            </Text>
-            <Column className="gap-2">
-              <Text>Starts {format(disruption.from, "p cccc d MMMM")}</Text>
-              <Text>
-                Ends last service {format(disruption.to, "cccc d MMMM")}
-              </Text>
-              <Link href={link} target="_blank">
-                More info (ptv.vic.gov.au)
-              </Link>
-            </Column>
-
-            <Calendar disruptions={disruption} />
-
-            <iframe src={link} className="h-[500px] lg:h-[1000px]" />
-          </Column>
-        </PagePadding>
-      </PageCenterer>
+      <With className="flex-1">
+        <PageCenterer>
+          <PagePadding>{renderDisruption()}</PagePadding>
+        </PageCenterer>
+      </With>
     </Column>
   );
 }
