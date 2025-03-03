@@ -3,12 +3,12 @@ import { LineSectionBoundary } from "../../line-section";
 import { StationPair } from "./station-pair";
 import { Edge, Tree } from "./tree";
 
-export type CanonicalLineShapeEdgeData = { routeGraphPairs: StationPair[] };
+export type LineShapeEdgeData = { routeGraphPairs: StationPair[] };
 
-/** An edge in the CanonicalLineShape tree. Each edge stores the route graph pairs that exist to serve */
-export class CanonicalLineShapeEdge extends Edge<
+/** An edge in the LineShape tree. Each edge stores the route graph pairs that exist to serve */
+export class LineShapeEdge extends Edge<
   LineSectionBoundary,
-  CanonicalLineShapeEdgeData
+  LineShapeEdgeData
 > {
   constructor(
     from: LineSectionBoundary,
@@ -18,9 +18,7 @@ export class CanonicalLineShapeEdge extends Edge<
     super(from, to, { routeGraphPairs });
 
     if (routeGraphPairs.length === 0) {
-      throw new Error(
-        "CanonicalLineShapeEdge created without any routeGraphPairs.",
-      );
+      throw new Error("LineShapeEdge created without any routeGraphPairs.");
     }
   }
 }
@@ -29,12 +27,12 @@ export class CanonicalLineShapeEdge extends Edge<
  * A tree which helps evaluate expressions like "Pakenham to Dandenong" to the
  * actual implicated Route Graph Edges. (See docs/line-routes.md for more info.)
  */
-export class CanonicalLineShape {
-  private readonly _tree: Tree<LineSectionBoundary, CanonicalLineShapeEdgeData>;
+export class LineShape {
+  private readonly _tree: Tree<LineSectionBoundary, LineShapeEdgeData>;
 
   constructor(
     readonly root: LineSectionBoundary,
-    readonly edges: readonly CanonicalLineShapeEdge[],
+    readonly edges: readonly LineShapeEdge[],
   ) {
     this._tree = new Tree(root, edges, (a, b) => a === b);
     this._tree.throwUnlessValid();

@@ -1,6 +1,6 @@
 # Line Routes <!-- omit in toc -->
 
-If you've taken a look at the `LineRoute` class (or related concepts `LineSection`, `RouteGraph`, `CanonicalLineShape`, etc.) and the ways they're constructed for each line, you'll probably agree it's... quite complex.
+If you've taken a look at the `LineRoute` class (or related concepts `LineSection`, `RouteGraph`, `LineShape`, etc.) and the ways they're constructed for each line, you'll probably agree it's... quite complex.
 
 I considered many simpler representations, and kept finding that they broke down in certain edge cases. The model I've landed on is difficult to understand at a glance, but once you do, I think you'll find it handles all sorts of edge cases quite elegantly, and also enables us to provide quite effective travel advice during any given disruption without requiring complex custom logic for each commute.
 
@@ -21,7 +21,7 @@ Here's how it works!
     - [Reduced frequency between stations](#reduced-frequency-between-stations)
     - [Journey not possible](#journey-not-possible)
   - [What's the catch?](#whats-the-catch)
-- [Canonical line shapes](#canonical-line-shapes)
+- [Line shapes](#line-shapes)
   - [Overview](#overview-1)
 - [Summary](#summary)
 
@@ -113,23 +113,23 @@ Unfortunately, that doesn't quite work, for two reasons:
 - Regional lines... are weird!
   - Saying "buses replace Ballarat line trains from Sunshine to Southern Cross" is completely normal sentence, but impossible for the route graph to understand, since it think it has to backtrack to Ardeer.
 
-Here we see a second concept is needed, because the superpower the route graph has for determining possible commutes becomes a massive pain for resolving simple queries like this. This second concept, I am currently calling "canonical line shapes". (What a name!)
+Here we see a second concept is needed, because the superpower the route graph has for determining possible commutes becomes a massive pain for resolving simple queries like this. This second concept, I am currently calling "line shapes".
 
-## Canonical line shapes
+## Line shapes
 
 ### Overview
 
-As mentioned above, "canonical line shapes" exist to resolve meaning from phrases like "Caulfield to Dandenong" (a.k.a. line sections).
+As mentioned above, "line shapes" exist to resolve meaning from phrases like "Caulfield to Dandenong" (a.k.a. line sections).
 
-Canonical line shapes solve two problems. First, they are represented as a tree, and because trees cannot contain cycles, there is always exactly one path between two nodes. Second, as they are a separate concept to the route graph, used for a separate purpose, they don't have to follow its strange rules for regional lines.
+Line shapes solve two problems. First, they are represented as a tree, and because trees cannot contain cycles, there is always exactly one path between two nodes. Second, as they are a separate concept to the route graph, used for a separate purpose, they don't have to follow its strange rules for regional lines.
 
-[TODO: Add images and further explanation of canonical line shapes, "the-city", Werribee line, handling regional lines, etc.]
+[TODO: Add images and further explanation of line shapes, "the-city", Werribee line, handling regional lines, etc.]
 
-[TODO: Explain that the canonical line shape ultimately is a translation tool, and outputs a list of route graph edges.]
+[TODO: Explain that the line shape ultimately is a translation tool, and outputs a list of route graph edges.]
 
 [TODO: An explanation on where that name came from?]
 
 ## Summary
 
 - The route graph is helpful for determining if a commute between **any two stations** is impacted by a disruption, and how.
-- Canonical line shapes are helpful for translating a phrase like "Caulfield to Dandenong" into an **unambiguous** list of relevant route graph edges. They are only ever used in the context of **one particular line**.
+- Line shapes are helpful for translating a phrase like "Caulfield to Dandenong" into an **unambiguous** list of relevant route graph edges. They are only ever used in the context of **one particular line**.

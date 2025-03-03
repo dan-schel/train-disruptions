@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { lines } from "../../../../../server/data/static/lines";
 import { stations } from "../../../../../server/data/static/stations";
-import { CanonicalLineShape } from "../../../../../server/data/static/line-routes/canonical-line-shape";
+import { LineShape } from "../../../../../server/data/static/line-routes/line-shape";
 import { LineSectionBoundary } from "../../../../../server/data/line-section";
 
 describe("Melbourne default line route edges", () => {
@@ -24,11 +24,10 @@ describe("Melbourne default line route edges", () => {
 
       // Cheating a bit here :)
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const canonicalLineShape: CanonicalLineShape = (line.route as any)
-        ._canonicalLineShape;
+      const lineShape: LineShape = (line.route as any)._shape;
 
-      output += `\nCanonical line shape:\n`;
-      for (const edge of canonicalLineShape.edges) {
+      output += `\nLine shape edges:\n`;
+      for (const edge of lineShape.edges) {
         const a = formatBoundary(edge.from);
         const b = formatBoundary(edge.to);
 

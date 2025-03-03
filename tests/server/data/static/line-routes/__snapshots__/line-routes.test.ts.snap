@@ -19,7 +19,7 @@ All route graph pairs:
   Brighton Beach -> Hampton
   Hampton -> Sandringham
 
-Canonical line shape:
+Line shape edges:
   Flinders Street -> Richmond: [Flinders Street -> Richmond]
   Richmond -> South Yarra: [Richmond -> South Yarra]
   South Yarra -> Prahran: [South Yarra -> Prahran]
@@ -67,7 +67,7 @@ All route graph pairs:
   Seaford -> Kananook
   Kananook -> Frankston
 
-Canonical line shape:
+Line shape edges:
   Flinders Street -> Richmond: [Flinders Street -> Richmond]
   Richmond -> South Yarra: [Richmond -> South Yarra]
   South Yarra -> Hawksburn: [South Yarra -> Hawksburn]
@@ -111,7 +111,7 @@ All route graph pairs:
   Morradoo -> Crib Point
   Crib Point -> Stony Point
 
-Canonical line shape:
+Line shape edges:
   Frankston -> Leawarra: [Frankston -> Leawarra]
   Leawarra -> Baxter: [Leawarra -> Baxter]
   Baxter -> Somerville: [Baxter -> Somerville]
@@ -151,7 +151,7 @@ All route graph pairs:
   Lynbrook -> Merinda Park
   Merinda Park -> Cranbourne
 
-Canonical line shape:
+Line shape edges:
   "The City" -> Richmond: [Flinders Street -> Richmond, Flinders Street -> Southern Cross, Southern Cross -> Flagstaff, Flagstaff -> Melbourne Central, Melbourne Central -> Parliament, Parliament -> Richmond]
   Richmond -> South Yarra: [Richmond -> South Yarra]
   South Yarra -> Caulfield: [South Yarra -> Caulfield]
@@ -205,7 +205,7 @@ All route graph pairs:
   Cardinia Road -> Pakenham
   Pakenham -> East Pakenham
 
-Canonical line shape:
+Line shape edges:
   "The City" -> Richmond: [Flinders Street -> Richmond, Flinders Street -> Southern Cross, Southern Cross -> Flagstaff, Flagstaff -> Melbourne Central, Melbourne Central -> Parliament, Parliament -> Richmond]
   Richmond -> South Yarra: [Richmond -> South Yarra]
   South Yarra -> Caulfield: [South Yarra -> Caulfield]
@@ -258,7 +258,7 @@ All route graph pairs:
   Sale -> Stratford
   Stratford -> Bairnsdale
 
-Canonical line shape:
+Line shape edges:
   Southern Cross -> Flinders Street: [Southern Cross -> Pakenham]
   Flinders Street -> Richmond: [Southern Cross -> Pakenham, Flinders Street -> Pakenham]
   Richmond -> Caulfield: [Southern Cross -> Pakenham, Flinders Street -> Pakenham, Richmond -> Pakenham]
@@ -308,7 +308,7 @@ All route graph pairs:
   Mount Waverley -> Syndal
   Syndal -> Glen Waverley
 
-Canonical line shape:
+Line shape edges:
   "The City" -> Richmond: [Flinders Street -> Richmond, Flinders Street -> Southern Cross, Southern Cross -> Flagstaff, Flagstaff -> Melbourne Central, Melbourne Central -> Parliament, Parliament -> Richmond]
   Richmond -> East Richmond: [Richmond -> East Richmond]
   East Richmond -> Burnley: [East Richmond -> Burnley]
@@ -349,7 +349,7 @@ All route graph pairs:
   Burwood -> Ashburton
   Ashburton -> Alamein
 
-Canonical line shape:
+Line shape edges:
   "The City" -> Richmond: [Flinders Street -> Richmond, Flinders Street -> Southern Cross, Southern Cross -> Flagstaff, Flagstaff -> Melbourne Central, Melbourne Central -> Parliament, Parliament -> Richmond]
   Richmond -> East Richmond: [Richmond -> East Richmond]
   East Richmond -> Burnley: [East Richmond -> Burnley]
@@ -401,7 +401,7 @@ All route graph pairs:
   Upwey -> Tecoma
   Tecoma -> Belgrave
 
-Canonical line shape:
+Line shape edges:
   "The City" -> Richmond: [Flinders Street -> Richmond, Flinders Street -> Southern Cross, Southern Cross -> Flagstaff, Flagstaff -> Melbourne Central, Melbourne Central -> Parliament, Parliament -> Richmond]
   Richmond -> East Richmond: [Richmond -> East Richmond]
   East Richmond -> Burnley: [East Richmond -> Burnley]
@@ -462,7 +462,7 @@ All route graph pairs:
   Croydon -> Mooroolbark
   Mooroolbark -> Lilydale
 
-Canonical line shape:
+Line shape edges:
   "The City" -> Richmond: [Flinders Street -> Richmond, Flinders Street -> Southern Cross, Southern Cross -> Flagstaff, Flagstaff -> Melbourne Central, Melbourne Central -> Parliament, Parliament -> Richmond]
   Richmond -> East Richmond: [Richmond -> East Richmond]
   East Richmond -> Burnley: [East Richmond -> Burnley]
@@ -520,7 +520,7 @@ All route graph pairs:
   Diamond Creek -> Wattle Glen
   Wattle Glen -> Hurstbridge
 
-Canonical line shape:
+Line shape edges:
   "The City" -> Jolimont: [Flinders Street -> Jolimont, Flinders Street -> Southern Cross, Southern Cross -> Flagstaff, Flagstaff -> Melbourne Central, Melbourne Central -> Parliament, Parliament -> Jolimont]
   Jolimont -> West Richmond: [Jolimont -> West Richmond]
   West Richmond -> North Richmond: [West Richmond -> North Richmond]
@@ -580,7 +580,7 @@ All route graph pairs:
   Middle Gorge -> Hawkstowe
   Hawkstowe -> Mernda
 
-Canonical line shape:
+Line shape edges:
   "The City" -> Jolimont: [Flinders Street -> Jolimont, Flinders Street -> Southern Cross, Southern Cross -> Flagstaff, Flagstaff -> Melbourne Central, Melbourne Central -> Parliament, Parliament -> Jolimont]
   Jolimont -> West Richmond: [Jolimont -> West Richmond]
   West Richmond -> North Richmond: [West Richmond -> North Richmond]
@@ -631,7 +631,7 @@ All route graph pairs:
   Fawkner -> Gowrie
   Gowrie -> Upfield
 
-Canonical line shape:
+Line shape edges:
   "The City" -> North Melbourne: [Flinders Street -> Southern Cross, Southern Cross -> North Melbourne, Flinders Street -> Parliament, Parliament -> Melbourne Central, Melbourne Central -> Flagstaff, Flagstaff -> North Melbourne]
   North Melbourne -> Macaulay: [North Melbourne -> Macaulay]
   Macaulay -> Flemington Bridge: [Macaulay -> Flemington Bridge]
@@ -674,7 +674,7 @@ All route graph pairs:
   Coolaroo -> Roxburgh Park
   Roxburgh Park -> Craigieburn
 
-Canonical line shape:
+Line shape edges:
   "The City" -> North Melbourne: [Flinders Street -> Southern Cross, Southern Cross -> North Melbourne, Flinders Street -> Parliament, Parliament -> Melbourne Central, Melbourne Central -> Flagstaff, Flagstaff -> North Melbourne]
   North Melbourne -> Kensington: [North Melbourne -> Kensington]
   Kensington -> Newmarket: [Kensington -> Newmarket]
@@ -722,7 +722,7 @@ All route graph pairs:
   Murchison East -> Mooroopna
   Mooroopna -> Shepparton
 
-Canonical line shape:
+Line shape edges:
   Southern Cross -> North Melbourne: [Southern Cross -> Donnybrook]
   North Melbourne -> Broadmeadows: [Southern Cross -> Donnybrook, North Melbourne -> Donnybrook]
   Broadmeadows -> Craigieburn: [Southern Cross -> Donnybrook, North Melbourne -> Donnybrook, Broadmeadows -> Donnybrook]
@@ -758,7 +758,7 @@ All route graph pairs:
   North Melbourne -> Showgrounds
   Showgrounds -> Flemington Racecourse
 
-Canonical line shape:
+Line shape edges:
   Flinders Street -> Southern Cross: [Flinders Street -> Southern Cross]
   Southern Cross -> North Melbourne: [Southern Cross -> North Melbourne]
   North Melbourne -> Showgrounds: [North Melbourne -> Showgrounds]
@@ -788,7 +788,7 @@ All route graph pairs:
   Watergardens -> Diggers Rest
   Diggers Rest -> Sunbury
 
-Canonical line shape:
+Line shape edges:
   "The City" -> North Melbourne: [Flinders Street -> Southern Cross, Southern Cross -> North Melbourne, Flinders Street -> Parliament, Parliament -> Melbourne Central, Melbourne Central -> Flagstaff, Flagstaff -> North Melbourne]
   North Melbourne -> Footscray: [North Melbourne -> Footscray]
   Footscray -> Middle Footscray: [Footscray -> Middle Footscray]
@@ -834,7 +834,7 @@ All route graph pairs:
   Pyramid -> Kerang
   Kerang -> Swan Hill
 
-Canonical line shape:
+Line shape edges:
   Southern Cross -> Footscray: [Southern Cross -> Sunbury]
   Footscray -> Watergardens: [Southern Cross -> Sunbury, Footscray -> Sunbury]
   Watergardens -> Sunbury: [Southern Cross -> Sunbury, Footscray -> Sunbury, Watergardens -> Sunbury]
@@ -885,7 +885,7 @@ All route graph pairs:
   Wendouree -> Beaufort
   Beaufort -> Ararat
 
-Canonical line shape:
+Line shape edges:
   Southern Cross -> Footscray: [Southern Cross -> Ardeer]
   Footscray -> Sunshine: [Southern Cross -> Ardeer, Footscray -> Ardeer]
   Sunshine -> Ardeer: [Southern Cross -> Ardeer, Footscray -> Ardeer, Sunshine -> Ardeer]
@@ -932,7 +932,7 @@ All route graph pairs:
   Terang -> Sherwood Park
   Sherwood Park -> Warrnambool
 
-Canonical line shape:
+Line shape edges:
   Southern Cross -> Footscray: [Southern Cross -> Deer Park]
   Footscray -> Sunshine: [Southern Cross -> Deer Park, Footscray -> Deer Park]
   Sunshine -> Deer Park: [Southern Cross -> Deer Park, Footscray -> Deer Park, Sunshine -> Deer Park]
@@ -978,7 +978,7 @@ All route graph pairs:
   Williams Landing -> Hoppers Crossing
   Hoppers Crossing -> Werribee
 
-Canonical line shape:
+Line shape edges:
   Flinders Street -> Southern Cross: [Flinders Street -> Southern Cross]
   Southern Cross -> North Melbourne: [Southern Cross -> North Melbourne]
   North Melbourne -> South Kensington: [North Melbourne -> South Kensington]
@@ -1010,7 +1010,7 @@ All route graph pairs:
   North Williamstown -> Williamstown Beach
   Williamstown Beach -> Williamstown
 
-Canonical line shape:
+Line shape edges:
   Flinders Street -> Southern Cross: [Flinders Street -> Southern Cross]
   Southern Cross -> North Melbourne: [Southern Cross -> North Melbourne]
   North Melbourne -> South Kensington: [North Melbourne -> South Kensington]

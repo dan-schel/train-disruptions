@@ -1,9 +1,6 @@
 import { LineRoute } from "./line-route";
 import * as station from "../../../../shared/station-ids";
-import {
-  CanonicalLineShape,
-  CanonicalLineShapeEdge,
-} from "./canonical-line-shape";
+import { LineShape, LineShapeEdge } from "./line-shape";
 import { StationPair } from "./station-pair";
 import { itsOk } from "@dan-schel/js-utils";
 
@@ -27,8 +24,8 @@ export function simple(stations: number[]): LineRoute {
   throwUnlessMinNumber(stations, 2, "Simple", "stations");
 
   const firstStation = stations[0];
-  const edges = pairAdjacentStations(stations).map(toSimpleCanonicalEdge);
-  return new LineRoute(new CanonicalLineShape(firstStation, edges));
+  const edges = pairAdjacentStations(stations).map(toSimpleLineShapeEdge);
+  return new LineRoute(new LineShape(firstStation, edges));
 }
 
 export function loop(stations: number[]): LineRoute {
@@ -52,15 +49,15 @@ export function loop(stations: number[]): LineRoute {
     throw new Error(`Invalid loop portal station: ${portal}.`);
   }
 
-  const normalEdges = pairAdjacentStations(stations).map(toSimpleCanonicalEdge);
+  const normalEdges = pairAdjacentStations(stations).map(toSimpleLineShapeEdge);
 
-  const theCityEdge = new CanonicalLineShapeEdge("the-city", portal, [
+  const theCityEdge = new LineShapeEdge("the-city", portal, [
     ...pairAdjacentStations([...directStations, portal]).map(toRouteGraphPair),
     ...pairAdjacentStations([...loopStations, portal]).map(toRouteGraphPair),
   ]);
 
   return new LineRoute(
-    new CanonicalLineShape("the-city", [theCityEdge, ...normalEdges]),
+    new LineShape("the-city", [theCityEdge, ...normalEdges]),
   );
 }
 
@@ -81,10 +78,10 @@ export function dualPath({
   const firstStation = shared[0];
 
   const sharedNormalEdges = pairAdjacentStations(shared).map(
-    toSimpleCanonicalEdge,
+    toSimpleLineShapeEdge,
   );
   const rejoinedNormalEdges = pairAdjacentStations(rejoined).map(
-    toSimpleCanonicalEdge,
+    toSimpleLineShapeEdge,
   );
 
   const lastStationBeforeSplit = itsOk(shared.at(-1));
@@ -100,7 +97,7 @@ export function dualPath({
     firstStationAfterRejoin,
   ];
 
-  const splitEdge = new CanonicalLineShapeEdge(
+  const splitEdge = new LineShapeEdge(
     lastStationBeforeSplit,
     firstStationAfterRejoin,
     [
@@ -110,7 +107,7 @@ export function dualPath({
   );
 
   return new LineRoute(
-    new CanonicalLineShape(firstStation, [
+    new LineShape(firstStation, [
       ...sharedNormalEdges,
       splitEdge,
       ...rejoinedNormalEdges,
@@ -131,14 +128,14 @@ export function regionalSimple({
   const firstStation = setDownOnly[0];
   const firstNormalStation = stations[0];
 
-  const normalEdges = pairAdjacentStations(stations).map(toSimpleCanonicalEdge);
+  const normalEdges = pairAdjacentStations(stations).map(toSimpleLineShapeEdge);
   const setDownOnlyEdges = toRegionalCanoncialEdge(
     setDownOnly,
     firstNormalStation,
   );
 
   return new LineRoute(
-    new CanonicalLineShape(firstStation, [...setDownOnlyEdges, ...normalEdges]),
+    new LineShape(firstStation, [...setDownOnlyEdges, ...normalEdges]),
   );
 }
 
@@ -167,20 +164,20 @@ export function regionalBranch({
     firstNormalStation,
   );
 
-  const normalEdges = pairAdjacentStations(shared).map(toSimpleCanonicalEdge);
+  const normalEdges = pairAdjacentStations(shared).map(toSimpleLineShapeEdge);
 
   const branchAEdges = pairAdjacentStations([
     lastStationBeforeBranch,
     ...branchA,
-  ]).map(toSimpleCanonicalEdge);
+  ]).map(toSimpleLineShapeEdge);
 
   const branchBEdges = pairAdjacentStations([
     lastStationBeforeBranch,
     ...branchB,
-  ]).map(toSimpleCanonicalEdge);
+  ]).map(toSimpleLineShapeEdge);
 
   return new LineRoute(
-    new CanonicalLineShape(firstStation, [
+    new LineShape(firstStation, [
       ...setDownOnlyEdges,
       ...normalEdges,
       ...branchAEdges,
@@ -199,7 +196,7 @@ function toRegionalCanoncialEdge(
 
   return pairAdjacentStations([...setDownOnly, firstNormalStation]).map(
     (pair, i) => {
-      return new CanonicalLineShapeEdge(
+      return new LineShapeEdge(
         pair.from,
         pair.to,
         sdoRouteGraphPairs.slice(0, i + 1),
@@ -214,10 +211,8 @@ function pairAdjacentStations(stations: readonly number[]) {
     .map((_x, i) => ({ from: stations[i], to: stations[i + 1] }));
 }
 
-function toSimpleCanonicalEdge(pair: { from: number; to: number }) {
-  return new CanonicalLineShapeEdge(pair.from, pair.to, [
-    toRouteGraphPair(pair),
-  ]);
+function toSimpleLineShapeEdge(pair: { from: number; to: number }) {
+  return new LineShapeEdge(pair.from, pair.to, [toRouteGraphPair(pair)]);
 }
 
 function toRouteGraphPair(pair: { from: number; to: number }) {

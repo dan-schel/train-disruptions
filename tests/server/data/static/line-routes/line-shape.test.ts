@@ -1,30 +1,30 @@
 import { assert, describe, expect, it } from "vitest";
 import {
-  CanonicalLineShape,
-  CanonicalLineShapeEdge,
-} from "../../../../../server/data/static/line-routes/canonical-line-shape";
+  LineShape,
+  LineShapeEdge,
+} from "../../../../../server/data/static/line-routes/line-shape";
 import { StationPair } from "../../../../../server/data/static/line-routes/station-pair";
 
-describe("CanonicalLineShape", () => {
-  const lineShape = new CanonicalLineShape("the-city", [
-    new CanonicalLineShapeEdge("the-city", 1, [
+describe("LineShape", () => {
+  const lineShape = new LineShape("the-city", [
+    new LineShapeEdge("the-city", 1, [
       new StationPair(20, 1),
       new StationPair(21, 1),
       new StationPair(22, 1),
     ]),
-    new CanonicalLineShapeEdge(1, 2, [new StationPair(1, 2)]),
-    new CanonicalLineShapeEdge(2, 3, [new StationPair(2, 3)]),
-    new CanonicalLineShapeEdge(3, 4, [new StationPair(3, 4)]),
-    new CanonicalLineShapeEdge(4, 5, [new StationPair(4, 5)]),
-    new CanonicalLineShapeEdge(3, 6, [new StationPair(3, 6)]),
-    new CanonicalLineShapeEdge(6, 7, [new StationPair(6, 7)]),
+    new LineShapeEdge(1, 2, [new StationPair(1, 2)]),
+    new LineShapeEdge(2, 3, [new StationPair(2, 3)]),
+    new LineShapeEdge(3, 4, [new StationPair(3, 4)]),
+    new LineShapeEdge(4, 5, [new StationPair(4, 5)]),
+    new LineShapeEdge(3, 6, [new StationPair(3, 6)]),
+    new LineShapeEdge(6, 7, [new StationPair(6, 7)]),
   ]);
 
   it("disallows construction of invalid shapes", () => {
     expect(
       () =>
-        new CanonicalLineShape("the-city", [
-          new CanonicalLineShapeEdge(1, 2, [new StationPair(1, 2)]),
+        new LineShape("the-city", [
+          new LineShapeEdge(1, 2, [new StationPair(1, 2)]),
         ]),
     ).toThrow();
   });
@@ -114,17 +114,12 @@ describe("CanonicalLineShape", () => {
   }
 });
 
-describe("CanonicalLineShapeEdge", () => {
+describe("LineShapeEdge", () => {
   it("disallows construction of invalid edges", () => {
-    expect(() => new CanonicalLineShapeEdge(1, 2, [])).toThrow();
+    expect(() => new LineShapeEdge(1, 2, [])).toThrow();
+    expect(() => new LineShapeEdge(1, 1, [new StationPair(1, 2)])).toThrow();
     expect(
-      () => new CanonicalLineShapeEdge(1, 1, [new StationPair(1, 2)]),
-    ).toThrow();
-    expect(
-      () =>
-        new CanonicalLineShapeEdge("the-city", "the-city", [
-          new StationPair(1, 2),
-        ]),
+      () => new LineShapeEdge("the-city", "the-city", [new StationPair(1, 2)]),
     ).toThrow();
   });
 });
