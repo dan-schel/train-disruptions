@@ -16,10 +16,6 @@ Here's how it works!
   - [What does a disruption look like?](#what-does-a-disruption-look-like)
   - [What's the deal with regional lines?](#whats-the-deal-with-regional-lines)
   - [Things we can detect](#things-we-can-detect)
-    - [Buses replace trains](#buses-replace-trains)
-    - [Unusual transfer required](#unusual-transfer-required)
-    - [Reduced frequency between stations](#reduced-frequency-between-stations)
-    - [Journey not possible](#journey-not-possible)
   - [What's the catch?](#whats-the-catch)
 - [Line shapes](#line-shapes)
   - [Overview](#overview-1)
@@ -78,19 +74,19 @@ Apart from this strangeness inside the suburban area, regional lines look much t
 
 ### Things we can detect
 
-#### Buses replace trains
+#### Buses replace trains <!-- omit in toc -->
 
 Using the current graph with disruptions applied, does a journey remain achievable when all bus edges are removed?
 
-#### Unusual transfer required
+#### Unusual transfer required <!-- omit in toc -->
 
 Is the shortest path between two stations different when using the default graph compared to the current one (with disruptions applied)?
 
-#### Reduced frequency between stations
+#### Reduced frequency between stations <!-- omit in toc -->
 
 Is the number of edges on the shortest path between the two stations in question less than usual?
 
-#### Journey not possible
+#### Journey not possible <!-- omit in toc -->
 
 Lines have been known to close completely in some extreme cases, e.g. bushfire evacuations. In this case, the station you wish to travel to will be disconnected from the rest of the graph.
 
