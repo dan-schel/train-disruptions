@@ -43,8 +43,8 @@ export class LineRoute {
     return this._shape.getRouteGraphPairsBetween(lineSection.a, lineSection.b);
   }
 
-  // TODO: Function to get all valid line boundaries? Admin dashboard will need
-  // to know to populate dropdowns.
+  // TODO: Function to get all line shape nodes? Admin dashboard will need to
+  // know to populate dropdowns.
 
   isValidSection(lineSection: LineSection): boolean {
     return (
