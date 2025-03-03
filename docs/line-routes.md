@@ -130,7 +130,7 @@ This has some interesting implications. It means instead of "Caulfield to Flinde
 
 Second, there's one graph per line, not one graph for the whole network. That means any phrase like "Flinders Street to Caulfield" is meaningless without a line to apply it to. It can also be interpreted differently depending on the line, e.g. while "Flinders Street to Caulfield" is invalid for the Pakenham line (because we have "The city" instead of Flinders Street), it's perfectly fine for the Frankston line (which doesn't use the City Loop).
 
-Third, these graphs aren't for route finding, and therefore don't need to follow the route graph rules. As the example above shows, regional lines can be drawn just like any other line, and we don't need to treat set-down-only stations as anything special.
+Third, these graphs aren't for route finding, and therefore don't need to follow the route graph rules. As the example above shows, regional lines can be drawn just like any other line, we don't need to treat set-down-only stations as anything special.
 
 ### How they're used
 
