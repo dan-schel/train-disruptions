@@ -128,7 +128,7 @@ First they're _way_ simpler than the route graph. They're a tree, which means th
 
 This has some interesting implications. It means instead of "Caulfield to Flinders Street" for the Pakenham line, we will use "Caufield to the city" and it will include the City Loop too. It also means a disruption between "Laverton and Newport" on the Werribee line will include both paths. This simplification is necessary to avoid ambiguity, and will work in 99% of cases. For any other cases, we can always fall back to editing the route graph manually of course!
 
-Second, there's one graph per line, not one graph for the whole network. That means any phrase like "Flinders Street to Caulfield" is meaningless without a line to apply it to. It can also be interpreted differently depending on the line, while "Flinders Street to Caulfield" is invalid for the Pakenham line (because we have "The city" instead of Flinders Street), it's perfectly fine for the Frankston line (which doesn't use the City Loop).
+Second, there's one graph per line, not one graph for the whole network. That means any phrase like "Flinders Street to Caulfield" is meaningless without a line to apply it to. It can also be interpreted differently depending on the line, e.g. while "Flinders Street to Caulfield" is invalid for the Pakenham line (because we have "The city" instead of Flinders Street), it's perfectly fine for the Frankston line (which doesn't use the City Loop).
 
 Third, these graphs aren't for route finding, and therefore don't need to follow the route graph rules. As the example above shows, regional lines can be drawn just like any other line, and we don't need to treat set-down-only stations as anything special.
 
