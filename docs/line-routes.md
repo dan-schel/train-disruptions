@@ -136,23 +136,27 @@ Third, these graphs aren't for route finding, and therefore don't need to follow
 
 So, how do line shapes help translate "Caulfield to Dandenong" to a list of route graph edges?
 
-Well, as you've no doubt guessed, Caulfield and Dandenong need to be two nodes on the line shape. That means for the Pakenham line, the phrase can include "The city" (since it's a node) but can't include any of the CBD stations directly (i.e. "Flinders Street to Caulfield" doesn't work, as previously mentioned). Since it's a tree there's guaranteed to be exactly one unambiguous path between those nodes, so we note down with edges in the line shape form that path.
+Well, as you've no doubt guessed, Caulfield and Dandenong need to be two nodes on the line shape. That means for the Pakenham line, the phrase can include "The city" (since it's a node) but can't include any of the CBD stations directly (i.e. "Flinders Street to Caulfield" doesn't work, as previously mentioned). Since it's a tree, there's guaranteed to be exactly one unambiguous path between those nodes, so we note down which edges in the line shape form that path.
 
 Then, each edge is mapped to one or more route graph edges that are relevant for that edge. Essentially, each line shape edge stores an array of route graph edges that would need to be removed if that section of line was disrupted. In the simplest case, it's just a 1-to-1 mapping, e.g. for the Frankston line:
 
 <img width="500" src="./img/line-shape-frankston.png" />
 
-But of course, many route graph edges can be collapsed into one edge or one node, so it's not always that simple. Here's the Pakenham line, with the City Loop:
+But of course, many route graph edges can be collapsed into one line shape edge or line shape node, so it's not always that simple. Here's the Pakenham line, with the City Loop:
 
 <img width="500" src="./img/line-shape-pakenham.png" />
 
-And the Ballarat line, with it's set-down-only stops after Ardeer:
+All route edges in the CBD section after Richmond are all mapped to the line shape edge between "The city" and Richmond.
+
+And now the Ballarat line, with it's set-down-only stops after Ardeer:
 
 <img width="500" src="./img/line-shape-ballarat.png" />
 
-(Notice how the line shape edge from Sunshine to Footscray knocks out both Ardeer to Footscray and Ardeer to Southern Cross. It's assuming there'll be no way to use the Ballarat line to get to Southern Cross either if Sunshine to Footscray is down.)
+Notice how the line shape edge from Sunshine to Footscray knocks out both Ardeer to Footscray and Ardeer to Southern Cross? It assumes if Sunshine to Footscray is down, there'll be no way to use the Ballarat line to get to Southern Cross either.
 
 Anyway, now that we've got our list of line shape edges, and we know which route graph edges each one maps to, we have our total list of route graph edges!
+
+That's the process! 😅
 
 ## Conclusion
 
