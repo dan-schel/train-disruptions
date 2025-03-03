@@ -129,7 +129,7 @@ export function regionalSimple({
   const firstNormalStation = stations[0];
 
   const normalEdges = pairAdjacentStations(stations).map(toSimpleLineShapeEdge);
-  const setDownOnlyEdges = toRegionalCanoncialEdge(
+  const setDownOnlyEdges = toRegionalLineShapeEdge(
     setDownOnly,
     firstNormalStation,
   );
@@ -159,7 +159,7 @@ export function regionalBranch({
   const firstNormalStation = itsOk(shared.at(0));
   const lastStationBeforeBranch = itsOk(shared.at(-1));
 
-  const setDownOnlyEdges = toRegionalCanoncialEdge(
+  const setDownOnlyEdges = toRegionalLineShapeEdge(
     setDownOnly,
     firstNormalStation,
   );
@@ -186,7 +186,7 @@ export function regionalBranch({
   );
 }
 
-function toRegionalCanoncialEdge(
+function toRegionalLineShapeEdge(
   setDownOnly: number[],
   firstNormalStation: number,
 ) {

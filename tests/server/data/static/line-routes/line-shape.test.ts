@@ -37,7 +37,7 @@ describe("LineShape", () => {
       expect(lineShape.validBoundary(8)).toBe(false);
     });
 
-    it("doesn't confuse Route Graph edges for Canoncial Line Shape edges", () => {
+    it("doesn't confuse Route Graph edges for Line Shape edges", () => {
       expect(lineShape.validBoundary(20)).toBe(false);
     });
   });
