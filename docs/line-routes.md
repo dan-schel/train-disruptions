@@ -116,7 +116,7 @@ Here we see a second concept is needed, because the superpower the route graph h
 
 ### Overview
 
-As mentioned above, "line shapes" exist to resolve meaning from phrases like "Caulfield to Dandenong" (a.k.a. line sections), and convert that phrase automatically into a list of relevant route graph edges, so that a disruption can make use of them (i.e. remove them, convert them to bus edges, etc.).
+As mentioned above, "line shapes" exist to resolve a high-level phrases like "Caulfield to Dandenong" (a.k.a. line sections), into a list of relevant route graph edges automatically, so that a disruption can make use of them (i.e. remove them, convert them to bus edges, etc.).
 
 Line shapes are represented something like this:
 
