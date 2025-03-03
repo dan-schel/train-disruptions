@@ -1,4 +1,4 @@
-export type LineSectionBoundary = number | "the-city";
+import { LineShapeNode } from "./static/line-routes/line-shape";
 
 /**
  * Represents a series of stations on a particular line, e.g. "East Pakenham to
@@ -9,11 +9,11 @@ export type LineSectionBoundary = number | "the-city";
 export class LineSection {
   constructor(
     readonly line: number,
-    readonly a: LineSectionBoundary,
-    readonly b: LineSectionBoundary,
+    readonly a: LineShapeNode,
+    readonly b: LineShapeNode,
   ) {
     if (a === b) {
-      throw new Error("Line section boundaries must be different.");
+      throw new Error("Line section must exist between two different nodes.");
     }
   }
 }

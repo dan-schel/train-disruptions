@@ -1,8 +1,10 @@
 import { describe, expect, it } from "vitest";
 import { lines } from "../../../../../server/data/static/lines";
 import { stations } from "../../../../../server/data/static/stations";
-import { LineShape } from "../../../../../server/data/static/line-routes/line-shape";
-import { LineSectionBoundary } from "../../../../../server/data/line-section";
+import {
+  LineShape,
+  LineShapeNode,
+} from "../../../../../server/data/static/line-routes/line-shape";
 
 describe("Melbourne default line route edges", () => {
   it("should match the snapshot", () => {
@@ -28,8 +30,8 @@ describe("Melbourne default line route edges", () => {
 
       output += `\nLine shape edges:\n`;
       for (const edge of lineShape.edges) {
-        const a = formatBoundary(edge.from);
-        const b = formatBoundary(edge.to);
+        const a = formatLineShapeNode(edge.from);
+        const b = formatLineShapeNode(edge.to);
 
         const pairs = edge.data.routeGraphPairs.map((pair) => {
           const a = stations.require(pair.a).name;
@@ -44,7 +46,7 @@ describe("Melbourne default line route edges", () => {
     expect(output).toMatchSnapshot();
   });
 
-  function formatBoundary(boundary: LineSectionBoundary) {
+  function formatLineShapeNode(boundary: LineShapeNode) {
     if (boundary === "the-city") {
       return '"The City"';
     } else {

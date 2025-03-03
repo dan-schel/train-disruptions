@@ -1,18 +1,16 @@
 import { unique } from "@dan-schel/js-utils";
-import { LineSectionBoundary } from "../../line-section";
 import { StationPair } from "./station-pair";
 import { Edge, Tree } from "./tree";
+
+export type LineShapeNode = number | "the-city";
 
 export type LineShapeEdgeData = { routeGraphPairs: StationPair[] };
 
 /** An edge in the LineShape tree. Each edge stores the route graph pairs that exist to serve */
-export class LineShapeEdge extends Edge<
-  LineSectionBoundary,
-  LineShapeEdgeData
-> {
+export class LineShapeEdge extends Edge<LineShapeNode, LineShapeEdgeData> {
   constructor(
-    from: LineSectionBoundary,
-    to: LineSectionBoundary,
+    from: LineShapeNode,
+    to: LineShapeNode,
     routeGraphPairs: StationPair[],
   ) {
     super(from, to, { routeGraphPairs });
@@ -28,24 +26,21 @@ export class LineShapeEdge extends Edge<
  * actual implicated Route Graph Edges. (See docs/line-routes.md for more info.)
  */
 export class LineShape {
-  private readonly _tree: Tree<LineSectionBoundary, LineShapeEdgeData>;
+  private readonly _tree: Tree<LineShapeNode, LineShapeEdgeData>;
 
   constructor(
-    readonly root: LineSectionBoundary,
+    readonly root: LineShapeNode,
     readonly edges: readonly LineShapeEdge[],
   ) {
     this._tree = new Tree(root, edges, (a, b) => a === b);
     this._tree.throwUnlessValid();
   }
 
-  validBoundary(boundary: LineSectionBoundary): boolean {
+  validBoundary(boundary: LineShapeNode): boolean {
     return this._tree.hasNode(boundary);
   }
 
-  getRouteGraphPairsBetween(
-    a: LineSectionBoundary,
-    b: LineSectionBoundary,
-  ): StationPair[] {
+  getRouteGraphPairsBetween(a: LineShapeNode, b: LineShapeNode): StationPair[] {
     const pairs = this._tree
       .getPathBetween(a, b)
       .flatMap((e) => e.data.routeGraphPairs);
