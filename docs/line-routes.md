@@ -154,7 +154,7 @@ And now the Ballarat line, with it's set-down-only stops after Ardeer:
 
 Notice how the line shape edge from Sunshine to Footscray knocks out both Ardeer to Footscray and Ardeer to Southern Cross? It assumes if Sunshine to Footscray is down, there'll be no way to use the Ballarat line to get to Southern Cross either.
 
-Anyway, now that we've got our list of line shape edges, and we know which route graph edges each one maps to, we have our total list of route graph edges!
+Anyway, now that we've got our list of line shape edges, and we know which route graph edges each one maps to, we now have our total list of route graph edges!
 
 That's the process! 😅
 
