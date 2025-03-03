@@ -23,7 +23,8 @@ Here's how it works!
   - [What's the catch?](#whats-the-catch)
 - [Line shapes](#line-shapes)
   - [Overview](#overview-1)
-- [Summary](#summary)
+  - [How they're used](#how-theyre-used)
+- [Conclusion](#conclusion)
 
 ## The route graph
 
@@ -49,7 +50,7 @@ While this graph looks fairly similar to the train network map, some interesting
 - Where multiple lines provide the same journey option, e.g. Southern Cross to Flinders Street, we draw one edge for each line.
 - Regional lines look a little strange. More on that later.
 
-We can determine that a journey is possible for any arbitrary commute by checking if the nodes for each station are connected. We can also determine which lines the passengers needs to use to achieve that commute.
+We can determine that a journey is possible for any arbitrary commute by checking if the nodes for each station are connected. We can also determine which lines the passenger needs to use to achieve that commute.
 
 ### What does a disruption look like?
 
@@ -71,9 +72,9 @@ This scenario provides an example of why a disruption might need to **add** edge
 
 Regional lines are a bit strange in order to account for the idea that suburban passengers cannot use regional trains for journeys which are achievable via suburban trains. This means, while the Ballarat lines stops at Deer Park, Ardeer, Sunshine, Footscray, and Southern Cross, no-one is permitted to board a citybound train from Ballarat at Sunshine.
 
-We represent this by **not** including an edge from Sunshine to Footscray. Instead, edges to the final three "set-down only" stations are direct from Ardeer (the last station where passengers can board a citybound train). In theory, a passenger at Sunshine **could** travel backwards to Ardeer in order to take a regional train from Ardeer to the city... if they really wanted to. The graph represents this perfectly!
+We represent this by **not** including an edge from Sunshine to Footscray. Instead, edges to the final three "set-down only" stations are direct from Ardeer, since it's the last station where passengers can board a citybound train. (In theory, a passenger at Sunshine **could** travel backwards to Ardeer in order to take a regional train from Ardeer to the city if they really wanted to. The graph represents this perfectly!)
 
-Outside this strangeness inside the suburban area, regional lines look much the same as any other.
+Apart from this strangeness inside the suburban area, regional lines look much the same as any other.
 
 ### Things we can detect
 
@@ -119,17 +120,49 @@ Here we see a second concept is needed, because the superpower the route graph h
 
 ### Overview
 
-As mentioned above, "line shapes" exist to resolve meaning from phrases like "Caulfield to Dandenong" (a.k.a. line sections).
+As mentioned above, "line shapes" exist to resolve meaning from phrases like "Caulfield to Dandenong" (a.k.a. line sections), and convert that phrase automatically into a list of relevant route graph edges, so that a disruption can make use of them (i.e. remove them, convert them to bus edges, etc.).
 
-Line shapes solve two problems. First, they are represented as a tree, and because trees cannot contain cycles, there is always exactly one path between two nodes. Second, as they are a separate concept to the route graph, used for a separate purpose, they don't have to follow its strange rules for regional lines.
+Line shapes are represented something like this:
 
-[TODO: Add images and further explanation of line shapes, "the-city", Werribee line, handling regional lines, etc.]
+<img width="500" src="./img/line-shapes.png" />
 
-[TODO: Explain that the line shape ultimately is a translation tool, and outputs a list of route graph edges.]
+Wow, another graph? Well, these are a little different.
 
-[TODO: An explanation on where that name came from?]
+First they're _way_ simpler than the route graph. They're a tree, which means they're a graph that cannot contain cycles. That's important, because in a tree there is always **exactly one** path between nodes. To achieve that, you'll notice certain details have been simplified. For example, the entire City Loop on the Pakenham has been replaced by one node called "The city", and both paths between Newport and Laverton have been collapsed down to a single edge.
 
-## Summary
+This has some interesting implications. It means instead of "Caulfield to Flinders Street" for the Pakenham line, we will use "Caufield to the city" and it will include the City Loop too. It also means a disruption between "Laverton and Newport" on the Werribee line will include both paths. This simplification is necessary to avoid ambiguity, and will work in 99% of cases. For any other cases, we can always fall back to editing the route graph manually of course!
+
+Second, there's one graph per line, not one graph for the whole network. That means any phrase like "Flinders Street to Caulfield" is meaningless without a line to apply it to. It can also be interpreted differently depending on the line, while "Flinders Street to Caulfield" is invalid for the Pakenham line (because we have "The city" instead of Flinders Street), it's perfectly fine for the Frankston line (which doesn't use the City Loop).
+
+Third, these graphs aren't for route finding, and therefore don't need to follow the route graph rules. As the example above shows, regional lines can be drawn just like any other line, and we don't need to treat set-down-only stations as anything special.
+
+### How they're used
+
+So, how do line shapes help translate "Caulfield to Dandenong" to a list of route graph edges?
+
+Well, as you've no doubt guessed, Caulfield and Dandenong need to be two nodes on the line shape. That means for the Pakenham line, the phrase can include "The city" (since it's a node) but can't include any of the CBD stations directly (i.e. "Flinders Street to Caulfield" doesn't work, as previously mentioned). Since it's a tree there's guaranteed to be exactly one unambiguous path between those nodes, so we note down with edges in the line shape form that path.
+
+Then, each edge is mapped to one or more route graph edges that are relevant for that edge. Essentially, each line shape edge stores an array of route graph edges that would need to be removed if that section of line was disrupted. In the simplest case, it's just a 1-to-1 mapping, e.g. for the Frankston line:
+
+<img width="500" src="./img/line-shape-frankston.png" />
+
+But of course, many route graph edges can be collapsed into one edge or one node, so it's not always that simple. Here's the Pakenham line, with the City Loop:
+
+<img width="500" src="./img/line-shape-pakenham.png" />
+
+And the Ballarat line, with it's set-down-only stops after Ardeer:
+
+<img width="500" src="./img/line-shape-ballarat.png" />
+
+(Notice how the line shape edge from Sunshine to Footscray knocks out both Ardeer to Footscray and Ardeer to Southern Cross. It's assuming there'll be no way to use the Ballarat line to get to Southern Cross either if Sunshine to Footscray is down.)
+
+Anyway, now that we've got our list of line shape edges, and we know which route graph edges each one maps to, we have our total list of route graph edges!
+
+## Conclusion
+
+To summarise, the difference between these two concepts is:
 
 - The route graph is helpful for determining if a commute between **any two stations** is impacted by a disruption, and how.
 - Line shapes are helpful for translating a phrase like "Caulfield to Dandenong" into an **unambiguous** list of relevant route graph edges. They are only ever used in the context of **one particular line**.
+
+Note that if you're curious to see the full unabridged list of route graph edges sorted by line, as well as the line shape of each line, you can do so! There's a snapshot test to test that these graphs are being built correctly, and [its output](/tests/server/data/static/line-routes/__snapshots__/line-routes.test.ts.snap) shows everything.
