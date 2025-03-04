@@ -134,7 +134,7 @@ export const GIPPSLAND = regionalSimple({
     station.PAKENHAM,
 
     // TODO: The Gippsland line will need special handling for East Pakenham. When
-    // buses replace trains from Pakenham to the City, the Gippsland line
+    // buses replace trains from Pakenham to the city, the Gippsland line
     // terminates at East Pakenham instead. We need to add a train edge from Nar
     // Nar Goon to East Pakenham, and remove all edges for Pakenham and beyond.
     //

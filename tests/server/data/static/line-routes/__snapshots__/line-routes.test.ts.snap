@@ -152,7 +152,7 @@ All route graph pairs:
   Merinda Park -> Cranbourne
 
 Line shape edges:
-  "The City" -> Richmond: [Flinders Street -> Richmond, Flinders Street -> Southern Cross, Southern Cross -> Flagstaff, Flagstaff -> Melbourne Central, Melbourne Central -> Parliament, Parliament -> Richmond]
+  "The city" -> Richmond: [Flinders Street -> Richmond, Flinders Street -> Southern Cross, Southern Cross -> Flagstaff, Flagstaff -> Melbourne Central, Melbourne Central -> Parliament, Parliament -> Richmond]
   Richmond -> South Yarra: [Richmond -> South Yarra]
   South Yarra -> Caulfield: [South Yarra -> Caulfield]
   Caulfield -> Carnegie: [Caulfield -> Carnegie]
@@ -206,7 +206,7 @@ All route graph pairs:
   Pakenham -> East Pakenham
 
 Line shape edges:
-  "The City" -> Richmond: [Flinders Street -> Richmond, Flinders Street -> Southern Cross, Southern Cross -> Flagstaff, Flagstaff -> Melbourne Central, Melbourne Central -> Parliament, Parliament -> Richmond]
+  "The city" -> Richmond: [Flinders Street -> Richmond, Flinders Street -> Southern Cross, Southern Cross -> Flagstaff, Flagstaff -> Melbourne Central, Melbourne Central -> Parliament, Parliament -> Richmond]
   Richmond -> South Yarra: [Richmond -> South Yarra]
   South Yarra -> Caulfield: [South Yarra -> Caulfield]
   Caulfield -> Carnegie: [Caulfield -> Carnegie]
@@ -309,7 +309,7 @@ All route graph pairs:
   Syndal -> Glen Waverley
 
 Line shape edges:
-  "The City" -> Richmond: [Flinders Street -> Richmond, Flinders Street -> Southern Cross, Southern Cross -> Flagstaff, Flagstaff -> Melbourne Central, Melbourne Central -> Parliament, Parliament -> Richmond]
+  "The city" -> Richmond: [Flinders Street -> Richmond, Flinders Street -> Southern Cross, Southern Cross -> Flagstaff, Flagstaff -> Melbourne Central, Melbourne Central -> Parliament, Parliament -> Richmond]
   Richmond -> East Richmond: [Richmond -> East Richmond]
   East Richmond -> Burnley: [East Richmond -> Burnley]
   Burnley -> Heyington: [Burnley -> Heyington]
@@ -350,7 +350,7 @@ All route graph pairs:
   Ashburton -> Alamein
 
 Line shape edges:
-  "The City" -> Richmond: [Flinders Street -> Richmond, Flinders Street -> Southern Cross, Southern Cross -> Flagstaff, Flagstaff -> Melbourne Central, Melbourne Central -> Parliament, Parliament -> Richmond]
+  "The city" -> Richmond: [Flinders Street -> Richmond, Flinders Street -> Southern Cross, Southern Cross -> Flagstaff, Flagstaff -> Melbourne Central, Melbourne Central -> Parliament, Parliament -> Richmond]
   Richmond -> East Richmond: [Richmond -> East Richmond]
   East Richmond -> Burnley: [East Richmond -> Burnley]
   Burnley -> Hawthorn: [Burnley -> Hawthorn]
@@ -402,7 +402,7 @@ All route graph pairs:
   Tecoma -> Belgrave
 
 Line shape edges:
-  "The City" -> Richmond: [Flinders Street -> Richmond, Flinders Street -> Southern Cross, Southern Cross -> Flagstaff, Flagstaff -> Melbourne Central, Melbourne Central -> Parliament, Parliament -> Richmond]
+  "The city" -> Richmond: [Flinders Street -> Richmond, Flinders Street -> Southern Cross, Southern Cross -> Flagstaff, Flagstaff -> Melbourne Central, Melbourne Central -> Parliament, Parliament -> Richmond]
   Richmond -> East Richmond: [Richmond -> East Richmond]
   East Richmond -> Burnley: [East Richmond -> Burnley]
   Burnley -> Hawthorn: [Burnley -> Hawthorn]
@@ -463,7 +463,7 @@ All route graph pairs:
   Mooroolbark -> Lilydale
 
 Line shape edges:
-  "The City" -> Richmond: [Flinders Street -> Richmond, Flinders Street -> Southern Cross, Southern Cross -> Flagstaff, Flagstaff -> Melbourne Central, Melbourne Central -> Parliament, Parliament -> Richmond]
+  "The city" -> Richmond: [Flinders Street -> Richmond, Flinders Street -> Southern Cross, Southern Cross -> Flagstaff, Flagstaff -> Melbourne Central, Melbourne Central -> Parliament, Parliament -> Richmond]
   Richmond -> East Richmond: [Richmond -> East Richmond]
   East Richmond -> Burnley: [East Richmond -> Burnley]
   Burnley -> Hawthorn: [Burnley -> Hawthorn]
@@ -521,7 +521,7 @@ All route graph pairs:
   Wattle Glen -> Hurstbridge
 
 Line shape edges:
-  "The City" -> Jolimont: [Flinders Street -> Jolimont, Flinders Street -> Southern Cross, Southern Cross -> Flagstaff, Flagstaff -> Melbourne Central, Melbourne Central -> Parliament, Parliament -> Jolimont]
+  "The city" -> Jolimont: [Flinders Street -> Jolimont, Flinders Street -> Southern Cross, Southern Cross -> Flagstaff, Flagstaff -> Melbourne Central, Melbourne Central -> Parliament, Parliament -> Jolimont]
   Jolimont -> West Richmond: [Jolimont -> West Richmond]
   West Richmond -> North Richmond: [West Richmond -> North Richmond]
   North Richmond -> Collingwood: [North Richmond -> Collingwood]
@@ -581,7 +581,7 @@ All route graph pairs:
   Hawkstowe -> Mernda
 
 Line shape edges:
-  "The City" -> Jolimont: [Flinders Street -> Jolimont, Flinders Street -> Southern Cross, Southern Cross -> Flagstaff, Flagstaff -> Melbourne Central, Melbourne Central -> Parliament, Parliament -> Jolimont]
+  "The city" -> Jolimont: [Flinders Street -> Jolimont, Flinders Street -> Southern Cross, Southern Cross -> Flagstaff, Flagstaff -> Melbourne Central, Melbourne Central -> Parliament, Parliament -> Jolimont]
   Jolimont -> West Richmond: [Jolimont -> West Richmond]
   West Richmond -> North Richmond: [West Richmond -> North Richmond]
   North Richmond -> Collingwood: [North Richmond -> Collingwood]
@@ -632,7 +632,7 @@ All route graph pairs:
   Gowrie -> Upfield
 
 Line shape edges:
-  "The City" -> North Melbourne: [Flinders Street -> Southern Cross, Southern Cross -> North Melbourne, Flinders Street -> Parliament, Parliament -> Melbourne Central, Melbourne Central -> Flagstaff, Flagstaff -> North Melbourne]
+  "The city" -> North Melbourne: [Flinders Street -> Southern Cross, Southern Cross -> North Melbourne, Flinders Street -> Parliament, Parliament -> Melbourne Central, Melbourne Central -> Flagstaff, Flagstaff -> North Melbourne]
   North Melbourne -> Macaulay: [North Melbourne -> Macaulay]
   Macaulay -> Flemington Bridge: [Macaulay -> Flemington Bridge]
   Flemington Bridge -> Royal Park: [Flemington Bridge -> Royal Park]
@@ -675,7 +675,7 @@ All route graph pairs:
   Roxburgh Park -> Craigieburn
 
 Line shape edges:
-  "The City" -> North Melbourne: [Flinders Street -> Southern Cross, Southern Cross -> North Melbourne, Flinders Street -> Parliament, Parliament -> Melbourne Central, Melbourne Central -> Flagstaff, Flagstaff -> North Melbourne]
+  "The city" -> North Melbourne: [Flinders Street -> Southern Cross, Southern Cross -> North Melbourne, Flinders Street -> Parliament, Parliament -> Melbourne Central, Melbourne Central -> Flagstaff, Flagstaff -> North Melbourne]
   North Melbourne -> Kensington: [North Melbourne -> Kensington]
   Kensington -> Newmarket: [Kensington -> Newmarket]
   Newmarket -> Ascot Vale: [Newmarket -> Ascot Vale]
@@ -789,7 +789,7 @@ All route graph pairs:
   Diggers Rest -> Sunbury
 
 Line shape edges:
-  "The City" -> North Melbourne: [Flinders Street -> Southern Cross, Southern Cross -> North Melbourne, Flinders Street -> Parliament, Parliament -> Melbourne Central, Melbourne Central -> Flagstaff, Flagstaff -> North Melbourne]
+  "The city" -> North Melbourne: [Flinders Street -> Southern Cross, Southern Cross -> North Melbourne, Flinders Street -> Parliament, Parliament -> Melbourne Central, Melbourne Central -> Flagstaff, Flagstaff -> North Melbourne]
   North Melbourne -> Footscray: [North Melbourne -> Footscray]
   Footscray -> Middle Footscray: [Footscray -> Middle Footscray]
   Middle Footscray -> West Footscray: [Middle Footscray -> West Footscray]

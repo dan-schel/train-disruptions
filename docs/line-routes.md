@@ -148,7 +148,7 @@ But of course, many route graph edges can be collapsed into one line shape edge 
 
 All route edges in the CBD section after Richmond are all mapped to the line shape edge between "The city" and Richmond.
 
-And now the Ballarat line, with it's set-down-only stops after Ardeer:
+And now the Ballarat line, with its set-down-only stops after Ardeer:
 
 <img width="500" src="./img/line-shape-ballarat.png" />
 

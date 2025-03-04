@@ -48,7 +48,7 @@ describe("Melbourne default line route edges", () => {
 
   function formatLineShapeNode(boundary: LineShapeNode) {
     if (boundary === "the-city") {
-      return '"The City"';
+      return '"The city"';
     } else {
       return stations.require(boundary).name;
     }

@@ -6,7 +6,10 @@ export type LineShapeNode = number | "the-city";
 
 export type LineShapeEdgeData = { routeGraphPairs: StationPair[] };
 
-/** An edge in the LineShape tree. Each edge stores the route graph pairs that exist to serve */
+/**
+ * An edge in the LineShape tree. Each edge stores the route graph pairs that
+ * would be affected by a disruption to this LineShapeEdge.
+ */
 export class LineShapeEdge extends Edge<LineShapeNode, LineShapeEdgeData> {
   constructor(
     from: LineShapeNode,
@@ -36,8 +39,8 @@ export class LineShape {
     this._tree.throwUnlessValid();
   }
 
-  validBoundary(boundary: LineShapeNode): boolean {
-    return this._tree.hasNode(boundary);
+  isValidNode(node: LineShapeNode): boolean {
+    return this._tree.hasNode(node);
   }
 
   getRouteGraphPairsBetween(a: LineShapeNode, b: LineShapeNode): StationPair[] {

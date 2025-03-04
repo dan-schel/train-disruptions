@@ -29,16 +29,16 @@ describe("LineShape", () => {
     ).toThrow();
   });
 
-  describe("#validBoundary", () => {
+  describe("#isValidNode", () => {
     it("works", () => {
-      expect(lineShape.validBoundary("the-city")).toBe(true);
-      expect(lineShape.validBoundary(1)).toBe(true);
-      expect(lineShape.validBoundary(7)).toBe(true);
-      expect(lineShape.validBoundary(8)).toBe(false);
+      expect(lineShape.isValidNode("the-city")).toBe(true);
+      expect(lineShape.isValidNode(1)).toBe(true);
+      expect(lineShape.isValidNode(7)).toBe(true);
+      expect(lineShape.isValidNode(8)).toBe(false);
     });
 
     it("doesn't confuse Route Graph edges for Line Shape edges", () => {
-      expect(lineShape.validBoundary(20)).toBe(false);
+      expect(lineShape.isValidNode(20)).toBe(false);
     });
   });
 

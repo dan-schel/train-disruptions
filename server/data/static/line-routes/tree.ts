@@ -91,7 +91,9 @@ export class Edge<Node, EdgeData> {
     readonly data: EdgeData,
   ) {
     if (from === to) {
-      throw new Error(`Tree edge created identical from and to: "${from}".`);
+      throw new Error(
+        `Tree edge created with identical from and to: "${from}".`,
+      );
     }
   }
 

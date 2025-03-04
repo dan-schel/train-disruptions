@@ -48,8 +48,8 @@ export class LineRoute {
 
   isValidSection(lineSection: LineSection): boolean {
     return (
-      this._shape.validBoundary(lineSection.a) &&
-      this._shape.validBoundary(lineSection.b)
+      this._shape.isValidNode(lineSection.a) &&
+      this._shape.isValidNode(lineSection.b)
     );
   }
 }
