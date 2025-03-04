@@ -17,7 +17,7 @@ export default function LayoutDefault({
   }
 
   return (
-    <Column className="min-h-screen">
+    <Column className="min-h-screen w-[max(100vw,var(--page-min-width))] overflow-x-hidden">
       <DesktopNavBar />
       <MobileNavBar />
       <With flexGrow="1" className="pb-16 md:pt-12 md:pb-0">
