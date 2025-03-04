@@ -1,0 +1,1026 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Melbourne default line route edges > should match the snapshot 1`] = `
+"
+[SANDRINGHAM LINE]
+
+All route graph pairs:
+  Flinders Street -> Richmond
+  Richmond -> South Yarra
+  South Yarra -> Prahran
+  Prahran -> Windsor
+  Windsor -> Balaclava
+  Balaclava -> Ripponlea
+  Ripponlea -> Elsternwick
+  Elsternwick -> Gardenvale
+  Gardenvale -> North Brighton
+  North Brighton -> Middle Brighton
+  Middle Brighton -> Brighton Beach
+  Brighton Beach -> Hampton
+  Hampton -> Sandringham
+
+Line shape edges:
+  Flinders Street -> Richmond: [Flinders Street -> Richmond]
+  Richmond -> South Yarra: [Richmond -> South Yarra]
+  South Yarra -> Prahran: [South Yarra -> Prahran]
+  Prahran -> Windsor: [Prahran -> Windsor]
+  Windsor -> Balaclava: [Windsor -> Balaclava]
+  Balaclava -> Ripponlea: [Balaclava -> Ripponlea]
+  Ripponlea -> Elsternwick: [Ripponlea -> Elsternwick]
+  Elsternwick -> Gardenvale: [Elsternwick -> Gardenvale]
+  Gardenvale -> North Brighton: [Gardenvale -> North Brighton]
+  North Brighton -> Middle Brighton: [North Brighton -> Middle Brighton]
+  Middle Brighton -> Brighton Beach: [Middle Brighton -> Brighton Beach]
+  Brighton Beach -> Hampton: [Brighton Beach -> Hampton]
+  Hampton -> Sandringham: [Hampton -> Sandringham]
+
+
+
+[FRANKSTON LINE]
+
+All route graph pairs:
+  Flinders Street -> Richmond
+  Richmond -> South Yarra
+  South Yarra -> Hawksburn
+  Hawksburn -> Toorak
+  Toorak -> Armadale
+  Armadale -> Malvern
+  Malvern -> Caulfield
+  Caulfield -> Glen Huntly
+  Glen Huntly -> Ormond
+  Ormond -> McKinnon
+  McKinnon -> Bentleigh
+  Bentleigh -> Patterson
+  Patterson -> Moorabbin
+  Moorabbin -> Highett
+  Highett -> Southland
+  Southland -> Cheltenham
+  Cheltenham -> Mentone
+  Mentone -> Parkdale
+  Parkdale -> Mordialloc
+  Mordialloc -> Aspendale
+  Aspendale -> Edithvale
+  Edithvale -> Chelsea
+  Chelsea -> Bonbeach
+  Bonbeach -> Carrum
+  Carrum -> Seaford
+  Seaford -> Kananook
+  Kananook -> Frankston
+
+Line shape edges:
+  Flinders Street -> Richmond: [Flinders Street -> Richmond]
+  Richmond -> South Yarra: [Richmond -> South Yarra]
+  South Yarra -> Hawksburn: [South Yarra -> Hawksburn]
+  Hawksburn -> Toorak: [Hawksburn -> Toorak]
+  Toorak -> Armadale: [Toorak -> Armadale]
+  Armadale -> Malvern: [Armadale -> Malvern]
+  Malvern -> Caulfield: [Malvern -> Caulfield]
+  Caulfield -> Glen Huntly: [Caulfield -> Glen Huntly]
+  Glen Huntly -> Ormond: [Glen Huntly -> Ormond]
+  Ormond -> McKinnon: [Ormond -> McKinnon]
+  McKinnon -> Bentleigh: [McKinnon -> Bentleigh]
+  Bentleigh -> Patterson: [Bentleigh -> Patterson]
+  Patterson -> Moorabbin: [Patterson -> Moorabbin]
+  Moorabbin -> Highett: [Moorabbin -> Highett]
+  Highett -> Southland: [Highett -> Southland]
+  Southland -> Cheltenham: [Southland -> Cheltenham]
+  Cheltenham -> Mentone: [Cheltenham -> Mentone]
+  Mentone -> Parkdale: [Mentone -> Parkdale]
+  Parkdale -> Mordialloc: [Parkdale -> Mordialloc]
+  Mordialloc -> Aspendale: [Mordialloc -> Aspendale]
+  Aspendale -> Edithvale: [Aspendale -> Edithvale]
+  Edithvale -> Chelsea: [Edithvale -> Chelsea]
+  Chelsea -> Bonbeach: [Chelsea -> Bonbeach]
+  Bonbeach -> Carrum: [Bonbeach -> Carrum]
+  Carrum -> Seaford: [Carrum -> Seaford]
+  Seaford -> Kananook: [Seaford -> Kananook]
+  Kananook -> Frankston: [Kananook -> Frankston]
+
+
+
+[STONY POINT LINE]
+
+All route graph pairs:
+  Frankston -> Leawarra
+  Leawarra -> Baxter
+  Baxter -> Somerville
+  Somerville -> Tyabb
+  Tyabb -> Hastings
+  Hastings -> Bittern
+  Bittern -> Morradoo
+  Morradoo -> Crib Point
+  Crib Point -> Stony Point
+
+Line shape edges:
+  Frankston -> Leawarra: [Frankston -> Leawarra]
+  Leawarra -> Baxter: [Leawarra -> Baxter]
+  Baxter -> Somerville: [Baxter -> Somerville]
+  Somerville -> Tyabb: [Somerville -> Tyabb]
+  Tyabb -> Hastings: [Tyabb -> Hastings]
+  Hastings -> Bittern: [Hastings -> Bittern]
+  Bittern -> Morradoo: [Bittern -> Morradoo]
+  Morradoo -> Crib Point: [Morradoo -> Crib Point]
+  Crib Point -> Stony Point: [Crib Point -> Stony Point]
+
+
+
+[CRANBOURNE LINE]
+
+All route graph pairs:
+  Flinders Street -> Richmond
+  Flinders Street -> Southern Cross
+  Southern Cross -> Flagstaff
+  Flagstaff -> Melbourne Central
+  Melbourne Central -> Parliament
+  Parliament -> Richmond
+  Richmond -> South Yarra
+  South Yarra -> Caulfield
+  Caulfield -> Carnegie
+  Carnegie -> Murrumbeena
+  Murrumbeena -> Hughesdale
+  Hughesdale -> Oakleigh
+  Oakleigh -> Huntingdale
+  Huntingdale -> Clayton
+  Clayton -> Westall
+  Westall -> Springvale
+  Springvale -> Sandown Park
+  Sandown Park -> Noble Park
+  Noble Park -> Yarraman
+  Yarraman -> Dandenong
+  Dandenong -> Lynbrook
+  Lynbrook -> Merinda Park
+  Merinda Park -> Cranbourne
+
+Line shape edges:
+  "The city" -> Richmond: [Flinders Street -> Richmond, Flinders Street -> Southern Cross, Southern Cross -> Flagstaff, Flagstaff -> Melbourne Central, Melbourne Central -> Parliament, Parliament -> Richmond]
+  Richmond -> South Yarra: [Richmond -> South Yarra]
+  South Yarra -> Caulfield: [South Yarra -> Caulfield]
+  Caulfield -> Carnegie: [Caulfield -> Carnegie]
+  Carnegie -> Murrumbeena: [Carnegie -> Murrumbeena]
+  Murrumbeena -> Hughesdale: [Murrumbeena -> Hughesdale]
+  Hughesdale -> Oakleigh: [Hughesdale -> Oakleigh]
+  Oakleigh -> Huntingdale: [Oakleigh -> Huntingdale]
+  Huntingdale -> Clayton: [Huntingdale -> Clayton]
+  Clayton -> Westall: [Clayton -> Westall]
+  Westall -> Springvale: [Westall -> Springvale]
+  Springvale -> Sandown Park: [Springvale -> Sandown Park]
+  Sandown Park -> Noble Park: [Sandown Park -> Noble Park]
+  Noble Park -> Yarraman: [Noble Park -> Yarraman]
+  Yarraman -> Dandenong: [Yarraman -> Dandenong]
+  Dandenong -> Lynbrook: [Dandenong -> Lynbrook]
+  Lynbrook -> Merinda Park: [Lynbrook -> Merinda Park]
+  Merinda Park -> Cranbourne: [Merinda Park -> Cranbourne]
+
+
+
+[PAKENHAM LINE]
+
+All route graph pairs:
+  Flinders Street -> Richmond
+  Flinders Street -> Southern Cross
+  Southern Cross -> Flagstaff
+  Flagstaff -> Melbourne Central
+  Melbourne Central -> Parliament
+  Parliament -> Richmond
+  Richmond -> South Yarra
+  South Yarra -> Caulfield
+  Caulfield -> Carnegie
+  Carnegie -> Murrumbeena
+  Murrumbeena -> Hughesdale
+  Hughesdale -> Oakleigh
+  Oakleigh -> Huntingdale
+  Huntingdale -> Clayton
+  Clayton -> Westall
+  Westall -> Springvale
+  Springvale -> Sandown Park
+  Sandown Park -> Noble Park
+  Noble Park -> Yarraman
+  Yarraman -> Dandenong
+  Dandenong -> Hallam
+  Hallam -> Narre Warren
+  Narre Warren -> Berwick
+  Berwick -> Beaconsfield
+  Beaconsfield -> Officer
+  Officer -> Cardinia Road
+  Cardinia Road -> Pakenham
+  Pakenham -> East Pakenham
+
+Line shape edges:
+  "The city" -> Richmond: [Flinders Street -> Richmond, Flinders Street -> Southern Cross, Southern Cross -> Flagstaff, Flagstaff -> Melbourne Central, Melbourne Central -> Parliament, Parliament -> Richmond]
+  Richmond -> South Yarra: [Richmond -> South Yarra]
+  South Yarra -> Caulfield: [South Yarra -> Caulfield]
+  Caulfield -> Carnegie: [Caulfield -> Carnegie]
+  Carnegie -> Murrumbeena: [Carnegie -> Murrumbeena]
+  Murrumbeena -> Hughesdale: [Murrumbeena -> Hughesdale]
+  Hughesdale -> Oakleigh: [Hughesdale -> Oakleigh]
+  Oakleigh -> Huntingdale: [Oakleigh -> Huntingdale]
+  Huntingdale -> Clayton: [Huntingdale -> Clayton]
+  Clayton -> Westall: [Clayton -> Westall]
+  Westall -> Springvale: [Westall -> Springvale]
+  Springvale -> Sandown Park: [Springvale -> Sandown Park]
+  Sandown Park -> Noble Park: [Sandown Park -> Noble Park]
+  Noble Park -> Yarraman: [Noble Park -> Yarraman]
+  Yarraman -> Dandenong: [Yarraman -> Dandenong]
+  Dandenong -> Hallam: [Dandenong -> Hallam]
+  Hallam -> Narre Warren: [Hallam -> Narre Warren]
+  Narre Warren -> Berwick: [Narre Warren -> Berwick]
+  Berwick -> Beaconsfield: [Berwick -> Beaconsfield]
+  Beaconsfield -> Officer: [Beaconsfield -> Officer]
+  Officer -> Cardinia Road: [Officer -> Cardinia Road]
+  Cardinia Road -> Pakenham: [Cardinia Road -> Pakenham]
+  Pakenham -> East Pakenham: [Pakenham -> East Pakenham]
+
+
+
+[GIPPSLAND LINE]
+
+All route graph pairs:
+  Southern Cross -> Pakenham
+  Flinders Street -> Pakenham
+  Richmond -> Pakenham
+  Caulfield -> Pakenham
+  Clayton -> Pakenham
+  Dandenong -> Pakenham
+  Pakenham -> Nar Nar Goon
+  Nar Nar Goon -> Tynong
+  Tynong -> Garfield
+  Garfield -> Bunyip
+  Bunyip -> Longwarry
+  Longwarry -> Drouin
+  Drouin -> Warragul
+  Warragul -> Yarragon
+  Yarragon -> Trafalgar
+  Trafalgar -> Moe
+  Moe -> Morwell
+  Morwell -> Traralgon
+  Traralgon -> Rosedale
+  Rosedale -> Sale
+  Sale -> Stratford
+  Stratford -> Bairnsdale
+
+Line shape edges:
+  Southern Cross -> Flinders Street: [Southern Cross -> Pakenham]
+  Flinders Street -> Richmond: [Southern Cross -> Pakenham, Flinders Street -> Pakenham]
+  Richmond -> Caulfield: [Southern Cross -> Pakenham, Flinders Street -> Pakenham, Richmond -> Pakenham]
+  Caulfield -> Clayton: [Southern Cross -> Pakenham, Flinders Street -> Pakenham, Richmond -> Pakenham, Caulfield -> Pakenham]
+  Clayton -> Dandenong: [Southern Cross -> Pakenham, Flinders Street -> Pakenham, Richmond -> Pakenham, Caulfield -> Pakenham, Clayton -> Pakenham]
+  Dandenong -> Pakenham: [Southern Cross -> Pakenham, Flinders Street -> Pakenham, Richmond -> Pakenham, Caulfield -> Pakenham, Clayton -> Pakenham, Dandenong -> Pakenham]
+  Pakenham -> Nar Nar Goon: [Pakenham -> Nar Nar Goon]
+  Nar Nar Goon -> Tynong: [Nar Nar Goon -> Tynong]
+  Tynong -> Garfield: [Tynong -> Garfield]
+  Garfield -> Bunyip: [Garfield -> Bunyip]
+  Bunyip -> Longwarry: [Bunyip -> Longwarry]
+  Longwarry -> Drouin: [Longwarry -> Drouin]
+  Drouin -> Warragul: [Drouin -> Warragul]
+  Warragul -> Yarragon: [Warragul -> Yarragon]
+  Yarragon -> Trafalgar: [Yarragon -> Trafalgar]
+  Trafalgar -> Moe: [Trafalgar -> Moe]
+  Moe -> Morwell: [Moe -> Morwell]
+  Morwell -> Traralgon: [Morwell -> Traralgon]
+  Traralgon -> Rosedale: [Traralgon -> Rosedale]
+  Rosedale -> Sale: [Rosedale -> Sale]
+  Sale -> Stratford: [Sale -> Stratford]
+  Stratford -> Bairnsdale: [Stratford -> Bairnsdale]
+
+
+
+[GLEN WAVERLEY LINE]
+
+All route graph pairs:
+  Flinders Street -> Richmond
+  Flinders Street -> Southern Cross
+  Southern Cross -> Flagstaff
+  Flagstaff -> Melbourne Central
+  Melbourne Central -> Parliament
+  Parliament -> Richmond
+  Richmond -> East Richmond
+  East Richmond -> Burnley
+  Burnley -> Heyington
+  Heyington -> Kooyong
+  Kooyong -> Tooronga
+  Tooronga -> Gardiner
+  Gardiner -> Glen Iris
+  Glen Iris -> Darling
+  Darling -> East Malvern
+  East Malvern -> Holmesglen
+  Holmesglen -> Jordanville
+  Jordanville -> Mount Waverley
+  Mount Waverley -> Syndal
+  Syndal -> Glen Waverley
+
+Line shape edges:
+  "The city" -> Richmond: [Flinders Street -> Richmond, Flinders Street -> Southern Cross, Southern Cross -> Flagstaff, Flagstaff -> Melbourne Central, Melbourne Central -> Parliament, Parliament -> Richmond]
+  Richmond -> East Richmond: [Richmond -> East Richmond]
+  East Richmond -> Burnley: [East Richmond -> Burnley]
+  Burnley -> Heyington: [Burnley -> Heyington]
+  Heyington -> Kooyong: [Heyington -> Kooyong]
+  Kooyong -> Tooronga: [Kooyong -> Tooronga]
+  Tooronga -> Gardiner: [Tooronga -> Gardiner]
+  Gardiner -> Glen Iris: [Gardiner -> Glen Iris]
+  Glen Iris -> Darling: [Glen Iris -> Darling]
+  Darling -> East Malvern: [Darling -> East Malvern]
+  East Malvern -> Holmesglen: [East Malvern -> Holmesglen]
+  Holmesglen -> Jordanville: [Holmesglen -> Jordanville]
+  Jordanville -> Mount Waverley: [Jordanville -> Mount Waverley]
+  Mount Waverley -> Syndal: [Mount Waverley -> Syndal]
+  Syndal -> Glen Waverley: [Syndal -> Glen Waverley]
+
+
+
+[ALAMEIN LINE]
+
+All route graph pairs:
+  Flinders Street -> Richmond
+  Flinders Street -> Southern Cross
+  Southern Cross -> Flagstaff
+  Flagstaff -> Melbourne Central
+  Melbourne Central -> Parliament
+  Parliament -> Richmond
+  Richmond -> East Richmond
+  East Richmond -> Burnley
+  Burnley -> Hawthorn
+  Hawthorn -> Glenferrie
+  Glenferrie -> Auburn
+  Auburn -> Camberwell
+  Camberwell -> Riversdale
+  Riversdale -> Willison
+  Willison -> Hartwell
+  Hartwell -> Burwood
+  Burwood -> Ashburton
+  Ashburton -> Alamein
+
+Line shape edges:
+  "The city" -> Richmond: [Flinders Street -> Richmond, Flinders Street -> Southern Cross, Southern Cross -> Flagstaff, Flagstaff -> Melbourne Central, Melbourne Central -> Parliament, Parliament -> Richmond]
+  Richmond -> East Richmond: [Richmond -> East Richmond]
+  East Richmond -> Burnley: [East Richmond -> Burnley]
+  Burnley -> Hawthorn: [Burnley -> Hawthorn]
+  Hawthorn -> Glenferrie: [Hawthorn -> Glenferrie]
+  Glenferrie -> Auburn: [Glenferrie -> Auburn]
+  Auburn -> Camberwell: [Auburn -> Camberwell]
+  Camberwell -> Riversdale: [Camberwell -> Riversdale]
+  Riversdale -> Willison: [Riversdale -> Willison]
+  Willison -> Hartwell: [Willison -> Hartwell]
+  Hartwell -> Burwood: [Hartwell -> Burwood]
+  Burwood -> Ashburton: [Burwood -> Ashburton]
+  Ashburton -> Alamein: [Ashburton -> Alamein]
+
+
+
+[BELGRAVE LINE]
+
+All route graph pairs:
+  Flinders Street -> Richmond
+  Flinders Street -> Southern Cross
+  Southern Cross -> Flagstaff
+  Flagstaff -> Melbourne Central
+  Melbourne Central -> Parliament
+  Parliament -> Richmond
+  Richmond -> East Richmond
+  East Richmond -> Burnley
+  Burnley -> Hawthorn
+  Hawthorn -> Glenferrie
+  Glenferrie -> Auburn
+  Auburn -> Camberwell
+  Camberwell -> East Camberwell
+  East Camberwell -> Canterbury
+  Canterbury -> Chatham
+  Chatham -> Union
+  Union -> Box Hill
+  Box Hill -> Laburnum
+  Laburnum -> Blackburn
+  Blackburn -> Nunawading
+  Nunawading -> Mitcham
+  Mitcham -> Heatherdale
+  Heatherdale -> Ringwood
+  Ringwood -> Heathmont
+  Heathmont -> Bayswater
+  Bayswater -> Boronia
+  Boronia -> Ferntree Gully
+  Ferntree Gully -> Upper Ferntree Gully
+  Upper Ferntree Gully -> Upwey
+  Upwey -> Tecoma
+  Tecoma -> Belgrave
+
+Line shape edges:
+  "The city" -> Richmond: [Flinders Street -> Richmond, Flinders Street -> Southern Cross, Southern Cross -> Flagstaff, Flagstaff -> Melbourne Central, Melbourne Central -> Parliament, Parliament -> Richmond]
+  Richmond -> East Richmond: [Richmond -> East Richmond]
+  East Richmond -> Burnley: [East Richmond -> Burnley]
+  Burnley -> Hawthorn: [Burnley -> Hawthorn]
+  Hawthorn -> Glenferrie: [Hawthorn -> Glenferrie]
+  Glenferrie -> Auburn: [Glenferrie -> Auburn]
+  Auburn -> Camberwell: [Auburn -> Camberwell]
+  Camberwell -> East Camberwell: [Camberwell -> East Camberwell]
+  East Camberwell -> Canterbury: [East Camberwell -> Canterbury]
+  Canterbury -> Chatham: [Canterbury -> Chatham]
+  Chatham -> Union: [Chatham -> Union]
+  Union -> Box Hill: [Union -> Box Hill]
+  Box Hill -> Laburnum: [Box Hill -> Laburnum]
+  Laburnum -> Blackburn: [Laburnum -> Blackburn]
+  Blackburn -> Nunawading: [Blackburn -> Nunawading]
+  Nunawading -> Mitcham: [Nunawading -> Mitcham]
+  Mitcham -> Heatherdale: [Mitcham -> Heatherdale]
+  Heatherdale -> Ringwood: [Heatherdale -> Ringwood]
+  Ringwood -> Heathmont: [Ringwood -> Heathmont]
+  Heathmont -> Bayswater: [Heathmont -> Bayswater]
+  Bayswater -> Boronia: [Bayswater -> Boronia]
+  Boronia -> Ferntree Gully: [Boronia -> Ferntree Gully]
+  Ferntree Gully -> Upper Ferntree Gully: [Ferntree Gully -> Upper Ferntree Gully]
+  Upper Ferntree Gully -> Upwey: [Upper Ferntree Gully -> Upwey]
+  Upwey -> Tecoma: [Upwey -> Tecoma]
+  Tecoma -> Belgrave: [Tecoma -> Belgrave]
+
+
+
+[LILYDALE LINE]
+
+All route graph pairs:
+  Flinders Street -> Richmond
+  Flinders Street -> Southern Cross
+  Southern Cross -> Flagstaff
+  Flagstaff -> Melbourne Central
+  Melbourne Central -> Parliament
+  Parliament -> Richmond
+  Richmond -> East Richmond
+  East Richmond -> Burnley
+  Burnley -> Hawthorn
+  Hawthorn -> Glenferrie
+  Glenferrie -> Auburn
+  Auburn -> Camberwell
+  Camberwell -> East Camberwell
+  East Camberwell -> Canterbury
+  Canterbury -> Chatham
+  Chatham -> Union
+  Union -> Box Hill
+  Box Hill -> Laburnum
+  Laburnum -> Blackburn
+  Blackburn -> Nunawading
+  Nunawading -> Mitcham
+  Mitcham -> Heatherdale
+  Heatherdale -> Ringwood
+  Ringwood -> Ringwood East
+  Ringwood East -> Croydon
+  Croydon -> Mooroolbark
+  Mooroolbark -> Lilydale
+
+Line shape edges:
+  "The city" -> Richmond: [Flinders Street -> Richmond, Flinders Street -> Southern Cross, Southern Cross -> Flagstaff, Flagstaff -> Melbourne Central, Melbourne Central -> Parliament, Parliament -> Richmond]
+  Richmond -> East Richmond: [Richmond -> East Richmond]
+  East Richmond -> Burnley: [East Richmond -> Burnley]
+  Burnley -> Hawthorn: [Burnley -> Hawthorn]
+  Hawthorn -> Glenferrie: [Hawthorn -> Glenferrie]
+  Glenferrie -> Auburn: [Glenferrie -> Auburn]
+  Auburn -> Camberwell: [Auburn -> Camberwell]
+  Camberwell -> East Camberwell: [Camberwell -> East Camberwell]
+  East Camberwell -> Canterbury: [East Camberwell -> Canterbury]
+  Canterbury -> Chatham: [Canterbury -> Chatham]
+  Chatham -> Union: [Chatham -> Union]
+  Union -> Box Hill: [Union -> Box Hill]
+  Box Hill -> Laburnum: [Box Hill -> Laburnum]
+  Laburnum -> Blackburn: [Laburnum -> Blackburn]
+  Blackburn -> Nunawading: [Blackburn -> Nunawading]
+  Nunawading -> Mitcham: [Nunawading -> Mitcham]
+  Mitcham -> Heatherdale: [Mitcham -> Heatherdale]
+  Heatherdale -> Ringwood: [Heatherdale -> Ringwood]
+  Ringwood -> Ringwood East: [Ringwood -> Ringwood East]
+  Ringwood East -> Croydon: [Ringwood East -> Croydon]
+  Croydon -> Mooroolbark: [Croydon -> Mooroolbark]
+  Mooroolbark -> Lilydale: [Mooroolbark -> Lilydale]
+
+
+
+[HURSTBRIDGE LINE]
+
+All route graph pairs:
+  Flinders Street -> Jolimont
+  Flinders Street -> Southern Cross
+  Southern Cross -> Flagstaff
+  Flagstaff -> Melbourne Central
+  Melbourne Central -> Parliament
+  Parliament -> Jolimont
+  Jolimont -> West Richmond
+  West Richmond -> North Richmond
+  North Richmond -> Collingwood
+  Collingwood -> Victoria Park
+  Victoria Park -> Clifton Hill
+  Clifton Hill -> Westgarth
+  Westgarth -> Dennis
+  Dennis -> Fairfield
+  Fairfield -> Alphington
+  Alphington -> Darebin
+  Darebin -> Ivanhoe
+  Ivanhoe -> Eaglemont
+  Eaglemont -> Heidelberg
+  Heidelberg -> Rosanna
+  Rosanna -> Macleod
+  Macleod -> Watsonia
+  Watsonia -> Greensborough
+  Greensborough -> Montmorency
+  Montmorency -> Eltham
+  Eltham -> Diamond Creek
+  Diamond Creek -> Wattle Glen
+  Wattle Glen -> Hurstbridge
+
+Line shape edges:
+  "The city" -> Jolimont: [Flinders Street -> Jolimont, Flinders Street -> Southern Cross, Southern Cross -> Flagstaff, Flagstaff -> Melbourne Central, Melbourne Central -> Parliament, Parliament -> Jolimont]
+  Jolimont -> West Richmond: [Jolimont -> West Richmond]
+  West Richmond -> North Richmond: [West Richmond -> North Richmond]
+  North Richmond -> Collingwood: [North Richmond -> Collingwood]
+  Collingwood -> Victoria Park: [Collingwood -> Victoria Park]
+  Victoria Park -> Clifton Hill: [Victoria Park -> Clifton Hill]
+  Clifton Hill -> Westgarth: [Clifton Hill -> Westgarth]
+  Westgarth -> Dennis: [Westgarth -> Dennis]
+  Dennis -> Fairfield: [Dennis -> Fairfield]
+  Fairfield -> Alphington: [Fairfield -> Alphington]
+  Alphington -> Darebin: [Alphington -> Darebin]
+  Darebin -> Ivanhoe: [Darebin -> Ivanhoe]
+  Ivanhoe -> Eaglemont: [Ivanhoe -> Eaglemont]
+  Eaglemont -> Heidelberg: [Eaglemont -> Heidelberg]
+  Heidelberg -> Rosanna: [Heidelberg -> Rosanna]
+  Rosanna -> Macleod: [Rosanna -> Macleod]
+  Macleod -> Watsonia: [Macleod -> Watsonia]
+  Watsonia -> Greensborough: [Watsonia -> Greensborough]
+  Greensborough -> Montmorency: [Greensborough -> Montmorency]
+  Montmorency -> Eltham: [Montmorency -> Eltham]
+  Eltham -> Diamond Creek: [Eltham -> Diamond Creek]
+  Diamond Creek -> Wattle Glen: [Diamond Creek -> Wattle Glen]
+  Wattle Glen -> Hurstbridge: [Wattle Glen -> Hurstbridge]
+
+
+
+[MERNDA LINE]
+
+All route graph pairs:
+  Flinders Street -> Jolimont
+  Flinders Street -> Southern Cross
+  Southern Cross -> Flagstaff
+  Flagstaff -> Melbourne Central
+  Melbourne Central -> Parliament
+  Parliament -> Jolimont
+  Jolimont -> West Richmond
+  West Richmond -> North Richmond
+  North Richmond -> Collingwood
+  Collingwood -> Victoria Park
+  Victoria Park -> Clifton Hill
+  Clifton Hill -> Rushall
+  Rushall -> Merri
+  Merri -> Northcote
+  Northcote -> Croxton
+  Croxton -> Thornbury
+  Thornbury -> Bell
+  Bell -> Preston
+  Preston -> Regent
+  Regent -> Reservoir
+  Reservoir -> Ruthven
+  Ruthven -> Keon Park
+  Keon Park -> Thomastown
+  Thomastown -> Lalor
+  Lalor -> Epping
+  Epping -> South Morang
+  South Morang -> Middle Gorge
+  Middle Gorge -> Hawkstowe
+  Hawkstowe -> Mernda
+
+Line shape edges:
+  "The city" -> Jolimont: [Flinders Street -> Jolimont, Flinders Street -> Southern Cross, Southern Cross -> Flagstaff, Flagstaff -> Melbourne Central, Melbourne Central -> Parliament, Parliament -> Jolimont]
+  Jolimont -> West Richmond: [Jolimont -> West Richmond]
+  West Richmond -> North Richmond: [West Richmond -> North Richmond]
+  North Richmond -> Collingwood: [North Richmond -> Collingwood]
+  Collingwood -> Victoria Park: [Collingwood -> Victoria Park]
+  Victoria Park -> Clifton Hill: [Victoria Park -> Clifton Hill]
+  Clifton Hill -> Rushall: [Clifton Hill -> Rushall]
+  Rushall -> Merri: [Rushall -> Merri]
+  Merri -> Northcote: [Merri -> Northcote]
+  Northcote -> Croxton: [Northcote -> Croxton]
+  Croxton -> Thornbury: [Croxton -> Thornbury]
+  Thornbury -> Bell: [Thornbury -> Bell]
+  Bell -> Preston: [Bell -> Preston]
+  Preston -> Regent: [Preston -> Regent]
+  Regent -> Reservoir: [Regent -> Reservoir]
+  Reservoir -> Ruthven: [Reservoir -> Ruthven]
+  Ruthven -> Keon Park: [Ruthven -> Keon Park]
+  Keon Park -> Thomastown: [Keon Park -> Thomastown]
+  Thomastown -> Lalor: [Thomastown -> Lalor]
+  Lalor -> Epping: [Lalor -> Epping]
+  Epping -> South Morang: [Epping -> South Morang]
+  South Morang -> Middle Gorge: [South Morang -> Middle Gorge]
+  Middle Gorge -> Hawkstowe: [Middle Gorge -> Hawkstowe]
+  Hawkstowe -> Mernda: [Hawkstowe -> Mernda]
+
+
+
+[UPFIELD LINE]
+
+All route graph pairs:
+  Flinders Street -> Southern Cross
+  Southern Cross -> North Melbourne
+  Flinders Street -> Parliament
+  Parliament -> Melbourne Central
+  Melbourne Central -> Flagstaff
+  Flagstaff -> North Melbourne
+  North Melbourne -> Macaulay
+  Macaulay -> Flemington Bridge
+  Flemington Bridge -> Royal Park
+  Royal Park -> Jewell
+  Jewell -> Brunswick
+  Brunswick -> Anstey
+  Anstey -> Moreland
+  Moreland -> Coburg
+  Coburg -> Batman
+  Batman -> Merlynston
+  Merlynston -> Fawkner
+  Fawkner -> Gowrie
+  Gowrie -> Upfield
+
+Line shape edges:
+  "The city" -> North Melbourne: [Flinders Street -> Southern Cross, Southern Cross -> North Melbourne, Flinders Street -> Parliament, Parliament -> Melbourne Central, Melbourne Central -> Flagstaff, Flagstaff -> North Melbourne]
+  North Melbourne -> Macaulay: [North Melbourne -> Macaulay]
+  Macaulay -> Flemington Bridge: [Macaulay -> Flemington Bridge]
+  Flemington Bridge -> Royal Park: [Flemington Bridge -> Royal Park]
+  Royal Park -> Jewell: [Royal Park -> Jewell]
+  Jewell -> Brunswick: [Jewell -> Brunswick]
+  Brunswick -> Anstey: [Brunswick -> Anstey]
+  Anstey -> Moreland: [Anstey -> Moreland]
+  Moreland -> Coburg: [Moreland -> Coburg]
+  Coburg -> Batman: [Coburg -> Batman]
+  Batman -> Merlynston: [Batman -> Merlynston]
+  Merlynston -> Fawkner: [Merlynston -> Fawkner]
+  Fawkner -> Gowrie: [Fawkner -> Gowrie]
+  Gowrie -> Upfield: [Gowrie -> Upfield]
+
+
+
+[CRAIGIEBURN LINE]
+
+All route graph pairs:
+  Flinders Street -> Southern Cross
+  Southern Cross -> North Melbourne
+  Flinders Street -> Parliament
+  Parliament -> Melbourne Central
+  Melbourne Central -> Flagstaff
+  Flagstaff -> North Melbourne
+  North Melbourne -> Kensington
+  Kensington -> Newmarket
+  Newmarket -> Ascot Vale
+  Ascot Vale -> Moonee Ponds
+  Moonee Ponds -> Essendon
+  Essendon -> Glenbervie
+  Glenbervie -> Strathmore
+  Strathmore -> Pascoe Vale
+  Pascoe Vale -> Oak Park
+  Oak Park -> Glenroy
+  Glenroy -> Jacana
+  Jacana -> Broadmeadows
+  Broadmeadows -> Coolaroo
+  Coolaroo -> Roxburgh Park
+  Roxburgh Park -> Craigieburn
+
+Line shape edges:
+  "The city" -> North Melbourne: [Flinders Street -> Southern Cross, Southern Cross -> North Melbourne, Flinders Street -> Parliament, Parliament -> Melbourne Central, Melbourne Central -> Flagstaff, Flagstaff -> North Melbourne]
+  North Melbourne -> Kensington: [North Melbourne -> Kensington]
+  Kensington -> Newmarket: [Kensington -> Newmarket]
+  Newmarket -> Ascot Vale: [Newmarket -> Ascot Vale]
+  Ascot Vale -> Moonee Ponds: [Ascot Vale -> Moonee Ponds]
+  Moonee Ponds -> Essendon: [Moonee Ponds -> Essendon]
+  Essendon -> Glenbervie: [Essendon -> Glenbervie]
+  Glenbervie -> Strathmore: [Glenbervie -> Strathmore]
+  Strathmore -> Pascoe Vale: [Strathmore -> Pascoe Vale]
+  Pascoe Vale -> Oak Park: [Pascoe Vale -> Oak Park]
+  Oak Park -> Glenroy: [Oak Park -> Glenroy]
+  Glenroy -> Jacana: [Glenroy -> Jacana]
+  Jacana -> Broadmeadows: [Jacana -> Broadmeadows]
+  Broadmeadows -> Coolaroo: [Broadmeadows -> Coolaroo]
+  Coolaroo -> Roxburgh Park: [Coolaroo -> Roxburgh Park]
+  Roxburgh Park -> Craigieburn: [Roxburgh Park -> Craigieburn]
+
+
+
+[SEYMOUR LINE]
+
+All route graph pairs:
+  Southern Cross -> Donnybrook
+  North Melbourne -> Donnybrook
+  Broadmeadows -> Donnybrook
+  Craigieburn -> Donnybrook
+  Donnybrook -> Wallan
+  Wallan -> Heathcote Junction
+  Heathcote Junction -> Wandong
+  Wandong -> Kilmore East
+  Kilmore East -> Broadford
+  Broadford -> Tallarook
+  Tallarook -> Seymour
+  Seymour -> Avenel
+  Avenel -> Euroa
+  Euroa -> Violet Town
+  Violet Town -> Benalla
+  Benalla -> Wangaratta
+  Wangaratta -> Springhurst
+  Springhurst -> Chiltern
+  Chiltern -> Wodonga
+  Wodonga -> Albury
+  Seymour -> Nagambie
+  Nagambie -> Murchison East
+  Murchison East -> Mooroopna
+  Mooroopna -> Shepparton
+
+Line shape edges:
+  Southern Cross -> North Melbourne: [Southern Cross -> Donnybrook]
+  North Melbourne -> Broadmeadows: [Southern Cross -> Donnybrook, North Melbourne -> Donnybrook]
+  Broadmeadows -> Craigieburn: [Southern Cross -> Donnybrook, North Melbourne -> Donnybrook, Broadmeadows -> Donnybrook]
+  Craigieburn -> Donnybrook: [Southern Cross -> Donnybrook, North Melbourne -> Donnybrook, Broadmeadows -> Donnybrook, Craigieburn -> Donnybrook]
+  Donnybrook -> Wallan: [Donnybrook -> Wallan]
+  Wallan -> Heathcote Junction: [Wallan -> Heathcote Junction]
+  Heathcote Junction -> Wandong: [Heathcote Junction -> Wandong]
+  Wandong -> Kilmore East: [Wandong -> Kilmore East]
+  Kilmore East -> Broadford: [Kilmore East -> Broadford]
+  Broadford -> Tallarook: [Broadford -> Tallarook]
+  Tallarook -> Seymour: [Tallarook -> Seymour]
+  Seymour -> Avenel: [Seymour -> Avenel]
+  Avenel -> Euroa: [Avenel -> Euroa]
+  Euroa -> Violet Town: [Euroa -> Violet Town]
+  Violet Town -> Benalla: [Violet Town -> Benalla]
+  Benalla -> Wangaratta: [Benalla -> Wangaratta]
+  Wangaratta -> Springhurst: [Wangaratta -> Springhurst]
+  Springhurst -> Chiltern: [Springhurst -> Chiltern]
+  Chiltern -> Wodonga: [Chiltern -> Wodonga]
+  Wodonga -> Albury: [Wodonga -> Albury]
+  Seymour -> Nagambie: [Seymour -> Nagambie]
+  Nagambie -> Murchison East: [Nagambie -> Murchison East]
+  Murchison East -> Mooroopna: [Murchison East -> Mooroopna]
+  Mooroopna -> Shepparton: [Mooroopna -> Shepparton]
+
+
+
+[FLEMINGTON RACECOURSE LINE]
+
+All route graph pairs:
+  Flinders Street -> Southern Cross
+  Southern Cross -> North Melbourne
+  North Melbourne -> Showgrounds
+  Showgrounds -> Flemington Racecourse
+
+Line shape edges:
+  Flinders Street -> Southern Cross: [Flinders Street -> Southern Cross]
+  Southern Cross -> North Melbourne: [Southern Cross -> North Melbourne]
+  North Melbourne -> Showgrounds: [North Melbourne -> Showgrounds]
+  Showgrounds -> Flemington Racecourse: [Showgrounds -> Flemington Racecourse]
+
+
+
+[SUNBURY LINE]
+
+All route graph pairs:
+  Flinders Street -> Southern Cross
+  Southern Cross -> North Melbourne
+  Flinders Street -> Parliament
+  Parliament -> Melbourne Central
+  Melbourne Central -> Flagstaff
+  Flagstaff -> North Melbourne
+  North Melbourne -> Footscray
+  Footscray -> Middle Footscray
+  Middle Footscray -> West Footscray
+  West Footscray -> Tottenham
+  Tottenham -> Sunshine
+  Sunshine -> Albion
+  Albion -> Ginifer
+  Ginifer -> St Albans
+  St Albans -> Keilor Plains
+  Keilor Plains -> Watergardens
+  Watergardens -> Diggers Rest
+  Diggers Rest -> Sunbury
+
+Line shape edges:
+  "The city" -> North Melbourne: [Flinders Street -> Southern Cross, Southern Cross -> North Melbourne, Flinders Street -> Parliament, Parliament -> Melbourne Central, Melbourne Central -> Flagstaff, Flagstaff -> North Melbourne]
+  North Melbourne -> Footscray: [North Melbourne -> Footscray]
+  Footscray -> Middle Footscray: [Footscray -> Middle Footscray]
+  Middle Footscray -> West Footscray: [Middle Footscray -> West Footscray]
+  West Footscray -> Tottenham: [West Footscray -> Tottenham]
+  Tottenham -> Sunshine: [Tottenham -> Sunshine]
+  Sunshine -> Albion: [Sunshine -> Albion]
+  Albion -> Ginifer: [Albion -> Ginifer]
+  Ginifer -> St Albans: [Ginifer -> St Albans]
+  St Albans -> Keilor Plains: [St Albans -> Keilor Plains]
+  Keilor Plains -> Watergardens: [Keilor Plains -> Watergardens]
+  Watergardens -> Diggers Rest: [Watergardens -> Diggers Rest]
+  Diggers Rest -> Sunbury: [Diggers Rest -> Sunbury]
+
+
+
+[BENDIGO LINE]
+
+All route graph pairs:
+  Southern Cross -> Sunbury
+  Footscray -> Sunbury
+  Watergardens -> Sunbury
+  Sunbury -> Clarkefield
+  Clarkefield -> Riddells Creek
+  Riddells Creek -> Gisborne
+  Gisborne -> Macedon
+  Macedon -> Woodend
+  Woodend -> Kyneton
+  Kyneton -> Malmsbury
+  Malmsbury -> Castlemaine
+  Castlemaine -> Kangaroo Flat
+  Kangaroo Flat -> Bendigo
+  Bendigo -> Epsom
+  Epsom -> Huntly
+  Huntly -> Goornong
+  Goornong -> Elmore
+  Elmore -> Rochester
+  Rochester -> Echuca
+  Bendigo -> Eaglehawk
+  Eaglehawk -> Raywood
+  Raywood -> Dingee
+  Dingee -> Pyramid
+  Pyramid -> Kerang
+  Kerang -> Swan Hill
+
+Line shape edges:
+  Southern Cross -> Footscray: [Southern Cross -> Sunbury]
+  Footscray -> Watergardens: [Southern Cross -> Sunbury, Footscray -> Sunbury]
+  Watergardens -> Sunbury: [Southern Cross -> Sunbury, Footscray -> Sunbury, Watergardens -> Sunbury]
+  Sunbury -> Clarkefield: [Sunbury -> Clarkefield]
+  Clarkefield -> Riddells Creek: [Clarkefield -> Riddells Creek]
+  Riddells Creek -> Gisborne: [Riddells Creek -> Gisborne]
+  Gisborne -> Macedon: [Gisborne -> Macedon]
+  Macedon -> Woodend: [Macedon -> Woodend]
+  Woodend -> Kyneton: [Woodend -> Kyneton]
+  Kyneton -> Malmsbury: [Kyneton -> Malmsbury]
+  Malmsbury -> Castlemaine: [Malmsbury -> Castlemaine]
+  Castlemaine -> Kangaroo Flat: [Castlemaine -> Kangaroo Flat]
+  Kangaroo Flat -> Bendigo: [Kangaroo Flat -> Bendigo]
+  Bendigo -> Epsom: [Bendigo -> Epsom]
+  Epsom -> Huntly: [Epsom -> Huntly]
+  Huntly -> Goornong: [Huntly -> Goornong]
+  Goornong -> Elmore: [Goornong -> Elmore]
+  Elmore -> Rochester: [Elmore -> Rochester]
+  Rochester -> Echuca: [Rochester -> Echuca]
+  Bendigo -> Eaglehawk: [Bendigo -> Eaglehawk]
+  Eaglehawk -> Raywood: [Eaglehawk -> Raywood]
+  Raywood -> Dingee: [Raywood -> Dingee]
+  Dingee -> Pyramid: [Dingee -> Pyramid]
+  Pyramid -> Kerang: [Pyramid -> Kerang]
+  Kerang -> Swan Hill: [Kerang -> Swan Hill]
+
+
+
+[BALLARAT LINE]
+
+All route graph pairs:
+  Southern Cross -> Ardeer
+  Footscray -> Ardeer
+  Sunshine -> Ardeer
+  Ardeer -> Deer Park
+  Deer Park -> Caroline Springs
+  Caroline Springs -> Rockbank
+  Rockbank -> Cobblebank
+  Cobblebank -> Melton
+  Melton -> Bacchus Marsh
+  Bacchus Marsh -> Ballan
+  Ballan -> Ballarat
+  Ballarat -> Creswick
+  Creswick -> Clunes
+  Clunes -> Talbot
+  Talbot -> Maryborough
+  Ballarat -> Wendouree
+  Wendouree -> Beaufort
+  Beaufort -> Ararat
+
+Line shape edges:
+  Southern Cross -> Footscray: [Southern Cross -> Ardeer]
+  Footscray -> Sunshine: [Southern Cross -> Ardeer, Footscray -> Ardeer]
+  Sunshine -> Ardeer: [Southern Cross -> Ardeer, Footscray -> Ardeer, Sunshine -> Ardeer]
+  Ardeer -> Deer Park: [Ardeer -> Deer Park]
+  Deer Park -> Caroline Springs: [Deer Park -> Caroline Springs]
+  Caroline Springs -> Rockbank: [Caroline Springs -> Rockbank]
+  Rockbank -> Cobblebank: [Rockbank -> Cobblebank]
+  Cobblebank -> Melton: [Cobblebank -> Melton]
+  Melton -> Bacchus Marsh: [Melton -> Bacchus Marsh]
+  Bacchus Marsh -> Ballan: [Bacchus Marsh -> Ballan]
+  Ballan -> Ballarat: [Ballan -> Ballarat]
+  Ballarat -> Creswick: [Ballarat -> Creswick]
+  Creswick -> Clunes: [Creswick -> Clunes]
+  Clunes -> Talbot: [Clunes -> Talbot]
+  Talbot -> Maryborough: [Talbot -> Maryborough]
+  Ballarat -> Wendouree: [Ballarat -> Wendouree]
+  Wendouree -> Beaufort: [Wendouree -> Beaufort]
+  Beaufort -> Ararat: [Beaufort -> Ararat]
+
+
+
+[GEELONG LINE]
+
+All route graph pairs:
+  Southern Cross -> Deer Park
+  Footscray -> Deer Park
+  Sunshine -> Deer Park
+  Deer Park -> Tarneit
+  Tarneit -> Wyndham Vale
+  Wyndham Vale -> Little River
+  Little River -> Lara
+  Lara -> Corio
+  Corio -> North Shore
+  North Shore -> North Geelong
+  North Geelong -> Geelong
+  Geelong -> South Geelong
+  South Geelong -> Marshall
+  Marshall -> Waurn Ponds
+  Waurn Ponds -> Winchelsea
+  Winchelsea -> Birregurra
+  Birregurra -> Colac
+  Colac -> Camperdown
+  Camperdown -> Terang
+  Terang -> Sherwood Park
+  Sherwood Park -> Warrnambool
+
+Line shape edges:
+  Southern Cross -> Footscray: [Southern Cross -> Deer Park]
+  Footscray -> Sunshine: [Southern Cross -> Deer Park, Footscray -> Deer Park]
+  Sunshine -> Deer Park: [Southern Cross -> Deer Park, Footscray -> Deer Park, Sunshine -> Deer Park]
+  Deer Park -> Tarneit: [Deer Park -> Tarneit]
+  Tarneit -> Wyndham Vale: [Tarneit -> Wyndham Vale]
+  Wyndham Vale -> Little River: [Wyndham Vale -> Little River]
+  Little River -> Lara: [Little River -> Lara]
+  Lara -> Corio: [Lara -> Corio]
+  Corio -> North Shore: [Corio -> North Shore]
+  North Shore -> North Geelong: [North Shore -> North Geelong]
+  North Geelong -> Geelong: [North Geelong -> Geelong]
+  Geelong -> South Geelong: [Geelong -> South Geelong]
+  South Geelong -> Marshall: [South Geelong -> Marshall]
+  Marshall -> Waurn Ponds: [Marshall -> Waurn Ponds]
+  Waurn Ponds -> Winchelsea: [Waurn Ponds -> Winchelsea]
+  Winchelsea -> Birregurra: [Winchelsea -> Birregurra]
+  Birregurra -> Colac: [Birregurra -> Colac]
+  Colac -> Camperdown: [Colac -> Camperdown]
+  Camperdown -> Terang: [Camperdown -> Terang]
+  Terang -> Sherwood Park: [Terang -> Sherwood Park]
+  Sherwood Park -> Warrnambool: [Sherwood Park -> Warrnambool]
+
+
+
+[WERRIBEE LINE]
+
+All route graph pairs:
+  Flinders Street -> Southern Cross
+  Southern Cross -> North Melbourne
+  North Melbourne -> South Kensington
+  South Kensington -> Footscray
+  Footscray -> Seddon
+  Seddon -> Yarraville
+  Yarraville -> Spotswood
+  Spotswood -> Newport
+  Newport -> Seaholme
+  Seaholme -> Altona
+  Altona -> Westona
+  Westona -> Laverton
+  Newport -> Laverton
+  Laverton -> Aircraft
+  Aircraft -> Williams Landing
+  Williams Landing -> Hoppers Crossing
+  Hoppers Crossing -> Werribee
+
+Line shape edges:
+  Flinders Street -> Southern Cross: [Flinders Street -> Southern Cross]
+  Southern Cross -> North Melbourne: [Southern Cross -> North Melbourne]
+  North Melbourne -> South Kensington: [North Melbourne -> South Kensington]
+  South Kensington -> Footscray: [South Kensington -> Footscray]
+  Footscray -> Seddon: [Footscray -> Seddon]
+  Seddon -> Yarraville: [Seddon -> Yarraville]
+  Yarraville -> Spotswood: [Yarraville -> Spotswood]
+  Spotswood -> Newport: [Spotswood -> Newport]
+  Newport -> Laverton: [Newport -> Seaholme, Seaholme -> Altona, Altona -> Westona, Westona -> Laverton, Newport -> Laverton]
+  Laverton -> Aircraft: [Laverton -> Aircraft]
+  Aircraft -> Williams Landing: [Aircraft -> Williams Landing]
+  Williams Landing -> Hoppers Crossing: [Williams Landing -> Hoppers Crossing]
+  Hoppers Crossing -> Werribee: [Hoppers Crossing -> Werribee]
+
+
+
+[WILLIAMSTOWN LINE]
+
+All route graph pairs:
+  Flinders Street -> Southern Cross
+  Southern Cross -> North Melbourne
+  North Melbourne -> South Kensington
+  South Kensington -> Footscray
+  Footscray -> Seddon
+  Seddon -> Yarraville
+  Yarraville -> Spotswood
+  Spotswood -> Newport
+  Newport -> North Williamstown
+  North Williamstown -> Williamstown Beach
+  Williamstown Beach -> Williamstown
+
+Line shape edges:
+  Flinders Street -> Southern Cross: [Flinders Street -> Southern Cross]
+  Southern Cross -> North Melbourne: [Southern Cross -> North Melbourne]
+  North Melbourne -> South Kensington: [North Melbourne -> South Kensington]
+  South Kensington -> Footscray: [South Kensington -> Footscray]
+  Footscray -> Seddon: [Footscray -> Seddon]
+  Seddon -> Yarraville: [Seddon -> Yarraville]
+  Yarraville -> Spotswood: [Yarraville -> Spotswood]
+  Spotswood -> Newport: [Spotswood -> Newport]
+  Newport -> North Williamstown: [Newport -> North Williamstown]
+  North Williamstown -> Williamstown Beach: [North Williamstown -> Williamstown Beach]
+  Williamstown Beach -> Williamstown: [Williamstown Beach -> Williamstown]
+"
+`;
