@@ -28,15 +28,19 @@ export default function Page() {
           <Spacer h="6" />
 
           {/* TODO: determine the options for both selects */}
-          <Row align="center" className="gap-1.5">
-            <Text>Show</Text>
-            <select className="w-35 rounded border border-black">
-              <option value={"all"}>all disruptions</option>
-            </select>
-            <Text>occurring</Text>
-            <select className="w-30 rounded border border-black">
-              <option value={"now"}>right now</option>
-            </select>
+          <Row align="center" className="max-w-md gap-1.5" wrap>
+            <Row align="center" className="flex-grow gap-1.5">
+              <Text>Show</Text>
+              <select className="flex-grow rounded border border-black">
+                <option value={"all"}>all disruptions</option>
+              </select>
+            </Row>
+            <Row align="center" className="flex-grow gap-1.5">
+              <Text>occurring</Text>
+              <select className="flex-grow rounded border border-black">
+                <option value={"now"}>right now</option>
+              </select>
+            </Row>
           </Row>
           <Spacer h="4" />
 

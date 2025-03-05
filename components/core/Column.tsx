@@ -7,6 +7,7 @@ export type ColumnProps = {
   className?: string;
   align?: "stretch" | "left" | "center" | "right";
   justify?: "top" | "center" | "bottom" | "space-between";
+  wrap?: boolean;
 };
 
 /**
@@ -35,7 +36,15 @@ export function Column(props: ColumnProps) {
   }[props.justify ?? "top"];
 
   return (
-    <Tag className={clsx("flex flex-col", justify, align, props.className)}>
+    <Tag
+      className={clsx(
+        "flex flex-col",
+        justify,
+        align,
+        { "flex-wrap": props.wrap },
+        props.className,
+      )}
+    >
       {props.children}
     </Tag>
   );

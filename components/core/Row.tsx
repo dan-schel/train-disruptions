@@ -7,6 +7,7 @@ export type RowProps = {
   className?: string;
   align?: "stretch" | "top" | "center" | "bottom";
   justify?: "left" | "center" | "right" | "space-between";
+  wrap?: boolean;
 };
 
 /**
@@ -35,7 +36,15 @@ export function Row(props: RowProps) {
   }[props.justify ?? "left"];
 
   return (
-    <Tag className={clsx("flex flex-row", justify, align, props.className)}>
+    <Tag
+      className={clsx(
+        "flex flex-row",
+        justify,
+        align,
+        { "flex-wrap": props.wrap },
+        props.className,
+      )}
+    >
       {props.children}
     </Tag>
   );
