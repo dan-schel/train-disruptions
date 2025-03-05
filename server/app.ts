@@ -8,6 +8,7 @@ import { DisruptionSource } from "./disruption-source/disruption-source";
 import { InMemoryDatabase } from "./database/lib/in-memory/in-memory-database";
 import { FakeDisruptionSource } from "./disruption-source/fake-disruption-source";
 import { HistoricalAlert } from "./data/historical-alert";
+import { migrations } from "./migrations";
 
 export class App {
   constructor(
@@ -18,6 +19,9 @@ export class App {
   ) {}
 
   async init() {
+    // Has to run before anything else that might use the database.
+    await this.database.runMigrations(migrations);
+
     // TODO: This is temporary.
     await this._runDatabaseDemo();
     await this._runDisruptionSourceDemo();
