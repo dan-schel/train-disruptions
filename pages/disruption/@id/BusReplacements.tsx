@@ -21,10 +21,7 @@ export function BusReplacement(props: BusReplacementProps) {
 
       <Calendar disruptions={disruption} />
 
-      {/* 
-        I think it'll look better if we show the sections of the track affected instead on embedding the website.
-        Sometimes the links provided throw CORS errors which doesn't allow us to embed the site 
-      */}
+      {/* TODO: Show the sections of the track affected */}
       <Map />
     </Column>
   );
