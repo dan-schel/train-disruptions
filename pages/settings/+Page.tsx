@@ -5,7 +5,7 @@ import { Column } from "../../components/core/Column";
 import { PageCenterer } from "../../components/common/PageCenterer";
 import { PagePadding } from "../../components/common/PagePadding";
 import { Spacer } from "../../components/core/Spacer";
-import { useSettings } from "../../hooks/useSettings";
+// import { useSettings } from "../../hooks/useSettings";
 
 export default function Page() {
   return (
