@@ -1,50 +1,45 @@
 import React from "react";
-import { format } from "date-fns";
+import { Data } from "./+data";
+import { useData } from "vike-react/useData";
 
-import { Text } from "../../../components/core/Text";
+import { Delay } from "./Delay";
+import { NotFound } from "./NotFound";
+import { Termination } from "./Termination";
+import { StationClosure } from "./StationClosure";
+import { BusReplacement } from "./BusReplacements";
+import { With } from "../../../components/core/With";
 import { Column } from "../../../components/core/Column";
+import { PagePadding } from "../../../components/common/PagePadding";
 import { PageCenterer } from "../../../components/common/PageCenterer";
 import { BackNavigation } from "../../../components/navigation/BackNavigation";
-import { PagePadding } from "../../../components/common/PagePadding";
-import { Calendar } from "../../../components/calendar/Calendar";
-
-/**
- * TODO: Handle scenarios where the provided id doesn't correspond to a disruption.
- *
- * Options:
- * - Show an error page
- * - Navigate back straight away
- */
 
 export default function Page() {
-  const disruption = {
-    from: new Date("2025-01-29T09:40:00Z"),
-    // A lot of disruptions sourced from PTV mark disruptions as ending at 3am the following day,
-    // so we'll need to do some manipulating to make sure the days are correct
-    to: new Date("2025-02-18T12:00:00Z"),
-    evenings: false,
-  };
+  const { data, backHref } = useData<Data>();
+
+  function renderDisruption() {
+    switch (data.type) {
+      case "bus-replacement":
+        return <BusReplacement {...data} />;
+      case "delay":
+        return <Delay {...data} />;
+      case "station-closure":
+        return <StationClosure {...data} />;
+      case "termination":
+        return <Termination {...data} />;
+      case "not-found":
+        return <NotFound />;
+    }
+  }
 
   return (
     <Column>
       {/* The previous page won't always be the overview. We'll probably need to set a query param, e.g. `?from=overview` or `?from=line-12`. */}
-      <BackNavigation name="Overview" href="/" />
-      <PageCenterer>
-        <PagePadding>
-          <Column className="gap-8">
-            <Text style="title">
-              Buses replace trains from Newport to Footscray
-            </Text>
-            <Column className="gap-2">
-              <Text>Starts {format(disruption.from, "p cccc d MMMM")}</Text>
-              <Text>
-                Ends last service {format(disruption.to, "cccc d MMMM")}
-              </Text>
-            </Column>
-            <Calendar disruptions={disruption} />
-          </Column>
-        </PagePadding>
-      </PageCenterer>
+      <BackNavigation name="Overview" href={backHref} />
+      <With className="flex-1">
+        <PageCenterer>
+          <PagePadding>{renderDisruption()}</PagePadding>
+        </PageCenterer>
+      </With>
     </Column>
   );
 }

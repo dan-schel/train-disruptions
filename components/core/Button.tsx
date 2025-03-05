@@ -3,14 +3,19 @@ import React from "react";
 // TODO: Codify routes rather than allowing any string.
 export type Action =
   | { onClick: () => void; href?: undefined; submit?: undefined }
-  | { onClick?: undefined; href: string; submit?: undefined }
+  | {
+      onClick?: undefined;
+      href: string;
+      target?: React.HTMLAttributeAnchorTarget;
+      submit?: undefined;
+    }
   | { onClick?: undefined; href?: undefined; submit: true };
 
 export function extractAction(props: Action): Action {
   if (props.onClick != null) {
     return { onClick: props.onClick };
   } else if (props.href != null) {
-    return { href: props.href };
+    return { href: props.href, target: props.target };
   } else if (props.submit === true) {
     return { submit: true };
   } else {
@@ -48,7 +53,12 @@ export function Button(props: ButtonProps) {
     );
   } else {
     return (
-      <a className="group grid" href={props.href} title={props.alt}>
+      <a
+        className="group grid"
+        href={props.href}
+        title={props.alt}
+        target={props.target}
+      >
         {props.children}
       </a>
     );
