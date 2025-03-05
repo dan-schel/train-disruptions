@@ -29,7 +29,6 @@ export default function Page() {
           <Text style="custom" className="text-lg font-bold">
             Colour Theme
           </Text>
-
         </Column>
       </PagePadding>
     </PageCenterer>
