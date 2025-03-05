@@ -4,6 +4,7 @@ import { useData } from "vike-react/useData";
 
 import { Delay } from "./Delay";
 import { NotFound } from "./NotFound";
+import { Termination } from "./Termination";
 import { StationClosure } from "./StationClosure";
 import { BusReplacement } from "./BusReplacements";
 import { With } from "../../../components/core/With";
@@ -23,6 +24,8 @@ export default function Page() {
         return <Delay {...data} />;
       case "station-closure":
         return <StationClosure {...data} />;
+      case "termination":
+        return <Termination {...data} />;
       case "not-found":
         return <NotFound />;
     }
