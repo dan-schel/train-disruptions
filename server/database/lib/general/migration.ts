@@ -1,7 +1,11 @@
 import { Repository } from "./database";
 import { DatabaseModel } from "./database-model";
-import { SerializedObject } from "./serialized-types";
-import { WhereClause } from "./where-clause";
+import {
+  MigrationDeleteCommand,
+  MigrationDropCommand,
+  MigrationMapCommand,
+  MigrationRenameCommand,
+} from "./migration-command-types";
 
 /**
  * Represents a one-off job to run on the database before the server starts.
@@ -28,11 +32,7 @@ export abstract class Migrator {
    * (If you're migrating a large collection, be sure to include a where clause
    * to avoid loading the entire collection into memory.)
    */
-  abstract map(options: {
-    collection: string;
-    fn: (input: SerializedObject) => Promise<SerializedObject>;
-    where?: WhereClause<DatabaseModel>;
-  }): Promise<void>;
+  abstract map(query: MigrationMapCommand): Promise<void>;
 
   /**
    * Used to delete all records matching a certain predicate without parsing
@@ -42,20 +42,13 @@ export abstract class Migrator {
    * (If possible use where instead of predicate, as it avoids loading the
    * entire collection into memory.)
    */
-  abstract delete(options: {
-    collection: string;
-    where?: WhereClause<DatabaseModel>;
-    predicate?: (input: SerializedObject) => boolean;
-  }): Promise<void>;
+  abstract delete(query: MigrationDeleteCommand): Promise<void>;
 
   /** Used to rename an entire collection. */
-  abstract rename(options: {
-    oldCollectionName: string;
-    newCollectionName: string;
-  }): Promise<void>;
+  abstract rename(query: MigrationRenameCommand): Promise<void>;
 
   /** Used to delete a collection entirely. */
-  abstract drop(options: { collection: string }): Promise<void>;
+  abstract drop(query: MigrationDropCommand): Promise<void>;
 
   /**
    * Used to run regular database operations in situations where the data shape
