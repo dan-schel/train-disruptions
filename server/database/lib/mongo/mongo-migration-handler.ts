@@ -66,10 +66,10 @@ export class MongoMigrator extends Migrator {
     const items = await collection.find(filter).toArray();
 
     for (const item of items) {
-      const updatedItem = await query.fn(item, item._id);
+      const updatedItem = await query.fn(this._stripId(item), item._id);
       await collection.updateOne(
         { _id: item._id },
-        { _id: item._id, ...updatedItem },
+        { ...updatedItem, _id: item._id },
       );
     }
   }
@@ -83,7 +83,9 @@ export class MongoMigrator extends Migrator {
       await collection.deleteMany(filter);
     } else {
       const items = await collection.find(filter).toArray();
-      const itemsToDelete = items.filter((x) => predicate(x, x._id));
+      const itemsToDelete = items.filter((x) =>
+        predicate(this._stripId(x), x._id),
+      );
       for (const item of itemsToDelete) {
         await collection.deleteOne({ _id: item._id });
       }
@@ -106,5 +108,9 @@ export class MongoMigrator extends Migrator {
 
   private _getCollection(name: string) {
     return this._db.collection<ModelDocument>(name);
+  }
+
+  private _stripId(item: ModelDocument): unknown {
+    return { ...item, _id: undefined };
   }
 }

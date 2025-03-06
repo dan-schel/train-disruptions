@@ -5,10 +5,7 @@ import { WhereClause } from "./where-clause";
 /** Arguments to the migrators map command. */
 export type MigrationMapCommand = {
   collection: string;
-  fn: (
-    input: SerializedObject,
-    id: IdOf<DatabaseModel>,
-  ) => Promise<SerializedObject>;
+  fn: (input: unknown, id: IdOf<DatabaseModel>) => Promise<SerializedObject>;
   where?: WhereClause<DatabaseModel>;
 };
 
@@ -16,7 +13,7 @@ export type MigrationMapCommand = {
 export type MigrationDeleteCommand = {
   collection: string;
   where?: WhereClause<DatabaseModel>;
-  predicate?: (input: SerializedObject, id: IdOf<DatabaseModel>) => boolean;
+  predicate?: (input: unknown, id: IdOf<DatabaseModel>) => boolean;
 };
 
 /** Arguments to the migrators rename command. */
