@@ -22,9 +22,9 @@ describe("MongoRepository", () => {
 
   describe("find", () => {
     it("calls find correctly", async () => {
+      const collection = mock<Collection<ModelDocument>>();
       const cursor = mock<FindCursor<Document>>();
       cursor.toArray.mockResolvedValue([]);
-      const collection = mock<Collection<ModelDocument>>();
       collection.find.mockReturnValue(cursor);
       const repository = new MongoRepository(MUSICAL_INSTRUMENTS, collection);
 
@@ -37,9 +37,9 @@ describe("MongoRepository", () => {
     });
 
     it("applies sorting and limits", async () => {
+      const collection = mock<Collection<ModelDocument>>();
       const cursor = mock<FindCursor<Document>>();
       cursor.toArray.mockResolvedValue([]);
-      const collection = mock<Collection<ModelDocument>>();
       collection.find.mockReturnValue(cursor);
       const repository = new MongoRepository(MUSICAL_INSTRUMENTS, collection);
 
