@@ -1,10 +1,10 @@
 import { Repository } from "./database";
 import { DatabaseModel } from "./database-model";
 import {
-  MigrationDeleteCommand,
-  MigrationDropCommand,
-  MigrationMapCommand,
-  MigrationRenameCommand,
+  MigratorDeleteCommand,
+  MigratorDropCommand,
+  MigratorMapCommand,
+  MigratorRenameCommand,
 } from "./migration-command-types";
 
 /**
@@ -16,7 +16,8 @@ export abstract class Migration {
   constructor(
     /**
      * An ID for this migration. Must be prefixed with a YYYY-MM-DD date, e.g.
-     * `2025-03-07-rename-alerts-model`.
+     * `2025-03-07-rename-alerts-model`. Use the date the migration code was
+     * written.
      */
     readonly id: string,
   ) {
@@ -43,10 +44,10 @@ export abstract class Migrator {
   /**
    * Used to convert records from one format to another (e.g. adding a field).
    *
-   * (If you're migrating a large collection, be sure to include a where clause
-   * to avoid loading the entire collection into memory.)
+   * (If you're migrating a large collection, consider using a where clause
+   * to avoid loading the entire collection into memory if you could avoid it.)
    */
-  abstract map(query: MigrationMapCommand): Promise<void>;
+  abstract map(query: MigratorMapCommand): Promise<void>;
 
   /**
    * Used to delete all records matching a certain predicate without parsing
@@ -56,13 +57,13 @@ export abstract class Migrator {
    * (If possible use where instead of predicate, as it avoids loading the
    * entire collection into memory.)
    */
-  abstract delete(query: MigrationDeleteCommand): Promise<void>;
+  abstract delete(query: MigratorDeleteCommand): Promise<void>;
 
   /** Used to rename an entire collection. */
-  abstract rename(query: MigrationRenameCommand): Promise<void>;
+  abstract rename(query: MigratorRenameCommand): Promise<void>;
 
   /** Used to delete a collection entirely. */
-  abstract drop(query: MigrationDropCommand): Promise<void>;
+  abstract drop(query: MigratorDropCommand): Promise<void>;
 
   /**
    * Used to run regular database operations in situations where the data shape

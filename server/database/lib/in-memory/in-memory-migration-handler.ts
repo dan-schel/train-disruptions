@@ -2,10 +2,10 @@ import { MigrationHandler, Repository } from "../general/database";
 import { DatabaseModel } from "../general/database-model";
 import { Migrator } from "../general/migration";
 import {
-  MigrationMapCommand,
-  MigrationDeleteCommand,
-  MigrationRenameCommand,
-  MigrationDropCommand,
+  MigratorMapCommand,
+  MigratorDeleteCommand,
+  MigratorRenameCommand,
+  MigratorDropCommand,
 } from "../general/migration-command-types";
 import {
   InMemoryDatabaseData,
@@ -37,7 +37,7 @@ export class InMemoryMigrator extends Migrator {
     super();
   }
 
-  async map(query: MigrationMapCommand): Promise<void> {
+  async map(query: MigratorMapCommand): Promise<void> {
     const filter = new InMemoryWhereClauseInterpreter(query.where);
     const collection = this._data.collection(query.collection);
     const items = collection.find((item) => filter.matches(item));
@@ -48,7 +48,7 @@ export class InMemoryMigrator extends Migrator {
     }
   }
 
-  async delete(query: MigrationDeleteCommand): Promise<void> {
+  async delete(query: MigratorDeleteCommand): Promise<void> {
     const filter = new InMemoryWhereClauseInterpreter(query.where);
     const collection = this._data.collection(query.collection);
     const items = collection.find((item) => filter.matches(item));
@@ -63,14 +63,14 @@ export class InMemoryMigrator extends Migrator {
     }
   }
 
-  async rename(query: MigrationRenameCommand): Promise<void> {
+  async rename(query: MigratorRenameCommand): Promise<void> {
     this._data.renameCollection(
       query.oldCollectionName,
       query.newCollectionName,
     );
   }
 
-  async drop(query: MigrationDropCommand): Promise<void> {
+  async drop(query: MigratorDropCommand): Promise<void> {
     this._data.dropCollection(query.collection);
   }
 

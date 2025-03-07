@@ -23,7 +23,7 @@ export class MongoDatabase extends Database {
     return new MongoRepository(model, this._db.collection(model.name));
   }
 
-  getMigrationHandler(): MigrationHandler {
+  protected getMigrationHandler(): MigrationHandler {
     return new MongoMigrationHandler(this._db);
   }
 }

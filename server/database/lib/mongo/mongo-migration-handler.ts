@@ -4,10 +4,10 @@ import { Migrator } from "../general/migration";
 import { DatabaseModel } from "../general/database-model";
 import { ModelDocument, MongoRepository } from "./mongo-repository";
 import {
-  MigrationMapCommand,
-  MigrationDeleteCommand,
-  MigrationRenameCommand,
-  MigrationDropCommand,
+  MigratorMapCommand,
+  MigratorDeleteCommand,
+  MigratorRenameCommand,
+  MigratorDropCommand,
 } from "../general/migration-command-types";
 import { MongoWhereClauseInterpreter } from "./mongo-where-clause-interpreter";
 import { z } from "zod";
@@ -62,7 +62,7 @@ export class MongoMigrator extends Migrator {
     super();
   }
 
-  async map(query: MigrationMapCommand): Promise<void> {
+  async map(query: MigratorMapCommand): Promise<void> {
     const collection = this._getCollection(query.collection);
     const filter = new MongoWhereClauseInterpreter(query.where).toMongoFilter();
     const items = await collection.find(filter).toArray();
@@ -76,7 +76,7 @@ export class MongoMigrator extends Migrator {
     }
   }
 
-  async delete(query: MigrationDeleteCommand): Promise<void> {
+  async delete(query: MigratorDeleteCommand): Promise<void> {
     const collection = this._getCollection(query.collection);
     const filter = new MongoWhereClauseInterpreter(query.where).toMongoFilter();
     const predicate = query.predicate;
@@ -94,13 +94,13 @@ export class MongoMigrator extends Migrator {
     }
   }
 
-  async rename(query: MigrationRenameCommand): Promise<void> {
+  async rename(query: MigratorRenameCommand): Promise<void> {
     await this._getCollection(query.oldCollectionName).rename(
       query.newCollectionName,
     );
   }
 
-  async drop(query: MigrationDropCommand): Promise<void> {
+  async drop(query: MigratorDropCommand): Promise<void> {
     await this._getCollection(query.collection).drop();
   }
 

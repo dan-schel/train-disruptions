@@ -16,7 +16,7 @@ export class InMemoryDatabase extends Database {
     return new InMemoryRepository(model, this._data.collection(model.name));
   }
 
-  getMigrationHandler(): MigrationHandler {
+  protected getMigrationHandler(): MigrationHandler {
     return new InMemoryMigrationHandler(this._data);
   }
 }

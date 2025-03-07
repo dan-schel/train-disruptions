@@ -5,7 +5,7 @@ import { CountQuery, FindQuery, FirstQuery } from "./query-types";
 export abstract class Database {
   abstract of<Model extends DatabaseModel>(model: Model): Repository<Model>;
 
-  abstract getMigrationHandler(): MigrationHandler;
+  protected abstract getMigrationHandler(): MigrationHandler;
 
   async runMigrations(migrations: Migration[]) {
     await this.getMigrationHandler().runMigrations(migrations);
