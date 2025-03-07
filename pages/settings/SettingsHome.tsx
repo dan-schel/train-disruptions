@@ -19,7 +19,7 @@ export function SettingsHome() {
             type="radio"
             id="start-page-1"
             name="start-page"
-            value="Overview"
+            value="overview"
           />
           <label htmlFor="start-page-1"> Overview </label>
         </Row>
@@ -29,7 +29,7 @@ export function SettingsHome() {
             type="radio"
             id="start-page-2"
             name="start-page"
-            value="Commute"
+            value="commute"
           />
           <label htmlFor="start-page-2"> My Commute </label>
         </Row>
