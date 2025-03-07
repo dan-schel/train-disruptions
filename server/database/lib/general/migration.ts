@@ -14,7 +14,10 @@ import {
  */
 export abstract class Migration {
   constructor(
-    /** An ID for this migration. Can be anything as long as it's unique! */
+    /**
+     * An ID for this migration. Must be prefixed with a YYYY-MM-DD date, e.g.
+     * `2025-03-07-rename-alerts-model`.
+     */
     readonly id: string,
   ) {
     if (!/^[0-9]{4}-[0-9]{2}-[0-9]{2}-/g.test(id)) {
