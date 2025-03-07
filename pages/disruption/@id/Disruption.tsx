@@ -1,5 +1,7 @@
 import React from "react";
 import { AlteredRoute as AlteredRouteProps } from "./+data";
+import { BusReplacement as BusReplacementProps } from "./+data";
+import { StationClosure as StationClosureProps } from "./+data";
 
 import { Map } from "../../../components/map/Map";
 import { Text } from "../../../components/core/Text";
@@ -8,7 +10,9 @@ import { With } from "../../../components/core/With";
 import { Column } from "../../../components/core/Column";
 import { Calendar } from "../../../components/calendar/Calendar";
 
-export function AlteredRoute(props: AlteredRouteProps) {
+export function Disruption(
+  props: StationClosureProps | AlteredRouteProps | BusReplacementProps,
+) {
   const { title, description, link, disruption } = props;
   return (
     <Column className="gap-8">
@@ -22,7 +26,6 @@ export function AlteredRoute(props: AlteredRouteProps) {
 
       <Calendar disruptions={disruption} />
 
-      {/* TODO: Show the sections of the track affected or for this one, the inverse */}
       <With className="rounded-md border border-slate-200">
         <Map />
       </With>

@@ -4,9 +4,7 @@ import { useData } from "vike-react/useData";
 
 import { Delay } from "./Delay";
 import { NotFound } from "./NotFound";
-import { AlteredRoute } from "./AlteredRoute";
-import { StationClosure } from "./StationClosure";
-import { BusReplacement } from "./BusReplacements";
+import { Disruption } from "./Disruption";
 import { With } from "../../../components/core/With";
 import { Column } from "../../../components/core/Column";
 import { PagePadding } from "../../../components/common/PagePadding";
@@ -18,14 +16,12 @@ export default function Page() {
 
   function renderDisruption() {
     switch (data.type) {
-      case "bus-replacement":
-        return <BusReplacement {...data} />;
       case "delay":
         return <Delay {...data} />;
+      case "bus-replacement":
       case "station-closure":
-        return <StationClosure {...data} />;
       case "altered-route":
-        return <AlteredRoute {...data} />;
+        return <Disruption {...data} />;
       case "not-found":
         return <NotFound />;
     }
