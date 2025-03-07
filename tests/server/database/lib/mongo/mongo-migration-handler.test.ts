@@ -45,7 +45,8 @@ describe("MongoMigrationHandler", () => {
       expect(runSpy).toHaveBeenCalled();
       expect(collection.insertOne).toHaveBeenCalledWith({
         type: "completed-migration",
-        migrationID: "migration1",
+        migrationId: "migration1",
+        ranAt: expect.any(Date),
       });
     });
 
@@ -57,7 +58,8 @@ describe("MongoMigrationHandler", () => {
       cursor.toArray.mockResolvedValue(
         completedMigrations.map((id) => ({
           type: "completed-migration",
-          migrationID: id,
+          migrationId: id,
+          ranAt: new Date(),
         })),
       );
       collection.find.mockReturnValue(cursor);

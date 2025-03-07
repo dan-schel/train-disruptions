@@ -18,7 +18,8 @@ export class MongoMigrationHandler extends MigrationHandler {
 
   private static readonly migrationMetaBson = z.object({
     type: z.literal(MongoMigrationHandler.MIGRATION_META_TYPE),
-    migrationID: z.string(),
+    migrationId: z.string(),
+    ranAt: z.date(),
   });
 
   constructor(private readonly _db: Db) {
@@ -39,14 +40,15 @@ export class MongoMigrationHandler extends MigrationHandler {
       MongoMigrationHandler.migrationMetaBson.parse(doc),
     );
 
-    return completedMigrations.map((doc) => doc.migrationID);
+    return completedMigrations.map((doc) => doc.migrationId);
   }
 
   protected async markMigrationComplete(id: string): Promise<void> {
     const collection = this._getMigrationsCollection();
     await collection.insertOne({
       type: MongoMigrationHandler.MIGRATION_META_TYPE,
-      migrationID: id,
+      migrationId: id,
+      ranAt: new Date(),
     } satisfies z.input<typeof MongoMigrationHandler.migrationMetaBson>);
   }
 

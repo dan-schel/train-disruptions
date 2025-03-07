@@ -16,7 +16,18 @@ export abstract class Migration {
   constructor(
     /** An ID for this migration. Can be anything as long as it's unique! */
     readonly id: string,
-  ) {}
+  ) {
+    if (!/^[0-9]{4}-[0-9]{2}-[0-9]{2}-/g.test(id)) {
+      // This will give the date in UTC, which will be incorrect before 10/11am
+      // in Melbourne, but close enough! The dev can correct it if they want.
+      const suggestedName = `${new Date().toISOString().slice(0, 10)}-${id}`;
+
+      throw new Error(
+        `Migration "${id}" should prefix its name with the date it was ` +
+          `written, e.g. "${suggestedName}".`,
+      );
+    }
+  }
 
   abstract run(migrator: Migrator): Promise<void>;
 }
