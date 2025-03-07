@@ -43,8 +43,8 @@ export class InMemoryMigrator extends Migrator {
     const items = collection.find((item) => filter.matches(item));
 
     for (const item of items) {
-      const newItem = query.fn(this._stripId(item), item.id);
-      collection.update({ newItem, id: item.id });
+      const newItem = await query.fn(this._stripId(item), item.id);
+      collection.update({ ...newItem, id: item.id });
     }
   }
 

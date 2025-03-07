@@ -77,6 +77,7 @@ export abstract class MigrationHandler {
       }
 
       await migration.run(migrator);
+      await this.markMigrationComplete(migration.id);
     }
   }
 

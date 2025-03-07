@@ -22,6 +22,10 @@ export class InMemoryDatabaseData {
     return collection;
   }
 
+  hasCollection(name: string): boolean {
+    return this.data.has(name);
+  }
+
   dropCollection(name: string): void {
     this.data.delete(name);
   }
@@ -36,7 +40,7 @@ export class InMemoryDatabaseData {
   }
 
   getCompletedMigrations(): string[] {
-    return this.completedMigrations;
+    return [...this.completedMigrations];
   }
 
   addCompletedMigration(id: string) {
