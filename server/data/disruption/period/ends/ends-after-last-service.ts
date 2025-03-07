@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { DisplayStringOptions, EndsBase } from "./ends-base";
 import { addHours } from "date-fns";
-import { formatDate, midnightLocalTimeAsUtc } from "./utils";
+import { formatDate, midnightLocalTimeAsUtc } from "../utils";
 
 /** Consider "last service" to mean 3am the next day. */
 const lastServiceHour = 3;
