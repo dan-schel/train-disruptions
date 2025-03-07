@@ -25,7 +25,7 @@ type DisruptionType =
       duration: string;
     }
   | {
-      type: "termination";
+      type: "altered-route";
       alteration: string;
       lineName: string;
       color: string;
@@ -44,7 +44,7 @@ export function DisruptionButton(props: DisruptionButtonProps) {
       return <MingcuteCloseCircleFill className="size-8" />;
     }
 
-    if (type === "termination") {
+    if (type === "altered-route") {
       return (
         <div className="flex size-8 items-center justify-center rounded-full bg-gray-200">
           <MingcuteRouteFill
@@ -98,7 +98,7 @@ export function DisruptionButton(props: DisruptionButtonProps) {
             </Text>
           </>
         );
-      case "termination":
+      case "altered-route":
         return (
           <>
             <Text style="custom" className="text-xs">

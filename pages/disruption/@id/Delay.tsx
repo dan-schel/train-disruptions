@@ -4,6 +4,7 @@ import { Delay as DelayProps } from "./+data";
 import { Map } from "../../../components/map/Map";
 import { Text } from "../../../components/core/Text";
 import { Link } from "../../../components/core/Link";
+import { With } from "../../../components/core/With";
 import { Column } from "../../../components/core/Column";
 
 export function Delay(props: DelayProps) {
@@ -19,7 +20,9 @@ export function Delay(props: DelayProps) {
       </Column>
 
       {/* TODO: Show the sections of the track affected */}
-      <Map />
+      <With className="rounded-md border border-slate-200">
+        <Map />
+      </With>
     </Column>
   );
 }

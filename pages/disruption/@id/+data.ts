@@ -3,7 +3,7 @@ import { Disruption } from "../../../components/calendar/Calendar";
 
 export type Data = {
   backHref: string;
-  data: BusReplacement | Delay | StationClosure | Termination | NotFound;
+  data: BusReplacement | Delay | StationClosure | AlteredRoute | NotFound;
 };
 
 export type BusReplacement = {
@@ -29,8 +29,8 @@ export type StationClosure = {
   link: string;
 };
 
-export type Termination = {
-  type: "termination";
+export type AlteredRoute = {
+  type: "altered-route";
   title: string;
   description: string;
   disruption: Disruption | Disruption[];
@@ -60,7 +60,7 @@ export function data(pageContext: PageContext): Data {
           "Buses replace trains between Caulfield and Westall from 8:30 PM Saturday 1 March until further notice",
         disruption: [
           {
-            from: new Date(),
+            from: new Date("2025-03-01T09:30:00Z"),
             to: new Date("2025-12-31T12:59:59Z"),
             evenings: false,
           },
@@ -102,7 +102,7 @@ export function data(pageContext: PageContext): Data {
   if (id === "4") {
     return {
       data: {
-        type: "termination",
+        type: "altered-route",
         title:
           "Trains terminate and originate at Southern Cross on the Sunbury line",
         description:

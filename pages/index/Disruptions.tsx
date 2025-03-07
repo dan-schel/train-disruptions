@@ -26,7 +26,7 @@ export function Disruptions() {
         id={3}
       />
       <DisruptionButton
-        type="termination"
+        type="altered-route"
         alteration="Trains terminate and originate at Southern Cross"
         lineName="Sunbury"
         color="#6c3b9f"

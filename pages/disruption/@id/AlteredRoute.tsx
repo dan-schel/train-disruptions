@@ -1,13 +1,14 @@
 import React from "react";
-import { Termination as TerminationProps } from "./+data";
+import { AlteredRoute as AlteredRouteProps } from "./+data";
 
 import { Map } from "../../../components/map/Map";
 import { Text } from "../../../components/core/Text";
 import { Link } from "../../../components/core/Link";
+import { With } from "../../../components/core/With";
 import { Column } from "../../../components/core/Column";
 import { Calendar } from "../../../components/calendar/Calendar";
 
-export function Termination(props: TerminationProps) {
+export function AlteredRoute(props: AlteredRouteProps) {
   const { title, description, link, disruption } = props;
   return (
     <Column className="gap-8">
@@ -22,7 +23,9 @@ export function Termination(props: TerminationProps) {
       <Calendar disruptions={disruption} />
 
       {/* TODO: Show the sections of the track affected or for this one, the inverse */}
-      <Map />
+      <With className="rounded-md border border-slate-200">
+        <Map />
+      </With>
     </Column>
   );
 }
