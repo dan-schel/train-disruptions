@@ -104,11 +104,11 @@ describe("MongoMigrator", () => {
 
       expect(db.collection).toHaveBeenCalledWith("test");
       expect(collection.find).toHaveBeenCalledWith({ bad: true });
-      expect(collection.updateOne).toHaveBeenCalledWith(
+      expect(collection.replaceOne).toHaveBeenCalledWith(
         { _id: 1 },
         { _id: 1, things: "things1", bad: false },
       );
-      expect(collection.updateOne).toHaveBeenCalledWith(
+      expect(collection.replaceOne).toHaveBeenCalledWith(
         { _id: 2 },
         { _id: 2, things: "things2", bad: false },
       );

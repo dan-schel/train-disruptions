@@ -69,7 +69,7 @@ export class MongoMigrator extends Migrator {
 
     for (const item of items) {
       const updatedItem = await query.fn(this._stripId(item), item._id);
-      await collection.updateOne(
+      await collection.replaceOne(
         { _id: item._id },
         { ...updatedItem, _id: item._id },
       );
