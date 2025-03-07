@@ -24,11 +24,11 @@ The first thing you need to consider when updating a database model is the overa
 
 The problem is that when new code is pushed to master, in order to ensure the server is always available, the new server is spun up while the existing one continues to run. The switchover doesn't occur until the new server is completely ready and listening out for web requests. Database migrations are run immediately when the new server starts up, but the migrations aren't instant, and it might do a few other tasks before being ready to listen for web requests. On top of that it might take a second or two for Digital Ocean to notice that the new server is ready, and even once it has and the switchover is complete, there's no guarantee that it'll be able to shut down the old server immediately (it might be in the middle of a task?).
 
-That all means there's a period of time where some or all of the migration have run, but the old server is also still running. We don't want the old server to run into any errors during the switchover, which all means the old server needs to be compatible with the new data format. That means that before you merge the PR which adds the database migration, you need to merge a PR which updates the database model to be able to understand both the old schema and new schema at once! Only in your second PR, where you add the database migration, can you fully commit to the new schema.
+That all means there's a period of time where some or all of the migrations have run, but the old server is also still running. We don't want the old server to run into any errors during the switchover, meaning it needs to be compatible with the new data format. Therefore, before you merge the PR which adds the database migration, you need to merge a PR which updates the database model to be able to understand both the old schema and new schema simultaneously! Only in your second PR (which adds the database migration), can you fully commit to the new schema.
 
 ### Example of supporting two schemas at once
 
-Writing that first PR so that the code understands both models might sound tricky, so I thought I'd show a worked example. Imagine we wanted to rename the `color` field on our [Crayon](https://github.com/dan-schel/train-disruptions/blob/5939e09bd65870c3bbed072d0bf77e5f551dea73/server/database/models/crayons.ts) model to `colour`.
+Writing that first PR might sound tricky, so I thought I'd show a worked example. Imagine we wanted to rename the `color` field on our [Crayon](https://github.com/dan-schel/train-disruptions/blob/5939e09bd65870c3bbed072d0bf77e5f551dea73/server/database/models/crayons.ts) model to `colour` (wild stuff).
 
 #### PR #1 <!-- omit in toc -->
 
@@ -48,12 +48,12 @@ In the first PR, the **only** changes we would need to make are:
 
     deserialize(id: string, item: unknown): Crayon {
       const parsed = CrayonModel.schema.parse(item);
-+
+
 +     const color = parsed.colour ?? parsed.color;
 +     if (color == null) {
-+       throw new Error(`Expected either "colour" or "color" to be defined.`);
++       throw new Error('Expected either "colour" or "color" to be defined.');
 +     }
-+
+
 -     return new Crayon(id, parsed.color, parsed.usesLeft, parsed.drawings);
 +     return new Crayon(id, color, parsed.usesLeft, parsed.drawings);
     }
@@ -64,7 +64,7 @@ Using `.optional()` for both `color` and `colour` means Zod won't mind if they'r
 
 #### PR #2 <!-- omit in toc -->
 
-Then, in the second PR we write our migration (see example below in [Writing a migration](#writing-a-migration)), and update the data class to:
+Then, in the second PR we write our migration (see example below in ["Writing a migration"](#writing-a-migration)), and update the data class to:
 
 ```diff
   export class Crayon {
@@ -78,7 +78,7 @@ Then, in the second PR we write our migration (see example below in [Writing a m
   }
 ```
 
-And update our model:
+In addition, we can now update our model to fully commit to the new schema:
 
 ```diff
   export class CrayonModel extends DatabaseModel {
@@ -94,19 +94,19 @@ And update our model:
 
     deserialize(id: string, item: unknown): Crayon {
       const parsed = CrayonModel.schema.parse(item);
--
+
 -     const color = parsed.colour ?? parsed.color;
 -     if (color == null) {
--       throw new Error(`Expected either "colour" or "color" to be defined.`);
+-       throw new Error('Expected either "colour" or "color" to be defined.');
 -     }
--
+
 -     return new Crayon(id, color, parsed.usesLeft, parsed.drawings);
 +     return new Crayon(id, parsed.colour, parsed.usesLeft, parsed.drawings);
     }
   }
 ```
 
-The model class is back to it's original state, except that `color` is now `colour`.
+(Note that the model class is back to its original state, except that `color` is now `colour`.)
 
 ### Exceptions to the rule
 
@@ -116,7 +116,7 @@ Of course, if your migration doesn't modify the database schemas _at all_ (e.g. 
 
 ## Writing a migration
 
-To write a migration, create a file in `server/database/migrations` which has a class inheriting from `Migration`.
+To write a migration, create a file in `server/database/migrations` which adds a class inheriting from `Migration`.
 
 For example, here's a migration to rename `color` to `colour` for a [Crayon](https://github.com/dan-schel/train-disruptions/blob/5939e09bd65870c3bbed072d0bf77e5f551dea73/server/database/models/crayons.ts) model:
 
@@ -151,11 +151,11 @@ export class RenameColorOnCrayon extends Migration {
 }
 ```
 
-A migration only really consists of two things, an ID and a run function.
+A migration only really consists of two things, an ID and a `run()` function.
 
 In the example above, `2025-03-07-rename-color-on-crayon` is the migration's ID. This can be whatever you like, so long as it's unique. Migration IDs are prefixed with the current date to help with that.
 
-As you can guess, `run()` function is to actually perform the migration. The `migrator` argument is your interface with the database. It's a bit different to the regular database functions to enable you to parse the data "raw" (given that you're probably migrating between two different schemas). You can see what's available by looking [here](../../server/database/lib/general/migration.ts). If you don't need/want to deal with raw data, you can use `migrator.withModel()` to access the regular database functions (e.g. `create`, `update`, etc.).
+As you can guess, the `run()` function is to actually perform the migration. The `migrator` argument is your interface with the database. It's a bit different to the regular database functions to enable you to parse the data "raw" (given that you're probably migrating between two different schemas). You can see what else `Migrator` can do by looking [here](../../server/database/lib/general/migration.ts). If you don't need/want to deal with raw data, you can use `migrator.withModel()` to access the regular database functions (e.g. `create`, `update`, etc.).
 
 Finally, in order to have your migration run, append it to [this list](../../server/database/migrations/migrations.ts):
 
@@ -172,4 +172,4 @@ Finally, in order to have your migration run, append it to [this list](../../ser
 
 ## Deleting old migrations
 
-Once your confident your migration has run everywhere it needs to, you can open a third PR to remove it too. There's no real hurry to do this though, since the longer you keep it around, the better the chance is that a dev who hasn't booted up the project in a while will benefit from it. (So long as the prod server gets the migration though, it's not such a big deal. At worst, the dev can just reset their database!)
+Once you're confident your migration has run everywhere it needs to, you could open a third PR to remove it. There's no real hurry to do this though, since the longer you keep it around, the better the chance is that a dev who hasn't booted up the project in a while will benefit from it. (So long as the prod server runs the migration though, it's not such a big deal. At worst, the dev can just reset their database!)
