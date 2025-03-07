@@ -1,27 +1,7 @@
 import { z } from "zod";
-import { CalendarMark, DisruptionPeriodBase } from "./disruption-period-base";
-
-/** A start date and end date. */
-class TimeRange {
-  constructor(
-    readonly start: Date,
-    readonly end: Date,
-  ) {}
-
-  static readonly bson = z
-    .object({
-      start: z.date(),
-      end: z.date(),
-    })
-    .transform((x) => new TimeRange(x.start, x.end));
-
-  toBson(): z.input<typeof TimeRange.bson> {
-    return {
-      start: this.start,
-      end: this.end,
-    };
-  }
-}
+import { DisruptionPeriodBase } from "./disruption-period-base";
+import { TimeRange } from "./time-range";
+import { CalendarMark } from "./calendar-mark";
 
 /**
  * Allows complete customisation of active time ranges, calendar marks, and the
