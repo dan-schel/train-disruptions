@@ -1,4 +1,5 @@
 import { PageContext } from "vike/types";
+import { JsonSerializable } from "../../shared/json-serializable";
 
 export type Data = {
   commute: {
@@ -7,7 +8,7 @@ export type Data = {
   } | null;
 };
 
-export function data(pageContext: PageContext): Data {
+export function data(pageContext: PageContext): Data & JsonSerializable {
   const { app, settings } = pageContext.custom;
 
   if (settings.commute == null) {

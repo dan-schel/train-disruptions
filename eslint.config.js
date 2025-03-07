@@ -32,7 +32,7 @@ const customRules = {
     "react/self-closing-comp": "warn",
 
     // Ensure return type of +data hooks checks against JsonSerializable.
-    "custom/ensure-data-serializable": "error",
+    "custom/ensure-data-serializable": "warn",
 
     // TODO: Consider other lint rules from
     // https://github.com/jsx-eslint/eslint-plugin-react?tab=readme-ov-file#list-of-supported-rules

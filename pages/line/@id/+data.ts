@@ -2,6 +2,7 @@ import { PageContext } from "vike/types";
 import { parseIntNull } from "@dan-schel/js-utils";
 import { LineCollection } from "../../../server/data/static/line-collection";
 import { Line } from "../../../server/data/static/line";
+import { JsonSerializable } from "../../../shared/json-serializable";
 
 export type Data = {
   line: {
@@ -9,7 +10,7 @@ export type Data = {
   } | null;
 };
 
-export function data(pageContext: PageContext): Data {
+export function data(pageContext: PageContext): Data & JsonSerializable {
   const { app } = pageContext.custom;
 
   const line = tryGetLine(app.lines, pageContext.routeParams.id);

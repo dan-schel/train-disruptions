@@ -1,4 +1,5 @@
 import { PageContext } from "vike/types";
+import { JsonSerializable } from "../../shared/json-serializable";
 
 export type Line = {
   id: number;
@@ -12,7 +13,7 @@ export type Data = {
 
 const SortByNameDesc = (a: Line, b: Line) => a.name.localeCompare(b.name);
 
-export function data(pageContext: PageContext): Data {
+export function data(pageContext: PageContext): Data & JsonSerializable {
   const { app } = pageContext.custom;
 
   const suburban = app.lines

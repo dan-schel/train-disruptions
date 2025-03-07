@@ -1,5 +1,6 @@
 import { PageContext } from "vike/types";
 import { HISTORICAL_ALERTS } from "../../server/database/models/models";
+import { JsonSerializable } from "../../shared/json-serializable";
 
 const historicalRecordsStartDate = Date.parse("2025-03-02");
 const millisInADay = 1000 * 60 * 60 * 24;
@@ -12,7 +13,9 @@ export type Data = {
   historicalAlertsAvgPerDay: number;
 };
 
-export async function data(pageContext: PageContext): Promise<Data> {
+export async function data(
+  pageContext: PageContext,
+): Promise<Data & JsonSerializable> {
   const { app } = pageContext.custom;
 
   const historicalAlertsCount = await app.database
