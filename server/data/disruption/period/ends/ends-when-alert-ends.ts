@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { DisplayStringOptions, EndsBase } from "./ends-base";
-import { format, isSameYear } from "date-fns";
+import { formatDate } from "./utils";
 
 /** The disruption ends when the source alert ends. */
 export class EndsWhenAlertEnds extends EndsBase {
@@ -9,6 +9,7 @@ export class EndsWhenAlertEnds extends EndsBase {
     readonly alertId: string,
     /** The time the alert ends (last known, to be updated regularly). */
     readonly alertEndDate: Date,
+    // TODO: Need a scheduled job to update this regularly.
   ) {
     super();
   }
@@ -30,13 +31,10 @@ export class EndsWhenAlertEnds extends EndsBase {
   }
 
   getDisplayString(options: DisplayStringOptions): string {
-    const formatCode = isSameYear(this.alertEndDate, options.now)
-      ? "h:mmaaa E do MMM"
-      : "h:mmaaa E do MMM yyyy";
-    return format(this.alertEndDate, formatCode);
+    return formatDate(this.alertEndDate, options.now);
   }
 
-  latestInterpretableDate(): Date | null {
+  getLatestInterpretableDate(): Date | null {
     return this.alertEndDate;
   }
 }

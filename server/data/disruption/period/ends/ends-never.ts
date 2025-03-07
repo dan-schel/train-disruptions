@@ -19,7 +19,7 @@ export class EndsNever extends EndsBase {
     return "further notice";
   }
 
-  latestInterpretableDate(): Date | null {
+  getLatestInterpretableDate(): Date | null {
     return null;
   }
 }

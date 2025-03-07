@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { DisplayStringOptions, EndsBase } from "./ends-base";
-import { addHours, format, isSameYear } from "date-fns";
-import { fromZonedTime } from "date-fns-tz";
+import { addHours } from "date-fns";
+import { formatDate, midnightLocalTimeAsUtc } from "./utils";
 
 /** Consider "last service" to mean 3am the next day. */
 const lastServiceHour = 3;
@@ -35,17 +35,16 @@ export class EndsAfterLastService extends EndsBase {
   }
 
   getDisplayString(options: DisplayStringOptions): string {
-    const date = new Date(this.year, this.month - 1, this.day);
-    const formatCode = isSameYear(date, options.now)
-      ? "E do MMM"
-      : "E do MMM yyyy";
-    const formattedDate = format(date, formatCode);
-    return `last service ${formattedDate}`;
+    const localMidnight = this._getLocalMidnightOnDate();
+    return `last service ${formatDate(localMidnight, options.now, { includeTime: false })}`;
   }
 
-  latestInterpretableDate(): Date | null {
-    const date = new Date(this.year, this.month - 1, this.day);
-    const nextDay3am = addHours(date, 24 + lastServiceHour);
-    return fromZonedTime(nextDay3am, "Australia/Melbourne");
+  getLatestInterpretableDate(): Date | null {
+    const localMidnight = this._getLocalMidnightOnDate();
+    return addHours(localMidnight, 24 + lastServiceHour);
+  }
+
+  private _getLocalMidnightOnDate() {
+    return midnightLocalTimeAsUtc(this.year, this.month, this.day);
   }
 }

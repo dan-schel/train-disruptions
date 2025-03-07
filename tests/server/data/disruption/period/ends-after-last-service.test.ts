@@ -2,26 +2,30 @@ import { describe, expect, it } from "vitest";
 import { EndsAfterLastService } from "../../../../../server/data/disruption/period/ends/ends-after-last-service";
 
 describe("EndsAfterLastService", () => {
+  const end1 = new EndsAfterLastService(2025, 3, 7);
+  const end2 = new EndsAfterLastService(2026, 6, 7);
+
   describe("getDisplayString", () => {
     it("works", () => {
       const options = {
-        now: new Date("2025-03-04T00:00:00.000Z"),
+        now: new Date("2025-03-07T10:24:14.000+11:00"),
       };
 
-      expect(
-        new EndsAfterLastService(2025, 3, 7).getDisplayString(options),
-      ).toBe("last service Fri 7th Mar");
-      expect(
-        new EndsAfterLastService(2026, 3, 7).getDisplayString(options),
-      ).toBe("last service Sat 7th Mar 2026");
+      expect(end1.getDisplayString(options)).toBe("last service Fri 7th Mar");
+      expect(end2.getDisplayString(options)).toBe(
+        "last service Sun 7th Jun 2026",
+      );
     });
   });
 
   describe("latestInterpretableDate", () => {
     it("works", () => {
-      expect(
-        new EndsAfterLastService(2025, 3, 7).latestInterpretableDate(),
-      ).toEqual(new Date("2025-03-07T16:00:00.000Z"));
+      expect(end1.getLatestInterpretableDate()).toEqual(
+        new Date("2025-03-08T03:00:00.000+11:00"),
+      );
+      expect(end2.getLatestInterpretableDate()).toEqual(
+        new Date("2026-06-08T03:00:00.000+10:00"),
+      );
     });
   });
 });

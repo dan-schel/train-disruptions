@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { DisplayStringOptions, EndsBase } from "./ends-base";
-import { format, isSameYear } from "date-fns";
+import { formatDate } from "./utils";
 
 /** The disruption ends after an exact timestamp. */
 export class EndsExactly extends EndsBase {
@@ -23,13 +23,10 @@ export class EndsExactly extends EndsBase {
   }
 
   getDisplayString(options: DisplayStringOptions): string {
-    const formatCode = isSameYear(this.date, options.now)
-      ? "h:mmaaa E do MMM"
-      : "h:mmaaa E do MMM yyyy";
-    return format(this.date, formatCode);
+    return formatDate(this.date, options.now);
   }
 
-  latestInterpretableDate(): Date | null {
+  getLatestInterpretableDate(): Date | null {
     return this.date;
   }
 }

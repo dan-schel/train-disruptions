@@ -38,7 +38,7 @@ export class EndsApproximately extends EndsBase {
     return this.displayText;
   }
 
-  latestInterpretableDate(): Date | null {
+  getLatestInterpretableDate(): Date | null {
     return this.latest;
   }
 }
