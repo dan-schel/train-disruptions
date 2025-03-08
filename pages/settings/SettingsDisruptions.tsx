@@ -1,10 +1,22 @@
 import React from "react";
+
+// import { useState } from "react";
 import { Column } from "../../components/core/Column";
 import { Row } from "../../components/core/Row";
 import { Text } from "../../components/core/Text";
 import { Spacer } from "../../components/core/Spacer";
+import { HiddenCategoriesData } from "./+data";
 
-export function SettingsDisruptions() {
+export type DisruptionSettingsProps = {
+  data: HiddenCategoriesData;
+};
+
+export function SettingsDisruptions(props: DisruptionSettingsProps) {
+  // const [categories] = useState(props.data);
+  // disruptionSettings = props.data;
+  // console.log("props.data: " + props.data);
+  // console.log("props.data.hiddenCatagories: " + props.data.hiddenCategories);
+
   return (
     <Column>
       <Text style="custom" className="text-lg font-bold">
@@ -32,42 +44,98 @@ export function SettingsDisruptions() {
 
         <Row>
           <label htmlFor="station-check"> Station Closure </label>
-          <input
-            type="checkbox"
-            id="station-check"
-            value="station-closure"
-            name="stationupdate"
-          />
+          {props.data.includes("station-closure") ? (
+            <>
+              <input
+                type="checkbox"
+                id="station-check"
+                value="station-closure"
+                name="stationupdate"
+                defaultChecked
+              />
+            </>
+          ) : (
+            <>
+              <input
+                type="checkbox"
+                id="station-check"
+                value="station-closure"
+                name="stationupdate"
+              />
+            </>
+          )}
         </Row>
 
         <Row>
           <label htmlFor="cancel-check"> Cancellations </label>
-          <input
-            type="checkbox"
-            id="cancel-check"
-            value="cancellations"
-            name="cancellations"
-          />
+          {props.data.includes("cancellations") ? (
+            <>
+              <input
+                type="checkbox"
+                id="cancel-check"
+                value="cancellations"
+                name="cancellations"
+                defaultChecked
+              />
+            </>
+          ) : (
+            <>
+              <input
+                type="checkbox"
+                id="cancel-check"
+                value="cancellations"
+                name="cancellations"
+              />
+            </>
+          )}
         </Row>
 
         <Row>
           <label htmlFor="delay-check"> Delays </label>
-          <input
-            type="checkbox"
-            id="delay-check"
-            value="delays"
-            name="delays"
-          />
+          {props.data.includes("delays") ? (
+            <>
+              <input
+                type="checkbox"
+                id="delay-check"
+                value="delays"
+                name="delays"
+                defaultChecked
+              />
+            </>
+          ) : (
+            <>
+              <input
+                type="checkbox"
+                id="delay-check"
+                value="delays"
+                name="delays"
+              />
+            </>
+          )}
         </Row>
 
         <Row>
           <label htmlFor="parking-check"> Car Park Closures </label>
-          <input
-            type="checkbox"
-            id="parking-check"
-            value="car-park-closures"
-            name="parkingupdate"
-          />
+          {props.data.includes("car-park-closures") ? (
+            <>
+              <input
+                type="checkbox"
+                id="parking-check"
+                value="car-park-closures"
+                name="parkingupdate"
+                defaultChecked
+              />
+            </>
+          ) : (
+            <>
+              <input
+                type="checkbox"
+                id="parking-check"
+                value="car-park-closures"
+                name="parkingupdate"
+              />
+            </>
+          )}
         </Row>
 
         <Row>
@@ -78,12 +146,26 @@ export function SettingsDisruptions() {
               Lift outages, stair only, etc.{" "}
             </Text>
           </Column>
-          <input
-            type="checkbox"
-            id="accessibility-check"
-            value="accessibility"
-            name="accessibility"
-          />
+          {props.data.includes("accessibility") ? (
+            <>
+              <input
+                type="checkbox"
+                id="accessibility-check"
+                value="accessibility"
+                name="accessibility"
+                defaultChecked
+              />
+            </>
+          ) : (
+            <>
+              <input
+                type="checkbox"
+                id="accessibility-check"
+                value="accessibility"
+                name="accessibility"
+              />
+            </>
+          )}
         </Row>
       </Column>
       <Spacer h="4" />
