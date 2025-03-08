@@ -1,9 +1,10 @@
 import React from "react";
-import { Button } from "../../components/core/Button";
-import { Column } from "../../components/core/Column";
 import { Grid } from "../../components/core/Grid";
 import { Text } from "../../components/core/Text";
+import { Button } from "../../components/core/Button";
+import { Column } from "../../components/core/Column";
 import { MingcuteRightLine } from "../../components/icons/MingcuteRightLine";
+import { MingcuteRouteFill } from "../../components/icons/MingcuteRouteFill";
 import { MingcuteCloseCircleFill } from "../../components/icons/MingcuteCloseCircleFill";
 
 type DisruptionType =
@@ -20,7 +21,14 @@ type DisruptionType =
     }
   | {
       type: "station closure";
-      Station: string;
+      station: string;
+      duration: string;
+    }
+  | {
+      type: "altered-route";
+      alteration: string;
+      lineName: string;
+      color: string;
       duration: string;
     };
 
@@ -34,6 +42,17 @@ export function DisruptionButton(props: DisruptionButtonProps) {
   const renderIcon = () => {
     if (type === "station closure") {
       return <MingcuteCloseCircleFill className="size-8" />;
+    }
+
+    if (type === "altered-route") {
+      return (
+        <div className="flex size-8 items-center justify-center rounded-full bg-gray-200">
+          <MingcuteRouteFill
+            className="size-full p-1"
+            style={{ color: props.color }}
+          />
+        </div>
+      );
     }
 
     return (
@@ -73,7 +92,19 @@ export function DisruptionButton(props: DisruptionButtonProps) {
       case "station closure":
         return (
           <>
-            <Text>{props.Station} station closed</Text>
+            <Text>{props.station} station closed</Text>
+            <Text style="custom" className="text-xs">
+              {props.duration}
+            </Text>
+          </>
+        );
+      case "altered-route":
+        return (
+          <>
+            <Text style="custom" className="text-xs">
+              {props.alteration}
+            </Text>
+            <Text>{props.lineName} line</Text>
             <Text style="custom" className="text-xs">
               {props.duration}
             </Text>

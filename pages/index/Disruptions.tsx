@@ -15,15 +15,23 @@ export function Disruptions() {
       />
       <DisruptionButton
         type="major delays"
-        colour="#6c3b9f"
+        colour="#fc7fbb"
         id={2}
         lineName="Sandringham"
       />
       <DisruptionButton
         type="station closure"
-        Station="Glenferrie"
+        station="Glenferrie"
         duration="Until last train on Sunday"
         id={3}
+      />
+      <DisruptionButton
+        type="altered-route"
+        alteration="Trains terminate and originate at Southern Cross"
+        lineName="Sunbury"
+        color="#6c3b9f"
+        duration="Evenings until last train on Wednesday"
+        id={4}
       />
     </Column>
   );
