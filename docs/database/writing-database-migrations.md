@@ -2,7 +2,7 @@
 
 Database migrations are one-off jobs that run before the server starts.
 
-Anytime you've changed a database model (e.g. you've added a new field), you'll probably want to migrate the existing data in the database to the new format. To do so, you should write a database migration, here's how!
+Anytime you've changed a database model (e.g. you've added a new field), you'll probably want to migrate any existing data in the database to the new format. To do so, you should write a database migration, here's how!
 
 <!-- Table of contents created using "Markdown All in One" VSCode extension. -->
 <!-- Command palette: "> Markdown All in One: Update Table of Contents" -->
@@ -22,7 +22,7 @@ The first thing you need to consider when updating a database model is the overa
 
 ### Why are two PRs needed?
 
-The problem is that when new code is pushed to master, in order to ensure the server is always available, the new server is spun up while the existing one continues to run. The switchover doesn't occur until the new server is completely ready and listening out for web requests. Database migrations are run immediately when the new server starts up, but the migrations aren't instant, and it might do a few other tasks before being ready to listen for web requests. On top of that it might take a second or two for Digital Ocean to notice that the new server is ready, and even once it has and the switchover is complete, there's no guarantee that it'll be able to shut down the old server immediately (it might be in the middle of a task?).
+The problem is that when new code is pushed to master, in order to ensure the server is always available, the new server is spun up while the existing one continues to run. The switchover doesn't occur until the new server is completely ready and listening out for web requests. Database migrations are run immediately when the new server starts up, but the migrations aren't instant, and it might do a few other tasks before being ready to listen for web requests. On top of that, it might take a second or two for DigitalOcean to notice that the new server is ready, and even once it has and the switchover is complete, there's no guarantee that it'll be able to shut down the old server immediately (it might be in the middle of a task?).
 
 That all means there's a period of time where some or all of the migrations have run, but the old server is also still running. We don't want the old server to run into any errors during the switchover, meaning it needs to be compatible with the new data format. Therefore, before you merge the PR which adds the database migration, you need to merge a PR which updates the database model to be able to understand both the old schema and new schema simultaneously! Only in your second PR (which adds the database migration), can you fully commit to the new schema.
 
