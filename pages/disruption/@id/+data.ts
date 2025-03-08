@@ -1,5 +1,6 @@
 import { PageContext } from "vike/types";
 import { Disruption } from "../../../components/calendar/Calendar";
+import { JsonSerializable } from "../../../shared/json-serializable";
 
 export type Data = {
   backHref: string;
@@ -41,7 +42,7 @@ type NotFound = {
   type: "not-found";
 };
 
-export function data(pageContext: PageContext): Data {
+export function data(pageContext: PageContext): Data & JsonSerializable {
   const { urlParsed, routeParams } = pageContext;
 
   const from = urlParsed.search.from ?? "";
