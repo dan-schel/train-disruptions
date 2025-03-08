@@ -72,5 +72,7 @@ export class EveningsOnlyDisruptionPeriod extends DisruptionPeriodBase {
     return CalendarMark.buildList(from, to).map((x) => x.evenify());
   }
 
-  getActiveTimeRanges(): readonly TimeRange[] {}
+  getActiveTimeRanges(): readonly TimeRange[] {
+    const endDate = this.end.getLatestInterpretableDate();
+  }
 }

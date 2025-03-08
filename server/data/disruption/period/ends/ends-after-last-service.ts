@@ -35,16 +35,12 @@ export class EndsAfterLastService extends EndsBase {
   }
 
   getDisplayString(options: DisplayStringOptions): string {
-    const localMidnight = this._getLocalMidnightOnDate();
+    const localMidnight = midnightLocalTime(this);
     return `last service ${formatDate(localMidnight, options.now, { includeTime: false })}`;
   }
 
   getLatestInterpretableDate(): Date | null {
-    const localMidnight = this._getLocalMidnightOnDate();
+    const localMidnight = midnightLocalTime(this);
     return addHours(localMidnight, 24 + lastServiceHour);
-  }
-
-  private _getLocalMidnightOnDate() {
-    return midnightLocalTime(this.year, this.month, this.day);
   }
 }
