@@ -7,8 +7,8 @@ import {
   DisplayStringOptions,
   DisruptionPeriodBase,
 } from "./disruption-period-base";
-import { formatDate, midnightLocalTimeAsUtc, toLocalTime } from "./utils";
-import { max } from "date-fns";
+import { formatDate, midnightLocalTimeAsUtc } from "./utils";
+import { addDays, max, min } from "date-fns";
 
 /** Disruption is active continuously from the start date to the end date. */
 export class StandardDisruptionPeriod extends DisruptionPeriodBase {
@@ -47,16 +47,19 @@ export class StandardDisruptionPeriod extends DisruptionPeriodBase {
   }
 
   getCalendarMarks(options: CalendarMarksOptions): readonly CalendarMark[] {
-    const fromDate = new Date(
+    const minDate = midnightLocalTimeAsUtc(
       options.fromDate.year,
-      options.fromDate.month - 1,
+      options.fromDate.month,
       options.fromDate.day,
     );
-    const localStart = this.start != null ? toLocalTime(this.start) : null;
-    const start = localStart == null ? fromDate : max([fromDate, localStart]);
+    const maxDate = addDays(minDate, options.maxDays);
 
-    const marks: CalendarMark[] = [];
-    return marks;
+    const knownStart = this.start;
+    const knownEnd = this.end.getLatestInterpretableDate();
+
+    const start = knownStart == null ? minDate : max([minDate, knownStart]);
+    const end = knownEnd == null ? maxDate : min([knownEnd, maxDate]);
+    return CalendarMark.create(start, end);
   }
 
   getActiveTimeRanges(): readonly TimeRange[] {
