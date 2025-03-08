@@ -3,6 +3,7 @@ import { PageContext } from "vike/types";
 import { StationCollection } from "../../server/data/static/station-collection";
 import { Station } from "../../server/data/static/station";
 import { Settings } from "../../shared/settings";
+import { JsonSerializable } from "../../shared/json-serializable";
 
 export type ChooseData = {
   type: "choose";
@@ -27,7 +28,7 @@ export type DisplayData = {
 
 export type Data = ChooseData | DisplayData;
 
-export function data(pageContext: PageContext): Data {
+export function data(pageContext: PageContext): Data & JsonSerializable {
   const { app, settings } = pageContext.custom;
   const to = tryGetStation(app.stations, pageContext.urlParsed.search.to);
   const from = tryGetStation(app.stations, pageContext.urlParsed.search.from);
