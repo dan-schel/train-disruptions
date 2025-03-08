@@ -18,7 +18,7 @@ export default function Page() {
         <Column align="left">
           {commute != null && (
             <>
-              <Text style="title">Is It Buses...</Text>
+              <Text style="title">Is it buses...</Text>
               <Spacer h="4" />
               <Text>
                 between <b>{commute.stationAName}</b> and{" "}

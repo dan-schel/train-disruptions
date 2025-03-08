@@ -4,6 +4,7 @@ import react from "eslint-plugin-react/configs/recommended.js";
 import reactHooks from "eslint-plugin-react-hooks";
 import globals from "globals";
 import tseslint from "typescript-eslint";
+import custom from "./scripts/eslint/index.js";
 
 // Philosophy: Reserve errors for situations where the code will not run or
 // compile. Everything else is a warning. Warnings will still cause CI to fail,
@@ -11,6 +12,9 @@ import tseslint from "typescript-eslint";
 // putting red squigglies all over the place.
 
 const customRules = {
+  plugins: {
+    custom,
+  },
   rules: {
     // Ignore unused variables if they start with underscores.
     "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
@@ -26,6 +30,9 @@ const customRules = {
 
     // Warn if <Thing></Thing> can be changed to <Thing />.
     "react/self-closing-comp": "warn",
+
+    // Ensure return type of +data hooks checks against JsonSerializable.
+    "custom/ensure-data-serializable": "warn",
 
     // TODO: Consider other lint rules from
     // https://github.com/jsx-eslint/eslint-plugin-react?tab=readme-ov-file#list-of-supported-rules
