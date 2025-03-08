@@ -1,4 +1,4 @@
-import { format, isSameYear } from "date-fns";
+import { format, getHours, getMinutes, isSameYear } from "date-fns";
 import { fromZonedTime, toZonedTime } from "date-fns-tz";
 
 const localTimezone = "Australia/Melbourne";
@@ -20,4 +20,8 @@ export function midnightLocalTimeAsUtc(
   day: number,
 ) {
   return fromZonedTime(new Date(year, month - 1, day), localTimezone);
+}
+
+export function toLocalTime(date: Date) {
+  return toZonedTime(date, localTimezone);
 }
