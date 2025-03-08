@@ -3,6 +3,8 @@
 @import "./css/text.css" layer(base);
 @import "./css/marquee.css" layer(base);
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* https://tailwindcss.com/docs/theme#default-theme-variable-reference */
 @theme {
   --font-sans: "Outfit", sans-serif;
