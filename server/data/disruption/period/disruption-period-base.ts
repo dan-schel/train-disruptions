@@ -1,5 +1,5 @@
-import { z } from "zod";
 import { TimeRange } from "./time-range";
+import { CalendarMark } from "./calendar-mark";
 
 /** Defines the period(s) of time a disruption is active. */
 export abstract class DisruptionPeriodBase {
@@ -13,18 +13,16 @@ export abstract class DisruptionPeriodBase {
   abstract getCalendarMarks(): readonly CalendarMark[];
 
   /**
-   * Returns true if the disruption is relevant at any point within the given
-   * time range.
+   * Returns all the time ranges when the disruption should be displayed as
+   * active. We do NOT infer calendar marks and/or the display string from this
+   * value to allow it to be as granular as needed without impacting the
+   * presentation elsewhere.
    */
-  abstract intersects(start: Date, end: Date): boolean;
+  abstract getActiveTimeRanges(): readonly TimeRange[];
 
-  /** Returns true if the disruption is relevant at this time. */
-  abstract occursAt(date: Date): boolean;
+  intersects(start: Date, end: Date): boolean {}
 
-  /**
-   * Returns the earliest possible date and latest possible date this disruption
-   * is relevant for, if known. The disruption is NOT necessarily active during
-   * the entire time range.
-   */
-  abstract getFullyEncompassingTimeRange(): TimeRange;
+  occursAt(date: Date): boolean {}
+
+  getFullyEncompassingTimeRange(): TimeRange {}
 }

@@ -2,20 +2,26 @@ import { z } from "zod";
 
 export class CalendarMark {
   constructor(
-    readonly date: Date,
+    readonly year: number,
+    readonly month: number,
+    readonly day: number,
     readonly eveningsOnly: boolean,
   ) {}
 
   static readonly bson = z
     .object({
-      date: z.date(),
+      year: z.number(),
+      month: z.number(),
+      day: z.number(),
       eveningsOnly: z.boolean(),
     })
-    .transform((x) => new CalendarMark(x.date, x.eveningsOnly));
+    .transform((x) => new CalendarMark(x.year, x.month, x.day, x.eveningsOnly));
 
   toBson(): z.input<typeof CalendarMark.bson> {
     return {
-      date: this.date,
+      year: this.year,
+      month: this.month,
+      day: this.day,
       eveningsOnly: this.eveningsOnly,
     };
   }
