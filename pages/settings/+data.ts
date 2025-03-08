@@ -2,20 +2,29 @@ import { PageContext } from "vike/types";
 
 export { data };
 
+export const filterableDisruptionCategories = [
+  "station-closure",
+  "cancellations",
+  "delays",
+  "car-park-closures",
+  "accessibility",
+] as const;
+
+export type FilterableDisruptionCategory =
+  (typeof filterableDisruptionCategories)[number];
+
 export type Data = {
   commute: CommuteData;
-  hiddenCategories: HiddenCategoriesData;
+  hiddenCategories: readonly FilterableDisruptionCategory[];
 };
 
-export type CommuteData = {
-  commute: null | { StationA: number; StationB: number };
-};
+export type CommuteData = { a: number; b: number } | null;
 
-export type HiddenCategoriesData = {
-  hiddenCategories: [string];
-};
+export type HiddenCategoriesData =
+  | string[]
+  | readonly FilterableDisruptionCategory[];
 
-async function data(pageContext: PageContext) {
+function data(pageContext: PageContext): Data {
   const { settings } = pageContext.custom;
 
   if (settings.commute === null && settings.hiddenCategories.length === 0) {
