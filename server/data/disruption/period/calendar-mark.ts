@@ -1,12 +1,30 @@
 import { z } from "zod";
-import { toLocalTime } from "./utils";
+import {
+  dayStarts,
+  eveningStarts,
+  midnightLocalTime,
+  toLocalTime,
+} from "./utils";
 import {
   addDays,
   addHours,
   areIntervalsOverlapping,
   interval,
+  isWithinInterval,
+  max,
+  min,
   startOfDay,
 } from "date-fns";
+import { TimeRange } from "./time-range";
+
+export type CalendarMarksOptions = {
+  fromDate: {
+    year: number;
+    month: number;
+    day: number;
+  };
+  maxDays: number;
+};
 
 export class CalendarMark {
   constructor(
@@ -34,7 +52,19 @@ export class CalendarMark {
     };
   }
 
-  static create(from: Date, to: Date): CalendarMark[] {
+  evenify(): CalendarMark {
+    return new CalendarMark(this.year, this.month, this.day, true);
+  }
+
+  matchesRestriction(options: CalendarMarksOptions) {
+    // TODO: [DS] I think I should make CalendarMarksOptions it's own class.
+    const minDate = midnightLocalTime(options.fromDate);
+    const maxDate = addDays(minDate, options.maxDays);
+    const myDate = midnightLocalTime(this);
+    return isWithinInterval(myDate, { start: minDate, end: maxDate });
+  }
+
+  static buildList(from: Date, to: Date): CalendarMark[] {
     if (from >= to) throw new Error("Invalid date range.");
 
     const fromLocal = toLocalTime(from);
@@ -45,15 +75,15 @@ export class CalendarMark {
     let today12am = startOfDay(fromLocal);
 
     while (today12am < toLocal) {
-      const today3am = addHours(today12am, 3);
-      const today6pm = addHours(today12am, 18);
-      const tomorrow3am = addHours(today12am, 27);
+      const startOfToday = addHours(today12am, dayStarts);
+      const startOfEvening = addHours(today12am, eveningStarts);
+      const startOfTomorrow = addHours(today12am, dayStarts + 24);
 
-      const day = interval(today3am, tomorrow3am);
-      const overlaps = areIntervalsOverlapping(period, day);
+      const today = interval(startOfToday, startOfTomorrow);
+      const overlaps = areIntervalsOverlapping(period, today);
 
       if (overlaps) {
-        const outsideEvening = interval(today3am, today6pm);
+        const outsideEvening = interval(startOfToday, startOfEvening);
         const eveningOnly = !areIntervalsOverlapping(period, outsideEvening);
 
         marks.push(
@@ -70,5 +100,18 @@ export class CalendarMark {
     }
 
     return marks;
+  }
+
+  static restrictRangeByOptions(
+    range: TimeRange,
+    options: CalendarMarksOptions,
+  ) {
+    const minDate = addHours(midnightLocalTime(options.fromDate), dayStarts);
+    const maxDate = addDays(minDate, options.maxDays);
+
+    return {
+      from: range.start == null ? minDate : max([minDate, range.start]),
+      to: range.end == null ? maxDate : min([maxDate, range.end]),
+    };
   }
 }

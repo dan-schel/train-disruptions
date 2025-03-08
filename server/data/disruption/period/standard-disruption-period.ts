@@ -1,14 +1,12 @@
 import { z } from "zod";
 import { Ends, endsBson } from "./ends/ends";
-import { CalendarMark } from "./calendar-mark";
+import { CalendarMark, CalendarMarksOptions } from "./calendar-mark";
 import { TimeRange } from "./time-range";
 import {
-  CalendarMarksOptions,
   DisplayStringOptions,
   DisruptionPeriodBase,
 } from "./disruption-period-base";
-import { formatDate, midnightLocalTimeAsUtc } from "./utils";
-import { addDays, max, min } from "date-fns";
+import { formatDate } from "./utils";
 
 /** Disruption is active continuously from the start date to the end date. */
 export class StandardDisruptionPeriod extends DisruptionPeriodBase {
@@ -42,28 +40,24 @@ export class StandardDisruptionPeriod extends DisruptionPeriodBase {
       const startStr = formatDate(this.start, options.now);
       return `${startStr} until ${endStr}`;
     } else {
-      return options.capitalize ? `Until ${endStr}` : `until ${endStr}`;
+      return `until ${endStr}`;
     }
   }
 
   getCalendarMarks(options: CalendarMarksOptions): readonly CalendarMark[] {
-    const minDate = midnightLocalTimeAsUtc(
-      options.fromDate.year,
-      options.fromDate.month,
-      options.fromDate.day,
+    const { from, to } = CalendarMark.restrictRangeByOptions(
+      this._asTimeRange(),
+      options,
     );
-    const maxDate = addDays(minDate, options.maxDays);
-
-    const knownStart = this.start;
-    const knownEnd = this.end.getLatestInterpretableDate();
-
-    const start = knownStart == null ? minDate : max([minDate, knownStart]);
-    const end = knownEnd == null ? maxDate : min([knownEnd, maxDate]);
-    return CalendarMark.create(start, end);
+    return CalendarMark.buildList(from, to);
   }
 
   getActiveTimeRanges(): readonly TimeRange[] {
+    return [this._asTimeRange()];
+  }
+
+  private _asTimeRange(): TimeRange {
     const endDate = this.end.getLatestInterpretableDate();
-    return [new TimeRange(this.start, endDate)];
+    return new TimeRange(this.start, endDate);
   }
 }

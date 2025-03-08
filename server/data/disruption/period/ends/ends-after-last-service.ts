@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { DisplayStringOptions, EndsBase } from "./ends-base";
 import { addHours } from "date-fns";
-import { formatDate, midnightLocalTimeAsUtc } from "../utils";
+import { formatDate, midnightLocalTime } from "../utils";
 
 /** Consider "last service" to mean 3am the next day. */
 const lastServiceHour = 3;
@@ -45,6 +45,6 @@ export class EndsAfterLastService extends EndsBase {
   }
 
   private _getLocalMidnightOnDate() {
-    return midnightLocalTimeAsUtc(this.year, this.month, this.day);
+    return midnightLocalTime(this.year, this.month, this.day);
   }
 }

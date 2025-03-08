@@ -2,10 +2,10 @@ import { assert, describe, expect, it } from "vitest";
 import { CalendarMark } from "../../../../../server/data/disruption/period/calendar-mark";
 
 describe("CalendarMark", () => {
-  describe("create", () => {
+  describe("buildList", () => {
     it("works", () => {
       expectMarks(
-        CalendarMark.create(
+        CalendarMark.buildList(
           new Date("2025-03-07T20:00:00+11:00"),
           new Date("2025-03-10T03:00:00+11:00"),
         ),
@@ -13,7 +13,7 @@ describe("CalendarMark", () => {
       );
 
       expectMarks(
-        CalendarMark.create(
+        CalendarMark.buildList(
           new Date("2025-03-07T17:59:00+11:00"),
           new Date("2025-03-08T03:00:00+11:00"),
         ),
@@ -21,7 +21,7 @@ describe("CalendarMark", () => {
       );
 
       expectMarks(
-        CalendarMark.create(
+        CalendarMark.buildList(
           new Date("2025-03-07T18:00:00+11:00"),
           new Date("2025-03-08T03:00:00+11:00"),
         ),
@@ -29,7 +29,7 @@ describe("CalendarMark", () => {
       );
 
       expectMarks(
-        CalendarMark.create(
+        CalendarMark.buildList(
           new Date("2025-03-07T18:00:00+11:00"),
           new Date("2025-03-08T03:01:00+11:00"),
         ),
@@ -39,14 +39,14 @@ describe("CalendarMark", () => {
 
     it("rejects invalid ranges", () => {
       expect(() =>
-        CalendarMark.create(
+        CalendarMark.buildList(
           new Date("2025-03-07T15:00:00+11:00"),
           new Date("2025-03-07T15:00:00+11:00"),
         ),
       ).toThrow();
 
       expect(() =>
-        CalendarMark.create(
+        CalendarMark.buildList(
           new Date("2025-03-07T15:00:00+11:00"),
           new Date("2025-03-07T14:59:00+11:00"),
         ),

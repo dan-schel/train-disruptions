@@ -1,18 +1,8 @@
 import { TimeRange } from "./time-range";
-import { CalendarMark } from "./calendar-mark";
+import { CalendarMark, CalendarMarksOptions } from "./calendar-mark";
 
 export type DisplayStringOptions = {
   now: Date;
-  capitalize: boolean;
-};
-
-export type CalendarMarksOptions = {
-  fromDate: {
-    year: number;
-    month: number;
-    day: number;
-  };
-  maxDays: number;
 };
 
 /** Defines the period(s) of time a disruption is active. */

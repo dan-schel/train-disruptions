@@ -1,6 +1,12 @@
 import { z } from "zod";
-import { CalendarMark, DisruptionPeriodBase } from "./disruption-period-base";
+import {
+  DisplayStringOptions,
+  DisruptionPeriodBase,
+} from "./disruption-period-base";
 import { Ends, endsBson } from "./ends/ends";
+import { CalendarMark, CalendarMarksOptions } from "./calendar-mark";
+import { TimeRange } from "./time-range";
+import { eveningStarts, formatDate } from "./utils";
 
 /** Disruption is active every evening from the start date to the end date. */
 export class EveningsOnlyDisruptionPeriod extends DisruptionPeriodBase {
@@ -12,16 +18,17 @@ export class EveningsOnlyDisruptionPeriod extends DisruptionPeriodBase {
     readonly startHourEachDay: number,
   ) {
     super();
-  }
 
-  toDisplayString(): string {
-    // TODO: Implement this.
-    return `6pm to last service every evening, Sat 22 Feb to Sun 23 Feb`;
-  }
-
-  getCalendarMarks(): readonly CalendarMark[] {
-    // TODO: Implement this.
-    return [];
+    // TODO: This is kinda dumb. Should we expand this period to cover any
+    // "repeating at a certain time of day each day" disruption? What would we
+    // call that lol?
+    if (startHourEachDay < eveningStarts) {
+      throw new Error(
+        `Cannot create evenings only period with start hour of ` +
+          `${startHourEachDay}, as we consider evening to start at ` +
+          `${eveningStarts}.`,
+      );
+    }
   }
 
   static readonly bson = z
@@ -44,4 +51,26 @@ export class EveningsOnlyDisruptionPeriod extends DisruptionPeriodBase {
       startHourEachDay: this.startHourEachDay,
     };
   }
+
+  getDisplayString(options: DisplayStringOptions): string {
+    const endStr = this.end.getDisplayString({ now: options.now });
+
+    if (this.start != null) {
+      const startStr = formatDate(this.start, options.now);
+      return `${startStr} until ${endStr}`;
+    } else {
+      return `until ${endStr}`;
+    }
+  }
+
+  getCalendarMarks(options: CalendarMarksOptions): readonly CalendarMark[] {
+    const endDate = this.end.getLatestInterpretableDate();
+    const { from, to } = CalendarMark.restrictRangeByOptions(
+      new TimeRange(this.start, endDate),
+      options,
+    );
+    return CalendarMark.buildList(from, to).map((x) => x.evenify());
+  }
+
+  getActiveTimeRanges(): readonly TimeRange[] {}
 }

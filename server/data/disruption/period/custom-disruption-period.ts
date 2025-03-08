@@ -1,7 +1,10 @@
 import { z } from "zod";
-import { DisruptionPeriodBase } from "./disruption-period-base";
+import {
+  DisplayStringOptions,
+  DisruptionPeriodBase,
+} from "./disruption-period-base";
 import { TimeRange } from "./time-range";
-import { CalendarMark } from "./calendar-mark";
+import { CalendarMark, CalendarMarksOptions } from "./calendar-mark";
 
 /**
  * Allows complete customisation of active time ranges, calendar marks, and the
@@ -14,14 +17,6 @@ export class CustomDisruptionPeriod extends DisruptionPeriodBase {
     readonly calendarMarks: CalendarMark[],
   ) {
     super();
-  }
-
-  toDisplayString(): string {
-    return this.displayString;
-  }
-
-  getCalendarMarks(): readonly CalendarMark[] {
-    return this.calendarMarks;
   }
 
   static readonly bson = z
@@ -47,5 +42,17 @@ export class CustomDisruptionPeriod extends DisruptionPeriodBase {
       displayString: this.displayString,
       calendarMarks: this.calendarMarks,
     };
+  }
+
+  getDisplayString(_options: DisplayStringOptions): string {
+    return this.displayString;
+  }
+
+  getCalendarMarks(options: CalendarMarksOptions): readonly CalendarMark[] {
+    return this.calendarMarks.filter((x) => x.matchesRestriction(options));
+  }
+
+  getActiveTimeRanges(): readonly TimeRange[] {
+    return this.timeRanges;
   }
 }
