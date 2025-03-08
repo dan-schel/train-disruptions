@@ -1,8 +1,15 @@
 import { DatabaseModel, DataOf, IdOf } from "./database-model";
+import { Migration, Migrator } from "./migration";
 import { CountQuery, FindQuery, FirstQuery } from "./query-types";
 
 export abstract class Database {
   abstract of<Model extends DatabaseModel>(model: Model): Repository<Model>;
+
+  protected abstract getMigrationHandler(): MigrationHandler;
+
+  async runMigrations(migrations: Migration[]) {
+    await this.getMigrationHandler().runMigrations(migrations);
+  }
 }
 
 export abstract class Repository<Model extends DatabaseModel> {
@@ -57,4 +64,26 @@ export abstract class Repository<Model extends DatabaseModel> {
     }
     return items[0];
   }
+}
+
+export abstract class MigrationHandler {
+  async runMigrations(migrations: Migration[]) {
+    const completedIds = await this.getCompletedMigrationIds();
+    const migrator = this.getMigrator();
+
+    for (const migration of migrations) {
+      if (completedIds.includes(migration.id)) {
+        continue;
+      }
+
+      await migration.run(migrator);
+      await this.markMigrationComplete(migration.id);
+    }
+  }
+
+  protected abstract getMigrator(): Migrator;
+
+  protected abstract getCompletedMigrationIds(): Promise<string[]>;
+
+  protected abstract markMigrationComplete(id: string): Promise<void>;
 }
