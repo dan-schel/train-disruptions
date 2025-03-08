@@ -1,9 +1,11 @@
 import { TimeRange } from "./time-range";
-import { CalendarMark, CalendarMarksOptions } from "./calendar-mark";
+import { JustDate } from "./utils";
 
 export type DisplayStringOptions = {
   now: Date;
 };
+
+export type CalendarMark = "no-disruption" | "evening-only" | "all-day";
 
 /** Defines the period(s) of time a disruption is active. */
 export abstract class DisruptionPeriodBase {
@@ -13,28 +15,20 @@ export abstract class DisruptionPeriodBase {
    */
   abstract getDisplayString(options: DisplayStringOptions): string;
 
-  /** How/when to mark the calendar for this disruption. */
-  abstract getCalendarMarks(
-    options: CalendarMarksOptions,
-  ): readonly CalendarMark[];
+  /** How to mark the calendar for this date and this disruption. */
+  abstract getCalendarMark(date: JustDate): CalendarMark;
 
-  /**
-   * Returns all the time ranges when the disruption should be displayed as
-   * active. We do NOT infer calendar marks and/or the display string from this
-   * value to allow it to be as granular as needed without impacting the
-   * presentation elsewhere.
-   */
-  abstract getActiveTimeRanges(): readonly TimeRange[];
+  // It looks like these next three functions can be calculated from one
+  // function that returns all time ranges this disruptions occurs in.
+  // They CANNOT. The EveningsOnlyDisruptionPeriod with EndsNever will have
+  // infinitely many time ranges, because it can't simply use a null end date,
+  // because it DOES end, at 3am each day for an INFINITELY many number of days.
+  // Furthermore, passing the full query details (which date to start and end)
+  // sucked for get calendar marks, so I'm happy we're not doing that no more.
 
-  intersects(range: TimeRange): boolean {
-    return this.getActiveTimeRanges().some((x) => x.intersects(range));
-  }
+  abstract intersects(range: TimeRange): boolean;
 
-  occursAt(date: Date): boolean {
-    return this.getActiveTimeRanges().some((x) => x.includes(date));
-  }
+  abstract occursAt(date: Date): boolean;
 
-  getFullyEncompassingTimeRange(): TimeRange {
-    return TimeRange.encompass(this.getActiveTimeRanges());
-  }
+  abstract getFullyEncompassingTimeRange(): TimeRange;
 }

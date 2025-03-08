@@ -1,10 +1,12 @@
 import { z } from "zod";
 import {
+  CalendarMark,
   DisplayStringOptions,
   DisruptionPeriodBase,
 } from "./disruption-period-base";
 import { TimeRange } from "./time-range";
-import { CalendarMark, CalendarMarksOptions } from "./calendar-mark";
+import { DisruptedCalendarDay } from "./disrupted-calendar-day";
+import { JustDate } from "./utils";
 
 /**
  * Allows complete customisation of active time ranges, calendar marks, and the
@@ -14,7 +16,7 @@ export class CustomDisruptionPeriod extends DisruptionPeriodBase {
   constructor(
     readonly timeRanges: readonly TimeRange[],
     readonly displayString: string,
-    readonly calendarMarks: CalendarMark[],
+    readonly calendarMarks: DisruptedCalendarDay[],
   ) {
     super();
   }
@@ -24,7 +26,7 @@ export class CustomDisruptionPeriod extends DisruptionPeriodBase {
       type: z.literal("custom"),
       timeRanges: TimeRange.bson.array(),
       displayString: z.string(),
-      calendarMarks: CalendarMark.bson.array(),
+      calendarMarks: DisruptedCalendarDay.bson.array(),
     })
     .transform(
       (x) =>
@@ -40,7 +42,7 @@ export class CustomDisruptionPeriod extends DisruptionPeriodBase {
       type: "custom",
       timeRanges: this.timeRanges.map((x) => x.toBson()),
       displayString: this.displayString,
-      calendarMarks: this.calendarMarks,
+      calendarMarks: this.calendarMarks.map((x) => x.toBson()),
     };
   }
 
@@ -48,11 +50,21 @@ export class CustomDisruptionPeriod extends DisruptionPeriodBase {
     return this.displayString;
   }
 
-  getCalendarMarks(options: CalendarMarksOptions): readonly CalendarMark[] {
-    return this.calendarMarks.filter((x) => x.matchesRestriction(options));
+  getCalendarMark(date: JustDate): CalendarMark {
+    const match = this.calendarMarks.find((x) => x.date.equals(date));
+    if (match == null) return "no-disruption";
+    return match.eveningOnly ? "evening-only" : "all-day";
   }
 
-  getActiveTimeRanges(): readonly TimeRange[] {
-    return this.timeRanges;
+  intersects(range: TimeRange): boolean {
+    return this.timeRanges.some((x) => x.intersects(range));
+  }
+
+  occursAt(date: Date): boolean {
+    return this.timeRanges.some((x) => x.includes(date));
+  }
+
+  getFullyEncompassingTimeRange(): TimeRange {
+    return TimeRange.encompass(this.timeRanges);
   }
 }

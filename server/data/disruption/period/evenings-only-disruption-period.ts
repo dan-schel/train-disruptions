@@ -4,9 +4,9 @@ import {
   DisruptionPeriodBase,
 } from "./disruption-period-base";
 import { Ends, endsBson } from "./ends/ends";
-import { CalendarMark, CalendarMarksOptions } from "./calendar-mark";
+import { CalendarMark, CalendarMarksOptions } from "./disrupted-calendar-day";
 import { TimeRange } from "./time-range";
-import { eveningStarts, formatDate } from "./utils";
+import { eveningStarts, formatDate, toLocalTime } from "./utils";
 
 /** Disruption is active every evening from the start date to the end date. */
 export class EveningsOnlyDisruptionPeriod extends DisruptionPeriodBase {
@@ -69,10 +69,16 @@ export class EveningsOnlyDisruptionPeriod extends DisruptionPeriodBase {
       new TimeRange(this.start, endDate),
       options,
     );
-    return CalendarMark.buildList(from, to).map((x) => x.evenify());
+    return CalendarMark.buildList(from, to).map((x) => x.eveningify());
   }
 
   getActiveTimeRanges(): readonly TimeRange[] {
-    const endDate = this.end.getLatestInterpretableDate();
+    const startDate = toLocalTime(this.start);
+    const endDate = toLocalTime(this.end.getLatestInterpretableDate());
+
+    const result: TimeRange[] = [];
+    let day = midnightLocalTime();
+
+    return result;
   }
 }

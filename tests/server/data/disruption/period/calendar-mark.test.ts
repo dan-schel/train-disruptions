@@ -1,5 +1,5 @@
 import { assert, describe, expect, it } from "vitest";
-import { CalendarMark } from "../../../../../server/data/disruption/period/calendar-mark";
+import { CalendarMark } from "../../../../../server/data/disruption/period/disrupted-calendar-day";
 
 describe("CalendarMark", () => {
   describe("buildList", () => {
