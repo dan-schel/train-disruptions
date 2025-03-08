@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { DisplayStringOptions, EndsBase } from "./ends-base";
-import { formatDate } from "../utils";
+import { formatDate } from "../utils/utils";
 
 /** The disruption ends when the source alert ends. */
 export class EndsWhenAlertEnds extends EndsBase {

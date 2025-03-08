@@ -1,12 +1,13 @@
 import { z } from "zod";
 import {
+  CalendarMark,
   DisplayStringOptions,
   DisruptionPeriodBase,
 } from "./disruption-period-base";
 import { Ends, endsBson } from "./ends/ends";
-import { CalendarMark, CalendarMarksOptions } from "./disrupted-calendar-day";
-import { TimeRange } from "./time-range";
-import { eveningStarts, formatDate, toLocalTime } from "./utils";
+import { eveningStarts, formatDate } from "./utils/utils";
+import { TimeRange } from "./utils/time-range";
+import { JustDate } from "./utils/just-date";
 
 /** Disruption is active every evening from the start date to the end date. */
 export class EveningsOnlyDisruptionPeriod extends DisruptionPeriodBase {
@@ -63,22 +64,19 @@ export class EveningsOnlyDisruptionPeriod extends DisruptionPeriodBase {
     }
   }
 
-  getCalendarMarks(options: CalendarMarksOptions): readonly CalendarMark[] {
-    const endDate = this.end.getLatestInterpretableDate();
-    const { from, to } = CalendarMark.restrictRangeByOptions(
-      new TimeRange(this.start, endDate),
-      options,
-    );
-    return CalendarMark.buildList(from, to).map((x) => x.eveningify());
+  getCalendarMark(date: JustDate): CalendarMark {
+    throw new Error("Method not implemented.");
   }
 
-  getActiveTimeRanges(): readonly TimeRange[] {
-    const startDate = toLocalTime(this.start);
-    const endDate = toLocalTime(this.end.getLatestInterpretableDate());
+  intersects(range: TimeRange): boolean {
+    throw new Error("Method not implemented.");
+  }
 
-    const result: TimeRange[] = [];
-    let day = midnightLocalTime();
+  occursAt(date: Date): boolean {
+    throw new Error("Method not implemented.");
+  }
 
-    return result;
+  getFullyEncompassingTimeRange(): TimeRange {
+    throw new Error("Method not implemented.");
   }
 }

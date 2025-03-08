@@ -1,5 +1,5 @@
-import { TimeRange } from "./time-range";
-import { JustDate } from "./utils";
+import { JustDate } from "./utils/just-date";
+import { TimeRange } from "./utils/time-range";
 
 export type DisplayStringOptions = {
   now: Date;

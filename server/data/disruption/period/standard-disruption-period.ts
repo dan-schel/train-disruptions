@@ -1,12 +1,13 @@
 import { z } from "zod";
 import { Ends, endsBson } from "./ends/ends";
-import { CalendarMark, CalendarMarksOptions } from "./disrupted-calendar-day";
-import { TimeRange } from "./time-range";
+import { TimeRange } from "./utils/time-range";
 import {
+  CalendarMark,
   DisplayStringOptions,
   DisruptionPeriodBase,
 } from "./disruption-period-base";
-import { formatDate } from "./utils";
+import { formatDate } from "./utils/utils";
+import { JustDate } from "./utils/just-date";
 
 /** Disruption is active continuously from the start date to the end date. */
 export class StandardDisruptionPeriod extends DisruptionPeriodBase {
@@ -44,20 +45,19 @@ export class StandardDisruptionPeriod extends DisruptionPeriodBase {
     }
   }
 
-  getCalendarMarks(options: CalendarMarksOptions): readonly CalendarMark[] {
-    const { from, to } = CalendarMark.restrictRangeByOptions(
-      this._asTimeRange(),
-      options,
-    );
-    return CalendarMark.buildList(from, to);
+  getCalendarMark(date: JustDate): CalendarMark {
+    throw new Error("Method not implemented.");
   }
 
-  getActiveTimeRanges(): readonly TimeRange[] {
-    return [this._asTimeRange()];
+  intersects(range: TimeRange): boolean {
+    return this.getFullyEncompassingTimeRange().intersects(range);
   }
 
-  private _asTimeRange(): TimeRange {
-    const endDate = this.end.getLatestInterpretableDate();
-    return new TimeRange(this.start, endDate);
+  occursAt(date: Date): boolean {
+    return this.getFullyEncompassingTimeRange().includes(date);
+  }
+
+  getFullyEncompassingTimeRange(): TimeRange {
+    return new TimeRange(this.start, this.end.getLatestInterpretableDate());
   }
 }

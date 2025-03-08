@@ -1,9 +1,10 @@
 import { describe, expect, it } from "vitest";
 import { EndsAfterLastService } from "../../../../../../server/data/disruption/period/ends/ends-after-last-service";
+import { JustDate } from "../../../../../../server/data/disruption/period/utils/just-date";
 
 describe("EndsAfterLastService", () => {
-  const end1 = new EndsAfterLastService(2025, 3, 7);
-  const end2 = new EndsAfterLastService(2026, 6, 7);
+  const end1 = new EndsAfterLastService(new JustDate(2025, 3, 7));
+  const end2 = new EndsAfterLastService(new JustDate(2026, 6, 7));
 
   describe("getDisplayString", () => {
     it("works", () => {

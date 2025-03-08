@@ -4,9 +4,9 @@ import {
   DisplayStringOptions,
   DisruptionPeriodBase,
 } from "./disruption-period-base";
-import { TimeRange } from "./time-range";
-import { DisruptedCalendarDay } from "./disrupted-calendar-day";
-import { JustDate } from "./utils";
+import { TimeRange } from "./utils/time-range";
+import { DisruptedCalendarDay } from "./utils/disrupted-calendar-day";
+import { JustDate } from "./utils/just-date";
 
 /**
  * Allows complete customisation of active time ranges, calendar marks, and the

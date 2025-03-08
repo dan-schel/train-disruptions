@@ -1,7 +1,8 @@
 import { z } from "zod";
 import { DisplayStringOptions, EndsBase } from "./ends-base";
 import { addHours } from "date-fns";
-import { dayStarts, formatDate, JustDate, midnightLocalTime } from "../utils";
+import { dayStarts, formatDate, localToUtcTime } from "../utils/utils";
+import { JustDate } from "../utils/just-date";
 
 /** The disruption ends after the last service on a given date. */
 export class EndsAfterLastService extends EndsBase {
@@ -24,12 +25,12 @@ export class EndsAfterLastService extends EndsBase {
   }
 
   getDisplayString(options: DisplayStringOptions): string {
-    const localMidnight = midnightLocalTime(this.date);
-    return `last service ${formatDate(localMidnight, options.now, { includeTime: false })}`;
+    const midnightInUtc = localToUtcTime(this.date.toDate());
+    return `last service ${formatDate(midnightInUtc, options.now, { includeTime: false })}`;
   }
 
   getLatestInterpretableDate(): Date | null {
-    const localMidnight = midnightLocalTime(this.date);
-    return addHours(localMidnight, 24 + dayStarts);
+    const midnightInUtc = localToUtcTime(this.date.toDate());
+    return addHours(midnightInUtc, 24 + dayStarts);
   }
 }
