@@ -6,8 +6,14 @@ import {
   DisplayStringOptions,
   DisruptionPeriodBase,
 } from "./disruption-period-base";
-import { formatDate } from "./utils/utils";
+import {
+  dayStarts,
+  eveningStarts,
+  formatDate,
+  localToUtcTime,
+} from "./utils/utils";
 import { JustDate } from "./utils/just-date";
+import { addHours } from "date-fns";
 
 /** Disruption is active continuously from the start date to the end date. */
 export class StandardDisruptionPeriod extends DisruptionPeriodBase {
@@ -46,7 +52,20 @@ export class StandardDisruptionPeriod extends DisruptionPeriodBase {
   }
 
   getCalendarMark(date: JustDate): CalendarMark {
-    throw new Error("Method not implemented.");
+    const local12am = date.toDate();
+    const startOfToday = localToUtcTime(addHours(local12am, dayStarts));
+    const startOfEvening = localToUtcTime(addHours(local12am, eveningStarts));
+    const startOfTomorrow = localToUtcTime(addHours(local12am, dayStarts + 24));
+
+    const disruptionPeriod = this.getFullyEncompassingTimeRange();
+    const allDay = new TimeRange(startOfToday, startOfTomorrow);
+
+    if (!disruptionPeriod.intersects(allDay)) return "no-disruption";
+
+    const nonEvening = new TimeRange(startOfToday, startOfEvening);
+    const nonEveningImpacted = disruptionPeriod.intersects(nonEvening);
+
+    return nonEveningImpacted ? "all-day" : "evening-only";
   }
 
   intersects(range: TimeRange): boolean {
