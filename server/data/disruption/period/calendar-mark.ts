@@ -1,13 +1,14 @@
 import { z } from "zod";
 import { toLocalTime } from "./utils";
-import { addDays, getDate, getMonth, getYear, startOfDay } from "date-fns";
+import {
+  addDays,
+  addHours,
+  areIntervalsOverlapping,
+  interval,
+  startOfDay,
+} from "date-fns";
 
 export class CalendarMark {
-  // Only mark on the calendar as "evenings only" if the disruption exclusively
-  // occurs between 6pm - 4am.
-  static readonly eveningStartHour = 18;
-  static readonly eveningEndHour = 28;
-
   constructor(
     readonly year: number,
     readonly month: number,
@@ -34,28 +35,40 @@ export class CalendarMark {
   }
 
   static create(from: Date, to: Date): CalendarMark[] {
+    if (from >= to) throw new Error("Invalid date range.");
+
     const fromLocal = toLocalTime(from);
     const toLocal = toLocalTime(to);
+    const period = interval(fromLocal, toLocal);
 
     const marks: CalendarMark[] = [];
-    let day = startOfDay(fromLocal); // TODO: need to test this.
-    for (let i = 0; day <= toLocal; i++) {
-      // TODO: This is definitely wrong.
-      const eveningOnly =
-        day.getHours() >= CalendarMark.eveningStartHour &&
-        day.getHours() < CalendarMark.eveningEndHour;
+    let today12am = startOfDay(fromLocal);
 
-      marks.push(
-        new CalendarMark(
-          getYear(day),
-          getMonth(day),
-          getDate(day),
-          eveningOnly,
-        ),
-      );
+    while (today12am < toLocal) {
+      const today3am = addHours(today12am, 3);
+      const today6pm = addHours(today12am, 18);
+      const tomorrow3am = addHours(today12am, 27);
 
-      day = addDays(day, 1);
+      const day = interval(today3am, tomorrow3am);
+      const overlaps = areIntervalsOverlapping(period, day);
+
+      if (overlaps) {
+        const outsideEvening = interval(today3am, today6pm);
+        const eveningOnly = !areIntervalsOverlapping(period, outsideEvening);
+
+        marks.push(
+          new CalendarMark(
+            today12am.getFullYear(),
+            today12am.getMonth() + 1,
+            today12am.getDate(),
+            eveningOnly,
+          ),
+        );
+      }
+
+      today12am = addDays(today12am, 1);
     }
+
     return marks;
   }
 }

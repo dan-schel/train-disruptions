@@ -8,6 +8,7 @@ import { DisruptionSource } from "./disruption-source/disruption-source";
 import { InMemoryDatabase } from "./database/lib/in-memory/in-memory-database";
 import { FakeDisruptionSource } from "./disruption-source/fake-disruption-source";
 import { HistoricalAlert } from "./data/historical-alert";
+import { env } from "./env";
 
 export class App {
   constructor(

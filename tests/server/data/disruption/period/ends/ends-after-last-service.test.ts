@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { EndsAfterLastService } from "../../../../../server/data/disruption/period/ends/ends-after-last-service";
+import { EndsAfterLastService } from "../../../../../../server/data/disruption/period/ends/ends-after-last-service";
 
 describe("EndsAfterLastService", () => {
   const end1 = new EndsAfterLastService(2025, 3, 7);

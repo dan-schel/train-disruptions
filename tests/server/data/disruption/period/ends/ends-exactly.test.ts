@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { EndsExactly } from "../../../../../server/data/disruption/period/ends/ends-exactly";
+import { EndsExactly } from "../../../../../../server/data/disruption/period/ends/ends-exactly";
 
 describe("EndsExactly", () => {
   const end1 = new EndsExactly(new Date("2025-03-20T15:00:00+11:00"));

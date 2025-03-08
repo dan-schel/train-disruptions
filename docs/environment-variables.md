@@ -11,6 +11,7 @@ Environment variables allow us to change behaviour of the app depending on wheth
   - [`DATABASE_URL`](#database_url)
   - [`RELAY_KEY`](#relay_key)
   - [`NODE_ENV`](#node_env)
+  - [`TZ`](#tz)
   - [`NPM_CONFIG_PRODUCTION`](#npm_config_production)
   - [`PORT`](#port)
   - [`HMR_PORT`](#hmr_port)
@@ -45,6 +46,13 @@ Environment variables allow us to change behaviour of the app depending on wheth
   - No build step required.
   - Frontend code hot-reloads for quick development.
   - Source maps and other debugging helpers are enabled.
+
+### `TZ`
+
+- Always `Etc/UTC`.
+- Automatically set when using `npm run start`, `npm run dev`, and `npm run test`.
+- Means that Dates are manipulated in UTC on the server by default.
+- Means we have a consistent environment between the prod server and local dev machines.
 
 ### `NPM_CONFIG_PRODUCTION`
 
