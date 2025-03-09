@@ -10,7 +10,8 @@ import { Spacer } from "../../components/core/Spacer";
 import { SettingsHome } from "./SettingsHome";
 import { SettingsDisruptions } from "./SettingsDisruptions";
 import { SettingsTheme } from "./SettingsTheme";
-import { SimpleButton } from "../../components/common/SimpleButton";
+import { ResetCommuteButton } from "./ResetCommuteButton";
+import { ResetCookiesButton } from "./ResetCookiesButton";
 
 export default function Page() {
   const { commute, hiddenCategories } = useData<Data>();
@@ -26,9 +27,9 @@ export default function Page() {
           <SettingsDisruptions data={hiddenCategories} />
           <SettingsTheme />
 
-          <SimpleButton onClick={() => {}} text="Reset Commute" />
+          <ResetCommuteButton />
           <Spacer h="4" />
-          <SimpleButton onClick={() => {}} text="Reset Cookies" />
+          <ResetCookiesButton />
         </Column>
       </PagePadding>
     </PageCenterer>
