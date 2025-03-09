@@ -14,7 +14,7 @@ import {
 } from "./utils/utils";
 import { TimeRange } from "./utils/time-range";
 import { JustDate } from "./utils/just-date";
-import { addHours } from "date-fns";
+import { addHours, isSameDay } from "date-fns";
 
 /** Disruption is active every evening from the start date to the end date. */
 export class EveningsOnlyDisruptionPeriod extends DisruptionPeriodBase {
@@ -27,14 +27,17 @@ export class EveningsOnlyDisruptionPeriod extends DisruptionPeriodBase {
   ) {
     super();
 
-    // TODO: This is kinda dumb. Maybe in future we should expand this period
-    // type to cover any "repeating at a certain time of day each day" period.
-    // We'd obviously need to find a name for it though, lol.
-    if (startHourEachDay < eveningStarts) {
+    // TODO: This is fairly limiting. Maybe in future we should expand this
+    // period type to cover any "repeating at a certain time of day each day"
+    // period. We'd obviously need to find a name for it though, lol.
+    if (
+      !Number.isInteger(startHourEachDay) ||
+      startHourEachDay < eveningStarts ||
+      startHourEachDay >= 24
+    ) {
       throw new Error(
-        `Cannot create evenings only period with start hour of ` +
-          `${startHourEachDay}, as we consider evening to start at ` +
-          `${eveningStarts}.`,
+        `Invalid start hour each day: ${startHourEachDay}. Must be an integer ` +
+          `between ${eveningStarts} and 23.`,
       );
     }
   }
@@ -85,7 +88,7 @@ export class EveningsOnlyDisruptionPeriod extends DisruptionPeriodBase {
     const startOfEvening = localToUtcTime(addHours(local12am, eveningStarts));
     const startOfTomorrow = localToUtcTime(addHours(local12am, dayStarts + 24));
 
-    const rawDisruptionPeriod = this._rawTimeRange();
+    const rawDisruptionPeriod = this._getRawTimeRange();
     const evening = new TimeRange(startOfEvening, startOfTomorrow);
     const impacted = rawDisruptionPeriod.intersects(evening);
 
@@ -93,11 +96,32 @@ export class EveningsOnlyDisruptionPeriod extends DisruptionPeriodBase {
   }
 
   intersects(range: TimeRange): boolean {
-    throw new Error("Method not implemented.");
+    // Reject if outside the disruption period.
+    if (!this.getFullyEncompassingTimeRange().intersects(range)) return false;
+
+    // Because the fully encompassing time range is trimmed to always start and
+    // end during the evening period, and we now know this time range intersects
+    // it somewhere, if it extends infinitely in either direction will ALWAYS
+    // intersect.
+    if (range.start == null || range.end == null) return true;
+
+    // Reject if entirely outside the evening period.
+    const localStart = utcToLocalTime(range.start);
+    const localEnd = utcToLocalTime(range.end);
+    if (
+      isSameDay(localStart, localEnd) &&
+      localStart.getHours() >= dayStarts &&
+      localEnd.getHours() < this.startHourEachDay
+    ) {
+      return false;
+    }
+
+    // Otherwise, it intersects.
+    return true;
   }
 
   occursAt(date: Date): boolean {
-    const range = this._rawTimeRange();
+    const range = this._getRawTimeRange();
     if (!range.includes(date)) return false;
 
     const localHour = utcToLocalTime(date).getHours();
@@ -105,12 +129,55 @@ export class EveningsOnlyDisruptionPeriod extends DisruptionPeriodBase {
   }
 
   getFullyEncompassingTimeRange(): TimeRange {
-    // TODO: Start with _rawTimeRange(), and trim off anything on the left/right
-    // outside the evening hours.
-    throw new Error("Method not implemented.");
+    return new TimeRange(
+      this._getCorrectedStartDate(),
+      this._getCorrectedEndDate(),
+    );
   }
 
-  private _rawTimeRange(): TimeRange {
+  /**
+   * Returns `this.start()`, unless it falls outside the evening period, in
+   * which case it is moved forward to the start of the next evening period to
+   * more accurately reflect the first moment ACTUALLY impacted by the
+   * disruption.
+   *
+   * e.g. If the disruption is said to start at 10am, it gets trimmed forward to
+   * `this.startHourEachDay` (let's say 8pm), since 10am-8pm is already excluded
+   * since it's not during the evening!
+   */
+  private _getCorrectedStartDate(): Date | null {
+    if (this.start == null) return null;
+
+    const localHour = utcToLocalTime(this.start).getHours();
+    if (localHour < dayStarts || localHour >= this.startHourEachDay) {
+      return this.start;
+    } else {
+      return addHours(this.start, this.startHourEachDay - localHour);
+    }
+  }
+
+  /**
+   * Returns `this.end.getLatestInterpretableDate()`, unless it falls outside
+   * the evening period, in which case it is moved backward to the end of the
+   * previous evening period to more accurately reflect the ACTUAL end time of
+   * the disruption.
+   *
+   * e.g. If the disruption is said to end at 10am, it gets trimmed back to 3am,
+   * since 3am-10am is already excluded since it's not during the evening!
+   */
+  private _getCorrectedEndDate(): Date | null {
+    const end = this.end.getLatestInterpretableDate();
+    if (end == null) return null;
+
+    const localHour = utcToLocalTime(end).getHours();
+    if (localHour < dayStarts || localHour >= this.startHourEachDay) {
+      return end;
+    } else {
+      return addHours(end, dayStarts - localHour);
+    }
+  }
+
+  private _getRawTimeRange(): TimeRange {
     return new TimeRange(this.start, this.end.getLatestInterpretableDate());
   }
 }
