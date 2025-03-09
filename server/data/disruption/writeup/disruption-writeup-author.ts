@@ -7,5 +7,5 @@ import { DisruptionWriteup } from "./disruption-writeup";
  * disruption period.
  */
 export abstract class DisruptionWriteupAuthor {
-  abstract write(disruption: Disruption): DisruptionWriteup;
+  abstract write(disruption: Disruption, now: Date): DisruptionWriteup;
 }
