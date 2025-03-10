@@ -18,17 +18,12 @@ export abstract class DisruptionPeriodBase {
   /** How to mark the calendar for this date and this disruption. */
   abstract getCalendarMark(date: JustDate): CalendarMark;
 
-  // It looks like these next three functions can be calculated from one
-  // function that returns all time ranges this disruptions occurs in.
-  // They CANNOT. The EveningsOnlyDisruptionPeriod with EndsNever will have
-  // infinitely many time ranges, because it can't simply use a null end date,
-  // because it DOES end, at 3am each day for an INFINITELY many number of days.
-  // Furthermore, passing the full query details (which date to start and end)
-  // sucked for get calendar marks, so I'm happy we're not doing that no more.
-
+  /** True if the disruption occurs at any point within this time range. */
   abstract intersects(range: TimeRange): boolean;
 
+  /** True if the disruptions occurs at this specific point in time. */
   abstract occursAt(date: Date): boolean;
 
+  /** The earliest and latest time impacted by the disruption, if defined. */
   abstract getFullyEncompassingTimeRange(): TimeRange;
 }

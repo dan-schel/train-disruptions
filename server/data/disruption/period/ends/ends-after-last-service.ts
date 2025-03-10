@@ -6,7 +6,10 @@ import { JustDate } from "../utils/just-date";
 
 /** The disruption ends after the last service on a given date. */
 export class EndsAfterLastService extends EndsBase {
-  constructor(readonly date: JustDate) {
+  constructor(
+    /** The timetable date, e.g. Sun 9 Feb is translated to 3am, Mon 10 Feb. */
+    readonly date: JustDate,
+  ) {
     super();
   }
 

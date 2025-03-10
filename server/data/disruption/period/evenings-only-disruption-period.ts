@@ -122,7 +122,7 @@ export class EveningsOnlyDisruptionPeriod extends DisruptionPeriodBase {
   }
 
   occursAt(date: Date): boolean {
-    const range = this._getRawTimeRange();
+    const range = this.getFullyEncompassingTimeRange();
     if (!range.includes(date)) return false;
 
     const localHour = utcToLocalTime(date).getHours();
@@ -180,9 +180,5 @@ export class EveningsOnlyDisruptionPeriod extends DisruptionPeriodBase {
       const adjusted = setHours(startOfHour(localTime), dayStarts);
       return localToUtcTime(adjusted);
     }
-  }
-
-  private _getRawTimeRange(): TimeRange {
-    return new TimeRange(this.start, this.end.getLatestInterpretableDate());
   }
 }
