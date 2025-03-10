@@ -11,7 +11,7 @@ export type HomepageProps = {
   setSettings: (settings: Settings) => void;
 };
 
-export function SettingsHome(props: HomepageProps) {
+export function SettingsHome({ settings }: HomepageProps) {
   return (
     <Column>
       <Text style="custom" className="text-lg font-bold">
@@ -20,7 +20,7 @@ export function SettingsHome(props: HomepageProps) {
       <Spacer h="2" />
 
       <Column>
-        {props.settings.commute === null ? (
+        {settings.commute === null ? (
           // No data, default to Overview
           <>
             <Row className="gap-2">

@@ -32,13 +32,9 @@ export default function Page() {
       <PagePadding>
         <Column className="gap-4">
           <Text style="title">Settings</Text>
-
-          {JSON.stringify(settings.toJSON())}
-
           <SettingsHome settings={settings} setSettings={setSettings} />
           <SettingsDisruptions settings={settings} setSettings={setSettings} />
           <SettingsTheme />
-
           <SettingsCommute
             settings={settings}
             setSettings={setSettings}

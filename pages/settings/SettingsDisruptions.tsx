@@ -49,11 +49,6 @@ export function SettingsDisruptions({
   settings,
   setSettings,
 }: DisruptionSettingsProps) {
-  // const [categories] = useState(props.data);
-  // disruptionSettings = props.data;
-  // console.log("props.data: " + props.data);
-  // console.log("props.data.hiddenCatagories: " + props.data.hiddenCategories);
-
   function toggleHiddenCategory(category: FilterableDisruptionCategory) {
     if (settings.hiddenCategories.includes(category)) {
       setSettings(settings.withoutHiddenCategory(category));

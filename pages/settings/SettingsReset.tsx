@@ -11,9 +11,9 @@ export type SettingsResetProps = {
   setSettings: (settings: Settings) => void;
 };
 
-export function SettingsReset(props: SettingsResetProps) {
+export function SettingsReset({ setSettings }: SettingsResetProps) {
   function handleResetCookies() {
-    props.setSettings(Settings.default);
+    setSettings(Settings.default);
   }
 
   return (
