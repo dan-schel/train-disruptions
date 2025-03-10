@@ -31,8 +31,8 @@ const startPosition = [
 export const IANAMelbourneTimezone = "Australia/Melbourne";
 export const disruption = {
   buses: "bg-disruption text-white",
-  night: "bg-gray-200 border-3 border-disruption",
-  trains: "bg-gray-200",
+  night: "bg-gray-200 border-3 border-disruption text-calendar-date-text",
+  trains: "bg-gray-200 text-calendar-date-text",
 };
 
 export const isInitial = (i: number) => i === 0;
