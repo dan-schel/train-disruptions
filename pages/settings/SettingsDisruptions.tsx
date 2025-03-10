@@ -66,32 +66,32 @@ export function SettingsDisruptions({
 
       <Column className="gap-2">
         {allCategories.map((category) => (
-          <Row key={category} className="gap-2">
-            <input
-              type="checkbox"
-              value={category}
-              autoComplete="off"
-              checked={
-                (settings.hiddenCategories as string[]).includes(category) ||
-                formattedCategories[category].disabled === true
-              }
-              disabled={formattedCategories[category].disabled}
-              onChange={
-                category !== "essential"
-                  ? () => toggleHiddenCategory(category)
-                  : undefined
-              }
-            />
-            <Column>
-              <label htmlFor="essential-check">
+          <Row key={category}>
+            <label className="flex cursor-pointer gap-2">
+              <input
+                type="checkbox"
+                value={category}
+                autoComplete="off"
+                checked={
+                  (settings.hiddenCategories as string[]).includes(category) ||
+                  formattedCategories[category].disabled === true
+                }
+                disabled={formattedCategories[category].disabled}
+                onChange={
+                  category !== "essential"
+                    ? () => toggleHiddenCategory(category)
+                    : undefined
+                }
+              />
+              <Column>
                 {formattedCategories[category].name}
-              </label>
-              {formattedCategories[category].description && (
-                <Text style="custom" className="text-sm">
-                  {formattedCategories[category].description}
-                </Text>
-              )}
-            </Column>
+                {formattedCategories[category].description && (
+                  <Text style="custom" className="text-sm">
+                    {formattedCategories[category].description}
+                  </Text>
+                )}
+              </Column>
+            </label>
           </Row>
         ))}
       </Column>
