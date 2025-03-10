@@ -1,12 +1,11 @@
 import "./tailwind.css";
 
-import React, { useEffect } from "react";
+import React from "react";
 
 import { DesktopNavBar } from "../components/navigation/DesktopNavBar";
 import { MobileNavBar } from "../components/navigation/MobileNavBar";
 import { Column } from "../components/core/Column";
 import { With } from "../components/core/With";
-import { useSettings } from "../hooks/useSettings";
 
 export default function LayoutDefault({
   children,
@@ -16,14 +15,6 @@ export default function LayoutDefault({
   if (!isReactElement(children)) {
     throw new Error("Layout expects one child.");
   }
-
-  const { fetchSettings } = useSettings();
-  useEffect(() => {
-    const { theme } = fetchSettings();
-    const html = document.getElementsByTagName("html")[0];
-
-    html.classList.toggle("dark", theme === "dark");
-  }, [fetchSettings]);
 
   return (
     <Column className="bg-surface text-typography min-h-screen">
