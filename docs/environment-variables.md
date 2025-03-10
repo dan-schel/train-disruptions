@@ -18,7 +18,7 @@ Environment variables allow us to change behaviour of the app depending on wheth
 - [Setting up variables](#setting-up-variables)
   - [Local development server](#local-development-server)
   - [Local preview of production build](#local-preview-of-production-build)
-  - [Production server on Digital Ocean](#production-server-on-digital-ocean)
+  - [Production server on DigitalOcean](#production-server-on-digitalocean)
 
 ## Variables list
 
@@ -57,7 +57,7 @@ Environment variables allow us to change behaviour of the app depending on wheth
 ### `NPM_CONFIG_PRODUCTION`
 
 - Always `false`.
-- If not set, Digital Ocean will skip installing `devDependencies`.
+- If not set, DigitalOcean will skip installing `devDependencies`.
 - No need to set locally.
 
 ### `PORT`
@@ -96,16 +96,16 @@ The `.env` file is git-ignored, so secret values can be safely stored there.
 
 If you wish to preview a production build locally, simply run `npm run start` and `NODE_ENV=production` will automatically be set for you. Keep your `.env` file as-is!
 
-### Production server on Digital Ocean
+### Production server on DigitalOcean
 
-When deployed to Digital Ocean, set the variables as follows:
+When deployed to DigitalOcean, set the variables as follows:
 
 ```dotenv
-# Ensures Digital Ocean will also install `devDependencies`, which is required
+# Ensures DigitalOcean will also install `devDependencies`, which is required
 # (e.g. for `cross-env`).
 NPM_CONFIG_PRODUCTION = "false"
 
-# Use this template string to have Digital Ocean automatically create database
+# Use this template string to have DigitalOcean automatically create database
 # URL from the attached database in App Platform.
 DATABASE_URL = ${trainquery-db.DATABASE_URL}
 
