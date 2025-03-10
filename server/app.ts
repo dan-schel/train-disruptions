@@ -70,8 +70,8 @@ export class App {
   }
 
   private _runHistoricalAlertLogger() {
-    setInterval(
-      async () => {
+    setInterval(async () => {
+      try {
         const disruptions = await this.disruptionSource.fetchDisruptions();
 
         disruptions.forEach(async (disruption) => {
@@ -90,8 +90,10 @@ export class App {
               );
           }
         });
-      },
-      1000 * 60 * 5,
-    );
+      } catch (error) {
+        console.warn("Failed to log historical alerts.");
+        console.warn(error);
+      }
+    }, 1000 * 5);
   }
 }
