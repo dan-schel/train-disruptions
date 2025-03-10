@@ -19,7 +19,7 @@ export function LineButton({ line, status }: LineButtonProps) {
       <Grid
         columns="auto 1fr auto"
         align="center"
-        className="gap-2 p-1 transition-colors group-active:bg-slate-200 lg:p-2"
+        className="group-active:bg-action gap-2 p-1 transition-colors lg:p-2"
       >
         <Row align="center" className="gap-2">
           <div

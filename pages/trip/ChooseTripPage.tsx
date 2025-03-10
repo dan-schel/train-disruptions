@@ -55,7 +55,11 @@ function StationSelect(props: StationSelectProps) {
   return (
     <Row className="gap-2">
       <label htmlFor={props.id}>{props.label}</label>
-      <select id={props.id} name={props.id} className="border border-black">
+      <select
+        id={props.id}
+        name={props.id}
+        className="dark:bg-surface-secondary rounded border border-black"
+      >
         {props.stations.map((station) => (
           <option key={station.id} value={station.id}>
             {station.name}

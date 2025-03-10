@@ -118,7 +118,7 @@ export function DisruptionButton(props: DisruptionButtonProps) {
       <Grid
         columns="2rem 1fr 1.5rem"
         align="center"
-        className="gap-2 p-2 transition-colors group-active:bg-slate-200"
+        className="group-active:bg-action gap-2 p-2 transition-colors"
       >
         {renderIcon()}
         <Column className="gap-1.5">{renderDescription()}</Column>

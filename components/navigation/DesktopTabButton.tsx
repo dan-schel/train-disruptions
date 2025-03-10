@@ -19,8 +19,8 @@ export function DesktopTabButton(props: DesktopTabButtonProps) {
     <Button href={props.tab.path}>
       <Row
         className={clsx(
-          "h-12 gap-2 border-y-2 border-transparent px-4 group-hover:bg-slate-100 group-active:bg-slate-200",
-          { "border-b-blue-800": active },
+          "group-hover:bg-action group-active:bg-action-secondary h-12 gap-2 border-y-2 border-transparent px-4",
+          { "border-b-active": active },
         )}
         align="center"
       >

@@ -5,7 +5,7 @@ import { DisruptionButton } from "./DisruptionButton";
 
 export function Disruptions() {
   return (
-    <Column className="divide-y-1 divide-slate-200">
+    <Column className="divide-action-secondary divide-y-1">
       <DisruptionButton
         type="buses"
         duration="Until further notice"
