@@ -55,6 +55,7 @@ export class Settings {
       (obj) =>
         new Settings(
           obj.commute ?? null,
+
           // If the valid list of hidden categories changes, gracefully ignore
           // any that are no longer valid.
           filterNonEnumValues(
