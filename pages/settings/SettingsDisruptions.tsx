@@ -70,9 +70,10 @@ export function SettingsDisruptions({
             <input
               type="checkbox"
               value={category}
+              autoComplete="off"
               checked={
                 (settings.hiddenCategories as string[]).includes(category) ||
-                formattedCategories[category].disabled
+                formattedCategories[category].disabled === true
               }
               disabled={formattedCategories[category].disabled}
               onChange={
