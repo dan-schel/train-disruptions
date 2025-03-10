@@ -1,6 +1,19 @@
 import { z } from "zod";
-import { CalendarMark, DisruptionPeriodBase } from "./disruption-period-base";
 import { Ends, endsBson } from "./ends/ends";
+import { TimeRange } from "./utils/time-range";
+import {
+  CalendarMark,
+  DisplayStringOptions,
+  DisruptionPeriodBase,
+} from "./disruption-period-base";
+import {
+  dayStarts,
+  eveningStarts,
+  formatDate,
+  localToUtcTime,
+} from "./utils/utils";
+import { JustDate } from "./utils/just-date";
+import { addHours } from "date-fns";
 
 /** Disruption is active continuously from the start date to the end date. */
 export class StandardDisruptionPeriod extends DisruptionPeriodBase {
@@ -9,16 +22,6 @@ export class StandardDisruptionPeriod extends DisruptionPeriodBase {
     readonly end: Ends,
   ) {
     super();
-  }
-
-  toDisplayString(): string {
-    // TODO: Implement this.
-    return `Sat 22 Feb to early May`;
-  }
-
-  getCalendarMarks(): readonly CalendarMark[] {
-    // TODO: Implement this.
-    return [];
   }
 
   static readonly bson = z
@@ -35,5 +38,45 @@ export class StandardDisruptionPeriod extends DisruptionPeriodBase {
       start: this.start,
       end: this.end.toBson(),
     };
+  }
+
+  getDisplayString(options: DisplayStringOptions): string {
+    const endStr = this.end.getDisplayString({ now: options.now });
+
+    if (this.start != null) {
+      const startStr = formatDate(this.start, options.now);
+      return `${startStr} until ${endStr}`;
+    } else {
+      return `until ${endStr}`;
+    }
+  }
+
+  getCalendarMark(date: JustDate): CalendarMark {
+    const local12am = date.toDate();
+    const startOfToday = localToUtcTime(addHours(local12am, dayStarts));
+    const startOfEvening = localToUtcTime(addHours(local12am, eveningStarts));
+    const startOfTomorrow = localToUtcTime(addHours(local12am, dayStarts + 24));
+
+    const disruptionPeriod = this.getFullyEncompassingTimeRange();
+    const allDay = new TimeRange(startOfToday, startOfTomorrow);
+
+    if (!disruptionPeriod.intersects(allDay)) return "no-disruption";
+
+    const nonEvening = new TimeRange(startOfToday, startOfEvening);
+    const nonEveningImpacted = disruptionPeriod.intersects(nonEvening);
+
+    return nonEveningImpacted ? "all-day" : "evening-only";
+  }
+
+  intersects(range: TimeRange): boolean {
+    return this.getFullyEncompassingTimeRange().intersects(range);
+  }
+
+  occursAt(date: Date): boolean {
+    return this.getFullyEncompassingTimeRange().includes(date);
+  }
+
+  getFullyEncompassingTimeRange(): TimeRange {
+    return new TimeRange(this.start, this.end.getLatestInterpretableDate());
   }
 }

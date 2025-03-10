@@ -1,5 +1,6 @@
 import { z } from "zod";
-import { EndsBase } from "./ends-base";
+import { DisplayStringOptions, EndsBase } from "./ends-base";
+import { formatDate } from "../utils/utils";
 
 /** The disruption ends after an exact timestamp. */
 export class EndsExactly extends EndsBase {
@@ -19,5 +20,13 @@ export class EndsExactly extends EndsBase {
       type: "exactly",
       date: this.date,
     };
+  }
+
+  getDisplayString(options: DisplayStringOptions): string {
+    return formatDate(this.date, options.now);
+  }
+
+  getLatestInterpretableDate(): Date | null {
+    return this.date;
   }
 }

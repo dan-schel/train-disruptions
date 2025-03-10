@@ -10,9 +10,9 @@ export class StationClosureDisruptionWriteupAuthor extends DisruptionWriteupAuth
     super();
   }
 
-  write(disruption: Disruption): DisruptionWriteup {
+  write(disruption: Disruption, now: Date): DisruptionWriteup {
     const stationName = stations.require(this._data.stationId).name;
-    const periodString = disruption.period.toDisplayString();
+    const periodString = disruption.period.getDisplayString({ now });
 
     return new DisruptionWriteup(
       `${stationName} Station is closed`,

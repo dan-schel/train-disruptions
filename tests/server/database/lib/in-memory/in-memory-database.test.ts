@@ -7,7 +7,6 @@ import {
   PIANO_4,
   SYNTH_2,
 } from "../test-model";
-import { date } from "../../../../utils";
 
 describe("InMemoryDatabase", () => {
   it("should get items by ID", async () => {
@@ -24,7 +23,7 @@ describe("InMemoryDatabase", () => {
     ]);
 
     expect(
-      await db.find({ where: { built: { gt: date("2011-01-01") } } }),
+      await db.find({ where: { built: { gt: new Date("2011-01-01") } } }),
     ).toStrictEqual([SYNTH_2, PIANO_4]);
   });
 
@@ -36,7 +35,7 @@ describe("InMemoryDatabase", () => {
 
   it("should create items", async () => {
     const db = getDatabase().of(MUSICAL_INSTRUMENTS);
-    const item = new MusicalInstrument(4, "ukelele", date("2019-05-12"), {
+    const item = new MusicalInstrument(4, "ukelele", new Date("2019-05-12"), {
       highest: "A5",
       lowest: "G3",
     });
@@ -47,7 +46,7 @@ describe("InMemoryDatabase", () => {
 
   it("should update items", async () => {
     const db = getDatabase().of(MUSICAL_INSTRUMENTS);
-    const updated = new MusicalInstrument(1, "piano", date("1999-02-03"), {
+    const updated = new MusicalInstrument(1, "piano", new Date("1999-02-03"), {
       highest: "C7",
       lowest: "A1",
     });

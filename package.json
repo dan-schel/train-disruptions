@@ -1,11 +1,11 @@
 {
   "scripts": {
-    "dev": "tsx ./main.ts",
+    "dev": "cross-env TZ=\"Etc/UTC\" tsx ./main.ts",
     "build": "vite build",
-    "start": "cross-env NODE_ENV=production tsx ./main.ts",
+    "start": "cross-env NODE_ENV=production TZ=\"Etc/UTC\" tsx ./main.ts",
     "lint": "eslint . --max-warnings 0 && tsc --noEmit -p tsconfig.json",
-    "test": "vitest --run",
-    "test-coverage": "vitest --run --coverage",
+    "test": "cross-env TZ=\"Etc/UTC\" vitest --run",
+    "test-coverage": "cross-env TZ=\"Etc/UTC\" vitest --run --coverage",
     "format": "prettier --write .",
     "format-check": "prettier --check ."
   },

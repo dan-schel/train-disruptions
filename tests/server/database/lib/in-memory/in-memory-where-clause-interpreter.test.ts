@@ -3,12 +3,11 @@ import { WhereClause } from "../../../../../server/database/lib/general/where-cl
 import { DatabaseModel } from "../../../../../server/database/lib/general/database-model";
 import { InMemoryWhereClauseInterpreter } from "../../../../../server/database/lib/in-memory/in-memory-where-clause-interpreter";
 import { InMemoryDatabaseItem } from "../../../../../server/database/lib/in-memory/in-memory-database-collection";
-import { date } from "../../../../utils";
 
 const obj = {
   id: 1,
   str: "value",
-  date: date("2024-12-31T20:34:12Z"),
+  date: new Date("2024-12-31T20:34:12Z"),
   bool: false,
   null: null,
   array: ["a", "b", "c"],
@@ -30,8 +29,12 @@ describe("InMemoryWhereClauseInterpreter", () => {
       expect(matches(obj, { str: "value" })).toBe(true);
       expect(matches(obj, { str: "asdf" })).toBe(false);
 
-      expect(matches(obj, { date: date("2024-12-31T20:34:12Z") })).toBe(true);
-      expect(matches(obj, { date: date("2023-08-12T12:01:34Z") })).toBe(false);
+      expect(matches(obj, { date: new Date("2024-12-31T20:34:12Z") })).toBe(
+        true,
+      );
+      expect(matches(obj, { date: new Date("2023-08-12T12:01:34Z") })).toBe(
+        false,
+      );
 
       expect(matches(obj, { bool: false })).toBe(true);
       expect(matches(obj, { bool: true })).toBe(false);
@@ -59,16 +62,16 @@ describe("InMemoryWhereClauseInterpreter", () => {
       expect(matches(obj, { id: { gt: 0 } })).toBe(true);
 
       expect(
-        matches(obj, { date: { gte: date("2024-12-31T20:34:12Z") } }),
+        matches(obj, { date: { gte: new Date("2024-12-31T20:34:12Z") } }),
       ).toBe(true);
-      expect(matches(obj, { date: { lt: date("2024-12-31T20:34:12Z") } })).toBe(
-        false,
-      );
-      expect(matches(obj, { date: { gt: date("2024-12-30T20:34:12Z") } })).toBe(
-        true,
-      );
       expect(
-        matches(obj, { date: { gte: date("2025-01-01T00:00:00Z") } }),
+        matches(obj, { date: { lt: new Date("2024-12-31T20:34:12Z") } }),
+      ).toBe(false);
+      expect(
+        matches(obj, { date: { gt: new Date("2024-12-30T20:34:12Z") } }),
+      ).toBe(true);
+      expect(
+        matches(obj, { date: { gte: new Date("2025-01-01T00:00:00Z") } }),
       ).toBe(false);
     });
 
@@ -80,10 +83,10 @@ describe("InMemoryWhereClauseInterpreter", () => {
       expect(matches(obj, { str: { not: "asdf" } })).toBe(true);
 
       expect(
-        matches(obj, { date: { not: date("2024-12-31T20:34:12Z") } }),
+        matches(obj, { date: { not: new Date("2024-12-31T20:34:12Z") } }),
       ).toBe(false);
       expect(
-        matches(obj, { date: { not: date("2023-08-12T12:01:34Z") } }),
+        matches(obj, { date: { not: new Date("2023-08-12T12:01:34Z") } }),
       ).toBe(true);
 
       expect(matches(obj, { bool: { not: false } })).toBe(false);
@@ -93,7 +96,7 @@ describe("InMemoryWhereClauseInterpreter", () => {
       expect(matches(obj, { bool: { not: "value" } })).toBe(true);
       expect(matches(obj, { date: { not: false } })).toBe(true);
       expect(
-        matches(obj, { bool: { not: date("2024-12-31T20:34:12Z") } }),
+        matches(obj, { bool: { not: new Date("2024-12-31T20:34:12Z") } }),
       ).toBe(true);
       expect(matches(obj, { id: { not: "1" } })).toBe(true);
     });
@@ -101,7 +104,9 @@ describe("InMemoryWhereClauseInterpreter", () => {
     it("handles null checking", () => {
       expect(matches(obj, { null: null })).toBe(true);
       expect(matches(obj, { date: null })).toBe(false);
-      expect(matches(obj, { null: date("2024-12-31T20:34:12Z") })).toBe(false);
+      expect(matches(obj, { null: new Date("2024-12-31T20:34:12Z") })).toBe(
+        false,
+      );
     });
 
     it("handles no filter", () => {

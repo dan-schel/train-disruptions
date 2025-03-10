@@ -9,7 +9,7 @@ export class CustomDisruptionWriteupAuthor extends DisruptionWriteupAuthor {
     super();
   }
 
-  write(_disruption: Disruption): DisruptionWriteup {
+  write(_disruption: Disruption, _now: Date): DisruptionWriteup {
     return this._data.writeup;
   }
 }
