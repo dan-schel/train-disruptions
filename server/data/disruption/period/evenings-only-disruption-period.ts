@@ -14,7 +14,8 @@ import {
 } from "./utils/utils";
 import { TimeRange } from "./utils/time-range";
 import { JustDate } from "./utils/just-date";
-import { addHours, isSameDay } from "date-fns";
+import { addHours, isSameDay, setHours, startOfHour } from "date-fns";
+import { hour24To12 } from "@dan-schel/js-utils";
 
 /** Disruption is active every evening from the start date to the end date. */
 export class EveningsOnlyDisruptionPeriod extends DisruptionPeriodBase {
@@ -64,33 +65,33 @@ export class EveningsOnlyDisruptionPeriod extends DisruptionPeriodBase {
   }
 
   getDisplayString(options: DisplayStringOptions): string {
+    // TODO: This is bit awkward because the start/end dates can include times.
+    // Should we change EveningsOnlyDisruptionPeriods to only take JustDates in
+    // the future? Maybe if we split the concept of EveningsOnlyDisruptionPeriod
+    // with the "repeating at a certain time of day each day" type, we can make
+    // EveningsOnlyDisruptionPeriods more specialized (only take JustDates).
+
+    const { hour, half } = hour24To12(this.startHourEachDay);
+    const hourStr = `${hour}${half} to last service each night`;
+
     const endStr = this.end.getDisplayString({ now: options.now });
 
     if (this.start != null) {
       const startStr = formatDate(this.start, options.now);
-      return `${startStr} until ${endStr}`;
+      return `${hourStr}, starting ${startStr} until ${endStr}`;
     } else {
-      return `until ${endStr}`;
+      return `${hourStr} until ${endStr}`;
     }
   }
 
   getCalendarMark(date: JustDate): CalendarMark {
-    // TODO: If this.startHourEachDay is 21, and _rawTimeRange() goes until 8pm
-    // for whatever reason, this probably doesn't work. We probably need to
-    // switch to use getFullyEncompassingTimeRange() instead of _rawTimeRange()
-    // to fix. (Be sure to write a test for this case!)
-    //
-    // It might possibly also work to use this.startHourEachDay instead of the
-    // eveningStarts const? Not sure why I think that though, but it doesn't
-    // make intuitive sense. Probably too confusing even if it does work!
-
     const local12am = date.toDate();
     const startOfEvening = localToUtcTime(addHours(local12am, eveningStarts));
     const startOfTomorrow = localToUtcTime(addHours(local12am, dayStarts + 24));
 
-    const rawDisruptionPeriod = this._getRawTimeRange();
+    const fullDisruptionPeriod = this.getFullyEncompassingTimeRange();
     const evening = new TimeRange(startOfEvening, startOfTomorrow);
-    const impacted = rawDisruptionPeriod.intersects(evening);
+    const impacted = fullDisruptionPeriod.intersects(evening);
 
     return impacted ? "evening-only" : "no-disruption";
   }
@@ -111,7 +112,7 @@ export class EveningsOnlyDisruptionPeriod extends DisruptionPeriodBase {
     if (
       isSameDay(localStart, localEnd) &&
       localStart.getHours() >= dayStarts &&
-      localEnd.getHours() < this.startHourEachDay
+      localEnd <= setHours(startOfHour(localEnd), this.startHourEachDay)
     ) {
       return false;
     }
@@ -152,7 +153,9 @@ export class EveningsOnlyDisruptionPeriod extends DisruptionPeriodBase {
     if (localHour < dayStarts || localHour >= this.startHourEachDay) {
       return this.start;
     } else {
-      return addHours(this.start, this.startHourEachDay - localHour);
+      const localTime = utcToLocalTime(this.start);
+      const adjusted = setHours(startOfHour(localTime), this.startHourEachDay);
+      return localToUtcTime(adjusted);
     }
   }
 
@@ -173,7 +176,9 @@ export class EveningsOnlyDisruptionPeriod extends DisruptionPeriodBase {
     if (localHour < dayStarts || localHour >= this.startHourEachDay) {
       return end;
     } else {
-      return addHours(end, dayStarts - localHour);
+      const localTime = utcToLocalTime(end);
+      const adjusted = setHours(startOfHour(localTime), dayStarts);
+      return localToUtcTime(adjusted);
     }
   }
 
