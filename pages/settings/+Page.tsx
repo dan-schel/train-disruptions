@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { useData } from "vike-react/useData";
 import { Data } from "./+data";
@@ -12,9 +12,21 @@ import { SettingsDisruptions } from "./SettingsDisruptions";
 import { SettingsTheme } from "./SettingsTheme";
 import { ResetCommuteButton } from "./ResetCommuteButton";
 import { ResetCookiesButton } from "./ResetCookiesButton";
+import { Settings } from "../../shared/settings";
+import { useSettings } from "../../hooks/useSettings";
 
 export default function Page() {
-  const { commute, hiddenCategories } = useData<Data>();
+  const data = useData<Data>();
+
+  const [settings, setSettings] = React.useState(
+    Settings.json.parse(data.settings),
+  );
+
+  const { setSettings: setCookie } = useSettings();
+
+  useEffect(() => {
+    setCookie(settings);
+  }, [settings, setCookie]);
 
   return (
     <PageCenterer>
@@ -23,8 +35,10 @@ export default function Page() {
           <Text style="title">Settings</Text>
           <Spacer h="4" />
 
-          <SettingsHome data={commute} />
-          <SettingsDisruptions data={hiddenCategories} />
+          {JSON.stringify(settings.toJSON())}
+
+          <SettingsHome settings={settings} setSettings={setSettings} />
+          <SettingsDisruptions settings={settings} setSettings={setSettings} />
           <SettingsTheme />
 
           <ResetCommuteButton />

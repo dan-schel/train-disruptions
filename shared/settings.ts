@@ -93,6 +93,18 @@ export class Settings {
       hiddenCategories ?? this.hiddenCategories,
     );
   }
+
+  withHiddenCategory(category: FilterableDisruptionCategory): Settings {
+    return this.with({
+      hiddenCategories: [...this.hiddenCategories, category],
+    });
+  }
+
+  withoutHiddenCategory(category: FilterableDisruptionCategory): Settings {
+    return this.with({
+      hiddenCategories: this.hiddenCategories.filter((x) => x !== category),
+    });
+  }
 }
 
 function filterNonEnumValues<T extends string>(

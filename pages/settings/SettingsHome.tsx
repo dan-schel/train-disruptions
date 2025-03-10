@@ -4,15 +4,14 @@ import { Column } from "../../components/core/Column";
 import { Row } from "../../components/core/Row";
 import { Text } from "../../components/core/Text";
 import { Spacer } from "../../components/core/Spacer";
-import { CommuteData } from "./+data";
+import { Settings } from "../../shared/settings";
 
 export type HomepageProps = {
-  data: CommuteData;
+  settings: Settings;
+  setSettings: (settings: Settings) => void;
 };
 
 export function SettingsHome(props: HomepageProps) {
-  const commuteSettings = props.data;
-
   return (
     <Column>
       <Text style="custom" className="text-lg font-bold">
@@ -21,7 +20,7 @@ export function SettingsHome(props: HomepageProps) {
       <Spacer h="2" />
 
       <Column>
-        {commuteSettings === null ? (
+        {props.settings.commute === null ? (
           // No data, default to Overview
           <>
             <Row className="gap-2">

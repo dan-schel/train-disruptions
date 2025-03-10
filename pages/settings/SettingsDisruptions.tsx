@@ -5,10 +5,11 @@ import { Column } from "../../components/core/Column";
 import { Row } from "../../components/core/Row";
 import { Text } from "../../components/core/Text";
 import { Spacer } from "../../components/core/Spacer";
-import { HiddenCategoriesData } from "./+data";
+import { FilterableDisruptionCategory, Settings } from "../../shared/settings";
 
 export type DisruptionSettingsProps = {
-  data: HiddenCategoriesData;
+  settings: Settings;
+  setSettings: (settings: Settings) => void;
 };
 
 export function SettingsDisruptions(props: DisruptionSettingsProps) {
@@ -16,6 +17,14 @@ export function SettingsDisruptions(props: DisruptionSettingsProps) {
   // disruptionSettings = props.data;
   // console.log("props.data: " + props.data);
   // console.log("props.data.hiddenCatagories: " + props.data.hiddenCategories);
+
+  function toggleHiddenCategory(category: FilterableDisruptionCategory) {
+    if (props.settings.hiddenCategories.includes(category)) {
+      props.setSettings(props.settings.withoutHiddenCategory(category));
+    } else {
+      props.setSettings(props.settings.withHiddenCategory(category));
+    }
+  }
 
   return (
     <Column>
@@ -44,7 +53,7 @@ export function SettingsDisruptions(props: DisruptionSettingsProps) {
 
         <Row>
           <label htmlFor="station-check"> Station Closure </label>
-          {props.data.includes("station-closure") ? (
+          {props.settings.hiddenCategories.includes("station-closure") ? (
             <>
               <input
                 type="checkbox"
@@ -68,7 +77,7 @@ export function SettingsDisruptions(props: DisruptionSettingsProps) {
 
         <Row>
           <label htmlFor="cancel-check"> Cancellations </label>
-          {props.data.includes("cancellations") ? (
+          {props.settings.hiddenCategories.includes("cancellations") ? (
             <>
               <input
                 type="checkbox"
@@ -92,7 +101,7 @@ export function SettingsDisruptions(props: DisruptionSettingsProps) {
 
         <Row>
           <label htmlFor="delay-check"> Delays </label>
-          {props.data.includes("delays") ? (
+          {props.settings.hiddenCategories.includes("delays") ? (
             <>
               <input
                 type="checkbox"
@@ -100,6 +109,7 @@ export function SettingsDisruptions(props: DisruptionSettingsProps) {
                 value="delays"
                 name="delays"
                 defaultChecked
+                onChange={() => toggleHiddenCategory("delays")}
               />
             </>
           ) : (
@@ -109,6 +119,7 @@ export function SettingsDisruptions(props: DisruptionSettingsProps) {
                 id="delay-check"
                 value="delays"
                 name="delays"
+                onChange={() => toggleHiddenCategory("delays")}
               />
             </>
           )}
@@ -116,7 +127,7 @@ export function SettingsDisruptions(props: DisruptionSettingsProps) {
 
         <Row>
           <label htmlFor="parking-check"> Car Park Closures </label>
-          {props.data.includes("car-park-closures") ? (
+          {props.settings.hiddenCategories.includes("car-park-closures") ? (
             <>
               <input
                 type="checkbox"
@@ -146,7 +157,7 @@ export function SettingsDisruptions(props: DisruptionSettingsProps) {
               Lift outages, stair only, etc.{" "}
             </Text>
           </Column>
-          {props.data.includes("accessibility") ? (
+          {props.settings.hiddenCategories.includes("accessibility") ? (
             <>
               <input
                 type="checkbox"
