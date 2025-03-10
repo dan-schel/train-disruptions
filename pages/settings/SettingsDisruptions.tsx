@@ -1,8 +1,6 @@
 import React from "react";
 
-// import { useState } from "react";
 import { Column } from "../../components/core/Column";
-import { Row } from "../../components/core/Row";
 import { Text } from "../../components/core/Text";
 import { Spacer } from "../../components/core/Spacer";
 import {
@@ -66,43 +64,62 @@ export function SettingsDisruptions({
 
       <Column className="gap-2">
         {allCategories.map((category) => (
-          <Row key={category}>
-            <label className="flex cursor-pointer items-center gap-2">
-              <input
-                type="checkbox"
-                value={category}
-                autoComplete="off"
-                className="peer sr-only"
-                checked={
-                  (settings.hiddenCategories as string[]).includes(category) ||
-                  formattedCategories[category].disabled === true
-                }
-                disabled={formattedCategories[category].disabled}
-                onChange={
-                  category !== "essential"
-                    ? () => toggleHiddenCategory(category)
-                    : undefined
-                }
-              />
-              {formattedCategories[category].disabled === true ? (
-                <>
-                  <div className="peer relative h-5 w-9 rounded-full bg-gray-200 opacity-50 transition-all duration-500 ease-in-out peer-checked:bg-blue-600 peer-focus:ring-transparent peer-focus:outline-0 after:absolute after:top-[2px] after:left-[2px] after:h-4 after:w-4 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-white" />
-                </>
-              ) : (
-                <>
-                  <div className="peer relative h-5 w-9 rounded-full bg-gray-900 transition-all duration-500 ease-in-out peer-checked:bg-blue-600 peer-focus:ring-transparent peer-focus:outline-0 after:absolute after:top-[2px] after:left-[2px] after:h-4 after:w-4 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-white hover:bg-blue-400 hover:peer-checked:bg-blue-500" />
-                </>
+          // <label className="flex cursor-pointer items-center gap-2">
+          <label
+            key={category}
+            // className="flex cursor-pointer items-center gap-2 hover:bg-gray-200" // left side
+            className="flex cursor-pointer items-center justify-between hover:bg-gray-200" // right side
+          >
+            <input
+              type="checkbox"
+              value={category}
+              autoComplete="off"
+              className="peer sr-only"
+              checked={
+                (settings.hiddenCategories as string[]).includes(category) ||
+                formattedCategories[category].disabled === true
+              }
+              disabled={formattedCategories[category].disabled}
+              onChange={
+                category !== "essential"
+                  ? () => toggleHiddenCategory(category)
+                  : undefined
+              }
+            />
+            {/* left side 
+            flex cursor-pointer items-center gap-2 hover:bg-gray-200
+            */}
+            {/* {formattedCategories[category].disabled === true ? (
+              <>
+                <div className="peer relative h-5 w-9 rounded-full bg-gray-200 opacity-50 transition-all duration-500 ease-in-out peer-checked:bg-blue-600 peer-focus:ring-transparent peer-focus:outline-0 after:absolute after:top-[2px] after:left-[2px] after:h-4 after:w-4 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-white" />
+              </>
+            ) : (
+              <>
+                <div className="peer relative h-5 w-9 rounded-full bg-gray-900 transition-all duration-500 ease-in-out peer-checked:bg-blue-600 peer-focus:ring-transparent peer-focus:outline-0 after:absolute after:top-[2px] after:left-[2px] after:h-4 after:w-4 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-white hover:bg-blue-400 hover:peer-checked:bg-blue-500" />
+              </>
+            )} */}
+            <Column>
+              {formattedCategories[category].name}
+              {formattedCategories[category].description && (
+                <Text style="custom" className="text-sm">
+                  {formattedCategories[category].description}
+                </Text>
               )}
-              <Column>
-                {formattedCategories[category].name}
-                {formattedCategories[category].description && (
-                  <Text style="custom" className="text-sm">
-                    {formattedCategories[category].description}
-                  </Text>
-                )}
-              </Column>
-            </label>
-          </Row>
+            </Column>
+            {/* right side 
+            flex cursor-pointer items-center justify-between hover:bg-gray-200
+            */}
+            {formattedCategories[category].disabled === true ? (
+              <>
+                <div className="peer relative h-5 w-9 rounded-full bg-gray-200 opacity-50 transition-all duration-500 ease-in-out peer-checked:bg-blue-600 peer-focus:ring-transparent peer-focus:outline-0 after:absolute after:top-[2px] after:left-[2px] after:h-4 after:w-4 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-white" />
+              </>
+            ) : (
+              <>
+                <div className="peer relative h-5 w-9 rounded-full bg-gray-900 transition-all duration-500 ease-in-out peer-checked:bg-blue-600 peer-focus:ring-transparent peer-focus:outline-0 after:absolute after:top-[2px] after:left-[2px] after:h-4 after:w-4 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-white hover:bg-blue-400 hover:peer-checked:bg-blue-500" />
+              </>
+            )}
+          </label>
+          // </label>
         ))}
       </Column>
     </Column>
