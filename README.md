@@ -48,3 +48,4 @@ Requires [NodeJS](https://nodejs.org/en) and [MongoDB](https://www.mongodb.com/)
 
 - [Querying the database](/docs/database/querying-the-database.md)
 - [Creating a new database model](/docs/database/creating-a-new-database-model.md)
+- [Writing database migrations](/docs/database/writing-database-migrations.md)

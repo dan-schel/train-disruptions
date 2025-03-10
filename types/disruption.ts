@@ -34,7 +34,7 @@ export const disruptionSchema = z.object({
   to_date: z.string().datetime().nullable(),
   routes: routeSchema.array(),
   stops: stopSchema.array(),
-  colour: z.string(),
+  colour: z.string().nullable(),
   display_on_board: z.boolean(),
   display_status: z.boolean(),
 });

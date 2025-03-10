@@ -18,7 +18,11 @@ export type LinkProps = {
 export function Link(props: LinkProps) {
   if (props.href != null) {
     return (
-      <a className="inline text-blue-700 underline" href={props.href}>
+      <a
+        className="inline text-blue-700 underline"
+        href={props.href}
+        target={props.target}
+      >
         {props.children}
       </a>
     );

@@ -66,7 +66,7 @@ export class MongoRepository<
   }
 
   async update(item: DataOf<Model>): Promise<void> {
-    await this._collection.updateOne(
+    await this._collection.replaceOne(
       { _id: this._model.getId(item) },
       this._serialize(item),
     );
