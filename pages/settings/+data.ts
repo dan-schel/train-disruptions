@@ -6,12 +6,19 @@ export { data };
 
 export type Data = {
   settings: z.input<typeof Settings.json>;
+  stations: {
+    id: number;
+    name: string;
+  }[];
 };
 
 function data(pageContext: PageContext): Data {
-  const { settings } = pageContext.custom;
+  const { app, settings } = pageContext.custom;
 
   return {
     settings: settings.toJSON(),
+    stations: app.stations
+      .all()
+      .map((station) => ({ id: station.id, name: station.name })),
   };
 }

@@ -6,12 +6,11 @@ import { Text } from "../../components/core/Text";
 import { Column } from "../../components/core/Column";
 import { PageCenterer } from "../../components/common/PageCenterer";
 import { PagePadding } from "../../components/common/PagePadding";
-import { Spacer } from "../../components/core/Spacer";
 import { SettingsHome } from "./SettingsHome";
 import { SettingsDisruptions } from "./SettingsDisruptions";
 import { SettingsTheme } from "./SettingsTheme";
-import { ResetCommuteButton } from "./ResetCommuteButton";
-import { ResetCookiesButton } from "./ResetCookiesButton";
+import { SettingsCommute } from "./SettingsCommute";
+import { SettingsReset } from "./SettingsReset";
 import { Settings } from "../../shared/settings";
 import { useSettings } from "../../hooks/useSettings";
 
@@ -31,9 +30,8 @@ export default function Page() {
   return (
     <PageCenterer>
       <PagePadding>
-        <Column>
+        <Column className="gap-4">
           <Text style="title">Settings</Text>
-          <Spacer h="4" />
 
           {JSON.stringify(settings.toJSON())}
 
@@ -41,9 +39,12 @@ export default function Page() {
           <SettingsDisruptions settings={settings} setSettings={setSettings} />
           <SettingsTheme />
 
-          <ResetCommuteButton />
-          <Spacer h="4" />
-          <ResetCookiesButton />
+          <SettingsCommute
+            settings={settings}
+            setSettings={setSettings}
+            stations={data.stations}
+          />
+          <SettingsReset settings={settings} setSettings={setSettings} />
         </Column>
       </PagePadding>
     </PageCenterer>

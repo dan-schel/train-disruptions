@@ -70,7 +70,6 @@ export function SettingsHome(props: HomepageProps) {
           </>
         )}
       </Column>
-      <Spacer h="4" />
     </Column>
   );
 }

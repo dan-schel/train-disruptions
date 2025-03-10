@@ -9,7 +9,7 @@ export function SettingsTheme() {
   return (
     <Column>
       <Text style="custom" className="text-lg font-bold">
-        Colour Theme
+        Colour theme
       </Text>
       <Spacer h="2" />
       <Column>
@@ -28,7 +28,6 @@ export function SettingsTheme() {
           <label htmlFor="theme-3"> Dark </label>
         </Row>
       </Column>
-      <Spacer h="4" />
     </Column>
   );
 }
