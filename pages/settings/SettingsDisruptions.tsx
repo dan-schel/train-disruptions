@@ -23,12 +23,12 @@ const formattedCategories: Record<
   { name: string; description?: string; disabled?: boolean }
 > = {
   essential: {
-    name: "Station closure",
+    name: "Essential disruptions",
     description: "Buses replace trains, line closures",
     disabled: true,
   },
-  "station-closure": {
-    name: "Station closure",
+  "station-closures": {
+    name: "Station closures",
   },
   cancellations: {
     name: "Cancellations",
@@ -41,7 +41,7 @@ const formattedCategories: Record<
   },
   accessibility: {
     name: "Accessibility",
-    description: "Lift outages, stair only, etc.",
+    description: "Lift outages, stair-only access, etc.",
   },
 };
 
