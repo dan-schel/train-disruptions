@@ -28,6 +28,19 @@
   --color-status-delays: oklch(77.48% 0.1544 78.87); /* #EAA81F */
   --color-status-buses: oklch(61.76% 0.2511 28.06); /* #F90514 */
 
+  /* Dark mode colours */
+  --color-dark-surface: oklch(18.23% 0 0); /* #121212 */
+  --color-dark-surface-secondary: oklch(25% 0 0); /* #222222 */
+  --color-dark-typography: var(--color-white);
+  --color-dark-action: oklch(27.68% 0 0); /* #282828 */
+  --color-dark-action-secondary: oklch(33.78% 0.0223 256.39); /* #303843 */
+  --color-dark-active: oklch(60.81% 0.2097 267.74); /* #4D74FE */
+  --color-dark-link: oklch(66.18% 0.1648 267.74); /* #678BF7 */
+
+  --color-dark-calendar-date: var(--color-black);
+  --color-dark-calendar-today: var(--color-black);
+  --color-dark-calendar-today-surface: var(--color-white);
+
   --leading-*: initial;
   --leading-none: 0em;
   --leading-tight: 0.25em;
@@ -38,32 +51,34 @@
 }
 
 @layer theme {
+  /* When user sets theme to dark */
   .dark {
-    --color-surface: oklch(18.23% 0 0);
-    --color-surface-secondary: oklch(25% 0 0);
-    --color-typography: oklch(100% 0 0);
-    --color-action: oklch(27.68% 0 0);
-    --color-action-secondary: oklch(33.78% 0.0223 256.39);
-    --color-active: oklch(60.81% 0.2097 267.74);
-    --color-link: oklch(66.18% 0.1648 267.74);
+    --color-surface: var(--color-dark-surface);
+    --color-surface-secondary: var(--color-dark-surface-secondary);
+    --color-typography: var(--color-dark-typography);
+    --color-action: var(--color-dark-action);
+    --color-action-secondary: var(--color-dark-action-secondary);
+    --color-active: var(--color-dark-active);
+    --color-link: var(--color-dark-link);
 
-    --color-calendar-date: var(--color-black);
-    --color-calendar-today: var(--color-black);
-    --color-calendar-today-surface: var(--color-white);
+    --color-calendar-date: var(--color-dark-calendar-date);
+    --color-calendar-today: var(--color-dark-calendar-today);
+    --color-calendar-today-surface: var(--color-dark-calendar-today-surface);
   }
+  /* When user sets theme to auto and OS theme is dark */
   @media (prefers-color-scheme: dark) {
     .system {
-      --color-surface: oklch(18.23% 0 0);
-      --color-surface-secondary: oklch(25% 0 0);
-      --color-typography: oklch(100% 0 0);
-      --color-action: oklch(27.68% 0 0);
-      --color-action-secondary: oklch(33.78% 0.0223 256.39);
-      --color-active: oklch(60.81% 0.2097 267.74);
-      --color-link: oklch(66.18% 0.1648 267.74);
+      --color-surface: var(--color-dark-surface);
+      --color-surface-secondary: var(--color-dark-surface-secondary);
+      --color-typography: var(--color-dark-typography);
+      --color-action: var(--color-dark-action);
+      --color-action-secondary: var(--color-dark-action-secondary);
+      --color-active: var(--color-dark-active);
+      --color-link: var(--color-dark-link);
 
-      --color-calendar-date: var(--color-black);
-      --color-calendar-today: var(--color-black);
-      --color-calendar-today-surface: var(--color-white);
+      --color-calendar-date: var(--color-dark-calendar-date);
+      --color-calendar-today: var(--color-dark-calendar-today);
+      --color-calendar-today-surface: var(--color-dark-calendar-today-surface);
     }
   }
 }
