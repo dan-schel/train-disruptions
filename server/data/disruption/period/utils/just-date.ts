@@ -1,5 +1,5 @@
+import { addDays, differenceInDays } from "date-fns";
 import { z } from "zod";
-import { date } from "./utils";
 
 export class JustDate {
   constructor(
@@ -32,7 +32,28 @@ export class JustDate {
     );
   }
 
+  add(days: number): JustDate {
+    return JustDate.extractFromDate(addDays(this.toDate(), days));
+  }
+
+  /**
+   * Return the number of days from the given date to this date. Will be
+   * negative if the given date occurs after this one. (i.e. it calculates
+   * `this - other`).
+   */
+  diff(other: JustDate): number {
+    return differenceInDays(this.toDate(), other.toDate());
+  }
+
   toDate(): Date {
-    return date(this.year, this.month, this.day);
+    return new Date(this.year, this.month - 1, this.day);
+  }
+
+  static extractFromDate(date: Date): JustDate {
+    return new JustDate(
+      date.getFullYear(),
+      date.getMonth() + 1,
+      date.getDate(),
+    );
   }
 }

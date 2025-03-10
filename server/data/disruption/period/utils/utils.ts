@@ -19,10 +19,6 @@ export function formatDate(
   return format(localDate, `${timeFormatCode}E do MMM${yearFormatCode}`);
 }
 
-export function date(year: number, month: number, day: number): Date {
-  return new Date(year, month - 1, day);
-}
-
 export function utcToLocalTime(date: Date) {
   return toZonedTime(date, localTimezone);
 }

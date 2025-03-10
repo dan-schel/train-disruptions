@@ -30,7 +30,9 @@ export class EndsAfterLastService extends EndsBase {
   }
 
   getLatestInterpretableDate(): Date | null {
-    const midnightInUtc = localToUtcTime(this.date.toDate());
-    return addHours(midnightInUtc, 24 + dayStarts);
+    // Do calculations in local time to handle DST correctly.
+    const local = addHours(this.date.toDate(), 24 + dayStarts);
+
+    return localToUtcTime(local);
   }
 }
