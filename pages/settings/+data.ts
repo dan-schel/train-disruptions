@@ -1,6 +1,7 @@
 import { PageContext } from "vike/types";
 import { z } from "zod";
 import { Settings } from "../../shared/settings";
+import { JsonSerializable } from "../../shared/json-serializable";
 
 export { data };
 
@@ -12,7 +13,7 @@ export type Data = {
   }[];
 };
 
-function data(pageContext: PageContext): Data {
+function data(pageContext: PageContext): Data & JsonSerializable {
   const { app, settings } = pageContext.custom;
 
   return {
