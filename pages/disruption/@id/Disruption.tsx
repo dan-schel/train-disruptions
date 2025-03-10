@@ -28,7 +28,7 @@ export function Disruption(
 
       {/* TODO: For the future, use `type` from props to determine how we display the disruptions on the map, 
         e.g. station closures should show the location of the station, buses should show sections greyed out where affected - TBD */}
-      <With className="rounded-md border border-slate-200">
+      <With className="border-action-secondary bg-surface-secondary rounded-md border">
         <Map />
       </With>
     </Column>

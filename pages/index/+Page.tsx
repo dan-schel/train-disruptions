@@ -31,20 +31,20 @@ export default function Page() {
           <Row align="center" className="max-w-md gap-1.5" wrap>
             <Row align="center" className="flex-grow gap-1.5">
               <Text>Show</Text>
-              <select className="flex-grow rounded border border-black">
+              <select className="dark:bg-surface-secondary flex-grow rounded border border-black">
                 <option value={"all"}>all disruptions</option>
               </select>
             </Row>
             <Row align="center" className="flex-grow gap-1.5">
               <Text>occurring</Text>
-              <select className="flex-grow rounded border border-black">
+              <select className="dark:bg-surface-secondary flex-grow rounded border border-black">
                 <option value={"now"}>right now</option>
               </select>
             </Row>
           </Row>
           <Spacer h="4" />
 
-          <With className="rounded-md border border-slate-200">
+          <With className="bg-surface-secondary border-action-secondary rounded-md border">
             <Map />
           </With>
           <Spacer h="4" />
@@ -55,6 +55,7 @@ export default function Page() {
           <Lines title="Suburban lines" lines={suburban} />
           <Spacer h="4" />
           <Lines title="Regional lines" lines={regional} />
+
         </Column>
       </PagePadding>
     </PageCenterer>

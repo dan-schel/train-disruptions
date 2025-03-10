@@ -11,9 +11,17 @@
 
   --breakpoint-xs: 21.875rem;
 
-  --color-calendar-date-text: var(--color-white);
-  --color-calendar-today-text: var(--color-white);
-  --color-calendar-today-background: var(--color-black);
+  --color-surface: var(--color-white);
+  --color-surface-secondary: var(--color-white);
+  --color-typography: var(--color-black);
+  --color-action: var(--color-slate-100);
+  --color-action-secondary: var(--color-slate-200);
+  --color-active: var(--color-blue-800);
+  --color-link: var(--color-blue-700);
+
+  --color-calendar-date: var(--color-white);
+  --color-calendar-today: var(--color-white);
+  --color-calendar-today-surface: var(--color-black);
 
   --color-disruption: oklch(65% 0.23 35); /* #FC4000 */
   --color-status-clear: oklch(76.47% 0.2289 146.12); /* #14D64B */
@@ -31,16 +39,48 @@
 
 @layer theme {
   .dark {
-    --color-calendar-date-text: var(--color-black);
-    --color-calendar-today-text: var(--color-black);
-    --color-calendar-today-background: var(--color-white);
+    --color-surface: oklch(18.23% 0 0);
+    --color-surface-secondary: oklch(25% 0 0);
+    --color-typography: oklch(100% 0 0);
+    --color-action: oklch(27.68% 0 0);
+    --color-action-secondary: oklch(33.78% 0.0223 256.39);
+    --color-active: oklch(60.81% 0.2097 267.74);
+    --color-link: oklch(66.18% 0.1648 267.74);
+
+    --color-calendar-date: var(--color-black);
+    --color-calendar-today: var(--color-black);
+    --color-calendar-today-surface: var(--color-white);
   }
   @media (prefers-color-scheme: dark) {
     .system {
-      --color-calendar-date-text: var(--color-black);
-      --color-calendar-today-text: var(--color-black);
-      --color-calendar-today-background: var(--color-white);
+      --color-surface: oklch(18.23% 0 0);
+      --color-surface-secondary: oklch(25% 0 0);
+      --color-typography: oklch(100% 0 0);
+      --color-action: oklch(27.68% 0 0);
+      --color-action-secondary: oklch(33.78% 0.0223 256.39);
+      --color-active: oklch(60.81% 0.2097 267.74);
+      --color-link: oklch(66.18% 0.1648 267.74);
+
+      --color-calendar-date: var(--color-black);
+      --color-calendar-today: var(--color-black);
+      --color-calendar-today-surface: var(--color-white);
     }
+  }
+}
+
+._button-default {
+  @apply bg-slate-200 group-hover:bg-slate-300 group-active:bg-slate-400;
+
+  @variant dark {
+    @apply bg-action-secondary group-hover:bg-action-secondary/75 group-active:bg-action-secondary/50;
+  }
+}
+
+._button-hover {
+  @apply group-hover:bg-slate-100 group-active:bg-slate-200;
+
+  @variant dark {
+    @apply group-hover:bg-action group-active:bg-action-secondary;
   }
 }
 

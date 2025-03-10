@@ -24,14 +24,14 @@ export const TodayIndicator = ({ date }: Props) => {
       <Grid columns="repeat(7, minmax(0, 1fr))" className="gap-1">
         <div
           className={clsx(
-            "bg-calendar-today-background relative z-10 grid py-1",
+            "bg-calendar-today-surface relative z-10 grid py-1",
             column(currentDate),
           )}
         >
           <Text
             oneLine
             style="custom"
-            className="max-xs:text-[10px] text-calendar-today-text text-xs font-medium md:text-base"
+            className="max-xs:text-[10px] text-calendar-today text-xs font-medium md:text-base"
             align="center"
           >
             TODAY
@@ -40,7 +40,7 @@ export const TodayIndicator = ({ date }: Props) => {
           {/* Triangle */}
           <div
             className={
-              "bg-calendar-today-background absolute top-2 -z-10 size-4 rotate-45 place-self-center md:size-5"
+              "bg-calendar-today-surface absolute top-2 -z-10 size-4 rotate-45 place-self-center md:size-5"
             }
           />
         </div>

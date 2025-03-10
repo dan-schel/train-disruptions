@@ -20,7 +20,7 @@ export function Delay(props: DelayProps) {
       </Column>
 
       {/* TODO: Show the sections of the track affected */}
-      <With className="rounded-md border border-slate-200">
+      <With className="border-action-secondary bg-surface-secondary rounded-md border">
         <Map />
       </With>
     </Column>
