@@ -55,7 +55,6 @@ export default function Page() {
           <Lines title="Suburban lines" lines={suburban} />
           <Spacer h="4" />
           <Lines title="Regional lines" lines={regional} />
-
         </Column>
       </PagePadding>
     </PageCenterer>
