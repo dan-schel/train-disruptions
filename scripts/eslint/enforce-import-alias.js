@@ -1,5 +1,11 @@
 import path from "path";
 
+const exceptions = [
+  // ESLint config doesn't use import aliases.
+  "/scripts/eslint/",
+  "/eslint.config.js",
+];
+
 const useImportAlias = {
   meta: {
     type: "problem",
@@ -12,6 +18,15 @@ const useImportAlias = {
   create: (context) => {
     return {
       ImportDeclaration: (node) => {
+        const repoRelativeFileName = context.filename.replace(context.cwd, "");
+        if (
+          exceptions.some((exception) =>
+            repoRelativeFileName.startsWith(exception),
+          )
+        ) {
+          return;
+        }
+
         const value = node.source.value;
         if (!value.startsWith(".")) return;
 
