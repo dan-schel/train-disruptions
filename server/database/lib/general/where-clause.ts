@@ -1,4 +1,7 @@
-import { DatabaseModel, SerializedDataOf } from "./database-model";
+import {
+  DatabaseModel,
+  SerializedDataOf,
+} from "@/server/database/lib/general/database-model";
 
 /** Can match any field (but not nested structures). */
 export type WhereClause<Model extends DatabaseModel> = {

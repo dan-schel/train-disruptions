@@ -1,12 +1,12 @@
 import clsx from "clsx";
 import React from "react";
-import { Line } from "./+data";
+import { Line } from "@/pages/index/+data";
 
-import { Row } from "../../components/core/Row";
-import { Grid } from "../../components/core/Grid";
-import { Text } from "../../components/core/Text";
-import { Button } from "../../components/core/Button";
-import { MingcuteRightLine } from "../../components/icons/MingcuteRightLine";
+import { Row } from "@/components/core/Row";
+import { Grid } from "@/components/core/Grid";
+import { Text } from "@/components/core/Text";
+import { Button } from "@/components/core/Button";
+import { MingcuteRightLine } from "@/components/icons/MingcuteRightLine";
 
 type LineButtonProps = {
   line: Line;

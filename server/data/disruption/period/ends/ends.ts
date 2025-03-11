@@ -1,9 +1,9 @@
 import { z } from "zod";
-import { EndsAfterLastService } from "./ends-after-last-service";
-import { EndsApproximately } from "./ends-approximately";
-import { EndsExactly } from "./ends-exactly";
-import { EndsNever } from "./ends-never";
-import { EndsWhenAlertEnds } from "./ends-when-alert-ends";
+import { EndsAfterLastService } from "@/server/data/disruption/period/ends/ends-after-last-service";
+import { EndsApproximately } from "@/server/data/disruption/period/ends/ends-approximately";
+import { EndsExactly } from "@/server/data/disruption/period/ends/ends-exactly";
+import { EndsNever } from "@/server/data/disruption/period/ends/ends-never";
+import { EndsWhenAlertEnds } from "@/server/data/disruption/period/ends/ends-when-alert-ends";
 
 /**
  * Defines how/when the disruption ends.

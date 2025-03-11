@@ -1,18 +1,21 @@
-import { MigrationHandler, Repository } from "../general/database";
-import { DatabaseModel } from "../general/database-model";
-import { Migrator } from "../general/migration";
+import {
+  MigrationHandler,
+  Repository,
+} from "@/server/database/lib/general/database";
+import { DatabaseModel } from "@/server/database/lib/general/database-model";
+import { Migrator } from "@/server/database/lib/general/migration";
 import {
   MigratorMapCommand,
   MigratorDeleteCommand,
   MigratorRenameCommand,
   MigratorDropCommand,
-} from "../general/migration-command-types";
+} from "@/server/database/lib/general/migration-command-types";
 import {
   InMemoryDatabaseData,
   InMemoryDatabaseItem,
-} from "./in-memory-database-collection";
-import { InMemoryRepository } from "./in-memory-repository";
-import { InMemoryWhereClauseInterpreter } from "./in-memory-where-clause-interpreter";
+} from "@/server/database/lib/in-memory/in-memory-database-collection";
+import { InMemoryRepository } from "@/server/database/lib/in-memory/in-memory-repository";
+import { InMemoryWhereClauseInterpreter } from "@/server/database/lib/in-memory/in-memory-where-clause-interpreter";
 
 export class InMemoryMigrationHandler extends MigrationHandler {
   constructor(private readonly _data: InMemoryDatabaseData) {

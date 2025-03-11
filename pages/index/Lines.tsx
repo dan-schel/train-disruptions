@@ -1,9 +1,9 @@
 import React from "react";
-import { Line } from "./+data";
+import { Line } from "@/pages/index/+data";
 
-import { LineButton } from "./LineButton";
-import { Text } from "../../components/core/Text";
-import { Column } from "../../components/core/Column";
+import { LineButton } from "@/pages/index/LineButton";
+import { Text } from "@/components/core/Text";
+import { Column } from "@/components/core/Column";
 
 type LinesProps = {
   title: string;

@@ -7,8 +7,8 @@
 /* eslint-disable no-console */
 import fsp, { rm } from "fs/promises";
 import path from "path";
-import example from "./example";
-import ptv from "./ptv";
+import example from "@/scripts/generate-map-geometry/example";
+import ptv from "@/scripts/generate-map-geometry/ptv";
 
 const outDir = "./components/map/geometry";
 

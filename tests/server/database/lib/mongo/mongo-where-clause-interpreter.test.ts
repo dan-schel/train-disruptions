@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { MongoWhereClauseInterpreter } from "../../../../../server/database/lib/mongo/mongo-where-clause-interpreter";
-import { DatabaseModel } from "../../../../../server/database/lib/general/database-model";
-import { WhereClause } from "../../../../../server/database/lib/general/where-clause";
+import { MongoWhereClauseInterpreter } from "@/server/database/lib/mongo/mongo-where-clause-interpreter";
+import { DatabaseModel } from "@/server/database/lib/general/database-model";
+import { WhereClause } from "@/server/database/lib/general/where-clause";
 
 const date1 = Date.parse("2024-12-28T12:00:00Z");
 const date2 = Date.parse("2024-12-28T13:00:00Z");

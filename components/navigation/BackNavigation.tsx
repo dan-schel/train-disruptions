@@ -1,9 +1,9 @@
 import React from "react";
-import { PageCenterer } from "../common/PageCenterer";
-import { SimpleButton } from "../common/SimpleButton";
-import { Row } from "../core/Row";
-import { With } from "../core/With";
-import { MingcuteLeftLine } from "../icons/MingcuteLeftLine";
+import { PageCenterer } from "@/components/common/PageCenterer";
+import { SimpleButton } from "@/components/common/SimpleButton";
+import { Row } from "@/components/core/Row";
+import { With } from "@/components/core/With";
+import { MingcuteLeftLine } from "@/components/icons/MingcuteLeftLine";
 
 export type BackNavigationProps = {
   name: string;

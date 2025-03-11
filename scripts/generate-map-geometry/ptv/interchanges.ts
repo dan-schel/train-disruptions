@@ -33,9 +33,9 @@ import {
   SUNBURY,
   SUNSHINE,
   WATERGARDENS,
-} from "../../../shared/station-ids";
+} from "@/shared/station-ids";
 
-import { InterchangeBlueprint } from "../lib/blueprint/interchange-blueprint";
+import { InterchangeBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/interchange-blueprint";
 
 export const flindersStreet = InterchangeBlueprint.simple(
   FLINDERS_STREET,

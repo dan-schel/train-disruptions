@@ -1,7 +1,7 @@
 import React from "react";
 
-import { Text } from "../../../components/core/Text";
-import { Column } from "../../../components/core/Column";
+import { Text } from "@/components/core/Text";
+import { Column } from "@/components/core/Column";
 
 export function NotFound() {
   return (

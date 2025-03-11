@@ -1,6 +1,6 @@
-import { DualPoint } from "../../../../components/map/renderer/dual-point";
-import { FlexiLength } from "./flexi-length";
-import { Point } from "./point";
+import { DualPoint } from "@/components/map/renderer/dual-point";
+import { FlexiLength } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
+import { Point } from "@/scripts/generate-map-geometry/lib/dimensions/point";
 
 // TODO: I kinda hate that this is just a clone of DualPoint, with some extra
 // methods. But the reason it's this way is:

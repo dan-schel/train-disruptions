@@ -1,12 +1,17 @@
 import React from "react";
-import { PageCenterer } from "../common/PageCenterer";
-import { Text } from "../core/Text";
-import { admin, myCommute, overview, settings } from "./utils";
-import { Grid } from "../core/Grid";
-import { Row } from "../core/Row";
-import { DesktopTabButton } from "./DesktopTabButton";
-import { Favicon } from "../icons/Favicon";
-import { Button } from "../core/Button";
+import { PageCenterer } from "@/components/common/PageCenterer";
+import { Text } from "@/components/core/Text";
+import {
+  admin,
+  myCommute,
+  overview,
+  settings,
+} from "@/components/navigation/utils";
+import { Grid } from "@/components/core/Grid";
+import { Row } from "@/components/core/Row";
+import { DesktopTabButton } from "@/components/navigation/DesktopTabButton";
+import { Favicon } from "@/components/icons/Favicon";
+import { Button } from "@/components/core/Button";
 
 export function DesktopNavBar() {
   return (

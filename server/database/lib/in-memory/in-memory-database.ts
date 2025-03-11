@@ -1,8 +1,12 @@
-import { Database, MigrationHandler, Repository } from "../general/database";
-import { DatabaseModel } from "../general/database-model";
-import { InMemoryDatabaseData } from "./in-memory-database-collection";
-import { InMemoryMigrationHandler } from "./in-memory-migration-handler";
-import { InMemoryRepository } from "./in-memory-repository";
+import {
+  Database,
+  MigrationHandler,
+  Repository,
+} from "@/server/database/lib/general/database";
+import { DatabaseModel } from "@/server/database/lib/general/database-model";
+import { InMemoryDatabaseData } from "@/server/database/lib/in-memory/in-memory-database-collection";
+import { InMemoryMigrationHandler } from "@/server/database/lib/in-memory/in-memory-migration-handler";
+import { InMemoryRepository } from "@/server/database/lib/in-memory/in-memory-repository";
 
 export class InMemoryDatabase extends Database {
   private readonly _data: InMemoryDatabaseData;

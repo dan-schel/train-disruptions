@@ -1,12 +1,20 @@
-import { Repository } from "../general/database";
-import { DatabaseModel, DataOf, IdOf } from "../general/database-model";
-import { FindQuery, FirstQuery, CountQuery } from "../general/query-types";
+import { Repository } from "@/server/database/lib/general/database";
+import {
+  DatabaseModel,
+  DataOf,
+  IdOf,
+} from "@/server/database/lib/general/database-model";
+import {
+  FindQuery,
+  FirstQuery,
+  CountQuery,
+} from "@/server/database/lib/general/query-types";
 import {
   InMemoryDatabaseCollection,
   InMemoryDatabaseItem,
-} from "./in-memory-database-collection";
-import { InMemorySortClauseInterpreter } from "./in-memory-sort-clause-interpreter";
-import { InMemoryWhereClauseInterpreter } from "./in-memory-where-clause-interpreter";
+} from "@/server/database/lib/in-memory/in-memory-database-collection";
+import { InMemorySortClauseInterpreter } from "@/server/database/lib/in-memory/in-memory-sort-clause-interpreter";
+import { InMemoryWhereClauseInterpreter } from "@/server/database/lib/in-memory/in-memory-where-clause-interpreter";
 
 export class InMemoryRepository<
   Model extends DatabaseModel,

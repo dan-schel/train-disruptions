@@ -1,8 +1,8 @@
 import React from "react";
 import { useData } from "vike-react/useData";
-import { Data } from "./+data";
-import { DisplayTripPage } from "./DisplayTripPage";
-import { ChooseTripPage } from "./ChooseTripPage";
+import { Data } from "@/pages/trip/+data";
+import { DisplayTripPage } from "@/pages/trip/DisplayTripPage";
+import { ChooseTripPage } from "@/pages/trip/ChooseTripPage";
 
 export default function Page() {
   const data = useData<Data>();

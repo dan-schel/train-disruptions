@@ -1,6 +1,6 @@
-import { Geometry } from "./geometry";
-import { Interchange } from "./interchange";
-import { DualPoint } from "./dual-point";
+import { Geometry } from "@/components/map/renderer/geometry";
+import { Interchange } from "@/components/map/renderer/interchange";
+import { DualPoint } from "@/components/map/renderer/dual-point";
 import {
   interchangeBorderWidth,
   interchangeFillColor,
@@ -11,7 +11,7 @@ import {
   lineWidth,
   terminusLineWidth,
   viewportPadding,
-} from "./utils";
+} from "@/components/map/renderer/utils";
 
 // Canvas has `backingStorePixelRatio`, but Typescript doesn't know about it for
 // some reason. (Probably the target "ES____" version we're using idk.)

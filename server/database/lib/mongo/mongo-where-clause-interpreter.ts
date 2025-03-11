@@ -1,7 +1,10 @@
 import { Filter } from "mongodb";
-import { ModelDocument } from "./mongo-repository";
-import { DatabaseModel } from "../general/database-model";
-import { WhereClause, FieldConstraint } from "../general/where-clause";
+import { ModelDocument } from "@/server/database/lib/mongo/mongo-repository";
+import { DatabaseModel } from "@/server/database/lib/general/database-model";
+import {
+  WhereClause,
+  FieldConstraint,
+} from "@/server/database/lib/general/where-clause";
 
 /** Takes a WhereClause and builds the equivalent filter in MongoDB syntax. */
 export class MongoWhereClauseInterpreter<Model extends DatabaseModel> {

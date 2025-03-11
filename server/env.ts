@@ -1,6 +1,6 @@
 import { configDotenv } from "dotenv";
 import { z } from "zod";
-import { stringNumberSchema } from "./utils";
+import { stringNumberSchema } from "@/server/utils";
 
 const schema = z.object({
   RELAY_KEY: z.string().optional(),

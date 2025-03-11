@@ -1,6 +1,6 @@
-import { Curve } from "../../blueprint/path-blueprint-piece/curve";
-import { PathBuilder } from "../path-builder";
-import { PathPieceBuilder } from "./path-piece-builder";
+import { Curve } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint-piece/curve";
+import { PathBuilder } from "@/scripts/generate-map-geometry/lib/builder/path-builder";
+import { PathPieceBuilder } from "@/scripts/generate-map-geometry/lib/builder/path-piece-builder/path-piece-builder";
 
 export class CurveBuilder extends PathPieceBuilder {
   constructor(private readonly _blueprint: Curve) {

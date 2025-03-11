@@ -1,9 +1,9 @@
-import { FlexiLength } from "../../lib/dimensions/flexi-length";
-import { PathBlueprint } from "../../lib/blueprint/path-blueprint";
-import { flindersStreet } from "../interchanges";
-import { measure45CurveLockedDiagonal } from "../utils";
-import * as loop from "../utils-city-loop";
-import * as direct from "./flinders-street-to-richmond";
+import { FlexiLength } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
+import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
+import { flindersStreet } from "@/scripts/generate-map-geometry/ptv/interchanges";
+import { measure45CurveLockedDiagonal } from "@/scripts/generate-map-geometry/ptv/utils";
+import * as loop from "@/scripts/generate-map-geometry/ptv/utils-city-loop";
+import * as direct from "@/scripts/generate-map-geometry/ptv/segments/flinders-street-to-richmond";
 
 /** The curve from Parliament to Richmond, and the split back to Flinders Street. */
 export function richmondLoopPortal(

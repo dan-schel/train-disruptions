@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { WhereClause } from "../../../../../server/database/lib/general/where-clause";
-import { DatabaseModel } from "../../../../../server/database/lib/general/database-model";
-import { InMemoryWhereClauseInterpreter } from "../../../../../server/database/lib/in-memory/in-memory-where-clause-interpreter";
-import { InMemoryDatabaseItem } from "../../../../../server/database/lib/in-memory/in-memory-database-collection";
+import { WhereClause } from "@/server/database/lib/general/where-clause";
+import { DatabaseModel } from "@/server/database/lib/general/database-model";
+import { InMemoryWhereClauseInterpreter } from "@/server/database/lib/in-memory/in-memory-where-clause-interpreter";
+import { InMemoryDatabaseItem } from "@/server/database/lib/in-memory/in-memory-database-collection";
 
 const obj = {
   id: 1,

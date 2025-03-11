@@ -1,7 +1,7 @@
 import { expect } from "vitest";
-import { DisruptionPeriod } from "../../../../../server/data/disruption/period/disruption-period";
-import { JustDate } from "../../../../../server/data/disruption/period/utils/just-date";
-import { CalendarMark } from "../../../../../server/data/disruption/period/disruption-period-base";
+import { DisruptionPeriod } from "@/server/data/disruption/period/disruption-period";
+import { JustDate } from "@/server/data/disruption/period/utils/just-date";
+import { CalendarMark } from "@/server/data/disruption/period/disruption-period-base";
 
 export function expectCalendarMarks(
   period: DisruptionPeriod,

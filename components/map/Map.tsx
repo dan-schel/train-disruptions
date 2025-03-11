@@ -1,10 +1,10 @@
 import React, { useEffect, useMemo, useRef } from "react";
 import { Renderer } from "@/components/map/renderer/renderer";
-import { Geometry } from "./renderer/geometry";
+import { Geometry } from "@/components/map/renderer/geometry";
 
 // To debug geometry without needing to re-run the generator:
 // import geometry from "../../scripts/generate-map-geometry/ptv";
-import geometryJson from "./geometry/ptv.json";
+import geometryJson from "@/components/map/geometry/ptv.json";
 
 export function Map() {
   const containerRef = useRef<HTMLDivElement>(null);

@@ -1,8 +1,15 @@
 import { z } from "zod";
-import { DisplayStringOptions, EndsBase } from "./ends-base";
+import {
+  DisplayStringOptions,
+  EndsBase,
+} from "@/server/data/disruption/period/ends/ends-base";
 import { addHours } from "date-fns";
-import { dayStarts, formatDate, localToUtcTime } from "../utils/utils";
-import { JustDate } from "../utils/just-date";
+import {
+  dayStarts,
+  formatDate,
+  localToUtcTime,
+} from "@/server/data/disruption/period/utils/utils";
+import { JustDate } from "@/server/data/disruption/period/utils/just-date";
 
 /** The disruption ends after the last service on a given date. */
 export class EndsAfterLastService extends EndsBase {

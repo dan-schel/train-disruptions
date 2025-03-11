@@ -1,15 +1,15 @@
 import React from "react";
-import { Data } from "./+data";
+import { Data } from "@/pages/disruption/@id/+data";
 import { useData } from "vike-react/useData";
 
-import { Delay } from "./Delay";
-import { NotFound } from "./NotFound";
-import { Disruption } from "./Disruption";
-import { With } from "../../../components/core/With";
-import { Column } from "../../../components/core/Column";
-import { PagePadding } from "../../../components/common/PagePadding";
-import { PageCenterer } from "../../../components/common/PageCenterer";
-import { BackNavigation } from "../../../components/navigation/BackNavigation";
+import { Delay } from "@/pages/disruption/@id/Delay";
+import { NotFound } from "@/pages/disruption/@id/NotFound";
+import { Disruption } from "@/pages/disruption/@id/Disruption";
+import { With } from "@/components/core/With";
+import { Column } from "@/components/core/Column";
+import { PagePadding } from "@/components/common/PagePadding";
+import { PageCenterer } from "@/components/common/PageCenterer";
+import { BackNavigation } from "@/components/navigation/BackNavigation";
 
 export default function Page() {
   const { data, backHref } = useData<Data>();

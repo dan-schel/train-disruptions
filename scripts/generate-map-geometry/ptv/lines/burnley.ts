@@ -1,6 +1,6 @@
-import { flexi } from "../../lib/dimensions/flexi-length";
-import { LineBlueprint } from "../../lib/blueprint/line-blueprint";
-import { PathBlueprint } from "../../lib/blueprint/path-blueprint";
+import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
+import { LineBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/line-blueprint";
+import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
 import {
   flagstaff,
   flindersStreet,
@@ -10,13 +10,13 @@ import {
   burnley as burnleyInterchange,
   camberwell,
   ringwood,
-} from "../interchanges";
-import { flagstaffToParliament } from "../segments/flagstaff-to-parliament";
-import { flindersStreetToSouthernCross } from "../segments/flinders-street-to-southern-cross";
-import { richmondLoopPortal } from "../segments/richmond-loop-portal";
-import { southernCrossToFlagstaff } from "../segments/southern-cross-to-flagstaff";
-import { defaultRadius } from "../utils";
-import * as loop from "../utils-city-loop";
+} from "@/scripts/generate-map-geometry/ptv/interchanges";
+import { flagstaffToParliament } from "@/scripts/generate-map-geometry/ptv/segments/flagstaff-to-parliament";
+import { flindersStreetToSouthernCross } from "@/scripts/generate-map-geometry/ptv/segments/flinders-street-to-southern-cross";
+import { richmondLoopPortal } from "@/scripts/generate-map-geometry/ptv/segments/richmond-loop-portal";
+import { southernCrossToFlagstaff } from "@/scripts/generate-map-geometry/ptv/segments/southern-cross-to-flagstaff";
+import { defaultRadius } from "@/scripts/generate-map-geometry/ptv/utils";
+import * as loop from "@/scripts/generate-map-geometry/ptv/utils-city-loop";
 
 const loopPortalStraight = flexi(25);
 const burnleyStraight = flexi(20, 40);

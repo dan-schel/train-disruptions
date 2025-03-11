@@ -1,6 +1,6 @@
-import { Straight } from "../../blueprint/path-blueprint-piece/straight";
-import { PathBuilder } from "../path-builder";
-import { PathPieceBuilder } from "./path-piece-builder";
+import { Straight } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint-piece/straight";
+import { PathBuilder } from "@/scripts/generate-map-geometry/lib/builder/path-builder";
+import { PathPieceBuilder } from "@/scripts/generate-map-geometry/lib/builder/path-piece-builder/path-piece-builder";
 
 export class StraightBuilder extends PathPieceBuilder {
   constructor(private readonly _blueprint: Straight) {

@@ -1,8 +1,13 @@
-import { flexi } from "../../lib/dimensions/flexi-length";
-import { FlexiPoint } from "../../lib/dimensions/flexi-point";
-import { PathBlueprint } from "../../lib/blueprint/path-blueprint";
-import { diagonal, lineGap, long45, short45 } from "../utils";
-import * as loop from "../utils-city-loop";
+import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
+import { FlexiPoint } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-point";
+import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
+import {
+  diagonal,
+  lineGap,
+  long45,
+  short45,
+} from "@/scripts/generate-map-geometry/ptv/utils";
+import * as loop from "@/scripts/generate-map-geometry/ptv/utils-city-loop";
 
 const innerRadius = flexi(15);
 const flindersStreetStraight = flexi(40);

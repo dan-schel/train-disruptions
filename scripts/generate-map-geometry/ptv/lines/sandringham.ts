@@ -1,11 +1,15 @@
-import { flexi } from "../../lib/dimensions/flexi-length";
-import { LineBlueprint } from "../../lib/blueprint/line-blueprint";
-import { PathBlueprint } from "../../lib/blueprint/path-blueprint";
-import { flindersStreet, richmond, southYarra } from "../interchanges";
-import { flindersStreetToRichmond } from "../segments/flinders-street-to-richmond";
-import { defaultRadius } from "../utils";
-import * as loop from "../utils-city-loop";
-import { richmondToSouthYarra } from "../utils-shared-corridors";
+import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
+import { LineBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/line-blueprint";
+import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
+import {
+  flindersStreet,
+  richmond,
+  southYarra,
+} from "@/scripts/generate-map-geometry/ptv/interchanges";
+import { flindersStreetToRichmond } from "@/scripts/generate-map-geometry/ptv/segments/flinders-street-to-richmond";
+import { defaultRadius } from "@/scripts/generate-map-geometry/ptv/utils";
+import * as loop from "@/scripts/generate-map-geometry/ptv/utils-city-loop";
+import { richmondToSouthYarra } from "@/scripts/generate-map-geometry/ptv/utils-shared-corridors";
 
 const divergeStraight = flexi(10);
 const diagonalStraight = flexi(10, 20);

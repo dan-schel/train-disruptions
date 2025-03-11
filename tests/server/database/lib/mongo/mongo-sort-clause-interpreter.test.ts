@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { MongoSortClauseInterpreter } from "../../../../../server/database/lib/mongo/mongo-sort-clause-interpreter";
-import { SortClause } from "../../../../../server/database/lib/general/query-types";
-import { DatabaseModel } from "../../../../../server/database/lib/general/database-model";
+import { MongoSortClauseInterpreter } from "@/server/database/lib/mongo/mongo-sort-clause-interpreter";
+import { SortClause } from "@/server/database/lib/general/query-types";
+import { DatabaseModel } from "@/server/database/lib/general/database-model";
 
 describe("MongoSortClauseInterpreter", () => {
   describe("toMongoSort", () => {

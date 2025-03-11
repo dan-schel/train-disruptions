@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { TimeRange } from "../../../../../../server/data/disruption/period/utils/time-range";
+import { TimeRange } from "@/server/data/disruption/period/utils/time-range";
 
 describe("TimeRange", () => {
   describe("#includes", () => {

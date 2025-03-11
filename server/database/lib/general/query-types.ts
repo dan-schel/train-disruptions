@@ -1,5 +1,8 @@
-import { DatabaseModel, SerializedDataOf } from "./database-model";
-import { WhereClause } from "./where-clause";
+import {
+  DatabaseModel,
+  SerializedDataOf,
+} from "@/server/database/lib/general/database-model";
+import { WhereClause } from "@/server/database/lib/general/where-clause";
 
 /** Arguments to a find (select) query. */
 export type FindQuery<Model extends DatabaseModel> = {

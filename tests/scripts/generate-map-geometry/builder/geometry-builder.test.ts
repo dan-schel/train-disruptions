@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { InterchangeBlueprint } from "../../../../scripts/generate-map-geometry/lib/blueprint/interchange-blueprint";
-import { LineBlueprint } from "../../../../scripts/generate-map-geometry/lib/blueprint/line-blueprint";
-import { fp } from "../../../../scripts/generate-map-geometry/lib/dimensions/flexi-point";
-import { PathBlueprint } from "../../../../scripts/generate-map-geometry/lib/blueprint/path-blueprint";
-import { flexi } from "../../../../scripts/generate-map-geometry/lib/dimensions/flexi-length";
-import { GeometryBuilder } from "../../../../scripts/generate-map-geometry/lib/builder/geometry-builder";
+import { InterchangeBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/interchange-blueprint";
+import { LineBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/line-blueprint";
+import { fp } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-point";
+import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
+import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
+import { GeometryBuilder } from "@/scripts/generate-map-geometry/lib/builder/geometry-builder";
 
 describe("GeometryBuilder", () => {
   it("builds the geometry as expected", () => {
