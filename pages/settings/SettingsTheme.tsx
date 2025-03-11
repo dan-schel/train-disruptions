@@ -1,9 +1,28 @@
 import React from "react";
 
 import { Column } from "../../components/core/Column";
-import { Row } from "../../components/core/Row";
 import { Text } from "../../components/core/Text";
 import { Spacer } from "../../components/core/Spacer";
+
+const themeOptions = ["system", "light", "dark"] as const;
+
+const formattedTheme: Record<
+  (typeof themeOptions)[number],
+  { name: string; value?: string }
+> = {
+  system: {
+    name: "Auto",
+    value: "system",
+  },
+  light: {
+    name: "Light",
+    value: "light",
+  },
+  dark: {
+    name: "Dark",
+    value: "dark",
+  },
+};
 
 export function SettingsTheme() {
   return (
@@ -12,21 +31,21 @@ export function SettingsTheme() {
         Colour theme
       </Text>
       <Spacer h="2" />
+
       <Column>
-        <Row className="gap-2">
-          <input type="radio" id="theme-1" name="colour-theme" value="auto" />
-          <label htmlFor="theme-1"> Auto </label>
-        </Row>
-
-        <Row className="gap-2">
-          <input type="radio" id="theme-2" name="colour-theme" value="light" />
-          <label htmlFor="theme-2"> Light </label>
-        </Row>
-
-        <Row className="gap-2">
-          <input type="radio" id="theme-3" name="colour-theme" value="dark" />
-          <label htmlFor="theme-3"> Dark </label>
-        </Row>
+        {themeOptions.map((options) => (
+          <label
+            key={options}
+            className="flex cursor-pointer gap-2 hover:bg-gray-200"
+          >
+            <input
+              type="radio"
+              name="theme"
+              value={formattedTheme[options].value}
+            />
+            {formattedTheme[options].name}
+          </label>
+        ))}
       </Column>
     </Column>
   );

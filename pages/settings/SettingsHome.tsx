@@ -38,7 +38,10 @@ export function SettingsHome({ settings }: HomepageProps) {
 
       <Column>
         {homepageOptions.map((options) => (
-          <label key={options} className="flex gap-2 hover:bg-gray-200">
+          <label
+            key={options}
+            className="flex cursor-pointer gap-2 hover:bg-gray-200"
+          >
             <input
               type="radio"
               name="start-page"
