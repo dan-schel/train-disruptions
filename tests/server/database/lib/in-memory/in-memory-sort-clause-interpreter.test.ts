@@ -2,7 +2,6 @@ import { describe, expect, it } from "vitest";
 import { DatabaseModel } from "../../../../../server/database/lib/general/database-model";
 import { InMemorySortClauseInterpreter } from "../../../../../server/database/lib/in-memory/in-memory-sort-clause-interpreter";
 import { InMemoryDatabaseItem } from "../../../../../server/database/lib/in-memory/in-memory-database-collection";
-import { date } from "../../../../utils";
 import { SortClause } from "../../../../../server/database/lib/general/query-types";
 
 describe("InMemorySortClauseInterpreter", () => {
@@ -33,14 +32,14 @@ describe("InMemorySortClauseInterpreter", () => {
 
     it("sorts dates", () => {
       const original = [
-        { id: 1, date: date("2025-01-01T17:36:56Z") },
-        { id: 2, date: date("2024-12-31T17:36:56Z") },
-        { id: 3, date: date("2025-01-01T09:36:56Z") },
+        { id: 1, date: new Date("2025-01-01T17:36:56Z") },
+        { id: 2, date: new Date("2024-12-31T17:36:56Z") },
+        { id: 3, date: new Date("2025-01-01T09:36:56Z") },
       ];
       const sorted = [
-        { id: 2, date: date("2024-12-31T17:36:56Z") },
-        { id: 3, date: date("2025-01-01T09:36:56Z") },
-        { id: 1, date: date("2025-01-01T17:36:56Z") },
+        { id: 2, date: new Date("2024-12-31T17:36:56Z") },
+        { id: 3, date: new Date("2025-01-01T09:36:56Z") },
+        { id: 1, date: new Date("2025-01-01T17:36:56Z") },
       ];
       expect(sort(original, { by: "date", direction: "asc" })).toStrictEqual(
         sorted,

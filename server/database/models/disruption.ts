@@ -4,6 +4,9 @@ import { Disruption } from "../../data/disruption/disruption";
 import { disruptionPeriodBson } from "../../data/disruption/period/disruption-period";
 import { disruptionDataBson } from "../../data/disruption/data/disruption-data";
 
+const beginningOfTime = new Date("2000-01-01T00:00:00Z");
+const endOfTime = new Date("2100-01-01T00:00:00Z");
+
 export class DisruptionModel extends DatabaseModel<
   Disruption,
   string,
@@ -15,6 +18,10 @@ export class DisruptionModel extends DatabaseModel<
     data: disruptionDataBson,
     sourceAlertIds: z.string().array(),
     period: disruptionPeriodBson,
+
+    // Computed fields - included for ease of querying.
+    earliestImpactedDate: z.date(),
+    latestImpactedDate: z.date(),
   });
 
   private constructor() {
@@ -26,12 +33,15 @@ export class DisruptionModel extends DatabaseModel<
   }
 
   serialize(item: Disruption): z.input<typeof DisruptionModel.schema> {
+    const { start, end } = this._getFullyEncompassingTimeRange(item);
+
     return {
       data: item.data.toBson(),
       sourceAlertIds: item.sourceAlertIds,
       period: item.period.toBson(),
-      // TODO: There's probably other (computed) fields we could add to make
-      // queries more efficient, e.g. the date range, or the affected lines.
+
+      earliestImpactedDate: start,
+      latestImpactedDate: end,
     };
   }
 
@@ -43,5 +53,16 @@ export class DisruptionModel extends DatabaseModel<
       parsed.sourceAlertIds,
       parsed.period,
     );
+  }
+
+  private _getFullyEncompassingTimeRange(item: Disruption) {
+    const timeRange = item.period.getFullyEncompassingTimeRange();
+
+    // Instead of null, use arbitrary dates far in the future/past so we can
+    // easily do date comparisons when querying the database.
+    return {
+      start: timeRange.start ?? beginningOfTime,
+      end: timeRange.end ?? endOfTime,
+    };
   }
 }

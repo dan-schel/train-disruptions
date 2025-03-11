@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { DatabaseModel } from "../../../../server/database/lib/general/database-model";
-import { date } from "../../../utils";
 
 export class MusicalInstrument {
   constructor(
@@ -64,22 +63,37 @@ export class MusicalInstrumentModel extends DatabaseModel<
 
 export const MUSICAL_INSTRUMENTS = MusicalInstrumentModel.instance;
 
-export const PIANO_1 = new MusicalInstrument(1, "piano", date("1982-01-05"), {
-  highest: "C8",
-  lowest: "A0",
-});
+export const PIANO_1 = new MusicalInstrument(
+  1,
+  "piano",
+  new Date("1982-01-05"),
+  {
+    highest: "C8",
+    lowest: "A0",
+  },
+);
 
-export const SYNTH_2 = new MusicalInstrument(2, "synth", date("2016-03-08"), {
-  highest: "C6",
-  lowest: "C2",
-});
+export const SYNTH_2 = new MusicalInstrument(
+  2,
+  "synth",
+  new Date("2016-03-08"),
+  {
+    highest: "C6",
+    lowest: "C2",
+  },
+);
 
-export const BASS_3 = new MusicalInstrument(3, "bass", date("2000-11-15"), {
+export const BASS_3 = new MusicalInstrument(3, "bass", new Date("2000-11-15"), {
   highest: "G4",
   lowest: "E1",
 });
 
-export const PIANO_4 = new MusicalInstrument(4, "piano", date("2011-05-01"), {
-  highest: "C8",
-  lowest: "A0",
-});
+export const PIANO_4 = new MusicalInstrument(
+  4,
+  "piano",
+  new Date("2011-05-01"),
+  {
+    highest: "C8",
+    lowest: "A0",
+  },
+);
