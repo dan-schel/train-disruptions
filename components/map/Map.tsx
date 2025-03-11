@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef } from "react";
-import { Renderer } from "./renderer/renderer";
+import { Renderer } from "@/components/map/renderer/renderer";
 import { Geometry } from "./renderer/geometry";
 
 // To debug geometry without needing to re-run the generator:

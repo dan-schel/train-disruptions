@@ -3,7 +3,7 @@ import { LineCollection } from "./data/static/line-collection";
 import { StationCollection } from "./data/static/station-collection";
 import { Database } from "./database/lib/general/database";
 import { Crayon } from "./database/models/crayons";
-import { CRAYONS, HISTORICAL_ALERTS } from "./database/models/models";
+import { CRAYONS, HISTORICAL_ALERTS } from "@/server/database/models/models";
 import { DisruptionSource } from "./disruption-source/disruption-source";
 import { InMemoryDatabase } from "./database/lib/in-memory/in-memory-database";
 import { FakeDisruptionSource } from "./disruption-source/fake-disruption-source";
