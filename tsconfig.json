@@ -15,7 +15,6 @@
     "types": ["vite/client", "vike-react"],
     "jsx": "preserve",
     "jsxImportSource": "react",
-    "baseUrl": "./",
     "paths": {
       "@/*": ["./*"]
     }
