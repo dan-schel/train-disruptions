@@ -31,7 +31,7 @@ const useImportAlias = {
 
         const aliasedPath = absolutePath
           .replace(context.cwd, "@")
-          .replace("\\", "/");
+          .replace(/\\/g, "/");
 
         const replacement = `"${aliasedPath}"`;
 
