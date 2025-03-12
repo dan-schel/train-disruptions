@@ -3,7 +3,7 @@ import { Disruption } from "../disruption";
 import { DisruptionWriteup } from "./disruption-writeup";
 import { DisruptionWriteupAuthor } from "./disruption-writeup-author";
 
-/** DisruptionWriteupAuther for CustomDisruptionData. */
+/** DisruptionWriteupAuthor for CustomDisruptionData. */
 export class CustomDisruptionWriteupAuthor extends DisruptionWriteupAuthor {
   constructor(private readonly _data: CustomDisruptionData) {
     super();

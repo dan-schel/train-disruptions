@@ -1,17 +1,15 @@
-import { stations } from "../../static/stations";
-import { StationClosureDisruptionData } from "../data/station-closure-disruption-data";
+import { BusReplacementsDisruptionData } from "../data/bus-replacements-disruption-data";
 import { Disruption } from "../disruption";
 import { DisruptionWriteup } from "./disruption-writeup";
 import { DisruptionWriteupAuthor } from "./disruption-writeup-author";
 
-/** DisruptionWriteupAuthor for StationClosureDisruptionData. */
-export class StationClosureDisruptionWriteupAuthor extends DisruptionWriteupAuthor {
-  constructor(private readonly _data: StationClosureDisruptionData) {
+/** DisruptionWriteupAuthor for BusReplacementsDisruptionData. */
+export class BusReplacementsDisruptionWriteupAuthor extends DisruptionWriteupAuthor {
+  constructor(private readonly _data: BusReplacementsDisruptionData) {
     super();
   }
 
   write(disruption: Disruption, now: Date): DisruptionWriteup {
-    const stationName = stations.require(this._data.stationId).name;
     const periodString = disruption.period.getDisplayString({ now });
 
     return new DisruptionWriteup(

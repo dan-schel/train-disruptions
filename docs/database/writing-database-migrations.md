@@ -1,4 +1,4 @@
-## Writing database migrations <!-- omit in toc -->
+# Writing database migrations <!-- omit in toc -->
 
 Database migrations are one-off jobs that run before the server starts.
 
