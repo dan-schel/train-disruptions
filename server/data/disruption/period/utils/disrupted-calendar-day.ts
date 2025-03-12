@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { JustDate } from "./just-date";
+import { JustDate } from "@/server/data/disruption/period/utils/just-date";
 
 export class DisruptedCalendarDay {
   constructor(

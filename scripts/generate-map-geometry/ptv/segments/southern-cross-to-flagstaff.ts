@@ -1,5 +1,5 @@
-import { PathBlueprint } from "../../lib/blueprint/path-blueprint";
-import * as loop from "../utils-city-loop";
+import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
+import * as loop from "@/scripts/generate-map-geometry/ptv/utils-city-loop";
 
 /** North-west corner of the city loop from Southern Cross to Flagstaff. */
 export function southernCrossToFlagstaff(

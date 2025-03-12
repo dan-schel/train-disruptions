@@ -1,14 +1,14 @@
 import { uuid } from "@dan-schel/js-utils";
-import { LineCollection } from "./data/static/line-collection";
-import { StationCollection } from "./data/static/station-collection";
-import { Database } from "./database/lib/general/database";
-import { Crayon } from "./database/models/crayons";
-import { CRAYONS, HISTORICAL_ALERTS } from "./database/models/models";
-import { DisruptionSource } from "./disruption-source/disruption-source";
-import { InMemoryDatabase } from "./database/lib/in-memory/in-memory-database";
-import { FakeDisruptionSource } from "./disruption-source/fake-disruption-source";
-import { HistoricalAlert } from "./data/historical-alert";
-import { migrations } from "./database/migrations/migrations";
+import { LineCollection } from "@/server/data/static/line-collection";
+import { StationCollection } from "@/server/data/static/station-collection";
+import { Database } from "@/server/database/lib/general/database";
+import { Crayon } from "@/server/database/models/crayons";
+import { CRAYONS, HISTORICAL_ALERTS } from "@/server/database/models/models";
+import { DisruptionSource } from "@/server/disruption-source/disruption-source";
+import { InMemoryDatabase } from "@/server/database/lib/in-memory/in-memory-database";
+import { FakeDisruptionSource } from "@/server/disruption-source/fake-disruption-source";
+import { HistoricalAlert } from "@/server/data/historical-alert";
+import { migrations } from "@/server/database/migrations/migrations";
 
 export class App {
   constructor(

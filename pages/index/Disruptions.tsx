@@ -1,7 +1,7 @@
 import React from "react";
 
-import { Column } from "../../components/core/Column";
-import { DisruptionButton } from "./DisruptionButton";
+import { Column } from "@/components/core/Column";
+import { DisruptionButton } from "@/pages/index/DisruptionButton";
 
 export function Disruptions() {
   return (

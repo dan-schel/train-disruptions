@@ -1,15 +1,15 @@
 import { z } from "zod";
-import { DisruptionDataBase } from "./disruption-data-base";
-import { DisruptionWriteup } from "../writeup/disruption-writeup";
-import { DisruptionWriteupAuthor } from "../writeup/disruption-writeup-author";
-import { CustomDisruptionWriteupAuthor } from "../writeup/custom-disruption-writeup-author";
-import { RouteGraphTrainEdge } from "../../route-graph/edge/route-graph-train-edge";
+import { DisruptionDataBase } from "@/server/data/disruption/data/disruption-data-base";
+import { DisruptionWriteup } from "@/server/data/disruption/writeup/disruption-writeup";
+import { DisruptionWriteupAuthor } from "@/server/data/disruption/writeup/disruption-writeup-author";
+import { CustomDisruptionWriteupAuthor } from "@/server/data/disruption/writeup/custom-disruption-writeup-author";
+import { RouteGraphTrainEdge } from "@/server/data/route-graph/edge/route-graph-train-edge";
 import {
   RouteGraphEdge,
   routeGraphEdgeBson,
-} from "../../route-graph/edge/route-graph-edge";
-import { RouteGraphModifier } from "../route-graph-modifier/route-graph-modifier";
-import { SimpleRouteGraphModifier } from "../route-graph-modifier/simple-route-graph-modifier";
+} from "@/server/data/route-graph/edge/route-graph-edge";
+import { RouteGraphModifier } from "@/server/data/disruption/route-graph-modifier/route-graph-modifier";
+import { SimpleRouteGraphModifier } from "@/server/data/disruption/route-graph-modifier/simple-route-graph-modifier";
 
 /**
  * Used in edge cases where the normal disruption types we have don't cut it.

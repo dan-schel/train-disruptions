@@ -1,11 +1,11 @@
-import { Repository } from "./database";
-import { DatabaseModel } from "./database-model";
+import { Repository } from "@/server/database/lib/general/database";
+import { DatabaseModel } from "@/server/database/lib/general/database-model";
 import {
   MigratorDeleteCommand,
   MigratorDropCommand,
   MigratorMapCommand,
   MigratorRenameCommand,
-} from "./migration-command-types";
+} from "@/server/database/lib/general/migration-command-types";
 
 /**
  * Represents a one-off job to run on the database before the server starts.

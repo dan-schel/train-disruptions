@@ -1,12 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { getDatabase } from "./test-database";
+import { getDatabase } from "@/tests/server/database/lib/in-memory/test-database";
 import {
   MUSICAL_INSTRUMENTS,
   MusicalInstrument,
   PIANO_1,
   PIANO_4,
   SYNTH_2,
-} from "../test-model";
+} from "@/tests/server/database/lib/test-model";
 
 describe("InMemoryDatabase", () => {
   it("should get items by ID", async () => {

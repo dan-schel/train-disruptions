@@ -1,12 +1,12 @@
 import React from "react";
-import { MingcuteArrowRightCircleLine } from "../icons/MingcuteArrowRightCircleLine";
-import { MingcuteMapLine } from "../icons/MingcuteMapLine";
-import { MingcuteToolLine } from "../icons/MingcuteToolLine";
-import { MingcuteSettings7Line } from "../icons/MingcuteSettings7Line";
-import { MingcuteMapFill } from "../icons/MingcuteMapFill";
-import { MingcuteArrowRightCircleFill } from "../icons/MingcuteArrowRightCircleFill";
-import { MingcuteToolFill } from "../icons/MingcuteToolFill";
-import { MingcuteSettings7Fill } from "../icons/MingcuteSettings7Fill";
+import { MingcuteArrowRightCircleLine } from "@/components/icons/MingcuteArrowRightCircleLine";
+import { MingcuteMapLine } from "@/components/icons/MingcuteMapLine";
+import { MingcuteToolLine } from "@/components/icons/MingcuteToolLine";
+import { MingcuteSettings7Line } from "@/components/icons/MingcuteSettings7Line";
+import { MingcuteMapFill } from "@/components/icons/MingcuteMapFill";
+import { MingcuteArrowRightCircleFill } from "@/components/icons/MingcuteArrowRightCircleFill";
+import { MingcuteToolFill } from "@/components/icons/MingcuteToolFill";
+import { MingcuteSettings7Fill } from "@/components/icons/MingcuteSettings7Fill";
 
 export type NavTab = {
   name: string;

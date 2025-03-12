@@ -1,5 +1,8 @@
 import { z } from "zod";
-import { DisplayStringOptions, EndsBase } from "./ends-base";
+import {
+  DisplayStringOptions,
+  EndsBase,
+} from "@/server/data/disruption/period/ends/ends-base";
 
 /** The disruption ends sometime between two implied dates, e.g. "late March". */
 export class EndsApproximately extends EndsBase {

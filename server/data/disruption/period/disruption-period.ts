@@ -1,7 +1,7 @@
 import { z } from "zod";
-import { EveningsOnlyDisruptionPeriod } from "./evenings-only-disruption-period";
-import { StandardDisruptionPeriod } from "./standard-disruption-period";
-import { CustomDisruptionPeriod } from "./custom-disruption-period";
+import { EveningsOnlyDisruptionPeriod } from "@/server/data/disruption/period/evenings-only-disruption-period";
+import { StandardDisruptionPeriod } from "@/server/data/disruption/period/standard-disruption-period";
+import { CustomDisruptionPeriod } from "@/server/data/disruption/period/custom-disruption-period";
 
 /**
  * Defines the period(s) of time a disruption is active.

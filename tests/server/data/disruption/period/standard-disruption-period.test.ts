@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { StandardDisruptionPeriod } from "../../../../../server/data/disruption/period/standard-disruption-period";
-import { EndsExactly } from "../../../../../server/data/disruption/period/ends/ends-exactly";
-import { EndsNever } from "../../../../../server/data/disruption/period/ends/ends-never";
-import { expectCalendarMarks } from "./utils";
+import { StandardDisruptionPeriod } from "@/server/data/disruption/period/standard-disruption-period";
+import { EndsExactly } from "@/server/data/disruption/period/ends/ends-exactly";
+import { EndsNever } from "@/server/data/disruption/period/ends/ends-never";
+import { expectCalendarMarks } from "@/tests/server/data/disruption/period/utils";
 
 describe("StandardDisruptionPeriod", () => {
   describe("#getDisplayString", () => {

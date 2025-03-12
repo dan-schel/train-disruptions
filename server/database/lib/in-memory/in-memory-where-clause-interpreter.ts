@@ -1,6 +1,9 @@
-import { DatabaseModel } from "../general/database-model";
-import { WhereClause, FieldConstraint } from "../general/where-clause";
-import { InMemoryDatabaseItem } from "./in-memory-database-collection";
+import { DatabaseModel } from "@/server/database/lib/general/database-model";
+import {
+  WhereClause,
+  FieldConstraint,
+} from "@/server/database/lib/general/where-clause";
+import { InMemoryDatabaseItem } from "@/server/database/lib/in-memory/in-memory-database-collection";
 
 /** Determines whether items match the provided WhereClause. */
 export class InMemoryWhereClauseInterpreter<Model extends DatabaseModel> {

@@ -1,7 +1,7 @@
-import { PathPieceBuilder } from "../../builder/path-piece-builder/path-piece-builder";
-import { SplitBuilder } from "../../builder/path-piece-builder/split-builder";
-import { PathBlueprint } from "../path-blueprint";
-import { PathBlueprintPiece } from "./path-blueprint-piece";
+import { PathPieceBuilder } from "@/scripts/generate-map-geometry/lib/builder/path-piece-builder/path-piece-builder";
+import { SplitBuilder } from "@/scripts/generate-map-geometry/lib/builder/path-piece-builder/split-builder";
+import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
+import { PathBlueprintPiece } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint-piece/path-blueprint-piece";
 
 export class Split extends PathBlueprintPiece {
   constructor(

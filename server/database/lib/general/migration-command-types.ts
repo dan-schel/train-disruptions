@@ -1,6 +1,9 @@
-import { DatabaseModel, IdOf } from "./database-model";
-import { SerializedObject } from "./serialized-types";
-import { WhereClause } from "./where-clause";
+import {
+  DatabaseModel,
+  IdOf,
+} from "@/server/database/lib/general/database-model";
+import { SerializedObject } from "@/server/database/lib/general/serialized-types";
+import { WhereClause } from "@/server/database/lib/general/where-clause";
 
 /** Arguments to the Migrator's map command. */
 export type MigratorMapCommand = {

@@ -1,10 +1,10 @@
 import React from "react";
-import { Action, Button, extractAction } from "../core/Button";
-import { Row } from "../core/Row";
-import { Text } from "../core/Text";
-import { With } from "../core/With";
+import { Action, Button, extractAction } from "@/components/core/Button";
+import { Row } from "@/components/core/Row";
+import { Text } from "@/components/core/Text";
+import { With } from "@/components/core/With";
 import clsx from "clsx";
-import { Column } from "../core/Column";
+import { Column } from "@/components/core/Column";
 
 const themes = {
   default: "bg-slate-200 group-hover:bg-slate-300 group-active:bg-slate-400",

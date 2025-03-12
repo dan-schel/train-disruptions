@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { EndsAfterLastService } from "../../../../../../server/data/disruption/period/ends/ends-after-last-service";
-import { JustDate } from "../../../../../../server/data/disruption/period/utils/just-date";
+import { EndsAfterLastService } from "@/server/data/disruption/period/ends/ends-after-last-service";
+import { JustDate } from "@/server/data/disruption/period/utils/just-date";
 
 describe("EndsAfterLastService", () => {
   describe("getDisplayString", () => {

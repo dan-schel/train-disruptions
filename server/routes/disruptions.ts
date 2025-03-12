@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { validateMiddleware } from "./middleware/validate";
-import { disruptionSchema } from "../../types/disruption";
-import { App } from "../app";
+import { validateMiddleware } from "@/server/routes/middleware/validate";
+import { disruptionSchema } from "@/types/disruption";
+import { App } from "@/server/app";
 
 export function createDisruptionRouter(app: App) {
   const disruptionRouter = Router();

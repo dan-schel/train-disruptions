@@ -1,5 +1,5 @@
-import { JustDate } from "./utils/just-date";
-import { TimeRange } from "./utils/time-range";
+import { JustDate } from "@/server/data/disruption/period/utils/just-date";
+import { TimeRange } from "@/server/data/disruption/period/utils/time-range";
 
 export type DisplayStringOptions = {
   now: Date;

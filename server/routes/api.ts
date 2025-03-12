@@ -1,8 +1,8 @@
 import { Router } from "express";
 import cors, { type CorsOptions } from "cors";
-import { errorHandler } from "./middleware/error";
-import { App } from "../app";
-import { createDisruptionRouter } from "./disruptions";
+import { errorHandler } from "@/server/routes/middleware/error";
+import { App } from "@/server/app";
+import { createDisruptionRouter } from "@/server/routes/disruptions";
 
 // CORS enabled to prevent API abuse from origins outside our domain(s)
 const corsOptions: CorsOptions = {

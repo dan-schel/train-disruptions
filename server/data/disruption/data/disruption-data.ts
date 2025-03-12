@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { StationClosureDisruptionData } from "./station-closure-disruption-data";
-import { CustomDisruptionData } from "./custom-disruption-data";
+import { StationClosureDisruptionData } from "@/server/data/disruption/data/station-closure-disruption-data";
+import { CustomDisruptionData } from "@/server/data/disruption/data/custom-disruption-data";
 
 /**
  * Stores the data inherent to this particular type of disruption.

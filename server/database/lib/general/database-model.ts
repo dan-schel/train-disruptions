@@ -1,4 +1,4 @@
-import { SerializedObject } from "./serialized-types";
+import { SerializedObject } from "@/server/database/lib/general/serialized-types";
 
 /** Typescript magic to extract the Id type used by a DatabaseModel. */
 export type IdOf<T extends DatabaseModel> =

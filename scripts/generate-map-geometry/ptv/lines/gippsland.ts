@@ -1,7 +1,7 @@
-import { EAST_PAKENHAM } from "../../../../shared/station-ids";
-import { flexi } from "../../lib/dimensions/flexi-length";
-import { LineBlueprint } from "../../lib/blueprint/line-blueprint";
-import { PathBlueprint } from "../../lib/blueprint/path-blueprint";
+import { EAST_PAKENHAM } from "@/shared/station-ids";
+import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
+import { LineBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/line-blueprint";
+import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
 import {
   caulfield,
   clayton,
@@ -11,11 +11,14 @@ import {
   richmond,
   southernCross,
   southYarra,
-} from "../interchanges";
-import { flindersStreetToRichmond } from "../segments/flinders-street-to-richmond";
-import { flindersStreetToSouthernCross } from "../segments/flinders-street-to-southern-cross";
-import { defaultRadius, standardDiagonal } from "../utils";
-import * as loop from "../utils-city-loop";
+} from "@/scripts/generate-map-geometry/ptv/interchanges";
+import { flindersStreetToRichmond } from "@/scripts/generate-map-geometry/ptv/segments/flinders-street-to-richmond";
+import { flindersStreetToSouthernCross } from "@/scripts/generate-map-geometry/ptv/segments/flinders-street-to-southern-cross";
+import {
+  defaultRadius,
+  standardDiagonal,
+} from "@/scripts/generate-map-geometry/ptv/utils";
+import * as loop from "@/scripts/generate-map-geometry/ptv/utils-city-loop";
 import {
   caulfieldToClayton,
   claytonToDandenong,
@@ -25,7 +28,7 @@ import {
   pakenhamToEastPakenham,
   richmondToSouthYarra,
   southYarraToCaulfield,
-} from "../utils-shared-corridors";
+} from "@/scripts/generate-map-geometry/ptv/utils-shared-corridors";
 
 const eastPakenhamToCurve = flexi(10, 25);
 const bairnsdaleStraight = flexi(60, 120);

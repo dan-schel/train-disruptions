@@ -1,8 +1,8 @@
-import { stations } from "../../static/stations";
-import { StationClosureDisruptionData } from "../data/station-closure-disruption-data";
-import { Disruption } from "../disruption";
-import { DisruptionWriteup } from "./disruption-writeup";
-import { DisruptionWriteupAuthor } from "./disruption-writeup-author";
+import { stations } from "@/server/data/static/stations";
+import { StationClosureDisruptionData } from "@/server/data/disruption/data/station-closure-disruption-data";
+import { Disruption } from "@/server/data/disruption/disruption";
+import { DisruptionWriteup } from "@/server/data/disruption/writeup/disruption-writeup";
+import { DisruptionWriteupAuthor } from "@/server/data/disruption/writeup/disruption-writeup-author";
 
 /** DisruptionWriteupAuther for StationClosureDisruptionData. */
 export class StationClosureDisruptionWriteupAuthor extends DisruptionWriteupAuthor {

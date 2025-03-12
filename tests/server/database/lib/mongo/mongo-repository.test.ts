@@ -2,8 +2,11 @@ import { describe, expect, it } from "vitest";
 import {
   ModelDocument,
   MongoRepository,
-} from "../../../../../server/database/lib/mongo/mongo-repository";
-import { MUSICAL_INSTRUMENTS, MusicalInstrument } from "../test-model";
+} from "@/server/database/lib/mongo/mongo-repository";
+import {
+  MUSICAL_INSTRUMENTS,
+  MusicalInstrument,
+} from "@/tests/server/database/lib/test-model";
 import { mock } from "vitest-mock-extended";
 import { Collection, FindCursor } from "mongodb";
 

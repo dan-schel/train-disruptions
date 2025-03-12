@@ -1,6 +1,9 @@
 import { z } from "zod";
-import { DisplayStringOptions, EndsBase } from "./ends-base";
-import { formatDate } from "../utils/utils";
+import {
+  DisplayStringOptions,
+  EndsBase,
+} from "@/server/data/disruption/period/ends/ends-base";
+import { formatDate } from "@/server/data/disruption/period/utils/utils";
 
 /** The disruption ends when the source alert ends. */
 export class EndsWhenAlertEnds extends EndsBase {

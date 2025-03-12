@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { EndsApproximately } from "../../../../../../server/data/disruption/period/ends/ends-approximately";
+import { EndsApproximately } from "@/server/data/disruption/period/ends/ends-approximately";
 
 describe("EndsApproximately", () => {
   const end1 = new EndsApproximately(

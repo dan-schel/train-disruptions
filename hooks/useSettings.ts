@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import { cookieSettings, Settings } from "../shared/settings";
+import { cookieSettings, Settings } from "@/shared/settings";
 
 const fetchSettingsSsrError =
   "fetchSettings (from useSettings) failed, as it was used during SSR! Pass " +
