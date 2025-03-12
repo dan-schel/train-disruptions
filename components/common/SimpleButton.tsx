@@ -7,10 +7,11 @@ import clsx from "clsx";
 import { Column } from "../core/Column";
 
 const themes = {
-  default: "_button-default",
+  default:
+    "bg-button-bg group-hover:bg-button-bg-hover group-active:bg-button-bg-active",
   primary:
     "bg-blue-600 group-hover:bg-blue-700 group-active:bg-blue-900 text-white",
-  hover: "_button-hover",
+  hover: "group-hover:bg-button-bg-hover group-active:bg-button-bg-active",
 };
 
 type Content =

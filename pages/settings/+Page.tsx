@@ -19,13 +19,15 @@ export default function Page() {
           {/* TEMP - for debugging/test */}
           <SimpleButton
             onClick={() => {
+              const isDark = fetchSettings().theme === "dark";
               updateSettings((s) =>
                 s.with({
-                  theme: fetchSettings().theme === "dark" ? "light" : "dark",
+                  theme: isDark ? "light" : "dark",
                 }),
               );
-              // Since the theme is not stored in a state, we have to reload for it to take effect
-              window.location.reload();
+
+              // To set the theme to `system` preference, set the className to "";
+              document.documentElement.className = isDark ? "light" : "dark";
             }}
             text="Toggle theme"
           />

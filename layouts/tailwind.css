@@ -3,7 +3,16 @@
 @import "./css/text.css" layer(base);
 @import "./css/marquee.css" layer(base);
 
-@custom-variant dark (&:where(.dark, .system, .dark *, .system *));
+@custom-variant dark {
+  &:where(.dark, .dark *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:not(:where(.light, .light *)) {
+      @slot;
+    }
+  }
+}
 
 /* https://tailwindcss.com/docs/theme#default-theme-variable-reference */
 @theme {
@@ -18,28 +27,14 @@
   --color-action-secondary: var(--color-slate-200);
   --color-active: var(--color-blue-800);
   --color-link: var(--color-blue-700);
-
-  --color-calendar-date: var(--color-white);
-  --color-calendar-today: var(--color-white);
-  --color-calendar-today-surface: var(--color-black);
+  --color-button-bg: var(--color-slate-200);
+  --color-button-bg-hover: var(--color-slate-300);
+  --color-button-bg-active: var(--color-slate-400);
 
   --color-disruption: oklch(65% 0.23 35); /* #FC4000 */
   --color-status-clear: oklch(76.47% 0.2289 146.12); /* #14D64B */
   --color-status-delays: oklch(77.48% 0.1544 78.87); /* #EAA81F */
   --color-status-buses: oklch(61.76% 0.2511 28.06); /* #F90514 */
-
-  /* Dark mode colours */
-  --color-dark-surface: oklch(18.23% 0 0); /* #121212 */
-  --color-dark-surface-secondary: oklch(25% 0 0); /* #222222 */
-  --color-dark-typography: var(--color-white);
-  --color-dark-action: oklch(27.68% 0 0); /* #282828 */
-  --color-dark-action-secondary: oklch(33.78% 0.0223 256.39); /* #303843 */
-  --color-dark-active: oklch(60.81% 0.2097 267.74); /* #4D74FE */
-  --color-dark-link: oklch(66.18% 0.1648 267.74); /* #678BF7 */
-
-  --color-dark-calendar-date: var(--color-black);
-  --color-dark-calendar-today: var(--color-black);
-  --color-dark-calendar-today-surface: var(--color-white);
 
   --leading-*: initial;
   --leading-none: 0em;
@@ -50,53 +45,18 @@
   --leading-loose: 1em;
 }
 
-@layer theme {
-  /* When user sets theme to dark */
-  .dark {
-    --color-surface: var(--color-dark-surface);
-    --color-surface-secondary: var(--color-dark-surface-secondary);
-    --color-typography: var(--color-dark-typography);
-    --color-action: var(--color-dark-action);
-    --color-action-secondary: var(--color-dark-action-secondary);
-    --color-active: var(--color-dark-active);
-    --color-link: var(--color-dark-link);
-
-    --color-calendar-date: var(--color-dark-calendar-date);
-    --color-calendar-today: var(--color-dark-calendar-today);
-    --color-calendar-today-surface: var(--color-dark-calendar-today-surface);
-  }
-  /* When user sets theme to auto and OS theme is dark */
-  @media (prefers-color-scheme: dark) {
-    .system {
-      --color-surface: var(--color-dark-surface);
-      --color-surface-secondary: var(--color-dark-surface-secondary);
-      --color-typography: var(--color-dark-typography);
-      --color-action: var(--color-dark-action);
-      --color-action-secondary: var(--color-dark-action-secondary);
-      --color-active: var(--color-dark-active);
-      --color-link: var(--color-dark-link);
-
-      --color-calendar-date: var(--color-dark-calendar-date);
-      --color-calendar-today: var(--color-dark-calendar-today);
-      --color-calendar-today-surface: var(--color-dark-calendar-today-surface);
-    }
-  }
-}
-
-._button-default {
-  @apply bg-slate-200 group-hover:bg-slate-300 group-active:bg-slate-400;
-
-  @variant dark {
-    @apply bg-action-secondary group-hover:bg-action-secondary/75 group-active:bg-action-secondary/50;
-  }
-}
-
-._button-hover {
-  @apply group-hover:bg-slate-100 group-active:bg-slate-200;
-
-  @variant dark {
-    @apply group-hover:bg-action group-active:bg-action-secondary;
-  }
+/* Dark mode colours */
+@variant dark {
+  --color-surface: oklch(18.23% 0 0); /* #121212 */
+  --color-surface-secondary: oklch(25% 0 0); /* #222222 */
+  --color-typography: var(--color-white);
+  --color-action: oklch(27.68% 0 0); /* #282828 */
+  --color-action-secondary: oklch(33.78% 0.0223 256.39); /* #303843 */
+  --color-active: oklch(60.81% 0.2097 267.74); /* #4D74FE */
+  --color-link: oklch(66.18% 0.1648 267.74); /* #678BF7 */
+  --color-button-bg: var(--color-action-secondary);
+  --color-button-bg-hover: oklch(41.02% 0.0223 256.39); /* #434B57 */
+  --color-button-bg-active: oklch(29.02% 0.0223 256.39); /* #242C37 */
 }
 
 /* Override leading to set --line-spacing instead (see ./css/text.css). */

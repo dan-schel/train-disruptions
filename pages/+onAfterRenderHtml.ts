@@ -10,7 +10,7 @@ export default (pageContext: PageContext) => {
   config({
     htmlAttributes: {
       class:
-        theme === "dark" ? "dark" : theme === "system" ? "system" : undefined,
+        theme === "dark" ? "dark" : theme === "light" ? "light" : undefined,
     },
   });
 };

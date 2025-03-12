@@ -17,7 +17,7 @@ export default function LayoutDefault({
   }
 
   return (
-    <Column className="bg-surface text-typography min-h-screen">
+    <Column className="bg-surface text-typography min-h-screen transition-colors duration-250">
       <DesktopNavBar />
       <MobileNavBar />
       <With flexGrow="1" className="pb-16 md:pt-12 md:pb-0">
