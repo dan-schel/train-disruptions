@@ -1,3 +1,4 @@
+import { App } from "../../../app";
 import { BusReplacementsDisruptionData } from "../data/bus-replacements-disruption-data";
 import { Disruption } from "../disruption";
 import { DisruptionWriteup } from "./disruption-writeup";
@@ -9,17 +10,11 @@ export class BusReplacementsDisruptionWriteupAuthor extends DisruptionWriteupAut
     super();
   }
 
-  write(disruption: Disruption, now: Date): DisruptionWriteup {
-    const periodString = disruption.period.getDisplayString({ now });
+  write(_app: App, _disruption: Disruption): DisruptionWriteup {
+    // const periodString = disruption.period.getDisplayString({
+    //   now: app.time.now(),
+    // });
 
-    return new DisruptionWriteup(
-      `${stationName} Station is closed`,
-
-      // TODO: Mostly just an example. Further info to be added, no doubt.
-      `${periodString}\n\nAll trains will run express through ${stationName} Station.`,
-
-      `${stationName} closed`,
-      "very-low",
-    );
+    return new DisruptionWriteup();
   }
 }

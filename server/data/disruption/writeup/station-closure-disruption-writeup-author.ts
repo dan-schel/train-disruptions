@@ -1,4 +1,4 @@
-import { stations } from "../../static/stations";
+import { App } from "../../../app";
 import { StationClosureDisruptionData } from "../data/station-closure-disruption-data";
 import { Disruption } from "../disruption";
 import { DisruptionWriteup } from "./disruption-writeup";
@@ -10,9 +10,11 @@ export class StationClosureDisruptionWriteupAuthor extends DisruptionWriteupAuth
     super();
   }
 
-  write(disruption: Disruption, now: Date): DisruptionWriteup {
-    const stationName = stations.require(this._data.stationId).name;
-    const periodString = disruption.period.getDisplayString({ now });
+  write(app: App, disruption: Disruption): DisruptionWriteup {
+    const stationName = app.stations.require(this._data.stationId).name;
+    const periodString = disruption.period.getDisplayString({
+      now: app.time.now(),
+    });
 
     return new DisruptionWriteup(
       `${stationName} Station is closed`,

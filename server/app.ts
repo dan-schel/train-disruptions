@@ -9,6 +9,7 @@ import { InMemoryDatabase } from "./database/lib/in-memory/in-memory-database";
 import { FakeDisruptionSource } from "./disruption-source/fake-disruption-source";
 import { HistoricalAlert } from "./data/historical-alert";
 import { migrations } from "./database/migrations/migrations";
+import { TimeProvider } from "./time-provider";
 
 export class App {
   constructor(
@@ -16,6 +17,7 @@ export class App {
     readonly stations: StationCollection,
     readonly database: Database,
     readonly disruptionSource: DisruptionSource,
+    readonly time: TimeProvider,
   ) {}
 
   async init() {
