@@ -15,7 +15,7 @@ import { Button } from "@/components/core/Button";
 
 export function DesktopNavBar() {
   return (
-    <nav className="fixed top-0 right-0 left-0 z-50 hidden border-b border-b-slate-200 bg-white md:block">
+    <nav className="bg-surface border-b-action-secondary fixed top-0 right-0 left-0 z-50 hidden border-b md:block">
       <PageCenterer>
         <Grid columns="auto 1fr auto" className="gap-4 px-4">
           <Button href="/">
