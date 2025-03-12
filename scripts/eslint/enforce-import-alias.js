@@ -19,13 +19,7 @@ const useImportAlias = {
     return {
       ImportDeclaration: (node) => {
         const repoRelativeFileName = context.filename.replace(context.cwd, "");
-        if (
-          exceptions.some((exception) =>
-            repoRelativeFileName.startsWith(exception),
-          )
-        ) {
-          return;
-        }
+        if (exceptions.some((e) => repoRelativeFileName.startsWith(e))) return;
 
         const value = node.source.value;
         if (!value.startsWith(".")) return;
@@ -34,7 +28,11 @@ const useImportAlias = {
           path.dirname(context.filename),
           value,
         );
-        const aliasedPath = absolutePath.replace(context.cwd, "@");
+
+        const aliasedPath = absolutePath
+          .replace(context.cwd, "@")
+          .replace("\\", "/");
+
         const replacement = `"${aliasedPath}"`;
 
         context.report({
