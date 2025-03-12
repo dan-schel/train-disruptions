@@ -1,6 +1,12 @@
-import { flexi } from "../lib/dimensions/flexi-length";
-import { interchangeEdgeOffset } from "../lib/utils";
-import { defaultRadius, diagonal, lineGap, long45, short45 } from "./utils";
+import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
+import { interchangeEdgeOffset } from "@/scripts/generate-map-geometry/lib/utils";
+import {
+  defaultRadius,
+  diagonal,
+  lineGap,
+  long45,
+  short45,
+} from "@/scripts/generate-map-geometry/ptv/utils";
 
 export const richmondToSouthYarra = flexi(20, 20);
 export const southYarraToCaulfield = flexi(30, 60);

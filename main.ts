@@ -1,17 +1,17 @@
 import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { createVikeHandler } from "./server/vike-handler";
+import { createVikeHandler } from "@/server/vike-handler";
 import express from "express";
 import cookieParser from "cookie-parser";
-import { env } from "./server/env";
-import { createApiRouter } from "./server/routes/api";
+import { env } from "@/server/env";
+import { createApiRouter } from "@/server/routes/api";
 import { createDevMiddleware } from "vike/server";
-import { App } from "./server/app";
-import { lines } from "./server/data/static/lines";
-import { stations } from "./server/data/static/stations";
-import { initDatabase } from "./server/database/init-database";
-import { initDisruptionSource } from "./server/disruption-source/init-disruption-source";
+import { App } from "@/server/app";
+import { lines } from "@/server/data/static/lines";
+import { stations } from "@/server/data/static/stations";
+import { initDatabase } from "@/server/database/init-database";
+import { initDisruptionSource } from "@/server/disruption-source/init-disruption-source";
 
 await main();
 

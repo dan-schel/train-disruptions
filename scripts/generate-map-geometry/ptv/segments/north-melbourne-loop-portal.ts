@@ -1,11 +1,11 @@
-import { flexi } from "../../lib/dimensions/flexi-length";
-import { PathBlueprint } from "../../lib/blueprint/path-blueprint";
+import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
+import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
 import {
   measure45CurveLockedRadius,
   measure45CurveLockedStraight,
-} from "../utils";
-import * as loop from "../utils-city-loop";
-import * as direct from "./southern-cross-to-north-melbourne";
+} from "@/scripts/generate-map-geometry/ptv/utils";
+import * as loop from "@/scripts/generate-map-geometry/ptv/utils-city-loop";
+import * as direct from "@/scripts/generate-map-geometry/ptv/segments/southern-cross-to-north-melbourne";
 
 const directRadius = flexi(20);
 

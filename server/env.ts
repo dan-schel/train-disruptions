@@ -1,12 +1,13 @@
 import { configDotenv } from "dotenv";
 import { z } from "zod";
-import { stringNumberSchema } from "./utils";
+import { stringNumberSchema } from "@/server/utils";
 
 const schema = z.object({
   RELAY_KEY: z.string().optional(),
   DATABASE_URL: z.string().optional(),
 
   NODE_ENV: z.enum(["production", "development"]).default("development"),
+  TZ: z.literal("Etc/UTC"),
   NPM_CONFIG_PRODUCTION: z.string().default("false"),
   PORT: stringNumberSchema.default("3000"),
   HMR_PORT: stringNumberSchema.default("24678"),

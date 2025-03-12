@@ -1,7 +1,7 @@
-import { CustomDisruptionData } from "../data/custom-disruption-data";
-import { Disruption } from "../disruption";
-import { DisruptionWriteup } from "./disruption-writeup";
-import { DisruptionWriteupAuthor } from "./disruption-writeup-author";
+import { CustomDisruptionData } from "@/server/data/disruption/data/custom-disruption-data";
+import { Disruption } from "@/server/data/disruption/disruption";
+import { DisruptionWriteup } from "@/server/data/disruption/writeup/disruption-writeup";
+import { DisruptionWriteupAuthor } from "@/server/data/disruption/writeup/disruption-writeup-author";
 
 /** DisruptionWriteupAuther for CustomDisruptionData. */
 export class CustomDisruptionWriteupAuthor extends DisruptionWriteupAuthor {
@@ -9,7 +9,7 @@ export class CustomDisruptionWriteupAuthor extends DisruptionWriteupAuthor {
     super();
   }
 
-  write(_disruption: Disruption): DisruptionWriteup {
+  write(_disruption: Disruption, _now: Date): DisruptionWriteup {
     return this._data.writeup;
   }
 }

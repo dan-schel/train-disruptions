@@ -1,11 +1,11 @@
 import React from "react";
 
-import { Text } from "../../components/core/Text";
-import { Column } from "../../components/core/Column";
-import { PageCenterer } from "../../components/common/PageCenterer";
-import { PagePadding } from "../../components/common/PagePadding";
+import { Text } from "@/components/core/Text";
+import { Column } from "@/components/core/Column";
+import { PageCenterer } from "@/components/common/PageCenterer";
+import { PagePadding } from "@/components/common/PagePadding";
 import { useData } from "vike-react/useData";
-import { Data } from "./+data";
+import { Data } from "@/pages/admin/+data";
 
 export default function Page() {
   // TODO: This is temporary. Saves me having to check the prod database all the

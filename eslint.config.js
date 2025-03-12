@@ -34,6 +34,9 @@ const customRules = {
     // Ensure return type of +data hooks checks against JsonSerializable.
     "custom/ensure-data-serializable": "warn",
 
+    // Ban relative imports, and require paths to start with "@/" instead.
+    "custom/enforce-import-alias": "warn",
+
     // TODO: Consider other lint rules from
     // https://github.com/jsx-eslint/eslint-plugin-react?tab=readme-ov-file#list-of-supported-rules
     // such as `react/button-has-type`.

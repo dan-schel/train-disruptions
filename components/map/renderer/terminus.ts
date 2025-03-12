@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { DualPoint } from "./dual-point";
-import { LineColor, lineColors } from "./utils";
+import { DualPoint } from "@/components/map/renderer/dual-point";
+import { LineColor, lineColors } from "@/components/map/renderer/utils";
 
 export class Terminus {
   constructor(

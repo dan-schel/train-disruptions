@@ -1,13 +1,13 @@
 import React from "react";
 
-import { Text } from "../../components/core/Text";
-import { Column } from "../../components/core/Column";
-import { PageCenterer } from "../../components/common/PageCenterer";
-import { SimpleButton } from "../../components/common/SimpleButton";
-import { PagePadding } from "../../components/common/PagePadding";
+import { Text } from "@/components/core/Text";
+import { Column } from "@/components/core/Column";
+import { PageCenterer } from "@/components/common/PageCenterer";
+import { SimpleButton } from "@/components/common/SimpleButton";
+import { PagePadding } from "@/components/common/PagePadding";
 import { useData } from "vike-react/useData";
-import { Data } from "./+data";
-import { Spacer } from "../../components/core/Spacer";
+import { Data } from "@/pages/commute/+data";
+import { Spacer } from "@/components/core/Spacer";
 
 export default function Page() {
   const { commute } = useData<Data>();

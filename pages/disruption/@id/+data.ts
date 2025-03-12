@@ -1,6 +1,6 @@
 import { PageContext } from "vike/types";
-import { Disruption } from "../../../components/calendar/Calendar";
-import { JsonSerializable } from "../../../shared/json-serializable";
+import { Disruption } from "@/components/calendar/Calendar";
+import { JsonSerializable } from "@/shared/json-serializable";
 
 export type Data = {
   backHref: string;

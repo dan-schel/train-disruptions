@@ -1,13 +1,13 @@
 import React from "react";
 
 import { useData } from "vike-react/useData";
-import { Data } from "./+data";
-import { Text } from "../../../components/core/Text";
-import { Column } from "../../../components/core/Column";
-import { PageCenterer } from "../../../components/common/PageCenterer";
-import { PagePadding } from "../../../components/common/PagePadding";
-import { BackNavigation } from "../../../components/navigation/BackNavigation";
-import { Calendar } from "../../../components/calendar/Calendar";
+import { Data } from "@/pages/line/@id/+data";
+import { Text } from "@/components/core/Text";
+import { Column } from "@/components/core/Column";
+import { PageCenterer } from "@/components/common/PageCenterer";
+import { PagePadding } from "@/components/common/PagePadding";
+import { BackNavigation } from "@/components/navigation/BackNavigation";
+import { Calendar } from "@/components/calendar/Calendar";
 
 export default function Page() {
   const { line } = useData<Data>();

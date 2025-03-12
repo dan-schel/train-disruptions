@@ -1,8 +1,8 @@
-import { stations } from "../../static/stations";
-import { StationClosureDisruptionData } from "../data/station-closure-disruption-data";
-import { Disruption } from "../disruption";
-import { DisruptionWriteup } from "./disruption-writeup";
-import { DisruptionWriteupAuthor } from "./disruption-writeup-author";
+import { stations } from "@/server/data/static/stations";
+import { StationClosureDisruptionData } from "@/server/data/disruption/data/station-closure-disruption-data";
+import { Disruption } from "@/server/data/disruption/disruption";
+import { DisruptionWriteup } from "@/server/data/disruption/writeup/disruption-writeup";
+import { DisruptionWriteupAuthor } from "@/server/data/disruption/writeup/disruption-writeup-author";
 
 /** DisruptionWriteupAuther for StationClosureDisruptionData. */
 export class StationClosureDisruptionWriteupAuthor extends DisruptionWriteupAuthor {
@@ -10,9 +10,9 @@ export class StationClosureDisruptionWriteupAuthor extends DisruptionWriteupAuth
     super();
   }
 
-  write(disruption: Disruption): DisruptionWriteup {
+  write(disruption: Disruption, now: Date): DisruptionWriteup {
     const stationName = stations.require(this._data.stationId).name;
-    const periodString = disruption.period.toDisplayString();
+    const periodString = disruption.period.getDisplayString({ now });
 
     return new DisruptionWriteup(
       `${stationName} Station is closed`,

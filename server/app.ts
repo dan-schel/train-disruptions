@@ -1,13 +1,14 @@
 import { uuid } from "@dan-schel/js-utils";
-import { LineCollection } from "./data/static/line-collection";
-import { StationCollection } from "./data/static/station-collection";
-import { Database } from "./database/lib/general/database";
-import { Crayon } from "./database/models/crayons";
-import { CRAYONS, HISTORICAL_ALERTS } from "./database/models/models";
-import { DisruptionSource } from "./disruption-source/disruption-source";
-import { InMemoryDatabase } from "./database/lib/in-memory/in-memory-database";
-import { FakeDisruptionSource } from "./disruption-source/fake-disruption-source";
-import { HistoricalAlert } from "./data/historical-alert";
+import { LineCollection } from "@/server/data/static/line-collection";
+import { StationCollection } from "@/server/data/static/station-collection";
+import { Database } from "@/server/database/lib/general/database";
+import { Crayon } from "@/server/database/models/crayons";
+import { CRAYONS, HISTORICAL_ALERTS } from "@/server/database/models/models";
+import { DisruptionSource } from "@/server/disruption-source/disruption-source";
+import { InMemoryDatabase } from "@/server/database/lib/in-memory/in-memory-database";
+import { FakeDisruptionSource } from "@/server/disruption-source/fake-disruption-source";
+import { HistoricalAlert } from "@/server/data/historical-alert";
+import { migrations } from "@/server/database/migrations/migrations";
 
 export class App {
   constructor(
@@ -18,6 +19,9 @@ export class App {
   ) {}
 
   async init() {
+    // Has to run before anything else that might use the database.
+    await this.database.runMigrations(migrations);
+
     // TODO: This is temporary.
     await this._runDatabaseDemo();
     await this._runDisruptionSourceDemo();
@@ -68,24 +72,29 @@ export class App {
   private _runHistoricalAlertLogger() {
     setInterval(
       async () => {
-        const disruptions = await this.disruptionSource.fetchDisruptions();
+        try {
+          const disruptions = await this.disruptionSource.fetchDisruptions();
 
-        disruptions.forEach(async (disruption) => {
-          const x = await this.database
-            .of(HISTORICAL_ALERTS)
-            .get(disruption.disruption_id);
-          if (x == null) {
-            await this.database
+          disruptions.forEach(async (disruption) => {
+            const x = await this.database
               .of(HISTORICAL_ALERTS)
-              .create(
-                new HistoricalAlert(
-                  disruption.disruption_id,
-                  disruption.title,
-                  disruption.description,
-                ),
-              );
-          }
-        });
+              .get(disruption.disruption_id);
+            if (x == null) {
+              await this.database
+                .of(HISTORICAL_ALERTS)
+                .create(
+                  new HistoricalAlert(
+                    disruption.disruption_id,
+                    disruption.title,
+                    disruption.description,
+                  ),
+                );
+            }
+          });
+        } catch (error) {
+          console.warn("Failed to log historical alerts.");
+          console.warn(error);
+        }
       },
       1000 * 60 * 5,
     );

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { RouteGraphEdgeBase } from "./route-graph-edge-base";
+import { RouteGraphEdgeBase } from "@/server/data/route-graph/edge/route-graph-edge-base";
 
 export type RouteGraphAlternativeEdgeMode = "bus" | "tram" | "walk";
 

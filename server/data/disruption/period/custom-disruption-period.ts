@@ -1,27 +1,12 @@
 import { z } from "zod";
-import { CalendarMark, DisruptionPeriodBase } from "./disruption-period-base";
-
-/** A start date and end date. */
-class TimeRange {
-  constructor(
-    readonly start: Date,
-    readonly end: Date,
-  ) {}
-
-  static readonly bson = z
-    .object({
-      start: z.date(),
-      end: z.date(),
-    })
-    .transform((x) => new TimeRange(x.start, x.end));
-
-  toBson(): z.input<typeof TimeRange.bson> {
-    return {
-      start: this.start,
-      end: this.end,
-    };
-  }
-}
+import {
+  CalendarMark,
+  DisplayStringOptions,
+  DisruptionPeriodBase,
+} from "@/server/data/disruption/period/disruption-period-base";
+import { TimeRange } from "@/server/data/disruption/period/utils/time-range";
+import { DisruptedCalendarDay } from "@/server/data/disruption/period/utils/disrupted-calendar-day";
+import { JustDate } from "@/server/data/disruption/period/utils/just-date";
 
 /**
  * Allows complete customisation of active time ranges, calendar marks, and the
@@ -31,17 +16,9 @@ export class CustomDisruptionPeriod extends DisruptionPeriodBase {
   constructor(
     readonly timeRanges: readonly TimeRange[],
     readonly displayString: string,
-    readonly calendarMarks: CalendarMark[],
+    readonly calendarMarks: DisruptedCalendarDay[],
   ) {
     super();
-  }
-
-  toDisplayString(): string {
-    return this.displayString;
-  }
-
-  getCalendarMarks(): readonly CalendarMark[] {
-    return this.calendarMarks;
   }
 
   static readonly bson = z
@@ -49,7 +26,7 @@ export class CustomDisruptionPeriod extends DisruptionPeriodBase {
       type: z.literal("custom"),
       timeRanges: TimeRange.bson.array(),
       displayString: z.string(),
-      calendarMarks: CalendarMark.bson.array(),
+      calendarMarks: DisruptedCalendarDay.bson.array(),
     })
     .transform(
       (x) =>
@@ -65,7 +42,29 @@ export class CustomDisruptionPeriod extends DisruptionPeriodBase {
       type: "custom",
       timeRanges: this.timeRanges.map((x) => x.toBson()),
       displayString: this.displayString,
-      calendarMarks: this.calendarMarks,
+      calendarMarks: this.calendarMarks.map((x) => x.toBson()),
     };
+  }
+
+  getDisplayString(_options: DisplayStringOptions): string {
+    return this.displayString;
+  }
+
+  getCalendarMark(date: JustDate): CalendarMark {
+    const match = this.calendarMarks.find((x) => x.date.equals(date));
+    if (match == null) return "no-disruption";
+    return match.eveningOnly ? "evening-only" : "all-day";
+  }
+
+  intersects(range: TimeRange): boolean {
+    return this.timeRanges.some((x) => x.intersects(range));
+  }
+
+  occursAt(date: Date): boolean {
+    return this.timeRanges.some((x) => x.includes(date));
+  }
+
+  getFullyEncompassingTimeRange(): TimeRange {
+    return TimeRange.encompass(this.timeRanges);
   }
 }

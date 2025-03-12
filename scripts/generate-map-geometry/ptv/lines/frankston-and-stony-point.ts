@@ -1,17 +1,17 @@
-import { flexi } from "../../lib/dimensions/flexi-length";
-import { LineBlueprint } from "../../lib/blueprint/line-blueprint";
-import { PathBlueprint } from "../../lib/blueprint/path-blueprint";
+import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
+import { LineBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/line-blueprint";
+import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
 import {
   caulfield,
   flindersStreet,
   frankston as frankstonInterchange,
   richmond,
   southYarra,
-} from "../interchanges";
+} from "@/scripts/generate-map-geometry/ptv/interchanges";
 import {
   flindersStreetToRichmond,
   richmondPos,
-} from "../segments/flinders-street-to-richmond";
+} from "@/scripts/generate-map-geometry/ptv/segments/flinders-street-to-richmond";
 import {
   defaultRadius,
   diagonal,
@@ -19,12 +19,12 @@ import {
   long45,
   short45,
   standardDiagonal,
-} from "../utils";
-import * as loop from "../utils-city-loop";
+} from "@/scripts/generate-map-geometry/ptv/utils";
+import * as loop from "@/scripts/generate-map-geometry/ptv/utils-city-loop";
 import {
   richmondToSouthYarra,
   southYarraToCaulfield,
-} from "../utils-shared-corridors";
+} from "@/scripts/generate-map-geometry/ptv/utils-shared-corridors";
 
 const aspendaleStraight = flexi(60, 120);
 const frankstonStraight = flexi(30, 60);

@@ -1,14 +1,14 @@
 import React from "react";
-import { AlteredRoute as AlteredRouteProps } from "./+data";
-import { BusReplacement as BusReplacementProps } from "./+data";
-import { StationClosure as StationClosureProps } from "./+data";
+import { AlteredRoute as AlteredRouteProps } from "@/pages/disruption/@id/+data";
+import { BusReplacement as BusReplacementProps } from "@/pages/disruption/@id/+data";
+import { StationClosure as StationClosureProps } from "@/pages/disruption/@id/+data";
 
-import { Map } from "../../../components/map/Map";
-import { Text } from "../../../components/core/Text";
-import { Link } from "../../../components/core/Link";
-import { With } from "../../../components/core/With";
-import { Column } from "../../../components/core/Column";
-import { Calendar } from "../../../components/calendar/Calendar";
+import { Map } from "@/components/map/Map";
+import { Text } from "@/components/core/Text";
+import { Link } from "@/components/core/Link";
+import { With } from "@/components/core/With";
+import { Column } from "@/components/core/Column";
+import { Calendar } from "@/components/calendar/Calendar";
 
 export function Disruption(
   props: StationClosureProps | AlteredRouteProps | BusReplacementProps,

@@ -1,4 +1,4 @@
-import { RouteGraph } from "../../route-graph/route-graph";
+import { RouteGraph } from "@/server/data/route-graph/route-graph";
 
 /** Knows how to modify the route graph on behalf of a certain disruption. */
 export abstract class RouteGraphModifier {

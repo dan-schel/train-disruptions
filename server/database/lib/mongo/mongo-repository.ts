@@ -1,9 +1,17 @@
 import { Collection, WithId } from "mongodb";
-import { Repository } from "../general/database";
-import { DatabaseModel, DataOf, IdOf } from "../general/database-model";
-import { FindQuery, FirstQuery, CountQuery } from "../general/query-types";
-import { MongoWhereClauseInterpreter } from "./mongo-where-clause-interpreter";
-import { MongoSortClauseInterpreter } from "./mongo-sort-clause-interpreter";
+import { Repository } from "@/server/database/lib/general/database";
+import {
+  DatabaseModel,
+  DataOf,
+  IdOf,
+} from "@/server/database/lib/general/database-model";
+import {
+  FindQuery,
+  FirstQuery,
+  CountQuery,
+} from "@/server/database/lib/general/query-types";
+import { MongoWhereClauseInterpreter } from "@/server/database/lib/mongo/mongo-where-clause-interpreter";
+import { MongoSortClauseInterpreter } from "@/server/database/lib/mongo/mongo-sort-clause-interpreter";
 
 export type ModelDocument = {
   // The mongodb driver hates it when I try to use IdOf<Model> here, otherwise I
@@ -66,7 +74,7 @@ export class MongoRepository<
   }
 
   async update(item: DataOf<Model>): Promise<void> {
-    await this._collection.updateOne(
+    await this._collection.replaceOne(
       { _id: this._model.getId(item) },
       this._serialize(item),
     );

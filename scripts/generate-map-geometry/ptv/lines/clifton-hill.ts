@@ -1,20 +1,23 @@
-import { JOLIMONT } from "../../../../shared/station-ids";
-import { flexi } from "../../lib/dimensions/flexi-length";
-import { LineBlueprint } from "../../lib/blueprint/line-blueprint";
-import { PathBlueprint } from "../../lib/blueprint/path-blueprint";
+import { JOLIMONT } from "@/shared/station-ids";
+import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
+import { LineBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/line-blueprint";
+import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
 import {
   flagstaff,
   flindersStreet,
   parliament,
   southernCross,
   cliftonHill as cliftonHillInterchange,
-} from "../interchanges";
-import { flagstaffToParliament } from "../segments/flagstaff-to-parliament";
-import { flindersStreetToSouthernCross } from "../segments/flinders-street-to-southern-cross";
-import { jolimontLoopPortal } from "../segments/jolimont-loop-portal";
-import { southernCrossToFlagstaff } from "../segments/southern-cross-to-flagstaff";
-import { defaultRadius, standardDiagonal } from "../utils";
-import * as loop from "../utils-city-loop";
+} from "@/scripts/generate-map-geometry/ptv/interchanges";
+import { flagstaffToParliament } from "@/scripts/generate-map-geometry/ptv/segments/flagstaff-to-parliament";
+import { flindersStreetToSouthernCross } from "@/scripts/generate-map-geometry/ptv/segments/flinders-street-to-southern-cross";
+import { jolimontLoopPortal } from "@/scripts/generate-map-geometry/ptv/segments/jolimont-loop-portal";
+import { southernCrossToFlagstaff } from "@/scripts/generate-map-geometry/ptv/segments/southern-cross-to-flagstaff";
+import {
+  defaultRadius,
+  standardDiagonal,
+} from "@/scripts/generate-map-geometry/ptv/utils";
+import * as loop from "@/scripts/generate-map-geometry/ptv/utils-city-loop";
 
 const cliftonHillStraight = flexi(40, 80);
 const heidelbergStraight = flexi(40, 80);

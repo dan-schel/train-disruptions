@@ -1,15 +1,15 @@
 import React from "react";
 
-import { Grid } from "../core/Grid";
-import { With } from "../core/With";
-import { Column } from "../core/Column";
+import { Grid } from "@/components/core/Grid";
+import { With } from "@/components/core/With";
+import { Column } from "@/components/core/Column";
 
-import { Legends } from "./Legends";
-import { MonthTitle } from "./Title";
-import { CalendarGrid } from "./Grid";
-import { DaysOfTheWeek } from "./Days";
-import { TodayIndicator } from "./Today";
-import { getMonthsToRender, isInitial } from "./utils";
+import { Legends } from "@/components/calendar/Legends";
+import { MonthTitle } from "@/components/calendar/Title";
+import { CalendarGrid } from "@/components/calendar/Grid";
+import { DaysOfTheWeek } from "@/components/calendar/Days";
+import { TodayIndicator } from "@/components/calendar/Today";
+import { getMonthsToRender, isInitial } from "@/components/calendar/utils";
 
 export type Disruption = {
   from: Date;

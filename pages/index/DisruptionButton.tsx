@@ -1,11 +1,11 @@
 import React from "react";
-import { Grid } from "../../components/core/Grid";
-import { Text } from "../../components/core/Text";
-import { Button } from "../../components/core/Button";
-import { Column } from "../../components/core/Column";
-import { MingcuteRightLine } from "../../components/icons/MingcuteRightLine";
-import { MingcuteRouteFill } from "../../components/icons/MingcuteRouteFill";
-import { MingcuteCloseCircleFill } from "../../components/icons/MingcuteCloseCircleFill";
+import { Grid } from "@/components/core/Grid";
+import { Text } from "@/components/core/Text";
+import { Button } from "@/components/core/Button";
+import { Column } from "@/components/core/Column";
+import { MingcuteRightLine } from "@/components/icons/MingcuteRightLine";
+import { MingcuteRouteFill } from "@/components/icons/MingcuteRouteFill";
+import { MingcuteCloseCircleFill } from "@/components/icons/MingcuteCloseCircleFill";
 
 type DisruptionType =
   | {

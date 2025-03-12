@@ -1,9 +1,9 @@
-import { Line } from "./line";
-import { Interchange } from "./interchange";
-import { Terminus } from "./terminus";
+import { Line } from "@/components/map/renderer/line";
+import { Interchange } from "@/components/map/renderer/interchange";
+import { Terminus } from "@/components/map/renderer/terminus";
 import { z } from "zod";
-import { DualViewport } from "./dual-viewport";
-import { viewportPadding } from "./utils";
+import { DualViewport } from "@/components/map/renderer/dual-viewport";
+import { viewportPadding } from "@/components/map/renderer/utils";
 
 export class Geometry {
   constructor(

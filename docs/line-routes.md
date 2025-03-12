@@ -26,7 +26,7 @@ Here's how it works!
 
 ### Overview
 
-At any given time, the state of the transport network can be represented as a graph. Stations are nodes, and potential paths between stations are edges (those paths might be train services, buses, or even walking). If there's no way recommended way to travel between two stations directly, there won't be a direct edge between them.
+At any given time, the state of the transport network can be represented as a graph. Stations are nodes, and potential paths between stations are edges (those paths might be train services, buses, or even walking). If there's no recommended way to travel between two stations directly, there won't be a direct edge between them.
 
 In the graph's default state, all edges are train edges. Each edge has been provided by a train line.
 
@@ -66,7 +66,7 @@ This scenario provides an example of why a disruption might need to **add** edge
 
 ### What's the deal with regional lines?
 
-Regional lines are a bit strange in order to account for the idea that suburban passengers cannot use regional trains for journeys which are achievable via suburban trains. This means, while the Ballarat lines stops at Deer Park, Ardeer, Sunshine, Footscray, and Southern Cross, no-one is permitted to board a citybound train from Ballarat at Sunshine.
+Regional lines are a bit strange in order to account for the idea that suburban passengers cannot use regional trains for journeys which are achievable via suburban trains. This means, while the Ballarat line stops at Deer Park, Ardeer, Sunshine, Footscray, and Southern Cross, no-one is permitted to board a citybound train from Ballarat at Sunshine.
 
 We represent this by **not** including an edge from Sunshine to Footscray. Instead, edges to the final three "set-down only" stations are direct from Ardeer, since it's the last station where passengers can board a citybound train. (In theory, a passenger at Sunshine **could** travel backwards to Ardeer in order to take a regional train from Ardeer to the city if they really wanted to. The graph represents this perfectly!)
 
@@ -116,7 +116,7 @@ Here we see a second concept is needed, because the superpower the route graph h
 
 ### Overview
 
-As mentioned above, "line shapes" exist to resolve a high-level phrases like "Caulfield to Dandenong" (a.k.a. line sections), into a list of relevant route graph edges automatically, so that a disruption can make use of them (i.e. remove them, convert them to bus edges, etc.).
+As mentioned above, "line shapes" exist to resolve high-level phrases like "Caulfield to Dandenong" (a.k.a. line sections), into a list of relevant route graph edges automatically, so that a disruption can make use of them (i.e. remove them, convert them to bus edges, etc.).
 
 Line shapes are represented something like this:
 

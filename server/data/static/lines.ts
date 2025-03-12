@@ -1,7 +1,7 @@
-import { Line } from "./line";
-import { LineCollection } from "./line-collection";
-import * as line from "../../../shared/line-ids";
-import * as route from "./line-routes/line-routes";
+import { Line } from "@/server/data/static/line";
+import { LineCollection } from "@/server/data/static/line-collection";
+import * as line from "@/shared/line-ids";
+import * as route from "@/server/data/static/line-routes/line-routes";
 
 const data = [
   new Line({

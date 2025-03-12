@@ -1,9 +1,9 @@
 import { z } from "zod";
-import { DisruptionDataBase } from "./disruption-data-base";
-import { DisruptionWriteupAuthor } from "../writeup/disruption-writeup-author";
-import { StationClosureDisruptionWriteupAuthor } from "../writeup/station-closure-disruption-writeup-author";
-import { RouteGraphModifier } from "../route-graph-modifier/route-graph-modifier";
-import { StationClosureRouteGraphModifier } from "../route-graph-modifier/station-closure-route-graph-modifier";
+import { DisruptionDataBase } from "@/server/data/disruption/data/disruption-data-base";
+import { DisruptionWriteupAuthor } from "@/server/data/disruption/writeup/disruption-writeup-author";
+import { StationClosureDisruptionWriteupAuthor } from "@/server/data/disruption/writeup/station-closure-disruption-writeup-author";
+import { RouteGraphModifier } from "@/server/data/disruption/route-graph-modifier/route-graph-modifier";
+import { StationClosureRouteGraphModifier } from "@/server/data/disruption/route-graph-modifier/station-closure-route-graph-modifier";
 
 /**
  * A single station is closed. (Trains may be continuing to run express through

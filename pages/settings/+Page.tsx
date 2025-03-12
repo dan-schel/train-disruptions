@@ -1,11 +1,11 @@
 import React from "react";
 
-import { Text } from "../../components/core/Text";
-import { Column } from "../../components/core/Column";
-import { PageCenterer } from "../../components/common/PageCenterer";
-import { PagePadding } from "../../components/common/PagePadding";
-import { useSettings } from "../../hooks/useSettings";
-import { SimpleButton } from "../../components/common/SimpleButton";
+import { Text } from "@/components/core/Text";
+import { Column } from "@/components/core/Column";
+import { PageCenterer } from "@/components/common/PageCenterer";
+import { PagePadding } from "@/components/common/PagePadding";
+import { useSettings } from "@/hooks/useSettings";
+import { SimpleButton } from "@/components/common/SimpleButton";
 
 export default function Page() {
   const { fetchSettings, updateSettings } = useSettings();

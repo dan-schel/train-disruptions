@@ -1,11 +1,14 @@
-import { Interchange } from "../../../../components/map/renderer/interchange";
-import { DualPoint } from "../../../../components/map/renderer/dual-point";
+import { Interchange } from "@/components/map/renderer/interchange";
+import { DualPoint } from "@/components/map/renderer/dual-point";
 import {
   InterchangeBlueprint,
   PointPosition,
-} from "../blueprint/interchange-blueprint";
-import { LocatedInterchange } from "./path";
-import { interchangeEdgeOffset, interchangeInnerOffset } from "../utils";
+} from "@/scripts/generate-map-geometry/lib/blueprint/interchange-blueprint";
+import { LocatedInterchange } from "@/scripts/generate-map-geometry/lib/builder/path";
+import {
+  interchangeEdgeOffset,
+  interchangeInnerOffset,
+} from "@/scripts/generate-map-geometry/lib/utils";
 
 export class InterchangeBuilder {
   constructor(

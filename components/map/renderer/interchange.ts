@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { DualPoint } from "./dual-point";
+import { DualPoint } from "@/components/map/renderer/dual-point";
 
 export class Interchange {
   constructor(

@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { lines } from "../../../../../server/data/static/lines";
-import { stations } from "../../../../../server/data/static/stations";
+import { lines } from "@/server/data/static/lines";
+import { stations } from "@/server/data/static/stations";
 import {
   LineShape,
   LineShapeNode,
-} from "../../../../../server/data/static/line-routes/line-shape";
+} from "@/server/data/static/line-routes/line-shape";
 
 describe("Melbourne default line route edges", () => {
   it("should match the snapshot", () => {

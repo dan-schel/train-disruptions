@@ -1,10 +1,7 @@
 import { ZodIssue, ZodObjectDef, ZodSchema } from "zod";
 import { NextFunction, Request, Response } from "express";
 import { ParamsDictionary } from "express-serve-static-core";
-import {
-  IValidationError,
-  ValidationError,
-} from "../../../types/errors/validation";
+import { IValidationError, ValidationError } from "@/types/errors/validation";
 
 type ValidationRequest<TParams, TQuery, TBody, TResBody> = {
   params?: ZodSchema<TParams, ZodObjectDef>;

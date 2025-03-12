@@ -1,15 +1,15 @@
 import React from "react";
-import { Text } from "../../components/core/Text";
-import { Column } from "../../components/core/Column";
-import { PageCenterer } from "../../components/common/PageCenterer";
-import { PagePadding } from "../../components/common/PagePadding";
-import { BackNavigation } from "../../components/navigation/BackNavigation";
-import { DisplayData } from "./+data";
-import { SimpleButton } from "../../components/common/SimpleButton";
-import { Spacer } from "../../components/core/Spacer";
-import { useSettings } from "../../hooks/useSettings";
-import { Row } from "../../components/core/Row";
-import { MingcuteCheckLine } from "../../components/icons/MingcuteCheckLine";
+import { Text } from "@/components/core/Text";
+import { Column } from "@/components/core/Column";
+import { PageCenterer } from "@/components/common/PageCenterer";
+import { PagePadding } from "@/components/common/PagePadding";
+import { BackNavigation } from "@/components/navigation/BackNavigation";
+import { DisplayData } from "@/pages/trip/+data";
+import { SimpleButton } from "@/components/common/SimpleButton";
+import { Spacer } from "@/components/core/Spacer";
+import { useSettings } from "@/hooks/useSettings";
+import { Row } from "@/components/core/Row";
+import { MingcuteCheckLine } from "@/components/icons/MingcuteCheckLine";
 
 export type DisplayTripPageProps = {
   data: DisplayData;

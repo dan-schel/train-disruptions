@@ -1,7 +1,7 @@
-import { PathPieceBuilder } from "../../builder/path-piece-builder/path-piece-builder";
-import { StationLocationBuilder } from "../../builder/path-piece-builder/station-location-builder";
-import { InterchangeBlueprint } from "../interchange-blueprint";
-import { PathBlueprintPiece } from "./path-blueprint-piece";
+import { PathPieceBuilder } from "@/scripts/generate-map-geometry/lib/builder/path-piece-builder/path-piece-builder";
+import { StationLocationBuilder } from "@/scripts/generate-map-geometry/lib/builder/path-piece-builder/station-location-builder";
+import { InterchangeBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/interchange-blueprint";
+import { PathBlueprintPiece } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint-piece/path-blueprint-piece";
 
 export class StationLocation extends PathBlueprintPiece {
   constructor(

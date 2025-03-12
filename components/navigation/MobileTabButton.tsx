@@ -1,11 +1,11 @@
 import React from "react";
-import { Button } from "../core/Button";
-import { Text } from "../core/Text";
-import { With } from "../core/With";
+import { Button } from "@/components/core/Button";
+import { Text } from "@/components/core/Text";
+import { With } from "@/components/core/With";
 import clsx from "clsx";
-import { NavTab } from "./utils";
+import { NavTab } from "@/components/navigation/utils";
 import { usePageContext } from "vike-react/usePageContext";
-import { Column } from "../core/Column";
+import { Column } from "@/components/core/Column";
 
 export type MobileTabButtonProps = {
   tab: NavTab;

@@ -1,7 +1,12 @@
 import React from "react";
-import { admin, myCommute, overview, settings } from "./utils";
-import { MobileTabButton } from "./MobileTabButton";
-import { Grid } from "../core/Grid";
+import {
+  admin,
+  myCommute,
+  overview,
+  settings,
+} from "@/components/navigation/utils";
+import { MobileTabButton } from "@/components/navigation/MobileTabButton";
+import { Grid } from "@/components/core/Grid";
 
 export function MobileNavBar() {
   return (

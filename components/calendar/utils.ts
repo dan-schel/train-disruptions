@@ -1,4 +1,4 @@
-import { Disruption } from "./Calendar";
+import { Disruption } from "@/components/calendar/Calendar";
 import { toZonedTime } from "date-fns-tz";
 import { daysInWeek } from "date-fns/constants";
 import {

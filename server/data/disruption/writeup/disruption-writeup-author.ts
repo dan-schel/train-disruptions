@@ -1,5 +1,5 @@
-import { Disruption } from "../disruption";
-import { DisruptionWriteup } from "./disruption-writeup";
+import { Disruption } from "@/server/data/disruption/disruption";
+import { DisruptionWriteup } from "@/server/data/disruption/writeup/disruption-writeup";
 
 /**
  * Knows how to create a writeup for a particular disruption data type, despite
@@ -7,5 +7,5 @@ import { DisruptionWriteup } from "./disruption-writeup";
  * disruption period.
  */
 export abstract class DisruptionWriteupAuthor {
-  abstract write(disruption: Disruption): DisruptionWriteup;
+  abstract write(disruption: Disruption, now: Date): DisruptionWriteup;
 }

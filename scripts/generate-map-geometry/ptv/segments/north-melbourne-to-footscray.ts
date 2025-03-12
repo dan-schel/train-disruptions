@@ -1,6 +1,6 @@
-import { flexi } from "../../lib/dimensions/flexi-length";
-import { FlexiPoint } from "../../lib/dimensions/flexi-point";
-import { PathBlueprint } from "../../lib/blueprint/path-blueprint";
+import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
+import { FlexiPoint } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-point";
+import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
 import {
   defaultRadius,
   diagonal,
@@ -8,8 +8,8 @@ import {
   long45,
   measure45CurveLockedDiagonal,
   short45,
-} from "../utils";
-import { northMelbournePos as northMelbournePosFunc } from "./southern-cross-to-north-melbourne";
+} from "@/scripts/generate-map-geometry/ptv/utils";
+import { northMelbournePos as northMelbournePosFunc } from "@/scripts/generate-map-geometry/ptv/segments/southern-cross-to-north-melbourne";
 
 const northMelbourneStraight = flexi(10);
 const northMelbourneStraightSunbury = flexi(5);
