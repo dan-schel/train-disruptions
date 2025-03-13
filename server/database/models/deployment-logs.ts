@@ -18,7 +18,7 @@ export class DeploymentLogModel extends DatabaseModel<
 
   private static schema = z.object({
     commitHash: z.string(),
-    createdAt: z.coerce.date(),
+    createdAt: z.date(),
   });
 
   private constructor() {

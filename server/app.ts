@@ -15,6 +15,7 @@ import { HistoricalAlert } from "@/server/data/historical-alert";
 import { migrations } from "@/server/database/migrations/migrations";
 import { DiscordClient } from "@/server/discord";
 import { env } from "@/server/env";
+import { subHours } from "date-fns";
 
 export class App {
   constructor(
@@ -119,6 +120,10 @@ export class App {
       } else {
         const deployments = await this.database.of(DEPLOYMENT_LOGS).find({
           where: { commitHash: env.COMMIT_HASH },
+          sort: {
+            by: "createdAt",
+            direction: "desc",
+          },
         });
 
         await this.database.of(DEPLOYMENT_LOGS).create({
@@ -127,7 +132,14 @@ export class App {
           createdAt: new Date(),
         });
 
-        await this.discordClient.sendMessage(deployments.length > 0);
+        const lastDeployment = deployments.at(0)?.createdAt ?? new Date(0);
+
+        if (
+          deployments.length < 2 ||
+          subHours(new Date(), 1) > lastDeployment
+        ) {
+          await this.discordClient.sendMessage(deployments.length > 0);
+        }
       }
     } catch (error) {
       console.warn("🔴 Failed to log deployment.");
