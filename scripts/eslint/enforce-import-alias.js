@@ -18,7 +18,10 @@ const useImportAlias = {
   create: (context) => {
     return {
       ImportDeclaration: (node) => {
-        const repoRelativeFileName = context.filename.replace(context.cwd, "");
+        const repoRelativeFileName = context.filename
+          .replace(context.cwd, "")
+          .replace(/\\/g, "/");
+
         if (exceptions.some((e) => repoRelativeFileName.startsWith(e))) return;
 
         const value = node.source.value;
