@@ -17,4 +17,6 @@ export class BusReplacementsDisruptionWriteupAuthor extends DisruptionWriteupAut
 
     return new DisruptionWriteup();
   }
+
+  private _formatLineSections(): string {}
 }

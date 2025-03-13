@@ -1,3 +1,4 @@
+import { App } from "../../../app";
 import { CustomDisruptionData } from "../data/custom-disruption-data";
 import { Disruption } from "../disruption";
 import { DisruptionWriteup } from "./disruption-writeup";
@@ -9,7 +10,7 @@ export class CustomDisruptionWriteupAuthor extends DisruptionWriteupAuthor {
     super();
   }
 
-  write(_disruption: Disruption, _now: Date): DisruptionWriteup {
+  write(_app: App, _disruption: Disruption): DisruptionWriteup {
     return this._data.writeup;
   }
 }
