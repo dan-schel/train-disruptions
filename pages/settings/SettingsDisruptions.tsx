@@ -64,11 +64,9 @@ export function SettingsDisruptions({
 
       <Column className="gap-2">
         {allCategories.map((category) => (
-          // <label className="flex cursor-pointer items-center gap-2">
           <label
             key={category}
-            // className="flex cursor-pointer items-center gap-2 hover:bg-gray-200 dark:bg-gray-500" // left side
-            className="flex cursor-pointer items-center justify-between hover:bg-gray-200 dark:hover:bg-gray-600" // right side
+            className="flex cursor-pointer items-center justify-between hover:bg-gray-200 dark:hover:bg-gray-600"
           >
             <input
               type="checkbox"
@@ -86,18 +84,6 @@ export function SettingsDisruptions({
                   : undefined
               }
             />
-            {/* left side 
-            flex cursor-pointer items-center gap-2 hover:bg-gray-200 dark:bg-gray-500
-            */}
-            {/* {formattedCategories[category].disabled === true ? (
-              <>
-                <div className="peer relative h-5 w-9 rounded-full bg-gray-200 opacity-50 transition-all duration-500 ease-in-out peer-checked:bg-blue-600 peer-focus:ring-transparent peer-focus:outline-0 after:absolute after:top-[2px] after:left-[2px] after:h-4 after:w-4 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-white" />
-              </>
-            ) : (
-              <>
-                <div className="peer relative h-5 w-9 rounded-full bg-gray-900 transition-all duration-500 ease-in-out peer-checked:bg-blue-600 peer-focus:ring-transparent peer-focus:outline-0 after:absolute after:top-[2px] after:left-[2px] after:h-4 after:w-4 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-white hover:bg-blue-400 hover:peer-checked:bg-blue-500 dark:bg-gray-500" />
-              </>
-            )} */}
             <Column>
               {formattedCategories[category].name}
               {formattedCategories[category].description && (
@@ -106,20 +92,16 @@ export function SettingsDisruptions({
                 </Text>
               )}
             </Column>
-            {/* right side 
-            flex cursor-pointer items-center justify-between hover:bg-gray-200 dark:bg-gray-500
-            */}
             {formattedCategories[category].disabled === true ? (
               <>
                 <div className="peer relative h-5 w-9 rounded-full bg-gray-200 opacity-50 transition-all duration-500 ease-in-out peer-checked:bg-blue-600 peer-focus:ring-transparent peer-focus:outline-0 after:absolute after:top-[2px] after:left-[2px] after:h-4 after:w-4 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-white" />
               </>
             ) : (
               <>
-                <div className="peer relative h-5 w-9 rounded-full bg-gray-700 transition-all duration-500 ease-in-out peer-checked:bg-blue-600 peer-focus:ring-transparent peer-focus:outline-0 after:absolute after:top-[2px] after:left-[2px] after:h-4 after:w-4 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-white hover:bg-blue-400 hover:peer-checked:bg-blue-500 dark:bg-gray-500" />
+                <div className="peer relative h-5 w-9 rounded-full bg-gray-400 transition-all duration-500 ease-in-out peer-checked:bg-blue-600 peer-focus:ring-transparent peer-focus:outline-0 after:absolute after:top-[2px] after:left-[2px] after:h-4 after:w-4 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-white hover:bg-blue-400 hover:peer-checked:bg-blue-500" />
               </>
             )}
           </label>
-          // </label>
         ))}
       </Column>
     </Column>
