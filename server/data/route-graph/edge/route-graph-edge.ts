@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { RouteGraphAlternativeEdge } from "./route-graph-alternative-edge";
-import { RouteGraphTrainEdge } from "./route-graph-train-edge";
+import { RouteGraphAlternativeEdge } from "@/server/data/route-graph/edge/route-graph-alternative-edge";
+import { RouteGraphTrainEdge } from "@/server/data/route-graph/edge/route-graph-train-edge";
 
 /**
  * Defines an edge connecting to stations in the route graph.

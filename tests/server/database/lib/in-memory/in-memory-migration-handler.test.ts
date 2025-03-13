@@ -3,8 +3,8 @@ import { it, expect, vi } from "vitest";
 import {
   InMemoryMigrationHandler,
   InMemoryMigrator,
-} from "../../../../../server/database/lib/in-memory/in-memory-migration-handler";
-import { InMemoryDatabaseData } from "../../../../../server/database/lib/in-memory/in-memory-database-collection";
+} from "@/server/database/lib/in-memory/in-memory-migration-handler";
+import { InMemoryDatabaseData } from "@/server/database/lib/in-memory/in-memory-database-collection";
 import { z } from "zod";
 
 describe("InMemoryMigrationHandler", () => {

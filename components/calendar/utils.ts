@@ -1,4 +1,4 @@
-import { Disruption } from "./Calendar";
+import { Disruption } from "@/components/calendar/Calendar";
 import { toZonedTime } from "date-fns-tz";
 import { daysInWeek } from "date-fns/constants";
 import {
@@ -31,8 +31,8 @@ const startPosition = [
 export const IANAMelbourneTimezone = "Australia/Melbourne";
 export const disruption = {
   buses: "bg-disruption text-white",
-  night: "bg-gray-200 border-3 border-disruption",
-  trains: "bg-gray-200",
+  night: "bg-gray-200 border-3 border-disruption text-black",
+  trains: "bg-gray-200 text-black",
 };
 
 export const isInitial = (i: number) => i === 0;

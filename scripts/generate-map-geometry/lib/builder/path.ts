@@ -1,6 +1,6 @@
-import { FlexiPoint } from "../dimensions/flexi-point";
-import { InterchangePoint } from "../blueprint/path-blueprint-piece/station-location";
-import { LineColor } from "../../../../components/map/renderer/utils";
+import { FlexiPoint } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-point";
+import { InterchangePoint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint-piece/station-location";
+import { LineColor } from "@/components/map/renderer/utils";
 
 export class ColoredPathCollection {
   constructor(

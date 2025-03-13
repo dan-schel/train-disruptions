@@ -1,11 +1,11 @@
-import * as station from "../../../../shared/station-ids";
+import * as station from "@/shared/station-ids";
 import {
   loop,
   simple,
   dualPath,
   regionalSimple,
   regionalBranch,
-} from "./line-routes-utils";
+} from "@/server/data/static/line-routes/line-routes-utils";
 
 export const SANDRINGHAM = simple([
   station.FLINDERS_STREET,

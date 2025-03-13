@@ -1,6 +1,6 @@
-import { LineBlueprint } from "../../lib/blueprint/line-blueprint";
-import { PathBlueprint } from "../../lib/blueprint/path-blueprint";
-import { flexi } from "../../lib/dimensions/flexi-length";
+import { LineBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/line-blueprint";
+import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
+import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
 import {
   flindersStreet,
   southernCross,
@@ -8,12 +8,15 @@ import {
   footscray,
   newport as newportInterchange,
   laverton,
-} from "../interchanges";
-import { flindersStreetToSouthernCross } from "../segments/flinders-street-to-southern-cross";
-import { northMelbourneToFootscray } from "../segments/north-melbourne-to-footscray";
-import { southernCrossToNorthMelbourne } from "../segments/southern-cross-to-north-melbourne";
-import { defaultRadius, diagonal } from "../utils";
-import * as loop from "../utils-city-loop";
+} from "@/scripts/generate-map-geometry/ptv/interchanges";
+import { flindersStreetToSouthernCross } from "@/scripts/generate-map-geometry/ptv/segments/flinders-street-to-southern-cross";
+import { northMelbourneToFootscray } from "@/scripts/generate-map-geometry/ptv/segments/north-melbourne-to-footscray";
+import { southernCrossToNorthMelbourne } from "@/scripts/generate-map-geometry/ptv/segments/southern-cross-to-north-melbourne";
+import {
+  defaultRadius,
+  diagonal,
+} from "@/scripts/generate-map-geometry/ptv/utils";
+import * as loop from "@/scripts/generate-map-geometry/ptv/utils-city-loop";
 
 const newportStraight = flexi(40, 80);
 const williamstownStraight = flexi(30, 40);

@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { DatabaseModel } from "../../../../../server/database/lib/general/database-model";
-import { InMemorySortClauseInterpreter } from "../../../../../server/database/lib/in-memory/in-memory-sort-clause-interpreter";
-import { InMemoryDatabaseItem } from "../../../../../server/database/lib/in-memory/in-memory-database-collection";
-import { SortClause } from "../../../../../server/database/lib/general/query-types";
+import { DatabaseModel } from "@/server/database/lib/general/database-model";
+import { InMemorySortClauseInterpreter } from "@/server/database/lib/in-memory/in-memory-sort-clause-interpreter";
+import { InMemoryDatabaseItem } from "@/server/database/lib/in-memory/in-memory-database-collection";
+import { SortClause } from "@/server/database/lib/general/query-types";
 
 describe("InMemorySortClauseInterpreter", () => {
   describe("matches", () => {

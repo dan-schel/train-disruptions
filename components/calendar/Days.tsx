@@ -3,7 +3,7 @@ import { range } from "@dan-schel/js-utils";
 import { daysInWeek } from "date-fns/constants";
 import { format, addDays, startOfISOWeek } from "date-fns";
 
-import { Grid } from "../core/Grid";
+import { Grid } from "@/components/core/Grid";
 
 export const DaysOfTheWeek = () => {
   return (

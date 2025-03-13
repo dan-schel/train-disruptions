@@ -1,7 +1,7 @@
-import { RouteGraphEdge } from "../../route-graph/edge/route-graph-edge";
-import { RouteGraphTrainEdge } from "../../route-graph/edge/route-graph-train-edge";
-import { RouteGraph } from "../../route-graph/route-graph";
-import { RouteGraphModifier } from "./route-graph-modifier";
+import { RouteGraphEdge } from "@/server/data/route-graph/edge/route-graph-edge";
+import { RouteGraphTrainEdge } from "@/server/data/route-graph/edge/route-graph-train-edge";
+import { RouteGraph } from "@/server/data/route-graph/route-graph";
+import { RouteGraphModifier } from "@/server/data/disruption/route-graph-modifier/route-graph-modifier";
 
 /** Accepts a list of edges to remove and a list of edges to add. */
 export class SimpleRouteGraphModifier extends RouteGraphModifier {

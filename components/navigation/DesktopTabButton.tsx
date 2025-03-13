@@ -1,10 +1,10 @@
 import React from "react";
-import { Button } from "../core/Button";
-import { Row } from "../core/Row";
-import { Text } from "../core/Text";
-import { With } from "../core/With";
+import { Button } from "@/components/core/Button";
+import { Row } from "@/components/core/Row";
+import { Text } from "@/components/core/Text";
+import { With } from "@/components/core/With";
 import clsx from "clsx";
-import { NavTab } from "./utils";
+import { NavTab } from "@/components/navigation/utils";
 import { usePageContext } from "vike-react/usePageContext";
 
 export type DesktopTabButtonProps = {
@@ -19,8 +19,8 @@ export function DesktopTabButton(props: DesktopTabButtonProps) {
     <Button href={props.tab.path}>
       <Row
         className={clsx(
-          "h-12 gap-2 border-y-2 border-transparent px-4 group-hover:bg-slate-100 group-active:bg-slate-200",
-          { "border-b-blue-800": active },
+          "group-hover:bg-action group-active:bg-action-secondary h-12 gap-2 border-y-2 border-transparent px-4",
+          { "border-b-active": active },
         )}
         align="center"
       >

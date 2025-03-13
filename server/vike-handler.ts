@@ -1,8 +1,8 @@
 import { renderPage } from "vike/server";
 import express from "express";
-import { getSettings, validateSettings } from "./settings";
-import { App } from "./app";
-import { Settings } from "../shared/settings";
+import { getSettings, validateSettings } from "@/server/settings";
+import { App } from "@/server/app";
+import { Settings } from "@/shared/settings";
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace

@@ -1,7 +1,7 @@
 import React from "react";
 import { format } from "date-fns";
 
-import { Text } from "../core/Text";
+import { Text } from "@/components/core/Text";
 
 type Props = {
   date: Date;

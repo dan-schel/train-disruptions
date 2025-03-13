@@ -1,6 +1,6 @@
-import { LineSection } from "../../line-section";
-import { StationPair } from "./station-pair";
-import { LineShape } from "./line-shape";
+import { LineSection } from "@/server/data/line-section";
+import { StationPair } from "@/server/data/static/line-routes/station-pair";
+import { LineShape } from "@/server/data/static/line-routes/line-shape";
 
 /**
  * Knows deeply about the stations this line serves, and in which manner. It's

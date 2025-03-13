@@ -1,6 +1,6 @@
-import { DatabaseModel } from "../general/database-model";
-import { SortClause } from "../general/query-types";
-import { InMemoryDatabaseItem } from "./in-memory-database-collection";
+import { DatabaseModel } from "@/server/database/lib/general/database-model";
+import { SortClause } from "@/server/database/lib/general/query-types";
+import { InMemoryDatabaseItem } from "@/server/database/lib/in-memory/in-memory-database-collection";
 
 /** Provides a sorting function based on the given SortClause. */
 export class InMemorySortClauseInterpreter<Model extends DatabaseModel> {

@@ -1,6 +1,6 @@
-import { flexi } from "../../lib/dimensions/flexi-length";
-import { LineBlueprint } from "../../lib/blueprint/line-blueprint";
-import { PathBlueprint } from "../../lib/blueprint/path-blueprint";
+import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
+import { LineBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/line-blueprint";
+import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
 import {
   ballarat,
   bendigo,
@@ -14,11 +14,14 @@ import {
   sunbury,
   sunshine,
   watergardens,
-} from "../interchanges";
-import { northMelbourneToFootscray } from "../segments/north-melbourne-to-footscray";
-import { southernCrossToNorthMelbourneRegional } from "../segments/southern-cross-to-north-melbourne";
-import { defaultRadius, standardDiagonal } from "../utils";
-import * as loop from "../utils-city-loop";
+} from "@/scripts/generate-map-geometry/ptv/interchanges";
+import { northMelbourneToFootscray } from "@/scripts/generate-map-geometry/ptv/segments/north-melbourne-to-footscray";
+import { southernCrossToNorthMelbourneRegional } from "@/scripts/generate-map-geometry/ptv/segments/southern-cross-to-north-melbourne";
+import {
+  defaultRadius,
+  standardDiagonal,
+} from "@/scripts/generate-map-geometry/ptv/utils";
+import * as loop from "@/scripts/generate-map-geometry/ptv/utils-city-loop";
 import {
   broadmeadowsStraight,
   craigieburnStraight,
@@ -32,7 +35,7 @@ import {
   sunshineJunctionStraight,
   tottenhamStraight,
   watergardensStraight,
-} from "../utils-shared-corridors";
+} from "@/scripts/generate-map-geometry/ptv/utils-shared-corridors";
 
 const seymourStraight = flexi(50, 100);
 const sheppartonStraight = flexi(75, 150);

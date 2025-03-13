@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { EveningsOnlyDisruptionPeriod } from "../../../../../server/data/disruption/period/evenings-only-disruption-period";
-import { EndsNever } from "../../../../../server/data/disruption/period/ends/ends-never";
-import { EndsExactly } from "../../../../../server/data/disruption/period/ends/ends-exactly";
-import { expectCalendarMarks } from "./utils";
-import { TimeRange } from "../../../../../server/data/disruption/period/utils/time-range";
+import { EveningsOnlyDisruptionPeriod } from "@/server/data/disruption/period/evenings-only-disruption-period";
+import { EndsNever } from "@/server/data/disruption/period/ends/ends-never";
+import { EndsExactly } from "@/server/data/disruption/period/ends/ends-exactly";
+import { expectCalendarMarks } from "@/tests/server/data/disruption/period/utils";
+import { TimeRange } from "@/server/data/disruption/period/utils/time-range";
 
 describe("EveningsOnlyDisruptionPeriod", () => {
   it("doesn't allow startHourEachDay to be invalid", () => {

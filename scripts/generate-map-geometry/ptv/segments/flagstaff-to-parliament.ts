@@ -1,6 +1,6 @@
-import { PathBlueprint } from "../../lib/blueprint/path-blueprint";
-import { melbourneCentral } from "../interchanges";
-import * as loop from "../utils-city-loop";
+import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
+import { melbourneCentral } from "@/scripts/generate-map-geometry/ptv/interchanges";
+import * as loop from "@/scripts/generate-map-geometry/ptv/utils-city-loop";
 
 /** Underground city loop section from Flagstaff to Parliament. */
 export function flagstaffToParliament(

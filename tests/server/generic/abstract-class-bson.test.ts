@@ -1,8 +1,8 @@
 import { assert, describe, expect, it } from "vitest";
-import { disruptionDataBson } from "../../../server/data/disruption/data/disruption-data";
-import { disruptionPeriodBson } from "../../../server/data/disruption/period/disruption-period";
-import { endsBson } from "../../../server/data/disruption/period/ends/ends";
-import { routeGraphEdgeBson } from "../../../server/data/route-graph/edge/route-graph-edge";
+import { disruptionDataBson } from "@/server/data/disruption/data/disruption-data";
+import { disruptionPeriodBson } from "@/server/data/disruption/period/disruption-period";
+import { endsBson } from "@/server/data/disruption/period/ends/ends";
+import { routeGraphEdgeBson } from "@/server/data/route-graph/edge/route-graph-edge";
 
 // NOTE: If this test is breaking, it's probably because you've edited a Zod
 // schema which has a "type" field on it which is used to distinguish between

@@ -1,6 +1,6 @@
 import { Sort } from "mongodb";
-import { SortClause } from "../general/query-types";
-import { DatabaseModel } from "../general/database-model";
+import { SortClause } from "@/server/database/lib/general/query-types";
+import { DatabaseModel } from "@/server/database/lib/general/database-model";
 
 /** Takes a SortClause and converts it to MongoDB's sort syntax. */
 export class MongoSortClauseInterpreter<Model extends DatabaseModel> {

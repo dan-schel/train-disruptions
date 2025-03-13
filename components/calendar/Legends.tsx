@@ -1,10 +1,10 @@
 import clsx from "clsx";
 import React from "react";
 
-import { Row } from "../core/Row";
-import { Text } from "../core/Text";
+import { Row } from "@/components/core/Row";
+import { Text } from "@/components/core/Text";
 
-import { disruption } from "./utils";
+import { disruption } from "@/components/calendar/utils";
 
 export const Legends = () => {
   return (

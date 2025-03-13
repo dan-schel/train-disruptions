@@ -1,9 +1,9 @@
-import { flexi } from "../lib/dimensions/flexi-length";
-import { fp } from "../lib/dimensions/flexi-point";
-import { InterchangeBlueprint } from "../lib/blueprint/interchange-blueprint";
-import { LineBlueprint } from "../lib/blueprint/line-blueprint";
-import { PathBlueprint } from "../lib/blueprint/path-blueprint";
-import { GeometryBuilder } from "../lib/builder/geometry-builder";
+import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
+import { fp } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-point";
+import { InterchangeBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/interchange-blueprint";
+import { LineBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/line-blueprint";
+import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
+import { GeometryBuilder } from "@/scripts/generate-map-geometry/lib/builder/geometry-builder";
 
 const interchange = InterchangeBlueprint.simple(
   1,

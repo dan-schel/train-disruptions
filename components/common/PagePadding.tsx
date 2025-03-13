@@ -1,5 +1,5 @@
 import React from "react";
-import { With } from "../core/With";
+import { With } from "@/components/core/With";
 
 export type PagePaddingProps = {
   children: React.ReactElement;

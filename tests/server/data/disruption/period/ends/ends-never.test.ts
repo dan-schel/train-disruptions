@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { EndsNever } from "../../../../../../server/data/disruption/period/ends/ends-never";
+import { EndsNever } from "@/server/data/disruption/period/ends/ends-never";
 
 describe("EndsNever", () => {
   const end = new EndsNever();

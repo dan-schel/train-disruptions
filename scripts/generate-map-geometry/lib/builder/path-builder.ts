@@ -1,5 +1,9 @@
-import { FlexiPoint } from "../dimensions/flexi-point";
-import { Path, LocatedInterchange, LocatedTerminus } from "./path";
+import { FlexiPoint } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-point";
+import {
+  Path,
+  LocatedInterchange,
+  LocatedTerminus,
+} from "@/scripts/generate-map-geometry/lib/builder/path";
 
 export class PathBuilder {
   private _currentPoint: FlexiPoint;

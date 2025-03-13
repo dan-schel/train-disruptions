@@ -3,7 +3,7 @@ import { it, expect, vi } from "vitest";
 import {
   MongoMigrationHandler,
   MongoMigrator,
-} from "../../../../../server/database/lib/mongo/mongo-migration-handler";
+} from "@/server/database/lib/mongo/mongo-migration-handler";
 import { Collection, Db, FindCursor } from "mongodb";
 import { mock } from "vitest-mock-extended";
 import { z } from "zod";

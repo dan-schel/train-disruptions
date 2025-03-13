@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { DatabaseModel } from "../../../../server/database/lib/general/database-model";
+import { DatabaseModel } from "@/server/database/lib/general/database-model";
 
 export class MusicalInstrument {
   constructor(

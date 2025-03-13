@@ -22,7 +22,7 @@ const styles = {
   title: "text-2xl",
   subtitle: "text-lg",
   "mobile-nav-bar": "text-xs",
-  "mobile-nav-bar-active": "text-xs text-blue-800",
+  "mobile-nav-bar-active": "text-xs text-active",
 };
 
 type Style =

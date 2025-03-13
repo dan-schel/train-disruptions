@@ -1,4 +1,5 @@
 import ensureDataSerializable from "./ensure-data-serializable.js";
+import enforceImportAlias from "./enforce-import-alias.js";
 
 const plugin = {
   meta: {
@@ -7,6 +8,7 @@ const plugin = {
   },
   rules: {
     "ensure-data-serializable": ensureDataSerializable,
+    "enforce-import-alias": enforceImportAlias,
   },
 };
 

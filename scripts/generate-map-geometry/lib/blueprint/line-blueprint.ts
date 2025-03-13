@@ -1,8 +1,8 @@
-import { PathBuilder } from "../builder/path-builder";
-import { FlexiPoint } from "../dimensions/flexi-point";
-import { PathBlueprint } from "./path-blueprint";
-import { ColoredPathCollection } from "../builder/path";
-import { LineColor } from "../../../../components/map/renderer/utils";
+import { PathBuilder } from "@/scripts/generate-map-geometry/lib/builder/path-builder";
+import { FlexiPoint } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-point";
+import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
+import { ColoredPathCollection } from "@/scripts/generate-map-geometry/lib/builder/path";
+import { LineColor } from "@/components/map/renderer/utils";
 
 export class LineBlueprint {
   readonly origin: FlexiPoint;
