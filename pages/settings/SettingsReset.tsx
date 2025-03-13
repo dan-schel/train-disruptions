@@ -14,6 +14,7 @@ export type SettingsResetProps = {
 export function SettingsReset({ setSettings }: SettingsResetProps) {
   function handleResetCookies() {
     setSettings(Settings.default);
+    document.documentElement.className = Settings.default.theme;
   }
 
   return (
