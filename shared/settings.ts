@@ -28,14 +28,17 @@ export type FilterableDisruptionCategory =
 
 export type Theme = "system" | "light" | "dark";
 
+export type Startpage = "overview" | "commute";
+
 export class Settings {
   constructor(
     readonly commute: { readonly a: number; readonly b: number } | null,
     readonly hiddenCategories: readonly FilterableDisruptionCategory[],
     readonly theme: Theme,
+    readonly startPage: Startpage,
   ) {}
 
-  static readonly default = new Settings(null, [], "system");
+  static readonly default = new Settings(null, [], "system", "overview");
 
   // Consider that anything we add here is stored in a cookie, and we only have
   // 4KB (4096 characters!) to work with. We also might have to share that limit
@@ -50,6 +53,7 @@ export class Settings {
         .optional(),
       hiddenCategories: z.string().array().readonly(),
       theme: z.enum(["system", "light", "dark"]),
+      startPage: z.enum(["overview", "commute"]),
     })
     .transform(
       (obj) =>
@@ -63,6 +67,7 @@ export class Settings {
             filterableDisruptionCategories,
           ),
           obj.theme ?? "system",
+          obj.startPage ?? "overview",
         ),
     );
 
@@ -84,6 +89,7 @@ export class Settings {
       commute: this.commute ?? undefined,
       hiddenCategories: this.hiddenCategories,
       theme: this.theme,
+      startPage: this.startPage,
     };
   }
 
@@ -91,15 +97,18 @@ export class Settings {
     commute,
     hiddenCategories,
     theme,
+    startPage,
   }: {
     commute?: { readonly a: number; readonly b: number } | null;
     hiddenCategories?: readonly FilterableDisruptionCategory[];
     theme?: Theme;
+    startPage?: Startpage;
   }): Settings {
     return new Settings(
       commute !== undefined ? commute : this.commute,
       hiddenCategories ?? this.hiddenCategories,
       theme ?? this.theme,
+      startPage ?? this.startPage,
     );
   }
 

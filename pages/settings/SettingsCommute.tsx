@@ -21,7 +21,7 @@ export function SettingsCommute({
   stations,
 }: SettingsCommuteProps) {
   function handleResetCookies() {
-    setSettings(settings.with({ commute: null }));
+    setSettings(settings.with({ commute: null, startPage: "overview" }));
   }
 
   return (

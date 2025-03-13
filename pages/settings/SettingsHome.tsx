@@ -3,7 +3,7 @@ import React from "react";
 import { Column } from "@/components/core/Column";
 import { Text } from "@/components/core/Text";
 import { Spacer } from "@/components/core/Spacer";
-import { Settings } from "@/shared/settings";
+import { Settings, Startpage } from "@/shared/settings";
 
 export type HomepageProps = {
   settings: Settings;
@@ -14,21 +14,21 @@ const homepageOptions = ["overview", "commute"] as const;
 
 const formattedHomepage: Record<
   (typeof homepageOptions)[number],
-  { name: string; value?: string; default?: undefined | number }
+  { name: string }
 > = {
   overview: {
     name: "Overview",
-    value: "overview",
-    default: undefined,
   },
   commute: {
     name: "My Commute",
-    value: "commute",
-    default: 0,
   },
 };
 
-export function SettingsHome({ settings }: HomepageProps) {
+export function SettingsHome({ settings, setSettings }: HomepageProps) {
+  function updateStart(option: Startpage) {
+    setSettings(settings.with({ startPage: option }));
+  }
+
   return (
     <Column>
       <Text style="custom" className="text-lg font-bold">
@@ -37,22 +37,19 @@ export function SettingsHome({ settings }: HomepageProps) {
       <Spacer h="2" />
 
       <Column>
-        {homepageOptions.map((options) => (
+        {homepageOptions.map((option) => (
           <label
-            key={options}
+            key={option}
             className="flex cursor-pointer gap-2 hover:bg-gray-200 dark:hover:bg-gray-600"
           >
             <input
               type="radio"
               name="start-page"
-              value={formattedHomepage[options].value}
-              defaultChecked={
-                // used for only initial render -> resetting cookies does not update instantly (requires reload ATM)
-                typeof settings.commute?.a ===
-                typeof formattedHomepage[options].default
-              }
+              value={option}
+              checked={(settings.startPage as string).includes(option)}
+              onChange={() => updateStart(option)}
             />
-            {formattedHomepage[options].name}
+            {formattedHomepage[option].name}
           </label>
         ))}
       </Column>
