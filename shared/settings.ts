@@ -33,7 +33,7 @@ export type Startpage = "overview" | "commute";
 export class Settings {
   constructor(
     readonly commute: { readonly a: number; readonly b: number } | null,
-    readonly hiddenCategories: readonly FilterableDisruptionCategory[],
+    readonly enabledCategories: readonly FilterableDisruptionCategory[],
     readonly theme: Theme,
     readonly startPage: Startpage,
   ) {}
@@ -51,7 +51,7 @@ export class Settings {
           b: z.number(),
         })
         .optional(),
-      hiddenCategories: z.string().array().readonly(),
+      enabledCategories: z.string().array().readonly(),
       theme: z.enum(["system", "light", "dark"]),
       startPage: z.enum(["overview", "commute"]),
     })
@@ -60,10 +60,10 @@ export class Settings {
         new Settings(
           obj.commute ?? null,
 
-          // If the valid list of hidden categories changes, gracefully ignore
+          // If the valid list of enabled categories changes, gracefully ignore
           // any that are no longer valid.
           filterNonEnumValues(
-            obj.hiddenCategories,
+            obj.enabledCategories,
             filterableDisruptionCategories,
           ),
           obj.theme ?? "system",
@@ -87,7 +87,7 @@ export class Settings {
   toJSON(): z.input<typeof Settings.json> {
     return {
       commute: this.commute ?? undefined,
-      hiddenCategories: this.hiddenCategories,
+      enabledCategories: this.enabledCategories,
       theme: this.theme,
       startPage: this.startPage,
     };
@@ -95,32 +95,32 @@ export class Settings {
 
   with({
     commute,
-    hiddenCategories,
+    enabledCategories,
     theme,
     startPage,
   }: {
     commute?: { readonly a: number; readonly b: number } | null;
-    hiddenCategories?: readonly FilterableDisruptionCategory[];
+    enabledCategories?: readonly FilterableDisruptionCategory[];
     theme?: Theme;
     startPage?: Startpage;
   }): Settings {
     return new Settings(
       commute !== undefined ? commute : this.commute,
-      hiddenCategories ?? this.hiddenCategories,
+      enabledCategories ?? this.enabledCategories,
       theme ?? this.theme,
       startPage ?? this.startPage,
     );
   }
 
-  withHiddenCategory(category: FilterableDisruptionCategory): Settings {
+  withEnabledCategories(category: FilterableDisruptionCategory): Settings {
     return this.with({
-      hiddenCategories: [...this.hiddenCategories, category],
+      enabledCategories: [...this.enabledCategories, category],
     });
   }
 
-  withoutHiddenCategory(category: FilterableDisruptionCategory): Settings {
+  withoutEnabledCategories(category: FilterableDisruptionCategory): Settings {
     return this.with({
-      hiddenCategories: this.hiddenCategories.filter((x) => x !== category),
+      enabledCategories: this.enabledCategories.filter((x) => x !== category),
     });
   }
 }

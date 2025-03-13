@@ -47,11 +47,11 @@ export function SettingsDisruptions({
   settings,
   setSettings,
 }: DisruptionSettingsProps) {
-  function toggleHiddenCategory(category: FilterableDisruptionCategory) {
-    if (settings.hiddenCategories.includes(category)) {
-      setSettings(settings.withoutHiddenCategory(category));
+  function toggleCategory(category: FilterableDisruptionCategory) {
+    if (settings.enabledCategories.includes(category)) {
+      setSettings(settings.withoutEnabledCategories(category));
     } else {
-      setSettings(settings.withHiddenCategory(category));
+      setSettings(settings.withEnabledCategories(category));
     }
   }
 
@@ -74,13 +74,13 @@ export function SettingsDisruptions({
               autoComplete="off"
               className="peer sr-only"
               checked={
-                (settings.hiddenCategories as string[]).includes(category) ||
+                (settings.enabledCategories as string[]).includes(category) ||
                 formattedCategories[category].disabled === true
               }
               disabled={formattedCategories[category].disabled}
               onChange={
                 category !== "essential"
-                  ? () => toggleHiddenCategory(category)
+                  ? () => toggleCategory(category)
                   : undefined
               }
             />
