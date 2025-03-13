@@ -5,6 +5,8 @@ import { stringNumberSchema } from "@/server/utils";
 const schema = z.object({
   RELAY_KEY: z.string().optional(),
   DATABASE_URL: z.string().optional(),
+  DISCORD_WEBHOOK: z.string().optional(),
+  COMMIT_HASH: z.string().optional(),
 
   NODE_ENV: z.enum(["production", "development"]).default("development"),
   TZ: z.literal("Etc/UTC"),
