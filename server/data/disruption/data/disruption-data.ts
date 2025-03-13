@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { StationClosureDisruptionData } from "@/server/data/disruption/data/station-closure-disruption-data";
 import { CustomDisruptionData } from "@/server/data/disruption/data/custom-disruption-data";
+import { BusReplacementsDisruptionData } from "@/server/data/disruption/data/bus-replacements-disruption-data";
 
 /**
  * Stores the data inherent to this particular type of disruption.
@@ -9,15 +10,11 @@ import { CustomDisruptionData } from "@/server/data/disruption/data/custom-disru
  */
 export type DisruptionData =
   | CustomDisruptionData
-  | StationClosureDisruptionData;
-// | NoCityLoopDisruptionData
-// | BusReplacementsDisruptionData
-// | etc.
+  | StationClosureDisruptionData
+  | BusReplacementsDisruptionData;
 
 export const disruptionDataBson = z.union([
   CustomDisruptionData.bson,
   StationClosureDisruptionData.bson,
-  // NoCityLoopDisruptionData.bson,
-  // BusReplacementsDisruptionData.bson,
-  // etc.
+  BusReplacementsDisruptionData.bson,
 ]);
