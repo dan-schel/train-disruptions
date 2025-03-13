@@ -50,7 +50,7 @@ export function SettingsTheme({ settings, setSettings }: SettingsResetProps) {
               checked={(settings.theme as string).includes(theme)}
               onChange={() => updateTheme(theme)}
             />
-            {formattedTheme[theme].name}
+            <Text>{formattedTheme[theme].name}</Text>
           </label>
         ))}
       </Column>

@@ -85,22 +85,16 @@ export function SettingsDisruptions({
               }
             />
             <Column>
-              {formattedCategories[category].name}
+              <Text>{formattedCategories[category].name}</Text>
               {formattedCategories[category].description && (
                 <Text style="custom" className="text-sm">
                   {formattedCategories[category].description}
                 </Text>
               )}
             </Column>
-            {formattedCategories[category].disabled === true ? (
-              <>
-                <div className="peer relative h-5 w-9 rounded-full bg-gray-200 opacity-50 transition-all duration-500 ease-in-out peer-checked:bg-blue-600 peer-focus:ring-transparent peer-focus:outline-0 after:absolute after:top-[2px] after:left-[2px] after:h-4 after:w-4 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-white" />
-              </>
-            ) : (
-              <>
-                <div className="peer relative h-5 w-9 rounded-full bg-gray-400 transition-all duration-500 ease-in-out peer-checked:bg-blue-600 peer-focus:ring-transparent peer-focus:outline-0 after:absolute after:top-[2px] after:left-[2px] after:h-4 after:w-4 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-white hover:bg-blue-400 hover:peer-checked:bg-blue-500" />
-              </>
-            )}
+            <div className="flex h-5 w-9 items-center rounded-full bg-gray-400 p-0.5 transition-all duration-500 ease-in-out peer-checked:bg-blue-600 peer-checked:*:translate-x-full peer-checked:*:border-white peer-disabled:opacity-50 hover:bg-blue-400 hover:peer-checked:bg-blue-500">
+              <div className="size-4 rounded-full border border-gray-300 bg-white transition-all" />
+            </div>
           </label>
         ))}
       </Column>

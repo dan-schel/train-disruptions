@@ -49,7 +49,7 @@ export function SettingsHome({ settings, setSettings }: HomepageProps) {
               checked={(settings.startPage as string).includes(option)}
               onChange={() => updateStart(option)}
             />
-            {formattedHomepage[option].name}
+            <Text>{formattedHomepage[option].name}</Text>
           </label>
         ))}
       </Column>
