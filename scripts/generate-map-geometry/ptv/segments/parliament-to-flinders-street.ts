@@ -1,6 +1,6 @@
-import { flexi } from "../../lib/dimensions/flexi-length";
-import { PathBlueprint } from "../../lib/blueprint/path-blueprint";
-import * as loop from "../utils-city-loop";
+import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
+import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
+import * as loop from "@/scripts/generate-map-geometry/ptv/utils-city-loop";
 
 const radiusReduction = flexi(5);
 

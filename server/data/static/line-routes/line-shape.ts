@@ -1,6 +1,6 @@
 import { unique } from "@dan-schel/js-utils";
-import { StationPair } from "./station-pair";
-import { Edge, Tree } from "./tree";
+import { StationPair } from "@/server/data/static/line-routes/station-pair";
+import { Edge, Tree } from "@/server/data/static/line-routes/tree";
 
 export type LineShapeNode = number | "the-city";
 

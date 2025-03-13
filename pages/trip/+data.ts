@@ -1,9 +1,9 @@
 import { parseIntNull } from "@dan-schel/js-utils";
 import { PageContext } from "vike/types";
-import { StationCollection } from "../../server/data/static/station-collection";
-import { Station } from "../../server/data/static/station";
-import { Settings } from "../../shared/settings";
-import { JsonSerializable } from "../../shared/json-serializable";
+import { StationCollection } from "@/server/data/static/station-collection";
+import { Station } from "@/server/data/static/station";
+import { Settings } from "@/shared/settings";
+import { JsonSerializable } from "@/shared/json-serializable";
 
 export type ChooseData = {
   type: "choose";

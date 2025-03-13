@@ -1,10 +1,10 @@
 import React from "react";
 
-import { SimpleButton } from "../../components/common/SimpleButton";
-import { Settings } from "../../shared/settings";
-import { Column } from "../../components/core/Column";
-import { Text } from "../../components/core/Text";
-import { Spacer } from "../../components/core/Spacer";
+import { SimpleButton } from "@/components/common/SimpleButton";
+import { Settings } from "@/shared/settings";
+import { Column } from "@/components/core/Column";
+import { Text } from "@/components/core/Text";
+import { Spacer } from "@/components/core/Spacer";
 
 export type SettingsResetProps = {
   settings: Settings;

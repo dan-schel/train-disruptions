@@ -1,6 +1,6 @@
-import { Split } from "../../blueprint/path-blueprint-piece/split";
-import { PathBuilder } from "../path-builder";
-import { PathPieceBuilder } from "./path-piece-builder";
+import { Split } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint-piece/split";
+import { PathBuilder } from "@/scripts/generate-map-geometry/lib/builder/path-builder";
+import { PathPieceBuilder } from "@/scripts/generate-map-geometry/lib/builder/path-piece-builder/path-piece-builder";
 
 export class SplitBuilder extends PathPieceBuilder {
   constructor(private readonly _blueprint: Split) {

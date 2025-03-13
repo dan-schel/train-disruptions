@@ -1,16 +1,16 @@
 import { groupBy } from "@dan-schel/js-utils";
-import { LineBlueprint } from "../blueprint/line-blueprint";
-import { Geometry } from "../../../../components/map/renderer/geometry";
-import { InterchangeBuilder } from "./interchange-builder";
-import { Line } from "../../../../components/map/renderer/line";
-import { Terminus } from "../../../../components/map/renderer/terminus";
+import { LineBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/line-blueprint";
+import { Geometry } from "@/components/map/renderer/geometry";
+import { InterchangeBuilder } from "@/scripts/generate-map-geometry/lib/builder/interchange-builder";
+import { Line } from "@/components/map/renderer/line";
+import { Terminus } from "@/components/map/renderer/terminus";
 import {
   DualViewport,
   Viewport,
-} from "../../../../components/map/renderer/dual-viewport";
-import { ColoredPathCollection } from "./path";
-import { Point } from "../dimensions/point";
-import { terminusExtents } from "../utils";
+} from "@/components/map/renderer/dual-viewport";
+import { ColoredPathCollection } from "@/scripts/generate-map-geometry/lib/builder/path";
+import { Point } from "@/scripts/generate-map-geometry/lib/dimensions/point";
+import { terminusExtents } from "@/scripts/generate-map-geometry/lib/utils";
 
 export class GeometryBuilder {
   constructor() {}

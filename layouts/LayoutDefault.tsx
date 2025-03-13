@@ -1,11 +1,11 @@
-import "./tailwind.css";
+import "@/layouts/tailwind.css";
 
 import React from "react";
 
-import { DesktopNavBar } from "../components/navigation/DesktopNavBar";
-import { MobileNavBar } from "../components/navigation/MobileNavBar";
-import { Column } from "../components/core/Column";
-import { With } from "../components/core/With";
+import { DesktopNavBar } from "@/components/navigation/DesktopNavBar";
+import { MobileNavBar } from "@/components/navigation/MobileNavBar";
+import { Column } from "@/components/core/Column";
+import { With } from "@/components/core/With";
 
 export default function LayoutDefault({
   children,
@@ -17,7 +17,7 @@ export default function LayoutDefault({
   }
 
   return (
-    <Column className="min-h-screen">
+    <Column className="bg-surface text-typography min-h-screen transition-colors duration-250">
       <DesktopNavBar />
       <MobileNavBar />
       <With flexGrow="1" className="pb-16 md:pt-12 md:pb-0">

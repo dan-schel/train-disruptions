@@ -1,5 +1,5 @@
-import { RouteGraphModifier } from "../route-graph-modifier/route-graph-modifier";
-import { DisruptionWriteupAuthor } from "../writeup/disruption-writeup-author";
+import { RouteGraphModifier } from "@/server/data/disruption/route-graph-modifier/route-graph-modifier";
+import { DisruptionWriteupAuthor } from "@/server/data/disruption/writeup/disruption-writeup-author";
 
 /** Stores the data inherent to this particular type of disruption. */
 export abstract class DisruptionDataBase {

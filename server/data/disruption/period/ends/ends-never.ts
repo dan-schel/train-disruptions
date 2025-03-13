@@ -1,5 +1,8 @@
 import { z } from "zod";
-import { EndsBase } from "./ends-base";
+import {
+  DisplayStringOptions,
+  EndsBase,
+} from "@/server/data/disruption/period/ends/ends-base";
 
 /** The disruption has no known end date. */
 export class EndsNever extends EndsBase {
@@ -13,5 +16,13 @@ export class EndsNever extends EndsBase {
     return {
       type: "never",
     };
+  }
+
+  getDisplayString(_options: DisplayStringOptions): string {
+    return "further notice";
+  }
+
+  getLatestInterpretableDate(): Date | null {
+    return null;
   }
 }

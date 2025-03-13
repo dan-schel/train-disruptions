@@ -1,11 +1,11 @@
-import { InMemoryDatabase } from "../../../../../server/database/lib/in-memory/in-memory-database";
+import { InMemoryDatabase } from "@/server/database/lib/in-memory/in-memory-database";
 import {
   BASS_3,
   MUSICAL_INSTRUMENTS,
   PIANO_1,
   PIANO_4,
   SYNTH_2,
-} from "../test-model";
+} from "@/tests/server/database/lib/test-model";
 
 export function getDatabase(): InMemoryDatabase {
   const db = new InMemoryDatabase();

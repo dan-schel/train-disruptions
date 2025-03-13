@@ -1,14 +1,14 @@
-import { PathBuilder } from "../builder/path-builder";
-import { FlexiLength } from "./../dimensions/flexi-length";
-import { Curve } from "./path-blueprint-piece/curve";
-import { PathBlueprintPiece } from "./path-blueprint-piece/path-blueprint-piece";
-import { Split } from "./path-blueprint-piece/split";
+import { PathBuilder } from "@/scripts/generate-map-geometry/lib/builder/path-builder";
+import { FlexiLength } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
+import { Curve } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint-piece/curve";
+import { PathBlueprintPiece } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint-piece/path-blueprint-piece";
+import { Split } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint-piece/split";
 import {
   InterchangePoint,
   StationLocation,
-} from "./path-blueprint-piece/station-location";
-import { Straight } from "./path-blueprint-piece/straight";
-import { Terminus } from "./path-blueprint-piece/terminus";
+} from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint-piece/station-location";
+import { Straight } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint-piece/straight";
+import { Terminus } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint-piece/terminus";
 
 export class PathBlueprint {
   readonly pieces: readonly PathBlueprintPiece[];

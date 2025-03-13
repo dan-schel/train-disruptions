@@ -1,7 +1,7 @@
 // For demonstration purposes. Delete this once we've got the first real model.
 
 import { z } from "zod";
-import { DatabaseModel } from "../lib/general/database-model";
+import { DatabaseModel } from "@/server/database/lib/general/database-model";
 
 /**
  * The class returned by the database.

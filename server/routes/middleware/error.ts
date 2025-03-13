@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { ValidationError } from "../../../types/errors/validation";
+import { ValidationError } from "@/types/errors/validation";
 
 /**
  * Handles any errors recovered via `next()`

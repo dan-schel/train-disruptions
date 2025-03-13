@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { Disruption, disruptionSchema } from "../../types/disruption";
-import { DisruptionSource } from "./disruption-source";
+import { Disruption, disruptionSchema } from "@/types/disruption";
+import { DisruptionSource } from "@/server/disruption-source/disruption-source";
 
 export class VtarDisruptionSource extends DisruptionSource {
   constructor(

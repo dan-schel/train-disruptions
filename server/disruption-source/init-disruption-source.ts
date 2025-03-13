@@ -1,7 +1,7 @@
-import { config } from "../config";
-import { env } from "../env";
-import { FakeDisruptionSource } from "./fake-disruption-source";
-import { VtarDisruptionSource } from "./vtar-disruption-source";
+import { config } from "@/server/config";
+import { env } from "@/server/env";
+import { FakeDisruptionSource } from "@/server/disruption-source/fake-disruption-source";
+import { VtarDisruptionSource } from "@/server/disruption-source/vtar-disruption-source";
 
 /**
  * Ideally returns a VtarDisruptionSource, but falls back to a

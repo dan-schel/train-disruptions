@@ -2,11 +2,13 @@ import { describe, expect, it } from "vitest";
 import {
   ModelDocument,
   MongoRepository,
-} from "../../../../../server/database/lib/mongo/mongo-repository";
-import { MUSICAL_INSTRUMENTS, MusicalInstrument } from "../test-model";
+} from "@/server/database/lib/mongo/mongo-repository";
+import {
+  MUSICAL_INSTRUMENTS,
+  MusicalInstrument,
+} from "@/tests/server/database/lib/test-model";
 import { mock } from "vitest-mock-extended";
 import { Collection, FindCursor } from "mongodb";
-import { date } from "../../../../utils";
 
 describe("MongoRepository", () => {
   describe("get", () => {
@@ -87,7 +89,7 @@ describe("MongoRepository", () => {
       const collection = mock<Collection<ModelDocument>>();
       const repository = new MongoRepository(MUSICAL_INSTRUMENTS, collection);
 
-      const built = date("2024-12-31T20:14:18Z");
+      const built = new Date("2024-12-31T20:14:18Z");
       const instrument = new MusicalInstrument(1, "piano", built, {
         highest: "C8",
         lowest: "A0",
@@ -111,7 +113,7 @@ describe("MongoRepository", () => {
       const collection = mock<Collection<ModelDocument>>();
       const repository = new MongoRepository(MUSICAL_INSTRUMENTS, collection);
 
-      const built = date("2024-12-31T20:14:18Z");
+      const built = new Date("2024-12-31T20:14:18Z");
       const instrument = new MusicalInstrument(1, "piano", built, {
         highest: "C8",
         lowest: "A0",

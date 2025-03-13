@@ -1,8 +1,8 @@
 import React from "react";
 
-import { Column } from "../../components/core/Column";
-import { Text } from "../../components/core/Text";
-import { Spacer } from "../../components/core/Spacer";
+import { Column } from "@/components/core/Column";
+import { Text } from "@/components/core/Text";
+import { Spacer } from "@/components/core/Spacer";
 
 const themeOptions = ["system", "light", "dark"] as const;
 

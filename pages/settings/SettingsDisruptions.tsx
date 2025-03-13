@@ -1,13 +1,13 @@
 import React from "react";
 
-import { Column } from "../../components/core/Column";
-import { Text } from "../../components/core/Text";
-import { Spacer } from "../../components/core/Spacer";
+import { Column } from "@/components/core/Column";
+import { Text } from "@/components/core/Text";
+import { Spacer } from "@/components/core/Spacer";
 import {
   filterableDisruptionCategories,
   FilterableDisruptionCategory,
   Settings,
-} from "../../shared/settings";
+} from "@/shared/settings";
 
 export type DisruptionSettingsProps = {
   settings: Settings;

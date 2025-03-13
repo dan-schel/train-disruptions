@@ -1,6 +1,10 @@
-import { PathBlueprint } from "../../lib/blueprint/path-blueprint";
-import { lineGap, long45, short45 } from "../utils";
-import * as loop from "../utils-city-loop";
+import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
+import {
+  lineGap,
+  long45,
+  short45,
+} from "@/scripts/generate-map-geometry/ptv/utils";
+import * as loop from "@/scripts/generate-map-geometry/ptv/utils-city-loop";
 
 /** South-west corner of the city loop from Flinders Street to Southern Cross. */
 export function flindersStreetToSouthernCross(

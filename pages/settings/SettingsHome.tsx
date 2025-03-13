@@ -1,9 +1,9 @@
 import React from "react";
 
-import { Column } from "../../components/core/Column";
-import { Text } from "../../components/core/Text";
-import { Spacer } from "../../components/core/Spacer";
-import { Settings } from "../../shared/settings";
+import { Column } from "@/components/core/Column";
+import { Text } from "@/components/core/Text";
+import { Spacer } from "@/components/core/Spacer";
+import { Settings } from "@/shared/settings";
 
 export type HomepageProps = {
   settings: Settings;

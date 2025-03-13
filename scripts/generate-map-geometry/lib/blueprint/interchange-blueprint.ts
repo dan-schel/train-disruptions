@@ -1,4 +1,4 @@
-import { InterchangePoint } from "./path-blueprint-piece/station-location";
+import { InterchangePoint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint-piece/station-location";
 
 export type RelativePosition =
   | "left-edge"

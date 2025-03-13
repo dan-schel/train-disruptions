@@ -1,15 +1,21 @@
 import { Db } from "mongodb";
-import { MigrationHandler, Repository } from "../general/database";
-import { Migrator } from "../general/migration";
-import { DatabaseModel } from "../general/database-model";
-import { ModelDocument, MongoRepository } from "./mongo-repository";
+import {
+  MigrationHandler,
+  Repository,
+} from "@/server/database/lib/general/database";
+import { Migrator } from "@/server/database/lib/general/migration";
+import { DatabaseModel } from "@/server/database/lib/general/database-model";
+import {
+  ModelDocument,
+  MongoRepository,
+} from "@/server/database/lib/mongo/mongo-repository";
 import {
   MigratorMapCommand,
   MigratorDeleteCommand,
   MigratorRenameCommand,
   MigratorDropCommand,
-} from "../general/migration-command-types";
-import { MongoWhereClauseInterpreter } from "./mongo-where-clause-interpreter";
+} from "@/server/database/lib/general/migration-command-types";
+import { MongoWhereClauseInterpreter } from "@/server/database/lib/mongo/mongo-where-clause-interpreter";
 import { z } from "zod";
 
 export class MongoMigrationHandler extends MigrationHandler {

@@ -1,9 +1,9 @@
 import React from "react";
-import { Line } from "./+data";
+import { Line } from "@/pages/index/+data";
 
-import { LineButton } from "./LineButton";
-import { Text } from "../../components/core/Text";
-import { Column } from "../../components/core/Column";
+import { LineButton } from "@/pages/index/LineButton";
+import { Text } from "@/components/core/Text";
+import { Column } from "@/components/core/Column";
 
 type LinesProps = {
   title: string;
@@ -16,7 +16,7 @@ export function Lines(props: LinesProps) {
       <Text style="custom" className="text-lg font-bold">
         {props.title}
       </Text>
-      <Column className="divide-y-1 divide-slate-200">
+      <Column className="divide-action-secondary divide-y-1">
         {props.lines.map((line) => (
           <LineButton
             key={line.id}

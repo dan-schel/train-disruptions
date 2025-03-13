@@ -1,11 +1,11 @@
 import React from "react";
-import { Grid } from "../../components/core/Grid";
-import { Text } from "../../components/core/Text";
-import { Button } from "../../components/core/Button";
-import { Column } from "../../components/core/Column";
-import { MingcuteRightLine } from "../../components/icons/MingcuteRightLine";
-import { MingcuteRouteFill } from "../../components/icons/MingcuteRouteFill";
-import { MingcuteCloseCircleFill } from "../../components/icons/MingcuteCloseCircleFill";
+import { Grid } from "@/components/core/Grid";
+import { Text } from "@/components/core/Text";
+import { Button } from "@/components/core/Button";
+import { Column } from "@/components/core/Column";
+import { MingcuteRightLine } from "@/components/icons/MingcuteRightLine";
+import { MingcuteRouteFill } from "@/components/icons/MingcuteRouteFill";
+import { MingcuteCloseCircleFill } from "@/components/icons/MingcuteCloseCircleFill";
 
 type DisruptionType =
   | {
@@ -118,7 +118,7 @@ export function DisruptionButton(props: DisruptionButtonProps) {
       <Grid
         columns="2rem 1fr 1.5rem"
         align="center"
-        className="gap-2 p-2 transition-colors group-active:bg-slate-200"
+        className="group-active:bg-action gap-2 p-2 transition-colors"
       >
         {renderIcon()}
         <Column className="gap-1.5">{renderDescription()}</Column>

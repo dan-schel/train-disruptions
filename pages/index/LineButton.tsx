@@ -1,12 +1,12 @@
 import clsx from "clsx";
 import React from "react";
-import { Line } from "./+data";
+import { Line } from "@/pages/index/+data";
 
-import { Row } from "../../components/core/Row";
-import { Grid } from "../../components/core/Grid";
-import { Text } from "../../components/core/Text";
-import { Button } from "../../components/core/Button";
-import { MingcuteRightLine } from "../../components/icons/MingcuteRightLine";
+import { Row } from "@/components/core/Row";
+import { Grid } from "@/components/core/Grid";
+import { Text } from "@/components/core/Text";
+import { Button } from "@/components/core/Button";
+import { MingcuteRightLine } from "@/components/icons/MingcuteRightLine";
 
 type LineButtonProps = {
   line: Line;
@@ -19,7 +19,7 @@ export function LineButton({ line, status }: LineButtonProps) {
       <Grid
         columns="auto 1fr auto"
         align="center"
-        className="gap-2 p-1 transition-colors group-active:bg-slate-200 lg:p-2"
+        className="group-active:bg-action gap-2 p-1 transition-colors lg:p-2"
       >
         <Row align="center" className="gap-2">
           <div

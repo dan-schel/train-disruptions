@@ -1,10 +1,10 @@
 import React from "react";
 
-import { SimpleButton } from "../../components/common/SimpleButton";
-import { Spacer } from "../../components/core/Spacer";
-import { Column } from "../../components/core/Column";
-import { Text } from "../../components/core/Text";
-import { Settings } from "../../shared/settings";
+import { SimpleButton } from "@/components/common/SimpleButton";
+import { Spacer } from "@/components/core/Spacer";
+import { Column } from "@/components/core/Column";
+import { Text } from "@/components/core/Text";
+import { Settings } from "@/shared/settings";
 
 export type SettingsCommuteProps = {
   settings: Settings;

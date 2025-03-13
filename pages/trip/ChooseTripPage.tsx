@@ -1,14 +1,14 @@
 import React from "react";
-import { Row } from "../../components/core/Row";
-import { Text } from "../../components/core/Text";
-import { Column } from "../../components/core/Column";
-import { PageCenterer } from "../../components/common/PageCenterer";
-import { SimpleButton } from "../../components/common/SimpleButton";
-import { PagePadding } from "../../components/common/PagePadding";
-import { BackNavigation } from "../../components/navigation/BackNavigation";
-import { Spacer } from "../../components/core/Spacer";
-import { MingcuteSearch2Line } from "../../components/icons/MingcureSearch2Line";
-import { ChooseData } from "./+data";
+import { Row } from "@/components/core/Row";
+import { Text } from "@/components/core/Text";
+import { Column } from "@/components/core/Column";
+import { PageCenterer } from "@/components/common/PageCenterer";
+import { SimpleButton } from "@/components/common/SimpleButton";
+import { PagePadding } from "@/components/common/PagePadding";
+import { BackNavigation } from "@/components/navigation/BackNavigation";
+import { Spacer } from "@/components/core/Spacer";
+import { MingcuteSearch2Line } from "@/components/icons/MingcureSearch2Line";
+import { ChooseData } from "@/pages/trip/+data";
 
 export type ChooseTripPageProps = {
   data: ChooseData;
@@ -55,7 +55,11 @@ function StationSelect(props: StationSelectProps) {
   return (
     <Row className="gap-2">
       <label htmlFor={props.id}>{props.label}</label>
-      <select id={props.id} name={props.id} className="border border-black">
+      <select
+        id={props.id}
+        name={props.id}
+        className="dark:bg-surface-secondary rounded border border-black"
+      >
         {props.stations.map((station) => (
           <option key={station.id} value={station.id}>
             {station.name}

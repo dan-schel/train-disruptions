@@ -3,11 +3,15 @@ import React from "react";
 import { addDays } from "date-fns";
 import { range } from "@dan-schel/js-utils";
 
-import { Grid } from "../core/Grid";
-import { Text } from "../core/Text";
-import { Disruption } from "./Calendar";
+import { Grid } from "@/components/core/Grid";
+import { Text } from "@/components/core/Text";
+import { Disruption } from "@/components/calendar/Calendar";
 
-import { isInitial, column, isThereDisruption } from "./utils";
+import {
+  isInitial,
+  column,
+  isThereDisruption,
+} from "@/components/calendar/utils";
 
 type Props = {
   start: Date;
