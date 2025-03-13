@@ -21,8 +21,9 @@ export class Discord {
       await this.webhookClient.send({
         embeds: [this._buildMessage()],
       });
-    } catch {
-      console.log(`🔴 Failed to send message to Discord`);
+    } catch (error) {
+      console.warn(`🔴 Failed to send message to Discord`);
+      console.warn(error);
     }
   }
 
