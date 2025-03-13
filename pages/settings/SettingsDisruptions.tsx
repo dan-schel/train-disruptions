@@ -67,8 +67,8 @@ export function SettingsDisruptions({
           // <label className="flex cursor-pointer items-center gap-2">
           <label
             key={category}
-            // className="flex cursor-pointer items-center gap-2 hover:bg-gray-200" // left side
-            className="flex cursor-pointer items-center justify-between hover:bg-gray-200" // right side
+            // className="flex cursor-pointer items-center gap-2 hover:bg-gray-200 dark:bg-gray-500" // left side
+            className="flex cursor-pointer items-center justify-between hover:bg-gray-200 dark:hover:bg-gray-600" // right side
           >
             <input
               type="checkbox"
@@ -87,7 +87,7 @@ export function SettingsDisruptions({
               }
             />
             {/* left side 
-            flex cursor-pointer items-center gap-2 hover:bg-gray-200
+            flex cursor-pointer items-center gap-2 hover:bg-gray-200 dark:bg-gray-500
             */}
             {/* {formattedCategories[category].disabled === true ? (
               <>
@@ -95,7 +95,7 @@ export function SettingsDisruptions({
               </>
             ) : (
               <>
-                <div className="peer relative h-5 w-9 rounded-full bg-gray-900 transition-all duration-500 ease-in-out peer-checked:bg-blue-600 peer-focus:ring-transparent peer-focus:outline-0 after:absolute after:top-[2px] after:left-[2px] after:h-4 after:w-4 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-white hover:bg-blue-400 hover:peer-checked:bg-blue-500" />
+                <div className="peer relative h-5 w-9 rounded-full bg-gray-900 transition-all duration-500 ease-in-out peer-checked:bg-blue-600 peer-focus:ring-transparent peer-focus:outline-0 after:absolute after:top-[2px] after:left-[2px] after:h-4 after:w-4 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-white hover:bg-blue-400 hover:peer-checked:bg-blue-500 dark:bg-gray-500" />
               </>
             )} */}
             <Column>
@@ -107,7 +107,7 @@ export function SettingsDisruptions({
               )}
             </Column>
             {/* right side 
-            flex cursor-pointer items-center justify-between hover:bg-gray-200
+            flex cursor-pointer items-center justify-between hover:bg-gray-200 dark:bg-gray-500
             */}
             {formattedCategories[category].disabled === true ? (
               <>
@@ -115,7 +115,7 @@ export function SettingsDisruptions({
               </>
             ) : (
               <>
-                <div className="peer relative h-5 w-9 rounded-full bg-gray-900 transition-all duration-500 ease-in-out peer-checked:bg-blue-600 peer-focus:ring-transparent peer-focus:outline-0 after:absolute after:top-[2px] after:left-[2px] after:h-4 after:w-4 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-white hover:bg-blue-400 hover:peer-checked:bg-blue-500" />
+                <div className="peer relative h-5 w-9 rounded-full bg-gray-700 transition-all duration-500 ease-in-out peer-checked:bg-blue-600 peer-focus:ring-transparent peer-focus:outline-0 after:absolute after:top-[2px] after:left-[2px] after:h-4 after:w-4 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-white hover:bg-blue-400 hover:peer-checked:bg-blue-500 dark:bg-gray-500" />
               </>
             )}
           </label>

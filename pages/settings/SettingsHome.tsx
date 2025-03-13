@@ -40,7 +40,7 @@ export function SettingsHome({ settings }: HomepageProps) {
         {homepageOptions.map((options) => (
           <label
             key={options}
-            className="flex cursor-pointer gap-2 hover:bg-gray-200"
+            className="flex cursor-pointer gap-2 hover:bg-gray-200 dark:hover:bg-gray-600"
           >
             <input
               type="radio"
