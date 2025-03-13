@@ -11,6 +11,10 @@ import { BusReplacementsRouteGraphModifier } from "@/server/data/disruption/rout
 export class BusReplacementsDisruptionData extends DisruptionDataBase {
   constructor(readonly sections: LineSection[]) {
     super();
+
+    if (sections.length === 0) {
+      throw new Error("Must have at least one section.");
+    }
   }
 
   static readonly bson = z
