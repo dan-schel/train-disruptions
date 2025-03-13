@@ -1,6 +1,6 @@
 import { EmbedBuilder, hyperlink, inlineCode, WebhookClient } from "discord.js";
 
-export class Discord {
+export class DiscordClient {
   private webhookClient: WebhookClient;
 
   constructor(
@@ -12,14 +12,10 @@ export class Discord {
     });
   }
 
-  async init() {
-    await this._sendMessage();
-  }
-
-  private async _sendMessage() {
+  async sendMessage(previouslyDeployed: boolean): Promise<void> {
     try {
       await this.webhookClient.send({
-        embeds: [this._buildMessage()],
+        embeds: [this._buildMessage(previouslyDeployed)],
       });
     } catch (error) {
       console.warn(`🔴 Failed to send message to Discord`);
@@ -27,11 +23,13 @@ export class Discord {
     }
   }
 
-  private _buildMessage() {
+  private _buildMessage(previouslyDeployed: boolean) {
     return new EmbedBuilder()
       .setTitle("Deployment Successful!")
-      .setColor("Green")
-      .setDescription(`**Is it buses?** deployed successfully.`)
+      .setColor(previouslyDeployed ? "Orange" : "Green")
+      .setDescription(
+        `**Is it buses?** deployed ${previouslyDeployed ? "using an existing commit" : "successfully"}.`,
+      )
       .addFields([
         {
           name: "Commit Hash",

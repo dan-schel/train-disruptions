@@ -3,12 +3,18 @@ import { LineCollection } from "@/server/data/static/line-collection";
 import { StationCollection } from "@/server/data/static/station-collection";
 import { Database } from "@/server/database/lib/general/database";
 import { Crayon } from "@/server/database/models/crayons";
-import { CRAYONS, HISTORICAL_ALERTS } from "@/server/database/models/models";
+import {
+  CRAYONS,
+  DEPLOYMENT_LOGS,
+  HISTORICAL_ALERTS,
+} from "@/server/database/models/models";
 import { DisruptionSource } from "@/server/disruption-source/disruption-source";
 import { InMemoryDatabase } from "@/server/database/lib/in-memory/in-memory-database";
 import { FakeDisruptionSource } from "@/server/disruption-source/fake-disruption-source";
 import { HistoricalAlert } from "@/server/data/historical-alert";
 import { migrations } from "@/server/database/migrations/migrations";
+import { DiscordClient } from "@/server/discord";
+import { env } from "@/server/env";
 
 export class App {
   constructor(
@@ -16,11 +22,14 @@ export class App {
     readonly stations: StationCollection,
     readonly database: Database,
     readonly disruptionSource: DisruptionSource,
+    readonly discordClient: DiscordClient | null,
   ) {}
 
   async init() {
     // Has to run before anything else that might use the database.
     await this.database.runMigrations(migrations);
+
+    await this._runStartUpLogger();
 
     // TODO: This is temporary.
     await this._runDatabaseDemo();
@@ -98,5 +107,31 @@ export class App {
       },
       1000 * 60 * 5,
     );
+  }
+
+  /**
+   * Logs the current deployment into the database and sends a message on Discord via a webhook
+   */
+  private async _runStartUpLogger() {
+    try {
+      if (this.discordClient === null || !env.COMMIT_HASH) {
+        console.warn("🟡 Discord client not setup yet.");
+      } else {
+        const deployments = await this.database.of(DEPLOYMENT_LOGS).find({
+          where: { commitHash: env.COMMIT_HASH },
+        });
+
+        await this.database.of(DEPLOYMENT_LOGS).create({
+          id: uuid(),
+          commitHash: env.COMMIT_HASH,
+          createdAt: new Date(),
+        });
+
+        await this.discordClient.sendMessage(deployments.length > 0);
+      }
+    } catch (error) {
+      console.warn("🔴 Failed to log deployment.");
+      console.warn(error);
+    }
   }
 }
