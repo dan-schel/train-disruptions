@@ -1,11 +1,11 @@
 import { z } from "zod";
-import { LineSection } from "../../line-section";
-import { RouteGraphModifier } from "../route-graph-modifier/route-graph-modifier";
-import { DisruptionWriteupAuthor } from "../writeup/disruption-writeup-author";
-import { DisruptionDataBase } from "./disruption-data-base";
+import { LineSection } from "@/server/data/line-section";
+import { RouteGraphModifier } from "@/server/data/disruption/route-graph-modifier/route-graph-modifier";
+import { DisruptionWriteupAuthor } from "@/server/data/disruption/writeup/disruption-writeup-author";
+import { DisruptionDataBase } from "@/server/data/disruption/data/disruption-data-base";
 import { unique } from "@dan-schel/js-utils";
-import { BusReplacementsDisruptionWriteupAuthor } from "../writeup/bus-replacements-disruption-writeup-author";
-import { BusReplacementsRouteGraphModifier } from "../route-graph-modifier/bus-replacements-route-graph-modifier";
+import { BusReplacementsDisruptionWriteupAuthor } from "@/server/data/disruption/writeup/bus-replacements-disruption-writeup-author";
+import { BusReplacementsRouteGraphModifier } from "@/server/data/disruption/route-graph-modifier/bus-replacements-route-graph-modifier";
 
 /** All or part of one or more train lines are replaced by buses. */
 export class BusReplacementsDisruptionData extends DisruptionDataBase {

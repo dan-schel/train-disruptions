@@ -1,8 +1,8 @@
-import { App } from "../../../app";
-import { BusReplacementsDisruptionData } from "../data/bus-replacements-disruption-data";
-import { Disruption } from "../disruption";
-import { DisruptionWriteup } from "./disruption-writeup";
-import { DisruptionWriteupAuthor } from "./disruption-writeup-author";
+import { App } from "@/server/app";
+import { BusReplacementsDisruptionData } from "@/server/data/disruption/data/bus-replacements-disruption-data";
+import { Disruption } from "@/server/data/disruption/disruption";
+import { DisruptionWriteup } from "@/server/data/disruption/writeup/disruption-writeup";
+import { DisruptionWriteupAuthor } from "@/server/data/disruption/writeup/disruption-writeup-author";
 
 /** DisruptionWriteupAuthor for BusReplacementsDisruptionData. */
 export class BusReplacementsDisruptionWriteupAuthor extends DisruptionWriteupAuthor {

@@ -9,6 +9,7 @@ import { InMemoryDatabase } from "@/server/database/lib/in-memory/in-memory-data
 import { FakeDisruptionSource } from "@/server/disruption-source/fake-disruption-source";
 import { HistoricalAlert } from "@/server/data/historical-alert";
 import { migrations } from "@/server/database/migrations/migrations";
+import { TimeProvider } from "@/server/time-provider";
 
 export class App {
   constructor(

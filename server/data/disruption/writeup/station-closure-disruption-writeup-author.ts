@@ -1,4 +1,4 @@
-import { stations } from "@/server/data/static/stations";
+import { App } from "@/server/app";
 import { StationClosureDisruptionData } from "@/server/data/disruption/data/station-closure-disruption-data";
 import { Disruption } from "@/server/data/disruption/disruption";
 import { DisruptionWriteup } from "@/server/data/disruption/writeup/disruption-writeup";

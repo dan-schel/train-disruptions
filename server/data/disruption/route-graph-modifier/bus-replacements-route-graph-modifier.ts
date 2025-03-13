@@ -1,6 +1,6 @@
-import { LineSection } from "../../line-section";
-import { RouteGraph } from "../../route-graph/route-graph";
-import { RouteGraphModifier } from "./route-graph-modifier";
+import { LineSection } from "@/server/data/line-section";
+import { RouteGraph } from "@/server/data/route-graph/route-graph";
+import { RouteGraphModifier } from "@/server/data/disruption/route-graph-modifier/route-graph-modifier";
 
 /**
  * Modifies the route graph for a bus replacements disruption (replaces all

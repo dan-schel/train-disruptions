@@ -12,6 +12,7 @@ import { lines } from "@/server/data/static/lines";
 import { stations } from "@/server/data/static/stations";
 import { initDatabase } from "@/server/database/init-database";
 import { initDisruptionSource } from "@/server/disruption-source/init-disruption-source";
+import { RealTimeProvider } from "@/server/time-provider";
 
 await main();
 
