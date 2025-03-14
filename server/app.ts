@@ -14,7 +14,6 @@ import { FakeDisruptionSource } from "@/server/disruption-source/fake-disruption
 import { HistoricalAlert } from "@/server/data/historical-alert";
 import { migrations } from "@/server/database/migrations/migrations";
 import { DiscordClient } from "@/server/discord";
-import { env } from "@/server/env";
 import { subHours } from "date-fns";
 import { TimeProvider } from "@/server/time-provider";
 
@@ -26,6 +25,7 @@ export class App {
     readonly disruptionSource: DisruptionSource,
     readonly discordClient: DiscordClient | null,
     readonly time: TimeProvider,
+    readonly commitHash: string | null,
   ) {}
 
   async init() {
@@ -117,11 +117,11 @@ export class App {
    */
   private async _runStartUpLogger() {
     try {
-      if (this.discordClient === null || !env.COMMIT_HASH) {
+      if (this.discordClient === null || this.commitHash === null) {
         console.warn("🟡 Discord client not setup yet.");
       } else {
         const deployments = await this.database.of(DEPLOYMENT_LOGS).find({
-          where: { commitHash: env.COMMIT_HASH },
+          where: { commitHash: this.commitHash },
           sort: {
             by: "createdAt",
             direction: "desc",
@@ -130,7 +130,7 @@ export class App {
 
         await this.database.of(DEPLOYMENT_LOGS).create({
           id: uuid(),
-          commitHash: env.COMMIT_HASH,
+          commitHash: this.commitHash,
           createdAt: new Date(),
         });
 

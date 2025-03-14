@@ -10,7 +10,7 @@ export function createTestApp() {
   const disruptionSource = new FakeDisruptionSource();
   const time = new FixedTimeProvider(new Date("2025-01-01T00:00:00Z"));
 
-  const app = new App(lines, stations, db, disruptionSource, time);
+  const app = new App(lines, stations, db, disruptionSource, null, time, null);
 
   return { app, db, disruptionSource, time };
 }

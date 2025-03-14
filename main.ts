@@ -30,6 +30,7 @@ async function main() {
     disruptionSource,
     discordClient,
     time,
+    env.COMMIT_HASH ?? null,
   );
   await app.init();
 
