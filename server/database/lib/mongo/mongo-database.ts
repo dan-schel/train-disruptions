@@ -11,9 +11,9 @@ import { MongoMigrationHandler } from "@/server/database/lib/mongo/mongo-migrati
 export class MongoDatabase extends Database {
   private readonly _db: Db;
 
-  private constructor(_client: MongoClient, databaseName: string) {
+  private constructor(client: MongoClient, databaseName: string) {
     super();
-    this._db = _client.db(databaseName);
+    this._db = client.db(databaseName);
   }
 
   static async init(
