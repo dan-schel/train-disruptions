@@ -13,7 +13,6 @@ import { FakeAlertSource } from "@/server/alert-source/fake-alert-source";
 import { HistoricalAlert } from "@/server/data/historical-alert";
 import { migrations } from "@/server/database/migrations/migrations";
 import { DiscordClient } from "@/server/discord";
-import { env } from "@/server/entry-point/env";
 import { subHours } from "date-fns";
 import { LineCollection } from "@/server/data/line/line-collection";
 import { TimeProvider } from "@/server/time-provider";

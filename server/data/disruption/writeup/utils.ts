@@ -1,6 +1,6 @@
 import { App } from "@/server/app";
 import { LineSection } from "@/server/data/line-section";
-import { LineShapeNode } from "@/server/data/static/line-routes/line-shape";
+import { LineShapeNode } from "@/server/data/line/line-routes/line-shape";
 import { listifyAnd, unique } from "@dan-schel/js-utils";
 
 export function formatSections(app: App, sections: LineSection[]): string {

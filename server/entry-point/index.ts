@@ -10,13 +10,23 @@ import { stations } from "@/server/entry-point/data/stations";
 import { initDatabase } from "@/server/entry-point/services/database";
 import { initAlertSource } from "@/server/entry-point/services/alert-source";
 import { initDiscordClient } from "@/server/entry-point/services/discord";
+import { RealTimeProvider } from "@/server/time-provider";
 
 export async function run(root: string) {
   const database = await initDatabase();
   const alertSource = initAlertSource();
   const discordClient = initDiscordClient();
+  const time = new RealTimeProvider();
 
-  const app = new App(lines, stations, database, alertSource, discordClient);
+  const app = new App(
+    lines,
+    stations,
+    database,
+    alertSource,
+    discordClient,
+    time,
+    env.COMMIT_HASH ?? null,
+  );
   await app.init();
 
   await startWebServer(app, root);
