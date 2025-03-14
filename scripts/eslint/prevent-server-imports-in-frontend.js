@@ -1,4 +1,4 @@
-import { unixify } from "./utils";
+import { unixify } from "./utils.js";
 
 export default {
   meta: {
