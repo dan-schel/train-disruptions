@@ -1,12 +1,7 @@
 import path from "path";
+import { unixify } from "./utils";
 
-const exceptions = [
-  // ESLint config doesn't use import aliases.
-  "/scripts/eslint/",
-  "/eslint.config.js",
-];
-
-const useImportAlias = {
+export default {
   meta: {
     type: "problem",
     messages: {
@@ -18,11 +13,13 @@ const useImportAlias = {
   create: (context) => {
     return {
       ImportDeclaration: (node) => {
-        const repoRelativeFileName = context.filename
-          .replace(context.cwd, "")
-          .replace(/\\/g, "/");
+        const repoRelativeFileName = unixify(
+          context.filename.replace(context.cwd, ""),
+        );
 
-        if (exceptions.some((e) => repoRelativeFileName.startsWith(e))) return;
+        // ESLint config doesn't use import aliases.
+        if (repoRelativeFileName.startsWith("/scripts/eslint/")) return;
+        if (repoRelativeFileName.startsWith("/eslint.config.js")) return;
 
         const value = node.source.value;
         if (!value.startsWith(".")) return;
@@ -31,11 +28,7 @@ const useImportAlias = {
           path.dirname(context.filename),
           value,
         );
-
-        const aliasedPath = absolutePath
-          .replace(context.cwd, "@")
-          .replace(/\\/g, "/");
-
+        const aliasedPath = unixify(absolutePath.replace(context.cwd, "@"));
         const replacement = `"${aliasedPath}"`;
 
         context.report({
@@ -53,5 +46,3 @@ const useImportAlias = {
   },
   defaultOptions: [],
 };
-
-export default useImportAlias;
