@@ -1,5 +1,5 @@
 import { Collection } from "@/server/data/utils/collection";
-import { Line } from "@/server/data/static/line";
+import { Line } from "@/server/data/line/line";
 
 export class LineCollection extends Collection<number, Line> {
   private _ptvMap: Map<number, Line>;

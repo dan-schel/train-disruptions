@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { cookieSettings, Settings } from "@/shared/settings";
-import { StationCollection } from "@/server/data/static/station-collection";
+import { StationCollection } from "@/server/data/station/station-collection";
 
 /** Extracts the user settings from an Express request's cookies. */
 export function getSettings(req: Request): Settings {

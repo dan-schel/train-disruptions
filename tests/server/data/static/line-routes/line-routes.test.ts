@@ -4,7 +4,7 @@ import { stations } from "@/server/entry-point/stations";
 import {
   LineShape,
   LineShapeNode,
-} from "@/server/data/static/line-routes/line-shape";
+} from "@/server/data/line/line-routes/line-shape";
 
 describe("Melbourne default line route edges", () => {
   it("should match the snapshot", () => {

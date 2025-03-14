@@ -5,7 +5,7 @@ import {
   dualPath,
   regionalSimple,
   regionalBranch,
-} from "@/server/data/static/line-routes/line-routes-utils";
+} from "@/server/entry-point/line-routes-utils";
 
 export const SANDRINGHAM = simple([
   station.FLINDERS_STREET,

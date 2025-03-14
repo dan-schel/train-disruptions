@@ -1,5 +1,5 @@
 import { Collection } from "@/server/data/utils/collection";
-import { Station } from "@/server/data/static/station";
+import { Station } from "@/server/data/station/station";
 
 export class StationCollection extends Collection<number, Station> {
   private _ptvMap: Map<number, Station>;

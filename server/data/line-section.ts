@@ -1,4 +1,4 @@
-import { LineShapeNode } from "@/server/data/static/line-routes/line-shape";
+import { LineShapeNode } from "@/server/data/line/line-routes/line-shape";
 
 /**
  * Represents a series of stations on a particular line, e.g. "East Pakenham to

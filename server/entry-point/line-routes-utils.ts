@@ -1,10 +1,10 @@
-import { LineRoute } from "@/server/data/static/line-routes/line-route";
+import { LineRoute } from "@/server/data/line/line-routes/line-route";
 import * as station from "@/shared/station-ids";
 import {
   LineShape,
   LineShapeEdge,
-} from "@/server/data/static/line-routes/line-shape";
-import { StationPair } from "@/server/data/static/line-routes/station-pair";
+} from "@/server/data/line/line-routes/line-shape";
+import { StationPair } from "@/server/data/line/line-routes/station-pair";
 import { itsOk } from "@dan-schel/js-utils";
 
 const directWestern = [station.FLINDERS_STREET, station.SOUTHERN_CROSS];

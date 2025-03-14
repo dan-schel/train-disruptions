@@ -1,6 +1,5 @@
 import { uuid } from "@dan-schel/js-utils";
-import { LineCollection } from "@/server/data/static/line-collection";
-import { StationCollection } from "@/server/data/static/station-collection";
+import { StationCollection } from "@/server/data/station/station-collection";
 import { Database } from "@/server/database/lib/general/database";
 import { Crayon } from "@/server/database/models/crayons";
 import {
@@ -16,6 +15,7 @@ import { migrations } from "@/server/database/migrations/migrations";
 import { DiscordClient } from "@/server/discord";
 import { env } from "@/server/entry-point/env";
 import { subHours } from "date-fns";
+import { LineCollection } from "@/server/data/line/line-collection";
 
 export class App {
   constructor(

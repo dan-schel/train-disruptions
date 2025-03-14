@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { Edge, Tree } from "@/server/data/static/line-routes/tree";
+import { Edge, Tree } from "@/server/data/line/line-routes/tree";
 
 describe("Tree", () => {
   describe("#throwUnlessValid", () => {

@@ -1,4 +1,4 @@
-import { LineRoute } from "@/server/data/static/line-routes/line-route";
+import { LineRoute } from "@/server/data/line/line-routes/line-route";
 
 type LineGroup = "suburban" | "regional";
 
