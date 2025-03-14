@@ -12,14 +12,22 @@ import { lines } from "@/server/data/static/lines";
 import { stations } from "@/server/data/static/stations";
 import { initDatabase } from "@/server/database/init-database";
 import { initDisruptionSource } from "@/server/disruption-source/init-disruption-source";
+import { initDiscordClient } from "@/server/discord/init-discord";
 
 await main();
 
 async function main() {
   const database = await initDatabase();
   const disruptionSource = initDisruptionSource();
+  const discordClient = initDiscordClient();
 
-  const app = new App(lines, stations, database, disruptionSource);
+  const app = new App(
+    lines,
+    stations,
+    database,
+    disruptionSource,
+    discordClient,
+  );
   await app.init();
 
   await startWebServer(app);
