@@ -7,9 +7,9 @@ import { createDevMiddleware } from "vike/server";
 import { App } from "@/server/app";
 import { lines } from "@/server/entry-point/data/lines";
 import { stations } from "@/server/entry-point/data/stations";
-import { initDatabase } from "@/server/database/init-database";
-import { initDisruptionSource } from "@/server/disruption-source/init-disruption-source";
-import { initDiscordClient } from "@/server/discord/init-discord";
+import { initDatabase } from "@/server/entry-point/services/database";
+import { initDisruptionSource } from "@/server/entry-point/services/disruption-source";
+import { initDiscordClient } from "@/server/entry-point/services/discord";
 
 export async function main(root: string) {
   const database = await initDatabase();
