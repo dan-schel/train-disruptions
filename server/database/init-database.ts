@@ -1,4 +1,4 @@
-import { env } from "@/server/env";
+import { env } from "@/server/entry-point/env";
 import { Database } from "@/server/database/lib/general/database";
 import { InMemoryDatabase } from "@/server/database/lib/in-memory/in-memory-database";
 import { MongoDatabase } from "@/server/database/lib/mongo/mongo-database";

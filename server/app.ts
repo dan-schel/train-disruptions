@@ -14,7 +14,7 @@ import { FakeDisruptionSource } from "@/server/disruption-source/fake-disruption
 import { HistoricalAlert } from "@/server/data/historical-alert";
 import { migrations } from "@/server/database/migrations/migrations";
 import { DiscordClient } from "@/server/discord";
-import { env } from "@/server/env";
+import { env } from "@/server/entry-point/env";
 import { subHours } from "date-fns";
 
 export class App {

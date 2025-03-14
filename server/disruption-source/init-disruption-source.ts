@@ -1,5 +1,5 @@
-import { config } from "@/server/config";
-import { env } from "@/server/env";
+import { config } from "@/server/entry-point/config";
+import { env } from "@/server/entry-point/env";
 import { FakeDisruptionSource } from "@/server/disruption-source/fake-disruption-source";
 import { VtarDisruptionSource } from "@/server/disruption-source/vtar-disruption-source";
 
