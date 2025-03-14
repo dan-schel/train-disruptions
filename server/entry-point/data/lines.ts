@@ -1,7 +1,7 @@
 import { Line } from "@/server/data/line/line";
 import { LineCollection } from "@/server/data/line/line-collection";
 import * as line from "@/shared/line-ids";
-import * as route from "@/server/entry-point/line-routes";
+import * as route from "@/server/entry-point/data/line-routes";
 
 const data = [
   new Line({

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { lines } from "@/server/entry-point/lines";
-import { stations } from "@/server/entry-point/stations";
+import { lines } from "@/server/entry-point/data/lines";
+import { stations } from "@/server/entry-point/data/stations";
 import {
   LineShape,
   LineShapeNode,
