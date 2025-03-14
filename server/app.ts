@@ -16,6 +16,7 @@ import { DiscordClient } from "@/server/discord";
 import { env } from "@/server/entry-point/env";
 import { subHours } from "date-fns";
 import { LineCollection } from "@/server/data/line/line-collection";
+import { TimeProvider } from "@/server/time-provider";
 
 export class App {
   constructor(
@@ -24,6 +25,8 @@ export class App {
     readonly database: Database,
     readonly alertSource: AlertSource,
     readonly discordClient: DiscordClient | null,
+    readonly time: TimeProvider,
+    readonly commitHash: string | null,
   ) {}
 
   async init() {
@@ -115,11 +118,11 @@ export class App {
    */
   private async _runStartUpLogger() {
     try {
-      if (this.discordClient === null || !env.COMMIT_HASH) {
+      if (this.discordClient === null || this.commitHash === null) {
         console.warn("🟡 Discord client not setup yet.");
       } else {
         const deployments = await this.database.of(DEPLOYMENT_LOGS).find({
-          where: { commitHash: env.COMMIT_HASH },
+          where: { commitHash: this.commitHash },
           sort: {
             by: "createdAt",
             direction: "desc",
@@ -128,7 +131,7 @@ export class App {
 
         await this.database.of(DEPLOYMENT_LOGS).create({
           id: uuid(),
-          commitHash: env.COMMIT_HASH,
+          commitHash: this.commitHash,
           createdAt: new Date(),
         });
 

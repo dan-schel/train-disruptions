@@ -1,3 +1,4 @@
+import { App } from "@/server/app";
 import { Disruption } from "@/server/data/disruption/disruption";
 import { DisruptionWriteup } from "@/server/data/disruption/writeup/disruption-writeup";
 
@@ -7,5 +8,5 @@ import { DisruptionWriteup } from "@/server/data/disruption/writeup/disruption-w
  * disruption period.
  */
 export abstract class DisruptionWriteupAuthor {
-  abstract write(disruption: Disruption, now: Date): DisruptionWriteup;
+  abstract write(app: App, disruption: Disruption): DisruptionWriteup;
 }
