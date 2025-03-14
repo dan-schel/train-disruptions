@@ -26,9 +26,9 @@ export function formatSections(app: App, sections: LineSection[]): string {
   const individualSections = sections.map((s) => {
     const a = formatLineShapeNode(app, s.a);
     const b = formatLineShapeNode(app, s.b);
-    return `${a} to ${b}`;
+    return `from ${a} to ${b}`;
   });
-  return `from ${listifyAnd(individualSections)}`;
+  return listifyAnd(individualSections);
 }
 
 function formatLineShapeNode(app: App, node: LineShapeNode): string {

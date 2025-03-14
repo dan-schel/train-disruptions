@@ -8,6 +8,7 @@ import {
 import {
   CAULFIELD,
   CRANBOURNE,
+  DANDENONG,
   EAST_PAKENHAM,
   SOUTH_YARRA,
   WESTALL,
@@ -36,6 +37,7 @@ describe("#formatSections", () => {
 
   it("handles cases with a common node", () => {
     const { app } = createTestApp();
+
     const sections1 = [
       new LineSection(PAKENHAM_LINE, WESTALL, EAST_PAKENHAM),
       new LineSection(CRANBOURNE_LINE, WESTALL, CRANBOURNE),
@@ -53,13 +55,24 @@ describe("#formatSections", () => {
 
   it("handles complex cases", () => {
     const { app } = createTestApp();
-    const sections = [
+
+    const sections1 = [
       new LineSection(PAKENHAM_LINE, WESTALL, EAST_PAKENHAM),
       new LineSection(FRANKSTON_LINE, CAULFIELD, SOUTH_YARRA),
     ];
-    const output = formatSections(app, sections);
-    expect(output).toBe(
-      "from Westall to East Pakenham and Caulfield to South Yarra",
+    const output1 = formatSections(app, sections1);
+    expect(output1).toBe(
+      "from Westall to East Pakenham and from Caulfield to South Yarra",
+    );
+
+    const sections2 = [
+      new LineSection(PAKENHAM_LINE, WESTALL, EAST_PAKENHAM),
+      new LineSection(FRANKSTON_LINE, CAULFIELD, SOUTH_YARRA),
+      new LineSection(CRANBOURNE_LINE, DANDENONG, CRANBOURNE),
+    ];
+    const output2 = formatSections(app, sections2);
+    expect(output2).toBe(
+      "from Westall to East Pakenham, from Caulfield to South Yarra, and from Dandenong to Cranbourne",
     );
   });
 });
