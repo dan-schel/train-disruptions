@@ -62,11 +62,11 @@ export function SettingsDisruptions({
       </Text>
       <Spacer h="2" />
 
-      <Column className="gap-2">
+      <Column>
         {allCategories.map((category) => (
           <label
             key={category}
-            className="flex cursor-pointer items-center justify-between hover:bg-gray-200 dark:hover:bg-gray-600"
+            className="flex h-9 cursor-pointer items-center justify-between hover:bg-gray-200 dark:hover:bg-gray-600"
           >
             <input
               type="checkbox"
@@ -84,7 +84,7 @@ export function SettingsDisruptions({
                   : undefined
               }
             />
-            <Column>
+            <Column className="gap-1">
               <Text>{formattedCategories[category].name}</Text>
               {formattedCategories[category].description && (
                 <Text style="custom" className="text-sm">
