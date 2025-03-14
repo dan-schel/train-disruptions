@@ -1,4 +1,5 @@
 import { LineShapeNode } from "@/server/data/static/line-routes/line-shape";
+import { z } from "zod";
 
 /**
  * Represents a series of stations on a particular line, e.g. "East Pakenham to
@@ -15,5 +16,21 @@ export class LineSection {
     if (a === b) {
       throw new Error("Line section must exist between two different nodes.");
     }
+  }
+
+  static readonly bson = z
+    .object({
+      line: z.number(),
+      a: z.union([z.number(), z.literal("the-city")]),
+      b: z.union([z.number(), z.literal("the-city")]),
+    })
+    .transform((x) => new LineSection(x.line, x.a, x.b));
+
+  toBson(): z.input<typeof LineSection.bson> {
+    return {
+      line: this.line,
+      a: this.a,
+      b: this.b,
+    };
   }
 }

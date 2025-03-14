@@ -13,6 +13,7 @@ import { stations } from "@/server/data/static/stations";
 import { initDatabase } from "@/server/database/init-database";
 import { initDisruptionSource } from "@/server/disruption-source/init-disruption-source";
 import { initDiscordClient } from "@/server/discord/init-discord";
+import { RealTimeProvider } from "@/server/time-provider";
 
 await main();
 
@@ -20,6 +21,7 @@ async function main() {
   const database = await initDatabase();
   const disruptionSource = initDisruptionSource();
   const discordClient = initDiscordClient();
+  const time = new RealTimeProvider();
 
   const app = new App(
     lines,
@@ -27,6 +29,8 @@ async function main() {
     database,
     disruptionSource,
     discordClient,
+    time,
+    env.COMMIT_HASH ?? null,
   );
   await app.init();
 
