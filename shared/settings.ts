@@ -16,7 +16,7 @@ export const cookieSettings = {
 // TODO: This list is literally just off the top of my head. Let's refine these
 // categories later!
 export const filterableDisruptionCategories = [
-  "station-closure",
+  "station-closures",
   "cancellations",
   "delays",
   "car-park-closures",
@@ -28,14 +28,17 @@ export type FilterableDisruptionCategory =
 
 export type Theme = "system" | "light" | "dark";
 
+export type Startpage = "overview" | "commute";
+
 export class Settings {
   constructor(
     readonly commute: { readonly a: number; readonly b: number } | null,
-    readonly hiddenCategories: readonly FilterableDisruptionCategory[],
+    readonly enabledCategories: readonly FilterableDisruptionCategory[],
     readonly theme: Theme,
+    readonly startPage: Startpage,
   ) {}
 
-  static readonly default = new Settings(null, [], "system");
+  static readonly default = new Settings(null, [], "system", "overview");
 
   // Consider that anything we add here is stored in a cookie, and we only have
   // 4KB (4096 characters!) to work with. We also might have to share that limit
@@ -48,21 +51,23 @@ export class Settings {
           b: z.number(),
         })
         .optional(),
-      hiddenCategories: z.string().array().readonly(),
+      enabledCategories: z.string().array().readonly(),
       theme: z.enum(["system", "light", "dark"]),
+      startPage: z.enum(["overview", "commute"]),
     })
     .transform(
       (obj) =>
         new Settings(
           obj.commute ?? null,
 
-          // If the valid list of hidden categories changes, gracefully ignore
+          // If the valid list of enabled categories changes, gracefully ignore
           // any that are no longer valid.
           filterNonEnumValues(
-            obj.hiddenCategories,
+            obj.enabledCategories,
             filterableDisruptionCategories,
           ),
           obj.theme ?? "system",
+          obj.startPage ?? "overview",
         ),
     );
 
@@ -82,25 +87,41 @@ export class Settings {
   toJSON(): z.input<typeof Settings.json> {
     return {
       commute: this.commute ?? undefined,
-      hiddenCategories: this.hiddenCategories,
+      enabledCategories: this.enabledCategories,
       theme: this.theme,
+      startPage: this.startPage,
     };
   }
 
   with({
     commute,
-    hiddenCategories,
+    enabledCategories,
     theme,
+    startPage,
   }: {
     commute?: { readonly a: number; readonly b: number } | null;
-    hiddenCategories?: readonly FilterableDisruptionCategory[];
+    enabledCategories?: readonly FilterableDisruptionCategory[];
     theme?: Theme;
+    startPage?: Startpage;
   }): Settings {
     return new Settings(
       commute !== undefined ? commute : this.commute,
-      hiddenCategories ?? this.hiddenCategories,
+      enabledCategories ?? this.enabledCategories,
       theme ?? this.theme,
+      startPage ?? this.startPage,
     );
+  }
+
+  withEnabledCategories(category: FilterableDisruptionCategory): Settings {
+    return this.with({
+      enabledCategories: [...this.enabledCategories, category],
+    });
+  }
+
+  withoutEnabledCategories(category: FilterableDisruptionCategory): Settings {
+    return this.with({
+      enabledCategories: this.enabledCategories.filter((x) => x !== category),
+    });
   }
 }
 
