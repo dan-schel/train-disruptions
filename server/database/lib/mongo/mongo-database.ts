@@ -1,5 +1,4 @@
 import { Db, MongoClient } from "mongodb";
-import { config } from "@/server/entry-point/config";
 import { DatabaseModel } from "@/server/database/lib/general/database-model";
 import {
   Database,
@@ -12,15 +11,18 @@ import { MongoMigrationHandler } from "@/server/database/lib/mongo/mongo-migrati
 export class MongoDatabase extends Database {
   private readonly _db: Db;
 
-  private constructor(_client: MongoClient) {
+  private constructor(_client: MongoClient, databaseName: string) {
     super();
-    this._db = _client.db(config.DATABASE_NAME);
+    this._db = _client.db(databaseName);
   }
 
-  static async init(connectionString: string): Promise<MongoDatabase> {
+  static async init(
+    connectionString: string,
+    databaseName: string,
+  ): Promise<MongoDatabase> {
     const client = new MongoClient(connectionString);
     await client.connect();
-    return new MongoDatabase(client);
+    return new MongoDatabase(client, databaseName);
   }
 
   of<Model extends DatabaseModel>(model: Model): Repository<Model> {
