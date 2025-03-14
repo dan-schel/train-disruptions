@@ -11,7 +11,7 @@ import { initDatabase } from "@/server/entry-point/services/database";
 import { initDisruptionSource } from "@/server/entry-point/services/disruption-source";
 import { initDiscordClient } from "@/server/entry-point/services/discord";
 
-export async function main(root: string) {
+export async function run(root: string) {
   const database = await initDatabase();
   const disruptionSource = initDisruptionSource();
   const discordClient = initDiscordClient();
