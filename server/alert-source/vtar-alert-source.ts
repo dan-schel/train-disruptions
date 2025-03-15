@@ -1,8 +1,8 @@
 import { z } from "zod";
 import { Disruption, disruptionSchema } from "@/types/disruption";
-import { DisruptionSource } from "@/server/disruption-source/disruption-source";
+import { AlertSource } from "@/server/alert-source/alert-source";
 
-export class VtarDisruptionSource extends DisruptionSource {
+export class VtarAlertSource extends AlertSource {
   constructor(
     private endpointUrl: string,
     private relayKey: string,

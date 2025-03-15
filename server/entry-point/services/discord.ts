@@ -1,5 +1,5 @@
 import { DiscordClient } from "@/server/discord";
-import { env } from "@/server/env";
+import { env } from "@/server/entry-point/env";
 
 export function initDiscordClient(): DiscordClient | null {
   if (env.DISCORD_DEPLOYMENT_WEBHOOK && env.COMMIT_HASH) {

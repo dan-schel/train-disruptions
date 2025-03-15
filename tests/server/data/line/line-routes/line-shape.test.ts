@@ -2,8 +2,8 @@ import { assert, describe, expect, it } from "vitest";
 import {
   LineShape,
   LineShapeEdge,
-} from "@/server/data/static/line-routes/line-shape";
-import { StationPair } from "@/server/data/static/line-routes/station-pair";
+} from "@/server/data/line/line-routes/line-shape";
+import { StationPair } from "@/server/data/line/line-routes/station-pair";
 
 describe("LineShape", () => {
   const lineShape = new LineShape("the-city", [

@@ -1,5 +1,5 @@
-import { Station } from "@/server/data/static/station";
-import { StationCollection } from "@/server/data/static/station-collection";
+import { Station } from "@/server/data/station/station";
+import { StationCollection } from "@/server/data/station/station-collection";
 import * as station from "@/shared/station-ids";
 
 const data = [

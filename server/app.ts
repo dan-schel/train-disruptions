@@ -1,6 +1,5 @@
 import { uuid } from "@dan-schel/js-utils";
-import { LineCollection } from "@/server/data/static/line-collection";
-import { StationCollection } from "@/server/data/static/station-collection";
+import { StationCollection } from "@/server/data/station/station-collection";
 import { Database } from "@/server/database/lib/general/database";
 import { Crayon } from "@/server/database/models/crayons";
 import {
@@ -8,13 +7,14 @@ import {
   DEPLOYMENT_LOGS,
   HISTORICAL_ALERTS,
 } from "@/server/database/models/models";
-import { DisruptionSource } from "@/server/disruption-source/disruption-source";
+import { AlertSource } from "@/server/alert-source/alert-source";
 import { InMemoryDatabase } from "@/server/database/lib/in-memory/in-memory-database";
-import { FakeDisruptionSource } from "@/server/disruption-source/fake-disruption-source";
+import { FakeAlertSource } from "@/server/alert-source/fake-alert-source";
 import { HistoricalAlert } from "@/server/data/historical-alert";
 import { migrations } from "@/server/database/migrations/migrations";
 import { DiscordClient } from "@/server/discord";
 import { subHours } from "date-fns";
+import { LineCollection } from "@/server/data/line/line-collection";
 import { TimeProvider } from "@/server/time-provider";
 
 export class App {
@@ -22,7 +22,7 @@ export class App {
     readonly lines: LineCollection,
     readonly stations: StationCollection,
     readonly database: Database,
-    readonly disruptionSource: DisruptionSource,
+    readonly alertSource: AlertSource,
     readonly discordClient: DiscordClient | null,
     readonly time: TimeProvider,
     readonly commitHash: string | null,
@@ -36,7 +36,7 @@ export class App {
 
     // TODO: This is temporary.
     await this._runDatabaseDemo();
-    await this._runDisruptionSourceDemo();
+    await this._runAlertSourceDemo();
     this._runHistoricalAlertLogger();
   }
 
@@ -63,11 +63,11 @@ export class App {
     }
   }
 
-  private async _runDisruptionSourceDemo() {
+  private async _runAlertSourceDemo() {
     try {
-      const disruptions = await this.disruptionSource.fetchDisruptions();
+      const disruptions = await this.alertSource.fetchDisruptions();
 
-      if (this.disruptionSource instanceof FakeDisruptionSource) {
+      if (this.alertSource instanceof FakeAlertSource) {
         console.warn("🟡 Relay connection not set up yet.");
       } else {
         // eslint-disable-next-line no-console
@@ -85,7 +85,7 @@ export class App {
     setInterval(
       async () => {
         try {
-          const disruptions = await this.disruptionSource.fetchDisruptions();
+          const disruptions = await this.alertSource.fetchDisruptions();
 
           disruptions.forEach(async (disruption) => {
             const x = await this.database
