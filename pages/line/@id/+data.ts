@@ -2,7 +2,7 @@ import { PageContext } from "vike/types";
 import { parseIntNull } from "@dan-schel/js-utils";
 import { LineCollection } from "@/server/data/line/line-collection";
 import { Line } from "@/server/data/line/line";
-import { JsonSerializable } from "@/shared/json-serializable";
+import { JsonSerializable } from "@/shared/types/json-serializable";
 
 export type Data = {
   line: {

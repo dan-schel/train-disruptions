@@ -1,5 +1,5 @@
 import { PageContext } from "vike/types";
-import { JsonSerializable } from "@/shared/json-serializable";
+import { JsonSerializable } from "@/shared/types/json-serializable";
 
 export type Data = {
   commute: {

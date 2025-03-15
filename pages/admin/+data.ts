@@ -1,6 +1,6 @@
 import { PageContext } from "vike/types";
 import { HISTORICAL_ALERTS } from "@/server/database/models/models";
-import { JsonSerializable } from "@/shared/json-serializable";
+import { JsonSerializable } from "@/shared/types/json-serializable";
 
 const historicalRecordsStartDate = Date.parse("2025-03-02");
 const millisInADay = 1000 * 60 * 60 * 24;

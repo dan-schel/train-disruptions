@@ -1,7 +1,7 @@
 import { PageContext } from "vike/types";
 import { z } from "zod";
 import { Settings } from "@/shared/settings";
-import { JsonSerializable } from "@/shared/json-serializable";
+import { JsonSerializable } from "@/shared/types/json-serializable";
 
 export { data };
 

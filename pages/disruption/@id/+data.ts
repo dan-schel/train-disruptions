@@ -1,6 +1,6 @@
 import { PageContext } from "vike/types";
 import { Disruption } from "@/components/calendar/Calendar";
-import { JsonSerializable } from "@/shared/json-serializable";
+import { JsonSerializable } from "@/shared/types/json-serializable";
 import { StandardDisruptionPeriod } from "@/server/data/disruption/period/standard-disruption-period";
 import { EndsExactly } from "@/server/data/disruption/period/ends/ends-exactly";
 import { EveningsOnlyDisruptionPeriod } from "@/server/data/disruption/period/evenings-only-disruption-period";
