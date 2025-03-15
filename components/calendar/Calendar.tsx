@@ -30,6 +30,11 @@ export function Calendar({ marks }: CalendarProps) {
     [marks],
   );
 
+  // TODO: We need to send today's date with the RenderedCalendarMarks. Maybe
+  // RenderedCalendarMark[] becomes CalendarData, which includes today and the
+  // marks?
+  const today = marks[0];
+
   return (
     <Grid columns="auto minmax(auto, 32rem) auto">
       <With gridColumn="2">
@@ -39,7 +44,9 @@ export function Calendar({ marks }: CalendarProps) {
               <React.Fragment key={key}>
                 <MonthTitle year={year} month={month} />
                 {isFirst && <DaysOfTheWeek />}
-                {isFirst && <TodayIndicator column={getColumn(dates[0])} />}
+                {isFirst && sameDay(dates[0], today) && (
+                  <TodayIndicator column={getColumn(today)} />
+                )}
                 {dates.map((date) => (
                   <CalendarCell key={date.day} date={date} />
                 ))}
@@ -51,4 +58,11 @@ export function Calendar({ marks }: CalendarProps) {
       </With>
     </Grid>
   );
+}
+
+function sameDay(
+  a: { year: number; month: number; day: number },
+  b: { year: number; month: number; day: number },
+) {
+  return a.year === b.year && a.month === b.month && a.day === b.day;
 }
