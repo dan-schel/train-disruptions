@@ -8,7 +8,6 @@ import { renderCalendarMarks } from "@/server/data/disruption/period/utils/rende
 import { EndsExactly } from "@/server/data/disruption/period/ends/ends-exactly";
 import { EveningsOnlyDisruptionPeriod } from "@/server/data/disruption/period/evenings-only-disruption-period";
 import { StandardDisruptionPeriod } from "@/server/data/disruption/period/standard-disruption-period";
-import { Disruption } from "@/components/calendar/Calendar";
 
 export type Data = {
   line: {
@@ -82,6 +81,11 @@ function tryGetLine(
 
 // TEMPORARY: While we're bridging the gap between the demo data and real
 // disruptions.
+type Disruption = {
+  from: Date;
+  to: Date;
+  evenings: boolean;
+};
 function toCalendarMarks(disruption: Disruption | Disruption[], now: Date) {
   const array = Array.isArray(disruption) ? disruption : [disruption];
   const periods = array.map((x) =>

@@ -12,18 +12,12 @@ import { RenderedCalendarMark } from "@/shared/types/calendar-marks";
 import { groupBy } from "@dan-schel/js-utils";
 import { getColumn } from "@/components/calendar/utils";
 
-export type Disruption = {
-  from: Date;
-  to: Date;
-  evenings: boolean;
-};
-
-type Props = {
+export type CalendarProps = {
   marks: RenderedCalendarMark[];
 };
 
 /** Renders the given `CalendarMarks` in a calendar grid format. */
-export function Calendar({ marks }: Props) {
+export function Calendar({ marks }: CalendarProps) {
   const months = React.useMemo(
     () =>
       groupBy(marks, (x) => `${x.year}-${x.month}`).map((x, i) => ({

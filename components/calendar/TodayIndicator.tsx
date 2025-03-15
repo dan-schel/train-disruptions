@@ -12,7 +12,7 @@ export function TodayIndicator({ column }: TodayIndicatorProps) {
   return (
     <With gridColumn={column}>
       <div className="relative h-4">
-        <div className="bg-calendar-today absolute top-3 left-[50%] size-2 -translate-x-[50%] rotate-45"></div>
+        <div className="bg-calendar-today absolute top-3 left-[50%] size-2 -translate-x-[50%] rotate-45" />
         <Column
           className="bg-calendar-today absolute left-[50%] h-4 -translate-x-[50%] px-2"
           align="center"
