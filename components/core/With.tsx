@@ -22,14 +22,19 @@ export type WithProps = {
 export function With(props: WithProps) {
   const child = React.Children.only(props.children);
 
+  // For some reason, setting gridArea (even to undefined) breaks the layout...
+  // sometimes. (When the page is refreshed it's fine, but when initially
+  // navigated to it breaks. Is SSR vs CSR is causing the difference?)
+  const gridStyle = props.gridArea
+    ? { gridArea: props.gridArea }
+    : { gridColumn: props.gridColumn, gridRow: props.gridRow };
+
   return (
     <div
       className={clsx("grid", props.className)}
       style={{
         flexGrow: props.flexGrow,
-        gridColumn: props.gridColumn,
-        gridRow: props.gridRow,
-        gridArea: props.gridArea,
+        ...gridStyle,
       }}
     >
       {child}
