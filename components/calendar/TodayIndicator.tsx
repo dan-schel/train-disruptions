@@ -1,35 +1,32 @@
 import React from "react";
 
-import { Grid } from "@/components/core/Grid";
 import { Text } from "@/components/core/Text";
 import { With } from "@/components/core/With";
+import { Column } from "@/components/core/Column";
 
-type Props = {
+export type TodayIndicatorProps = {
   column: number;
 };
 
-export const TodayIndicator = ({ column }: Props) => {
+export function TodayIndicator({ column }: TodayIndicatorProps) {
   return (
-    <Grid columns="repeat(7, minmax(0, 1fr))" className="gap-1">
-      <With gridColumn={column.toFixed()}>
-        <div className="relative z-10 grid bg-black py-1 dark:bg-white">
+    <With gridColumn={column}>
+      <div className="relative h-4">
+        <div className="bg-calendar-today absolute top-3 left-[50%] size-2 -translate-x-[50%] rotate-45"></div>
+        <Column
+          className="bg-calendar-today absolute left-[50%] h-4 -translate-x-[50%] px-2"
+          align="center"
+          justify="center"
+        >
           <Text
-            oneLine
             style="custom"
-            className="max-xs:text-[10px] text-xs font-medium text-white md:text-base dark:text-black"
+            className="text-calendar-on-today text-xs"
             align="center"
           >
             TODAY
           </Text>
-
-          {/* Triangle */}
-          <div
-            className={
-              "absolute top-2 -z-10 size-4 rotate-45 place-self-center bg-inherit md:size-5"
-            }
-          />
-        </div>
-      </With>
-    </Grid>
+        </Column>
+      </div>
+    </With>
   );
-};
+}

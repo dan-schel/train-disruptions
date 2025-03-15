@@ -5,8 +5,8 @@ export type WithProps = {
   children: React.ReactElement;
   className?: string;
   flexGrow?: string;
-  gridColumn?: string;
-  gridRow?: string;
+  gridColumn?: string | number;
+  gridRow?: string | number;
   gridArea?: string;
 };
 

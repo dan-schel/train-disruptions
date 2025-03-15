@@ -3,14 +3,14 @@ import React from "react";
 import { Grid } from "@/components/core/Grid";
 import { With } from "@/components/core/With";
 import { Column } from "@/components/core/Column";
-import { Legends } from "@/components/calendar/Legends";
+import { Legend } from "@/components/calendar/Legend";
 import { MonthTitle } from "@/components/calendar/MonthTitle";
-import { CalendarGrid } from "@/components/calendar/Grid";
+import { DateBox } from "@/components/calendar/DateBox";
 import { DaysOfTheWeek } from "@/components/calendar/DaysOfTheWeek";
 import { TodayIndicator } from "@/components/calendar/TodayIndicator";
 import { RenderedCalendarMark } from "@/shared/types/calendar-marks";
 import { groupBy } from "@dan-schel/js-utils";
-import { getDay } from "date-fns";
+import { getColumn } from "@/components/calendar/utils";
 
 export type Disruption = {
   from: Date;
@@ -22,21 +22,7 @@ type Props = {
   marks: RenderedCalendarMark[];
 };
 
-function getColumn(date: { year: number; month: number; day: number }) {
-  return ((getDay(new Date(date.year, date.month - 1, date.day)) + 6) % 7) + 1;
-}
-
-/**
- * React component to render disruptions in a calendar view.
- *
- * Accepts a `disruption` object or array of `disruptions`.
- *
- * An object should be provided if you want to only render calendar weeks in which a disruption is active.
- * _Useful for viewing a specific disruption_
- *
- * An array should be provided if you want to render disruptions across a period of 4 weeks from the current date (upto 28 days).
- * _Useful for having an overview for a specific line/trip_
- */
+/** Renders the given `CalendarMarks` in a calendar grid format. */
 export function Calendar({ marks }: Props) {
   const months = React.useMemo(
     () =>
@@ -51,21 +37,22 @@ export function Calendar({ marks }: Props) {
   );
 
   return (
-    <Grid columns="auto minmax(auto, 48rem) auto">
+    <Grid columns="auto minmax(auto, 32rem) auto">
       <With gridColumn="2">
         <Column className="gap-4">
-          {months.map(({ key, year, month, isFirst, dates }) => (
-            <Column key={key} className="gap-2">
-              <MonthTitle year={year} month={month} />
-              {isFirst && <DaysOfTheWeek />}
-
-              <Column className="gap-1">
+          <Grid columns="repeat(7, 1fr)" className="gap-1">
+            {months.map(({ key, year, month, isFirst, dates }) => (
+              <React.Fragment key={key}>
+                <MonthTitle year={year} month={month} />
+                {isFirst && <DaysOfTheWeek />}
                 {isFirst && <TodayIndicator column={getColumn(dates[0])} />}
-                <CalendarGrid dates={dates} getColumn={getColumn} />
-              </Column>
-            </Column>
-          ))}
-          <Legends />
+                {dates.map((date) => (
+                  <DateBox key={date.day} date={date} />
+                ))}
+              </React.Fragment>
+            ))}
+          </Grid>
+          <Legend />
         </Column>
       </With>
     </Grid>
