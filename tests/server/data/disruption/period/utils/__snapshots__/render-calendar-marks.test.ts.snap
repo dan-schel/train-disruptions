@@ -1,0 +1,32 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`#renderCalendarMarks > works 1`] = `
+"2025-03-15 all-day
+2025-03-16 no-disruption
+2025-03-17 no-disruption
+2025-03-18 no-disruption
+2025-03-19 no-disruption
+2025-03-20 evening-only
+2025-03-21 evening-only
+2025-03-22 evening-only
+2025-03-23 evening-only
+2025-03-24 all-day
+2025-03-25 all-day
+2025-03-26 all-day
+2025-03-27 no-disruption
+2025-03-28 no-disruption
+2025-03-29 no-disruption
+2025-03-30 no-disruption
+2025-03-31 no-disruption
+2025-04-01 no-disruption
+2025-04-02 no-disruption
+2025-04-03 no-disruption
+2025-04-04 no-disruption
+2025-04-05 no-disruption
+2025-04-06 no-disruption
+2025-04-07 no-disruption
+2025-04-08 no-disruption
+2025-04-09 no-disruption
+2025-04-10 all-day
+2025-04-11 all-day"
+`;
