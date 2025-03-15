@@ -6,10 +6,11 @@ import { Column } from "@/components/core/Column";
 import { Legends } from "@/components/calendar/Legends";
 import { MonthTitle } from "@/components/calendar/MonthTitle";
 import { CalendarGrid } from "@/components/calendar/Grid";
-import { DaysOfTheWeek } from "@/components/calendar/Days";
-import { TodayIndicator } from "@/components/calendar/Today";
+import { DaysOfTheWeek } from "@/components/calendar/DaysOfTheWeek";
+import { TodayIndicator } from "@/components/calendar/TodayIndicator";
 import { RenderedCalendarMark } from "@/shared/types/calendar-marks";
 import { groupBy } from "@dan-schel/js-utils";
+import { getDay } from "date-fns";
 
 export type Disruption = {
   from: Date;
@@ -21,6 +22,10 @@ type Props = {
   disruptions: Disruption | Disruption[];
   marks: RenderedCalendarMark[];
 };
+
+function getColumn(date: { year: number; month: number; day: number }) {
+  return ((getDay(new Date(date.year, date.month - 1, date.day)) + 6) % 7) + 1;
+}
 
 /**
  * React component to render disruptions in a calendar view.
@@ -41,40 +46,26 @@ export function Calendar({ disruptions, marks }: Props) {
         year: x.items[0].year,
         month: x.items[0].month,
         isFirst: i === 0,
-        startDate: new Date(
-          x.items[0].year,
-          x.items[0].month - 1,
-          x.items[0].day,
-        ),
         dates: x.items,
       })),
     [marks],
   );
 
-  console.log(months);
-
   return (
     <Grid columns="auto minmax(auto, 48rem) auto">
-      <With className="col-start-2">
+      <With gridColumn="2">
         <Column className="gap-4">
-          {months.map(({ key, year, month, isFirst, startDate, dates }) => (
+          {months.map(({ key, year, month, isFirst, dates }) => (
             <Column key={key} className="gap-2">
               <MonthTitle year={year} month={month} />
-
               {isFirst && <DaysOfTheWeek />}
 
               <Column className="gap-1">
-                <TodayIndicator date={startDate} />
-
-                <CalendarGrid
-                  disruptions={disruptions}
-                  start={startDate}
-                  days={dates.length}
-                />
+                {isFirst && <TodayIndicator column={getColumn(dates[0])} />}
+                <CalendarGrid dates={dates} getColumn={getColumn} />
               </Column>
             </Column>
           ))}
-
           <Legends />
         </Column>
       </With>

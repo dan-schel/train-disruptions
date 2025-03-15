@@ -5,6 +5,7 @@ import {
   CalendarMark,
   RenderedCalendarMark,
 } from "@/shared/types/calendar-marks";
+import { range } from "@dan-schel/js-utils";
 import { startOfDay, addDays } from "date-fns";
 
 /** How many days to render in the future on the <Calendar> component. */
@@ -14,21 +15,18 @@ export function renderCalendarMarks(
   periods: DisruptionPeriod[],
   now: Date,
 ): RenderedCalendarMark[] {
-  const result: RenderedCalendarMark[] = [];
   const today = startOfDay(utcToLocalTime(now));
 
-  for (let i = 0; i < daysToRenderOnCalendar; i++) {
+  return range(0, daysToRenderOnCalendar).map((i) => {
     const date = JustDate.extractFromDate(addDays(today, i));
     const marks = periods.map((x) => x.getCalendarMark(date));
-    result.push({
+    return {
       year: date.year,
       month: date.month,
       day: date.day,
       mark: getWorstMark(marks),
-    });
-  }
-
-  return result;
+    };
+  });
 }
 
 function getWorstMark(marks: CalendarMark[]): CalendarMark {
