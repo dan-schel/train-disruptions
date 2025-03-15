@@ -12,7 +12,7 @@ export function createDisruptionRouter(app: App) {
       response: disruptionSchema.array(),
     }),
     async (_, res) => {
-      const disruptions = await app.disruptionSource.fetchDisruptions();
+      const disruptions = await app.alertSource.fetchDisruptions();
       res.json(disruptions);
     },
   );

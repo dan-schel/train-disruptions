@@ -1,6 +1,6 @@
 import { ESLintUtils } from "@typescript-eslint/utils";
 
-const ensureDataSerializable = ESLintUtils.RuleCreator.withoutDocs({
+export default ESLintUtils.RuleCreator.withoutDocs({
   meta: {
     type: "problem",
     messages: {
@@ -83,5 +83,3 @@ function isPromiseWithJsonSerializable(returnType) {
     isIntersectionWithJsonSerializable(returnType.typeArguments.params[0])
   );
 }
-
-export default ensureDataSerializable;

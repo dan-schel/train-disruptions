@@ -37,6 +37,12 @@ const customRules = {
     // Ban relative imports, and require paths to start with "@/" instead.
     "custom/enforce-import-alias": "warn",
 
+    // Ban imports from "@/server/entry-point" in non-entry-point files.
+    "custom/prevent-entry-point-imports": "warn",
+
+    // Ban imports from "@/server" in frontend files (excluding +data).
+    "custom/prevent-server-imports-in-frontend": "warn",
+
     // TODO: Consider other lint rules from
     // https://github.com/jsx-eslint/eslint-plugin-react?tab=readme-ov-file#list-of-supported-rules
     // such as `react/button-has-type`.
