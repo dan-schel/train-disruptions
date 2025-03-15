@@ -1,18 +1,14 @@
 import { DisruptionPeriod } from "@/server/data/disruption/period/disruption-period";
-import { CalendarMark } from "@/server/data/disruption/period/disruption-period-base";
 import { JustDate } from "@/server/data/disruption/period/utils/just-date";
 import { utcToLocalTime } from "@/server/data/disruption/period/utils/utils";
+import {
+  CalendarMark,
+  RenderedCalendarMark,
+} from "@/shared/types/calendar-marks";
 import { startOfDay, addDays } from "date-fns";
 
 /** How many days to render in the future on the <Calendar> component. */
 export const daysToRenderOnCalendar = 28;
-
-export type RenderedCalendarMark = {
-  year: number;
-  month: number;
-  day: number;
-  mark: CalendarMark;
-};
 
 export function renderCalendarMarks(
   periods: DisruptionPeriod[],

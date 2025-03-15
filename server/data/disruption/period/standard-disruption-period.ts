@@ -2,7 +2,6 @@ import { z } from "zod";
 import { Ends, endsBson } from "@/server/data/disruption/period/ends/ends";
 import { TimeRange } from "@/server/data/disruption/period/utils/time-range";
 import {
-  CalendarMark,
   DisplayStringOptions,
   DisruptionPeriodBase,
 } from "@/server/data/disruption/period/disruption-period-base";
@@ -14,6 +13,7 @@ import {
 } from "@/server/data/disruption/period/utils/utils";
 import { JustDate } from "@/server/data/disruption/period/utils/just-date";
 import { addHours } from "date-fns";
+import { CalendarMark } from "@/shared/types/calendar-marks";
 
 /** Disruption is active continuously from the start date to the end date. */
 export class StandardDisruptionPeriod extends DisruptionPeriodBase {

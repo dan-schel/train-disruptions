@@ -4,8 +4,8 @@ import { StandardDisruptionPeriod } from "@/server/data/disruption/period/standa
 import {
   daysToRenderOnCalendar,
   renderCalendarMarks,
-  RenderedCalendarMark,
 } from "@/server/data/disruption/period/utils/render-calendar-marks";
+import { RenderedCalendarMark } from "@/shared/types/calendar-marks";
 import { describe, expect, it } from "vitest";
 
 describe("#renderCalendarMarks", () => {
