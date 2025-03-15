@@ -21,6 +21,7 @@ const styles = {
   regular: "",
   title: "text-2xl",
   subtitle: "text-lg",
+  small: "text-sm",
   "mobile-nav-bar": "text-xs",
   "mobile-nav-bar-active": "text-xs text-active",
 };
