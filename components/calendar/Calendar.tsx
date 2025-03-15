@@ -3,13 +3,11 @@ import React from "react";
 import { Grid } from "@/components/core/Grid";
 import { With } from "@/components/core/With";
 import { Column } from "@/components/core/Column";
-
 import { Legends } from "@/components/calendar/Legends";
 import { MonthTitle } from "@/components/calendar/MonthTitle";
 import { CalendarGrid } from "@/components/calendar/Grid";
 import { DaysOfTheWeek } from "@/components/calendar/Days";
 import { TodayIndicator } from "@/components/calendar/Today";
-import { getMonthsToRender, isInitial } from "@/components/calendar/utils";
 import { RenderedCalendarMark } from "@/shared/types/calendar-marks";
 import { groupBy } from "@dan-schel/js-utils";
 

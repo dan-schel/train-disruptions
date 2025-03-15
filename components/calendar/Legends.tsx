@@ -1,9 +1,8 @@
-import clsx from "clsx";
 import React from "react";
 
+import clsx from "clsx";
 import { Row } from "@/components/core/Row";
 import { Text } from "@/components/core/Text";
-
 import { disruption } from "@/components/calendar/utils";
 
 export const Legends = () => {
