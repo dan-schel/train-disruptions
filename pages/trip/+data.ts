@@ -3,7 +3,7 @@ import { PageContext } from "vike/types";
 import { StationCollection } from "@/server/data/station/station-collection";
 import { Station } from "@/server/data/station/station";
 import { Settings } from "@/shared/settings";
-import { JsonSerializable } from "@/shared/types/json-serializable";
+import { JsonSerializable } from "@/shared/json-serializable";
 
 export type ChooseData = {
   type: "choose";
