@@ -1,16 +1,16 @@
 import React from "react";
 import { format } from "date-fns";
-
 import { Text } from "@/components/core/Text";
 
-type Props = {
-  date: Date;
+type MonthTitleProps = {
+  year: number;
+  month: number;
 };
 
-export const MonthTitle = ({ date }: Props) => {
+export function MonthTitle({ year, month }: MonthTitleProps) {
   return (
     <Text align="center" style="custom" className="text-sm md:text-base">
-      {format(date, "MMMM yyyy")}
+      {format(new Date(year, month - 1, 1), "MMMM yyyy")}
     </Text>
   );
-};
+}

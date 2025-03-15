@@ -5,12 +5,13 @@ import { With } from "@/components/core/With";
 import { Column } from "@/components/core/Column";
 
 import { Legends } from "@/components/calendar/Legends";
-import { MonthTitle } from "@/components/calendar/Title";
+import { MonthTitle } from "@/components/calendar/MonthTitle";
 import { CalendarGrid } from "@/components/calendar/Grid";
 import { DaysOfTheWeek } from "@/components/calendar/Days";
 import { TodayIndicator } from "@/components/calendar/Today";
 import { getMonthsToRender, isInitial } from "@/components/calendar/utils";
 import { RenderedCalendarMark } from "@/shared/types/calendar-marks";
+import { groupBy } from "@dan-schel/js-utils";
 
 export type Disruption = {
   from: Date;
@@ -35,23 +36,42 @@ type Props = {
  * _Useful for having an overview for a specific line/trip_
  */
 export function Calendar({ disruptions, marks }: Props) {
+  const months = React.useMemo(
+    () =>
+      groupBy(marks, (x) => `${x.year}-${x.month}`).map((x, i) => ({
+        key: x.group,
+        year: x.items[0].year,
+        month: x.items[0].month,
+        isFirst: i === 0,
+        startDate: new Date(
+          x.items[0].year,
+          x.items[0].month - 1,
+          x.items[0].day,
+        ),
+        dates: x.items,
+      })),
+    [marks],
+  );
+
+  console.log(months);
+
   return (
     <Grid columns="auto minmax(auto, 48rem) auto">
       <With className="col-start-2">
         <Column className="gap-4">
-          {getMonthsToRender(disruptions).map(({ start, days }, i) => (
-            <Column key={start.getTime()} className="gap-2">
-              <MonthTitle date={start} />
+          {months.map(({ key, year, month, isFirst, startDate, dates }) => (
+            <Column key={key} className="gap-2">
+              <MonthTitle year={year} month={month} />
 
-              {isInitial(i) && <DaysOfTheWeek />}
+              {isFirst && <DaysOfTheWeek />}
 
               <Column className="gap-1">
-                <TodayIndicator date={start} />
+                <TodayIndicator date={startDate} />
 
                 <CalendarGrid
                   disruptions={disruptions}
-                  start={start}
-                  days={days}
+                  start={startDate}
+                  days={dates.length}
                 />
               </Column>
             </Column>
