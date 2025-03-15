@@ -10,6 +10,7 @@ import { CalendarGrid } from "@/components/calendar/Grid";
 import { DaysOfTheWeek } from "@/components/calendar/Days";
 import { TodayIndicator } from "@/components/calendar/Today";
 import { getMonthsToRender, isInitial } from "@/components/calendar/utils";
+import { RenderedCalendarMark } from "@/shared/types/calendar-marks";
 
 export type Disruption = {
   from: Date;
@@ -19,6 +20,7 @@ export type Disruption = {
 
 type Props = {
   disruptions: Disruption | Disruption[];
+  marks: RenderedCalendarMark[];
 };
 
 /**
@@ -32,7 +34,7 @@ type Props = {
  * An array should be provided if you want to render disruptions across a period of 4 weeks from the current date (upto 28 days).
  * _Useful for having an overview for a specific line/trip_
  */
-export function Calendar({ disruptions }: Props) {
+export function Calendar({ disruptions, marks }: Props) {
   return (
     <Grid columns="auto minmax(auto, 48rem) auto">
       <With className="col-start-2">
