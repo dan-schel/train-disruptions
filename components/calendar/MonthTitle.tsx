@@ -11,7 +11,7 @@ export type MonthTitleProps = {
 
 export function MonthTitle({ year, month }: MonthTitleProps) {
   return (
-    <With gridColumn="span 7">
+    <With gridColumn="span 7" className="py-1">
       <Text align="center">
         {format(new Date(year, month - 1, 1), "MMMM yyyy")}
       </Text>
