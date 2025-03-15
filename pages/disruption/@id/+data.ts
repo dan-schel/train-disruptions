@@ -61,8 +61,8 @@ export function data(pageContext: PageContext): Data & JsonSerializable {
   if (id === "1") {
     const disruption = [
       {
-        from: new Date("2025-04-04T13:00:00"),
-        to: new Date("2025-04-22T13:00:00"),
+        from: new Date("2025-03-01T09:30:00Z"),
+        to: new Date("2025-12-31T12:59:59Z"),
         evenings: false,
       },
     ];
