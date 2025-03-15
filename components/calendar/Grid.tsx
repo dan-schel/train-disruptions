@@ -1,17 +1,9 @@
 import React from "react";
 
 import clsx from "clsx";
-import { addDays } from "date-fns";
-import { range } from "@dan-schel/js-utils";
 import { Grid } from "@/components/core/Grid";
 import { Text } from "@/components/core/Text";
-import { Disruption } from "@/components/calendar/Calendar";
 
-import {
-  isInitial,
-  column,
-  isThereDisruption,
-} from "@/components/calendar/utils";
 import {
   CalendarMark,
   RenderedCalendarMark,

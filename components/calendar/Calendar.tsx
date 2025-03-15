@@ -19,7 +19,6 @@ export type Disruption = {
 };
 
 type Props = {
-  disruptions: Disruption | Disruption[];
   marks: RenderedCalendarMark[];
 };
 
@@ -38,7 +37,7 @@ function getColumn(date: { year: number; month: number; day: number }) {
  * An array should be provided if you want to render disruptions across a period of 4 weeks from the current date (upto 28 days).
  * _Useful for having an overview for a specific line/trip_
  */
-export function Calendar({ disruptions, marks }: Props) {
+export function Calendar({ marks }: Props) {
   const months = React.useMemo(
     () =>
       groupBy(marks, (x) => `${x.year}-${x.month}`).map((x, i) => ({

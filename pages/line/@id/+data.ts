@@ -13,7 +13,6 @@ import { Disruption } from "@/components/calendar/Calendar";
 export type Data = {
   line: {
     name: string;
-    disruptions: Disruption | Disruption[];
     calendarMarks: RenderedCalendarMark[];
   } | null;
 };
@@ -60,7 +59,6 @@ export function data(pageContext: PageContext): Data & JsonSerializable {
   return {
     line: {
       name: line.name,
-      disruptions,
       calendarMarks: toCalendarMarks(disruptions, app.time.now()),
     },
   };

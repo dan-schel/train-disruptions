@@ -30,10 +30,7 @@ export default function Page() {
                 <Column className="gap-6">
                   <Text style="title">Buses replace trains...</Text>
 
-                  <Calendar
-                    disruptions={line.disruptions}
-                    marks={line.calendarMarks}
-                  />
+                  <Calendar marks={line.calendarMarks} />
                 </Column>
               </>
             ) : (

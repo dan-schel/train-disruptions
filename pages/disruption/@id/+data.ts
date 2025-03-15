@@ -16,7 +16,6 @@ export type BusReplacement = {
   type: "bus-replacement";
   title: string;
   description: string;
-  disruption: Disruption | Disruption[];
   calendarMarks: RenderedCalendarMark[];
   link: string;
 };
@@ -32,7 +31,6 @@ export type StationClosure = {
   type: "station-closure";
   title: string;
   description: string;
-  disruption: Disruption | Disruption[];
   calendarMarks: RenderedCalendarMark[];
   link: string;
 };
@@ -41,7 +39,6 @@ export type AlteredRoute = {
   type: "altered-route";
   title: string;
   description: string;
-  disruption: Disruption | Disruption[];
   calendarMarks: RenderedCalendarMark[];
   link: string;
 };
@@ -75,7 +72,6 @@ export function data(pageContext: PageContext): Data & JsonSerializable {
         title: "Buses replace trains between Caulfield and Westall",
         description:
           "Buses replace trains between Caulfield and Westall from 8:30 PM Saturday 1 March until further notice",
-        disruption,
         calendarMarks: toCalendarMarks(disruption, app.time.now()),
         link: "http://ptv.vic.gov.au/live-travel-updates/",
       },
@@ -107,7 +103,6 @@ export function data(pageContext: PageContext): Data & JsonSerializable {
         title: "Glenferrie station closed",
         description:
           "Glenferrie station will be affected by temporary closure from 8pm Friday 4 April to 4am Tuesday 22 April 2025, due to maintenance works.",
-        disruption: disruption,
         calendarMarks: toCalendarMarks(disruption, app.time.now()),
         link: "http://ptv.vic.gov.au/live-travel-updates/",
       },
@@ -128,7 +123,6 @@ export function data(pageContext: PageContext): Data & JsonSerializable {
           "Trains terminate and originate at Southern Cross on the Sunbury line",
         description:
           "Sunbury trains terminate and originate at Southern Cross from 9:30pm to last service each night, Sunday 16 March to Wednesday 19 March, due to maintenance works.",
-        disruption,
         calendarMarks: toCalendarMarks(disruption, app.time.now()),
         link: "http://ptv.vic.gov.au/live-travel-updates/article/craigieburn-and-sunbury-lines-trains-terminate-and-originate-at-southern-cross-930pm-to-last-service-each-night-from-sunday-16-march-to-wednesday-19-march-2025",
       },
