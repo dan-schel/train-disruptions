@@ -7,11 +7,11 @@ import { Column } from "@/components/core/Column";
 import { dateBoxStyles, getColumn } from "@/components/calendar/utils";
 import clsx from "clsx";
 
-export type DateBoxProps = {
+export type CalendarCellProps = {
   date: RenderedCalendarMark;
 };
 
-export function DateBox({ date }: DateBoxProps) {
+export function CalendarCell({ date }: CalendarCellProps) {
   return (
     <With gridColumn={getColumn(date)}>
       <Column

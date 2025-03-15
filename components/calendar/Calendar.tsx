@@ -5,7 +5,7 @@ import { With } from "@/components/core/With";
 import { Column } from "@/components/core/Column";
 import { Legend } from "@/components/calendar/Legend";
 import { MonthTitle } from "@/components/calendar/MonthTitle";
-import { DateBox } from "@/components/calendar/DateBox";
+import { CalendarCell } from "@/components/calendar/CalendarCell";
 import { DaysOfTheWeek } from "@/components/calendar/DaysOfTheWeek";
 import { TodayIndicator } from "@/components/calendar/TodayIndicator";
 import { RenderedCalendarMark } from "@/shared/types/calendar-marks";
@@ -41,7 +41,7 @@ export function Calendar({ marks }: CalendarProps) {
                 {isFirst && <DaysOfTheWeek />}
                 {isFirst && <TodayIndicator column={getColumn(dates[0])} />}
                 {dates.map((date) => (
-                  <DateBox key={date.day} date={date} />
+                  <CalendarCell key={date.day} date={date} />
                 ))}
               </React.Fragment>
             ))}
