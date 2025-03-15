@@ -16,7 +16,7 @@ export type CalendarProps = {
   marks: RenderedCalendarMark[];
 };
 
-/** Renders the given `CalendarMarks` in a calendar grid format. */
+/** Renders the given calendar marks in a calendar grid format. */
 export function Calendar({ marks }: CalendarProps) {
   const months = React.useMemo(
     () =>
