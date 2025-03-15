@@ -1,11 +1,11 @@
-import clsx from "clsx";
 import React from "react";
 
+import clsx from "clsx";
 import { Row } from "@/components/core/Row";
 import { Text } from "@/components/core/Text";
 import { dateBoxStyles } from "@/components/calendar/utils";
 
-export const Legends = () => {
+export function Legend() {
   return (
     <Row className="gap-4">
       <Row className="gap-2" align="center">
@@ -22,4 +22,4 @@ export const Legends = () => {
       </Row>
     </Row>
   );
-};
+}
