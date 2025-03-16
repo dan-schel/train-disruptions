@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`#renderCalendarMarks > works 1`] = `
+exports[`#createCalendarData > works 1`] = `
 "2025-03-15 all-day
 2025-03-16 no-disruption
 2025-03-17 no-disruption

@@ -58,7 +58,7 @@ export function data(pageContext: PageContext): Data & JsonSerializable {
   return {
     line: {
       name: line.name,
-      calendar: toCalendarMarks(disruptions, app.time.now()),
+      calendar: toCalendarData(disruptions, app.time.now()),
     },
   };
 }
@@ -86,7 +86,7 @@ type Disruption = {
   to: Date;
   evenings: boolean;
 };
-function toCalendarMarks(
+function toCalendarData(
   disruption: Disruption | Disruption[],
   now: Date,
 ): CalendarData {
