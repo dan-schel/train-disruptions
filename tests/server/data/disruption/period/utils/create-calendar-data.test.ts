@@ -4,11 +4,11 @@ import { StandardDisruptionPeriod } from "@/server/data/disruption/period/standa
 import {
   daysToRenderOnCalendar,
   createCalendarData,
-} from "@/server/data/disruption/period/utils/render-calendar-marks";
+} from "@/server/data/disruption/period/utils/create-calendar-data";
 import { CalendarCellData } from "@/shared/types/calendar-data";
 import { describe, expect, it } from "vitest";
 
-describe("#renderCalendarMarks", () => {
+describe("#createCalendarData", () => {
   it("works", () => {
     const result = createCalendarData(
       [

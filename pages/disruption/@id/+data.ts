@@ -3,7 +3,7 @@ import { JsonSerializable } from "@/shared/json-serializable";
 import { StandardDisruptionPeriod } from "@/server/data/disruption/period/standard-disruption-period";
 import { EndsExactly } from "@/server/data/disruption/period/ends/ends-exactly";
 import { EveningsOnlyDisruptionPeriod } from "@/server/data/disruption/period/evenings-only-disruption-period";
-import { createCalendarData } from "@/server/data/disruption/period/utils/render-calendar-marks";
+import { createCalendarData } from "@/server/data/disruption/period/utils/create-calendar-data";
 import { CalendarData } from "@/shared/types/calendar-data";
 
 export type Data = {
