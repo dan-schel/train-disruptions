@@ -1,11 +1,10 @@
 import { JustDate } from "@/server/data/disruption/period/utils/just-date";
 import { TimeRange } from "@/server/data/disruption/period/utils/time-range";
+import { CalendarMark } from "@/shared/types/calendar-data";
 
 export type DisplayStringOptions = {
   now: Date;
 };
-
-export type CalendarMark = "no-disruption" | "evening-only" | "all-day";
 
 /** Defines the period(s) of time a disruption is active. */
 export abstract class DisruptionPeriodBase {

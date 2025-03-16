@@ -13,7 +13,7 @@ import { Calendar } from "@/components/calendar/Calendar";
 export function Disruption(
   props: StationClosureProps | AlteredRouteProps | BusReplacementProps,
 ) {
-  const { title, description, link, disruption } = props;
+  const { title, description, link, calendar } = props;
   return (
     <Column className="gap-8">
       <Text style="title">{title}</Text>
@@ -24,7 +24,7 @@ export function Disruption(
         </Link>
       </Column>
 
-      <Calendar disruptions={disruption} />
+      <Calendar data={calendar} />
 
       {/* TODO: For the future, use `type` from props to determine how we display the disruptions on the map, 
         e.g. station closures should show the location of the station, buses should show sections greyed out where affected - TBD */}
