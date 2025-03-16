@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/core/Button";
 import { Row } from "@/components/core/Row";
 import { Text } from "@/components/core/Text";
 import { With } from "@/components/core/With";
 import clsx from "clsx";
-import { NavTab } from "@/components/navigation/utils";
+import { admin, NavTab, settings } from "@/components/navigation/utils";
 import { usePageContext } from "vike-react/usePageContext";
+import { useAdminVisibilityContext } from "@/context/AdminVisibility";
 
 export type DesktopTabButtonProps = {
   tab: NavTab;
@@ -13,10 +14,21 @@ export type DesktopTabButtonProps = {
 
 export function DesktopTabButton(props: DesktopTabButtonProps) {
   const { urlPathname } = usePageContext();
+  const { showAdminTab, incrementCount } = useAdminVisibilityContext();
+  const [hidden, setHidden] = useState<boolean>(true);
   const active = props.tab.active(urlPathname);
 
+  useEffect(() => {
+    setHidden(!showAdminTab && props.tab === admin && !active);
+  }, [active, props.tab, showAdminTab]);
+
+  const action =
+    active && props.tab === settings
+      ? { onClick: incrementCount }
+      : { href: props.tab.path };
+
   return (
-    <Button href={props.tab.path}>
+    <Button {...action} hidden={hidden}>
       <Row
         className={clsx(
           "group-hover:bg-action group-active:bg-action-secondary h-12 gap-2 border-y-2 border-transparent px-4",
