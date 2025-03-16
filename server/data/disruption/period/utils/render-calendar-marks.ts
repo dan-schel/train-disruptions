@@ -1,23 +1,20 @@
 import { DisruptionPeriod } from "@/server/data/disruption/period/disruption-period";
 import { JustDate } from "@/server/data/disruption/period/utils/just-date";
 import { utcToLocalTime } from "@/server/data/disruption/period/utils/utils";
-import {
-  CalendarMark,
-  RenderedCalendarMark,
-} from "@/shared/types/calendar-marks";
+import { CalendarMark, CalendarData } from "@/shared/types/calendar-data";
 import { range } from "@dan-schel/js-utils";
 import { startOfDay, addDays } from "date-fns";
 
 /** How many days to render in the future on the <Calendar> component. */
 export const daysToRenderOnCalendar = 28;
 
-export function renderCalendarMarks(
+export function createCalendarData(
   periods: DisruptionPeriod[],
   now: Date,
-): RenderedCalendarMark[] {
+): CalendarData {
   const today = startOfDay(utcToLocalTime(now));
 
-  return range(0, daysToRenderOnCalendar).map((i) => {
+  const cells = range(0, daysToRenderOnCalendar).map((i) => {
     const date = JustDate.extractFromDate(addDays(today, i));
     const marks = periods.map((x) => x.getCalendarMark(date));
     return {
@@ -27,6 +24,11 @@ export function renderCalendarMarks(
       mark: getWorstMark(marks),
     };
   });
+
+  return {
+    today: JustDate.extractFromDate(today).toBson(),
+    cells,
+  };
 }
 
 function getWorstMark(marks: CalendarMark[]): CalendarMark {

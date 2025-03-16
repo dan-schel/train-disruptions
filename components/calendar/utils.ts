@@ -1,5 +1,5 @@
 import { getDay } from "date-fns";
-import { CalendarMark } from "@/shared/types/calendar-marks";
+import { CalendarMark } from "@/shared/types/calendar-data";
 
 export const dateBoxStyles: Record<CalendarMark, string> = {
   "no-disruption": "bg-calendar-cell text-calendar-on-cell",

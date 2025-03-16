@@ -13,7 +13,7 @@ import {
 } from "@/server/data/disruption/period/utils/utils";
 import { JustDate } from "@/server/data/disruption/period/utils/just-date";
 import { addHours } from "date-fns";
-import { CalendarMark } from "@/shared/types/calendar-marks";
+import { CalendarMark } from "@/shared/types/calendar-data";
 
 /** Disruption is active continuously from the start date to the end date. */
 export class StandardDisruptionPeriod extends DisruptionPeriodBase {

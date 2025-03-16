@@ -3,8 +3,8 @@ import { parseIntNull } from "@dan-schel/js-utils";
 import { LineCollection } from "@/server/data/line/line-collection";
 import { Line } from "@/server/data/line/line";
 import { JsonSerializable } from "@/shared/json-serializable";
-import { RenderedCalendarMark } from "@/shared/types/calendar-marks";
-import { renderCalendarMarks } from "@/server/data/disruption/period/utils/render-calendar-marks";
+import { CalendarData } from "@/shared/types/calendar-data";
+import { createCalendarData } from "@/server/data/disruption/period/utils/render-calendar-marks";
 import { EndsExactly } from "@/server/data/disruption/period/ends/ends-exactly";
 import { EveningsOnlyDisruptionPeriod } from "@/server/data/disruption/period/evenings-only-disruption-period";
 import { StandardDisruptionPeriod } from "@/server/data/disruption/period/standard-disruption-period";
@@ -12,7 +12,7 @@ import { StandardDisruptionPeriod } from "@/server/data/disruption/period/standa
 export type Data = {
   line: {
     name: string;
-    calendarMarks: RenderedCalendarMark[];
+    calendar: CalendarData;
   } | null;
 };
 
@@ -58,7 +58,7 @@ export function data(pageContext: PageContext): Data & JsonSerializable {
   return {
     line: {
       name: line.name,
-      calendarMarks: toCalendarMarks(disruptions, app.time.now()),
+      calendar: toCalendarMarks(disruptions, app.time.now()),
     },
   };
 }
@@ -86,7 +86,10 @@ type Disruption = {
   to: Date;
   evenings: boolean;
 };
-function toCalendarMarks(disruption: Disruption | Disruption[], now: Date) {
+function toCalendarMarks(
+  disruption: Disruption | Disruption[],
+  now: Date,
+): CalendarData {
   const array = Array.isArray(disruption) ? disruption : [disruption];
   const periods = array.map((x) =>
     x.evenings
@@ -94,5 +97,5 @@ function toCalendarMarks(disruption: Disruption | Disruption[], now: Date) {
       : new StandardDisruptionPeriod(x.from, new EndsExactly(x.to)),
   );
 
-  return renderCalendarMarks(periods, now);
+  return createCalendarData(periods, now);
 }

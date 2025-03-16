@@ -3,8 +3,8 @@ import { JsonSerializable } from "@/shared/json-serializable";
 import { StandardDisruptionPeriod } from "@/server/data/disruption/period/standard-disruption-period";
 import { EndsExactly } from "@/server/data/disruption/period/ends/ends-exactly";
 import { EveningsOnlyDisruptionPeriod } from "@/server/data/disruption/period/evenings-only-disruption-period";
-import { renderCalendarMarks } from "@/server/data/disruption/period/utils/render-calendar-marks";
-import { RenderedCalendarMark } from "@/shared/types/calendar-marks";
+import { createCalendarData } from "@/server/data/disruption/period/utils/render-calendar-marks";
+import { CalendarData } from "@/shared/types/calendar-data";
 
 export type Data = {
   backHref: string;
@@ -15,7 +15,7 @@ export type BusReplacement = {
   type: "bus-replacement";
   title: string;
   description: string;
-  calendarMarks: RenderedCalendarMark[];
+  calendar: CalendarData;
   link: string;
 };
 
@@ -30,7 +30,7 @@ export type StationClosure = {
   type: "station-closure";
   title: string;
   description: string;
-  calendarMarks: RenderedCalendarMark[];
+  calendar: CalendarData;
   link: string;
 };
 
@@ -38,7 +38,7 @@ export type AlteredRoute = {
   type: "altered-route";
   title: string;
   description: string;
-  calendarMarks: RenderedCalendarMark[];
+  calendar: CalendarData;
   link: string;
 };
 
@@ -71,7 +71,7 @@ export function data(pageContext: PageContext): Data & JsonSerializable {
         title: "Buses replace trains between Caulfield and Westall",
         description:
           "Buses replace trains between Caulfield and Westall from 8:30 PM Saturday 1 March until further notice",
-        calendarMarks: toCalendarMarks(disruption, app.time.now()),
+        calendar: toCalendarData(disruption, app.time.now()),
         link: "http://ptv.vic.gov.au/live-travel-updates/",
       },
       backHref,
@@ -102,7 +102,7 @@ export function data(pageContext: PageContext): Data & JsonSerializable {
         title: "Glenferrie station closed",
         description:
           "Glenferrie station will be affected by temporary closure from 8pm Friday 4 April to 4am Tuesday 22 April 2025, due to maintenance works.",
-        calendarMarks: toCalendarMarks(disruption, app.time.now()),
+        calendar: toCalendarData(disruption, app.time.now()),
         link: "http://ptv.vic.gov.au/live-travel-updates/",
       },
       backHref,
@@ -122,7 +122,7 @@ export function data(pageContext: PageContext): Data & JsonSerializable {
           "Trains terminate and originate at Southern Cross on the Sunbury line",
         description:
           "Sunbury trains terminate and originate at Southern Cross from 9:30pm to last service each night, Sunday 16 March to Wednesday 19 March, due to maintenance works.",
-        calendarMarks: toCalendarMarks(disruption, app.time.now()),
+        calendar: toCalendarData(disruption, app.time.now()),
         link: "http://ptv.vic.gov.au/live-travel-updates/article/craigieburn-and-sunbury-lines-trains-terminate-and-originate-at-southern-cross-930pm-to-last-service-each-night-from-sunday-16-march-to-wednesday-19-march-2025",
       },
       backHref,
@@ -139,7 +139,10 @@ type Disruption = {
   to: Date;
   evenings: boolean;
 };
-function toCalendarMarks(disruption: Disruption | Disruption[], now: Date) {
+function toCalendarData(
+  disruption: Disruption | Disruption[],
+  now: Date,
+): CalendarData {
   const array = Array.isArray(disruption) ? disruption : [disruption];
   const periods = array.map((x) =>
     x.evenings
@@ -147,5 +150,5 @@ function toCalendarMarks(disruption: Disruption | Disruption[], now: Date) {
       : new StandardDisruptionPeriod(x.from, new EndsExactly(x.to)),
   );
 
-  return renderCalendarMarks(periods, now);
+  return createCalendarData(periods, now);
 }

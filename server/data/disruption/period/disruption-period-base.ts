@@ -1,6 +1,6 @@
 import { JustDate } from "@/server/data/disruption/period/utils/just-date";
 import { TimeRange } from "@/server/data/disruption/period/utils/time-range";
-import { CalendarMark } from "@/shared/types/calendar-marks";
+import { CalendarMark } from "@/shared/types/calendar-data";
 
 export type DisplayStringOptions = {
   now: Date;

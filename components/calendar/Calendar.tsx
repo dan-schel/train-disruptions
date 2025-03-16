@@ -8,32 +8,27 @@ import { MonthTitle } from "@/components/calendar/MonthTitle";
 import { CalendarCell } from "@/components/calendar/CalendarCell";
 import { DaysOfTheWeek } from "@/components/calendar/DaysOfTheWeek";
 import { TodayIndicator } from "@/components/calendar/TodayIndicator";
-import { RenderedCalendarMark } from "@/shared/types/calendar-marks";
+import { CalendarData } from "@/shared/types/calendar-data";
 import { groupBy } from "@dan-schel/js-utils";
 import { getColumn } from "@/components/calendar/utils";
 
 export type CalendarProps = {
-  marks: RenderedCalendarMark[];
+  data: CalendarData;
 };
 
 /** Renders the given calendar marks in a calendar grid format. */
-export function Calendar({ marks }: CalendarProps) {
+export function Calendar({ data }: CalendarProps) {
   const months = React.useMemo(
     () =>
-      groupBy(marks, (x) => `${x.year}-${x.month}`).map((x, i) => ({
+      groupBy(data.cells, (x) => `${x.year}-${x.month}`).map((x, i) => ({
         key: x.group,
         year: x.items[0].year,
         month: x.items[0].month,
         isFirst: i === 0,
         dates: x.items,
       })),
-    [marks],
+    [data],
   );
-
-  // TODO: We need to send today's date with the RenderedCalendarMarks. Maybe
-  // RenderedCalendarMark[] becomes CalendarData, which includes today and the
-  // marks?
-  const today = marks[0];
 
   return (
     <Grid columns="auto minmax(auto, 32rem) auto">
@@ -44,11 +39,11 @@ export function Calendar({ marks }: CalendarProps) {
               <React.Fragment key={key}>
                 <MonthTitle year={year} month={month} />
                 {isFirst && <DaysOfTheWeek />}
-                {isFirst && sameDay(dates[0], today) && (
-                  <TodayIndicator column={getColumn(today)} />
+                {isFirst && sameDay(dates[0], data.today) && (
+                  <TodayIndicator column={getColumn(data.today)} />
                 )}
                 {dates.map((date) => (
-                  <CalendarCell key={date.day} date={date} />
+                  <CalendarCell key={date.day} data={date} />
                 ))}
               </React.Fragment>
             ))}
