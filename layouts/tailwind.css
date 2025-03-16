@@ -29,7 +29,7 @@
   --color-button-bg-hover: var(--color-slate-300);
   --color-button-bg-active: var(--color-slate-400);
 
-  --color-calendar-cell: var(--color-slate-200); /* #FC4000 */
+  --color-calendar-cell: var(--color-slate-200);
   --color-calendar-accent: oklch(65% 0.23 35); /* #FC4000 */
   --color-calendar-today: var(--color-black);
   --color-calendar-on-cell: var(--color-black);
