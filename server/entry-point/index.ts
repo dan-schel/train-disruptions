@@ -47,7 +47,7 @@ async function startWebServer(app: App, root: string) {
   server.all(/(.*)/, createVikeHandler(app));
 
   server.listen(env.PORT, () => {
-    app.onServerStarted(env.PORT);
+    app.onServerReady(env.PORT);
   });
 
   return server;
