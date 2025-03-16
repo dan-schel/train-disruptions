@@ -5,7 +5,7 @@ import { CalendarMark, CalendarData } from "@/shared/types/calendar-data";
 import { range } from "@dan-schel/js-utils";
 import { startOfDay, addDays } from "date-fns";
 
-/** How many days to render in the future on the <Calendar> component. */
+/** How many days to render into the future on the <Calendar> component. */
 export const daysToRenderOnCalendar = 28;
 
 export function createCalendarData(
