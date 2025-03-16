@@ -7,10 +7,10 @@ import { LineCollection } from "@/server/data/line/line-collection";
 import { TimeProvider } from "@/server/time-provider";
 import { LogHistoricalAlertsTask } from "@/server/task/tasks/log-historical-alerts-task";
 import { SendStartupMessageTask } from "@/server/task/tasks/send-startup-message-task";
-import { TaskScheduler } from "@/server/task/lib/task";
 import { areUnique } from "@dan-schel/js-utils";
 import { VtarAlertSource } from "@/server/alert-source/vtar-alert-source";
 import { MongoDatabase } from "@/server/database/lib/mongo/mongo-database";
+import { TaskScheduler } from "@/server/task/lib/task-scheduler";
 
 export class App {
   private readonly _taskSchedulers: TaskScheduler[];

@@ -1,7 +1,9 @@
 import { App } from "@/server/app";
 import { HistoricalAlert } from "@/server/data/historical-alert";
 import { HISTORICAL_ALERTS } from "@/server/database/models/models";
-import { IntervalScheduler, Task, TaskScheduler } from "@/server/task/lib/task";
+import { IntervalScheduler } from "@/server/task/lib/interval-scheduler";
+import { Task } from "@/server/task/lib/task";
+import { TaskScheduler } from "@/server/task/lib/task-scheduler";
 
 /**
  * Fetches fresh alerts from the alert source, and writes all unseen alerts to

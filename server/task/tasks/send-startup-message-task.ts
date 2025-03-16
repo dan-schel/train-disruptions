@@ -1,10 +1,8 @@
 import { App } from "@/server/app";
 import { DEPLOYMENT_LOGS } from "@/server/database/models/models";
-import {
-  OnStartupScheduler,
-  Task,
-  TaskScheduler,
-} from "@/server/task/lib/task";
+import { OnStartupScheduler } from "@/server/task/lib/on-startup-scheduler";
+import { Task } from "@/server/task/lib/task";
+import { TaskScheduler } from "@/server/task/lib/task-scheduler";
 import { uuid } from "@dan-schel/js-utils";
 import { subHours } from "date-fns";
 
