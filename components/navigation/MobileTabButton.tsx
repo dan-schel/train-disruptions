@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/core/Button";
 import { Text } from "@/components/core/Text";
 import { With } from "@/components/core/With";
 import clsx from "clsx";
-import { NavTab } from "@/components/navigation/utils";
+import { admin, NavTab, settings } from "@/components/navigation/utils";
 import { usePageContext } from "vike-react/usePageContext";
 import { Column } from "@/components/core/Column";
+import { useAdminVisibilityContext } from "@/context/AdminVisibility";
 
 export type MobileTabButtonProps = {
   tab: NavTab;
@@ -13,10 +14,21 @@ export type MobileTabButtonProps = {
 
 export function MobileTabButton(props: MobileTabButtonProps) {
   const { urlPathname } = usePageContext();
+  const { showAdminTab, incrementCount } = useAdminVisibilityContext();
+  const [hidden, setHidden] = useState<boolean>(props.tab === admin);
   const active = props.tab.active(urlPathname);
 
+  useEffect(() => {
+    setHidden(!showAdminTab && props.tab === admin && !active);
+  }, [active, props.tab, showAdminTab]);
+
+  const action =
+    active && props.tab === settings
+      ? { onClick: incrementCount }
+      : { href: props.tab.path };
+
   return (
-    <Button href={props.tab.path}>
+    <Button {...action} hidden={hidden}>
       <Column className={clsx("h-16 gap-1")} align="center" justify="center">
         <With
           className={clsx("-mt-1 rounded-full px-4 py-1 text-xl", {

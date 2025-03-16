@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useData } from "vike-react/useData";
 import { Data } from "@/pages/settings/+data";
@@ -13,19 +13,25 @@ import { SettingsCommute } from "@/pages/settings/SettingsCommute";
 import { SettingsReset } from "@/pages/settings/SettingsReset";
 import { Settings } from "@/shared/settings";
 import { useSettings } from "@/hooks/useSettings";
+import { useAdminVisibilityContext } from "@/context/AdminVisibility";
+import { SettingsAdmin } from "@/pages/settings/SettingsAdmin";
 
 export default function Page() {
   const data = useData<Data>();
+  const { showToggle } = useAdminVisibilityContext();
 
-  const [settings, setSettings] = React.useState(
-    Settings.json.parse(data.settings),
-  );
+  const [showAdmin, setShowAdmin] = useState<boolean>(false);
+  const [settings, setSettings] = useState(Settings.json.parse(data.settings));
 
   const { setSettings: setCookie } = useSettings();
 
   useEffect(() => {
     setCookie(settings);
   }, [settings, setCookie]);
+
+  useEffect(() => {
+    setShowAdmin(showToggle);
+  }, [showToggle]);
 
   return (
     <PageCenterer>
@@ -40,6 +46,9 @@ export default function Page() {
             setSettings={setSettings}
             stations={data.stations}
           />
+          {showAdmin && (
+            <SettingsAdmin settings={settings} setSettings={setSettings} />
+          )}
           <SettingsReset settings={settings} setSettings={setSettings} />
         </Column>
       </PagePadding>

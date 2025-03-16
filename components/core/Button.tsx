@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import React from "react";
 
 // TODO: Codify routes rather than allowing any string.
@@ -26,6 +27,7 @@ export function extractAction(props: Action): Action {
 export type ButtonProps = {
   children: React.ReactElement;
   alt?: string;
+  hidden?: boolean;
 } & Action;
 
 /**
@@ -43,7 +45,7 @@ export function Button(props: ButtonProps) {
     const type = props.submit === true ? "submit" : "button";
     return (
       <button
-        className="group grid"
+        className={clsx("group grid", { hidden: props.hidden })}
         onClick={props.onClick}
         type={type}
         title={props.alt}
@@ -54,7 +56,7 @@ export function Button(props: ButtonProps) {
   } else {
     return (
       <a
-        className="group grid"
+        className={clsx("group grid", { hidden: props.hidden })}
         href={props.href}
         title={props.alt}
         target={props.target}
