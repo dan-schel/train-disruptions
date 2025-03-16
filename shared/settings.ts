@@ -36,9 +36,10 @@ export class Settings {
     readonly enabledCategories: readonly FilterableDisruptionCategory[],
     readonly theme: Theme,
     readonly startPage: Startpage,
+    readonly showAdminTab: boolean,
   ) {}
 
-  static readonly default = new Settings(null, [], "system", "overview");
+  static readonly default = new Settings(null, [], "system", "overview", false);
 
   // Consider that anything we add here is stored in a cookie, and we only have
   // 4KB (4096 characters!) to work with. We also might have to share that limit
@@ -54,6 +55,7 @@ export class Settings {
       enabledCategories: z.string().array().readonly(),
       theme: z.enum(["system", "light", "dark"]),
       startPage: z.enum(["overview", "commute"]),
+      showAdminTab: z.boolean(),
     })
     .transform(
       (obj) =>
@@ -68,6 +70,7 @@ export class Settings {
           ),
           obj.theme ?? "system",
           obj.startPage ?? "overview",
+          obj.showAdminTab ?? false,
         ),
     );
 
@@ -90,6 +93,7 @@ export class Settings {
       enabledCategories: this.enabledCategories,
       theme: this.theme,
       startPage: this.startPage,
+      showAdminTab: this.showAdminTab,
     };
   }
 
@@ -98,17 +102,20 @@ export class Settings {
     enabledCategories,
     theme,
     startPage,
+    showAdminTab,
   }: {
     commute?: { readonly a: number; readonly b: number } | null;
     enabledCategories?: readonly FilterableDisruptionCategory[];
     theme?: Theme;
     startPage?: Startpage;
+    showAdminTab?: boolean;
   }): Settings {
     return new Settings(
       commute !== undefined ? commute : this.commute,
       enabledCategories ?? this.enabledCategories,
       theme ?? this.theme,
       startPage ?? this.startPage,
+      showAdminTab ?? this.showAdminTab,
     );
   }
 
