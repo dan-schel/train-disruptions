@@ -25,34 +25,29 @@ export class SendStartupMessageTask extends Task {
 
   async execute(app: App): Promise<void> {
     try {
-      if (app.discordClient === null || app.commitHash === null) {
-        console.warn("🟡 Discord client not setup yet.");
-      } else {
-        const deployments = await app.database.of(DEPLOYMENT_LOGS).find({
-          where: { commitHash: app.commitHash },
-          sort: {
-            by: "createdAt",
-            direction: "desc",
-          },
-        });
+      if (app.discordClient === null || app.commitHash === null) return;
 
-        await app.database.of(DEPLOYMENT_LOGS).create({
-          id: uuid(),
-          commitHash: app.commitHash,
-          createdAt: new Date(),
-        });
+      const deployments = await app.database.of(DEPLOYMENT_LOGS).find({
+        where: { commitHash: app.commitHash },
+        sort: {
+          by: "createdAt",
+          direction: "desc",
+        },
+      });
 
-        const lastDeployment = deployments.at(0)?.createdAt ?? new Date(0);
+      await app.database.of(DEPLOYMENT_LOGS).create({
+        id: uuid(),
+        commitHash: app.commitHash,
+        createdAt: new Date(),
+      });
 
-        if (
-          deployments.length < 2 ||
-          subHours(new Date(), 1) > lastDeployment
-        ) {
-          await app.discordClient.sendMessage(deployments.length > 0);
-        }
+      const lastDeployment = deployments.at(0)?.createdAt ?? new Date(0);
+
+      if (deployments.length < 2 || subHours(new Date(), 1) > lastDeployment) {
+        await app.discordClient.sendMessage(deployments.length > 0);
       }
     } catch (error) {
-      console.warn("🔴 Failed to log deployment.");
+      console.warn("Failed to send deploy message to Discord.");
       console.warn(error);
     }
   }

@@ -44,6 +44,8 @@ export class IntervalScheduler extends TaskScheduler {
 
   onServerReady() {
     // TODO: Use app.time to schedule the task.
-    setInterval(() => this._task.execute(this._app), this._intervalMs);
+    setInterval(async () => {
+      await this._task.execute(this._app);
+    }, this._intervalMs);
   }
 }

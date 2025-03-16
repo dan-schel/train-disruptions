@@ -9,6 +9,8 @@ import { LogHistoricalAlertsTask } from "@/server/task/tasks/log-historical-aler
 import { SendStartupMessageTask } from "@/server/task/tasks/send-startup-message-task";
 import { TaskScheduler } from "@/server/task/lib/task";
 import { areUnique } from "@dan-schel/js-utils";
+import { VtarAlertSource } from "@/server/alert-source/vtar-alert-source";
+import { MongoDatabase } from "@/server/database/lib/mongo/mongo-database";
 
 export class App {
   private readonly _taskSchedulers: TaskScheduler[];
@@ -35,15 +37,42 @@ export class App {
     // Has to run before anything else that might use the database.
     await this.database.runMigrations(migrations);
 
+    this._logStatus();
+
     // Run all startup tasks.
     await Promise.all(this._taskSchedulers.map((t) => t.onServerInit()));
   }
 
   onServerReady(port: number) {
     // eslint-disable-next-line no-console
-    console.log(`🟢 Server listening on http://localhost:${port}`);
+    console.log(`Server listening on http://localhost:${port}`);
 
     // Schedule all periodic tasks.
     this._taskSchedulers.forEach((t) => t.onServerReady());
+  }
+
+  private _logStatus() {
+    /* eslint-disable no-console */
+    console.log(
+      this.database instanceof MongoDatabase
+        ? "🟢 Using MongoDB"
+        : "⚫ Using in-memory database",
+    );
+    console.log(
+      this.alertSource instanceof VtarAlertSource
+        ? "🟢 Using relay server"
+        : "⚫ Using fake alert source",
+    );
+    console.log(
+      this.discordClient != null
+        ? "🟢 Discord enabled"
+        : "⚫ Not using Discord",
+    );
+    console.log(
+      this.commitHash != null
+        ? `🟢 Commit hash: "${this.commitHash}"`
+        : "⚫ Commit hash unknown",
+    );
+    /* eslint-enable no-console */
   }
 }
