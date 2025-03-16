@@ -1,4 +1,7 @@
-export type CalendarMark = "no-disruption" | "evening-only" | "all-day";
+export type CalendarData = {
+  today: { year: number; month: number; day: number };
+  cells: CalendarCellData[];
+};
 
 export type CalendarCellData = {
   year: number;
@@ -7,7 +10,4 @@ export type CalendarCellData = {
   mark: CalendarMark;
 };
 
-export type CalendarData = {
-  today: { year: number; month: number; day: number };
-  cells: CalendarCellData[];
-};
+export type CalendarMark = "no-disruption" | "evening-only" | "all-day";
