@@ -15,7 +15,7 @@ export type DesktopTabButtonProps = {
 export function DesktopTabButton(props: DesktopTabButtonProps) {
   const { urlPathname } = usePageContext();
   const { showAdminTab, incrementCount } = useAdminVisibilityContext();
-  const [hidden, setHidden] = useState<boolean>(true);
+  const [hidden, setHidden] = useState<boolean>(props.tab === admin);
   const active = props.tab.active(urlPathname);
 
   useEffect(() => {
