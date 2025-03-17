@@ -1,6 +1,9 @@
 import { LineSection } from "@/server/data/line-section";
 import { StationPair } from "@/server/data/line/line-routes/station-pair";
-import { LineShape } from "@/server/data/line/line-routes/line-shape";
+import {
+  LineShape,
+  LineShapeNode,
+} from "@/server/data/line/line-routes/line-shape";
 
 /**
  * Knows deeply about the stations this line serves, and in which manner. It's
@@ -41,6 +44,10 @@ export class LineRoute {
 
   getRouteGraphPairsInSection(lineSection: LineSection): StationPair[] {
     return this._shape.getRouteGraphPairsBetween(lineSection.a, lineSection.b);
+  }
+
+  getAllLineShapeNodes(): readonly LineShapeNode[] {
+    return this._shape.getAllNodes();
   }
 
   // TODO: Function to get all line shape nodes? Admin dashboard will need to

@@ -43,6 +43,10 @@ export class LineShape {
     return this._tree.hasNode(node);
   }
 
+  getAllNodes(): LineShapeNode[] {
+    return this._tree.getAllNodes();
+  }
+
   getRouteGraphPairsBetween(a: LineShapeNode, b: LineShapeNode): StationPair[] {
     const pairs = this._tree
       .getPathBetween(a, b)
