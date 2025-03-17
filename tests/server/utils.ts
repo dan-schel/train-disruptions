@@ -10,7 +10,17 @@ export function createTestApp() {
   const alertSource = new FakeAlertSource();
   const time = new FixedTimeProvider(new Date("2025-01-01T00:00:00Z"));
 
-  const app = new App(lines, stations, db, alertSource, null, time, null);
+  const app = new App(
+    lines,
+    stations,
+    db,
+    alertSource,
+    null,
+    time,
+    null,
+    null,
+    null,
+  );
 
   return { app, db, alertSource, time };
 }

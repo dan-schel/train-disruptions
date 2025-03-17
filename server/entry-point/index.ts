@@ -11,6 +11,15 @@ import { initDatabase } from "@/server/entry-point/services/database";
 import { initAlertSource } from "@/server/entry-point/services/alert-source";
 import { initDiscordClient } from "@/server/entry-point/services/discord";
 import { RealTimeProvider } from "@/server/time-provider";
+import session from "express-session";
+import MongoStore from "connect-mongo";
+import { config } from "@/server/entry-point/config";
+
+declare module "express-session" {
+  interface SessionData {
+    user: { id: string; role: "super" | "admin" } | null;
+  }
+}
 
 export async function run(root: string) {
   const database = await initDatabase();
@@ -26,6 +35,8 @@ export async function run(root: string) {
     discordClient,
     time,
     env.COMMIT_HASH ?? null,
+    env.USERNAME ?? null,
+    env.PASSWORD ?? null,
   );
   await app.init();
 
@@ -34,6 +45,25 @@ export async function run(root: string) {
 
 async function startWebServer(app: App, root: string) {
   const server = express();
+  // TODO: extract into separate file
+  server.use(
+    session({
+      secret: "test",
+      cookie: {
+        secure: env.NODE_ENV === "production",
+        maxAge: 1000 * 60 * 60 * 2,
+        sameSite: "lax",
+        httpOnly: true,
+      },
+      resave: false,
+      saveUninitialized: false,
+      store: MongoStore.create({
+        mongoUrl: env.DATABASE_URL,
+        dbName: config.DATABASE_NAME,
+        stringify: false,
+      }),
+    }),
+  );
   server.use(cookieParser());
 
   if (env.NODE_ENV === "production") {

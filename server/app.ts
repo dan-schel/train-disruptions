@@ -6,6 +6,7 @@ import {
   CRAYONS,
   DEPLOYMENT_LOGS,
   HISTORICAL_ALERTS,
+  USERS,
 } from "@/server/database/models/models";
 import { AlertSource } from "@/server/alert-source/alert-source";
 import { InMemoryDatabase } from "@/server/database/lib/in-memory/in-memory-database";
@@ -16,6 +17,8 @@ import { DiscordClient } from "@/server/discord";
 import { subHours } from "date-fns";
 import { LineCollection } from "@/server/data/line/line-collection";
 import { TimeProvider } from "@/server/time-provider";
+import { User } from "@/server/database/models/user";
+import { hash } from "bcrypt";
 
 export class App {
   constructor(
@@ -26,6 +29,8 @@ export class App {
     readonly discordClient: DiscordClient | null,
     readonly time: TimeProvider,
     readonly commitHash: string | null,
+    private readonly username: string | null,
+    private readonly password: string | null,
   ) {}
 
   async init() {
@@ -33,6 +38,7 @@ export class App {
     await this.database.runMigrations(migrations);
 
     await this._runStartUpLogger();
+    await this._seedSuperAdmin();
 
     // TODO: This is temporary.
     await this._runDatabaseDemo();
@@ -145,6 +151,26 @@ export class App {
       }
     } catch (error) {
       console.warn("🔴 Failed to log deployment.");
+      console.warn(error);
+    }
+  }
+
+  private async _seedSuperAdmin() {
+    try {
+      if (!this.username || !this.password) {
+        return;
+      }
+      const existing = await this.database
+        .of(USERS)
+        .first({ where: { role: "admin" } });
+      if (!existing) {
+        const hashedPW = await hash(this.password, 10);
+        await this.database
+          .of(USERS)
+          .create(new User(uuid(), this.username, hashedPW, "admin"));
+      }
+    } catch (error) {
+      console.warn("🔴 Failed to seed super admin.");
       console.warn(error);
     }
   }

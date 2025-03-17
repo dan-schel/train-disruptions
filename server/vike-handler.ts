@@ -17,6 +17,7 @@ declare global {
 export type CustomPageContext = {
   app: App;
   settings: Settings;
+  user?: { id: string; role: "super" | "admin" } | null;
 };
 
 export function createVikeHandler(app: App) {
@@ -30,6 +31,7 @@ export function createVikeHandler(app: App) {
         custom: {
           app,
           settings,
+          user: req.session.user,
         },
         urlOriginal: req.url,
       } satisfies Vike.PageContext)
