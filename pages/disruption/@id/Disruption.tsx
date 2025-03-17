@@ -40,6 +40,11 @@ export function Disruption(props: DisruptionProps) {
         </Text>
       </Column>
 
+      {/*
+       * TODO: For live disruptions where the end date is not known, e.g.
+       * delays, we should probably just hide the calendar. Have the server
+       * return null for `calendar` instead of a `CalendarData` object?
+       */}
       <Calendar data={calendar} />
 
       {/* TODO: Draw the disruption on the map. */}
