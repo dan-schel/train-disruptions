@@ -10,7 +10,6 @@ import { parseIntNull } from "@dan-schel/js-utils";
 
 export type Data = {
   disruption: {
-    // TODO: Everything else.
     title: string;
     bodyMarkdown: string;
     link: string;
