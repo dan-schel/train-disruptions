@@ -64,4 +64,31 @@ export class DisruptionWriteup {
       lineStatusIndicatorPriority: this.lineStatusIndicatorPriority,
     };
   }
+
+  static ofHighestPriority(writeups: DisruptionWriteup[]): DisruptionWriteup {
+    // TODO: [DS] Test this function!
+
+    if (writeups.length === 0) {
+      throw new Error("Cannot get highest priority of empty list.");
+    }
+
+    return writeups.reduce((a, b) =>
+      DisruptionWriteup.comparePriority(
+        a.lineStatusIndicatorPriority,
+        b.lineStatusIndicatorPriority,
+      ) >= 0
+        ? a
+        : b,
+    );
+  }
+
+  static comparePriority(
+    a: LineStatusIndicatorPriority,
+    b: LineStatusIndicatorPriority,
+  ): number {
+    return (
+      LineStatusIndicatorPriorities.indexOf(a) -
+      LineStatusIndicatorPriorities.indexOf(b)
+    );
+  }
 }
