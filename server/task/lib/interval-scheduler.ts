@@ -20,9 +20,7 @@ export class IntervalScheduler extends TaskScheduler {
   onServerReady() {
     // TODO: One day a more sophisticated scheduler might adjust the interval
     // based on whether the task succeeded or failed.
-
-    // TODO: Use app.time to schedule the task.
-    setInterval(async () => {
+    this._app.time.setInterval(async () => {
       await this._task.execute(this._app);
     }, this._intervalMs);
   }
