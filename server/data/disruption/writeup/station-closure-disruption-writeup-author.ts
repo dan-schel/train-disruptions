@@ -25,7 +25,11 @@ export class StationClosureDisruptionWriteupAuthor extends DisruptionWriteupAuth
       {
         headline: null,
         subject: `${stationName} station closed`,
+
+        // TODO: Should use the shortened version that just mentions when the
+        // disruption ends.
         period: periodString,
+
         iconType: "cross",
       },
       {

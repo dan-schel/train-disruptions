@@ -24,6 +24,8 @@ export class BusReplacementsDisruptionWriteupAuthor extends DisruptionWriteupAut
       `Occurs ${periodString}.\nBuses replace trains ${sections}.`,
 
       {
+        // TODO: Far from perfect yet. Period string too long and subject
+        // contains "from".
         headline: "Buses replace trains",
         subject: sections,
         period: periodString,
