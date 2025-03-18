@@ -10,7 +10,7 @@ import { stations } from "@/server/entry-point/data/stations";
 import { initDatabase } from "@/server/entry-point/services/database";
 import { initAlertSource } from "@/server/entry-point/services/alert-source";
 import { initDiscordClient } from "@/server/entry-point/services/discord";
-import { RealTimeProvider } from "@/server/time-provider";
+import { RealTimeProvider } from "@/server/time-provider/real-time-provider";
 
 export async function run(root: string) {
   const database = await initDatabase();
@@ -47,7 +47,7 @@ async function startWebServer(app: App, root: string) {
   server.all(/(.*)/, createVikeHandler(app));
 
   server.listen(env.PORT, () => {
-    app.onServerStarted(env.PORT);
+    app.onServerReady(env.PORT);
   });
 
   return server;
