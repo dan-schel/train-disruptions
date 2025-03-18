@@ -26,7 +26,7 @@ export function data(pageContext: PageContext): Data & JsonSerializable {
   }
 
   const disruptions = getDemoDisruptions(app).filter((x) =>
-    x.data.getImpactedLines().includes(line.id),
+    x.data.getImpactedLines(app).includes(line.id),
   );
 
   return {

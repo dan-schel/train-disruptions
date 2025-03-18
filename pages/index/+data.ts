@@ -25,7 +25,7 @@ export function data(pageContext: PageContext): Data & JsonSerializable {
     .filter((x) => x.period.occursAt(app.time.now()))
     .map((x) => ({
       disruption: x,
-      lines: x.data.getImpactedLines(),
+      lines: x.data.getImpactedLines(app),
       writeup: x.data.getWriteupAuthor().write(app, x),
     }));
 
