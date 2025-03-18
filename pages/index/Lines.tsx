@@ -3,7 +3,7 @@ import React from "react";
 import { LineButton } from "@/pages/index/LineButton";
 import { Text } from "@/components/core/Text";
 import { Column } from "@/components/core/Column";
-import { OverviewPageLineData } from "@/shared/types/overview-page-line-data";
+import { OverviewPageLineData } from "@/shared/types/overview-page";
 
 type LinesProps = {
   title: string;

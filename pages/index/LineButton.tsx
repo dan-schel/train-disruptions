@@ -9,7 +9,7 @@ import { MingcuteRightLine } from "@/components/icons/MingcuteRightLine";
 import {
   OverviewPageLineData,
   OverviewPageLineStatusColor,
-} from "@/shared/types/overview-page-line-data";
+} from "@/shared/types/overview-page";
 
 type LineButtonProps = {
   line: OverviewPageLineData;

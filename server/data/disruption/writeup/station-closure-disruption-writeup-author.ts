@@ -22,8 +22,16 @@ export class StationClosureDisruptionWriteupAuthor extends DisruptionWriteupAuth
       // TODO: Mostly just an example. Further info to be added, no doubt.
       `Occurs ${periodString}.\nAll trains will run express through ${stationName} Station.`,
 
-      `${stationName} closed`,
-      "very-low",
+      {
+        headline: null,
+        subject: `${stationName} station closed`,
+        period: periodString,
+        iconType: "cross",
+      },
+      {
+        summary: `${stationName} station closed`,
+        priority: "very-low",
+      },
     );
   }
 }

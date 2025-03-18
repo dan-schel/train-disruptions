@@ -6,3 +6,11 @@ export type OverviewPageLineData = {
   status: string;
   statusColor: OverviewPageLineStatusColor;
 };
+
+export type OverviewPageDisruptionSummary = {
+  id: string;
+  headline: string | null;
+  subject: string;
+  period: string | null;
+  icon: "line" | "cross" | "altered-route";
+};

@@ -1,13 +1,32 @@
 import { PageContext } from "vike/types";
 import { JsonSerializable } from "@/shared/json-serializable";
-import { OverviewPageLineData } from "@/shared/types/overview-page-line-data";
+import {
+  OverviewPageDisruptionSummary,
+  OverviewPageLineData,
+  OverviewPageLineStatusColor,
+} from "@/shared/types/overview-page";
 import { getDemoDisruptions } from "@/server/data/disruption/demo-disruptions";
 import { LineCollection } from "@/server/data/line/line-collection";
 import { Disruption } from "@/server/data/disruption/disruption";
-import { DisruptionWriteup } from "@/server/data/disruption/writeup/disruption-writeup";
+import {
+  DisruptionWriteup,
+  LineStatusIndicatorPriority,
+} from "@/server/data/disruption/writeup/disruption-writeup";
 import { Line } from "@/server/data/line/line";
 
+const statusColorMapping: Record<
+  LineStatusIndicatorPriority,
+  OverviewPageLineStatusColor
+> = {
+  hidden: "green",
+  "very-low": "yellow",
+  low: "yellow",
+  medium: "red",
+  high: "red",
+};
+
 export type Data = {
+  disruptions: OverviewPageDisruptionSummary[];
   suburban: OverviewPageLineData[];
   regional: OverviewPageLineData[];
 };
@@ -30,8 +49,21 @@ export function data(pageContext: PageContext): Data & JsonSerializable {
     }));
 
   return {
+    disruptions: getSummaries(disruptions),
     ...getLines(app.lines, disruptions),
   };
+}
+
+function getSummaries(
+  disruptions: PreprocessedDisruption[],
+): OverviewPageDisruptionSummary[] {
+  return disruptions.map((x) => ({
+    id: x.disruption.id,
+    headline: x.writeup.summary.headline,
+    subject: x.writeup.summary.subject,
+    period: x.writeup.summary.period,
+    icon: x.writeup.summary.iconType,
+  }));
 }
 
 function getLines(
@@ -42,7 +74,7 @@ function getLines(
     const disruptionsThisLine = disruptions.filter(
       (d) =>
         d.lines.includes(l.id) &&
-        d.writeup.lineStatusIndicatorPriority !== "hidden",
+        d.writeup.lineStatusIndicator.priority !== "hidden",
     );
 
     if (disruptionsThisLine.length === 0) {
@@ -61,14 +93,19 @@ function getLines(
     return {
       id: l.id,
       name: l.name,
-      status: highestPriority.lineStatusIndicatorSummary,
 
-      // TODO: [DS] Let's find a new home for this.
-      statusColor: ["medium", "high"].includes(
-        highestPriority.lineStatusIndicatorPriority,
-      )
-        ? "red"
-        : "yellow",
+      // When we have multiple disruptions tied for highest priority, we display
+      // them comma separated.
+      //
+      // (TODO: Would be neat if we could somehow combine the display strings
+      // together in a smarter way, e.g. "Middle Footscray station closed,
+      // Ginifer station closed" is combined into "Middle Footscray and Ginifer
+      // stations closed".)
+      status: highestPriority
+        .map((x) => x.lineStatusIndicator.summary)
+        .join(", "),
+      statusColor:
+        statusColorMapping[highestPriority[0].lineStatusIndicator.priority],
     };
   }
 

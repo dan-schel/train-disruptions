@@ -23,11 +23,19 @@ export class BusReplacementsDisruptionWriteupAuthor extends DisruptionWriteupAut
       // TODO: Mostly just an example. Improvements to be made here, no doubt.
       `Occurs ${periodString}.\nBuses replace trains ${sections}.`,
 
+      {
+        headline: "Buses replace trains",
+        subject: sections,
+        period: periodString,
+        iconType: "line",
+      },
+
       // TODO: Should be customisable per line, so we can display the relevant
       // section without listing them all.
-      `Buses replace trains`,
-
-      "medium",
+      {
+        summary: `Buses replace trains`,
+        priority: "medium",
+      },
     );
   }
 }
