@@ -35,8 +35,8 @@ export function SettingsAdmin({ settings, setSettings }: SettingsAdminProps) {
         <Column className="gap-1">
           <Text>Show Admin Tab</Text>
         </Column>
-        <div className="flex h-5 w-9 items-center rounded-full bg-gray-400 p-0.5 transition-all duration-500 ease-in-out peer-checked:bg-blue-600 peer-checked:*:translate-x-full peer-checked:*:border-white peer-disabled:opacity-50 hover:bg-blue-400 hover:peer-checked:bg-blue-500">
-          <div className="size-4 rounded-full border border-gray-300 bg-white transition-all" />
+        <div className="bg-switch peer-checked:bg-accent hover:bg-switch-hover hover:peer-checked:bg-accent-hover flex h-5 w-9 items-center rounded-full p-0.5 transition-all ease-in-out peer-checked:*:translate-x-full peer-disabled:opacity-50">
+          <div className="bg-switch-knob size-4 rounded-full transition-all" />
         </div>
       </label>
     </Column>

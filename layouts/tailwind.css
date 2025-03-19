@@ -33,6 +33,9 @@
   --color-status-green: hsl(130, 60%, 40%);
   --color-status-yellow: hsl(40, 100%, 40%);
   --color-status-red: hsl(0, 100%, 45%);
+  --color-switch: hsl(220deg 30% 75%);
+  --color-switch-hover: hsl(220deg 30% 70%);
+  --color-switch-knob: hsl(220deg 0% 100%);
 
   /* --color-surface: var(--color-white);
   --color-surface-secondary: var(--color-white);
@@ -81,6 +84,9 @@
   --color-status-green: hsl(130, 60%, 60%);
   --color-status-yellow: hsl(40, 100%, 60%);
   --color-status-red: hsl(0, 100%, 70%);
+  --color-switch: hsl(220deg 30% 30%);
+  --color-switch-hover: hsl(220deg 30% 35%);
+  --color-switch-knob: hsl(220deg 0% 100%);
 
   /* --color-surface: oklch(18.23% 0 0);
   --color-surface-secondary: oklch(25% 0 0);
