@@ -12,9 +12,6 @@ export function createAuthRouter(app: App) {
     "/login",
     validateMiddleware({ body: loginSchema }),
     async (req, res, next) => {
-      // https://www.npmjs.com/package/express-session#:~:text=(3000)-,User%20login,-A%20simple%20example
-      // https://www.npmjs.com/package/connect-mongo#options
-
       const { username, password } = req.body;
 
       const user = await app.database.of(USERS).first({ where: { username } });
@@ -48,6 +45,7 @@ export function createAuthRouter(app: App) {
     req.session.user = null;
     req.session.destroy((err) => {
       if (err) next(err);
+      res.clearCookie("sess_id", { path: "/" });
       res.redirect("/login");
     });
   });

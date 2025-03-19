@@ -57,6 +57,7 @@ async function startWebServer(app: App, root: string) {
       },
       resave: false,
       saveUninitialized: false,
+      name: "sess_id",
       store: MongoStore.create({
         mongoUrl: env.DATABASE_URL,
         dbName: config.DATABASE_NAME,

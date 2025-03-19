@@ -23,6 +23,7 @@ const styles = {
   subtitle: "text-lg",
   "mobile-nav-bar": "text-xs",
   "mobile-nav-bar-active": "text-xs text-active",
+  "input-error": "text-sm text-red-400",
 };
 
 type Style =

@@ -85,10 +85,14 @@ html {
   min-width: var(--page-min-width);
 }
 
-/* Always use pointer cursor on buttons. */
 @layer base {
+  /* Always use pointer cursor on buttons. */
   button:not(:disabled),
   [role="button"]:not(:disabled) {
     cursor: pointer;
+  }
+  /* Adjust visibility of native reveal password decoration */
+  input::-ms-reveal {
+    filter: invert(50%);
   }
 }
