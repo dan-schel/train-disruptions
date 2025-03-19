@@ -10,7 +10,6 @@ import { stations } from "@/server/entry-point/data/stations";
 import { initDatabase } from "@/server/entry-point/services/database";
 import { initAlertSource } from "@/server/entry-point/services/alert-source";
 import { initDiscordClient } from "@/server/entry-point/services/discord";
-import { RealTimeProvider } from "@/server/time-provider";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import { config } from "@/server/entry-point/config";
@@ -20,6 +19,7 @@ declare module "express-session" {
     user: { id: string; role: "super" | "admin" } | null;
   }
 }
+import { RealTimeProvider } from "@/server/time-provider/real-time-provider";
 
 export async function run(root: string) {
   const database = await initDatabase();
@@ -35,9 +35,10 @@ export async function run(root: string) {
     discordClient,
     time,
     env.COMMIT_HASH ?? null,
-    env.USERNAME ?? null,
+    env.USER_NAME ?? null,
     env.PASSWORD ?? null,
   );
+
   await app.init();
 
   await startWebServer(app, root);
@@ -78,7 +79,7 @@ async function startWebServer(app: App, root: string) {
   server.all(/(.*)/, createVikeHandler(app));
 
   server.listen(env.PORT, () => {
-    app.onServerStarted(env.PORT);
+    app.onServerReady(env.PORT);
   });
 
   return server;

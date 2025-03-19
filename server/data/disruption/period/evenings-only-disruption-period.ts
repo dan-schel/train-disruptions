@@ -1,6 +1,5 @@
 import { z } from "zod";
 import {
-  CalendarMark,
   DisplayStringOptions,
   DisruptionPeriodBase,
 } from "@/server/data/disruption/period/disruption-period-base";
@@ -16,6 +15,7 @@ import { TimeRange } from "@/server/data/disruption/period/utils/time-range";
 import { JustDate } from "@/server/data/disruption/period/utils/just-date";
 import { addHours, isSameDay, setHours, startOfHour } from "date-fns";
 import { hour24To12 } from "@dan-schel/js-utils";
+import { CalendarMark } from "@/shared/types/calendar-data";
 
 /** Disruption is active every evening from the start date to the end date. */
 export class EveningsOnlyDisruptionPeriod extends DisruptionPeriodBase {

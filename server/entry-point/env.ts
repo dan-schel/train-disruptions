@@ -7,7 +7,7 @@ const schema = z.object({
   DATABASE_URL: z.string().optional(),
   DISCORD_DEPLOYMENT_WEBHOOK: z.string().optional(),
   COMMIT_HASH: z.string().optional(),
-  USERNAME: z.string().optional(),
+  USER_NAME: z.string().optional(),
   PASSWORD: z.string().optional(),
 
   NODE_ENV: z.enum(["production", "development"]).default("development"),

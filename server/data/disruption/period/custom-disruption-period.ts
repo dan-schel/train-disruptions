@@ -1,12 +1,12 @@
 import { z } from "zod";
 import {
-  CalendarMark,
   DisplayStringOptions,
   DisruptionPeriodBase,
 } from "@/server/data/disruption/period/disruption-period-base";
 import { TimeRange } from "@/server/data/disruption/period/utils/time-range";
 import { DisruptedCalendarDay } from "@/server/data/disruption/period/utils/disrupted-calendar-day";
 import { JustDate } from "@/server/data/disruption/period/utils/just-date";
+import { CalendarMark } from "@/shared/types/calendar-data";
 
 /**
  * Allows complete customisation of active time ranges, calendar marks, and the

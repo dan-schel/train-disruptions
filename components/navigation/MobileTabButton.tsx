@@ -15,7 +15,7 @@ export type MobileTabButtonProps = {
 export function MobileTabButton(props: MobileTabButtonProps) {
   const { urlPathname } = usePageContext();
   const { showAdminTab, incrementCount } = useAdminVisibilityContext();
-  const [hidden, setHidden] = useState<boolean>(true);
+  const [hidden, setHidden] = useState<boolean>(props.tab === admin);
   const active = props.tab.active(urlPathname);
 
   useEffect(() => {
