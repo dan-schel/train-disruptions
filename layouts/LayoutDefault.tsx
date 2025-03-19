@@ -45,7 +45,7 @@ export default function LayoutDefault({
   );
 
   return (
-    <Column className="bg-surface text-typography min-h-screen transition-colors duration-250">
+    <Column className="bg-surface text-typography min-h-screen transition-colors">
       <AdminVisibilityContext.Provider value={contextValue}>
         <DesktopNavBar />
         <MobileNavBar />

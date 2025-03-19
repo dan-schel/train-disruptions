@@ -16,7 +16,7 @@ export function Lines(props: LinesProps) {
       <Text style="custom" className="text-lg font-bold">
         {props.title}
       </Text>
-      <Column className="divide-action-secondary divide-y-1">
+      <Column className="divide-soft-border divide-y-1">
         {props.lines.map((line) => (
           <LineButton key={line.id} line={line} />
         ))}

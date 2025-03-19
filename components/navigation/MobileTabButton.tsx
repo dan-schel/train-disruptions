@@ -32,7 +32,7 @@ export function MobileTabButton(props: MobileTabButtonProps) {
       <Column className={clsx("h-16 gap-1")} align="center" justify="center">
         <With
           className={clsx("-mt-1 rounded-full px-4 py-1 text-xl", {
-            "bg-action text-active": active,
+            "bg-accent-soft text-accent": active,
           })}
         >
           {active ? props.tab.iconFill : props.tab.icon}

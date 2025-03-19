@@ -48,7 +48,7 @@ export function Disruption(props: DisruptionProps) {
       <Calendar data={calendar} />
 
       {/* TODO: Draw the disruption on the map. */}
-      <With className="border-action-secondary bg-surface-secondary rounded-md border">
+      <With className="border-soft-border bg-surface-secondary rounded-md border">
         <Map />
       </With>
     </Column>

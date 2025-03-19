@@ -23,7 +23,7 @@ const styles = {
   subtitle: "text-lg",
   small: "text-sm",
   "mobile-nav-bar": "text-xs",
-  "mobile-nav-bar-active": "text-xs text-active",
+  "mobile-nav-bar-active": "text-xs text-accent",
 };
 
 type Style =

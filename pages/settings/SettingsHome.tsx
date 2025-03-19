@@ -48,6 +48,7 @@ export function SettingsHome({ settings, setSettings }: HomepageProps) {
               value={option}
               checked={(settings.startPage as string).includes(option)}
               onChange={() => updateStart(option)}
+              className="accent-accent"
             />
             <Text>{formattedHomepage[option].name}</Text>
           </label>

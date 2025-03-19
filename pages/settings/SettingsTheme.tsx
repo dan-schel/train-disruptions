@@ -62,6 +62,7 @@ export function SettingsTheme({ settings, setSettings }: SettingsResetProps) {
               value={theme}
               checked={(settings.theme as string).includes(theme)}
               onChange={() => updateTheme(theme)}
+              className="accent-accent"
             />
             <Text>{formattedTheme[theme].name}</Text>
           </label>
