@@ -20,7 +20,7 @@ export function DisruptionButton(props: DisruptionButtonProps) {
       <Grid
         columns="2rem 1fr 1.5rem"
         align="center"
-        className="group-active:bg-action gap-2 p-2 transition-colors"
+        className="group-active:bg-soft-active group-hover:bg-soft-hover gap-2 p-2"
       >
         <DisruptionIcon icon={icon} />
         <Column className="gap-1.5">
@@ -49,22 +49,22 @@ function DisruptionIcon({
 }) {
   if (icon.startsWith("line")) {
     return (
-      <div className="flex size-8 items-center justify-center overflow-hidden rounded-full bg-gray-200">
-        <div className="grid h-full w-2 rotate-45 bg-pink-400" />
+      <div className="bg-soft flex size-8 items-center justify-center overflow-hidden rounded-full">
+        <div className="bg-accent grid h-full w-2 rotate-45" />
       </div>
     );
   } else if (icon === "cross") {
     return <MingcuteCloseCircleFill className="size-8" />;
   } else if (icon === "altered-route") {
     return (
-      <div className="flex size-8 items-center justify-center rounded-full bg-gray-200">
-        <MingcuteRouteFill className="color-cyan-500 size-full p-1" />
+      <div className="bg-soft flex size-8 items-center justify-center rounded-full">
+        <MingcuteRouteFill className="color-accent size-full p-1" />
       </div>
     );
   } else {
     // An empty circle. (TODO: Maybe we can define some default icon, idk.)
     return (
-      <div className="flex size-8 items-center justify-center overflow-hidden rounded-full bg-gray-200" />
+      <div className="bg-soft flex size-8 items-center justify-center overflow-hidden rounded-full" />
     );
   }
 }

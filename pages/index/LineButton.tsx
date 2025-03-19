@@ -33,7 +33,7 @@ export function LineButton({ line }: LineButtonProps) {
       <Grid
         columns="auto 1fr auto"
         align="center"
-        className="group-active:bg-action gap-2 p-1 transition-colors lg:p-2"
+        className="group-active:bg-soft-active group-hover:bg-soft-hover gap-2 p-1 lg:p-2"
       >
         <Row align="center" className="gap-2">
           <div

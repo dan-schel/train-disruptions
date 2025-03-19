@@ -19,7 +19,7 @@ export function Link(props: LinkProps) {
   if (props.href != null) {
     return (
       <a
-        className="text-link inline underline"
+        className="text-accent inline underline"
         href={props.href}
         target={props.target}
       >
@@ -31,7 +31,7 @@ export function Link(props: LinkProps) {
     // (doesn't do text wrapping or highlighting).
     return (
       <a
-        className="text-link inline underline"
+        className="text-accent inline underline"
         href="#"
         onClick={props.onClick}
       >
