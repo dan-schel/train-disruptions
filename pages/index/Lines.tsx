@@ -1,13 +1,13 @@
 import React from "react";
-import { Line } from "@/pages/index/+data";
 
 import { LineButton } from "@/pages/index/LineButton";
 import { Text } from "@/components/core/Text";
 import { Column } from "@/components/core/Column";
+import { OverviewPageLineData } from "@/shared/types/overview-page";
 
 type LinesProps = {
   title: string;
-  lines: Line[];
+  lines: OverviewPageLineData[];
 };
 
 export function Lines(props: LinesProps) {
@@ -18,22 +18,9 @@ export function Lines(props: LinesProps) {
       </Text>
       <Column className="divide-action-secondary divide-y-1">
         {props.lines.map((line) => (
-          <LineButton
-            key={line.id}
-            line={line}
-            status={getRandomStatus(line)}
-          />
+          <LineButton key={line.id} line={line} />
         ))}
       </Column>
     </Column>
   );
-}
-
-// For visualisation only
-function getRandomStatus(line: Line) {
-  const random = (8 * line.id) % 10;
-
-  if (random < 5) return "clear";
-  if (random < 8) return "delays";
-  return "buses";
 }
