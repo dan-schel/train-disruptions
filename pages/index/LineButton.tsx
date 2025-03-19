@@ -16,15 +16,15 @@ type LineButtonProps = {
 };
 
 const bgClassMapping: Record<OverviewPageLineStatusColor, string> = {
-  green: "bg-status-clear",
-  yellow: "bg-status-delays",
-  red: "bg-status-buses",
+  green: "bg-status-green",
+  yellow: "bg-status-yellow",
+  red: "bg-status-red",
 };
 
 const textClassMapping: Record<OverviewPageLineStatusColor, string> = {
-  green: "text-status-clear",
-  yellow: "text-status-delays",
-  red: "text-status-buses",
+  green: "text-status-green",
+  yellow: "text-status-yellow",
+  red: "text-status-red",
 };
 
 export function LineButton({ line }: LineButtonProps) {

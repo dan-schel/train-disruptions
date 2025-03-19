@@ -21,9 +21,18 @@
   --color-*: initial;
   --color-surface: white;
   --color-typography: black;
-  --color-soft-border: hsl(220deg 5% 85%);
+  --color-soft: hsl(220deg 30% 90%);
+  --color-soft-hover: hsl(220deg 30% 85%);
+  --color-soft-active: hsl(220deg 30% 80%);
+  --color-soft-border: hsl(220deg 30% 85%);
   --color-accent: hsl(220deg 100% 40%);
+  --color-accent-hover: hsl(220deg 100% 50%);
+  --color-accent-active: hsl(220deg 100% 60%);
   --color-accent-soft: hsl(220deg 100% 93%);
+  --color-on-accent: white;
+  --color-status-green: hsl(130, 60%, 40%);
+  --color-status-yellow: hsl(40, 100%, 40%);
+  --color-status-red: hsl(0, 100%, 45%);
 
   /* --color-surface: var(--color-white);
   --color-surface-secondary: var(--color-white);
@@ -60,9 +69,18 @@
 @variant dark {
   --color-surface: black;
   --color-typography: white;
-  --color-soft-border: hsl(220deg 5% 20%);
-  --color-accent: hsl(220deg 100% 80%);
+  --color-soft: hsl(220deg 30% 15%);
+  --color-soft-hover: hsl(220deg 30% 20%);
+  --color-soft-active: hsl(220deg 30% 25%);
+  --color-soft-border: hsl(220deg 30% 20%);
+  --color-accent: hsl(220deg 100% 70%);
+  --color-accent-hover: hsl(220deg 100% 65%);
+  --color-accent-active: hsl(220deg 100% 60%);
   --color-accent-soft: hsl(220deg 30% 20%);
+  --color-on-accent: black;
+  --color-status-green: hsl(130, 60%, 60%);
+  --color-status-yellow: hsl(40, 100%, 60%);
+  --color-status-red: hsl(0, 100%, 70%);
 
   /* --color-surface: oklch(18.23% 0 0);
   --color-surface-secondary: oklch(25% 0 0);
