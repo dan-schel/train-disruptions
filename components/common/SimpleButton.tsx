@@ -10,7 +10,7 @@ const themes = {
   default: "bg-soft group-hover:bg-soft-hover group-active:bg-soft-active",
   primary:
     "bg-accent group-hover:bg-accent-hover group-active:bg-accent-active text-on-accent",
-  hover: "group-hover:bg-button-bg-hover group-active:bg-button-bg-active",
+  hover: "group-hover:bg-soft-hover group-active:bg-soft-active",
 };
 
 type Content =

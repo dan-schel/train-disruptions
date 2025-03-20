@@ -23,7 +23,7 @@ export function SettingsAdmin({ settings, setSettings }: SettingsAdminProps) {
         Admin
       </Text>
 
-      <label className="flex h-9 cursor-pointer items-center justify-between hover:bg-gray-200 dark:hover:bg-gray-600">
+      <label className="hover:bg-soft-hover flex h-9 cursor-pointer items-center justify-between">
         <input
           type="checkbox"
           value={"showAdminTab"}

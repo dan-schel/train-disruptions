@@ -39,7 +39,7 @@ export function SettingsTheme({ settings, setSettings }: SettingsResetProps) {
         {themes.map((theme) => (
           <label
             key={theme}
-            className="flex cursor-pointer gap-2 py-1 hover:bg-gray-200 dark:hover:bg-gray-600"
+            className="hover:bg-soft-hover flex cursor-pointer gap-2 py-1"
           >
             <input
               type="radio"

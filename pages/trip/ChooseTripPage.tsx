@@ -58,7 +58,7 @@ function StationSelect(props: StationSelectProps) {
       <select
         id={props.id}
         name={props.id}
-        className="dark:bg-background-secondary border-soft-border rounded border"
+        className="border-soft-border rounded border"
       >
         {props.stations.map((station) => (
           <option key={station.id} value={station.id}>

@@ -222,7 +222,7 @@ A clickable element (supports `onClick` or `href`).
 
 ```tsx
 <Button onClick={() => console.log("Hello.")}>
-  <Column className="bg-slate-200 group-hover:bg-slate-300 group-active:bg-slate-400">
+  <Column className="bg-soft group-hover:bg-soft-hover group-active:bg-soft-active">
     <Text>Hello.</Text>
   </Column>
 </Button>

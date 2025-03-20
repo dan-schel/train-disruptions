@@ -66,7 +66,7 @@ export function SettingsDisruptions({
         {allCategories.map((category) => (
           <label
             key={category}
-            className="flex h-9 cursor-pointer items-center justify-between hover:bg-gray-200 dark:hover:bg-gray-600"
+            className="hover:bg-soft-hover flex h-9 cursor-pointer items-center justify-between"
           >
             <input
               type="checkbox"
