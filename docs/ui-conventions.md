@@ -74,7 +74,7 @@ Renders text.
 ```
 
 ```tsx
-<Text style="custom" className="text-sm text-green-800">
+<Text style="custom" className="text-status-green text-sm">
   Some text, where <b>this bit</b> is bold.
 </Text>
 ```
@@ -266,7 +266,7 @@ All icons can be found under `/components/icons`, and the code for an icon compo
 
 Since they're just `<svg>` elements set to a size of `1em` and using `currentColor`, you can style them as you would with text, i.e.:
 
-- To set the color, use `text-[color]`, e.g. `text-white`.
+- To set the color, use `text-[color]`, e.g. `text-accent`.
 
 - To set the size, use `text-[size]`, e.g. `text-2xl`.
 

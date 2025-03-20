@@ -60,7 +60,7 @@ function DisruptionIcon({
   } else if (icon === "altered-route") {
     return (
       <div className="bg-soft flex size-8 items-center justify-center rounded-full">
-        <MingcuteRouteFill className="color-accent size-full p-1" />
+        <MingcuteRouteFill className="text-accent size-full p-1" />
       </div>
     );
   } else {
