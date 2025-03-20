@@ -31,7 +31,7 @@ export function SettingsTheme({ settings, setSettings }: SettingsResetProps) {
 
   return (
     <Column>
-      <Text style="custom" className="text-typography-strong text-lg font-bold">
+      <Text style="custom" className="text-foreground-strong text-lg font-bold">
         Colour theme
       </Text>
       <Spacer h="2" />

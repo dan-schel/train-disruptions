@@ -29,7 +29,9 @@ export function DisruptionButton(props: DisruptionButtonProps) {
               {headline}
             </Text>
           )}
-          <Text>{subject}</Text>
+          <Text style="custom" className="text-foreground-strong">
+            {subject}
+          </Text>
           {period != null && (
             <Text style="custom" className="text-xs">
               {period}

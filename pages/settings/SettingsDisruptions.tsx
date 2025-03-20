@@ -57,7 +57,7 @@ export function SettingsDisruptions({
 
   return (
     <Column>
-      <Text style="custom" className="text-typography-strong text-lg font-bold">
+      <Text style="custom" className="text-foreground-strong text-lg font-bold">
         Disruptions to show
       </Text>
       <Spacer h="2" />
@@ -92,7 +92,7 @@ export function SettingsDisruptions({
                 </Text>
               )}
             </Column>
-            <div className="bg-switch peer-checked:bg-accent hover:bg-switch-hover hover:peer-checked:bg-accent-hover flex h-5 w-9 items-center rounded-full p-0.5 transition-all ease-in-out peer-checked:*:translate-x-full peer-disabled:opacity-50">
+            <div className="bg-switch peer-checked:bg-accent hover:bg-switch-hover hover:peer-checked:bg-accent-hover flex h-5 w-9 items-center rounded-full p-0.5 transition-transform ease-in-out peer-checked:*:translate-x-full peer-disabled:opacity-50">
               <div className="bg-switch-knob size-4 rounded-full transition-all" />
             </div>
           </label>

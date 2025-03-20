@@ -14,7 +14,7 @@ export function applyTheme(theme: Theme) {
           : "#121212"
         : window
             .getComputedStyle(document.documentElement)
-            .getPropertyValue("--color-surface");
+            .getPropertyValue("--color-background");
     meta.setAttribute("content", colour);
   });
 }

@@ -12,7 +12,7 @@ export type BackNavigationProps = {
 
 export function BackNavigation(props: BackNavigationProps) {
   return (
-    <With className="bg-surface border-b-soft-border border-b md:border-b-0">
+    <With className="bg-background border-b-soft-border border-b md:border-b-0">
       <PageCenterer>
         <Row className="px-4 py-3 md:px-6 md:pt-4 md:pb-0">
           <SimpleButton

@@ -10,7 +10,7 @@ export default (pageContext: PageContext) => {
   // Configured here as it would cause the screen to flash from light to dark mode
   config({
     htmlAttributes: {
-      class: clsx("bg-surface text-typography", theme),
+      class: clsx("bg-background text-foreground", theme),
     },
   });
 };
