@@ -7,6 +7,7 @@ export class User {
     readonly username: string,
     readonly password: string,
     readonly role: "super" | "admin",
+    readonly discord: string | null,
   ) {}
 }
 
@@ -20,6 +21,7 @@ export class UserModel extends DatabaseModel<
     username: z.string(),
     password: z.string(),
     role: z.enum(["super", "admin"]),
+    discord: z.string().nullable(),
   });
 
   private constructor() {
@@ -34,16 +36,24 @@ export class UserModel extends DatabaseModel<
     username: string;
     password: string;
     role: "super" | "admin";
+    discord: string | null;
   } {
     return {
       username: item.username,
       password: item.password,
       role: item.role,
+      discord: item.discord,
     };
   }
 
   deserialize(id: string, item: unknown): User {
     const parsed = UserModel.schema.parse(item);
-    return new User(id, parsed.username, parsed.password, parsed.role);
+    return new User(
+      id,
+      parsed.username,
+      parsed.password,
+      parsed.role,
+      parsed.discord,
+    );
   }
 }

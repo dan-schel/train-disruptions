@@ -37,7 +37,7 @@ export class SeedSuperAdminTask extends Task {
         const hashedPW = await hash(this.password, 10);
         await app.database
           .of(USERS)
-          .create(new User(uuid(), this.username, hashedPW, "super"));
+          .create(new User(uuid(), this.username, hashedPW, "super", null));
       }
     } catch (error) {
       console.warn("Failed to seed super admin into the database.");

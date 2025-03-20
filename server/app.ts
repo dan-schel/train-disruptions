@@ -12,6 +12,7 @@ import { VtarAlertSource } from "@/server/alert-source/vtar-alert-source";
 import { MongoDatabase } from "@/server/database/lib/mongo/mongo-database";
 import { TaskScheduler } from "@/server/task/lib/task-scheduler";
 import { SeedSuperAdminTask } from "@/server/task/tasks/seed-super-admin-task";
+import { DiscordBot } from "@/server/discord/bot";
 
 export class App {
   private readonly _taskSchedulers: TaskScheduler[];
@@ -22,6 +23,7 @@ export class App {
     readonly database: Database,
     readonly alertSource: AlertSource,
     readonly discordClient: DiscordClient | null,
+    readonly discordBot: DiscordBot | null,
     readonly time: TimeProvider,
     readonly commitHash: string | null,
     private readonly username: string | null,
