@@ -3,22 +3,20 @@ import React from "react";
 import { Column } from "@/components/core/Column";
 import { Text } from "@/components/core/Text";
 import { Spacer } from "@/components/core/Spacer";
-import { Settings, Theme } from "@/shared/settings";
+import { Settings, Theme, themes } from "@/shared/settings";
+import { applyTheme } from "@/pages/settings/utils";
 
-const themeOptions = ["system", "light", "dark"] as const;
-
-const formattedTheme: Record<(typeof themeOptions)[number], { name: string }> =
-  {
-    system: {
-      name: "Auto",
-    },
-    light: {
-      name: "Light",
-    },
-    dark: {
-      name: "Dark",
-    },
-  };
+const formattedTheme: Record<(typeof themes)[number], { name: string }> = {
+  system: {
+    name: "Auto",
+  },
+  light: {
+    name: "Light",
+  },
+  dark: {
+    name: "Dark",
+  },
+};
 
 export type SettingsResetProps = {
   settings: Settings;
@@ -27,23 +25,8 @@ export type SettingsResetProps = {
 
 export function SettingsTheme({ settings, setSettings }: SettingsResetProps) {
   function updateTheme(theme: Theme) {
-    setSettings(settings.with({ theme: theme }));
-    themeOptions.forEach((x) => {
-      document.documentElement.classList.toggle(x, theme === x);
-    });
-
-    // Update status bar theme for PWA
-    document.querySelectorAll("meta[name=theme-color]").forEach((meta) => {
-      const colour =
-        theme === "system"
-          ? meta.getAttribute("media") === "(prefers-color-scheme: light)"
-            ? "#ffffff"
-            : "#121212"
-          : window
-              .getComputedStyle(document.documentElement)
-              .getPropertyValue("--color-surface");
-      meta.setAttribute("content", colour);
-    });
+    setSettings(settings.with({ theme }));
+    applyTheme(theme);
   }
 
   return (
@@ -53,7 +36,7 @@ export function SettingsTheme({ settings, setSettings }: SettingsResetProps) {
       </Text>
       <Spacer h="2" />
       <Column>
-        {themeOptions.map((theme) => (
+        {themes.map((theme) => (
           <label
             key={theme}
             className="flex cursor-pointer gap-2 py-1 hover:bg-gray-200 dark:hover:bg-gray-600"

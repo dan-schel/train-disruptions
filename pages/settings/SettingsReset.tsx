@@ -5,6 +5,7 @@ import { Settings } from "@/shared/settings";
 import { Column } from "@/components/core/Column";
 import { Text } from "@/components/core/Text";
 import { Spacer } from "@/components/core/Spacer";
+import { applyTheme } from "@/pages/settings/utils";
 
 export type SettingsResetProps = {
   settings: Settings;
@@ -14,7 +15,7 @@ export type SettingsResetProps = {
 export function SettingsReset({ setSettings }: SettingsResetProps) {
   function handleResetCookies() {
     setSettings(Settings.default);
-    document.documentElement.className = Settings.default.theme;
+    applyTheme(Settings.default.theme);
   }
 
   return (

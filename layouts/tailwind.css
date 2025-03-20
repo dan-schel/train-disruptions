@@ -19,23 +19,23 @@
   --font-sans: "Outfit", sans-serif;
 
   --color-*: initial;
-  --color-surface: white;
-  --color-typography: hsl(220deg 30% 20%);
-  --color-typography-strong: black;
-  --color-soft: hsl(220deg 30% 90%);
-  --color-soft-hover: hsl(220deg 30% 85%);
-  --color-soft-active: hsl(220deg 30% 80%);
-  --color-soft-border: hsl(220deg 30% 85%);
+  --color-surface: hsl(220deg 20% 100%);
+  --color-typography: hsl(220deg 20% 20%);
+  --color-typography-strong: hsl(220deg 20% 0%);
+  --color-soft: hsl(220deg 20% 90%);
+  --color-soft-hover: hsl(220deg 20% 85%);
+  --color-soft-active: hsl(220deg 20% 80%);
+  --color-soft-border: hsl(220deg 20% 85%);
   --color-accent: hsl(220deg 100% 40%);
   --color-accent-hover: hsl(220deg 100% 50%);
   --color-accent-active: hsl(220deg 100% 60%);
-  --color-accent-soft: hsl(220deg 100% 93%);
-  --color-on-accent: white;
+  --color-accent-soft: hsl(220deg 100% 90%);
+  --color-on-accent: hsl(220deg 20% 100%);
   --color-status-green: hsl(130, 60%, 40%);
   --color-status-yellow: hsl(40, 100%, 40%);
   --color-status-red: hsl(0, 100%, 45%);
-  --color-switch: hsl(220deg 30% 75%);
-  --color-switch-hover: hsl(220deg 30% 70%);
+  --color-switch: hsl(220deg 20% 75%);
+  --color-switch-hover: hsl(220deg 20% 70%);
   --color-switch-knob: hsl(220deg 0% 100%);
 
   --leading-*: initial;
@@ -49,24 +49,24 @@
 
 /* Dark mode colours */
 @variant dark {
-  --color-surface: black;
-  --color-typography: hsl(220deg 30% 80%);
-  --color-typography-strong: white;
-  --color-soft: hsl(220deg 30% 15%);
-  --color-soft-hover: hsl(220deg 30% 20%);
-  --color-soft-active: hsl(220deg 30% 25%);
-  --color-soft-border: hsl(220deg 30% 20%);
+  --color-surface: hsl(220deg 20% 0%);
+  --color-typography: hsl(220deg 20% 80%);
+  --color-typography-strong: hsl(220deg 20% 100%);
+  --color-soft: hsl(220deg 20% 15%);
+  --color-soft-hover: hsl(220deg 20% 20%);
+  --color-soft-active: hsl(220deg 20% 25%);
+  --color-soft-border: hsl(220deg 20% 20%);
   --color-accent: hsl(220deg 100% 70%);
   --color-accent-hover: hsl(220deg 100% 65%);
   --color-accent-active: hsl(220deg 100% 60%);
-  --color-accent-soft: hsl(220deg 30% 20%);
-  --color-on-accent: black;
+  --color-accent-soft: hsl(220deg 50% 20%);
+  --color-on-accent: hsl(220deg 20% 0%);
   --color-status-green: hsl(130, 60%, 60%);
   --color-status-yellow: hsl(40, 100%, 60%);
   --color-status-red: hsl(0, 100%, 70%);
-  --color-switch: hsl(220deg 30% 30%);
-  --color-switch-hover: hsl(220deg 30% 35%);
-  --color-switch-knob: hsl(220deg 0% 100%);
+  --color-switch: hsl(220deg 20% 30%);
+  --color-switch-hover: hsl(220deg 20% 35%);
+  --color-switch-knob: hsl(220deg 20% 100%);
 }
 
 /* Override leading to set --line-spacing instead (see ./css/text.css). */
