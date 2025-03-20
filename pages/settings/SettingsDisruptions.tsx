@@ -57,7 +57,7 @@ export function SettingsDisruptions({
 
   return (
     <Column>
-      <Text style="custom" className="text-lg font-bold">
+      <Text style="custom" className="text-typography-strong text-lg font-bold">
         Disruptions to show
       </Text>
       <Spacer h="2" />

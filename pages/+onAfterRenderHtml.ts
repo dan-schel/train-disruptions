@@ -1,5 +1,6 @@
 import { PageContext } from "vike/types";
 import { useConfig } from "vike-react/useConfig";
+import clsx from "clsx";
 
 export default (pageContext: PageContext) => {
   const { theme } = pageContext.custom.settings;
@@ -9,8 +10,7 @@ export default (pageContext: PageContext) => {
   // Configured here as it would cause the screen to flash from light to dark mode
   config({
     htmlAttributes: {
-      class:
-        theme === "dark" ? "dark" : theme === "light" ? "light" : undefined,
+      class: clsx("bg-surface text-typography", theme),
     },
   });
 };

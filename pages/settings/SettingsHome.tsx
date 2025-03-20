@@ -31,7 +31,7 @@ export function SettingsHome({ settings, setSettings }: HomepageProps) {
 
   return (
     <Column>
-      <Text style="custom" className="text-lg font-bold">
+      <Text style="custom" className="text-typography-strong text-lg font-bold">
         Start page
       </Text>
       <Spacer h="2" />

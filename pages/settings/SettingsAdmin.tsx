@@ -19,7 +19,7 @@ export function SettingsAdmin({ settings, setSettings }: SettingsAdminProps) {
   }
   return (
     <Column>
-      <Text style="custom" className="text-lg font-bold">
+      <Text style="custom" className="text-typography-strong text-lg font-bold">
         Admin
       </Text>
 

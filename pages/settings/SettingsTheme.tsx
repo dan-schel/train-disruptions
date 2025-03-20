@@ -28,7 +28,9 @@ export type SettingsResetProps = {
 export function SettingsTheme({ settings, setSettings }: SettingsResetProps) {
   function updateTheme(theme: Theme) {
     setSettings(settings.with({ theme: theme }));
-    document.documentElement.className = theme;
+    themeOptions.forEach((x) => {
+      document.documentElement.classList.toggle(x, theme === x);
+    });
 
     // Update status bar theme for PWA
     document.querySelectorAll("meta[name=theme-color]").forEach((meta) => {
@@ -46,7 +48,7 @@ export function SettingsTheme({ settings, setSettings }: SettingsResetProps) {
 
   return (
     <Column>
-      <Text style="custom" className="text-lg font-bold">
+      <Text style="custom" className="text-typography-strong text-lg font-bold">
         Colour theme
       </Text>
       <Spacer h="2" />
