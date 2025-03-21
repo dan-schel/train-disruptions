@@ -12,6 +12,7 @@ const themes = {
   primary:
     "bg-blue-600 group-hover:bg-blue-700 group-active:bg-blue-900 text-white",
   hover: "group-hover:bg-button-bg-hover group-active:bg-button-bg-active",
+  danger: "bg-red-500 group-hover:bg-red-400 group-active:bg-red-600",
 };
 
 type Content =
@@ -32,7 +33,11 @@ export function SimpleButton(props: SimpleButtonProps) {
   if (layout === "tile") {
     return (
       <Button {...action} alt={props.alt}>
-        <Column className={clsx("gap-2 px-4 py-2", theme)} align="center">
+        <Column
+          className={clsx("gap-2 px-4 py-2", theme)}
+          align="center"
+          justify="center"
+        >
           {props.icon && <With className="-ml-0.5 text-2xl">{props.icon}</With>}
           {props.text && <Text align="center">{props.text}</Text>}
         </Column>

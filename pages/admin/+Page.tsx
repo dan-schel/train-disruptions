@@ -14,12 +14,15 @@ import { MingcuteRightLine } from "@/components/icons/MingcuteRightLine";
 import { MingcuteGroup2Fill } from "@/components/icons/MingcuteGroup2Fill";
 import { With } from "@/components/core/With";
 import { Button } from "@/components/core/Button";
+import { Grid } from "@/components/core/Grid";
+import { MingcuteUser4Fill } from "@/components/icons/MingcuteUser4Fill";
 
 export default function Page() {
   // TODO: This is temporary. Saves me having to check the prod database all the
   // time though. If you're here to work on the Admin page, free free to move
   // all this to another place or delete it.
-  const { historicalAlertsCount, historicalAlertsAvgPerDay } = useData<Data>();
+  const { historicalAlertsCount, historicalAlertsAvgPerDay, isSuperAdmin } =
+    useData<Data>();
 
   async function handleLogout() {
     try {
@@ -47,18 +50,44 @@ export default function Page() {
             day.
           </Text>
 
-          <Button href="/admin/users">
+          <Grid columns="1fr 1fr" className="gap-4">
+            <Column className="rounded border border-white p-4">
+              <Text>Alerts</Text>
+              <Text>{historicalAlertsCount} alerts today</Text>
+            </Column>
+            <Column className="rounded border border-white p-4">
+              <Text>Users</Text>
+              <Text>{historicalAlertsCount} admin</Text>
+            </Column>
+          </Grid>
+
+          <Button href="/admin/account">
             <Row
               align="center"
               className="group-hover:bg-action gap-4 rounded p-2"
             >
-              <MingcuteGroup2Fill className="size-8" />
-              <Text style="subtitle">Manage Users</Text>
+              <MingcuteUser4Fill className="size-8" />
+              <Text style="subtitle">Account</Text>
               <With flexGrow="1" className="justify-end">
                 <MingcuteRightLine className="size-6" />
               </With>
             </Row>
           </Button>
+
+          {isSuperAdmin && (
+            <Button href="/admin/users">
+              <Row
+                align="center"
+                className="group-hover:bg-action gap-4 rounded p-2"
+              >
+                <MingcuteGroup2Fill className="size-8" />
+                <Text style="subtitle">Manage Users</Text>
+                <With flexGrow="1" className="justify-end">
+                  <MingcuteRightLine className="size-6" />
+                </With>
+              </Row>
+            </Button>
+          )}
 
           <SimpleButton text="Log out" onClick={handleLogout} />
         </Column>
