@@ -6,6 +6,7 @@ import { DisruptionDataBase } from "@/server/data/disruption/data/disruption-dat
 import { unique } from "@dan-schel/js-utils";
 import { BusReplacementsDisruptionWriteupAuthor } from "@/server/data/disruption/writeup/bus-replacements-disruption-writeup-author";
 import { BusReplacementsRouteGraphModifier } from "@/server/data/disruption/route-graph-modifier/bus-replacements-route-graph-modifier";
+import { App } from "@/server/app";
 
 /** All or part of one or more train lines are replaced by buses. */
 export class BusReplacementsDisruptionData extends DisruptionDataBase {
@@ -31,7 +32,7 @@ export class BusReplacementsDisruptionData extends DisruptionDataBase {
     };
   }
 
-  getImpactedLines(): readonly number[] {
+  getImpactedLines(_app: App): readonly number[] {
     return unique(this.sections.map((x) => x.line));
   }
 

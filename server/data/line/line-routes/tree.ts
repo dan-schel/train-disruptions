@@ -52,6 +52,13 @@ export class Tree<Node, EdgeData> {
     );
   }
 
+  getAllNodes(): Node[] {
+    return unique(
+      this.edges.flatMap((e) => [e.from, e.to]),
+      (a, b) => this.nodeEqualsFunc(a, b),
+    );
+  }
+
   getPathFromRootTo(node: Node): Edge<Node, EdgeData>[] {
     // Start at the node and continue following "from" edges until we reach the root.
     const path: Edge<Node, EdgeData>[] = [];

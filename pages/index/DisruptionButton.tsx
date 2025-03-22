@@ -6,124 +6,67 @@ import { Column } from "@/components/core/Column";
 import { MingcuteRightLine } from "@/components/icons/MingcuteRightLine";
 import { MingcuteRouteFill } from "@/components/icons/MingcuteRouteFill";
 import { MingcuteCloseCircleFill } from "@/components/icons/MingcuteCloseCircleFill";
+import { OverviewPageDisruptionSummary } from "@/shared/types/overview-page";
 
-type DisruptionType =
-  | {
-      type: "buses";
-      title: string;
-      duration: string;
-      colour: string;
-    }
-  | {
-      type: "major delays" | "minor delays";
-      lineName: string;
-      colour: string;
-    }
-  | {
-      type: "station closure";
-      station: string;
-      duration: string;
-    }
-  | {
-      type: "altered-route";
-      alteration: string;
-      lineName: string;
-      color: string;
-      duration: string;
-    };
-
-type DisruptionButtonProps = {
-  id: number;
-} & DisruptionType;
+export type DisruptionButtonProps = {
+  data: OverviewPageDisruptionSummary;
+};
 
 export function DisruptionButton(props: DisruptionButtonProps) {
-  const { id, type } = props;
-
-  const renderIcon = () => {
-    if (type === "station closure") {
-      return <MingcuteCloseCircleFill className="size-8" />;
-    }
-
-    if (type === "altered-route") {
-      return (
-        <div className="flex size-8 items-center justify-center rounded-full bg-gray-200">
-          <MingcuteRouteFill
-            className="size-full p-1"
-            style={{ color: props.color }}
-          />
-        </div>
-      );
-    }
-
-    return (
-      <div className="flex size-8 items-center justify-center overflow-hidden rounded-full bg-gray-200">
-        <div
-          className="grid h-full w-2 rotate-45"
-          style={{ backgroundColor: props.colour }}
-        />
-      </div>
-    );
-  };
-
-  const renderDescription = () => {
-    switch (type) {
-      case "buses":
-        return (
-          <>
-            <Text style="custom" className="text-xs">
-              Buses replace trains
-            </Text>
-            <Text>{props.title}</Text>
-            <Text style="custom" className="text-xs">
-              {props.duration}
-            </Text>
-          </>
-        );
-      case "major delays":
-      case "minor delays":
-        return (
-          <>
-            <Text style="custom" className="text-xs capitalize">
-              {type}
-            </Text>
-            <Text>{props.lineName} line</Text>
-          </>
-        );
-      case "station closure":
-        return (
-          <>
-            <Text>{props.station} station closed</Text>
-            <Text style="custom" className="text-xs">
-              {props.duration}
-            </Text>
-          </>
-        );
-      case "altered-route":
-        return (
-          <>
-            <Text style="custom" className="text-xs">
-              {props.alteration}
-            </Text>
-            <Text>{props.lineName} line</Text>
-            <Text style="custom" className="text-xs">
-              {props.duration}
-            </Text>
-          </>
-        );
-    }
-  };
+  const { id, headline, subject, period, icon } = props.data;
 
   return (
     <Button href={`/disruption/${id}`}>
       <Grid
         columns="2rem 1fr 1.5rem"
         align="center"
-        className="group-active:bg-action gap-2 p-2 transition-colors"
+        className="group-active:bg-soft-active group-hover:bg-soft-hover gap-2 p-2"
       >
-        {renderIcon()}
-        <Column className="gap-1.5">{renderDescription()}</Column>
+        <DisruptionIcon icon={icon} />
+        <Column className="gap-1.5">
+          {headline != null && (
+            <Text style="custom" className="text-xs">
+              {headline}
+            </Text>
+          )}
+          <Text style="custom" className="text-foreground-strong">
+            {subject}
+          </Text>
+          {period != null && (
+            <Text style="custom" className="text-xs">
+              {period}
+            </Text>
+          )}
+        </Column>
         <MingcuteRightLine className="size-full" />
       </Grid>
     </Button>
   );
+}
+
+function DisruptionIcon({
+  icon,
+}: {
+  icon: OverviewPageDisruptionSummary["icon"];
+}) {
+  if (icon.startsWith("line")) {
+    return (
+      <div className="bg-soft flex size-8 items-center justify-center overflow-hidden rounded-full">
+        <div className="bg-accent grid h-full w-2 rotate-45" />
+      </div>
+    );
+  } else if (icon === "cross") {
+    return <MingcuteCloseCircleFill className="size-8" />;
+  } else if (icon === "altered-route") {
+    return (
+      <div className="bg-soft flex size-8 items-center justify-center rounded-full">
+        <MingcuteRouteFill className="text-accent size-full p-1" />
+      </div>
+    );
+  } else {
+    // An empty circle. (TODO: Maybe we can define some default icon, idk.)
+    return (
+      <div className="bg-soft flex size-8 items-center justify-center overflow-hidden rounded-full" />
+    );
+  }
 }

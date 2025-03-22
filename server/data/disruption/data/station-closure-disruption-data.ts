@@ -4,6 +4,7 @@ import { DisruptionWriteupAuthor } from "@/server/data/disruption/writeup/disrup
 import { StationClosureDisruptionWriteupAuthor } from "@/server/data/disruption/writeup/station-closure-disruption-writeup-author";
 import { RouteGraphModifier } from "@/server/data/disruption/route-graph-modifier/route-graph-modifier";
 import { StationClosureRouteGraphModifier } from "@/server/data/disruption/route-graph-modifier/station-closure-route-graph-modifier";
+import { App } from "@/server/app";
 
 /**
  * A single station is closed. (Trains may be continuing to run express through
@@ -28,9 +29,8 @@ export class StationClosureDisruptionData extends DisruptionDataBase {
     };
   }
 
-  getImpactedLines(): readonly number[] {
-    // TODO: lines.whichStopAt(this._data.stationId);
-    return [];
+  getImpactedLines(app: App): readonly number[] {
+    return app.lines.whichStopAt(this.stationId).map((x) => x.id);
   }
 
   getWriteupAuthor(): DisruptionWriteupAuthor {

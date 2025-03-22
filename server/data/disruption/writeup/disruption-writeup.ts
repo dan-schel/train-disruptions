@@ -30,29 +30,49 @@ export class DisruptionWriteup {
     readonly title: string,
     /** Disruption page body. */
     readonly bodyMarkdown: string,
+    /** Summary text used on the */
+    readonly summary: {
+      readonly headline: string | null;
+      readonly subject: string;
+      readonly period: string | null;
+
+      // TODO: Choosing the icon should probably be the responsibility of the
+      // code which handles telling the <Map> what to do.
+      readonly iconType: "line" | "cross" | "altered-route";
+    },
     /** Line status indicator text on the overview page. */
-    readonly lineStatusIndicatorSummary: string,
-    /**
-     * In the case of multiple disruptions, defines which takes precedence on
-     * the line status indicator.
-     */
-    readonly lineStatusIndicatorPriority: LineStatusIndicatorPriority,
+    readonly lineStatusIndicator: {
+      readonly summary: string;
+      readonly priority: LineStatusIndicatorPriority;
+    },
   ) {}
 
   static readonly bson = z
     .object({
       title: z.string(),
       bodyMarkdown: z.string(),
-      lineStatusIndicatorSummary: z.string(),
-      lineStatusIndicatorPriority: z.enum(LineStatusIndicatorPriorities),
+      summary: z.object({
+        headline: z.string().nullable(),
+        subject: z.string(),
+        period: z.string().nullable(),
+        iconType: z.union([
+          z.literal("line"),
+          z.literal("cross"),
+          z.literal("altered-route"),
+        ]),
+      }),
+      lineStatusIndicator: z.object({
+        summary: z.string(),
+        priority: z.enum(LineStatusIndicatorPriorities),
+      }),
     })
     .transform(
       (x) =>
         new DisruptionWriteup(
           x.title,
           x.bodyMarkdown,
-          x.lineStatusIndicatorSummary,
-          x.lineStatusIndicatorPriority,
+          x.summary,
+          x.lineStatusIndicator,
         ),
     );
 
@@ -60,8 +80,29 @@ export class DisruptionWriteup {
     return {
       title: this.title,
       bodyMarkdown: this.bodyMarkdown,
-      lineStatusIndicatorSummary: this.lineStatusIndicatorSummary,
-      lineStatusIndicatorPriority: this.lineStatusIndicatorPriority,
+      summary: this.summary,
+      lineStatusIndicator: this.lineStatusIndicator,
     };
+  }
+
+  static ofHighestPriority(writeups: DisruptionWriteup[]): DisruptionWriteup[] {
+    if (writeups.length === 0) {
+      return [];
+    }
+
+    const highestPriority =
+      LineStatusIndicatorPriorities[
+        Math.max(
+          ...writeups.map((x) =>
+            LineStatusIndicatorPriorities.indexOf(
+              x.lineStatusIndicator.priority,
+            ),
+          ),
+        )
+      ];
+
+    return writeups.filter(
+      (x) => x.lineStatusIndicator.priority === highestPriority,
+    );
   }
 }

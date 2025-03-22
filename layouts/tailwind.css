@@ -18,27 +18,25 @@
 @theme {
   --font-sans: "Outfit", sans-serif;
 
-  --color-surface: var(--color-white);
-  --color-surface-secondary: var(--color-white);
-  --color-typography: var(--color-black);
-  --color-action: var(--color-slate-100);
-  --color-action-secondary: var(--color-slate-200);
-  --color-active: var(--color-blue-800);
-  --color-link: var(--color-blue-700);
-  --color-button-bg: var(--color-slate-200);
-  --color-button-bg-hover: var(--color-slate-300);
-  --color-button-bg-active: var(--color-slate-400);
-
-  --color-calendar-cell: var(--color-slate-200);
-  --color-calendar-accent: oklch(65% 0.23 35); /* #FC4000 */
-  --color-calendar-today: var(--color-black);
-  --color-calendar-on-cell: var(--color-black);
-  --color-calendar-on-accent: var(--color-white);
-  --color-calendar-on-today: var(--color-white);
-
-  --color-status-clear: oklch(76.47% 0.2289 146.12); /* #14D64B */
-  --color-status-delays: oklch(77.48% 0.1544 78.87); /* #EAA81F */
-  --color-status-buses: oklch(61.76% 0.2511 28.06); /* #F90514 */
+  --color-*: initial;
+  --color-background: hsl(220deg 20% 100%); /* Update pages/utils.ts too! */
+  --color-foreground: hsl(220deg 20% 20%);
+  --color-foreground-strong: hsl(220deg 20% 0%);
+  --color-soft: hsl(220deg 20% 93%);
+  --color-soft-hover: hsl(220deg 20% 89%);
+  --color-soft-active: hsl(220deg 20% 85%);
+  --color-soft-border: hsl(220deg 20% 89%);
+  --color-accent: hsl(220deg 100% 40%);
+  --color-accent-hover: hsl(220deg 100% 50%);
+  --color-accent-active: hsl(220deg 100% 60%);
+  --color-accent-soft: hsl(220deg 100% 95%);
+  --color-on-accent: hsl(220deg 20% 100%);
+  --color-status-green: hsl(130, 60%, 40%);
+  --color-status-yellow: hsl(40, 100%, 40%);
+  --color-status-red: hsl(0, 100%, 45%);
+  --color-switch: hsl(220deg 20% 70%);
+  --color-switch-hover: hsl(220deg 20% 65%);
+  --color-switch-knob: hsl(220deg 0% 100%);
 
   --leading-*: initial;
   --leading-none: 0em;
@@ -51,22 +49,24 @@
 
 /* Dark mode colours */
 @variant dark {
-  --color-surface: oklch(18.23% 0 0); /* #121212 */
-  --color-surface-secondary: oklch(25% 0 0); /* #222222 */
-  --color-typography: var(--color-white);
-  --color-action: oklch(27.68% 0 0); /* #282828 */
-  --color-action-secondary: oklch(33.78% 0.0223 256.39); /* #303843 */
-  --color-active: oklch(60.81% 0.2097 267.74); /* #4D74FE */
-  --color-link: oklch(66.18% 0.1648 267.74); /* #678BF7 */
-  --color-button-bg: var(--color-action-secondary);
-  --color-button-bg-hover: oklch(41.02% 0.0223 256.39); /* #434B57 */
-  --color-button-bg-active: oklch(29.02% 0.0223 256.39); /* #242C37 */
-  --color-calendar-cell: oklch(28% 0.0223 256.39);
-  --color-calendar-accent: oklch(65% 0.23 35); /* #FC4000 */
-  --color-calendar-today: var(--color-white);
-  --color-calendar-on-cell: var(--color-white);
-  --color-calendar-on-accent: var(--color-white);
-  --color-calendar-on-today: var(--color-black);
+  --color-background: hsl(220deg 20% 5%); /* Update pages/utils.ts too! */
+  --color-foreground: hsl(220deg 20% 80%);
+  --color-foreground-strong: hsl(220deg 20% 100%);
+  --color-soft: hsl(220deg 20% 15%);
+  --color-soft-hover: hsl(220deg 20% 20%);
+  --color-soft-active: hsl(220deg 20% 25%);
+  --color-soft-border: hsl(220deg 20% 20%);
+  --color-accent: hsl(220deg 100% 73%);
+  --color-accent-hover: hsl(220deg 80% 68%);
+  --color-accent-active: hsl(220deg 70% 63%);
+  --color-accent-soft: hsl(220deg 50% 17%);
+  --color-on-accent: hsl(220deg 20% 0%);
+  --color-status-green: hsl(130, 60%, 60%);
+  --color-status-yellow: hsl(40, 100%, 60%);
+  --color-status-red: hsl(0, 100%, 70%);
+  --color-switch: hsl(220deg 20% 35%);
+  --color-switch-hover: hsl(220deg 20% 40%);
+  --color-switch-knob: hsl(220deg 20% 100%);
 }
 
 /* Override leading to set --line-spacing instead (see ./css/text.css). */

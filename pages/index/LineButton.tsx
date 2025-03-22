@@ -1,33 +1,45 @@
-import clsx from "clsx";
 import React from "react";
-import { Line } from "@/pages/index/+data";
 
+import clsx from "clsx";
 import { Row } from "@/components/core/Row";
 import { Grid } from "@/components/core/Grid";
 import { Text } from "@/components/core/Text";
 import { Button } from "@/components/core/Button";
 import { MingcuteRightLine } from "@/components/icons/MingcuteRightLine";
+import {
+  OverviewPageLineData,
+  OverviewPageLineStatusColor,
+} from "@/shared/types/overview-page";
 
 type LineButtonProps = {
-  line: Line;
-  status: "clear" | "delays" | "buses";
+  line: OverviewPageLineData;
 };
 
-export function LineButton({ line, status }: LineButtonProps) {
+const bgClassMapping: Record<OverviewPageLineStatusColor, string> = {
+  green: "bg-status-green",
+  yellow: "bg-status-yellow",
+  red: "bg-status-red",
+};
+
+const textClassMapping: Record<OverviewPageLineStatusColor, string> = {
+  green: "text-status-green",
+  yellow: "text-status-yellow",
+  red: "text-status-red",
+};
+
+export function LineButton({ line }: LineButtonProps) {
   return (
     <Button href={`/line/${line.id}`}>
       <Grid
         columns="auto 1fr auto"
         align="center"
-        className="group-active:bg-action gap-2 p-1 transition-colors lg:p-2"
+        className="group-active:bg-soft-active group-hover:bg-soft-hover gap-2 p-1 lg:p-2"
       >
         <Row align="center" className="gap-2">
           <div
             className={clsx(
               "size-2 rounded-full",
-              status === "clear" && "bg-status-clear",
-              status === "delays" && "bg-status-delays",
-              status === "buses" && "bg-status-buses",
+              bgClassMapping[line.statusColor],
             )}
           />
           <Text oneLine style="custom" className="text-sm lg:text-base">
@@ -38,15 +50,10 @@ export function LineButton({ line, status }: LineButtonProps) {
           <span
             className={clsx(
               "marquee text-sm lg:text-base",
-              status === "clear" && "text-status-clear",
-              status === "delays" && "text-status-delays",
-              status === "buses" && "text-status-buses",
+              textClassMapping[line.statusColor],
             )}
           >
-            {status === "clear" && "No reported disruption"}
-            {status === "delays" && "Major delays"}
-            {status === "buses" &&
-              "Long message of the two station to test marquee"}
+            {line.status}
           </span>
         </div>
         <MingcuteRightLine />

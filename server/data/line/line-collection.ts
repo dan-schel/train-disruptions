@@ -25,6 +25,12 @@ export class LineCollection extends Collection<number, Line> {
     return line;
   }
 
+  whichStopAt(stationId: number): Line[] {
+    return this.filter((line) =>
+      line.route.getAllServedStations().includes(stationId),
+    );
+  }
+
   protected _getID(item: Line): number {
     return item.id;
   }

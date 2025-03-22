@@ -26,7 +26,9 @@ export const filterableDisruptionCategories = [
 export type FilterableDisruptionCategory =
   (typeof filterableDisruptionCategories)[number];
 
-export type Theme = "system" | "light" | "dark";
+export const themes = ["system", "light", "dark"] as const;
+
+export type Theme = (typeof themes)[number];
 
 export type Startpage = "overview" | "commute";
 
