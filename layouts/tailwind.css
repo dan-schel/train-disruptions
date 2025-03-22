@@ -19,7 +19,7 @@
   --font-sans: "Outfit", sans-serif;
 
   --color-*: initial;
-  --color-background: hsl(220deg 20% 100%);
+  --color-background: hsl(220deg 20% 100%); /* Update pages/utils.ts too! */
   --color-foreground: hsl(220deg 20% 20%);
   --color-foreground-strong: hsl(220deg 20% 0%);
   --color-soft: hsl(220deg 20% 93%);
@@ -29,7 +29,7 @@
   --color-accent: hsl(220deg 100% 40%);
   --color-accent-hover: hsl(220deg 100% 50%);
   --color-accent-active: hsl(220deg 100% 60%);
-  --color-accent-soft: hsl(220deg 100% 90%);
+  --color-accent-soft: hsl(220deg 100% 95%);
   --color-on-accent: hsl(220deg 20% 100%);
   --color-status-green: hsl(130, 60%, 40%);
   --color-status-yellow: hsl(40, 100%, 40%);
@@ -49,17 +49,17 @@
 
 /* Dark mode colours */
 @variant dark {
-  --color-background: hsl(220deg 20% 0%);
+  --color-background: hsl(220deg 20% 5%); /* Update pages/utils.ts too! */
   --color-foreground: hsl(220deg 20% 80%);
   --color-foreground-strong: hsl(220deg 20% 100%);
   --color-soft: hsl(220deg 20% 15%);
   --color-soft-hover: hsl(220deg 20% 20%);
   --color-soft-active: hsl(220deg 20% 25%);
   --color-soft-border: hsl(220deg 20% 20%);
-  --color-accent: hsl(220deg 100% 70%);
-  --color-accent-hover: hsl(220deg 100% 65%);
-  --color-accent-active: hsl(220deg 100% 60%);
-  --color-accent-soft: hsl(220deg 50% 20%);
+  --color-accent: hsl(220deg 100% 73%);
+  --color-accent-hover: hsl(220deg 80% 68%);
+  --color-accent-active: hsl(220deg 70% 63%);
+  --color-accent-soft: hsl(220deg 50% 17%);
   --color-on-accent: hsl(220deg 20% 0%);
   --color-status-green: hsl(130, 60%, 60%);
   --color-status-yellow: hsl(40, 100%, 60%);

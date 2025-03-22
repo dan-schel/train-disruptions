@@ -1,4 +1,5 @@
 import { Theme, themes } from "@/shared/settings";
+import { getThemeColor } from "@/pages/utils";
 
 export function applyTheme(theme: Theme) {
   themes.forEach((x) => {
@@ -7,14 +8,12 @@ export function applyTheme(theme: Theme) {
 
   // Update status bar theme for PWA
   document.querySelectorAll("meta[name=theme-color]").forEach((meta) => {
-    const colour =
-      theme === "system"
-        ? meta.getAttribute("media") === "(prefers-color-scheme: light)"
-          ? "#ffffff"
-          : "#121212"
-        : window
-            .getComputedStyle(document.documentElement)
-            .getPropertyValue("--color-background");
-    meta.setAttribute("content", colour);
+    const preferredColorScheme = extractPreferredColorScheme(meta);
+    meta.setAttribute("content", getThemeColor(theme, preferredColorScheme));
   });
+}
+
+function extractPreferredColorScheme(meta: Element) {
+  const media = meta.getAttribute("media");
+  return media === "(prefers-color-scheme: light)" ? "light" : "dark";
 }
