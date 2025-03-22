@@ -2,14 +2,11 @@ import React from "react";
 
 import { Column } from "@/components/core/Column";
 import { Text } from "@/components/core/Text";
-import { Settings } from "@/shared/settings";
+import { useSettings } from "@/components/SettingsProvider";
 
-type SettingsAdminProps = {
-  settings: Settings;
-  setSettings: (settings: Settings) => void;
-};
+export function SettingsAdmin() {
+  const [settings, setSettings] = useSettings();
 
-export function SettingsAdmin({ settings, setSettings }: SettingsAdminProps) {
   function handleChange() {
     setSettings(settings.with({ showAdminTab: !settings.showAdminTab }));
   }

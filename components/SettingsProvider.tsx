@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { cookieSettings, Settings } from "@/shared/settings";
 import { usePageContext } from "vike-react/usePageContext";
@@ -33,17 +33,15 @@ export function SettingsProvider(props: SettingsProviderProps) {
     Settings.json.parse(settingsJson),
   );
 
-  function persistSettings(input: React.SetStateAction<Settings>) {
-    const resolved = typeof input === "function" ? input(settings) : input;
-    setSettings(resolved);
-    cookies.set("settings", JSON.stringify(resolved.toJSON()));
-  }
-
   const contextValue: SettingsContextContent = {
     initialized: true,
     settings,
-    setSettings: persistSettings,
+    setSettings,
   };
+
+  useEffect(() => {
+    cookies.set("settings", JSON.stringify(settings.toJSON()));
+  }, [settings]);
 
   return (
     <SettingsContext.Provider value={contextValue}>

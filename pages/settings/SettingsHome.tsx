@@ -3,12 +3,8 @@ import React from "react";
 import { Column } from "@/components/core/Column";
 import { Text } from "@/components/core/Text";
 import { Spacer } from "@/components/core/Spacer";
-import { Settings, Startpage } from "@/shared/settings";
-
-export type HomepageProps = {
-  settings: Settings;
-  setSettings: (settings: Settings) => void;
-};
+import { Startpage } from "@/shared/settings";
+import { useSettings } from "@/components/SettingsProvider";
 
 const homepageOptions = ["overview", "commute"] as const;
 
@@ -24,7 +20,9 @@ const formattedHomepage: Record<
   },
 };
 
-export function SettingsHome({ settings, setSettings }: HomepageProps) {
+export function SettingsHome() {
+  const [settings, setSettings] = useSettings();
+
   function updateStart(option: Startpage) {
     setSettings(settings.with({ startPage: option }));
   }

@@ -3,7 +3,8 @@ import React from "react";
 import { Column } from "@/components/core/Column";
 import { Text } from "@/components/core/Text";
 import { Spacer } from "@/components/core/Spacer";
-import { Settings, Theme } from "@/shared/settings";
+import { Theme } from "@/shared/settings";
+import { useSettings } from "@/components/SettingsProvider";
 
 const themeOptions = ["system", "light", "dark"] as const;
 
@@ -20,12 +21,9 @@ const formattedTheme: Record<(typeof themeOptions)[number], { name: string }> =
     },
   };
 
-export type SettingsResetProps = {
-  settings: Settings;
-  setSettings: (settings: Settings) => void;
-};
+export function SettingsTheme() {
+  const [settings, setSettings] = useSettings();
 
-export function SettingsTheme({ settings, setSettings }: SettingsResetProps) {
   function updateTheme(theme: Theme) {
     setSettings(settings.with({ theme: theme }));
     document.documentElement.className = theme;

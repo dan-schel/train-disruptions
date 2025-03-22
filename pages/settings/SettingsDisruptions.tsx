@@ -6,13 +6,8 @@ import { Spacer } from "@/components/core/Spacer";
 import {
   filterableDisruptionCategories,
   FilterableDisruptionCategory,
-  Settings,
 } from "@/shared/settings";
-
-export type DisruptionSettingsProps = {
-  settings: Settings;
-  setSettings: (settings: Settings) => void;
-};
+import { useSettings } from "@/components/SettingsProvider";
 
 const allCategories = ["essential", ...filterableDisruptionCategories] as const;
 
@@ -43,10 +38,9 @@ const formattedCategories: Record<
   },
 };
 
-export function SettingsDisruptions({
-  settings,
-  setSettings,
-}: DisruptionSettingsProps) {
+export function SettingsDisruptions() {
+  const [settings, setSettings] = useSettings();
+
   function toggleCategory(category: FilterableDisruptionCategory) {
     if (settings.enabledCategories.includes(category)) {
       setSettings(settings.withoutEnabledCategories(category));
