@@ -4,22 +4,18 @@ import { SimpleButton } from "@/components/common/SimpleButton";
 import { Spacer } from "@/components/core/Spacer";
 import { Column } from "@/components/core/Column";
 import { Text } from "@/components/core/Text";
-import { Settings } from "@/shared/settings";
+import { useSettings } from "@/hooks/useSettings";
 
 export type SettingsCommuteProps = {
-  settings: Settings;
-  setSettings: (settings: Settings) => void;
   stations: {
     id: number;
     name: string;
   }[];
 };
 
-export function SettingsCommute({
-  settings,
-  setSettings,
-  stations,
-}: SettingsCommuteProps) {
+export function SettingsCommute({ stations }: SettingsCommuteProps) {
+  const [settings, setSettings] = useSettings();
+
   function handleResetCookies() {
     setSettings(settings.with({ commute: null, startPage: "overview" }));
   }

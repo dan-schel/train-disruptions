@@ -6,13 +6,11 @@ import { Column } from "@/components/core/Column";
 import { Text } from "@/components/core/Text";
 import { Spacer } from "@/components/core/Spacer";
 import { applyTheme } from "@/pages/settings/utils";
+import { useSettings } from "@/hooks/useSettings";
 
-export type SettingsResetProps = {
-  settings: Settings;
-  setSettings: (settings: Settings) => void;
-};
+export function SettingsReset() {
+  const [, setSettings] = useSettings();
 
-export function SettingsReset({ setSettings }: SettingsResetProps) {
   function handleResetCookies() {
     setSettings(Settings.default);
     applyTheme(Settings.default.theme);

@@ -16,21 +16,20 @@ export const cookieSettings = {
 // TODO: This list is literally just off the top of my head. Let's refine these
 // categories later!
 export const filterableDisruptionCategories = [
-  "station-closures",
-  "cancellations",
   "delays",
-  "car-park-closures",
+  "cancellations",
+  "station-closures",
   "accessibility",
+  "car-park-closures",
 ] as const;
-
 export type FilterableDisruptionCategory =
   (typeof filterableDisruptionCategories)[number];
 
 export const themes = ["system", "light", "dark"] as const;
-
 export type Theme = (typeof themes)[number];
 
-export type Startpage = "overview" | "commute";
+export const startPages = ["overview", "commute"] as const;
+export type Startpage = (typeof startPages)[number];
 
 export class Settings {
   constructor(
@@ -41,7 +40,13 @@ export class Settings {
     readonly showAdminTab: boolean,
   ) {}
 
-  static readonly default = new Settings(null, [], "system", "overview", false);
+  static readonly default = new Settings(
+    null,
+    ["station-closures", "cancellations", "delays"],
+    "system",
+    "overview",
+    false,
+  );
 
   // Consider that anything we add here is stored in a cookie, and we only have
   // 4KB (4096 characters!) to work with. We also might have to share that limit
@@ -55,8 +60,8 @@ export class Settings {
         })
         .optional(),
       enabledCategories: z.string().array().readonly(),
-      theme: z.enum(["system", "light", "dark"]),
-      startPage: z.enum(["overview", "commute"]),
+      theme: z.enum(themes),
+      startPage: z.enum(startPages),
       showAdminTab: z.boolean(),
     })
     .transform(
@@ -70,9 +75,9 @@ export class Settings {
             obj.enabledCategories,
             filterableDisruptionCategories,
           ),
-          obj.theme ?? "system",
-          obj.startPage ?? "overview",
-          obj.showAdminTab ?? false,
+          obj.theme,
+          obj.startPage,
+          obj.showAdminTab,
         ),
     );
 

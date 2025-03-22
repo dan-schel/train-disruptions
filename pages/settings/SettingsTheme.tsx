@@ -3,27 +3,19 @@ import React from "react";
 import { Column } from "@/components/core/Column";
 import { Text } from "@/components/core/Text";
 import { Spacer } from "@/components/core/Spacer";
-import { Settings, Theme, themes } from "@/shared/settings";
+import { Theme, themes } from "@/shared/settings";
 import { applyTheme } from "@/pages/settings/utils";
+import { useSettings } from "@/hooks/useSettings";
 
-const formattedTheme: Record<(typeof themes)[number], { name: string }> = {
-  system: {
-    name: "Auto",
-  },
-  light: {
-    name: "Light",
-  },
-  dark: {
-    name: "Dark",
-  },
+const formattedTheme: Record<(typeof themes)[number], string> = {
+  system: "Auto",
+  light: "Light",
+  dark: "Dark",
 };
 
-export type SettingsResetProps = {
-  settings: Settings;
-  setSettings: (settings: Settings) => void;
-};
+export function SettingsTheme() {
+  const [settings, setSettings] = useSettings();
 
-export function SettingsTheme({ settings, setSettings }: SettingsResetProps) {
   function updateTheme(theme: Theme) {
     setSettings(settings.with({ theme }));
     applyTheme(theme);
@@ -49,7 +41,7 @@ export function SettingsTheme({ settings, setSettings }: SettingsResetProps) {
               onChange={() => updateTheme(theme)}
               className="accent-accent"
             />
-            <Text>{formattedTheme[theme].name}</Text>
+            <Text>{formattedTheme[theme]}</Text>
           </label>
         ))}
       </Column>

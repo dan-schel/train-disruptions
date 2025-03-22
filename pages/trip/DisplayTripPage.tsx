@@ -7,9 +7,9 @@ import { BackNavigation } from "@/components/navigation/BackNavigation";
 import { DisplayData } from "@/pages/trip/+data";
 import { SimpleButton } from "@/components/common/SimpleButton";
 import { Spacer } from "@/components/core/Spacer";
-import { useSettings } from "@/hooks/useSettings";
 import { Row } from "@/components/core/Row";
 import { MingcuteCheckLine } from "@/components/icons/MingcuteCheckLine";
+import { useSettings } from "@/hooks/useSettings";
 
 export type DisplayTripPageProps = {
   data: DisplayData;
@@ -17,10 +17,10 @@ export type DisplayTripPageProps = {
 
 export function DisplayTripPage(props: DisplayTripPageProps) {
   const [commuteUpdated, setCommuteUpdated] = React.useState(false);
-  const { updateSettings } = useSettings();
+  const [settings, setSettings] = useSettings();
 
   function handleSetAsCommute() {
-    updateSettings((settings) =>
+    setSettings(
       settings.with({
         commute: { a: props.data.stationA.id, b: props.data.stationB.id },
       }),
