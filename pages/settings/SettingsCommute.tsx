@@ -4,7 +4,7 @@ import { SimpleButton } from "@/components/common/SimpleButton";
 import { Spacer } from "@/components/core/Spacer";
 import { Column } from "@/components/core/Column";
 import { Text } from "@/components/core/Text";
-import { useSettings } from "@/components/SettingsProvider";
+import { useSettings } from "@/hooks/useSettings";
 
 export type SettingsCommuteProps = {
   stations: {

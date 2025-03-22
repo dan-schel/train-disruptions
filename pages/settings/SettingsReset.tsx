@@ -6,7 +6,7 @@ import { Column } from "@/components/core/Column";
 import { Text } from "@/components/core/Text";
 import { Spacer } from "@/components/core/Spacer";
 import { applyTheme } from "@/pages/settings/utils";
-import { useSettings } from "@/components/SettingsProvider";
+import { useSettings } from "@/hooks/useSettings";
 
 export function SettingsReset() {
   const [, setSettings] = useSettings();

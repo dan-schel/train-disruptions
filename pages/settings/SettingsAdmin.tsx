@@ -2,7 +2,7 @@ import React from "react";
 
 import { Column } from "@/components/core/Column";
 import { Text } from "@/components/core/Text";
-import { useSettings } from "@/components/SettingsProvider";
+import { useSettings } from "@/hooks/useSettings";
 
 export function SettingsAdmin() {
   const [settings, setSettings] = useSettings();

@@ -7,7 +7,7 @@ import {
   filterableDisruptionCategories,
   FilterableDisruptionCategory,
 } from "@/shared/settings";
-import { useSettings } from "@/components/SettingsProvider";
+import { useSettings } from "@/hooks/useSettings";
 
 const allCategories = ["essential", ...filterableDisruptionCategories] as const;
 

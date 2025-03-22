@@ -7,7 +7,7 @@ import {
 } from "@/components/navigation/utils";
 import { MobileTabButton } from "@/components/navigation/MobileTabButton";
 import { Grid } from "@/components/core/Grid";
-import { useSettings } from "@/components/SettingsProvider";
+import { useSettings } from "@/hooks/useSettings";
 
 export function MobileNavBar() {
   const [userSettings] = useSettings();

@@ -12,7 +12,7 @@ import { Row } from "@/components/core/Row";
 import { DesktopTabButton } from "@/components/navigation/DesktopTabButton";
 import { Favicon } from "@/components/icons/Favicon";
 import { Button } from "@/components/core/Button";
-import { useSettings } from "@/components/SettingsProvider";
+import { useSettings } from "@/hooks/useSettings";
 
 export function DesktopNavBar() {
   const [userSettings] = useSettings();

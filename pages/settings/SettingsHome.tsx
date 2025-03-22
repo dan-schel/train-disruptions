@@ -4,7 +4,7 @@ import { Column } from "@/components/core/Column";
 import { Text } from "@/components/core/Text";
 import { Spacer } from "@/components/core/Spacer";
 import { Startpage } from "@/shared/settings";
-import { useSettings } from "@/components/SettingsProvider";
+import { useSettings } from "@/hooks/useSettings";
 
 const homepageOptions = ["overview", "commute"] as const;
 

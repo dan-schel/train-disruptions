@@ -5,7 +5,7 @@ import { Text } from "@/components/core/Text";
 import { Spacer } from "@/components/core/Spacer";
 import { Theme, themes } from "@/shared/settings";
 import { applyTheme } from "@/pages/settings/utils";
-import { useSettings } from "@/components/SettingsProvider";
+import { useSettings } from "@/hooks/useSettings";
 
 const formattedTheme: Record<(typeof themes)[number], { name: string }> = {
   system: {

@@ -11,7 +11,7 @@ import { SettingsTheme } from "@/pages/settings/SettingsTheme";
 import { SettingsCommute } from "@/pages/settings/SettingsCommute";
 import { SettingsReset } from "@/pages/settings/SettingsReset";
 import { SettingsAdmin } from "@/pages/settings/SettingsAdmin";
-import { useSettings } from "@/components/SettingsProvider";
+import { useSettings } from "@/hooks/useSettings";
 import { SettingsTitle } from "@/pages/settings/SettingsTitle";
 
 export default function Page() {

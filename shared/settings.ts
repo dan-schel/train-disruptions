@@ -19,8 +19,8 @@ export const filterableDisruptionCategories = [
   "station-closures",
   "cancellations",
   "delays",
-  "car-park-closures",
   "accessibility",
+  "car-park-closures",
 ] as const;
 
 export type FilterableDisruptionCategory =
@@ -41,7 +41,13 @@ export class Settings {
     readonly showAdminTab: boolean,
   ) {}
 
-  static readonly default = new Settings(null, [], "system", "overview", false);
+  static readonly default = new Settings(
+    null,
+    ["station-closures", "cancellations", "delays"],
+    "system",
+    "overview",
+    false,
+  );
 
   // Consider that anything we add here is stored in a cookie, and we only have
   // 4KB (4096 characters!) to work with. We also might have to share that limit
