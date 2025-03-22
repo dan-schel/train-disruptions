@@ -1,22 +1,19 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React from "react";
 
 import { Column } from "@/components/core/Column";
 import { Text } from "@/components/core/Text";
 import { Settings } from "@/shared/settings";
-import { useAdminVisibilityContext } from "@/context/AdminVisibility";
 
 type SettingsAdminProps = {
   settings: Settings;
-  setSettings: Dispatch<SetStateAction<Settings>>;
+  setSettings: (settings: Settings) => void;
 };
 
 export function SettingsAdmin({ settings, setSettings }: SettingsAdminProps) {
-  const { toggleAdminTab } = useAdminVisibilityContext();
-
   function handleChange() {
     setSettings(settings.with({ showAdminTab: !settings.showAdminTab }));
-    toggleAdminTab();
   }
+
   return (
     <Column>
       <Text style="custom" className="text-lg font-bold">

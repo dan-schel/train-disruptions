@@ -6,7 +6,6 @@ import clsx from "clsx";
 import { admin, NavTab, settings } from "@/components/navigation/utils";
 import { usePageContext } from "vike-react/usePageContext";
 import { Column } from "@/components/core/Column";
-import { useAdminVisibilityContext } from "@/context/AdminVisibility";
 
 export type MobileTabButtonProps = {
   tab: NavTab;
@@ -14,7 +13,13 @@ export type MobileTabButtonProps = {
 
 export function MobileTabButton(props: MobileTabButtonProps) {
   const { urlPathname } = usePageContext();
-  const { showAdminTab, incrementCount } = useAdminVisibilityContext();
+
+  // TODO: [DS] Temporary.
+  const { showAdminTab, incrementCount } = {
+    showAdminTab: true,
+    incrementCount: () => {},
+  };
+
   const [hidden, setHidden] = useState<boolean>(props.tab === admin);
   const active = props.tab.active(urlPathname);
 
