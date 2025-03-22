@@ -12,8 +12,15 @@ import { Row } from "@/components/core/Row";
 import { DesktopTabButton } from "@/components/navigation/DesktopTabButton";
 import { Favicon } from "@/components/icons/Favicon";
 import { Button } from "@/components/core/Button";
+import { useSettings } from "@/components/SettingsProvider";
 
 export function DesktopNavBar() {
+  const [userSettings] = useSettings();
+
+  const leftAlignedTabs = userSettings.showAdminTab
+    ? [overview, myCommute, admin]
+    : [overview, myCommute];
+
   return (
     <nav className="bg-surface border-b-action-secondary fixed top-0 right-0 left-0 z-50 hidden border-b md:block">
       <PageCenterer>
@@ -27,7 +34,7 @@ export function DesktopNavBar() {
             </Row>
           </Button>
           <Row>
-            {[overview, myCommute, admin].map((route) => (
+            {leftAlignedTabs.map((route) => (
               <DesktopTabButton key={route.name} tab={route} />
             ))}
           </Row>

@@ -13,7 +13,7 @@ const cookies = Cookies.withAttributes({
 type SettingsContextContent = {
   initialized: boolean;
   settings: Settings;
-  setSettings: (settings: Settings) => void;
+  setSettings: React.Dispatch<React.SetStateAction<Settings>>;
 };
 
 const SettingsContext = React.createContext<SettingsContextContent>({
@@ -33,9 +33,10 @@ export function SettingsProvider(props: SettingsProviderProps) {
     Settings.json.parse(settingsJson),
   );
 
-  function persistSettings(settings: Settings) {
-    setSettings(settings);
-    cookies.set("settings", JSON.stringify(settings.toJSON()));
+  function persistSettings(input: React.SetStateAction<Settings>) {
+    const resolved = typeof input === "function" ? input(settings) : input;
+    setSettings(resolved);
+    cookies.set("settings", JSON.stringify(resolved.toJSON()));
   }
 
   const contextValue: SettingsContextContent = {
@@ -59,5 +60,5 @@ export function useSettings() {
     throw new Error("Attempting to use settings outside <SettingsProvider>.");
   }
 
-  return { settings, setSettings };
+  return [settings, setSettings] as const;
 }

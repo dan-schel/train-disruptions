@@ -17,7 +17,7 @@ export type DisplayTripPageProps = {
 
 export function DisplayTripPage(props: DisplayTripPageProps) {
   const [commuteUpdated, setCommuteUpdated] = React.useState(false);
-  const { settings, setSettings } = useSettings();
+  const [settings, setSettings] = useSettings();
 
   function handleSetAsCommute() {
     setSettings(

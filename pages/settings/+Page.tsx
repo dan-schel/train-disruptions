@@ -16,7 +16,7 @@ import { useSettings } from "@/components/SettingsProvider";
 
 export default function Page() {
   const data = useData<Data>();
-  const { settings, setSettings } = useSettings();
+  const [settings, setSettings] = useSettings();
 
   return (
     <PageCenterer>
