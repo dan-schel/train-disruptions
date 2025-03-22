@@ -54,7 +54,7 @@ async function startWebServer(app: App, root: string) {
   if (env.DATABASE_URL) {
     server.use(
       AuthSession(
-        "test",
+        env.SESSION_SECRET,
         env.DATABASE_URL,
         config.DATABASE_NAME,
         env.NODE_ENV === "production",
