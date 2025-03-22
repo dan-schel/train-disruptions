@@ -5,7 +5,7 @@ import { Data } from "@/pages/settings/+data";
 import { Column } from "@/components/core/Column";
 import { PageCenterer } from "@/components/common/PageCenterer";
 import { PagePadding } from "@/components/common/PagePadding";
-import { SettingsHome } from "@/pages/settings/SettingsHome";
+import { SettingsStartPage } from "@/pages/settings/SettingsStartPage";
 import { SettingsDisruptions } from "@/pages/settings/SettingsDisruptions";
 import { SettingsTheme } from "@/pages/settings/SettingsTheme";
 import { SettingsCommute } from "@/pages/settings/SettingsCommute";
@@ -31,7 +31,7 @@ export default function Page() {
       <PagePadding>
         <Column className="gap-4">
           <SettingsTitle onRepeatedClicks={handleRepeatedTitleClicks} />
-          <SettingsHome />
+          <SettingsStartPage />
           <SettingsDisruptions />
           <SettingsTheme />
           <SettingsCommute stations={data.stations} />

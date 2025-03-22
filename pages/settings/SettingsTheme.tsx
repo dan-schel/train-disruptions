@@ -7,16 +7,10 @@ import { Theme, themes } from "@/shared/settings";
 import { applyTheme } from "@/pages/settings/utils";
 import { useSettings } from "@/hooks/useSettings";
 
-const formattedTheme: Record<(typeof themes)[number], { name: string }> = {
-  system: {
-    name: "Auto",
-  },
-  light: {
-    name: "Light",
-  },
-  dark: {
-    name: "Dark",
-  },
+const formattedTheme: Record<(typeof themes)[number], string> = {
+  system: "Auto",
+  light: "Light",
+  dark: "Dark",
 };
 
 export function SettingsTheme() {
@@ -47,7 +41,7 @@ export function SettingsTheme() {
               onChange={() => updateTheme(theme)}
               className="accent-accent"
             />
-            <Text>{formattedTheme[theme].name}</Text>
+            <Text>{formattedTheme[theme]}</Text>
           </label>
         ))}
       </Column>

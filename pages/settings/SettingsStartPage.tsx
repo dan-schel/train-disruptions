@@ -3,24 +3,15 @@ import React from "react";
 import { Column } from "@/components/core/Column";
 import { Text } from "@/components/core/Text";
 import { Spacer } from "@/components/core/Spacer";
-import { Startpage } from "@/shared/settings";
+import { Startpage, startPages } from "@/shared/settings";
 import { useSettings } from "@/hooks/useSettings";
 
-const homepageOptions = ["overview", "commute"] as const;
-
-const formattedHomepage: Record<
-  (typeof homepageOptions)[number],
-  { name: string }
-> = {
-  overview: {
-    name: "Overview",
-  },
-  commute: {
-    name: "My Commute",
-  },
+const formattedOptions: Record<(typeof startPages)[number], string> = {
+  overview: "Overview",
+  commute: "My Commute",
 };
 
-export function SettingsHome() {
+export function SettingsStartPage() {
   const [settings, setSettings] = useSettings();
 
   function updateStart(option: Startpage) {
@@ -35,7 +26,7 @@ export function SettingsHome() {
       <Spacer h="2" />
 
       <Column>
-        {homepageOptions.map((option) => (
+        {startPages.map((option) => (
           <label
             key={option}
             className="hover:bg-soft-hover flex cursor-pointer gap-2 py-1"
@@ -48,7 +39,7 @@ export function SettingsHome() {
               onChange={() => updateStart(option)}
               className="accent-accent"
             />
-            <Text>{formattedHomepage[option].name}</Text>
+            <Text>{formattedOptions[option]}</Text>
           </label>
         ))}
       </Column>

@@ -22,15 +22,14 @@ export const filterableDisruptionCategories = [
   "accessibility",
   "car-park-closures",
 ] as const;
-
 export type FilterableDisruptionCategory =
   (typeof filterableDisruptionCategories)[number];
 
 export const themes = ["system", "light", "dark"] as const;
-
 export type Theme = (typeof themes)[number];
 
-export type Startpage = "overview" | "commute";
+export const startPages = ["overview", "commute"] as const;
+export type Startpage = (typeof startPages)[number];
 
 export class Settings {
   constructor(
@@ -61,8 +60,8 @@ export class Settings {
         })
         .optional(),
       enabledCategories: z.string().array().readonly(),
-      theme: z.enum(["system", "light", "dark"]),
-      startPage: z.enum(["overview", "commute"]),
+      theme: z.enum(themes),
+      startPage: z.enum(startPages),
       showAdminTab: z.boolean(),
     })
     .transform(
@@ -76,9 +75,9 @@ export class Settings {
             obj.enabledCategories,
             filterableDisruptionCategories,
           ),
-          obj.theme ?? "system",
-          obj.startPage ?? "overview",
-          obj.showAdminTab ?? false,
+          obj.theme,
+          obj.startPage,
+          obj.showAdminTab,
         ),
     );
 
