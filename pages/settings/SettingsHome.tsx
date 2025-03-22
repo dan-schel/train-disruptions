@@ -31,7 +31,7 @@ export function SettingsHome({ settings, setSettings }: HomepageProps) {
 
   return (
     <Column>
-      <Text style="custom" className="text-lg font-bold">
+      <Text style="custom" className="text-foreground-strong text-lg font-bold">
         Start page
       </Text>
       <Spacer h="2" />
@@ -40,7 +40,7 @@ export function SettingsHome({ settings, setSettings }: HomepageProps) {
         {homepageOptions.map((option) => (
           <label
             key={option}
-            className="flex cursor-pointer gap-2 py-1 hover:bg-gray-200 dark:hover:bg-gray-600"
+            className="hover:bg-soft-hover flex cursor-pointer gap-2 py-1"
           >
             <input
               type="radio"
@@ -48,6 +48,7 @@ export function SettingsHome({ settings, setSettings }: HomepageProps) {
               value={option}
               checked={(settings.startPage as string).includes(option)}
               onChange={() => updateStart(option)}
+              className="accent-accent"
             />
             <Text>{formattedHomepage[option].name}</Text>
           </label>

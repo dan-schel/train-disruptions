@@ -44,7 +44,7 @@ export function DisplayTripPage(props: DisplayTripPageProps) {
             {!props.data.isCurrentCommute && (
               <Column
                 align="left"
-                className="gap-4 border border-slate-200 p-4"
+                className="border-soft-border gap-4 border p-4"
               >
                 <Text style="subtitle">Check this trip often?</Text>
                 <Text>Have it show in the My Commute tab by default.</Text>
@@ -55,7 +55,7 @@ export function DisplayTripPage(props: DisplayTripPageProps) {
                   />
                 ) : (
                   <Row
-                    className="h-8 gap-2 border border-slate-200 px-4"
+                    className="border-soft-border h-8 gap-2 border px-4"
                     align="center"
                   >
                     <MingcuteCheckLine />

@@ -19,11 +19,11 @@ const sizeScale = [
 
 const styles = {
   regular: "",
-  title: "text-2xl",
-  subtitle: "text-lg",
+  title: "text-2xl text-foreground-strong",
+  subtitle: "text-lg text-foreground-strong",
   small: "text-sm",
   "mobile-nav-bar": "text-xs",
-  "mobile-nav-bar-active": "text-xs text-active",
+  "mobile-nav-bar-active": "text-xs text-accent",
 };
 
 type Style =

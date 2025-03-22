@@ -2,7 +2,7 @@ import React from "react";
 import clsx from "clsx";
 
 const styles = {
-  default: "text-2xl text-slate-500",
+  default: "text-2xl text-foreground",
 };
 
 export type LoadingSpinnerProps = {

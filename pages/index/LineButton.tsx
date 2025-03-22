@@ -16,15 +16,15 @@ type LineButtonProps = {
 };
 
 const bgClassMapping: Record<OverviewPageLineStatusColor, string> = {
-  green: "bg-status-clear",
-  yellow: "bg-status-delays",
-  red: "bg-status-buses",
+  green: "bg-status-green",
+  yellow: "bg-status-yellow",
+  red: "bg-status-red",
 };
 
 const textClassMapping: Record<OverviewPageLineStatusColor, string> = {
-  green: "text-status-clear",
-  yellow: "text-status-delays",
-  red: "text-status-buses",
+  green: "text-status-green",
+  yellow: "text-status-yellow",
+  red: "text-status-red",
 };
 
 export function LineButton({ line }: LineButtonProps) {
@@ -33,7 +33,7 @@ export function LineButton({ line }: LineButtonProps) {
       <Grid
         columns="auto 1fr auto"
         align="center"
-        className="group-active:bg-action gap-2 p-1 transition-colors lg:p-2"
+        className="group-active:bg-soft-active group-hover:bg-soft-hover gap-2 p-1 lg:p-2"
       >
         <Row align="center" className="gap-2">
           <div

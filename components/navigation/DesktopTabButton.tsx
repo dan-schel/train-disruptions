@@ -31,8 +31,8 @@ export function DesktopTabButton(props: DesktopTabButtonProps) {
     <Button {...action} hidden={hidden}>
       <Row
         className={clsx(
-          "group-hover:bg-action group-active:bg-action-secondary h-12 gap-2 border-y-2 border-transparent px-4",
-          { "border-b-active": active },
+          "group-hover:bg-soft-hover group-active:bg-soft-active h-12 gap-2 border-y-2 border-transparent px-4",
+          { "border-b-accent": active },
         )}
         align="center"
       >

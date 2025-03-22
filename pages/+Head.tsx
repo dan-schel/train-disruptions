@@ -2,6 +2,7 @@
 
 import React from "react";
 import { usePageContext } from "vike-react/usePageContext";
+import { getThemeColor } from "@/pages/utils";
 
 export default function HeadDefault() {
   const { custom } = usePageContext();
@@ -14,12 +15,12 @@ export default function HeadDefault() {
       <meta
         name="theme-color"
         media="(prefers-color-scheme: light)"
-        content={custom.settings.theme === "dark" ? "#121212" : "#ffffff"}
+        content={getThemeColor(custom.settings.theme, "light")}
       />
       <meta
         name="theme-color"
         media="(prefers-color-scheme: dark)"
-        content={custom.settings.theme === "light" ? "#ffffff" : "#121212"}
+        content={getThemeColor(custom.settings.theme, "dark")}
       />
       <RegisterPwa />
     </>
