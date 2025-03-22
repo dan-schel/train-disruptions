@@ -22,13 +22,17 @@ export function DesktopNavBar() {
     : [overview, myCommute];
 
   return (
-    <nav className="bg-surface border-b-action-secondary fixed top-0 right-0 left-0 z-50 hidden border-b md:block">
+    <nav className="bg-background border-b-soft-border fixed top-0 right-0 left-0 z-50 hidden border-b md:block">
       <PageCenterer>
         <Grid columns="auto 1fr auto" className="gap-4 px-4">
           <Button href="/">
             <Row align="center" className="gap-2 px-2">
               <Favicon />
-              <Text style="custom" className="text-xl" oneLine>
+              <Text
+                style="custom"
+                className="text-foreground-strong text-xl"
+                oneLine
+              >
                 Is it buses?
               </Text>
             </Row>

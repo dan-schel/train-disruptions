@@ -25,7 +25,7 @@ export default function Page() {
                   on the <b>{line.name}</b> line?
                 </Text>
 
-                <hr className="border-slate-200" />
+                <hr className="border-soft-border" />
 
                 <Column className="gap-6">
                   <Text style="title">Buses replace trains...</Text>

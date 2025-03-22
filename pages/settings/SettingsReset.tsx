@@ -5,6 +5,7 @@ import { Settings } from "@/shared/settings";
 import { Column } from "@/components/core/Column";
 import { Text } from "@/components/core/Text";
 import { Spacer } from "@/components/core/Spacer";
+import { applyTheme } from "@/pages/settings/utils";
 import { useSettings } from "@/components/SettingsProvider";
 
 export function SettingsReset() {
@@ -12,12 +13,12 @@ export function SettingsReset() {
 
   function handleResetCookies() {
     setSettings(Settings.default);
-    document.documentElement.className = Settings.default.theme;
+    applyTheme(Settings.default.theme);
   }
 
   return (
     <Column>
-      <Text style="custom" className="text-lg font-bold">
+      <Text style="custom" className="text-foreground-strong text-lg font-bold">
         Reset
       </Text>
       <Spacer h="2" />

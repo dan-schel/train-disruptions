@@ -17,7 +17,7 @@ export function MobileNavBar() {
     : [overview, myCommute, settings];
 
   return (
-    <nav className="bg-surface border-t-action-secondary fixed right-0 bottom-0 left-0 z-50 min-w-(--page-min-width) border-t md:hidden">
+    <nav className="bg-background border-t-soft-border fixed right-0 bottom-0 left-0 z-50 min-w-(--page-min-width) border-t md:hidden">
       <Grid className="auto-cols-[1fr] grid-flow-col px-4">
         {tabs.map((route) => (
           <MobileTabButton key={route.name} tab={route} />

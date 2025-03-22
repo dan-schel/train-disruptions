@@ -18,7 +18,7 @@ export default function LayoutDefault({
   }
 
   return (
-    <Column className="bg-surface text-typography min-h-screen transition-colors duration-250">
+    <Column className="min-h-screen">
       <SettingsProvider>
         <DesktopNavBar />
         <MobileNavBar />

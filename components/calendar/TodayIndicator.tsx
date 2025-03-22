@@ -12,15 +12,15 @@ export function TodayIndicator({ column }: TodayIndicatorProps) {
   return (
     <With gridColumn={column}>
       <div className="relative h-4">
-        <div className="bg-calendar-today absolute top-3 left-[50%] size-2 -translate-x-[50%] rotate-45" />
+        <div className="bg-foreground absolute top-3 left-[50%] size-2 -translate-x-[50%] rotate-45" />
         <Column
-          className="bg-calendar-today absolute left-[50%] h-4 -translate-x-[50%] px-2"
+          className="bg-foreground absolute left-[50%] h-4 -translate-x-[50%] px-2"
           align="center"
           justify="center"
         >
           <Text
             style="custom"
-            className="text-calendar-on-today text-xs"
+            className="text-background text-xs"
             align="center"
           >
             TODAY

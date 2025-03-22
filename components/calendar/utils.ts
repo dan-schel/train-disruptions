@@ -2,11 +2,9 @@ import { getDay } from "date-fns";
 import { CalendarMark } from "@/shared/types/calendar-data";
 
 export const dateBoxStyles: Record<CalendarMark, string> = {
-  "no-disruption": "bg-calendar-cell text-calendar-on-cell",
-  "evening-only":
-    "bg-calendar-cell text-calendar-on-cell " +
-    "border-3 border-calendar-accent",
-  "all-day": "bg-calendar-accent text-calendar-on-accent",
+  "no-disruption": "bg-soft",
+  "evening-only": "bg-soft border-3 border-accent",
+  "all-day": "bg-accent text-on-accent",
 };
 
 export function getColumn(date: { year: number; month: number; day: number }) {

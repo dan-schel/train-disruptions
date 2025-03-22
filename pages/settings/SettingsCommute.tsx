@@ -22,7 +22,7 @@ export function SettingsCommute({ stations }: SettingsCommuteProps) {
 
   return (
     <Column>
-      <Text style="custom" className="text-lg font-bold">
+      <Text style="custom" className="text-foreground-strong text-lg font-bold">
         Commute
       </Text>
       <Spacer h="2" />

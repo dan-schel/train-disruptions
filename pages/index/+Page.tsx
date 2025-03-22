@@ -31,25 +31,25 @@ export default function Page() {
           <Row align="center" className="max-w-md gap-1.5" wrap>
             <Row align="center" className="flex-grow gap-1.5">
               <Text>Show</Text>
-              <select className="dark:bg-surface-secondary flex-grow rounded border border-black">
+              <select className="border-soft-border flex-grow rounded border">
                 <option value={"all"}>all disruptions</option>
               </select>
             </Row>
             <Row align="center" className="flex-grow gap-1.5">
               <Text>occurring</Text>
-              <select className="dark:bg-surface-secondary flex-grow rounded border border-black">
+              <select className="border-soft-border flex-grow rounded border">
                 <option value={"now"}>right now</option>
               </select>
             </Row>
           </Row>
           <Spacer h="4" />
 
-          <With className="bg-surface-secondary border-action-secondary rounded-md border">
+          <With className="border-soft-border rounded-md border">
             <Map />
           </With>
           <Spacer h="4" />
 
-          <Column>
+          <Column className="divide-soft-border divide-y-1">
             {disruptions.map((x) => (
               <DisruptionButton key={x.id} data={x} />
             ))}
