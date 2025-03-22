@@ -15,7 +15,7 @@ import { useSettings } from "@/hooks/useSettings";
 import { SettingsTitle } from "@/pages/settings/SettingsTitle";
 
 export default function Page() {
-  const data = useData<Data>();
+  const { stations } = useData<Data>();
   const [settings] = useSettings();
 
   const [showAdminTabSetting, setShowAdminTabSetting] = React.useState(
@@ -34,7 +34,7 @@ export default function Page() {
           <SettingsStartPage />
           <SettingsDisruptions />
           <SettingsTheme />
-          <SettingsCommute stations={data.stations} />
+          <SettingsCommute stations={stations} />
           {showAdminTabSetting && <SettingsAdmin />}
           <SettingsReset />
         </Column>
