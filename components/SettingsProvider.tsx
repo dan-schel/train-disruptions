@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { cookieSettings, Settings } from "@/shared/settings";
 import { usePageContext } from "vike-react/usePageContext";
 import Cookies from "js-cookie";
-import { SettingsContext, SettingsContextContent } from "@/hooks/useSettings";
+import { SettingsContext } from "@/hooks/useSettings";
 
 const cookies = Cookies.withAttributes({
   sameSite: cookieSettings.sameSite,
@@ -22,18 +22,12 @@ export function SettingsProvider(props: SettingsProviderProps) {
     Settings.json.parse(settingsJson),
   );
 
-  const contextValue: SettingsContextContent = {
-    initialized: true,
-    settings,
-    setSettings,
-  };
-
   useEffect(() => {
     cookies.set("settings", JSON.stringify(settings.toJSON()));
   }, [settings]);
 
   return (
-    <SettingsContext.Provider value={contextValue}>
+    <SettingsContext.Provider value={{ ready: true, settings, setSettings }}>
       {props.children}
     </SettingsContext.Provider>
   );

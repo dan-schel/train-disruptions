@@ -2,22 +2,21 @@ import React from "react";
 import { Settings } from "@/shared/settings";
 
 export type SettingsContextContent = {
-  initialized: boolean;
+  ready: boolean;
   settings: Settings;
   setSettings: React.Dispatch<React.SetStateAction<Settings>>;
 };
 
 export const SettingsContext = React.createContext<SettingsContextContent>({
-  initialized: false,
+  ready: false,
   settings: Settings.default,
   setSettings() {},
 });
 
 export function useSettings() {
-  const { initialized, settings, setSettings } =
-    React.useContext(SettingsContext);
+  const { ready, settings, setSettings } = React.useContext(SettingsContext);
 
-  if (!initialized) {
+  if (!ready) {
     throw new Error("Attempting to use settings outside <SettingsProvider>.");
   }
 
