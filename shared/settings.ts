@@ -16,9 +16,9 @@ export const cookieSettings = {
 // TODO: This list is literally just off the top of my head. Let's refine these
 // categories later!
 export const filterableDisruptionCategories = [
-  "station-closures",
-  "cancellations",
   "delays",
+  "cancellations",
+  "station-closures",
   "accessibility",
   "car-park-closures",
 ] as const;
