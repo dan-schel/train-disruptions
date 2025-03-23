@@ -74,7 +74,7 @@ Renders text.
 ```
 
 ```tsx
-<Text style="custom" className="text-status-green text-sm">
+<Text style="custom" className="text-status-green text-xl">
   Some text, where <b>this bit</b> is bold.
 </Text>
 ```

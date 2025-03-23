@@ -21,7 +21,7 @@ export default function Page() {
     <PageCenterer>
       <PagePadding>
         <Column>
-          <Text style="title">Is it buses?</Text>
+          <Text style="megatitle">Is it buses?</Text>
           <Spacer h="4" />
 
           <Text>Melbourne&apos;s train disruptions, visualised</Text>

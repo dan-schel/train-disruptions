@@ -18,11 +18,7 @@ export function TodayIndicator({ column }: TodayIndicatorProps) {
           align="center"
           justify="center"
         >
-          <Text
-            style="custom"
-            className="text-background text-xs"
-            align="center"
-          >
+          <Text style="tiny-inverted" align="center">
             TODAY
           </Text>
         </Column>

@@ -79,7 +79,7 @@ export function SettingsDisruptions() {
             <Column className="gap-1">
               <Text>{formattedCategories[category].name}</Text>
               {formattedCategories[category].description && (
-                <Text style="custom" className="text-sm">
+                <Text style="tiny-weak">
                   {formattedCategories[category].description}
                 </Text>
               )}

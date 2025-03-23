@@ -18,7 +18,7 @@ export default function Page() {
         <Column align="left">
           {commute != null && (
             <>
-              <Text style="title">Is it buses...</Text>
+              <Text style="megatitle">Is it buses...</Text>
               <Spacer h="4" />
               <Text>
                 between <b>{commute.stationAName}</b> and{" "}
@@ -28,7 +28,7 @@ export default function Page() {
           )}
           {commute == null && (
             <>
-              <Text style="title">My commute</Text>
+              <Text style="megatitle">My commute</Text>
               <Spacer h="4" />
               <Text>
                 Tell us the two stations you&apos;re travelling between, and

@@ -19,7 +19,8 @@ const sizeScale = [
 
 const styles = {
   regular: "",
-  title: "text-4xl text-foreground-strong",
+  megatitle: "text-4xl text-foreground-strong",
+  title: "text-2xl text-foreground-strong",
   subtitle: "text-xl text-foreground-strong",
 
   small: "text-sm",
@@ -28,6 +29,9 @@ const styles = {
   // "small-red": "text-sm",
   // "small-yellow": "text-sm",
   // "small-green": "text-sm",
+
+  "tiny-inverted": "text-xs text-background",
+  "tiny-weak": "text-xs text-foreground-weak",
 
   "mobile-nav-bar": "text-xs",
   "mobile-nav-bar-active": "text-xs text-accent",

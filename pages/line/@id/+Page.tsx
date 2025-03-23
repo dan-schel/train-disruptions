@@ -20,7 +20,7 @@ export default function Page() {
           <Column className="gap-4">
             {line != null ? (
               <>
-                <Text style="title">Is it buses...</Text>
+                <Text style="megatitle">Is it buses...</Text>
                 <Text>
                   on the <b>{line.name}</b> line?
                 </Text>
@@ -28,7 +28,7 @@ export default function Page() {
                 <hr className="border-soft-border" />
 
                 <Column className="gap-6">
-                  <Text style="title">Buses replace trains...</Text>
+                  <Text style="subtitle">Buses replace trains...</Text>
 
                   <Calendar data={line.calendar} />
                 </Column>

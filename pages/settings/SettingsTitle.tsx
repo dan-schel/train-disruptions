@@ -27,7 +27,7 @@ export function SettingsTitle(props: SettingsTitleProps) {
   return (
     <With className="self-start">
       <Button onClick={handleClick}>
-        <Text style="title">Settings</Text>
+        <Text style="megatitle">Settings</Text>
       </Button>
     </With>
   );

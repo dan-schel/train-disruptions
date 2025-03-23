@@ -20,8 +20,9 @@
 
   --color-*: initial;
   --color-background: hsl(220deg 20% 100%); /* Update pages/utils.ts too! */
-  --color-foreground: hsl(220deg 20% 20%);
+  --color-foreground: hsl(220deg 20% 15%);
   --color-foreground-strong: hsl(220deg 20% 0%);
+  --color-foreground-weak: hsl(220deg 20% 30%);
   --color-soft: hsl(220deg 20% 93%);
   --color-soft-hover: hsl(220deg 20% 89%);
   --color-soft-active: hsl(220deg 20% 85%);
@@ -50,8 +51,9 @@
 /* Dark mode colours */
 @variant dark {
   --color-background: hsl(220deg 20% 5%); /* Update pages/utils.ts too! */
-  --color-foreground: hsl(220deg 20% 80%);
+  --color-foreground: hsl(220deg 20% 85%);
   --color-foreground-strong: hsl(220deg 20% 100%);
+  --color-foreground-weak: hsl(220deg 20% 70%);
   --color-soft: hsl(220deg 20% 15%);
   --color-soft-hover: hsl(220deg 20% 20%);
   --color-soft-active: hsl(220deg 20% 25%);

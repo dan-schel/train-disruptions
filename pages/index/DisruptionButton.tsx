@@ -23,20 +23,10 @@ export function DisruptionButton(props: DisruptionButtonProps) {
         className="group-active:bg-soft-active group-hover:bg-soft-hover -mx-4 gap-2 px-4 py-2"
       >
         <DisruptionIcon icon={icon} />
-        <Column className="gap-1.5">
-          {headline != null && (
-            <Text style="custom" className="text-xs">
-              {headline}
-            </Text>
-          )}
-          <Text style="custom" className="text-foreground-strong">
-            {subject}
-          </Text>
-          {period != null && (
-            <Text style="custom" className="text-xs">
-              {period}
-            </Text>
-          )}
+        <Column className="gap-2">
+          {headline != null && <Text style="tiny-weak">{headline}</Text>}
+          <Text>{subject}</Text>
+          {period != null && <Text style="tiny-weak">{period}</Text>}
         </Column>
         <MingcuteRightLine className="-mr-1" />
       </Grid>
