@@ -33,11 +33,7 @@ export function SimpleButton(props: SimpleButtonProps) {
   if (layout === "tile") {
     return (
       <Button {...action} alt={props.alt}>
-        <Column
-          className={clsx("gap-2 px-4 py-2", theme)}
-          align="center"
-          justify="center"
-        >
+        <Column className={clsx("gap-2 px-4 py-2", theme)} align="center">
           {props.icon && <With className="-ml-0.5 text-2xl">{props.icon}</With>}
           {props.text && <Text align="center">{props.text}</Text>}
         </Column>
