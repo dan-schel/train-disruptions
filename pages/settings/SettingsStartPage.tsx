@@ -27,7 +27,7 @@ export function SettingsStartPage() {
         {startPages.map((option) => (
           <label
             key={option}
-            className="hover:bg-soft-hover flex cursor-pointer gap-2 py-1"
+            className="hover:bg-soft-hover flex cursor-pointer gap-2 py-2"
           >
             <input
               type="radio"

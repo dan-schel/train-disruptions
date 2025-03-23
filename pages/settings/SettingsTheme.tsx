@@ -29,7 +29,7 @@ export function SettingsTheme() {
         {themes.map((theme) => (
           <label
             key={theme}
-            className="hover:bg-soft-hover flex cursor-pointer gap-2 py-1"
+            className="hover:bg-soft-hover flex cursor-pointer gap-2 py-2"
           >
             <input
               type="radio"

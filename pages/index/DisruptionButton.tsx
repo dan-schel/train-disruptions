@@ -18,9 +18,9 @@ export function DisruptionButton(props: DisruptionButtonProps) {
   return (
     <Button href={`/disruption/${id}`}>
       <Grid
-        columns="1.5rem 1fr auto"
+        columns="2rem 1fr 1.5rem"
         align="center"
-        className="group-active:bg-soft-active group-hover:bg-soft-hover -mx-4 gap-2 px-4 py-2"
+        className="group-active:bg-soft-active group-hover:bg-soft-hover gap-2 p-2"
       >
         <DisruptionIcon icon={icon} />
         <Column className="gap-2">
@@ -28,7 +28,7 @@ export function DisruptionButton(props: DisruptionButtonProps) {
           <Text>{subject}</Text>
           {period != null && <Text style="tiny-weak">{period}</Text>}
         </Column>
-        <MingcuteRightLine className="-mr-1" />
+        <MingcuteRightLine className="size-full" />
       </Grid>
     </Button>
   );
@@ -41,22 +41,22 @@ function DisruptionIcon({
 }) {
   if (icon.startsWith("line")) {
     return (
-      <div className="bg-soft flex size-6 items-center justify-center overflow-hidden rounded-full">
-        <div className="bg-accent grid h-full w-1.5 rotate-45" />
+      <div className="bg-soft flex size-8 items-center justify-center overflow-hidden rounded-full">
+        <div className="bg-accent grid h-full w-2 rotate-45" />
       </div>
     );
   } else if (icon === "cross") {
-    return <MingcuteCloseCircleFill className="size-6" />;
+    return <MingcuteCloseCircleFill className="size-8" />;
   } else if (icon === "altered-route") {
     return (
-      <div className="bg-soft flex size-6 items-center justify-center rounded-full">
+      <div className="bg-soft flex size-8 items-center justify-center rounded-full">
         <MingcuteRouteFill className="text-accent size-full p-1" />
       </div>
     );
   } else {
     // An empty circle. (TODO: Maybe we can define some default icon, idk.)
     return (
-      <div className="bg-soft flex size-6 items-center justify-center overflow-hidden rounded-full" />
+      <div className="bg-soft flex size-8 items-center justify-center overflow-hidden rounded-full" />
     );
   }
 }

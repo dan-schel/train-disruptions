@@ -33,7 +33,7 @@ export function LineButton({ line }: LineButtonProps) {
       <Grid
         columns="auto 1fr auto"
         align="center"
-        className="group-active:bg-soft-active group-hover:bg-soft-hover -mx-4 gap-2 px-4 py-1"
+        className="group-active:bg-soft-active group-hover:bg-soft-hover gap-2 p-1"
       >
         <Row align="center" className="gap-2">
           <div
@@ -56,7 +56,7 @@ export function LineButton({ line }: LineButtonProps) {
             {line.status}
           </span>
         </div>
-        <MingcuteRightLine className="-mr-1" />
+        <MingcuteRightLine />
       </Grid>
     </Button>
   );

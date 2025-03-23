@@ -58,7 +58,7 @@ export function SettingsDisruptions() {
         {allCategories.map((category) => (
           <label
             key={category}
-            className="hover:bg-soft-hover flex h-9 cursor-pointer items-center justify-between"
+            className="hover:bg-soft-hover flex cursor-pointer items-center justify-between py-2"
           >
             <input
               type="checkbox"
@@ -76,7 +76,7 @@ export function SettingsDisruptions() {
                   : undefined
               }
             />
-            <Column className="gap-1">
+            <Column className="gap-2">
               <Text>{formattedCategories[category].name}</Text>
               {formattedCategories[category].description && (
                 <Text style="tiny-weak">

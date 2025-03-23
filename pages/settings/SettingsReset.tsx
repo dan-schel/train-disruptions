@@ -17,9 +17,9 @@ export function SettingsReset() {
   }
 
   return (
-    <Column>
+    <Column align="left">
       <Text style="subtitle">Reset</Text>
-      <Spacer h="2" />
+      <Spacer h="4" />
       <Text>
         Reset all settings to their default values. This cannot be undone!
       </Text>
