@@ -1,22 +1,23 @@
-import React, { useState } from "react";
-import { Column } from "@/components/core/Column";
-import { BackNavigation } from "@/components/navigation/BackNavigation";
-import { PageCenterer } from "@/components/common/PageCenterer";
-import { PagePadding } from "@/components/common/PagePadding";
-import { Text } from "@/components/core/Text";
-import { Spacer } from "@/components/core/Spacer";
-import { Row } from "@/components/core/Row";
-import { SimpleButton } from "@/components/common/SimpleButton";
-import { MingcutePencil2Fill } from "@/components/icons/MingcutePencil2Fill";
-import { TextInput } from "@/components/core/TextInput";
-import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { MingcuteCloseCircleFill } from "@/components/icons/MingcuteCloseCircleFill";
-import { useData } from "vike-react/useData";
-import { Data } from "@/pages/admin/account/+data";
+import React from "react";
+import { useForm } from "react-hook-form";
 import axios, { AxiosError } from "axios";
 import { reload } from "vike/client/router";
+import { useData } from "vike-react/useData";
+import { Data } from "@/pages/admin/account/+data";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import { Row } from "@/components/core/Row";
+import { Text } from "@/components/core/Text";
+import { Column } from "@/components/core/Column";
+import { Spacer } from "@/components/core/Spacer";
+import { TextInput } from "@/components/core/TextInput";
+import { PagePadding } from "@/components/common/PagePadding";
+import { PageCenterer } from "@/components/common/PageCenterer";
+import { SimpleButton } from "@/components/common/SimpleButton";
+import { BackNavigation } from "@/components/navigation/BackNavigation";
+import { MingcutePencil2Fill } from "@/components/icons/MingcutePencil2Fill";
+import { MingcuteCloseCircleFill } from "@/components/icons/MingcuteCloseCircleFill";
 
 const schema = z
   .object({
@@ -37,7 +38,7 @@ const schema = z
 
 export default function Page() {
   const { id, username } = useData<Data>();
-  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [isEditing, setIsEditing] = React.useState<boolean>(false);
 
   const {
     register,

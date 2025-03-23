@@ -5,7 +5,7 @@ import { Data } from "@/pages/admin/users/+data";
 import { Text } from "@/components/core/Text";
 import { With } from "@/components/core/With";
 import { Column } from "@/components/core/Column";
-import AdminUser from "@/pages/admin/users/AdminUser";
+import { AdminUser } from "@/pages/admin/users/AdminUser";
 import { DiscordUser } from "@/pages/admin/users/DiscordUser";
 import { PagePadding } from "@/components/common/PagePadding";
 import { PageCenterer } from "@/components/common/PageCenterer";

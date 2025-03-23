@@ -13,7 +13,7 @@ type AdminUserProps = {
   user: Data["admins"][number];
 };
 
-export default function AdminUser({ user }: AdminUserProps) {
+export function AdminUser({ user }: AdminUserProps) {
   const [status, setStatus] = React.useState<"active" | "failed" | "success">(
     "active",
   );
@@ -31,7 +31,10 @@ export default function AdminUser({ user }: AdminUserProps) {
           await navigate("/admin");
         } else {
           setStatus("failed");
-          setError(error.response?.data.error ?? null);
+          setError(
+            error.response?.data.error ??
+              "An error occurred, please try again later",
+          );
         }
       });
   }

@@ -78,6 +78,11 @@ export class App {
         : "⚫ Not using Discord",
     );
     console.log(
+      this.discordBot != null
+        ? "🟢 Discord bot online"
+        : "⚫ Discord bot offline",
+    );
+    console.log(
       this.commitHash != null
         ? `🟢 Commit hash: "${this.commitHash}"`
         : "⚫ Commit hash unknown",

@@ -35,7 +35,7 @@ export async function data(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     admins: admins.map(({ password, ...user }) => user),
     discord: discord
-      .filter((user) => admins.every((x) => x.discord !== user.id))
+      .filter((user) => admins.findIndex((x) => x.discord !== user.id) !== -1)
       .map(({ id, username, avatar }) => ({
         id,
         username,
