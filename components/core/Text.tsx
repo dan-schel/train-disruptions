@@ -28,11 +28,10 @@ const styles = {
   "small-yellow": "text-sm text-status-yellow",
   "small-red": "text-sm text-status-red",
 
+  tiny: "text-xs",
   "tiny-inverted": "text-xs text-background",
   "tiny-weak": "text-xs text-foreground-weak",
-
-  "mobile-nav-bar": "text-xs",
-  "mobile-nav-bar-active": "text-xs text-accent",
+  "tiny-accent": "text-xs text-accent",
 };
 
 type Style =
