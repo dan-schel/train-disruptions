@@ -1,20 +1,16 @@
-import React from "react";
-
-import { PageCenterer } from "@/components/common/PageCenterer";
-import { PagePadding } from "@/components/common/PagePadding";
-import { Column } from "@/components/core/Column";
-import axios, { AxiosError } from "axios";
-import { SimpleButton } from "@/components/common/SimpleButton";
-import { reload } from "vike/client/router";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { TextInput } from "@/components/core/TextInput";
+import React from "react";
+import { useForm } from "react-hook-form";
+import axios, { AxiosError } from "axios";
+import { reload } from "vike/client/router";
+import { loginSchema } from "@/shared/types/auth";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-const schema = z.object({
-  username: z.string().nonempty("This field is required"),
-  password: z.string().nonempty("This field is required"),
-});
+import { Column } from "@/components/core/Column";
+import { TextInput } from "@/components/core/TextInput";
+import { PagePadding } from "@/components/common/PagePadding";
+import { PageCenterer } from "@/components/common/PageCenterer";
+import { SimpleButton } from "@/components/common/SimpleButton";
 
 export default function Page() {
   const {
@@ -23,10 +19,10 @@ export default function Page() {
     setError,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(loginSchema),
   });
 
-  async function handleLogin(data: z.infer<typeof schema>) {
+  async function handleLogin(data: z.infer<typeof loginSchema>) {
     try {
       await axios
         .post("/api/auth/login", data, { withCredentials: true })
