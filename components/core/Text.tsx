@@ -24,11 +24,9 @@ const styles = {
   subtitle: "text-xl text-foreground-strong",
 
   small: "text-sm",
-  // TODO: [DS] Can't use these yet because there's no way to apply marquee
-  // class. Should it be a prop on the <Text> component?
-  // "small-red": "text-sm",
-  // "small-yellow": "text-sm",
-  // "small-green": "text-sm",
+  "small-green": "text-sm text-status-green",
+  "small-yellow": "text-sm text-status-yellow",
+  "small-red": "text-sm text-status-red",
 
   "tiny-inverted": "text-xs text-background",
   "tiny-weak": "text-xs text-foreground-weak",

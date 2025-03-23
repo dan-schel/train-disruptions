@@ -1,7 +1,5 @@
-.marquee {
-  display: inline-block;
-  min-width: 100%; /* This is to prevent shorter text from needing to animate */
-  white-space: nowrap;
+._marquee {
+  min-width: max-content;
   animation: marqueeAnimation 8s ease-in-out infinite;
 }
 
