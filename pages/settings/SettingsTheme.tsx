@@ -23,9 +23,7 @@ export function SettingsTheme() {
 
   return (
     <Column>
-      <Text style="custom" className="text-foreground-strong text-lg font-bold">
-        Colour theme
-      </Text>
+      <Text style="subtitle">Colour theme</Text>
       <Spacer h="2" />
       <Column>
         {themes.map((theme) => (

@@ -102,3 +102,8 @@ html {
     cursor: pointer;
   }
 }
+
+b,
+strong {
+  color: var(--color-foreground-strong);
+}

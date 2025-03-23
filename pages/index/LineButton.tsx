@@ -33,7 +33,7 @@ export function LineButton({ line }: LineButtonProps) {
       <Grid
         columns="auto 1fr auto"
         align="center"
-        className="group-active:bg-soft-active group-hover:bg-soft-hover gap-2 p-1 lg:p-2"
+        className="group-active:bg-soft-active group-hover:bg-soft-hover -mx-4 gap-2 px-4 py-1"
       >
         <Row align="center" className="gap-2">
           <div
@@ -42,21 +42,21 @@ export function LineButton({ line }: LineButtonProps) {
               bgClassMapping[line.statusColor],
             )}
           />
-          <Text oneLine style="custom" className="text-sm lg:text-base">
+          <Text oneLine style="small">
             {line.name}
           </Text>
         </Row>
         <div className="flex overflow-hidden text-end">
           <span
             className={clsx(
-              "marquee text-sm lg:text-base",
+              "marquee text-sm",
               textClassMapping[line.statusColor],
             )}
           >
             {line.status}
           </span>
         </div>
-        <MingcuteRightLine />
+        <MingcuteRightLine className="-mr-1" />
       </Grid>
     </Button>
   );

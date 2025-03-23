@@ -13,9 +13,7 @@ export function SettingsAdmin() {
 
   return (
     <Column>
-      <Text style="custom" className="text-foreground-strong text-lg font-bold">
-        Admin
-      </Text>
+      <Text style="subtitle">Admin</Text>
 
       <label className="hover:bg-soft-hover flex h-9 cursor-pointer items-center justify-between">
         <input

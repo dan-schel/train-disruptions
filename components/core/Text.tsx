@@ -19,9 +19,16 @@ const sizeScale = [
 
 const styles = {
   regular: "",
-  title: "text-2xl text-foreground-strong",
-  subtitle: "text-lg text-foreground-strong",
+  title: "text-4xl text-foreground-strong",
+  subtitle: "text-xl text-foreground-strong",
+
   small: "text-sm",
+  // TODO: [DS] Can't use these yet because there's no way to apply marquee
+  // class. Should it be a prop on the <Text> component?
+  // "small-red": "text-sm",
+  // "small-yellow": "text-sm",
+  // "small-green": "text-sm",
+
   "mobile-nav-bar": "text-xs",
   "mobile-nav-bar-active": "text-xs text-accent",
 };

@@ -20,9 +20,7 @@ export function SettingsStartPage() {
 
   return (
     <Column>
-      <Text style="custom" className="text-foreground-strong text-lg font-bold">
-        Start page
-      </Text>
+      <Text style="subtitle">Start page</Text>
       <Spacer h="2" />
 
       <Column>

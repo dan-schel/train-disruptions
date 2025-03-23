@@ -18,9 +18,9 @@ export function DisruptionButton(props: DisruptionButtonProps) {
   return (
     <Button href={`/disruption/${id}`}>
       <Grid
-        columns="2rem 1fr 1.5rem"
+        columns="1.5rem 1fr auto"
         align="center"
-        className="group-active:bg-soft-active group-hover:bg-soft-hover gap-2 p-2"
+        className="group-active:bg-soft-active group-hover:bg-soft-hover -mx-4 gap-2 px-4 py-2"
       >
         <DisruptionIcon icon={icon} />
         <Column className="gap-1.5">
@@ -38,7 +38,7 @@ export function DisruptionButton(props: DisruptionButtonProps) {
             </Text>
           )}
         </Column>
-        <MingcuteRightLine className="size-full" />
+        <MingcuteRightLine className="-mr-1" />
       </Grid>
     </Button>
   );
@@ -51,22 +51,22 @@ function DisruptionIcon({
 }) {
   if (icon.startsWith("line")) {
     return (
-      <div className="bg-soft flex size-8 items-center justify-center overflow-hidden rounded-full">
-        <div className="bg-accent grid h-full w-2 rotate-45" />
+      <div className="bg-soft flex size-6 items-center justify-center overflow-hidden rounded-full">
+        <div className="bg-accent grid h-full w-1.5 rotate-45" />
       </div>
     );
   } else if (icon === "cross") {
-    return <MingcuteCloseCircleFill className="size-8" />;
+    return <MingcuteCloseCircleFill className="size-6" />;
   } else if (icon === "altered-route") {
     return (
-      <div className="bg-soft flex size-8 items-center justify-center rounded-full">
+      <div className="bg-soft flex size-6 items-center justify-center rounded-full">
         <MingcuteRouteFill className="text-accent size-full p-1" />
       </div>
     );
   } else {
     // An empty circle. (TODO: Maybe we can define some default icon, idk.)
     return (
-      <div className="bg-soft flex size-8 items-center justify-center overflow-hidden rounded-full" />
+      <div className="bg-soft flex size-6 items-center justify-center overflow-hidden rounded-full" />
     );
   }
 }

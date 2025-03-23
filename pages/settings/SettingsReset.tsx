@@ -18,9 +18,7 @@ export function SettingsReset() {
 
   return (
     <Column>
-      <Text style="custom" className="text-foreground-strong text-lg font-bold">
-        Reset
-      </Text>
+      <Text style="subtitle">Reset</Text>
       <Spacer h="2" />
       <Text>
         Reset all settings to their default values. This cannot be undone!
