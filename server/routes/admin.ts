@@ -1,17 +1,20 @@
-import { App } from "@/server/app";
-import { USERS } from "@/server/database/models/models";
-import { User } from "@/server/database/models/user";
-import { isAuthenticated } from "@/server/routes/middleware/authentication";
-import { validateMiddleware } from "@/server/routes/middleware/validate";
-import { uuid } from "@dan-schel/js-utils";
-import { Router } from "express";
 import { z } from "zod";
-import * as crypto from "crypto";
 import { hash } from "bcrypt";
+import { Router } from "express";
+import { App } from "@/server/app";
+import { randomFillSync } from "crypto";
+import { uuid } from "@dan-schel/js-utils";
+import { User } from "@/server/database/models/user";
+import { USERS } from "@/server/database/models/models";
+import { validateMiddleware } from "@/server/routes/middleware/validate";
+import { isAuthenticated } from "@/server/routes/middleware/authentication";
 
 export function createAdminRouter(app: App) {
   const adminRouter = Router();
 
+  /**
+   * Creates a new admin user and sends them their crendentials via Discord
+   */
   adminRouter.post(
     "/users",
     isAuthenticated,
@@ -49,7 +52,7 @@ export function createAdminRouter(app: App) {
       });
       if (existing) {
         return res.status(409).json({
-          error: "A user is already associated with this username",
+          error: "Username unavailable",
         });
       }
 
@@ -69,6 +72,9 @@ export function createAdminRouter(app: App) {
     },
   );
 
+  /**
+   * Update the current users's account details
+   */
   adminRouter.put(
     "/users/:id",
     isAuthenticated,
@@ -87,8 +93,7 @@ export function createAdminRouter(app: App) {
 
       if (req.session.user?.id !== id) {
         return res.status(403).json({
-          error:
-            "You cannot update the credentials of an other user's account.",
+          error: "You cannot update someone else's credentials.",
         });
       }
 
@@ -102,7 +107,7 @@ export function createAdminRouter(app: App) {
         .first({ where: { username } });
       if (existingUsername && existingUsername.id !== user.id) {
         return res.status(409).json({
-          error: "This username is associated already with another account",
+          error: "Username unavailable",
         });
       }
 
@@ -121,6 +126,39 @@ export function createAdminRouter(app: App) {
     },
   );
 
+  /**
+   * Deletes a user
+   */
+  adminRouter.delete(
+    "/users/:id",
+    isAuthenticated,
+    validateMiddleware({
+      params: z.object({
+        id: z.string(),
+      }),
+    }),
+    async (req, res) => {
+      const { id } = req.params;
+
+      if (req.session.user?.id === id) {
+        return res.status(409).json({ error: "You cannot delete yourself" });
+      }
+
+      if (req.session.user?.role === "admin") {
+        return res.status(403).json({ error: "Insufficient privileges" });
+      }
+
+      const admin = await app.database.of(USERS).get(id);
+      if (!admin || admin.role === "super") {
+        return res.status(404).json({ error: "Admin doesn't exist" });
+      }
+
+      await app.database.of(USERS).delete(admin.id);
+
+      return res.json();
+    },
+  );
+
   return adminRouter;
 }
 
@@ -130,6 +168,6 @@ const generatePassword = (
   length = 16,
   characters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz~!@-#$",
 ) =>
-  Array.from(crypto.randomFillSync(new Uint32Array(length)))
+  Array.from(randomFillSync(new Uint32Array(length)))
     .map((x) => characters[x % characters.length])
     .join("");

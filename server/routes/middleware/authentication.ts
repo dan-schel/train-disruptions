@@ -6,15 +6,15 @@ export const SessionCookieName = "sess_id";
 
 export function AuthSession(
   secret: string,
-  url: string,
-  name: string,
+  mongoUrl: string,
+  dbName: string,
   secure: boolean,
 ) {
   return session({
     secret,
     cookie: {
       secure,
-      maxAge: 1000 * 60 * 60 * 2,
+      maxAge: 1000 * 60 * 60 * 24, // 24 hours
       sameSite: "lax",
       httpOnly: true,
     },
@@ -22,8 +22,8 @@ export function AuthSession(
     saveUninitialized: false,
     name: SessionCookieName,
     store: MongoStore.create({
-      mongoUrl: url,
-      dbName: name,
+      mongoUrl,
+      dbName,
       stringify: false,
     }),
   });

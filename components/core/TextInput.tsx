@@ -1,10 +1,11 @@
-import React, { useState } from "react";
-
-import { Column } from "@/components/core/Column";
-import { Text } from "@/components/core/Text";
 import clsx from "clsx";
+import React from "react";
+
 import { Row } from "@/components/core/Row";
-import { SimpleButton } from "@/components/common/SimpleButton";
+import { Text } from "@/components/core/Text";
+import { With } from "@/components/core/With";
+import { Button } from "@/components/core/Button";
+import { Column } from "@/components/core/Column";
 
 interface TextInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   id?: string;
@@ -17,48 +18,54 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
   (props, ref) => {
     const { label, error, type, ...rest } = props;
 
-    const [passwordType, setPasswordType] =
-      useState<TextInputProps["type"]>(type);
+    const [textType, setTextType] =
+      React.useState<TextInputProps["type"]>(type);
 
     return (
-      <Column className="group gap-2">
+      <Column className="gap-2">
         {label && (
-          <label htmlFor={props.id}>
+          <label htmlFor={props.id} className="peer">
             <Text style="subtitle">{label}</Text>
           </label>
         )}
-        <Row
-          align="stretch"
-          justify="center"
-          className={clsx(
-            "overflow-hidden rounded border-2",
-            error
-              ? "border-red-400 group-hover:border-red-500"
-              : "border-action-secondary group-hover:border-slate-300",
-          )}
-        >
+        <Row className="bg-background h-10 rounded">
           <input
             ref={ref}
             {...rest}
-            type={passwordType}
-            className="h-10 grow bg-slate-200/10 p-2 focus-visible:outline-none"
+            type={textType}
+            className={clsx(
+              "flex-1 p-2 outline -outline-offset-1 focus:outline-2 focus:-outline-offset-2 max-sm:placeholder:text-xs",
+              error ? "outline-error" : "outline-soft",
+              type === "password" ? "-mr-px rounded-s" : "rounded",
+            )}
           />
           {props.type === "password" && (
-            <SimpleButton
-              layout="tile"
-              text={passwordType === "password" ? "Show" : "Hide"}
-              onClick={() => {
-                setPasswordType((prev) =>
-                  prev === "password" ? "text" : "password",
-                );
-              }}
-            />
+            <With className="*:focus-visible:outline-none">
+              <Button
+                onClick={() => {
+                  setTextType((type) =>
+                    type === "password" ? "text" : "password",
+                  );
+                }}
+              >
+                <Column
+                  justify="center"
+                  align="center"
+                  className={clsx(
+                    "w-18 rounded-e px-4 outline -outline-offset-1 group-focus:outline-2 group-focus:-outline-offset-2",
+                    error ? "outline-error" : "outline-soft",
+                  )}
+                >
+                  <Text>{textType === "password" ? "Show" : "Hide"}</Text>
+                </Column>
+              </Button>
+            </With>
           )}
         </Row>
-        {error && <Text style="input-error">{error}</Text>}
+        {error && <Text style="small-error">{error}</Text>}
       </Column>
     );
   },
 );
 
-TextInput.displayName = "Input";
+TextInput.displayName = "TextInput";

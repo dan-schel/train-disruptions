@@ -1,15 +1,15 @@
 import React from "react";
-
-import { PageCenterer } from "@/components/common/PageCenterer";
-import { PagePadding } from "@/components/common/PagePadding";
-import { Column } from "@/components/core/Column";
 import { useData } from "vike-react/useData";
 import { Data } from "@/pages/admin/users/+data";
-import { Row } from "@/components/core/Row";
+
 import { Text } from "@/components/core/Text";
-import { BackNavigation } from "@/components/navigation/BackNavigation";
-import { DiscordUser } from "@/pages/admin/users/DiscordUser";
 import { With } from "@/components/core/With";
+import { Column } from "@/components/core/Column";
+import AdminUser from "@/pages/admin/users/AdminUser";
+import { DiscordUser } from "@/pages/admin/users/DiscordUser";
+import { PagePadding } from "@/components/common/PagePadding";
+import { PageCenterer } from "@/components/common/PageCenterer";
+import { BackNavigation } from "@/components/navigation/BackNavigation";
 
 export default function Page() {
   const { discord, admins } = useData<Data>();
@@ -22,7 +22,9 @@ export default function Page() {
           <Column className="gap-6">
             <Column className="gap-2">
               <Text style="subtitle">Conductors</Text>
-              {!admins.length && (
+              {admins.length > 0 ? (
+                admins.map((user) => <AdminUser key={user.id} user={user} />)
+              ) : (
                 <With className="p-5">
                   <Text align="center">
                     No one&apos;s here to help onboard our commuters, maybe one
@@ -30,19 +32,16 @@ export default function Page() {
                   </Text>
                 </With>
               )}
-              {admins.map((user) => (
-                <Row key={user.id} align="center" className="h-10 p-2">
-                  <Text>{user.username}</Text>
-                </Row>
-              ))}
             </Column>
 
-            <Column className="gap-2">
-              <Text style="subtitle">Commuters</Text>
-              {discord.map((user) => (
-                <DiscordUser key={user.id} user={user} />
-              ))}
-            </Column>
+            {discord.length > 0 && (
+              <Column className="gap-2">
+                <Text style="subtitle">Commuters</Text>
+                {discord.map((user) => (
+                  <DiscordUser key={user.id} user={user} />
+                ))}
+              </Column>
+            )}
           </Column>
         </PagePadding>
       </PageCenterer>

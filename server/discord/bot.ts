@@ -7,7 +7,6 @@ import {
   Events,
   GatewayIntentBits,
   GuildMember,
-  hyperlink,
   Routes,
   spoiler,
 } from "discord.js";
@@ -29,6 +28,7 @@ export class DiscordBot {
   private _init() {
     this.client.on(Events.InteractionCreate, async (readyClient) => {
       if (readyClient.isButton()) {
+        // Handle the event to delete the message containing login credentials
         if (readyClient.customId === "delete_credentials") {
           try {
             await readyClient.client.rest.delete(
@@ -69,18 +69,24 @@ export class DiscordBot {
       body: { recipient_id: id },
     })) as Channel;
 
-    const button = new ButtonBuilder()
+    const linkButton = new ButtonBuilder()
+      .setStyle(ButtonStyle.Link)
+      .setURL(`${origin}/admin`)
+      .setLabel("Login");
+    const deleteButton = new ButtonBuilder()
       .setCustomId("delete_credentials")
       .setLabel("Delete Message")
       .setStyle(ButtonStyle.Danger);
-    const actions = new ActionRowBuilder<ButtonBuilder>().addComponents(button);
+    const actions = new ActionRowBuilder<ButtonBuilder>().addComponents(
+      linkButton,
+      deleteButton,
+    );
 
     await this.client.rest.post(Routes.channelMessages(DM.id), {
       body: {
         content:
-          `You've been made an admin for Is is buses?! Click ${hyperlink("here", `${origin}/admin`)} to Sign in\n` +
-          `Username: ${username}\n` +
-          `Password: ${spoiler(password)}`,
+          `You've been made an admin for Is is buses?! Below are your credentials :point_down:\n` +
+          spoiler(`Username: ${username}\n` + `Password: ${password}`),
         components: [actions.toJSON()],
       },
     });

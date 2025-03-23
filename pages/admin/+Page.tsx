@@ -1,21 +1,17 @@
 import React from "react";
+import axios from "axios";
+import { Data } from "@/pages/admin/+data";
+import { reload } from "vike/client/router";
+import { useData } from "vike-react/useData";
 
 import { Text } from "@/components/core/Text";
+import AdminButton from "@/pages/admin/Button";
 import { Column } from "@/components/core/Column";
-import { PageCenterer } from "@/components/common/PageCenterer";
 import { PagePadding } from "@/components/common/PagePadding";
-import { useData } from "vike-react/useData";
-import { Data } from "@/pages/admin/+data";
-import axios from "axios";
-import { reload } from "vike/client/router";
-import { SimpleButton } from "@/components/common/SimpleButton";
-import { Row } from "@/components/core/Row";
-import { MingcuteRightLine } from "@/components/icons/MingcuteRightLine";
-import { MingcuteGroup2Fill } from "@/components/icons/MingcuteGroup2Fill";
-import { With } from "@/components/core/With";
-import { Button } from "@/components/core/Button";
-import { Grid } from "@/components/core/Grid";
+import { PageCenterer } from "@/components/common/PageCenterer";
+import { MingcuteExitFill } from "@/components/icons/MingcuteExitFill";
 import { MingcuteUser4Fill } from "@/components/icons/MingcuteUser4Fill";
+import { MingcuteGroup2Fill } from "@/components/icons/MingcuteGroup2Fill";
 
 export default function Page() {
   // TODO: This is temporary. Saves me having to check the prod database all the
@@ -50,46 +46,25 @@ export default function Page() {
             day.
           </Text>
 
-          <Grid columns="1fr 1fr" className="gap-4">
-            <Column className="rounded border border-white p-4">
-              <Text>Alerts</Text>
-              <Text>{historicalAlertsCount} alerts today</Text>
-            </Column>
-            <Column className="rounded border border-white p-4">
-              <Text>Users</Text>
-              <Text>{historicalAlertsCount} admin</Text>
-            </Column>
-          </Grid>
-
-          <Button href="/admin/account">
-            <Row
-              align="center"
-              className="group-hover:bg-action gap-4 rounded p-2"
-            >
-              <MingcuteUser4Fill className="size-8" />
-              <Text style="subtitle">Account</Text>
-              <With flexGrow="1" className="justify-end">
-                <MingcuteRightLine className="size-6" />
-              </With>
-            </Row>
-          </Button>
+          <AdminButton
+            action={"/admin/account"}
+            icon={<MingcuteUser4Fill className="size-8" />}
+            label="Account"
+          />
 
           {isSuperAdmin && (
-            <Button href="/admin/users">
-              <Row
-                align="center"
-                className="group-hover:bg-action gap-4 rounded p-2"
-              >
-                <MingcuteGroup2Fill className="size-8" />
-                <Text style="subtitle">Manage Users</Text>
-                <With flexGrow="1" className="justify-end">
-                  <MingcuteRightLine className="size-6" />
-                </With>
-              </Row>
-            </Button>
+            <AdminButton
+              action={"/admin/users"}
+              icon={<MingcuteGroup2Fill className="size-8" />}
+              label="Manage Users"
+            />
           )}
 
-          <SimpleButton text="Log out" onClick={handleLogout} />
+          <AdminButton
+            action={handleLogout}
+            icon={<MingcuteExitFill className="size-8" />}
+            label="Logout"
+          />
         </Column>
       </PagePadding>
     </PageCenterer>

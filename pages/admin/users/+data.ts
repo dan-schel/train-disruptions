@@ -1,6 +1,6 @@
+import { PageContext } from "vike/types";
 import { USERS } from "@/server/database/models/models";
 import { JsonSerializable } from "@/shared/json-serializable";
-import { PageContext } from "vike/types";
 import { calculateUserDefaultAvatarIndex, User } from "discord.js";
 
 export type Data = {
@@ -35,7 +35,6 @@ export async function data(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     admins: admins.map(({ password, ...user }) => user),
     discord: discord
-      .filter((user) => user.id === "184462953511256065")
       .filter((user) => admins.every((x) => x.discord !== user.id))
       .map(({ id, username, avatar }) => ({
         id,

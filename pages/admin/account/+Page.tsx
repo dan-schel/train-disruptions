@@ -84,7 +84,7 @@ export default function Page() {
               <Text style="title">Account</Text>
               <SimpleButton
                 text={isEditing ? "Cancel" : "Edit Details"}
-                theme={isEditing ? "danger" : "default"}
+                theme={isEditing ? "error" : "default"}
                 icon={
                   isEditing ? (
                     <MingcuteCloseCircleFill />

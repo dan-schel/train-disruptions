@@ -24,7 +24,9 @@ const styles = {
   small: "text-sm",
   "mobile-nav-bar": "text-xs",
   "mobile-nav-bar-active": "text-xs text-accent",
-  "input-error": "text-sm text-red-400",
+  error: "text-status-red",
+  "small-error": "text-sm text-status-red",
+  success: "text-status-green",
 };
 
 type Style =

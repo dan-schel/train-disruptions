@@ -11,7 +11,8 @@ const themes = {
   primary:
     "bg-accent group-hover:bg-accent-hover group-active:bg-accent-active text-on-accent",
   hover: "group-hover:bg-soft-hover group-active:bg-soft-active",
-  danger: "bg-red-500 group-hover:bg-red-400 group-active:bg-red-600",
+  error:
+    "bg-error group-hover:bg-error-hover group-active:bg-error-active text-background",
 };
 
 type Content =

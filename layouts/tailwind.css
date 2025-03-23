@@ -37,6 +37,9 @@
   --color-switch: hsl(220deg 20% 70%);
   --color-switch-hover: hsl(220deg 20% 65%);
   --color-switch-knob: hsl(220deg 0% 100%);
+  --color-error: hsl(0, 100%, 45%);
+  --color-error-hover: hsl(0, 100%, 50%);
+  --color-error-active: hsl(0, 100%, 60%);
 
   --leading-*: initial;
   --leading-none: 0em;
@@ -67,6 +70,9 @@
   --color-switch: hsl(220deg 20% 35%);
   --color-switch-hover: hsl(220deg 20% 40%);
   --color-switch-knob: hsl(220deg 20% 100%);
+  --color-error: hsl(0, 100%, 70%);
+  --color-error-hover: hsl(0, 100%, 65%);
+  --color-error-active: hsl(0, 100%, 60%);
 }
 
 /* Override leading to set --line-spacing instead (see ./css/text.css). */
