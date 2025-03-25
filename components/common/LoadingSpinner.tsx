@@ -3,6 +3,7 @@ import clsx from "clsx";
 
 const styles = {
   default: "text-2xl text-foreground",
+  large: "text-4xl text-foreground",
 };
 
 export type LoadingSpinnerProps = {

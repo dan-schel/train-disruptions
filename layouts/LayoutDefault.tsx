@@ -7,6 +7,7 @@ import { MobileNavBar } from "@/components/navigation/MobileNavBar";
 import { Column } from "@/components/core/Column";
 import { With } from "@/components/core/With";
 import { SettingsProvider } from "@/components/SettingsProvider";
+import { LoadingSpinner } from "@/components/common/LoadingSpinner";
 
 export default function LayoutDefault({
   children,
@@ -22,7 +23,11 @@ export default function LayoutDefault({
       <SettingsProvider>
         <DesktopNavBar />
         <MobileNavBar />
-        <With flexGrow="1" className="pb-16 md:pt-12 md:pb-0">
+        {/* TODO: [DS] This is a bit messy! */}
+        <div className="_page-loader fixed top-[calc((100%---spacing(16))*0.5)] left-1/2 -translate-x-1/2 -translate-y-1/2 transform-gpu md:top-[calc((100%+--spacing(12))*0.5)]">
+          <LoadingSpinner style="large" />
+        </div>
+        <With flexGrow="1" className="_page-container pb-16 md:pt-12 md:pb-0">
           {children}
         </With>
       </SettingsProvider>
