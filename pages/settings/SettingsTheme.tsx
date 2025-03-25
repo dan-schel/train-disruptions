@@ -23,15 +23,13 @@ export function SettingsTheme() {
 
   return (
     <Column>
-      <Text style="custom" className="text-foreground-strong text-lg font-bold">
-        Colour theme
-      </Text>
+      <Text style="subtitle">Colour theme</Text>
       <Spacer h="2" />
       <Column>
         {themes.map((theme) => (
           <label
             key={theme}
-            className="hover:bg-soft-hover flex cursor-pointer gap-2 py-1"
+            className="hover:bg-soft-hover flex cursor-pointer gap-2 py-2"
           >
             <input
               type="radio"

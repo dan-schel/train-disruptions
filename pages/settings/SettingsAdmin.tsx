@@ -3,6 +3,7 @@ import React from "react";
 import { Column } from "@/components/core/Column";
 import { Text } from "@/components/core/Text";
 import { useSettings } from "@/hooks/useSettings";
+import { Spacer } from "@/components/core/Spacer";
 
 export function SettingsAdmin() {
   const [settings, setSettings] = useSettings();
@@ -13,11 +14,10 @@ export function SettingsAdmin() {
 
   return (
     <Column>
-      <Text style="custom" className="text-foreground-strong text-lg font-bold">
-        Admin
-      </Text>
+      <Text style="subtitle">Admin</Text>
+      <Spacer h="2" />
 
-      <label className="hover:bg-soft-hover flex h-9 cursor-pointer items-center justify-between">
+      <label className="hover:bg-soft-hover flex cursor-pointer items-center justify-between py-2">
         <input
           type="checkbox"
           value={"showAdminTab"}

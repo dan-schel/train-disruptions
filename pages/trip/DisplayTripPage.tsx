@@ -34,7 +34,7 @@ export function DisplayTripPage(props: DisplayTripPageProps) {
       <PageCenterer>
         <PagePadding>
           <Column>
-            <Text style="title">Is it buses...</Text>
+            <Text style="megatitle">Is it buses...</Text>
             <Spacer h="4" />
             <Text>
               between <b>{props.data.stationA.name}</b> and{" "}

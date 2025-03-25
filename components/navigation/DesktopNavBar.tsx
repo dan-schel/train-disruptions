@@ -28,11 +28,7 @@ export function DesktopNavBar() {
           <Button href="/">
             <Row align="center" className="gap-2 px-2">
               <Favicon />
-              <Text
-                style="custom"
-                className="text-foreground-strong text-xl"
-                oneLine
-              >
+              <Text style="subtitle" oneLine>
                 Is it buses?
               </Text>
             </Row>

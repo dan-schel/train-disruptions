@@ -27,7 +27,7 @@ export function ChooseTripPage(props: ChooseTripPageProps) {
       <PageCenterer>
         <PagePadding>
           <Column as="form" align="left">
-            <Text style="title">Trip</Text>
+            <Text style="megatitle">Trip</Text>
             <Spacer h="4" />
             <StationSelect
               id="from"

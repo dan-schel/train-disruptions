@@ -13,6 +13,7 @@ import { SettingsReset } from "@/pages/settings/SettingsReset";
 import { SettingsAdmin } from "@/pages/settings/SettingsAdmin";
 import { useSettings } from "@/hooks/useSettings";
 import { SettingsTitle } from "@/pages/settings/SettingsTitle";
+import { Spacer } from "@/components/core/Spacer";
 
 export default function Page() {
   const { stations } = useData<Data>();
@@ -29,13 +30,23 @@ export default function Page() {
   return (
     <PageCenterer>
       <PagePadding>
-        <Column className="gap-4">
+        <Column>
           <SettingsTitle onRepeatedClicks={handleRepeatedTitleClicks} />
+          <Spacer h="4" />
           <SettingsStartPage />
+          <Spacer h="8" />
           <SettingsDisruptions />
+          <Spacer h="8" />
           <SettingsTheme />
+          <Spacer h="8" />
           <SettingsCommute stations={stations} />
-          {showAdminTabSetting && <SettingsAdmin />}
+          {showAdminTabSetting && (
+            <>
+              <Spacer h="8" />
+              <SettingsAdmin />
+            </>
+          )}
+          <Spacer h="8" />
           <SettingsReset />
         </Column>
       </PagePadding>

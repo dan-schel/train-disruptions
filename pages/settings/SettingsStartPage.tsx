@@ -20,16 +20,14 @@ export function SettingsStartPage() {
 
   return (
     <Column>
-      <Text style="custom" className="text-foreground-strong text-lg font-bold">
-        Start page
-      </Text>
+      <Text style="subtitle">Start page</Text>
       <Spacer h="2" />
 
       <Column>
         {startPages.map((option) => (
           <label
             key={option}
-            className="hover:bg-soft-hover flex cursor-pointer gap-2 py-1"
+            className="hover:bg-soft-hover flex cursor-pointer gap-2 py-2"
           >
             <input
               type="radio"

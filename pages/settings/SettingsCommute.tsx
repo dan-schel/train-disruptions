@@ -21,11 +21,9 @@ export function SettingsCommute({ stations }: SettingsCommuteProps) {
   }
 
   return (
-    <Column>
-      <Text style="custom" className="text-foreground-strong text-lg font-bold">
-        Commute
-      </Text>
-      <Spacer h="2" />
+    <Column align="left">
+      <Text style="subtitle">Commute</Text>
+      <Spacer h="4" />
       {settings.commute == null ? (
         <Text>No commute set.</Text>
       ) : (

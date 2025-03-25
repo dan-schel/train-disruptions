@@ -13,9 +13,7 @@ type LinesProps = {
 export function Lines(props: LinesProps) {
   return (
     <Column className="gap-2">
-      <Text style="custom" className="text-foreground-strong text-lg font-bold">
-        {props.title}
-      </Text>
+      <Text style="subtitle">{props.title}</Text>
       <Column className="divide-soft-border divide-y-1">
         {props.lines.map((line) => (
           <LineButton key={line.id} line={line} />

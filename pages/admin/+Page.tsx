@@ -17,7 +17,7 @@ export default function Page() {
     <PageCenterer>
       <PagePadding>
         <Column className="gap-4">
-          <Text style="title">Admin</Text>
+          <Text style="megatitle">Admin</Text>
           <Text>
             {historicalAlertsCount}{" "}
             {historicalAlertsCount === 1
