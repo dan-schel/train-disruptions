@@ -7,9 +7,10 @@ import { createAuthRouter } from "@/server/routes/auth";
 import { createAdminRouter } from "@/server/routes/admin";
 
 // CORS enabled to prevent API abuse from origins outside our domain(s)
+const domains = ["http://localhost:3000", "https://beta.isitbuses.com"];
 const corsOptions: CorsOptions = {
   origin: function (origin, callback) {
-    if (!origin || origin === "http://localhost:3000") {
+    if (!origin || domains.includes(origin)) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));

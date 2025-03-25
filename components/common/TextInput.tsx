@@ -36,7 +36,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
             className={clsx(
               "flex-1 p-2 outline -outline-offset-1 focus:outline-2 focus:-outline-offset-2 max-sm:placeholder:text-xs",
               error ? "outline-error" : "outline-soft",
-              type === "password" ? "-mr-px rounded-s" : "rounded",
+              type === "password" ? "rounded-s" : "rounded",
             )}
           />
           {props.type === "password" && (
@@ -53,6 +53,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
                   align="center"
                   className={clsx(
                     "w-18 rounded-e px-4 outline -outline-offset-1 group-focus:outline-2 group-focus:-outline-offset-2",
+                    "bg-soft group-hover:bg-soft-hover group-active:bg-soft-active",
                     error ? "outline-error" : "outline-soft",
                   )}
                 >

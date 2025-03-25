@@ -7,7 +7,7 @@ import { loginSchema } from "@/shared/types/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Column } from "@/components/core/Column";
-import { TextInput } from "@/components/core/TextInput";
+import { TextInput } from "@/components/common/TextInput";
 import { PagePadding } from "@/components/common/PagePadding";
 import { PageCenterer } from "@/components/common/PageCenterer";
 import { SimpleButton } from "@/components/common/SimpleButton";

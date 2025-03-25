@@ -64,6 +64,7 @@ async function startWebServer(app: App, root: string) {
   server.use(cookieParser());
 
   if (env.NODE_ENV === "production") {
+    server.set("trust proxy", 1);
     server.use(express.static(`${root}/dist/client`));
   } else {
     const { devMiddleware } = await createDevMiddleware({ root });

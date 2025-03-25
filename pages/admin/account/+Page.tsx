@@ -2,16 +2,17 @@ import { z } from "zod";
 import React from "react";
 import { useForm } from "react-hook-form";
 import axios, { AxiosError } from "axios";
-import { reload } from "vike/client/router";
 import { useData } from "vike-react/useData";
 import { Data } from "@/pages/admin/account/+data";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { navigate, reload } from "vike/client/router";
 
 import { Row } from "@/components/core/Row";
 import { Text } from "@/components/core/Text";
+import { With } from "@/components/core/With";
 import { Column } from "@/components/core/Column";
 import { Spacer } from "@/components/core/Spacer";
-import { TextInput } from "@/components/core/TextInput";
+import { TextInput } from "@/components/common/TextInput";
 import { PagePadding } from "@/components/common/PagePadding";
 import { PageCenterer } from "@/components/common/PageCenterer";
 import { SimpleButton } from "@/components/common/SimpleButton";
@@ -67,8 +68,10 @@ export default function Page() {
       })
       .catch(async (error: AxiosError<{ error: string }>) => {
         const statusCode = error.response?.status;
-        if (statusCode === 401 || statusCode === 403) {
+        if (statusCode === 401) {
           await reload();
+        } else if (statusCode === 403) {
+          await navigate("/admin");
         } else if (statusCode === 409) {
           setError("username", { message: error.response?.data.error });
         }
@@ -139,7 +142,9 @@ export default function Page() {
               <>
                 <Text style="subtitle">Username</Text>
                 <Spacer h="4" />
-                <Text>{username}</Text>
+                <With className="p-1 px-2">
+                  <Text>{username}</Text>
+                </With>
               </>
             )}
           </Column>

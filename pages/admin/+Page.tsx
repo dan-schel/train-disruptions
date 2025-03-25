@@ -5,8 +5,8 @@ import { reload } from "vike/client/router";
 import { useData } from "vike-react/useData";
 
 import { Text } from "@/components/core/Text";
-import AdminButton from "@/pages/admin/Button";
 import { Column } from "@/components/core/Column";
+import { AdminButton } from "@/pages/admin/AdminButton";
 import { PagePadding } from "@/components/common/PagePadding";
 import { PageCenterer } from "@/components/common/PageCenterer";
 import { MingcuteExitFill } from "@/components/icons/MingcuteExitFill";

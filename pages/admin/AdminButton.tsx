@@ -12,7 +12,7 @@ type AdminButtonProps = {
   label: string;
 };
 
-export default function AdminButton({ action, icon, label }: AdminButtonProps) {
+export function AdminButton({ action, icon, label }: AdminButtonProps) {
   return (
     <Button
       {...(typeof action === "string" ? { href: action } : { onClick: action })}
