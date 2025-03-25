@@ -2,6 +2,12 @@ import MongoStore from "connect-mongo";
 import { NextFunction, Request, Response } from "express";
 import session from "express-session";
 
+declare module "express-session" {
+  interface SessionData {
+    user: { id: string; role: "super" | "admin" } | null;
+  }
+}
+
 export const SessionCookieName = "sess_id";
 
 export function AuthSession(

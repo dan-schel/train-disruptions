@@ -15,11 +15,6 @@ import {
 } from "@/server/entry-point/services/discord";
 import { config } from "@/server/entry-point/config";
 
-declare module "express-session" {
-  interface SessionData {
-    user: { id: string; role: "super" | "admin" } | null;
-  }
-}
 import { RealTimeProvider } from "@/server/time-provider/real-time-provider";
 import { AuthSession } from "@/server/routes/middleware/authentication";
 
