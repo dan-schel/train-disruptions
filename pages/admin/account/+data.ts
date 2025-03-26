@@ -1,4 +1,4 @@
-import { USERS } from "@/server/database/models/models";
+import { ADMINS } from "@/server/database/models/models";
 import { JsonSerializable } from "@/shared/json-serializable";
 import { redirect } from "vike/abort";
 import { PageContext } from "vike/types";
@@ -16,7 +16,7 @@ export async function data(
   if (!user) throw redirect("/admin");
 
   const _user = await app.database
-    .of(USERS)
+    .of(ADMINS)
     .require(user.id)
     .catch(() => {
       throw redirect("/admin");

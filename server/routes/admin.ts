@@ -4,8 +4,8 @@ import { Router } from "express";
 import { App } from "@/server/app";
 import { randomFillSync } from "crypto";
 import { uuid } from "@dan-schel/js-utils";
-import { User } from "@/server/database/models/user";
-import { USERS } from "@/server/database/models/models";
+import { Admin } from "@/server/database/models/user";
+import { ADMINS } from "@/server/database/models/models";
 import { validateMiddleware } from "@/server/routes/middleware/validate";
 import { isAuthenticated } from "@/server/routes/middleware/authentication";
 
@@ -34,7 +34,7 @@ export function createAdminRouter(app: App) {
         });
       }
 
-      let existing = await app.database.of(USERS).first({
+      let existing = await app.database.of(ADMINS).first({
         where: {
           discord: id,
         },
@@ -45,7 +45,7 @@ export function createAdminRouter(app: App) {
         });
       }
 
-      existing = await app.database.of(USERS).first({
+      existing = await app.database.of(ADMINS).first({
         where: {
           username,
         },
@@ -58,10 +58,10 @@ export function createAdminRouter(app: App) {
 
       const password = generatePassword();
       const hashedPW = await hash(password, 10);
-      const user = new User(uuid(), username, hashedPW, "admin", id);
-      await app.database.of(USERS).create(user);
+      const user = new Admin(uuid(), username, hashedPW, "admin", id);
+      await app.database.of(ADMINS).create(user);
 
-      await app.discordBot.inviteMember(
+      await app.discordBot.inviteAdmin(
         id,
         username,
         password,
@@ -97,13 +97,13 @@ export function createAdminRouter(app: App) {
         });
       }
 
-      const user = await app.database.of(USERS).get(id);
+      const user = await app.database.of(ADMINS).get(id);
       if (!user) {
         return res.status(401).json({ error: "Not authorized" });
       }
 
       const existingUsername = await app.database
-        .of(USERS)
+        .of(ADMINS)
         .first({ where: { username } });
       if (existingUsername && existingUsername.id !== user.id) {
         return res.status(409).json({
@@ -116,7 +116,7 @@ export function createAdminRouter(app: App) {
         hashedPW = await hash(password, 10);
       }
 
-      await app.database.of(USERS).update({
+      await app.database.of(ADMINS).update({
         ...user,
         username,
         password: hashedPW ?? user.password,
@@ -148,12 +148,12 @@ export function createAdminRouter(app: App) {
         return res.status(403).json({ error: "Insufficient privileges" });
       }
 
-      const admin = await app.database.of(USERS).get(id);
+      const admin = await app.database.of(ADMINS).get(id);
       if (!admin || admin.role === "super") {
         return res.status(404).json({ error: "Admin doesn't exist" });
       }
 
-      await app.database.of(USERS).delete(admin.id);
+      await app.database.of(ADMINS).delete(admin.id);
 
       return res.json();
     },

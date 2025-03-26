@@ -1,5 +1,5 @@
 import { PageContext } from "vike/types";
-import { USERS } from "@/server/database/models/models";
+import { ADMINS } from "@/server/database/models/models";
 import { JsonSerializable } from "@/shared/json-serializable";
 import { calculateUserDefaultAvatarIndex, User } from "discord.js";
 
@@ -21,7 +21,7 @@ export async function data(
   pageContext: PageContext,
 ): Promise<Data & JsonSerializable> {
   const { app } = pageContext.custom;
-  const admins = await app.database.of(USERS).find({
+  const admins = await app.database.of(ADMINS).find({
     where: {
       role: "admin",
     },

@@ -1,7 +1,7 @@
 import { DatabaseModel } from "@/server/database/lib/general/database-model";
 import { z } from "zod";
 
-export class User {
+export class Admin {
   constructor(
     readonly id: string,
     readonly username: string,
@@ -11,12 +11,12 @@ export class User {
   ) {}
 }
 
-export class UserModel extends DatabaseModel<
-  User,
+export class AdminModel extends DatabaseModel<
+  Admin,
   string,
-  z.input<typeof UserModel.schema>
+  z.input<typeof AdminModel.schema>
 > {
-  static instance = new UserModel();
+  static instance = new AdminModel();
   private static schema = z.object({
     username: z.string(),
     password: z.string(),
@@ -25,14 +25,14 @@ export class UserModel extends DatabaseModel<
   });
 
   private constructor() {
-    super("users");
+    super("admins");
   }
 
-  getId(item: User): string {
+  getId(item: Admin): string {
     return item.id;
   }
 
-  serialize(item: User): {
+  serialize(item: Admin): {
     username: string;
     password: string;
     role: "super" | "admin";
@@ -46,9 +46,9 @@ export class UserModel extends DatabaseModel<
     };
   }
 
-  deserialize(id: string, item: unknown): User {
-    const parsed = UserModel.schema.parse(item);
-    return new User(
+  deserialize(id: string, item: unknown): Admin {
+    const parsed = AdminModel.schema.parse(item);
+    return new Admin(
       id,
       parsed.username,
       parsed.password,

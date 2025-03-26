@@ -1,6 +1,6 @@
 import { App } from "@/server/app";
-import { USERS } from "@/server/database/models/models";
-import { User } from "@/server/database/models/user";
+import { ADMINS } from "@/server/database/models/models";
+import { Admin } from "@/server/database/models/user";
 import { OnStartupScheduler } from "@/server/task/lib/on-startup-scheduler";
 import { Task } from "@/server/task/lib/task";
 import { TaskScheduler } from "@/server/task/lib/task-scheduler";
@@ -9,7 +9,7 @@ import { hash } from "bcrypt";
 
 /**
  * Seeds a Super Admin into the database if the credentials are provided via environment variables
- * and a Super Admin doesn't exist inside the data,
+ * and a Super Admin doesn't exist inside the database
  */
 export class SeedSuperAdminTask extends Task {
   static readonly TASK_ID = "seed-super-admin";
@@ -31,13 +31,13 @@ export class SeedSuperAdminTask extends Task {
         return;
       }
       const existing = await app.database
-        .of(USERS)
+        .of(ADMINS)
         .first({ where: { role: "super" } });
       if (!existing) {
         const hashedPW = await hash(this.password, 10);
         await app.database
-          .of(USERS)
-          .create(new User(uuid(), this.username, hashedPW, "super", null));
+          .of(ADMINS)
+          .create(new Admin(uuid(), this.username, hashedPW, "super", null));
       }
     } catch (error) {
       console.warn("Failed to seed super admin into the database.");

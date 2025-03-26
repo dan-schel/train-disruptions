@@ -1,5 +1,5 @@
 import { App } from "@/server/app";
-import { USERS } from "@/server/database/models/models";
+import { ADMINS } from "@/server/database/models/models";
 import { SessionCookieName } from "@/server/routes/middleware/authentication";
 import { validateMiddleware } from "@/server/routes/middleware/validate";
 import { loginSchema } from "@/shared/types/auth";
@@ -15,7 +15,7 @@ export function createAuthRouter(app: App) {
     async (req, res, next) => {
       const { username, password } = req.body;
 
-      const user = await app.database.of(USERS).first({ where: { username } });
+      const user = await app.database.of(ADMINS).first({ where: { username } });
       if (!user) {
         return res
           .status(403)
