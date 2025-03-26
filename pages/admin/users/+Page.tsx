@@ -21,14 +21,14 @@ export default function Page() {
         <PagePadding>
           <Column className="gap-6">
             <Column className="gap-2">
-              <Text style="subtitle">Conductors</Text>
+              <Text style="subtitle">Administrators</Text>
               {admins.length > 0 ? (
                 admins.map((user) => <AdminUser key={user.id} user={user} />)
               ) : (
                 <With className="p-5">
                   <Text align="center">
-                    No one&apos;s here to help onboard our commuters, maybe one
-                    of them could help us out
+                    Looks like we don&apos;t have any administrators. Maybe
+                    someone from Discord can help us out.
                   </Text>
                 </With>
               )}
@@ -36,7 +36,7 @@ export default function Page() {
 
             {discord.length > 0 && (
               <Column className="gap-2">
-                <Text style="subtitle">Commuters</Text>
+                <Text style="subtitle">Discord Members</Text>
                 {discord.map((user) => (
                   <DiscordUser key={user.id} user={user} />
                 ))}

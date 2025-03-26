@@ -1,10 +1,8 @@
 import { z } from "zod";
 import React from "react";
-import { useForm } from "react-hook-form";
 import axios, { AxiosError } from "axios";
 import { useData } from "vike-react/useData";
 import { Data } from "@/pages/admin/account/+data";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { navigate, reload } from "vike/client/router";
 
 import { Row } from "@/components/core/Row";
@@ -22,7 +20,7 @@ import { MingcuteCloseCircleFill } from "@/components/icons/MingcuteCloseCircleF
 
 const schema = z
   .object({
-    username: z.string().trim().nonempty(),
+    username: z.string().trim().nonempty("This field is required"),
     password: z
       .string()
       .trim()
@@ -38,33 +36,61 @@ const schema = z
   );
 
 export default function Page() {
-  const { id, username } = useData<Data>();
+  const { id, username: _username } = useData<Data>();
   const [isEditing, setIsEditing] = React.useState<boolean>(false);
 
-  const {
-    register,
-    formState: { errors },
-    setError,
-    handleSubmit,
-    watch,
-    reset,
-    resetField,
-  } = useForm({
-    defaultValues: { username, password: "", confirm: "" },
-    resolver: zodResolver(schema),
+  const [username, setUsername] = React.useState<string>(_username);
+  const [formData, setFormData] = React.useState<z.input<typeof schema>>({
+    username: _username,
+    password: "",
+    confirm: "",
   });
-  const password = watch("password");
+  const [errors, setErrors] = React.useState<
+    z.inferFlattenedErrors<typeof schema>["fieldErrors"] | null
+  >(null);
 
-  async function updateAccount(data: z.infer<typeof schema>) {
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const data = {
+      ...formData,
+      [e.target.name]: e.target.value,
+    };
+
+    const { error, success } = schema.safeParse(data);
+    // Only validate on change if the form has been submitted before
+    if (errors !== null) {
+      setErrors(!success ? error.flatten().fieldErrors : {});
+    }
+
+    setFormData(data);
+  }
+
+  function resetForm(newUsername?: string) {
+    setFormData({
+      username: newUsername ?? username,
+      password: "",
+      confirm: "",
+    });
+    if (newUsername) setUsername(newUsername);
+    setErrors(null);
+  }
+
+  async function updateAccount(e: React.FormEvent) {
+    e.preventDefault();
+
+    const { data, error, success } = schema.safeParse(formData);
+    if (!success) {
+      setErrors(error.flatten().fieldErrors);
+      return;
+    }
+
     await axios
       .put(`/api/admin/users/${id}`, {
         username: data.username,
         password: data.password.length > 0 ? data.password : undefined,
       })
       .then(async () => {
+        resetForm(data.username);
         setIsEditing(false);
-        resetField("username", { defaultValue: data.username });
-        await reload();
       })
       .catch(async (error: AxiosError<{ error: string }>) => {
         const statusCode = error.response?.status;
@@ -72,8 +98,8 @@ export default function Page() {
           await reload();
         } else if (statusCode === 403) {
           await navigate("/admin");
-        } else if (statusCode === 409) {
-          setError("username", { message: error.response?.data.error });
+        } else if (statusCode === 409 && error.response) {
+          setErrors({ username: [error.response.data.error] });
         }
       });
   }
@@ -98,7 +124,7 @@ export default function Page() {
                 }
                 onClick={() => {
                   if (isEditing) {
-                    reset();
+                    resetForm();
                   }
                   setIsEditing(!isEditing);
                 }}
@@ -108,30 +134,39 @@ export default function Page() {
             <Spacer h="6" />
 
             {isEditing ? (
-              <form onSubmit={handleSubmit(updateAccount)}>
+              <form onSubmit={updateAccount}>
                 <Column className="gap-4">
                   <TextInput
                     label="Username"
                     placeholder="Enter a username"
                     autoComplete="username"
-                    {...register("username")}
-                    error={errors.username?.message}
+                    id="username"
+                    name="username"
+                    value={formData.username}
+                    onChange={handleChange}
+                    error={errors?.username?.at(0)}
                   />
                   <TextInput
                     label="Password"
                     placeholder="Enter your new password (optional)"
                     autoComplete="new-password"
                     type="password"
-                    {...register("password")}
-                    error={errors.password?.message}
+                    id="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    error={errors?.password?.at(0)}
                   />
-                  {password.length > 0 && (
+                  {formData.password.length > 0 && (
                     <TextInput
                       placeholder="Re-enter password"
                       autoComplete="none"
                       type="password"
-                      {...register("confirm")}
-                      error={errors.confirm?.message}
+                      id="confirm"
+                      name="confirm"
+                      value={formData.confirm}
+                      onChange={handleChange}
+                      error={errors?.confirm?.at(0)}
                     />
                   )}
 
