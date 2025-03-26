@@ -16,7 +16,6 @@ export function createTestApp() {
     db,
     alertSource,
     null,
-    null,
     time,
     null,
     null,

@@ -2,7 +2,6 @@ import { StationCollection } from "@/server/data/station/station-collection";
 import { Database } from "@/server/database/lib/general/database";
 import { AlertSource } from "@/server/alert-source/alert-source";
 import { migrations } from "@/server/database/migrations/migrations";
-import { DiscordClient } from "@/server/discord";
 import { LineCollection } from "@/server/data/line/line-collection";
 import { TimeProvider } from "@/server/time-provider/time-provider";
 import { LogHistoricalAlertsTask } from "@/server/task/tasks/log-historical-alerts-task";
@@ -22,7 +21,6 @@ export class App {
     readonly stations: StationCollection,
     readonly database: Database,
     readonly alertSource: AlertSource,
-    readonly discordClient: DiscordClient | null,
     readonly discordBot: DiscordBot | null,
     readonly time: TimeProvider,
     readonly commitHash: string | null,
@@ -71,11 +69,6 @@ export class App {
       this.alertSource instanceof VtarAlertSource
         ? "🟢 Using relay server"
         : "⚫ Using fake alert source",
-    );
-    console.log(
-      this.discordClient != null
-        ? "🟢 Discord enabled"
-        : "⚫ Not using Discord",
     );
     console.log(
       this.discordBot != null

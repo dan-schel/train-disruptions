@@ -9,10 +9,7 @@ import { lines } from "@/server/entry-point/data/lines";
 import { stations } from "@/server/entry-point/data/stations";
 import { initDatabase } from "@/server/entry-point/services/database";
 import { initAlertSource } from "@/server/entry-point/services/alert-source";
-import {
-  initDiscordBot,
-  initDiscordClient,
-} from "@/server/entry-point/services/discord";
+import { initDiscordBot } from "@/server/entry-point/services/discord";
 import { config } from "@/server/entry-point/config";
 
 import { RealTimeProvider } from "@/server/time-provider/real-time-provider";
@@ -21,7 +18,6 @@ import { AuthSession } from "@/server/routes/middleware/authentication";
 export async function run(root: string) {
   const database = await initDatabase();
   const alertSource = initAlertSource();
-  const discordClient = initDiscordClient();
   const discordBot = initDiscordBot();
   const time = new RealTimeProvider();
 
@@ -30,7 +26,6 @@ export async function run(root: string) {
     stations,
     database,
     alertSource,
-    discordClient,
     discordBot,
     time,
     env.COMMIT_HASH ?? null,

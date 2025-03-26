@@ -6,7 +6,6 @@ const schema = z.object({
   RELAY_KEY: z.string().optional(),
   DATABASE_URL: z.string().optional(),
   SESSION_SECRET: z.string(),
-  DISCORD_DEPLOYMENT_WEBHOOK: z.string().optional(),
   DISCORD_TOKEN: z.string().optional(),
   DISCORD_CHANNEL: z.string().optional(),
   COMMIT_HASH: z.string().optional(),
