@@ -4,8 +4,8 @@ import { Button } from "@/components/core/Button";
 import { Text } from "@/components/core/Text";
 import { With } from "@/components/core/With";
 import clsx from "clsx";
-import { Column } from "@/components/core/Column";
 import { NavTab } from "@/components/navigation/utils";
+import { Column } from "@/components/core/Column";
 
 export type MobileTabButtonProps = {
   tab: NavTab;
