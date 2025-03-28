@@ -11,7 +11,7 @@ import React from "react";
 import { usePageContext } from "vike-react/usePageContext";
 import { navigate } from "vike/client/router";
 
-export type OrchestreeProps = {
+export type NavBarOrchestratorLayoutProps = {
   nonSettingsTabs: NavTab[];
   settingsTab: NavTab;
   isActiveTab: (tab: NavTab) => boolean;
@@ -19,13 +19,12 @@ export type OrchestreeProps = {
 };
 
 export type NavBarOrchestratorProps = {
-  Layout: (props: OrchestreeProps) => React.ReactNode;
+  Layout: (props: NavBarOrchestratorLayoutProps) => React.ReactNode;
 };
 
 export function NavBarOrchestrator(props: NavBarOrchestratorProps) {
-  const [userSettings] = useSettings();
-
-  const nonSettingsTabs = userSettings.showAdminTab
+  const [settings] = useSettings();
+  const nonSettingsTabs = settings.showAdminTab
     ? [overview, myCommute, admin]
     : [overview, myCommute];
 
@@ -42,6 +41,8 @@ export function NavBarOrchestrator(props: NavBarOrchestratorProps) {
   }
 
   function onTabClick(tab: NavTab) {
+    // Don't rely on loadedTab to update, since it only updates when the new
+    // page has loaded.
     setActiveTabName(tab.name);
     navigate(tab.path);
   }

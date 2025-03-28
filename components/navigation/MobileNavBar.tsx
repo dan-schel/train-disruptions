@@ -3,14 +3,14 @@ import { MobileTabButton } from "@/components/navigation/MobileTabButton";
 import { Grid } from "@/components/core/Grid";
 import {
   NavBarOrchestrator,
-  OrchestreeProps,
+  NavBarOrchestratorLayoutProps,
 } from "@/components/navigation/NavBarOrchestrator";
 
 export function MobileNavBar() {
   return <NavBarOrchestrator Layout={MobileNavBarLayout} />;
 }
 
-function MobileNavBarLayout(props: OrchestreeProps) {
+function MobileNavBarLayout(props: NavBarOrchestratorLayoutProps) {
   const { nonSettingsTabs, settingsTab, isActiveTab, onTabClick } = props;
 
   return (
@@ -19,9 +19,7 @@ function MobileNavBarLayout(props: OrchestreeProps) {
         {[...nonSettingsTabs, settingsTab].map((tab) => (
           <MobileTabButton
             key={tab.name}
-            name={tab.name}
-            icon={tab.icon}
-            iconFill={tab.iconFill}
+            tab={tab}
             isActive={isActiveTab(tab)}
             onClick={() => onTabClick(tab)}
           />

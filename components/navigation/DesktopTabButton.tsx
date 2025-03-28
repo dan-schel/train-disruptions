@@ -5,10 +5,10 @@ import { Row } from "@/components/core/Row";
 import { Text } from "@/components/core/Text";
 import { With } from "@/components/core/With";
 import clsx from "clsx";
+import { NavTab } from "@/components/navigation/utils";
 
 export type DesktopTabButtonProps = {
-  name: string;
-  icon: React.ReactElement;
+  tab: NavTab;
   isActive: boolean;
   onClick: () => void;
 };
@@ -24,8 +24,8 @@ export function DesktopTabButton(props: DesktopTabButtonProps) {
         })}
         align="center"
       >
-        <With className="-ml-0.5 text-lg">{props.icon}</With>
-        <Text>{props.name}</Text>
+        <With className="-ml-0.5 text-lg">{props.tab.icon}</With>
+        <Text>{props.tab.name}</Text>
       </Row>
     </Button>
   );

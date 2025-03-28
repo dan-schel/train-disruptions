@@ -5,11 +5,10 @@ import { Text } from "@/components/core/Text";
 import { With } from "@/components/core/With";
 import clsx from "clsx";
 import { Column } from "@/components/core/Column";
+import { NavTab } from "@/components/navigation/utils";
 
 export type MobileTabButtonProps = {
-  name: string;
-  icon: React.ReactElement;
-  iconFill: React.ReactElement;
+  tab: NavTab;
   isActive: boolean;
   onClick: () => void;
 };
@@ -24,10 +23,10 @@ export function MobileTabButton(props: MobileTabButtonProps) {
             "group-hover:bg-soft-hover": !props.isActive,
           })}
         >
-          {props.isActive ? props.iconFill : props.icon}
+          {props.isActive ? props.tab.iconFill : props.tab.icon}
         </With>
         <Text style={props.isActive ? "tiny-accent" : "tiny"} oneLine>
-          {props.name}
+          {props.tab.name}
         </Text>
       </Column>
     </Button>

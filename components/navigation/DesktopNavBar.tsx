@@ -8,14 +8,14 @@ import { Favicon } from "@/components/icons/Favicon";
 import { Button } from "@/components/core/Button";
 import {
   NavBarOrchestrator,
-  OrchestreeProps,
+  NavBarOrchestratorLayoutProps,
 } from "@/components/navigation/NavBarOrchestrator";
 
 export function DesktopNavBar() {
   return <NavBarOrchestrator Layout={DesktopNavBarLayout} />;
 }
 
-function DesktopNavBarLayout(props: OrchestreeProps) {
+function DesktopNavBarLayout(props: NavBarOrchestratorLayoutProps) {
   const { nonSettingsTabs, settingsTab, isActiveTab, onTabClick } = props;
 
   return (
@@ -34,17 +34,14 @@ function DesktopNavBarLayout(props: OrchestreeProps) {
             {nonSettingsTabs.map((tab) => (
               <DesktopTabButton
                 key={tab.name}
-                name={tab.name}
-                icon={tab.icon}
+                tab={tab}
                 isActive={isActiveTab(tab)}
                 onClick={() => onTabClick(tab)}
               />
             ))}
           </Row>
           <DesktopTabButton
-            key={settingsTab.name}
-            name={settingsTab.name}
-            icon={settingsTab.icon}
+            tab={settingsTab}
             isActive={isActiveTab(settingsTab)}
             onClick={() => onTabClick(settingsTab)}
           />
