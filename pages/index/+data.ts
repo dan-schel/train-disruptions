@@ -37,14 +37,8 @@ type PreprocessedDisruption = {
   writeup: DisruptionWriteup;
 };
 
-export async function data(
-  pageContext: PageContext,
-): Promise<Data & JsonSerializable> {
+export function data(pageContext: PageContext): Data & JsonSerializable {
   const { app } = pageContext.custom;
-
-  // TODO: [DS] Remove this and the async and Promise stuff above! It's just for
-  // testing a slow page load.
-  await new Promise((resolve) => setTimeout(resolve, 4000));
 
   const disruptions: PreprocessedDisruption[] = getDemoDisruptions(app)
     .filter((x) => x.period.occursAt(app.time.now()))
