@@ -1,7 +1,6 @@
 import React from "react";
 
 import { SimpleButton } from "@/components/common/SimpleButton";
-import { Spacer } from "@/components/core/Spacer";
 import { Column } from "@/components/core/Column";
 import { Text } from "@/components/core/Text";
 import { useSettings } from "@/hooks/useSettings";
@@ -21,9 +20,8 @@ export function SettingsCommute({ stations }: SettingsCommuteProps) {
   }
 
   return (
-    <Column align="left">
+    <Column align="left" className="gap-4">
       <Text style="subtitle">Commute</Text>
-      <Spacer h="4" />
       {settings.commute == null ? (
         <Text>No commute set.</Text>
       ) : (
@@ -61,7 +59,6 @@ function ResetCommuteButton({
         <b>{stations.find((x) => x.id === commuteA)?.name}</b> to{" "}
         <b>{stations.find((x) => x.id === commuteB)?.name}</b>.
       </Text>
-      <Spacer h="4" />
       <SimpleButton onClick={handleResetCookies} text="Reset commute" />
     </>
   );
