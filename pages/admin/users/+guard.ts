@@ -4,5 +4,5 @@ import { redirect } from "vike/abort";
 
 export function guard(pageContext: PageContext) {
   const { user } = pageContext.custom;
-  if (user?.role !== "super") throw redirect("/admin");
+  if (!user || user.role !== "super") throw redirect("/admin");
 }

@@ -85,7 +85,6 @@ export class DiscordBot {
           spoiler(`Username: ${username}\n` + `Password: ${password}`),
         components: [actions.toJSON()],
       });
-
     } catch (error) {
       console.warn("Failed to send invitation");
       console.warn(error);

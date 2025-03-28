@@ -12,12 +12,13 @@ import { isAuthenticated } from "@/server/routes/middleware/authentication";
 export function createAdminRouter(app: App) {
   const adminRouter = Router();
 
+  adminRouter.use(isAuthenticated);
+
   /**
    * Creates a new admin user and sends them their crendentials via Discord
    */
   adminRouter.post(
     "/users",
-    isAuthenticated,
     validateMiddleware({
       body: z.object({
         id: z.string().nonempty(),
@@ -65,7 +66,8 @@ export function createAdminRouter(app: App) {
         id,
         username,
         password,
-        `${req.protocol}://${req.hostname}${req.hostname === "localhost" ? ":3000" : ""}`,
+        req.headers.origin ??
+          `${req.protocol}://${req.hostname}${req.hostname === "localhost" ? ":3000" : ""}`,
       );
 
       return res.json();
@@ -77,7 +79,6 @@ export function createAdminRouter(app: App) {
    */
   adminRouter.put(
     "/users/:id",
-    isAuthenticated,
     validateMiddleware({
       body: z.object({
         username: z.string(),
@@ -91,7 +92,7 @@ export function createAdminRouter(app: App) {
       const { id } = req.params;
       const { username, password } = req.body;
 
-      if (req.session.user?.id !== id) {
+      if (req.session.getUser()?.id !== id) {
         return res.status(403).json({
           error: "You cannot update someone else's credentials.",
         });
@@ -131,7 +132,6 @@ export function createAdminRouter(app: App) {
    */
   adminRouter.delete(
     "/users/:id",
-    isAuthenticated,
     validateMiddleware({
       params: z.object({
         id: z.string(),
@@ -140,11 +140,11 @@ export function createAdminRouter(app: App) {
     async (req, res) => {
       const { id } = req.params;
 
-      if (req.session.user?.id === id) {
+      if (req.session.getUser()?.id === id) {
         return res.status(409).json({ error: "You cannot delete yourself" });
       }
 
-      if (req.session.user?.role === "admin") {
+      if (req.session.getUser()?.role === "admin") {
         return res.status(403).json({ error: "Insufficient privileges" });
       }
 

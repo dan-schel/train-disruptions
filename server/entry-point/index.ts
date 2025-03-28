@@ -10,10 +10,8 @@ import { stations } from "@/server/entry-point/data/stations";
 import { initDatabase } from "@/server/entry-point/services/database";
 import { initAlertSource } from "@/server/entry-point/services/alert-source";
 import { initDiscordBot } from "@/server/entry-point/services/discord";
-import { config } from "@/server/entry-point/config";
-
 import { RealTimeProvider } from "@/server/time-provider/real-time-provider";
-import { AuthSession } from "@/server/routes/middleware/authentication";
+import { sessionMiddleware } from "@/server/routes/middleware/authentication";
 
 export async function run(root: string) {
   const database = await initDatabase();
@@ -41,20 +39,14 @@ export async function run(root: string) {
 async function startWebServer(app: App, root: string) {
   const server = express();
 
-  if (env.DATABASE_URL) {
-    server.use(
-      AuthSession(
-        env.SESSION_SECRET,
-        env.DATABASE_URL,
-        config.DATABASE_NAME,
-        env.NODE_ENV === "production",
-      ),
-    );
-  }
-  server.use(cookieParser());
+  server.use(cookieParser(env.SESSION_SECRET));
+  server.use(sessionMiddleware(app, env.NODE_ENV === "production"));
 
   if (env.NODE_ENV === "production") {
-    server.set("trust proxy", 1);
+    // Required if DigitalOcean uses a proxy (e.g. nginx),
+    // allows us to determine if a connection is secure (HTTPS)
+    server.enable("trust proxy");
+
     server.use(express.static(`${root}/dist/client`));
   } else {
     const { devMiddleware } = await createDevMiddleware({ root });

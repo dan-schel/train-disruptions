@@ -17,7 +17,7 @@ declare global {
 export type CustomPageContext = {
   app: App;
   settings: Settings;
-  user?: { id: string; role: "super" | "admin" } | null;
+  user: { id: string; role: "super" | "admin" } | null;
 };
 
 export function createVikeHandler(app: App) {
@@ -25,13 +25,14 @@ export function createVikeHandler(app: App) {
     // TODO: Arguably, we should also update the cookie if the validation causes
     // the settings to change.
     const settings = validateSettings(getSettings(req), app.stations);
+    const user = req.session.getUser();
 
     const { body, statusCode, headers } = (
       await renderPage({
         custom: {
           app,
           settings,
-          user: req.session.user,
+          user,
         },
         urlOriginal: req.url,
       } satisfies Vike.PageContext)
