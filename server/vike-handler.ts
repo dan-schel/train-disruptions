@@ -3,12 +3,14 @@ import express from "express";
 import { getSettings, validateSettings } from "@/server/settings";
 import { App } from "@/server/app";
 import { Settings } from "@/shared/settings";
+import { z } from "zod";
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Vike {
     interface PageContext {
       custom: CustomPageContext;
+      client: ClientPageContext;
       urlOriginal: string;
     }
   }
@@ -18,6 +20,10 @@ export type CustomPageContext = {
   app: App;
   settings: Settings;
   user: { id: string; role: "super" | "admin" } | null;
+};
+
+export type ClientPageContext = {
+  settings: z.input<typeof Settings.json>;
 };
 
 export function createVikeHandler(app: App) {
@@ -33,6 +39,9 @@ export function createVikeHandler(app: App) {
           app,
           settings,
           user,
+        },
+        client: {
+          settings: settings.toJSON(),
         },
         urlOriginal: req.url,
       } satisfies Vike.PageContext)

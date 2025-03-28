@@ -58,12 +58,12 @@ export function DiscordUser({ user }: DiscordUserProps) {
           {status === "invited" ? (
             <>
               <MingcuteCheckCircleFill className="text-status-green size-5" />
-              <Text style="success">Invite Sent</Text>
+              <Text style="green">Invite Sent</Text>
             </>
           ) : (
             <>
               <MingcuteCloseCircleFill className="text-error size-5" />
-              <Text style="error">{error}</Text>
+              <Text style="red">{error}</Text>
             </>
           )}
         </Row>

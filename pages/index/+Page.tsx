@@ -21,11 +21,11 @@ export default function Page() {
     <PageCenterer>
       <PagePadding>
         <Column>
-          <Text style="title">Is it buses?</Text>
+          <Text style="megatitle">Is it buses?</Text>
           <Spacer h="4" />
 
           <Text>Melbourne&apos;s train disruptions, visualised</Text>
-          <Spacer h="6" />
+          <Spacer h="8" />
 
           {/* TODO: determine the options for both selects */}
           <Row align="center" className="max-w-md gap-1.5" wrap>
@@ -47,18 +47,19 @@ export default function Page() {
           <With className="border-soft-border rounded-md border">
             <Map />
           </With>
-          <Spacer h="4" />
+          <Spacer h="2" />
 
           <Column className="divide-soft-border divide-y-1">
             {disruptions.map((x) => (
               <DisruptionButton key={x.id} data={x} />
             ))}
           </Column>
-          <Spacer h="4" />
+          <Spacer h="8" />
 
-          <Lines title="Suburban lines" lines={suburban} />
-          <Spacer h="4" />
-          <Lines title="Regional lines" lines={regional} />
+          <div className="grid gap-8 md:grid-cols-2">
+            <Lines title="Suburban lines" lines={suburban} />
+            <Lines title="Regional lines" lines={regional} />
+          </div>
         </Column>
       </PagePadding>
     </PageCenterer>

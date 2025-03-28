@@ -14,4 +14,6 @@ export default {
   description: "Demo showcasing Vike",
 
   extends: vikeReact,
+
+  passToClient: ["client"],
 } satisfies Config;

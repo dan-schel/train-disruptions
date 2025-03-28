@@ -6,13 +6,8 @@ import { Spacer } from "@/components/core/Spacer";
 import {
   filterableDisruptionCategories,
   FilterableDisruptionCategory,
-  Settings,
 } from "@/shared/settings";
-
-export type DisruptionSettingsProps = {
-  settings: Settings;
-  setSettings: (settings: Settings) => void;
-};
+import { useSettings } from "@/hooks/useSettings";
 
 const allCategories = ["essential", ...filterableDisruptionCategories] as const;
 
@@ -43,10 +38,9 @@ const formattedCategories: Record<
   },
 };
 
-export function SettingsDisruptions({
-  settings,
-  setSettings,
-}: DisruptionSettingsProps) {
+export function SettingsDisruptions() {
+  const [settings, setSettings] = useSettings();
+
   function toggleCategory(category: FilterableDisruptionCategory) {
     if (settings.enabledCategories.includes(category)) {
       setSettings(settings.withoutEnabledCategories(category));
@@ -57,16 +51,14 @@ export function SettingsDisruptions({
 
   return (
     <Column>
-      <Text style="custom" className="text-foreground-strong text-lg font-bold">
-        Disruptions to show
-      </Text>
+      <Text style="subtitle">Disruptions to show</Text>
       <Spacer h="2" />
 
       <Column>
         {allCategories.map((category) => (
           <label
             key={category}
-            className="hover:bg-soft-hover flex h-9 cursor-pointer items-center justify-between"
+            className="hover:bg-soft-hover flex cursor-pointer items-center justify-between py-2"
           >
             <input
               type="checkbox"
@@ -84,10 +76,10 @@ export function SettingsDisruptions({
                   : undefined
               }
             />
-            <Column className="gap-1">
+            <Column className="gap-2">
               <Text>{formattedCategories[category].name}</Text>
               {formattedCategories[category].description && (
-                <Text style="custom" className="text-sm">
+                <Text style="tiny-weak">
                   {formattedCategories[category].description}
                 </Text>
               )}

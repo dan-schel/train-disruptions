@@ -63,7 +63,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
             </With>
           )}
         </Row>
-        {error && <Text style="small-error">{error}</Text>}
+        {error && <Text style="small-red">{error}</Text>}
       </Column>
     );
   },

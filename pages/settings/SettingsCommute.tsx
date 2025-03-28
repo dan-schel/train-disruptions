@@ -4,32 +4,26 @@ import { SimpleButton } from "@/components/common/SimpleButton";
 import { Spacer } from "@/components/core/Spacer";
 import { Column } from "@/components/core/Column";
 import { Text } from "@/components/core/Text";
-import { Settings } from "@/shared/settings";
+import { useSettings } from "@/hooks/useSettings";
 
 export type SettingsCommuteProps = {
-  settings: Settings;
-  setSettings: (settings: Settings) => void;
   stations: {
     id: number;
     name: string;
   }[];
 };
 
-export function SettingsCommute({
-  settings,
-  setSettings,
-  stations,
-}: SettingsCommuteProps) {
+export function SettingsCommute({ stations }: SettingsCommuteProps) {
+  const [settings, setSettings] = useSettings();
+
   function handleResetCookies() {
     setSettings(settings.with({ commute: null, startPage: "overview" }));
   }
 
   return (
-    <Column>
-      <Text style="custom" className="text-foreground-strong text-lg font-bold">
-        Commute
-      </Text>
-      <Spacer h="2" />
+    <Column align="left">
+      <Text style="subtitle">Commute</Text>
+      <Spacer h="4" />
       {settings.commute == null ? (
         <Text>No commute set.</Text>
       ) : (

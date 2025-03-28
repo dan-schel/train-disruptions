@@ -19,14 +19,21 @@ const sizeScale = [
 
 const styles = {
   regular: "",
+  megatitle: "text-4xl text-foreground-strong",
   title: "text-2xl text-foreground-strong",
-  subtitle: "text-lg text-foreground-strong",
+  subtitle: "text-xl text-foreground-strong",
+  red: "text-status-red",
+  green: "text-status-green",
+
   small: "text-sm",
-  "mobile-nav-bar": "text-xs",
-  "mobile-nav-bar-active": "text-xs text-accent",
-  error: "text-status-red",
-  "small-error": "text-sm text-status-red",
-  success: "text-status-green",
+  "small-green": "text-sm text-status-green",
+  "small-yellow": "text-sm text-status-yellow",
+  "small-red": "text-sm text-status-red",
+
+  tiny: "text-xs",
+  "tiny-inverted": "text-xs text-background",
+  "tiny-weak": "text-xs text-foreground-weak",
+  "tiny-accent": "text-xs text-accent",
 };
 
 type Style =

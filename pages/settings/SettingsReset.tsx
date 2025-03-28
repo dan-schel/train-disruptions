@@ -6,24 +6,20 @@ import { Column } from "@/components/core/Column";
 import { Text } from "@/components/core/Text";
 import { Spacer } from "@/components/core/Spacer";
 import { applyTheme } from "@/pages/settings/utils";
+import { useSettings } from "@/hooks/useSettings";
 
-export type SettingsResetProps = {
-  settings: Settings;
-  setSettings: (settings: Settings) => void;
-};
+export function SettingsReset() {
+  const [, setSettings] = useSettings();
 
-export function SettingsReset({ setSettings }: SettingsResetProps) {
   function handleResetCookies() {
     setSettings(Settings.default);
     applyTheme(Settings.default.theme);
   }
 
   return (
-    <Column>
-      <Text style="custom" className="text-foreground-strong text-lg font-bold">
-        Reset
-      </Text>
-      <Spacer h="2" />
+    <Column align="left">
+      <Text style="subtitle">Reset</Text>
+      <Spacer h="4" />
       <Text>
         Reset all settings to their default values. This cannot be undone!
       </Text>

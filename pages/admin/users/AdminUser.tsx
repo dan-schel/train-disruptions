@@ -54,12 +54,12 @@ export function AdminUser({ user }: AdminUserProps) {
           {status === "success" ? (
             <>
               <MingcuteCheckCircleFill className="text-status-green size-5" />
-              <Text style="success">Admin Removed</Text>
+              <Text style="green">Admin Removed</Text>
             </>
           ) : (
             <>
               <MingcuteCloseCircleFill className="text-error size-5" />
-              <Text style="error">{error}</Text>
+              <Text style="red">{error}</Text>
             </>
           )}
         </Row>

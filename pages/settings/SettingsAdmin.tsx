@@ -1,29 +1,23 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React from "react";
 
 import { Column } from "@/components/core/Column";
 import { Text } from "@/components/core/Text";
-import { Settings } from "@/shared/settings";
-import { useAdminVisibilityContext } from "@/context/AdminVisibility";
+import { useSettings } from "@/hooks/useSettings";
+import { Spacer } from "@/components/core/Spacer";
 
-type SettingsAdminProps = {
-  settings: Settings;
-  setSettings: Dispatch<SetStateAction<Settings>>;
-};
-
-export function SettingsAdmin({ settings, setSettings }: SettingsAdminProps) {
-  const { toggleAdminTab } = useAdminVisibilityContext();
+export function SettingsAdmin() {
+  const [settings, setSettings] = useSettings();
 
   function handleChange() {
     setSettings(settings.with({ showAdminTab: !settings.showAdminTab }));
-    toggleAdminTab();
   }
+
   return (
     <Column>
-      <Text style="custom" className="text-foreground-strong text-lg font-bold">
-        Admin
-      </Text>
+      <Text style="subtitle">Admin</Text>
+      <Spacer h="2" />
 
-      <label className="hover:bg-soft-hover flex h-9 cursor-pointer items-center justify-between">
+      <label className="hover:bg-soft-hover flex cursor-pointer items-center justify-between py-2">
         <input
           type="checkbox"
           value={"showAdminTab"}
