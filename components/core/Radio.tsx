@@ -30,7 +30,7 @@ export function Radio(props: RadioProps) {
         type="radio"
         name={props.group}
         autoComplete="off"
-        className="peer sr-only"
+        className="sr-only"
         checked={props.checked}
         onChange={(e) => props.onChange(e.target.checked)}
         disabled={props.disabled}

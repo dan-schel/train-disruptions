@@ -7,7 +7,7 @@ import {
 import { Grid } from "@/components/core/Grid";
 
 export type SwitchProps = {
-  children?: React.ReactNode;
+  children?: React.ReactElement;
   className?: string;
 } & CheckboxControl;
 

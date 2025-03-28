@@ -7,15 +7,13 @@ import { applyTheme } from "@/pages/settings/utils";
 import { useSettings } from "@/hooks/useSettings";
 import { SettingsRadioButton } from "@/components/settings/SettingsRadioButton";
 
-const titles: Record<(typeof themes)[number], string> = {
-  system: "Auto",
-  light: "Light",
-  dark: "Dark",
-};
-const descriptions: Record<(typeof themes)[number], string | null> = {
-  system: "Matches your device's/browser's settings.",
-  light: null,
-  dark: null,
+const formattedTheme: Record<
+  (typeof themes)[number],
+  { name: string; description: string | null }
+> = {
+  system: { name: "Auto", description: "Matches your device's settings." },
+  light: { name: "Light", description: null },
+  dark: { name: "Dark", description: null },
 };
 
 export function SettingsTheme() {
@@ -32,8 +30,8 @@ export function SettingsTheme() {
       {themes.map((theme) => (
         <SettingsRadioButton
           key={theme}
-          title={titles[theme]}
-          description={descriptions[theme] ?? undefined}
+          title={formattedTheme[theme].name}
+          description={formattedTheme[theme].description ?? undefined}
           group="theme"
           checked={(settings.theme as string).includes(theme)}
           onChange={() => updateTheme(theme)}

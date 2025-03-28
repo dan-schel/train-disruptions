@@ -28,7 +28,7 @@ export function Checkbox(props: CheckboxProps) {
       <input
         type="checkbox"
         autoComplete="off"
-        className="peer sr-only"
+        className="sr-only"
         checked={props.checked}
         onChange={(e) => props.onChange(e.target.checked)}
         disabled={props.disabled}

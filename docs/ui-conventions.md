@@ -16,6 +16,8 @@ Some notes on what I think is a good strategy for UI and how the core components
   - [`<With>`](#with)
   - [`<Button>`](#button)
   - [`<Link>`](#link)
+  - [`<Checkbox>`](#checkbox)
+  - [`<Radio>`](#radio)
 - [Icons](#icons)
   - [Adding new icons](#adding-new-icons)
 
