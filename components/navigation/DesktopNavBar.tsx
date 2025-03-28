@@ -36,7 +36,7 @@ function DesktopNavBarLayout(props: OrchestreeProps) {
                 key={tab.name}
                 name={tab.name}
                 icon={tab.icon}
-                active={isActiveTab(tab)}
+                isActive={isActiveTab(tab)}
                 onClick={() => onTabClick(tab)}
               />
             ))}
@@ -45,7 +45,7 @@ function DesktopNavBarLayout(props: OrchestreeProps) {
             key={settingsTab.name}
             name={settingsTab.name}
             icon={settingsTab.icon}
-            active={isActiveTab(settingsTab)}
+            isActive={isActiveTab(settingsTab)}
             onClick={() => onTabClick(settingsTab)}
           />
         </Grid>

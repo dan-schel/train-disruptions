@@ -10,7 +10,7 @@ export type MobileTabButtonProps = {
   name: string;
   icon: React.ReactElement;
   iconFill: React.ReactElement;
-  active: boolean;
+  isActive: boolean;
   onClick: () => void;
 };
 
@@ -20,12 +20,13 @@ export function MobileTabButton(props: MobileTabButtonProps) {
       <Column className={clsx("h-16 gap-1")} align="center" justify="center">
         <With
           className={clsx("-mt-1 rounded-full px-4 py-1 text-xl", {
-            "bg-accent-soft text-accent": props.active,
+            "bg-accent-soft text-accent": props.isActive,
+            "group-hover:bg-soft-hover": !props.isActive,
           })}
         >
-          {props.active ? props.iconFill : props.icon}
+          {props.isActive ? props.iconFill : props.icon}
         </With>
-        <Text style={props.active ? "tiny-accent" : "tiny"} oneLine>
+        <Text style={props.isActive ? "tiny-accent" : "tiny"} oneLine>
           {props.name}
         </Text>
       </Column>

@@ -9,7 +9,7 @@ import clsx from "clsx";
 export type DesktopTabButtonProps = {
   name: string;
   icon: React.ReactElement;
-  active: boolean;
+  isActive: boolean;
   onClick: () => void;
 };
 
@@ -18,9 +18,9 @@ export function DesktopTabButton(props: DesktopTabButtonProps) {
     <Button onClick={props.onClick}>
       <Row
         className={clsx("h-12 gap-2 border-y-2 border-transparent", {
-          "border-b-accent": props.active,
+          "border-b-accent": props.isActive,
           "group-hover:border-b-switch group-active:border-b-switch-hover":
-            !props.active,
+            !props.isActive,
         })}
         align="center"
       >

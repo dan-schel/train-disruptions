@@ -22,7 +22,7 @@ function MobileNavBarLayout(props: OrchestreeProps) {
             name={tab.name}
             icon={tab.icon}
             iconFill={tab.iconFill}
-            active={isActiveTab(tab)}
+            isActive={isActiveTab(tab)}
             onClick={() => onTabClick(tab)}
           />
         ))}
