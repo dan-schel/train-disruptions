@@ -22,6 +22,11 @@ export type NavBarOrchestratorProps = {
   Layout: (props: NavBarOrchestratorLayoutProps) => React.ReactNode;
 };
 
+/**
+ * A helper component for the mobile & desktop nav bar. Manages the "instant"
+ * navigation (a.k.a. not waiting for the new page to be fully loaded before
+ * changing the active tab), and hiding the admin tab for regular users.
+ */
 export function NavBarOrchestrator(props: NavBarOrchestratorProps) {
   const [settings] = useSettings();
   const nonSettingsTabs = settings.showAdminTab
