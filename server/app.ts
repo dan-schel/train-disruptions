@@ -12,6 +12,7 @@ import { MongoDatabase } from "@/server/database/lib/mongo/mongo-database";
 import { TaskScheduler } from "@/server/task/lib/task-scheduler";
 import { SeedSuperAdminTask } from "@/server/task/tasks/seed-super-admin-task";
 import { DiscordBot } from "@/server/discord/bot";
+import { ClearExpiredSessionTask } from "@/server/task/tasks/clear-expired-sessions-task";
 
 export class App {
   private readonly _taskSchedulers: TaskScheduler[];
@@ -31,6 +32,7 @@ export class App {
       new SendStartupMessageTask(),
       new LogHistoricalAlertsTask(),
       new SeedSuperAdminTask(this.username, this.password),
+      new ClearExpiredSessionTask(),
     ];
 
     if (!areUnique(tasks.map((x) => x.taskId))) {
