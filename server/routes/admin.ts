@@ -4,7 +4,7 @@ import { Router } from "express";
 import { App } from "@/server/app";
 import { randomFillSync } from "crypto";
 import { uuid } from "@dan-schel/js-utils";
-import { Admin } from "@/server/database/models/user";
+import { Admin } from "@/server/database/models/admin";
 import { ADMINS } from "@/server/database/models/models";
 import { validateMiddleware } from "@/server/routes/middleware/validate";
 import { isAuthenticated } from "@/server/routes/middleware/authentication";

@@ -1,6 +1,6 @@
 import { App } from "@/server/app";
 import { ADMINS } from "@/server/database/models/models";
-import { Admin } from "@/server/database/models/user";
+import { Admin } from "@/server/database/models/admin";
 import { OnStartupScheduler } from "@/server/task/lib/on-startup-scheduler";
 import { Task } from "@/server/task/lib/task";
 import { TaskScheduler } from "@/server/task/lib/task-scheduler";
