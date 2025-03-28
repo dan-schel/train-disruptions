@@ -16,7 +16,7 @@ export function CenterAccountingForNav(props: CenterAccountingForNavProps) {
         // 4rem (16 Tailwind units) high mobile nav bar.
         "top-[calc((100%---spacing(16))*0.5)]",
 
-        // In desktop view, render 1.5rem higher than the center to account for
+        // In desktop view, render 1.5rem lower than the center to account for
         // the 3rem (12 Tailwind units) high mobile nav bar.
         "md:top-[calc((100%+--spacing(12))*0.5)]",
 
