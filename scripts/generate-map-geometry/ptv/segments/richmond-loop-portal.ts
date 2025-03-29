@@ -1,6 +1,5 @@
 import { FlexiLength } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
 import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
-import { flindersStreet } from "@/scripts/generate-map-geometry/ptv/interchanges";
 import { measure45CurveLockedDiagonal } from "@/scripts/generate-map-geometry/ptv/utils";
 import * as loop from "@/scripts/generate-map-geometry/ptv/utils-city-loop";
 import * as direct from "@/scripts/generate-map-geometry/ptv/segments/flinders-street-to-richmond";
@@ -9,7 +8,7 @@ import * as direct from "@/scripts/generate-map-geometry/ptv/segments/flinders-s
 export function richmondLoopPortal(
   lineNumber: loop.LineNumber,
   portalStraight: FlexiLength,
-  flindersStreetPoint: (typeof flindersStreet.points)[number],
+  flindersStreetNodeId: number,
 ): PathBlueprint {
   const parliamentPos = loop.pos.parliament(lineNumber);
   const richmondPos = direct.richmondPos(lineNumber);
@@ -32,6 +31,6 @@ export function richmondLoopPortal(
       split: direct
         .flindersStreetToRichmond(lineNumber)
         .reverse()
-        .station(flindersStreet.point(flindersStreetPoint)),
+        .nodes([flindersStreetNodeId]),
     });
 }

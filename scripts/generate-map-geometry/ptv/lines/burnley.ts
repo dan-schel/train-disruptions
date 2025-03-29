@@ -1,22 +1,13 @@
 import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
 import { LineBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/line-blueprint";
 import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
-import {
-  flagstaff,
-  flindersStreet,
-  parliament,
-  richmond,
-  southernCross,
-  burnley as burnleyInterchange,
-  camberwell,
-  ringwood,
-} from "@/scripts/generate-map-geometry/ptv/interchanges";
 import { flagstaffToParliament } from "@/scripts/generate-map-geometry/ptv/segments/flagstaff-to-parliament";
 import { flindersStreetToSouthernCross } from "@/scripts/generate-map-geometry/ptv/segments/flinders-street-to-southern-cross";
 import { richmondLoopPortal } from "@/scripts/generate-map-geometry/ptv/segments/richmond-loop-portal";
 import { southernCrossToFlagstaff } from "@/scripts/generate-map-geometry/ptv/segments/southern-cross-to-flagstaff";
 import { defaultRadius } from "@/scripts/generate-map-geometry/ptv/utils";
 import * as loop from "@/scripts/generate-map-geometry/ptv/utils-city-loop";
+import { BURNLEY as node } from "@/shared/map-node-ids";
 
 const loopPortalStraight = flexi(25);
 const burnleyStraight = flexi(20, 40);
@@ -39,59 +30,99 @@ export const burnley = new LineBlueprint({
   angle: 180,
   color: "blue",
 
-  // TODO: Need a way to specify the stations between defined points.
   path: new PathBlueprint()
-    .station(flindersStreet.point("burnley-loop"))
+    .nodes([node.FLINDERS_STREET_LOOP])
     .add(flindersStreetToSouthernCross(2, false))
-    .station(southernCross.point("burnley"))
+    .nodes([node.SOUTHERN_CROSS])
     .add(southernCrossToFlagstaff(2))
-    .station(flagstaff.point("burnley"))
-    .add(flagstaffToParliament(2, "burnley"))
-    .station(parliament.point("burnley"))
+    .nodes([node.FLAGSTAFF])
+    .add(flagstaffToParliament(2, node.MELBOURNE_CENTRAL))
+    .nodes([node.PARLIAMENT])
     .add(
       richmondLoopPortal(
         loop.line.burnley,
         loopPortalStraight,
-        "burnley-direct",
+        node.FLINDERS_STREET_DIRECT,
       ),
     )
-    .station(richmond.point("burnley"))
+    .nodes([node.RICHMOND])
     .curve(defaultRadius, -45)
     .straight(burnleyStraight)
-    //.stations([EAST_RICHMOND])
-    .station(burnleyInterchange.point("burnley"))
+    .nodes([node.EAST_RICHMOND, node.BURNLEY])
     .split({
       split: new PathBlueprint()
         .curve(defaultRadius, 45)
         .straight(glenIrisStraight)
         .curve(defaultRadius, -45)
         .straight(glenWaverleyStraight)
+        .nodes([
+          node.HEYINGTON,
+          node.KOOYONG,
+          node.TOORONGA,
+          node.GARDINER,
+          node.GLEN_IRIS,
+          node.DARLING,
+          node.EAST_MALVERN,
+          node.HOLMESGLEN,
+          node.JORDANVILLE,
+          node.MOUNT_WAVERLEY,
+          node.SYNDAL,
+          node.GLEN_WAVERLEY,
+        ])
         .terminus(),
-      //.stations([HEYINGTON, KOOYONG, TOORONGA, etc.])
-      //.terminus(),
     })
     .curve(defaultRadius, -45)
     .straight(camberwellStraight)
-    //.stations([HAWTHORN, GLENFERRIE, AUBURN])
-    .station(camberwell.point("camberwell"))
+    .nodes([node.HAWTHORN, node.GLENFERRIE, node.AUBURN, node.CAMBERWELL])
     .split({
       split: new PathBlueprint()
         .curve(defaultRadius, 45)
         .straight(riversdaleStraight)
         .curve(defaultRadius, 45)
         .straight(alameinStraight)
+        .nodes([
+          node.RIVERSDALE,
+          node.WILLISON,
+          node.HARTWELL,
+          node.BURWOOD,
+          node.ASHBURTON,
+          node.ALAMEIN,
+        ])
         .terminus(),
     })
     .straight(laburnumStraight)
     .curve(defaultRadius, 45)
     .straight(ringwoodStraight)
-    .station(ringwood.point("ringwood"))
+    .nodes([
+      node.EAST_CAMBERWELL,
+      node.CANTERBURY,
+      node.CHATHAM,
+      node.UNION,
+      node.BOX_HILL,
+      node.LABURNUM,
+      node.BLACKBURN,
+      node.NUNAWADING,
+      node.MITCHAM,
+      node.HEATHERDALE,
+      node.RINGWOOD,
+    ])
     .split({
       split: new PathBlueprint()
         .curve(defaultRadius, 45)
         .straight(belgraveStraight)
+        .nodes([
+          node.HEATHMONT,
+          node.BAYSWATER,
+          node.BORONIA,
+          node.FERNTREE_GULLY,
+          node.UPPER_FERNTREE_GULLY,
+          node.UPWEY,
+          node.TECOMA,
+          node.BELGRAVE,
+        ])
         .terminus(),
     })
     .straight(lilydaleStraight)
+    .nodes([node.RINGWOOD_EAST, node.CROYDON, node.MOOROOLBARK, node.LILYDALE])
     .terminus(),
 });
