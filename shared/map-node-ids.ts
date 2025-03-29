@@ -57,7 +57,7 @@ export const BURNLEY = {
   CROYDON: 124,
   MOOROOLBARK: 125,
   LILYDALE: 126,
-};
+} as const;
 
 export const CLIFTON_HILL = {
   FLINDERS_STREET_LOOP: 127,
@@ -107,7 +107,8 @@ export const CLIFTON_HILL = {
   MIDDLE_GORGE: 170,
   HAWKSTOWE: 171,
   MERNDA: 172,
-};
+} as const;
+
 export const DANDENONG = {
   FLINDERS_STREET_LOOP: 1,
   FLINDERS_STREET_DIRECT: 410,
@@ -145,7 +146,7 @@ export const DANDENONG = {
   LYNBROOK: 33,
   MERINDA_PARK: 34,
   CRANBOURNE: 35,
-};
+} as const;
 
 export const FRANKSTON_AND_STONY_POINT = {
   FLINDERS_STREET: 36,
@@ -156,7 +157,7 @@ export const FRANKSTON_AND_STONY_POINT = {
   ARMADALE: 41,
   MALVERN: 42,
   CAULFIELD: 43,
-  GLENHUNTLY: 44,
+  GLEN_HUNTLY: 44,
   ORMOND: 45,
   MCKINNON: 46,
   BENTLEIGH: 47,
@@ -186,7 +187,7 @@ export const FRANKSTON_AND_STONY_POINT = {
   MORRADOO: 71,
   CRIB_POINT: 72,
   STONY_POINT: 73,
-};
+} as const;
 
 export const GIPPSLAND = {
   SOUTHERN_CROSS: 173,
@@ -234,7 +235,7 @@ export const GIPPSLAND = {
   SALE: 215,
   STRATFORD: 216,
   BAIRNSDALE: 217,
-};
+} as const;
 
 export const NEWPORT = {
   FLINDERS_STREET: 218,
@@ -257,7 +258,7 @@ export const NEWPORT = {
   WILLIAMS_LANDING: 235,
   HOPPERS_CROSSING: 236,
   WERRIBEE: 237,
-};
+} as const;
 
 export const NORTHERN = {
   FLINDERS_STREET_LOOP: 238,
@@ -308,7 +309,7 @@ export const NORTHERN = {
   WATERGARDENS: 282,
   DIGGERS_REST: 283,
   SUNBURY: 284,
-};
+} as const;
 
 export const REGIONAL_WESTERN = {
   SOUTHERN_CROSS: 285,
@@ -420,7 +421,7 @@ export const REGIONAL_WESTERN = {
   TERANG: 391,
   SHERWOOD_PARK: 392,
   WARRNAMBOOL: 393,
-};
+} as const;
 
 export const SANDRINGHAM = {
   FLINDERS_STREET: 394,
@@ -437,4 +438,4 @@ export const SANDRINGHAM = {
   BRIGHTON_BEACH: 405,
   HAMPTON: 406,
   SANDRINGHAM: 407,
-};
+} as const;

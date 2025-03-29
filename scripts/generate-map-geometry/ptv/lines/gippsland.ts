@@ -1,17 +1,6 @@
-import { EAST_PAKENHAM } from "@/shared/station-ids";
 import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
 import { LineBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/line-blueprint";
 import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
-import {
-  caulfield,
-  clayton,
-  dandenong,
-  flindersStreet,
-  pakenham,
-  richmond,
-  southernCross,
-  southYarra,
-} from "@/scripts/generate-map-geometry/ptv/interchanges";
 import { flindersStreetToRichmond } from "@/scripts/generate-map-geometry/ptv/segments/flinders-street-to-richmond";
 import { flindersStreetToSouthernCross } from "@/scripts/generate-map-geometry/ptv/segments/flinders-street-to-southern-cross";
 import {
@@ -29,6 +18,7 @@ import {
   richmondToSouthYarra,
   southYarraToCaulfield,
 } from "@/scripts/generate-map-geometry/ptv/utils-shared-corridors";
+import { GIPPSLAND as node } from "@/shared/map-node-ids";
 
 const eastPakenhamToCurve = flexi(10, 25);
 const bairnsdaleStraight = flexi(60, 120);
@@ -40,29 +30,75 @@ export const gippsland = new LineBlueprint({
   color: "purple",
 
   path: new PathBlueprint()
-    .station(southernCross.point("regional-east"))
+    .nodes([node.SOUTHERN_CROSS])
     .add(flindersStreetToSouthernCross(loop.line.regional, true).reverse())
-    .station(flindersStreet.point("regional"))
+    .nodes([node.FLINDERS_STREET])
     .add(flindersStreetToRichmond(loop.line.regional))
-    .station(richmond.point("gippsland"))
+    .nodes([node.RICHMOND])
     .straight(richmondToSouthYarra)
-    .station(southYarra.point("gippsland"))
+    .nodes([node.SOUTH_YARRA])
     .straight(southYarraToCaulfield)
-    .station(caulfield.point("gippsland"))
+    .nodes([
+      node.HAWKSBURN,
+      node.TOORAK,
+      node.ARMADALE,
+      node.MALVERN,
+      node.CAULFIELD,
+    ])
     .straight(caulfieldToClayton)
-    .station(clayton.point("gippsland"))
+    .nodes([
+      node.CARNEGIE,
+      node.MURRUMBEENA,
+      node.HUGHESDALE,
+      node.OAKLEIGH,
+      node.HUNTINGDALE,
+      node.CLAYTON,
+    ])
     .straight(claytonToDandenong)
-    .station(dandenong.point("gippsland"))
+    .nodes([
+      node.WESTALL,
+      node.SPRINGVALE,
+      node.SANDOWN_PARK,
+      node.NOBLE_PARK,
+      node.YARRAMAN,
+      node.DANDENONG,
+    ])
     .straight(dandenongToHallamCurve)
     .curve(hallamCurveGippland, -45)
     .straight(hallamToPakenham)
-    .station(pakenham.point("gippsland"))
+    .nodes([
+      node.HALLAM,
+      node.NARRE_WARRAN,
+      node.BERWICK,
+      node.BEACONSFIELD,
+      node.OFFICER,
+      node.CARDINIA_ROAD,
+      node.PAKENHAM,
+    ])
     .straight(pakenhamToEastPakenham)
-    .station(EAST_PAKENHAM)
+    .nodes([node.EAST_PAKENHAM])
     .straight(eastPakenhamToCurve)
     .curve(defaultRadius, -45)
     .straight(standardDiagonal)
     .curve(defaultRadius, -45)
     .straight(bairnsdaleStraight)
+    .nodes([
+      node.NAR_NAR_GOON,
+      node.TYNONG,
+      node.GARFIELD,
+      node.BUNYIP,
+      node.LONGWARRY,
+      node.DROUIN,
+      node.WARRAGUL,
+      node.YARRAGON,
+      node.TRAFALGAR,
+      node.MOE,
+      node.MORWELL,
+      node.TRARALGON,
+      node.ROSEDALE,
+      node.SALE,
+      node.STRATFORD,
+      node.BAIRNSDALE,
+    ])
     .terminus(),
 });

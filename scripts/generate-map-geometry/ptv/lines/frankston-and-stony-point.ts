@@ -2,13 +2,6 @@ import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-leng
 import { LineBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/line-blueprint";
 import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
 import {
-  caulfield,
-  flindersStreet,
-  frankston as frankstonInterchange,
-  richmond,
-  southYarra,
-} from "@/scripts/generate-map-geometry/ptv/interchanges";
-import {
   flindersStreetToRichmond,
   richmondPos,
 } from "@/scripts/generate-map-geometry/ptv/segments/flinders-street-to-richmond";
@@ -25,6 +18,7 @@ import {
   richmondToSouthYarra,
   southYarraToCaulfield,
 } from "@/scripts/generate-map-geometry/ptv/utils-shared-corridors";
+import { FRANKSTON_AND_STONY_POINT as node } from "@/shared/map-node-ids";
 
 const aspendaleStraight = flexi(60, 120);
 const frankstonStraight = flexi(30, 60);
@@ -37,20 +31,47 @@ export const frankston = new LineBlueprint({
   color: "green",
 
   path: new PathBlueprint()
-    .station(flindersStreet.point("cross-city-east"))
+    .nodes([node.FLINDERS_STREET])
     .add(flindersStreetToRichmond(loop.line.crossCity))
-    .station(richmond.point("frankston"))
+    .nodes([node.RICHMOND])
     .straight(richmondToSouthYarra)
-    .station(southYarra.point("frankston"))
+    .nodes([node.SOUTH_YARRA])
     .straight(southYarraToCaulfield)
-    .station(caulfield.point("frankston"))
+    .nodes([
+      node.HAWKSBURN,
+      node.TOORAK,
+      node.ARMADALE,
+      node.MALVERN,
+      node.CAULFIELD,
+    ])
     .curve(defaultRadius, 45)
     .straight(aspendaleStraight)
     .curve(defaultRadius, -45)
     .straight(standardDiagonal)
     .curve(defaultRadius, -45)
     .straight(frankstonStraight)
-    .station(frankstonInterchange.point("frankston")),
+    .nodes([
+      node.GLEN_HUNTLY,
+      node.ORMOND,
+      node.MCKINNON,
+      node.BENTLEIGH,
+      node.PATTERSON,
+      node.MOORABBIN,
+      node.HIGHETT,
+      node.SOUTHLAND,
+      node.CHELTENHAM,
+      node.MENTONE,
+      node.PARKDALE,
+      node.MORDIALLOC,
+      node.ASPENDALE,
+      node.EDITHVALE,
+      node.CHELSEA,
+      node.BONBEACH,
+      node.CARRUM,
+      node.SEAFORD,
+      node.KANANOOK,
+      node.FRANKSTON_FRANKSTON,
+    ]),
 });
 
 /** The Stony Point line (colored green on the map). */
@@ -60,8 +81,19 @@ export const stonyPoint = new LineBlueprint({
   color: "green",
 
   path: new PathBlueprint()
-    .station(frankstonInterchange.point("stony-point"))
+    .nodes([node.FRANKSTON_STONY_POINT])
     .straight(stonyPointStraight)
+    .nodes([
+      node.LEAWARRA,
+      node.BAXTER,
+      node.SOMERVILLE,
+      node.TYABB,
+      node.HASTINGS,
+      node.BITTERN,
+      node.MORRADOO,
+      node.CRIB_POINT,
+      node.STONY_POINT,
+    ])
     .terminus(),
 });
 
