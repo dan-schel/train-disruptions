@@ -48,3 +48,5 @@ export const settings: NavTab = {
   path: "/settings",
   active: (url: string) => url === "/settings",
 };
+
+export const navTabs = [overview, myCommute, admin, settings];

@@ -1,0 +1,25 @@
+._page-loading ._page-container {
+  opacity: 0%;
+}
+
+._page-loader {
+  /* 
+   * Using `display: none` instead of `opacity: 0` so the loading spinner's 
+   * animation always plays from the start. 
+   */
+  display: none;
+}
+
+._page-loading ._page-loader {
+  display: block;
+  animation: fade-in 0.5s forwards;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0%;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
