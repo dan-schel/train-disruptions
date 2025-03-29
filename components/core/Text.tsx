@@ -22,6 +22,8 @@ const styles = {
   megatitle: "text-4xl text-foreground-strong",
   title: "text-2xl text-foreground-strong",
   subtitle: "text-xl text-foreground-strong",
+  red: "text-status-red",
+  green: "text-status-green",
 
   small: "text-sm",
   "small-green": "text-sm text-status-green",

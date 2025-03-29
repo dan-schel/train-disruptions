@@ -9,13 +9,14 @@ import { lines } from "@/server/entry-point/data/lines";
 import { stations } from "@/server/entry-point/data/stations";
 import { initDatabase } from "@/server/entry-point/services/database";
 import { initAlertSource } from "@/server/entry-point/services/alert-source";
-import { initDiscordClient } from "@/server/entry-point/services/discord";
+import { initDiscordBot } from "@/server/entry-point/services/discord";
 import { RealTimeProvider } from "@/server/time-provider/real-time-provider";
+import { sessionMiddleware } from "@/server/routes/middleware/authentication";
 
 export async function run(root: string) {
   const database = await initDatabase();
   const alertSource = initAlertSource();
-  const discordClient = initDiscordClient();
+  const discordBot = initDiscordBot();
   const time = new RealTimeProvider();
 
   const app = new App(
@@ -23,20 +24,37 @@ export async function run(root: string) {
     stations,
     database,
     alertSource,
-    discordClient,
+    discordBot,
     time,
     env.COMMIT_HASH ?? null,
+    env.USER_NAME ?? null,
+    env.PASSWORD ?? null,
   );
+
   await app.init();
 
   await startWebServer(app, root);
 }
 
-async function startWebServer(app: App, root: string) {
+export async function startWebServer(app: App, root: string) {
   const server = express();
-  server.use(cookieParser());
+
+  server.use(
+    cookieParser(env.NODE_ENV === "test" ? undefined : env.SESSION_SECRET),
+  );
+  server.use(
+    sessionMiddleware(
+      app,
+      env.NODE_ENV === "production",
+      env.NODE_ENV !== "test" && env.SESSION_SECRET !== undefined,
+    ),
+  );
 
   if (env.NODE_ENV === "production") {
+    // Required if DigitalOcean uses a proxy (e.g. nginx),
+    // allows us to determine if a connection is secure (HTTPS)
+    server.enable("trust proxy");
+
     server.use(express.static(`${root}/dist/client`));
   } else {
     const { devMiddleware } = await createDevMiddleware({ root });

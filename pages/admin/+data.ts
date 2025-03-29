@@ -11,6 +11,7 @@ export type Data = {
   // all this to another place or delete it.
   historicalAlertsCount: number;
   historicalAlertsAvgPerDay: number;
+  isSuperAdmin: boolean;
 };
 
 export async function data(
@@ -33,5 +34,6 @@ export async function data(
   return {
     historicalAlertsCount,
     historicalAlertsAvgPerDay,
+    isSuperAdmin: pageContext.custom.user?.role === "super",
   };
 }

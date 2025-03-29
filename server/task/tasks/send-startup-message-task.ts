@@ -23,7 +23,7 @@ export class SendStartupMessageTask extends Task {
 
   async execute(app: App): Promise<void> {
     try {
-      if (app.discordClient === null || app.commitHash === null) return;
+      if (app.discordBot === null || app.commitHash === null) return;
 
       const deployments = await app.database.of(DEPLOYMENT_LOGS).find({
         where: { commitHash: app.commitHash },
@@ -42,7 +42,10 @@ export class SendStartupMessageTask extends Task {
       const lastDeployment = deployments.at(0)?.createdAt ?? new Date(0);
 
       if (deployments.length < 2 || subHours(new Date(), 1) > lastDeployment) {
-        await app.discordClient.sendMessage(deployments.length > 0);
+        await app.discordBot.logDeployment(
+          app.commitHash,
+          deployments.length > 0,
+        );
       }
     } catch (error) {
       console.warn("Failed to send deploy message to Discord.");

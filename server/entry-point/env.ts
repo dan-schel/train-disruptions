@@ -5,10 +5,16 @@ import { stringNumberSchema } from "@/server/utils";
 const schema = z.object({
   RELAY_KEY: z.string().optional(),
   DATABASE_URL: z.string().optional(),
-  DISCORD_DEPLOYMENT_WEBHOOK: z.string().optional(),
+  SESSION_SECRET: z.string().optional(),
+  DISCORD_TOKEN: z.string().optional(),
+  DISCORD_CHANNEL: z.string().optional(),
   COMMIT_HASH: z.string().optional(),
+  USER_NAME: z.string().optional(),
+  PASSWORD: z.string().optional(),
 
-  NODE_ENV: z.enum(["production", "development"]).default("development"),
+  NODE_ENV: z
+    .enum(["production", "development", "test"])
+    .default("development"),
   TZ: z.literal("Etc/UTC"),
   NPM_CONFIG_PRODUCTION: z.string().default("false"),
   PORT: stringNumberSchema.default("3000"),
