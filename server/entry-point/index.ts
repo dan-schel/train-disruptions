@@ -39,12 +39,14 @@ export async function run(root: string) {
 export async function startWebServer(app: App, root: string) {
   const server = express();
 
-  server.use(cookieParser(env.SESSION_SECRET));
+  server.use(
+    cookieParser(env.NODE_ENV === "test" ? undefined : env.SESSION_SECRET),
+  );
   server.use(
     sessionMiddleware(
       app,
       env.NODE_ENV === "production",
-      env.SESSION_SECRET !== undefined,
+      env.NODE_ENV !== "test" && env.SESSION_SECRET !== undefined,
     ),
   );
 

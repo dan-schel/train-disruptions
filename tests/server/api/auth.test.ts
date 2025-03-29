@@ -5,7 +5,6 @@ import { Admin } from "@/server/database/models/admin";
 import { ADMINS, SESSIONS } from "@/server/database/models/models";
 import { hashSync } from "bcrypt";
 import { Session } from "@/server/database/models/session";
-import { env } from "@/server/entry-point/env";
 
 const password = "ILikeTrains!";
 const hashedPassword = hashSync(password, 10);
@@ -22,9 +21,7 @@ const session = new Session(
   superAdmin.id,
   superAdmin.role,
 );
-const cookie =
-  `session_id=${env.SESSION_SECRET ? "s%3A75fde04a-69a7-44b9-919a-d022db579793.5sHlzTtx0tmDhPNj6qWHh%2BSA%2Fxy%2FWlcH%2F%2B%2ByAdSdjEM" : session.id}; ` +
-  "Path=/; Expires=Thu, 02 Jan 2025 00:00:00 GMT; HttpOnly; SameSite=Lax";
+const cookie = `session_id=${session.id}; Path=/; Expires=Thu, 02 Jan 2025 00:00:00 GMT; HttpOnly; SameSite=Lax`;
 const { server, app } = await createTestServer();
 
 beforeAll(async () => {
