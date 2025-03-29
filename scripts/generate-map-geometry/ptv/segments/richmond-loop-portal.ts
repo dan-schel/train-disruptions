@@ -8,6 +8,7 @@ import * as direct from "@/scripts/generate-map-geometry/ptv/segments/flinders-s
 export function richmondLoopPortal(
   lineNumber: loop.LineNumber,
   portalStraight: FlexiLength,
+  richmondNodeId: number,
   flindersStreetNodeId: number,
 ): PathBlueprint {
   const parliamentPos = loop.pos.parliament(lineNumber);
@@ -26,6 +27,7 @@ export function richmondLoopPortal(
     .straight(straightLength)
     .curve(radius, -45)
     .straight(portalStraight)
+    .nodes([richmondNodeId])
     .split({
       reverse: true,
       split: direct

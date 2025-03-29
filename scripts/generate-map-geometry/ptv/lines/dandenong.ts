@@ -43,10 +43,10 @@ export const dandenong = new LineBlueprint({
       richmondLoopPortal(
         loop.line.dandenong,
         loopPortalStraight,
+        node.RICHMOND,
         node.FLINDERS_STREET_DIRECT,
       ),
     )
-    .nodes([node.RICHMOND])
     .straight(richmondToSouthYarra)
     .nodes([node.SOUTH_YARRA])
     .straight(southYarraToCaulfield)

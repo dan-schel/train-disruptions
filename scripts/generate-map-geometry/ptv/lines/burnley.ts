@@ -42,10 +42,10 @@ export const burnley = new LineBlueprint({
       richmondLoopPortal(
         loop.line.burnley,
         loopPortalStraight,
+        node.RICHMOND,
         node.FLINDERS_STREET_DIRECT,
       ),
     )
-    .nodes([node.RICHMOND])
     .curve(defaultRadius, -45)
     .straight(burnleyStraight)
     .nodes([node.EAST_RICHMOND, node.BURNLEY])

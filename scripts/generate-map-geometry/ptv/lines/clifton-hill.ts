@@ -36,7 +36,6 @@ export const cliftonHill = new LineBlueprint({
     .add(flagstaffToParliament(1, node.MELBOURNE_CENTRAL))
     .nodes([node.PARLIAMENT])
     .add(jolimontLoopPortal())
-    .nodes([node.JOLIMONT])
     .straight(cliftonHillStraight)
     .nodes([
       node.WEST_RICHMOND,
