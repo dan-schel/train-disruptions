@@ -4,7 +4,7 @@ import { ADMINS, SESSIONS } from "@/server/database/models/models";
 import { Session } from "@/server/database/models/session";
 import { uuid } from "@dan-schel/js-utils";
 import { addDays, differenceInMinutes } from "date-fns";
-import { millisecondsInDay, minutesInDay } from "date-fns/constants";
+import { minutesInDay } from "date-fns/constants";
 import {
   CookieOptions,
   NextFunction,
@@ -22,7 +22,11 @@ declare module "express-serve-static-core" {
 class AuthSession {
   private session: Session | null;
   readonly cookieName = "session_id";
-  readonly cookieOptions: CookieOptions;
+  readonly cookieOptions: CookieOptions = {
+    sameSite: "lax",
+    httpOnly: true,
+    signed: true,
+  };
   readonly minimumElapsedTime = minutesInDay - 10;
 
   constructor(
@@ -30,13 +34,6 @@ class AuthSession {
     private readonly secure: boolean,
   ) {
     this.session = null;
-    this.cookieOptions = {
-      secure,
-      maxAge: millisecondsInDay,
-      sameSite: "lax",
-      httpOnly: true,
-      signed: true,
-    };
   }
 
   getId() {
@@ -85,7 +82,7 @@ class AuthSession {
     );
     await this.app.database.of(SESSIONS).create(session);
 
-    res.cookie(this.cookieName, session.id, this.cookieOptions);
+    res.cookie(this.cookieName, session.id, this._getCookieOptions());
   }
 
   /**
@@ -98,6 +95,14 @@ class AuthSession {
       this.session = null;
     }
     res.clearCookie(this.cookieName);
+  }
+
+  _getCookieOptions(): CookieOptions {
+    return {
+      ...this.cookieOptions,
+      secure: this.secure,
+      expires: addDays(this.app.time.now(), 1),
+    };
   }
 }
 

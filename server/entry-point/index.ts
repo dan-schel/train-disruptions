@@ -36,7 +36,7 @@ export async function run(root: string) {
   await startWebServer(app, root);
 }
 
-async function startWebServer(app: App, root: string) {
+export async function startWebServer(app: App, root: string) {
   const server = express();
 
   server.use(cookieParser(env.SESSION_SECRET));
