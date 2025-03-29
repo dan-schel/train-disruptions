@@ -1,11 +1,10 @@
 import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
-import { melbourneCentral } from "@/scripts/generate-map-geometry/ptv/interchanges";
 import * as loop from "@/scripts/generate-map-geometry/ptv/utils-city-loop";
 
 /** Underground city loop section from Flagstaff to Parliament. */
 export function flagstaffToParliament(
   lineNumber: loop.LineNumber,
-  melbourneCentralPoint: (typeof melbourneCentral.points)[number],
+  melbourneCentralNodeId: number,
 ): PathBlueprint {
   const flagstaffPos = loop.pos.flagstaff(lineNumber);
   const melbourneCentralPos = loop.pos.melbourneCentral(lineNumber);
@@ -15,7 +14,7 @@ export function flagstaffToParliament(
 
   return new PathBlueprint()
     .straight(flagstaffPos.horizontalDistanceTo(melbourneCentralPos))
-    .station(melbourneCentral.point(melbourneCentralPoint))
+    .nodes([melbourneCentralNodeId])
     .straight(
       melbourneCentralPos.horizontalDistanceTo(parliamentPos).minus(radius),
     )
