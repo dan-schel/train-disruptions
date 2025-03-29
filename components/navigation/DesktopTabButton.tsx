@@ -6,23 +6,22 @@ import { Text } from "@/components/core/Text";
 import { With } from "@/components/core/With";
 import clsx from "clsx";
 import { NavTab } from "@/components/navigation/utils";
-import { usePageContext } from "vike-react/usePageContext";
 
 export type DesktopTabButtonProps = {
   tab: NavTab;
+  isActive: boolean;
+  onClick: () => void;
 };
 
 export function DesktopTabButton(props: DesktopTabButtonProps) {
-  const { urlPathname } = usePageContext();
-  const active = props.tab.active(urlPathname);
-
   return (
-    <Button href={props.tab.path}>
+    <Button onClick={props.onClick}>
       <Row
-        className={clsx(
-          "group-hover:bg-soft-hover group-active:bg-soft-active h-12 gap-2 border-y-2 border-transparent px-4",
-          { "border-b-accent": active },
-        )}
+        className={clsx("h-12 gap-2 border-y-2 border-transparent", {
+          "border-b-accent": props.isActive,
+          "group-hover:border-b-switch group-active:border-b-switch-hover":
+            !props.isActive,
+        })}
         align="center"
       >
         <With className="-ml-0.5 text-lg">{props.tab.icon}</With>

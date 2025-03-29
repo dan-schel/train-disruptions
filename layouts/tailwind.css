@@ -2,6 +2,7 @@
 @import "./css/loading-spinner.css" layer(base);
 @import "./css/text.css" layer(base);
 @import "./css/marquee.css" layer(base);
+@import "./css/page-transition.css" layer(base);
 
 @custom-variant dark {
   &:where(.dark, .dark *) {
