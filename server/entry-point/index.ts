@@ -40,7 +40,13 @@ export async function startWebServer(app: App, root: string) {
   const server = express();
 
   server.use(cookieParser(env.SESSION_SECRET));
-  server.use(sessionMiddleware(app, env.NODE_ENV === "production"));
+  server.use(
+    sessionMiddleware(
+      app,
+      env.NODE_ENV === "production",
+      env.SESSION_SECRET !== undefined,
+    ),
+  );
 
   if (env.NODE_ENV === "production") {
     // Required if DigitalOcean uses a proxy (e.g. nginx),

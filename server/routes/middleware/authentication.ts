@@ -25,13 +25,13 @@ class AuthSession {
   readonly cookieOptions: CookieOptions = {
     sameSite: "lax",
     httpOnly: true,
-    signed: true,
   };
   readonly minimumElapsedTime = minutesInDay - 10;
 
   constructor(
     private readonly app: App,
     private readonly secure: boolean,
+    private readonly signed: boolean,
   ) {
     this.session = null;
   }
@@ -101,6 +101,7 @@ class AuthSession {
     return {
       ...this.cookieOptions,
       secure: this.secure,
+      signed: this.signed,
       expires: addDays(this.app.time.now(), 1),
     };
   }
@@ -110,14 +111,18 @@ class AuthSession {
  * Middleware that setups up auth session and parses the
  * session cookie if present in the request
  */
-export function sessionMiddleware(app: App, secure: boolean): RequestHandler {
+export function sessionMiddleware(
+  app: App,
+  secure: boolean,
+  signed: boolean,
+): RequestHandler {
   return async (req, res, next) => {
     if (req.session) {
       return next();
     }
 
-    req.session = new AuthSession(app, secure);
-    const cookies = req.signedCookies;
+    req.session = new AuthSession(app, secure, signed);
+    const cookies = signed ? req.signedCookies : req.cookies;
     if (!cookies || !(req.session.cookieName in cookies)) {
       return next();
     }
