@@ -16,6 +16,8 @@ Some notes on what I think is a good strategy for UI and how the core components
   - [`<With>`](#with)
   - [`<Button>`](#button)
   - [`<Link>`](#link)
+  - [`<Checkbox>`](#checkbox)
+  - [`<Radio>`](#radio)
 - [Icons](#icons)
   - [Adding new icons](#adding-new-icons)
 
@@ -259,6 +261,54 @@ Clickable inline underlined text.
 - `<Button>` supports `href`, so only use this if you want the underlined text.
 
   - **Reasoning:** You'd just be working against the built-in styling of this component otherwise!
+
+### `<Checkbox>`
+
+A checkbox without any styling.
+
+#### Examples <!-- omit in toc -->
+
+```tsx
+<Checkbox checked={checked} onChange={handleChange}>
+  <Text style="custom" className="group-has-[input:checked]:color-red">
+    Content.
+  </Text>
+</Checkbox>
+```
+
+#### Rules of `<Checkbox>` <!-- omit in toc -->
+
+- Are you sure you don't want `<Switch>`?
+
+  - **Reasoning:** `<Checkbox>` is a low-level component that's completely unstyled. `<Switch>` is what gives you the visual switch component.
+
+- Child elements should use `group-has-[input:checked]` and `group-has-[input:disabled]` for styling.
+
+  - **Reasoning:** That enables them to apply styles based on the value of the inner `<input type="checkbox">`.
+
+### `<Radio>`
+
+A radio button without any styling.
+
+#### Examples <!-- omit in toc -->
+
+```tsx
+<Radio group="theme" checked={checked} onChange={handleChange}>
+  <Text style="custom" className="group-has-[input:checked]:color-red">
+    Content.
+  </Text>
+</Radio>
+```
+
+#### Rules of `<Radio>` <!-- omit in toc -->
+
+- Are you sure you don't want `<RadioButton>`?
+
+  - **Reasoning:** `<Radio>` is a low-level component that's completely unstyled. `<RadioButton>` is what gives you the visual radio button component.
+
+- Child elements should use `group-has-[input:checked]` and `group-has-[input:disabled]` for styling.
+
+  - **Reasoning:** That enables them to apply styles based on the value of the inner `<input type="radio">`.
 
 ## Icons
 

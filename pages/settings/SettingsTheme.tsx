@@ -2,15 +2,18 @@ import React from "react";
 
 import { Column } from "@/components/core/Column";
 import { Text } from "@/components/core/Text";
-import { Spacer } from "@/components/core/Spacer";
 import { Theme, themes } from "@/shared/settings";
 import { applyTheme } from "@/pages/settings/utils";
 import { useSettings } from "@/hooks/useSettings";
+import { SettingsRadioButton } from "@/components/settings/SettingsRadioButton";
 
-const formattedTheme: Record<(typeof themes)[number], string> = {
-  system: "Auto",
-  light: "Light",
-  dark: "Dark",
+const formattedTheme: Record<
+  (typeof themes)[number],
+  { name: string; description: string | null }
+> = {
+  system: { name: "Auto", description: "Matches your device's settings." },
+  light: { name: "Light", description: null },
+  dark: { name: "Dark", description: null },
 };
 
 export function SettingsTheme() {
@@ -22,27 +25,18 @@ export function SettingsTheme() {
   }
 
   return (
-    <Column>
+    <Column className="gap-4">
       <Text style="subtitle">Colour theme</Text>
-      <Spacer h="2" />
-      <Column>
-        {themes.map((theme) => (
-          <label
-            key={theme}
-            className="hover:bg-soft-hover flex cursor-pointer gap-2 py-2"
-          >
-            <input
-              type="radio"
-              name="theme"
-              value={theme}
-              checked={(settings.theme as string).includes(theme)}
-              onChange={() => updateTheme(theme)}
-              className="accent-accent"
-            />
-            <Text>{formattedTheme[theme]}</Text>
-          </label>
-        ))}
-      </Column>
+      {themes.map((theme) => (
+        <SettingsRadioButton
+          key={theme}
+          title={formattedTheme[theme].name}
+          description={formattedTheme[theme].description ?? undefined}
+          group="theme"
+          checked={(settings.theme as string).includes(theme)}
+          onChange={() => updateTheme(theme)}
+        />
+      ))}
     </Column>
   );
 }
