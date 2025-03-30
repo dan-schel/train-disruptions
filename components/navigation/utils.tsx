@@ -20,9 +20,11 @@ export const overview: NavTab = {
   name: "Overview",
   icon: <MingcuteMapLine />,
   iconFill: <MingcuteMapFill />,
-  path: "/",
+  path: "/overview",
   active: (url: string) =>
-    url === "/" || url.startsWith("/disruption") || url.startsWith("/line"),
+    url === "/overview" ||
+    url.startsWith("/disruption") ||
+    url.startsWith("/line"),
 };
 
 export const myCommute: NavTab = {
