@@ -1,6 +1,5 @@
-// TODO: Write a quick script to ensure there's no duplicate IDs, and re-order
-// them in the order listed in the file (so we can at least have some order
-// initially!).
+// TODO: Remove majority of the nodes lol. With the new model, we don't need one
+// for every single station, just the major ones like interchanges & junctions.
 
 export const BURNLEY = {
   FLINDERS_STREET_LOOP: 74,
