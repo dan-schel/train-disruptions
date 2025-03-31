@@ -34,7 +34,8 @@ export function NavBarOrchestrator(props: NavBarOrchestratorProps) {
     : [overview, myCommute];
 
   const { urlPathname } = usePageContext();
-  const loadedTab = navTabs.find((x) => x.active(urlPathname))?.name ?? null;
+  const pathname = urlPathname === "/" ? `/${settings.startPage}` : urlPathname;
+  const loadedTab = navTabs.find((x) => x.active(pathname))?.name ?? null;
   const [activeTabName, setActiveTabName] = React.useState(loadedTab);
 
   React.useEffect(() => {
