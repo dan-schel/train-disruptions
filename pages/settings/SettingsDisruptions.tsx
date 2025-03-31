@@ -2,17 +2,16 @@ import React from "react";
 
 import { Column } from "@/components/core/Column";
 import { Text } from "@/components/core/Text";
-import { Spacer } from "@/components/core/Spacer";
-import {
-  filterableDisruptionCategories,
-  FilterableDisruptionCategory,
-} from "@/shared/settings";
+import { filterableDisruptionCategories } from "@/shared/settings";
 import { useSettings } from "@/hooks/useSettings";
+import { SettingsSwitch } from "@/components/settings/SettingsSwitch";
 
 const allCategories = ["essential", ...filterableDisruptionCategories] as const;
 
+type AnyDisruptionCategory = (typeof allCategories)[number];
+
 const formattedCategories: Record<
-  (typeof allCategories)[number],
+  AnyDisruptionCategory,
   { name: string; description?: string; disabled?: boolean }
 > = {
   essential: {
@@ -41,55 +40,34 @@ const formattedCategories: Record<
 export function SettingsDisruptions() {
   const [settings, setSettings] = useSettings();
 
-  function toggleCategory(category: FilterableDisruptionCategory) {
-    if (settings.enabledCategories.includes(category)) {
-      setSettings(settings.withoutEnabledCategories(category));
-    } else {
+  function toggleCategory(category: AnyDisruptionCategory, newValue: boolean) {
+    if (category === "essential") {
+      return;
+    }
+
+    if (newValue) {
       setSettings(settings.withEnabledCategories(category));
+    } else {
+      setSettings(settings.withoutEnabledCategories(category));
     }
   }
 
   return (
-    <Column>
+    <Column className="gap-4">
       <Text style="subtitle">Disruptions to show</Text>
-      <Spacer h="2" />
-
-      <Column>
-        {allCategories.map((category) => (
-          <label
-            key={category}
-            className="hover:bg-soft-hover flex cursor-pointer items-center justify-between py-2"
-          >
-            <input
-              type="checkbox"
-              value={category}
-              autoComplete="off"
-              className="peer sr-only"
-              checked={
-                (settings.enabledCategories as string[]).includes(category) ||
-                formattedCategories[category].disabled === true
-              }
-              disabled={formattedCategories[category].disabled}
-              onChange={
-                category !== "essential"
-                  ? () => toggleCategory(category)
-                  : undefined
-              }
-            />
-            <Column className="gap-2">
-              <Text>{formattedCategories[category].name}</Text>
-              {formattedCategories[category].description && (
-                <Text style="tiny-weak">
-                  {formattedCategories[category].description}
-                </Text>
-              )}
-            </Column>
-            <div className="bg-switch peer-checked:bg-accent hover:bg-switch-hover hover:peer-checked:bg-accent-hover flex h-5 w-9 items-center rounded-full p-0.5 transition-transform ease-in-out peer-checked:*:translate-x-full peer-disabled:opacity-50">
-              <div className="bg-switch-knob size-4 rounded-full transition-all" />
-            </div>
-          </label>
-        ))}
-      </Column>
+      {allCategories.map((category) => (
+        <SettingsSwitch
+          key={category}
+          title={formattedCategories[category].name}
+          description={formattedCategories[category].description}
+          onChange={(checked) => toggleCategory(category, checked)}
+          checked={
+            (settings.enabledCategories as string[]).includes(category) ||
+            formattedCategories[category].disabled === true
+          }
+          disabled={formattedCategories[category].disabled}
+        />
+      ))}
     </Column>
   );
 }

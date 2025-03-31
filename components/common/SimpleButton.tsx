@@ -11,6 +11,8 @@ const themes = {
   primary:
     "bg-accent group-hover:bg-accent-hover group-active:bg-accent-active text-on-accent",
   hover: "group-hover:bg-soft-hover group-active:bg-soft-active",
+  error:
+    "bg-error group-hover:bg-error-hover group-active:bg-error-active text-background",
 };
 
 type Content =
@@ -31,7 +33,10 @@ export function SimpleButton(props: SimpleButtonProps) {
   if (layout === "tile") {
     return (
       <Button {...action} alt={props.alt}>
-        <Column className={clsx("gap-2 px-4 py-2", theme)} align="center">
+        <Column
+          className={clsx("gap-2 px-4 py-2 select-none", theme)}
+          align="center"
+        >
           {props.icon && <With className="-ml-0.5 text-2xl">{props.icon}</With>}
           {props.text && <Text align="center">{props.text}</Text>}
         </Column>
@@ -44,7 +49,7 @@ export function SimpleButton(props: SimpleButtonProps) {
       return (
         <Button {...action} alt={props.alt}>
           <Row
-            className={clsx("h-8 w-8 gap-2 text-lg", theme)}
+            className={clsx("h-8 w-8 gap-2 text-lg select-none", theme)}
             align="center"
             justify="center"
           >
@@ -55,7 +60,10 @@ export function SimpleButton(props: SimpleButtonProps) {
     } else {
       return (
         <Button {...action} alt={props.alt}>
-          <Row className={clsx("h-8 gap-2 px-4", theme)} align="center">
+          <Row
+            className={clsx("h-8 gap-2 px-4 select-none", theme)}
+            align="center"
+          >
             {props.icon != null && (
               <With className="-ml-0.5 text-lg">{props.icon}</With>
             )}

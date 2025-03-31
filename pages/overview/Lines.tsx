@@ -1,6 +1,6 @@
 import React from "react";
 
-import { LineButton } from "@/pages/index/LineButton";
+import { LineButton } from "@/pages/overview/LineButton";
 import { Text } from "@/components/core/Text";
 import { Column } from "@/components/core/Column";
 import { OverviewPageLineData } from "@/shared/types/overview-page";

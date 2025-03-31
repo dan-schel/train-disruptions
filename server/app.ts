@@ -2,7 +2,6 @@ import { StationCollection } from "@/server/data/station/station-collection";
 import { Database } from "@/server/database/lib/general/database";
 import { AlertSource } from "@/server/alert-source/alert-source";
 import { migrations } from "@/server/database/migrations/migrations";
-import { DiscordClient } from "@/server/discord";
 import { LineCollection } from "@/server/data/line/line-collection";
 import { TimeProvider } from "@/server/time-provider/time-provider";
 import { LogHistoricalAlertsTask } from "@/server/task/tasks/log-historical-alerts-task";
@@ -11,6 +10,9 @@ import { areUnique } from "@dan-schel/js-utils";
 import { VtarAlertSource } from "@/server/alert-source/vtar-alert-source";
 import { MongoDatabase } from "@/server/database/lib/mongo/mongo-database";
 import { TaskScheduler } from "@/server/task/lib/task-scheduler";
+import { SeedSuperAdminTask } from "@/server/task/tasks/seed-super-admin-task";
+import { DiscordBot } from "@/server/discord/bot";
+import { ClearExpiredSessionTask } from "@/server/task/tasks/clear-expired-sessions-task";
 
 export class App {
   private readonly _taskSchedulers: TaskScheduler[];
@@ -20,11 +22,18 @@ export class App {
     readonly stations: StationCollection,
     readonly database: Database,
     readonly alertSource: AlertSource,
-    readonly discordClient: DiscordClient | null,
+    readonly discordBot: DiscordBot | null,
     readonly time: TimeProvider,
     readonly commitHash: string | null,
+    private readonly username: string | null,
+    private readonly password: string | null,
   ) {
-    const tasks = [new SendStartupMessageTask(), new LogHistoricalAlertsTask()];
+    const tasks = [
+      new SendStartupMessageTask(),
+      new LogHistoricalAlertsTask(),
+      new SeedSuperAdminTask(this.username, this.password),
+      new ClearExpiredSessionTask(),
+    ];
 
     if (!areUnique(tasks.map((x) => x.taskId))) {
       throw new Error("Two tasks cannot share the same ID.");
@@ -64,9 +73,9 @@ export class App {
         : "⚫ Using fake alert source",
     );
     console.log(
-      this.discordClient != null
-        ? "🟢 Discord enabled"
-        : "⚫ Not using Discord",
+      this.discordBot != null
+        ? "🟢 Discord bot online"
+        : "⚫ Discord bot offline",
     );
     console.log(
       this.commitHash != null

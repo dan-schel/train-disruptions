@@ -14,7 +14,7 @@ export default function Page() {
 
   return (
     <Column>
-      <BackNavigation name="Overview" href="/" />
+      <BackNavigation name="Overview" href="/overview" />
       <PageCenterer>
         <PagePadding>
           <Column className="gap-4">
