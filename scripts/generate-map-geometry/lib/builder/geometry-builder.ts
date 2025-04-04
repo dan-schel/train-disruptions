@@ -11,12 +11,16 @@ import {
 import { ColoredPathCollection } from "@/scripts/generate-map-geometry/lib/builder/path";
 import { Point } from "@/scripts/generate-map-geometry/lib/dimensions/point";
 import { terminusExtents } from "@/scripts/generate-map-geometry/lib/utils";
+import { InterchangeBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/interchange-blueprint";
 
 export class GeometryBuilder {
   constructor() {}
 
-  build(blueprints: LineBlueprint[]): Geometry {
-    const paths = blueprints.map((l) => l.build());
+  build(
+    lineBlueprints: LineBlueprint[],
+    _interchangeBlueprints: InterchangeBlueprint[],
+  ): Geometry {
+    const paths = lineBlueprints.map((l) => l.build());
 
     const lines = this._buildLines(paths);
     const interchanges = this._buildInterchanges(paths);

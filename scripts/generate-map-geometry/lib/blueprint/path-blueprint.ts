@@ -5,6 +5,7 @@ import { PathBlueprintPiece } from "@/scripts/generate-map-geometry/lib/blueprin
 import { Split } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint-piece/split";
 import { Straight } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint-piece/straight";
 import { Terminus } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint-piece/terminus";
+import { NodeLocation } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint-piece/station-location";
 
 export class PathBlueprint {
   readonly pieces: readonly PathBlueprintPiece[];
@@ -53,8 +54,7 @@ export class PathBlueprint {
     return this.add(new Terminus());
   }
 
-  node(_nodeId: number) {
-    // TODO: [DS] Implement this.
-    return this;
+  node(nodeId: number) {
+    return this.add(new NodeLocation(nodeId));
   }
 }

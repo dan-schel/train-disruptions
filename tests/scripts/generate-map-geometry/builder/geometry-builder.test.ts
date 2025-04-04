@@ -4,6 +4,7 @@ import { fp } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-point";
 import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
 import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
 import { GeometryBuilder } from "@/scripts/generate-map-geometry/lib/builder/geometry-builder";
+import { InterchangeBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/interchange-blueprint";
 
 describe("GeometryBuilder", () => {
   it("builds the geometry as expected", () => {
@@ -17,14 +18,14 @@ describe("GeometryBuilder", () => {
       PURPLE_3: 7,
     };
 
-    // const interchange = InterchangeBlueprint.simple(
-    //   1,
-    //   ["line1", "line2"],
-    //   "line1",
-    //   "left-edge",
-    //   "line2",
-    //   "right-edge",
-    // );
+    const interchange = InterchangeBlueprint.simple(
+      1,
+      [node.CYAN_2, node.PURPLE_2],
+      node.CYAN_2,
+      "left-edge",
+      node.PURPLE_2,
+      "right-edge",
+    );
 
     const line1 = new LineBlueprint({
       origin: fp([0, 0]),
@@ -65,7 +66,7 @@ describe("GeometryBuilder", () => {
         .terminus(),
     });
 
-    const geometry = new GeometryBuilder().build([line1, line2]);
+    const geometry = new GeometryBuilder().build([line1, line2], [interchange]);
 
     expect(JSON.stringify(geometry.toJSON(), null, 2)).toMatchSnapshot();
   });

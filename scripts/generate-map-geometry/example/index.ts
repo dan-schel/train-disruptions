@@ -3,6 +3,7 @@ import { fp } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-point";
 import { LineBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/line-blueprint";
 import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
 import { GeometryBuilder } from "@/scripts/generate-map-geometry/lib/builder/geometry-builder";
+import { InterchangeBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/interchange-blueprint";
 
 const node = {
   CYAN_1: 1,
@@ -14,14 +15,14 @@ const node = {
   PURPLE_3: 7,
 };
 
-// const interchange = InterchangeBlueprint.simple(
-//   1,
-//   ["line1", "line2"],
-//   "line1",
-//   "left-edge",
-//   "line2",
-//   "right-edge",
-// );
+const interchange = InterchangeBlueprint.simple(
+  1,
+  [node.CYAN_2, node.PURPLE_2],
+  node.CYAN_2,
+  "left-edge",
+  node.PURPLE_2,
+  "right-edge",
+);
 
 const line1 = new LineBlueprint({
   origin: fp([0, 0]),
@@ -62,6 +63,6 @@ const line2 = new LineBlueprint({
     .terminus(),
 });
 
-const geometry = new GeometryBuilder().build([line1, line2]);
+const geometry = new GeometryBuilder().build([line1, line2], [interchange]);
 
 export default geometry;

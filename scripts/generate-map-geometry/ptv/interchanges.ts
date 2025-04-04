@@ -1,294 +1,343 @@
-// TODO: Station IDs should not be exclusive to the server.
-//
-// The OTHER station/line data should stay on the server, but the IDs can be
-// shared (especially since we only import the ones we need, it shouldn't
-// explode the bundle size).
-import {
-  BALLARAT,
-  BENDIGO,
-  BROADMEADOWS,
-  BURNLEY,
-  CAMBERWELL,
-  CAULFIELD,
-  CLAYTON,
-  CLIFTON_HILL,
-  CRAIGIEBURN,
-  DANDENONG,
-  DEER_PARK,
-  FLAGSTAFF,
-  FLINDERS_STREET,
-  FOOTSCRAY,
-  FRANKSTON,
-  LAVERTON,
-  MELBOURNE_CENTRAL,
-  NEWPORT,
-  NORTH_MELBOURNE,
-  PAKENHAM,
-  PARLIAMENT,
-  RICHMOND,
-  RINGWOOD,
-  SEYMOUR,
-  SOUTH_YARRA,
-  SOUTHERN_CROSS,
-  SUNBURY,
-  SUNSHINE,
-  WATERGARDENS,
-} from "@/shared/station-ids";
-
 import { InterchangeBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/interchange-blueprint";
+import * as station from "@/shared/station-ids";
+import * as node from "@/shared/map-node-ids";
+
+// TODO: [DS] Split each interchange into it's own file.
 
 export const flindersStreet = InterchangeBlueprint.simple(
-  FLINDERS_STREET,
+  station.FLINDERS_STREET,
   [
-    "northern-direct",
-    "northern-loop",
-    "clifton-hill-direct",
-    "clifton-hill-loop",
-    "burnley-direct",
-    "burnley-loop",
-    "dandenong-direct",
-    "dandenong-loop",
-    "regional",
-    "cross-city-east",
-    "cross-city-west",
-    "sandringham",
-  ] as const,
-  "northern-direct",
+    node.NORTHERN.FLINDERS_STREET_DIRECT,
+    node.NORTHERN.FLINDERS_STREET_LOOP,
+    node.CLIFTON_HILL.FLINDERS_STREET_DIRECT,
+    node.CLIFTON_HILL.FLINDERS_STREET_LOOP,
+    node.BURNLEY.FLINDERS_STREET_DIRECT,
+    node.BURNLEY.FLINDERS_STREET_LOOP,
+    node.DANDENONG.FLINDERS_STREET_DIRECT,
+    node.DANDENONG.FLINDERS_STREET_LOOP,
+    node.GIPPSLAND.FLINDERS_STREET,
+    node.FRANKSTON.FLINDERS_STREET,
+    node.NEWPORT.FLINDERS_STREET,
+    node.SANDRINGHAM.FLINDERS_STREET,
+  ],
+  node.NORTHERN.FLINDERS_STREET_DIRECT,
   "right-edge",
-  "sandringham",
+  node.SANDRINGHAM.FLINDERS_STREET,
   "right-edge",
 );
 
 export const southernCross = new InterchangeBlueprint(
-  SOUTHERN_CROSS,
+  station.SOUTHERN_CROSS,
   [
-    "northern",
-    "clifton-hill",
-    "burnley",
-    "dandenong",
-    "regional-east",
-    "regional-west",
-    "cross-city",
-  ] as const,
+    node.NORTHERN.SOUTHERN_CROSS,
+    node.CLIFTON_HILL.SOUTHERN_CROSS,
+    node.BURNLEY.SOUTHERN_CROSS,
+    node.DANDENONG.SOUTHERN_CROSS,
+    node.GIPPSLAND.SOUTHERN_CROSS,
+    node.REGIONAL_WESTERN.SOUTHERN_CROSS,
+    node.NEWPORT.SOUTHERN_CROSS,
+  ],
   [
     [
-      { point: "cross-city", position: "left-edge" },
-      { point: "cross-city", position: "right-inner" },
+      { nodeId: node.NEWPORT.SOUTHERN_CROSS, position: "left-edge" },
+      { nodeId: node.NEWPORT.SOUTHERN_CROSS, position: "right-inner" },
     ],
     [
-      { point: "dandenong", position: "left-inner" },
-      { point: "northern", position: "right-edge" },
+      { nodeId: node.DANDENONG.SOUTHERN_CROSS, position: "left-inner" },
+      { nodeId: node.NORTHERN.SOUTHERN_CROSS, position: "right-edge" },
     ],
   ],
   [
-    { point: "cross-city", position: "left-edge" },
-    { point: "northern", position: "right-edge" },
+    { nodeId: node.NEWPORT.SOUTHERN_CROSS, position: "left-edge" },
+    { nodeId: node.NORTHERN.SOUTHERN_CROSS, position: "right-edge" },
   ],
 );
 
 export const flagstaff = InterchangeBlueprint.simple(
-  FLAGSTAFF,
-  ["northern", "clifton-hill", "burnley", "dandenong"] as const,
-  "dandenong",
+  station.FLAGSTAFF,
+  [
+    node.NORTHERN.FLAGSTAFF,
+    node.CLIFTON_HILL.FLAGSTAFF,
+    node.BURNLEY.FLAGSTAFF,
+    node.DANDENONG.FLAGSTAFF,
+  ],
+  node.DANDENONG.FLAGSTAFF,
   "left-edge",
-  "northern",
+  node.NORTHERN.FLAGSTAFF,
   "right-edge",
 );
 
 export const melbourneCentral = InterchangeBlueprint.simple(
-  MELBOURNE_CENTRAL,
-  ["northern", "clifton-hill", "burnley", "dandenong"] as const,
-  "dandenong",
+  station.MELBOURNE_CENTRAL,
+  [
+    node.NORTHERN.MELBOURNE_CENTRAL,
+    node.CLIFTON_HILL.MELBOURNE_CENTRAL,
+    node.BURNLEY.MELBOURNE_CENTRAL,
+    node.DANDENONG.MELBOURNE_CENTRAL,
+  ],
+  node.DANDENONG.MELBOURNE_CENTRAL,
   "left-edge",
-  "northern",
+  node.NORTHERN.MELBOURNE_CENTRAL,
   "right-edge",
 );
 
 export const parliament = InterchangeBlueprint.simple(
-  PARLIAMENT,
-  ["northern", "clifton-hill", "burnley", "dandenong"] as const,
-  "dandenong",
+  station.PARLIAMENT,
+  [
+    node.NORTHERN.PARLIAMENT,
+    node.CLIFTON_HILL.PARLIAMENT,
+    node.BURNLEY.PARLIAMENT,
+    node.DANDENONG.PARLIAMENT,
+  ],
+  node.DANDENONG.PARLIAMENT,
   "left-edge",
-  "northern",
+  node.NORTHERN.PARLIAMENT,
   "right-edge",
 );
 
 export const richmond = InterchangeBlueprint.simple(
-  RICHMOND,
-  ["sandringham", "frankston", "gippsland", "dandenong", "burnley"] as const,
-  "burnley",
+  station.RICHMOND,
+  [
+    node.SANDRINGHAM.RICHMOND,
+    node.FRANKSTON.RICHMOND,
+    node.GIPPSLAND.RICHMOND,
+    node.DANDENONG.RICHMOND,
+    node.BURNLEY.RICHMOND,
+  ],
+  node.BURNLEY.RICHMOND,
   "left-edge",
-  "sandringham",
+  node.SANDRINGHAM.RICHMOND,
   "right-edge",
 );
 
 export const northMelbourne = new InterchangeBlueprint(
-  NORTH_MELBOURNE,
-  ["cross-city", "regional-rrl", "regional-seymour", "northern"] as const,
+  station.NORTH_MELBOURNE,
+  [
+    node.NEWPORT.NORTH_MELBOURNE,
+    node.REGIONAL_WESTERN.NORTH_MELBOURNE_RRL,
+    node.REGIONAL_WESTERN.NORTH_MELBOURNE_SEYMOUR,
+    node.NORTHERN.NORTH_MELBOURNE,
+  ],
   [
     [
-      { point: "cross-city", position: "left-edge" },
-      { point: "cross-city", position: "right-inner" },
+      { nodeId: node.NEWPORT.NORTH_MELBOURNE, position: "left-edge" },
+      { nodeId: node.NEWPORT.NORTH_MELBOURNE, position: "right-inner" },
     ],
     [
-      { point: "regional-seymour", position: "left-inner" },
-      { point: "northern", position: "right-edge" },
+      {
+        nodeId: node.REGIONAL_WESTERN.NORTH_MELBOURNE_SEYMOUR,
+        position: "left-inner",
+      },
+      { nodeId: node.NORTHERN.NORTH_MELBOURNE, position: "right-edge" },
     ],
   ],
   [
-    { point: "cross-city", position: "left-edge" },
-    { point: "northern", position: "right-edge" },
+    { nodeId: node.NEWPORT.NORTH_MELBOURNE, position: "left-edge" },
+    { nodeId: node.NORTHERN.NORTH_MELBOURNE, position: "right-edge" },
   ],
 );
 
 export const cliftonHill = InterchangeBlueprint.single(
-  CLIFTON_HILL,
-  "clifton-hill",
+  station.CLIFTON_HILL,
+  node.CLIFTON_HILL.CLIFTON_HILL,
 );
 
-export const burnley = InterchangeBlueprint.single(BURNLEY, "burnley");
+export const burnley = InterchangeBlueprint.single(
+  station.BURNLEY,
+  node.BURNLEY.BURNLEY,
+);
 
-export const camberwell = InterchangeBlueprint.single(CAMBERWELL, "camberwell");
+export const camberwell = InterchangeBlueprint.single(
+  station.CAMBERWELL,
+  node.BURNLEY.CAMBERWELL,
+);
 
-export const ringwood = InterchangeBlueprint.single(RINGWOOD, "ringwood");
+export const ringwood = InterchangeBlueprint.single(
+  station.RINGWOOD,
+  node.BURNLEY.RINGWOOD,
+);
 
 export const southYarra = new InterchangeBlueprint(
-  SOUTH_YARRA,
-  ["sandringham", "frankston", "gippsland", "dandenong"] as const,
+  station.SOUTH_YARRA,
+  [
+    node.SANDRINGHAM.SOUTH_YARRA,
+    node.FRANKSTON.SOUTH_YARRA,
+    node.GIPPSLAND.SOUTH_YARRA,
+    node.DANDENONG.SOUTH_YARRA,
+  ],
   [
     [
-      { point: "dandenong", position: "left-edge" },
-      { point: "dandenong", position: "right-inner" },
+      { nodeId: node.DANDENONG.SOUTH_YARRA, position: "left-edge" },
+      { nodeId: node.DANDENONG.SOUTH_YARRA, position: "right-inner" },
     ],
     [
-      { point: "frankston", position: "left-inner" },
-      { point: "sandringham", position: "right-edge" },
+      { nodeId: node.FRANKSTON.SOUTH_YARRA, position: "left-inner" },
+      { nodeId: node.SANDRINGHAM.SOUTH_YARRA, position: "right-edge" },
     ],
   ],
   [
-    { point: "dandenong", position: "left-edge" },
-    { point: "sandringham", position: "right-edge" },
+    { nodeId: node.DANDENONG.SOUTH_YARRA, position: "left-edge" },
+    { nodeId: node.SANDRINGHAM.SOUTH_YARRA, position: "right-edge" },
   ],
 );
 
 export const caulfield = InterchangeBlueprint.simple(
-  CAULFIELD,
-  ["frankston", "gippsland", "dandenong"] as const,
-  "dandenong",
+  station.CAULFIELD,
+  [
+    node.FRANKSTON.CAULFIELD,
+    node.GIPPSLAND.CAULFIELD,
+    node.DANDENONG.CAULFIELD,
+  ],
+  node.DANDENONG.CAULFIELD,
   "left-edge",
-  "frankston",
+  node.FRANKSTON.CAULFIELD,
   "right-edge",
 );
 
 export const clayton = InterchangeBlueprint.simple(
-  CLAYTON,
-  ["gippsland", "dandenong"] as const,
-  "dandenong",
+  station.CLAYTON,
+  [node.GIPPSLAND.CLAYTON, node.DANDENONG.CLAYTON],
+  node.DANDENONG.CLAYTON,
   "left-edge",
-  "gippsland",
+  node.GIPPSLAND.CLAYTON,
   "right-edge",
 );
 
 export const dandenong = InterchangeBlueprint.simple(
-  DANDENONG,
-  ["gippsland", "dandenong"] as const,
-  "dandenong",
+  station.DANDENONG,
+  [node.GIPPSLAND.DANDENONG, node.DANDENONG.DANDENONG],
+  node.DANDENONG.DANDENONG,
   "left-edge",
-  "gippsland",
+  node.GIPPSLAND.DANDENONG,
   "right-edge",
 );
 
 export const pakenham = InterchangeBlueprint.simple(
-  PAKENHAM,
-  ["gippsland", "pakenham"] as const,
-  "pakenham",
+  station.PAKENHAM,
+  [node.GIPPSLAND.PAKENHAM, node.DANDENONG.PAKENHAM],
+  node.DANDENONG.PAKENHAM,
   "left-edge",
-  "gippsland",
+  node.GIPPSLAND.PAKENHAM,
   "right-edge",
 );
 
 export const footscray = InterchangeBlueprint.simple(
-  FOOTSCRAY,
-  ["cross-city", "regional", "sunbury"] as const,
-  "cross-city",
+  station.FOOTSCRAY,
+  [
+    node.NEWPORT.FOOTSCRAY,
+    node.REGIONAL_WESTERN.FOOTSCRAY,
+    node.NORTHERN.FOOTSCRAY,
+  ],
+  node.NEWPORT.FOOTSCRAY,
   "left-edge",
-  "sunbury",
+  node.NORTHERN.FOOTSCRAY,
   "right-edge",
 );
 
 export const frankston = InterchangeBlueprint.simple(
-  FRANKSTON,
-  ["frankston", "stony-point"] as const,
-  "frankston",
+  station.FRANKSTON,
+  [node.FRANKSTON.FRANKSTON, node.STONY_POINT.FRANKSTON],
+  node.FRANKSTON.FRANKSTON,
   "left-edge",
-  "stony-point",
+  node.STONY_POINT.FRANKSTON,
   "right-edge",
 );
 
 export const broadmeadows = InterchangeBlueprint.simple(
-  BROADMEADOWS,
-  ["craigieburn", "seymour"] as const,
-  "seymour",
+  station.BROADMEADOWS,
+  [node.NORTHERN.BROADMEADOWS, node.REGIONAL_WESTERN.BROADMEADOWS],
+  node.REGIONAL_WESTERN.BROADMEADOWS,
   "left-edge",
-  "craigieburn",
+  node.NORTHERN.BROADMEADOWS,
   "right-edge",
 );
 
 export const craigieburn = InterchangeBlueprint.simple(
-  CRAIGIEBURN,
-  ["craigieburn", "seymour"] as const,
-  "seymour",
+  station.CRAIGIEBURN,
+  [node.NORTHERN.CRAIGIEBURN, node.REGIONAL_WESTERN.CRAIGIEBURN],
+  node.REGIONAL_WESTERN.CRAIGIEBURN,
   "left-edge",
-  "craigieburn",
+  node.NORTHERN.CRAIGIEBURN,
   "right-edge",
 );
 
-export const seymour = InterchangeBlueprint.single(SEYMOUR, "seymour");
+export const seymour = InterchangeBlueprint.single(
+  station.SEYMOUR,
+  node.REGIONAL_WESTERN.SEYMOUR,
+);
 
-export const newport = InterchangeBlueprint.single(NEWPORT, "cross-city");
+export const newport = InterchangeBlueprint.single(
+  station.NEWPORT,
+  node.NEWPORT.NEWPORT,
+);
 
-export const laverton = InterchangeBlueprint.single(LAVERTON, "werribee");
+export const laverton = InterchangeBlueprint.single(
+  station.LAVERTON,
+  node.NEWPORT.LAVERTON_EXPRESS,
+);
 
 export const sunshine = new InterchangeBlueprint(
-  SUNSHINE,
-  ["sunbury", "bendigo", "deer-park"] as const,
+  station.SUNSHINE,
+  [
+    node.NORTHERN.SUNSHINE,
+    node.REGIONAL_WESTERN.SUNSHINE_BENDIGO,
+    node.REGIONAL_WESTERN.SUNSHINE_DEER_PARK,
+  ],
   [
     [
-      { point: "deer-park", position: "left-edge" },
-      { point: "deer-park", position: "right-edge" },
+      {
+        nodeId: node.REGIONAL_WESTERN.SUNSHINE_DEER_PARK,
+        position: "left-edge",
+      },
+      {
+        nodeId: node.REGIONAL_WESTERN.SUNSHINE_DEER_PARK,
+        position: "right-edge",
+      },
     ],
     [
-      { point: "sunbury", position: "left-inner" },
-      { point: "sunbury", position: "right-edge" },
+      { nodeId: node.NORTHERN.SUNSHINE, position: "left-inner" },
+      { nodeId: node.NORTHERN.SUNSHINE, position: "right-edge" },
     ],
   ],
   [
-    { point: "deer-park", position: "left-edge" },
-    { point: "deer-park", position: "right-edge" },
-    { point: "sunbury", position: "right-edge" },
+    { nodeId: node.REGIONAL_WESTERN.SUNSHINE_DEER_PARK, position: "left-edge" },
+    {
+      nodeId: node.REGIONAL_WESTERN.SUNSHINE_DEER_PARK,
+      position: "right-edge",
+    },
+    { nodeId: node.NORTHERN.SUNSHINE, position: "right-edge" },
   ],
 );
 
 export const watergardens = InterchangeBlueprint.simple(
-  WATERGARDENS,
-  ["sunbury", "bendigo"] as const,
-  "bendigo",
+  station.WATERGARDENS,
+  [node.NORTHERN.WATERGARDENS, node.REGIONAL_WESTERN.WATERGARDENS],
+  node.REGIONAL_WESTERN.WATERGARDENS,
   "left-edge",
-  "sunbury",
+  node.NORTHERN.WATERGARDENS,
   "right-edge",
 );
 
 export const sunbury = InterchangeBlueprint.simple(
-  SUNBURY,
-  ["sunbury", "bendigo"] as const,
-  "bendigo",
+  station.SUNBURY,
+  [node.NORTHERN.SUNBURY, node.REGIONAL_WESTERN.SUNBURY],
+  node.REGIONAL_WESTERN.SUNBURY,
   "left-edge",
-  "sunbury",
+  node.NORTHERN.SUNBURY,
   "right-edge",
 );
 
-export const bendigo = InterchangeBlueprint.single(BENDIGO, "bendigo");
+export const bendigo = InterchangeBlueprint.single(
+  station.BENDIGO,
+  node.REGIONAL_WESTERN.BENDIGO,
+);
 
-export const ballarat = InterchangeBlueprint.single(BALLARAT, "ballarat");
+export const ballarat = InterchangeBlueprint.single(
+  station.BALLARAT,
+  node.REGIONAL_WESTERN.BALLARAT,
+);
 
-export const deerPark = InterchangeBlueprint.single(DEER_PARK, "deer-park");
+export const deerPark = InterchangeBlueprint.single(
+  station.DEER_PARK,
+  node.REGIONAL_WESTERN.DEER_PARK,
+);
