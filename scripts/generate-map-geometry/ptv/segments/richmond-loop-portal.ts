@@ -27,12 +27,12 @@ export function richmondLoopPortal(
     .straight(straightLength)
     .curve(radius, -45)
     .straight(portalStraight)
-    .nodes([richmondNodeId])
+    .node(richmondNodeId)
     .split({
       reverse: true,
       split: direct
         .flindersStreetToRichmond(lineNumber)
         .reverse()
-        .nodes([flindersStreetNodeId]),
+        .node(flindersStreetNodeId),
     });
 }

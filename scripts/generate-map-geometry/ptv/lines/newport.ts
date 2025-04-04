@@ -30,25 +30,21 @@ export const newport = new LineBlueprint({
   color: "green",
 
   path: new PathBlueprint()
-    .nodes([node.FLINDERS_STREET])
+    .node(node.FLINDERS_STREET)
     .add(flindersStreetToSouthernCross(5, false))
-    .nodes([node.SOUTHERN_CROSS])
+    .node(node.SOUTHERN_CROSS)
     .add(southernCrossToNorthMelbourne(5))
-    .nodes([node.NORTH_MELBOURNE])
+    .node(node.NORTH_MELBOURNE)
     .add(northMelbourneToFootscray("cross-city"))
-    .nodes([node.SOUTH_KENSINGTON, node.FOOTSCRAY])
+    .node(node.FOOTSCRAY)
     .curve(defaultRadius, -45)
     .straight(newportStraight)
-    .nodes([node.SEDDON, node.YARRAVILLE, node.SPOTSWOOD, node.NEWPORT])
+    .node(node.NEWPORT)
     .split({
       split: new PathBlueprint()
         .curve(defaultRadius, -45)
         .straight(williamstownStraight)
-        .nodes([
-          node.NORTH_WILLIAMSTOWN,
-          node.WILLIAMSTOWN_BEACH,
-          node.WILLIAMSTOWN,
-        ])
+        .node(node.WILLIAMSTOWN)
         .terminus(),
     })
     .split({
@@ -56,20 +52,15 @@ export const newport = new LineBlueprint({
         .curve(defaultRadius, 45)
         .straight(lavertonExpressStraight)
         .curve(defaultRadius, 45)
-        .nodes([node.LAVERTON_EXPRESS]),
+        .node(node.LAVERTON_EXPRESS),
     })
     .straight(altonaLoopDiagonals)
     .curve(defaultRadius, 45)
     .straight(westonaStraight)
     .curve(defaultRadius, 45)
     .straight(altonaLoopDiagonals)
-    .nodes([node.SEAHOLME, node.ALTONA, node.WESTONA, node.LAVERTON_LOOP])
+    .node(node.LAVERTON_LOOP)
     .straight(werribeeStraight)
-    .nodes([
-      node.AIRCRAFT,
-      node.WILLIAMS_LANDING,
-      node.HOPPERS_CROSSING,
-      node.WERRIBEE,
-    ])
+    .node(node.WERRIBEE)
     .terminus(),
 });

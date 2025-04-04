@@ -31,13 +31,13 @@ export const burnley = new LineBlueprint({
   color: "blue",
 
   path: new PathBlueprint()
-    .nodes([node.FLINDERS_STREET_LOOP])
+    .node(node.FLINDERS_STREET_LOOP)
     .add(flindersStreetToSouthernCross(2, false))
-    .nodes([node.SOUTHERN_CROSS])
+    .node(node.SOUTHERN_CROSS)
     .add(southernCrossToFlagstaff(2))
-    .nodes([node.FLAGSTAFF])
+    .node(node.FLAGSTAFF)
     .add(flagstaffToParliament(2, node.MELBOURNE_CENTRAL))
-    .nodes([node.PARLIAMENT])
+    .node(node.PARLIAMENT)
     .add(
       richmondLoopPortal(
         loop.line.burnley,
@@ -48,81 +48,40 @@ export const burnley = new LineBlueprint({
     )
     .curve(defaultRadius, -45)
     .straight(burnleyStraight)
-    .nodes([node.EAST_RICHMOND, node.BURNLEY])
+    .node(node.BURNLEY)
     .split({
       split: new PathBlueprint()
         .curve(defaultRadius, 45)
         .straight(glenIrisStraight)
         .curve(defaultRadius, -45)
         .straight(glenWaverleyStraight)
-        .nodes([
-          node.HEYINGTON,
-          node.KOOYONG,
-          node.TOORONGA,
-          node.GARDINER,
-          node.GLEN_IRIS,
-          node.DARLING,
-          node.EAST_MALVERN,
-          node.HOLMESGLEN,
-          node.JORDANVILLE,
-          node.MOUNT_WAVERLEY,
-          node.SYNDAL,
-          node.GLEN_WAVERLEY,
-        ])
+        .node(node.GLEN_WAVERLEY)
         .terminus(),
     })
     .curve(defaultRadius, -45)
     .straight(camberwellStraight)
-    .nodes([node.HAWTHORN, node.GLENFERRIE, node.AUBURN, node.CAMBERWELL])
+    .node(node.CAMBERWELL)
     .split({
       split: new PathBlueprint()
         .curve(defaultRadius, 45)
         .straight(riversdaleStraight)
         .curve(defaultRadius, 45)
         .straight(alameinStraight)
-        .nodes([
-          node.RIVERSDALE,
-          node.WILLISON,
-          node.HARTWELL,
-          node.BURWOOD,
-          node.ASHBURTON,
-          node.ALAMEIN,
-        ])
+        .node(node.ALAMEIN)
         .terminus(),
     })
     .straight(laburnumStraight)
     .curve(defaultRadius, 45)
     .straight(ringwoodStraight)
-    .nodes([
-      node.EAST_CAMBERWELL,
-      node.CANTERBURY,
-      node.CHATHAM,
-      node.UNION,
-      node.BOX_HILL,
-      node.LABURNUM,
-      node.BLACKBURN,
-      node.NUNAWADING,
-      node.MITCHAM,
-      node.HEATHERDALE,
-      node.RINGWOOD,
-    ])
+    .node(node.RINGWOOD)
     .split({
       split: new PathBlueprint()
         .curve(defaultRadius, 45)
         .straight(belgraveStraight)
-        .nodes([
-          node.HEATHMONT,
-          node.BAYSWATER,
-          node.BORONIA,
-          node.FERNTREE_GULLY,
-          node.UPPER_FERNTREE_GULLY,
-          node.UPWEY,
-          node.TECOMA,
-          node.BELGRAVE,
-        ])
+        .node(node.BELGRAVE)
         .terminus(),
     })
     .straight(lilydaleStraight)
-    .nodes([node.RINGWOOD_EAST, node.CROYDON, node.MOOROOLBARK, node.LILYDALE])
+    .node(node.LILYDALE)
     .terminus(),
 });

@@ -52,143 +52,75 @@ export const regionalWestern = new LineBlueprint({
   color: "purple",
 
   path: new PathBlueprint()
-    .nodes([node.SOUTHERN_CROSS])
+    .node(node.SOUTHERN_CROSS)
     .add(
       southernCrossToNorthMelbourneRegional(
         new PathBlueprint()
-          .nodes([node.NORTH_MELBOURNE_SEYMOUR])
+          .node(node.NORTH_MELBOURNE_SEYMOUR)
           .straight(newmarketStraight)
           .curve(newmarketCurveSeymour, 45)
           .straight(broadmeadowsStraight)
-          .nodes([
-            node.KENSINGTON,
-            node.NEWMARKET,
-            node.ASCOT_VALE,
-            node.MOONEE_PONDS,
-            node.ESSENDON,
-            node.GLENBERVIE,
-            node.STRATHMORE,
-            node.PASCOE_VALE,
-            node.OAK_PARK,
-            node.GLENROY,
-            node.JACANA,
-            node.BROADMEADOWS,
-          ])
+          .node(node.BROADMEADOWS)
           .straight(craigieburnStraight)
-          .nodes([node.COOLAROO, node.ROXBURGH_PARK, node.CRAIGIEBURN])
+          .node(node.CRAIGIEBURN)
           .curve(defaultRadius, 45)
           .straight(standardDiagonal)
           .curve(defaultRadius, 45)
           .straight(seymourStraight)
-          .nodes([
-            node.DONNYBROOK,
-            node.WALLAN,
-            node.HEATHCOTE_JUNCTION,
-            node.WANDONG,
-            node.KILMORE_EAST,
-            node.BROADFORD,
-            node.TALLAROOK,
-            node.SEYMOUR,
-          ])
+          .node(node.SEYMOUR)
           .split({
             split: new PathBlueprint()
               .straight(sheppartonStraight)
-              .nodes([
-                node.NAGAMBIE,
-                node.MURCHISON_EAST,
-                node.MOOROOPNA,
-                node.SHEPPARTON,
-              ])
+              .node(node.SHEPPARTON)
               .terminus(),
           })
           .curve(defaultRadius, 45)
           .straight(avenelStraight)
           .curve(defaultRadius, -45)
           .straight(alburyStraight)
-          .nodes([
-            node.AVENEL,
-            node.EUROA,
-            node.VIOLET_TOWN,
-            node.BENALLA,
-            node.WANGARATTA,
-            node.SPRINGHURST,
-            node.CHILTERN,
-            node.WODONGA,
-            node.ALBURY,
-          ])
+          .node(node.ALBURY)
           .terminus(),
       ),
     )
-    .nodes([node.NORTH_MELBOURNE_RRL])
+    .node(node.NORTH_MELBOURNE_RRL)
     .add(northMelbourneToFootscray("regional-rrl"))
-    .nodes([node.SOUTH_KENSINGTON, node.FOOTSCRAY])
+    .node(node.FOOTSCRAY)
     .straight(tottenhamStraight)
-    .nodes([node.MIDDLE_FOOTSCRAY, node.WEST_FOOTSCRAY, node.TOTTENHAM])
+    .node(node.SUNSHINE_JUNCTION)
     .split({
       split: new PathBlueprint()
         .curve(sunshineCurvesBendigo, 45)
         .straight(sunshineJunctionDiagonal)
-        .nodes([node.SUNSHINE_BENDIGO])
+        .node(node.SUNSHINE_BENDIGO)
         .straight(sunshineExitDiagonal)
         .curve(sunshineCurvesBendigo, 45)
         .straight(watergardensStraight)
-        .nodes([
-          node.ALBION,
-          node.GINIFER,
-          node.ST_ALBANS,
-          node.KEILOR_PLAINS,
-          node.WATERGARDENS,
-        ])
+        .node(node.WATERGARDENS)
         .straight(sunburyStraight)
-        .nodes([node.DIGGERS_REST, node.SUNBURY])
+        .node(node.SUNBURY)
         .straight(kangarooFlatStraight)
         .curve(defaultRadius, -45)
         .straight(standardDiagonal)
         .curve(defaultRadius, -45)
         .straight(bendigoStraight)
-        .nodes([
-          node.CLARKEFIELD,
-          node.RIDDELLS_CREEK,
-          node.GISBORNE,
-          node.MACEDON,
-          node.WOODEND,
-          node.KYNETON,
-          node.MALMSBURY,
-          node.CASTLEMAINE,
-          node.KANGAROO_FLAT,
-          node.BENDIGO,
-        ])
+        .node(node.BENDIGO)
         .split({
           split: new PathBlueprint()
             .straight(echucaStraight)
-            .nodes([
-              node.EPSOM,
-              node.HUNTLY,
-              node.GOORNONG,
-              node.ELMORE,
-              node.ROCHESTER,
-              node.ECHUCA,
-            ])
+            .node(node.ECHUCA)
             .terminus(),
         })
         .curve(defaultRadius, -45)
         .straight(eaglehawkStraight)
         .curve(defaultRadius, 45)
         .straight(swanHillStraight)
-        .nodes([
-          node.EAGLEHAWK,
-          node.RAYWOOD,
-          node.DINGEE,
-          node.PYRAMID,
-          node.KERANG,
-          node.SWAN_HILL,
-        ])
+        .node(node.SWAN_HILL)
         .terminus(),
     })
     .straight(sunshineJunctionStraight)
-    .nodes([node.SUNSHINE_DEER_PARK])
+    .node(node.SUNSHINE_DEER_PARK)
     .straight(deerParkStraight)
-    .nodes([node.ARDEER, node.DEER_PARK])
+    .node(node.DEER_PARK)
     .split({
       split: new PathBlueprint()
         .straight(wyndhamValeStraight)
@@ -196,47 +128,20 @@ export const regionalWestern = new LineBlueprint({
         .straight(standardDiagonal)
         .curve(defaultRadius, -45)
         .straight(warrnamboolStraight)
-        .nodes([
-          node.TARNEIT,
-          node.WYNDHAM_VALE,
-          node.LITTLE_RIVER,
-          node.LARA,
-          node.CORIO,
-          node.NORTH_SHORE,
-          node.NORTH_GEELONG,
-          node.GEELONG,
-          node.SOUTH_GEELONG,
-          node.MARSHALL,
-          node.WAURN_PONDS,
-          node.WINCHELSEA,
-          node.BIRREGURRA,
-          node.COLAC,
-          node.CAMPERDOWN,
-          node.TERANG,
-          node.SHERWOOD_PARK,
-          node.WARRNAMBOOL,
-        ])
+        .node(node.WARRNAMBOOL)
         .terminus(),
     })
     .curve(defaultRadius, 45)
     .straight(ballaratStraight)
-    .nodes([
-      node.CAROLINE_SPRINGS,
-      node.ROCKBANK,
-      node.COBBLEBANK,
-      node.MELTON,
-      node.BACCHUS_MARSH,
-      node.BALLAN,
-      node.BALLARAT,
-    ])
+    .node(node.BALLARAT)
     .split({
       split: new PathBlueprint()
         .straight(araratStraight)
-        .nodes([node.WENDOUREE, node.BEAUFORT, node.ARARAT])
+        .node(node.ARARAT)
         .terminus(),
     })
     .curve(defaultRadius, 45)
     .straight(maryboroughStraight)
-    .nodes([node.CRESWICK, node.CLUNES, node.TALBOT, node.MARYBOROUGH])
+    .node(node.MARYBOROUGH)
     .terminus(),
 });

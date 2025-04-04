@@ -28,46 +28,22 @@ export const cliftonHill = new LineBlueprint({
   color: "red",
 
   path: new PathBlueprint()
-    .nodes([node.FLINDERS_STREET_LOOP])
+    .node(node.FLINDERS_STREET_LOOP)
     .add(flindersStreetToSouthernCross(1, false))
-    .nodes([node.SOUTHERN_CROSS])
+    .node(node.SOUTHERN_CROSS)
     .add(southernCrossToFlagstaff(1))
-    .nodes([node.FLAGSTAFF])
+    .node(node.FLAGSTAFF)
     .add(flagstaffToParliament(1, node.MELBOURNE_CENTRAL))
-    .nodes([node.PARLIAMENT])
+    .node(node.PARLIAMENT)
     .add(jolimontLoopPortal())
     .straight(cliftonHillStraight)
-    .nodes([
-      node.WEST_RICHMOND,
-      node.NORTH_RICHMOND,
-      node.COLLINGWOOD,
-      node.VICTORIA_PARK,
-      node.CLIFTON_HILL,
-    ])
+    .node(node.CLIFTON_HILL)
     .split({
       split: new PathBlueprint()
         .straight(heidelbergStraight)
         .curve(defaultRadius, 45)
         .straight(hurstbridgeStraight)
-        .nodes([
-          node.WESTGARTH,
-          node.DENNIS,
-          node.FAIRFIELD,
-          node.ALPHINGTON,
-          node.DAREBIN,
-          node.IVANHOE,
-          node.EAGLEMONT,
-          node.HEIDELBERG,
-          node.ROSANNA,
-          node.MACLEOD,
-          node.WATSONIA,
-          node.GREENSBOROUGH,
-          node.MONTMORENCY,
-          node.ELTHAM,
-          node.DIAMOND_CREEK,
-          node.WATTLE_GLEN,
-          node.HURSTBRIDGE,
-        ])
+        .node(node.HURSTBRIDGE)
         .terminus(),
     })
     .curve(defaultRadius, -45)
@@ -76,25 +52,6 @@ export const cliftonHill = new LineBlueprint({
     .straight(standardDiagonal)
     .curve(defaultRadius, 45)
     .straight(merndaStraight)
-    .nodes([
-      node.RUSHALL,
-      node.MERRI,
-      node.NORTHCOTE,
-      node.CROXTON,
-      node.THORNBURY,
-      node.BELL,
-      node.PRESTON,
-      node.REGENT,
-      node.RESERVOIR,
-      node.RUTHVEN,
-      node.KEON_PARK,
-      node.THOMASTOWN,
-      node.LALOR,
-      node.EPPING,
-      node.SOUTH_MORANG,
-      node.MIDDLE_GORGE,
-      node.HAWKSTOWE,
-      node.MERNDA,
-    ])
+    .node(node.MERNDA)
     .terminus(),
 });

@@ -48,7 +48,7 @@ export function northMelbourneLoopPortal(branch: PathBlueprint): PathBlueprint {
     .straight(southernCrossStraight)
     .curve(directRadius, -45)
     .straight(directNorthMelbourneStraight)
-    .nodes([NORTHERN.NORTH_MELBOURNE])
+    .node(NORTHERN.NORTH_MELBOURNE)
     .split({
       reverse: true,
       split: new PathBlueprint()

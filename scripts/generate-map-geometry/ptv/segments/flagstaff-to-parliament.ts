@@ -14,7 +14,7 @@ export function flagstaffToParliament(
 
   return new PathBlueprint()
     .straight(flagstaffPos.horizontalDistanceTo(melbourneCentralPos))
-    .nodes([melbourneCentralNodeId])
+    .node(melbourneCentralNodeId)
     .straight(
       melbourneCentralPos.horizontalDistanceTo(parliamentPos).minus(radius),
     )

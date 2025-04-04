@@ -37,17 +37,17 @@ export const northern = new LineBlueprint({
   color: "yellow",
 
   path: new PathBlueprint()
-    .nodes([node.FLINDERS_STREET_DIRECT])
+    .node(node.FLINDERS_STREET_DIRECT)
     .add(flindersStreetToSouthernCross(0, false))
-    .nodes([node.SOUTHERN_CROSS])
+    .node(node.SOUTHERN_CROSS)
     .add(
       northMelbourneLoopPortal(
         new PathBlueprint()
-          .nodes([node.FLAGSTAFF])
+          .node(node.FLAGSTAFF)
           .add(flagstaffToParliament(0, node.MELBOURNE_CENTRAL))
-          .nodes([node.PARLIAMENT])
+          .node(node.PARLIAMENT)
           .add(parliamentToFlindersStreet(0))
-          .nodes([node.FLINDERS_STREET_LOOP]),
+          .node(node.FLINDERS_STREET_LOOP),
       ),
     )
     .split({
@@ -59,21 +59,7 @@ export const northern = new LineBlueprint({
         .straight(brunswickStraight)
         .curve(defaultRadius, -45)
         .straight(upfieldStraight)
-        .nodes([
-          node.MACAULAY,
-          node.FLEMINGTON_BRIDGE,
-          node.ROYAL_PARK,
-          node.JEWELL,
-          node.BRUNSWICK,
-          node.ANSTEY,
-          node.MORELAND,
-          node.COBURG,
-          node.BATMAN,
-          node.MERLYNSTON,
-          node.FAWKNER,
-          node.GOWRIE,
-          node.UPFIELD,
-        ])
+        .node(node.UPFIELD)
         .terminus(),
     })
     .split({
@@ -83,44 +69,21 @@ export const northern = new LineBlueprint({
         // TODO: The Flemington Racecourse line branches off here. Not sure
         // whether we need to show it or not.
         .straight(broadmeadowsStraight)
-        .nodes([
-          node.KENSINGTON,
-          node.NEWMARKET,
-          node.ASCOT_VALE,
-          node.MOONEE_PONDS,
-          node.ESSENDON,
-          node.GLENBERVIE,
-          node.STRATHMORE,
-          node.PASCOE_VALE,
-          node.OAK_PARK,
-          node.GLENROY,
-          node.JACANA,
-          node.BROADMEADOWS,
-        ])
+        .node(node.BROADMEADOWS)
         .straight(craigieburnStraight)
-        .nodes([node.COOLAROO, node.ROXBURGH_PARK, node.CRAIGIEBURN]),
+        .node(node.CRAIGIEBURN),
     })
     .add(northMelbourneToFootscray("sunbury"))
-    .nodes([node.SOUTH_KENSINGTON, node.FOOTSCRAY])
+    .node(node.FOOTSCRAY)
     .straight(tottenhamStraight)
+    .node(node.SUNSHINE_JUNCTION)
     .curve(sunshineCurvesSunbury, 45)
     .straight(sunshineJunctionDiagonal)
-    .nodes([
-      node.MIDDLE_FOOTSCRAY,
-      node.WEST_FOOTSCRAY,
-      node.TOTTENHAM,
-      node.SUNSHINE,
-    ])
+    .node(node.SUNSHINE)
     .straight(sunshineExitDiagonal)
     .curve(sunshineCurvesSunbury, 45)
     .straight(watergardensStraight)
-    .nodes([
-      node.ALBION,
-      node.GINIFER,
-      node.ST_ALBANS,
-      node.KEILOR_PLAINS,
-      node.WATERGARDENS,
-    ])
+    .node(node.WATERGARDENS)
     .straight(sunburyStraight)
-    .nodes([node.DIGGERS_REST, node.SUNBURY]),
+    .node(node.SUNBURY),
 });

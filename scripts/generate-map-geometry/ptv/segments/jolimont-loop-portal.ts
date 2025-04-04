@@ -15,7 +15,7 @@ export function jolimontLoopPortal(): PathBlueprint {
     .straight(parliamentPos.verticalDistanceTo(flindersStreetPos).minus(radius))
     .curve(radius, -90)
     .curve(radius, -45)
-    .nodes([CLIFTON_HILL.JOLIMONT])
+    .node(CLIFTON_HILL.JOLIMONT)
     .split({
       reverse: true,
       split: new PathBlueprint()
@@ -23,6 +23,6 @@ export function jolimontLoopPortal(): PathBlueprint {
         .straight(
           parliamentPos.horizontalDistanceTo(flindersStreetPos).plus(radius),
         )
-        .nodes([CLIFTON_HILL.FLINDERS_STREET_DIRECT]),
+        .node(CLIFTON_HILL.FLINDERS_STREET_DIRECT),
     });
 }

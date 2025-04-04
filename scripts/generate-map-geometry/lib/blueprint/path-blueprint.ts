@@ -53,7 +53,7 @@ export class PathBlueprint {
     return this.add(new Terminus());
   }
 
-  nodes(nodeIds: number[]) {
+  node(_nodeId: number) {
     // TODO: [DS] Implement this.
     return this;
   }

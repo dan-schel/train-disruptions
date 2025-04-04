@@ -32,13 +32,13 @@ export const dandenong = new LineBlueprint({
   color: "cyan",
 
   path: new PathBlueprint()
-    .nodes([node.FLINDERS_STREET_LOOP])
+    .node(node.FLINDERS_STREET_LOOP)
     .add(flindersStreetToSouthernCross(3, false))
-    .nodes([node.SOUTHERN_CROSS])
+    .node(node.SOUTHERN_CROSS)
     .add(southernCrossToFlagstaff(3))
-    .nodes([node.FLAGSTAFF])
+    .node(node.FLAGSTAFF)
     .add(flagstaffToParliament(3, node.MELBOURNE_CENTRAL))
-    .nodes([node.PARLIAMENT])
+    .node(node.PARLIAMENT)
     .add(
       richmondLoopPortal(
         loop.line.dandenong,
@@ -48,53 +48,25 @@ export const dandenong = new LineBlueprint({
       ),
     )
     .straight(richmondToSouthYarra)
-    .nodes([node.SOUTH_YARRA])
+    .node(node.SOUTH_YARRA)
     .straight(southYarraToCaulfield)
-    .nodes([
-      node.HAWKSBURN,
-      node.TOORAK,
-      node.ARMADALE,
-      node.MALVERN,
-      node.CAULFIELD,
-    ])
+    .node(node.CAULFIELD)
     .straight(caulfieldToClayton)
-    .nodes([
-      node.CARNEGIE,
-      node.MURRUMBEENA,
-      node.HUGHESDALE,
-      node.OAKLEIGH,
-      node.HUNTINGDALE,
-      node.CLAYTON,
-    ])
+    .node(node.CLAYTON)
     .straight(claytonToDandenong)
-    .nodes([
-      node.WESTALL,
-      node.SPRINGVALE,
-      node.SANDOWN_PARK,
-      node.NOBLE_PARK,
-      node.YARRAMAN,
-      node.DANDENONG,
-    ])
+    .node(node.DANDENONG)
     .split({
       split: new PathBlueprint()
         .curve(defaultRadius, 45)
         .straight(cranbourneStraight)
-        .nodes([node.LYNBROOK, node.MERINDA_PARK, node.CRANBOURNE])
+        .node(node.CRANBOURNE)
         .terminus(),
     })
     .straight(dandenongToHallamCurve)
     .curve(hallamCurvePakenham, -45)
     .straight(hallamToPakenham)
-    .nodes([
-      node.HALLAM,
-      node.NARRE_WARRAN,
-      node.BERWICK,
-      node.BEACONSFIELD,
-      node.OFFICER,
-      node.CARDINIA_ROAD,
-      node.PAKENHAM,
-    ])
+    .node(node.PAKENHAM)
     .straight(pakenhamToEastPakenham)
-    .nodes([node.EAST_PAKENHAM])
+    .node(node.EAST_PAKENHAM)
     .terminus(),
 });

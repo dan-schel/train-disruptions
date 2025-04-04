@@ -18,29 +18,17 @@ export const sandringham = new LineBlueprint({
   color: "pink",
 
   path: new PathBlueprint()
-    .nodes([node.FLINDERS_STREET])
+    .node(node.FLINDERS_STREET)
     .add(flindersStreetToRichmond(loop.line.sandringham))
-    .nodes([node.RICHMOND])
+    .node(node.RICHMOND)
     .straight(richmondToSouthYarra)
-    .nodes([node.SOUTH_YARRA])
+    .node(node.SOUTH_YARRA)
     .curve(defaultRadius, 45)
     .straight(divergeStraight)
     .curve(defaultRadius, 45)
     .straight(diagonalStraight)
     .curve(defaultRadius, -45)
     .straight(sandringhamStraight)
-    .nodes([
-      node.PRAHRAN,
-      node.WINDSOR,
-      node.BALACLAVA,
-      node.RIPPONLEA,
-      node.ELSTERNWICK,
-      node.GARDENVALE,
-      node.NORTH_BRIGHTON,
-      node.MIDDLE_BRIGHTON,
-      node.BRIGHTON_BEACH,
-      node.HAMPTON,
-      node.SANDRINGHAM,
-    ])
+    .node(node.SANDRINGHAM)
     .terminus(),
 });

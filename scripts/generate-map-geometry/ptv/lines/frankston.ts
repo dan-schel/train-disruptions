@@ -18,11 +18,10 @@ import {
   richmondToSouthYarra,
   southYarraToCaulfield,
 } from "@/scripts/generate-map-geometry/ptv/utils-shared-corridors";
-import { FRANKSTON_AND_STONY_POINT as node } from "@/shared/map-node-ids";
+import { FRANKSTON as node } from "@/shared/map-node-ids";
 
 const aspendaleStraight = flexi(60, 120);
 const frankstonStraight = flexi(30, 60);
-const stonyPointStraight = flexi(50, 100);
 
 /** The Frankston line (colored green on the map). */
 export const frankston = new LineBlueprint({
@@ -31,73 +30,23 @@ export const frankston = new LineBlueprint({
   color: "green",
 
   path: new PathBlueprint()
-    .nodes([node.FLINDERS_STREET])
+    .node(node.FLINDERS_STREET)
     .add(flindersStreetToRichmond(loop.line.crossCity))
-    .nodes([node.RICHMOND])
+    .node(node.RICHMOND)
     .straight(richmondToSouthYarra)
-    .nodes([node.SOUTH_YARRA])
+    .node(node.SOUTH_YARRA)
     .straight(southYarraToCaulfield)
-    .nodes([
-      node.HAWKSBURN,
-      node.TOORAK,
-      node.ARMADALE,
-      node.MALVERN,
-      node.CAULFIELD,
-    ])
+    .node(node.CAULFIELD)
     .curve(defaultRadius, 45)
     .straight(aspendaleStraight)
     .curve(defaultRadius, -45)
     .straight(standardDiagonal)
     .curve(defaultRadius, -45)
     .straight(frankstonStraight)
-    .nodes([
-      node.GLEN_HUNTLY,
-      node.ORMOND,
-      node.MCKINNON,
-      node.BENTLEIGH,
-      node.PATTERSON,
-      node.MOORABBIN,
-      node.HIGHETT,
-      node.SOUTHLAND,
-      node.CHELTENHAM,
-      node.MENTONE,
-      node.PARKDALE,
-      node.MORDIALLOC,
-      node.ASPENDALE,
-      node.EDITHVALE,
-      node.CHELSEA,
-      node.BONBEACH,
-      node.CARRUM,
-      node.SEAFORD,
-      node.KANANOOK,
-      node.FRANKSTON_FRANKSTON,
-    ]),
+    .node(node.FRANKSTON),
 });
 
-/** The Stony Point line (colored green on the map). */
-export const stonyPoint = new LineBlueprint({
-  origin: frankstonStationPos("stony-point"),
-  angle: 0,
-  color: "green",
-
-  path: new PathBlueprint()
-    .nodes([node.FRANKSTON_STONY_POINT])
-    .straight(stonyPointStraight)
-    .nodes([
-      node.LEAWARRA,
-      node.BAXTER,
-      node.SOMERVILLE,
-      node.TYABB,
-      node.HASTINGS,
-      node.BITTERN,
-      node.MORRADOO,
-      node.CRIB_POINT,
-      node.STONY_POINT,
-    ])
-    .terminus(),
-});
-
-function frankstonStationPos(line: "frankston" | "stony-point") {
+export function frankstonStationPos(line: "frankston" | "stony-point") {
   // TODO: We could avoid all this maths if there was a method on the
   // PathBlueprint to retrieve the FlexiPoint (so far), given an origin point.
 

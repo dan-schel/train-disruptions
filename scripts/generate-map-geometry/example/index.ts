@@ -29,20 +29,20 @@ const line1 = new LineBlueprint({
   color: "cyan",
   path: new PathBlueprint()
     .terminus()
-    .nodes([node.CYAN_1])
+    .node(node.CYAN_1)
     .straight(flexi(45, 90))
-    .nodes([node.CYAN_2])
+    .node(node.CYAN_2)
     .straight(flexi(5))
     .split({
       split: new PathBlueprint()
         .curve(flexi(15), 45)
         .straight(flexi(25, 50))
-        .nodes([node.CYAN_3])
+        .node(node.CYAN_3)
         .terminus(),
     })
     .curve(flexi(10), -45)
     .straight(flexi(45, 90))
-    .nodes([node.CYAN_4])
+    .node(node.CYAN_4)
     .terminus(),
 });
 
@@ -52,13 +52,13 @@ const line2 = new LineBlueprint({
   color: "purple",
   path: new PathBlueprint()
     .terminus()
-    .nodes([node.PURPLE_1])
+    .node(node.PURPLE_1)
     .straight(flexi(45, 90))
-    .nodes([node.PURPLE_2])
+    .node(node.PURPLE_2)
     .straight(flexi(5))
     .curve(flexi(10), 45)
     .straight(flexi(45, 90))
-    .nodes([node.PURPLE_3])
+    .node(node.PURPLE_3)
     .terminus(),
 });
 

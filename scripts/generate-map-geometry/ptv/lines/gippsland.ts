@@ -30,75 +30,30 @@ export const gippsland = new LineBlueprint({
   color: "purple",
 
   path: new PathBlueprint()
-    .nodes([node.SOUTHERN_CROSS])
+    .node(node.SOUTHERN_CROSS)
     .add(flindersStreetToSouthernCross(loop.line.regional, true).reverse())
-    .nodes([node.FLINDERS_STREET])
+    .node(node.FLINDERS_STREET)
     .add(flindersStreetToRichmond(loop.line.regional))
-    .nodes([node.RICHMOND])
+    .node(node.RICHMOND)
     .straight(richmondToSouthYarra)
-    .nodes([node.SOUTH_YARRA])
+    .node(node.SOUTH_YARRA)
     .straight(southYarraToCaulfield)
-    .nodes([
-      node.HAWKSBURN,
-      node.TOORAK,
-      node.ARMADALE,
-      node.MALVERN,
-      node.CAULFIELD,
-    ])
+    .node(node.CAULFIELD)
     .straight(caulfieldToClayton)
-    .nodes([
-      node.CARNEGIE,
-      node.MURRUMBEENA,
-      node.HUGHESDALE,
-      node.OAKLEIGH,
-      node.HUNTINGDALE,
-      node.CLAYTON,
-    ])
+    .node(node.CLAYTON)
     .straight(claytonToDandenong)
-    .nodes([
-      node.WESTALL,
-      node.SPRINGVALE,
-      node.SANDOWN_PARK,
-      node.NOBLE_PARK,
-      node.YARRAMAN,
-      node.DANDENONG,
-    ])
+    .node(node.DANDENONG)
     .straight(dandenongToHallamCurve)
     .curve(hallamCurveGippland, -45)
     .straight(hallamToPakenham)
-    .nodes([
-      node.HALLAM,
-      node.NARRE_WARRAN,
-      node.BERWICK,
-      node.BEACONSFIELD,
-      node.OFFICER,
-      node.CARDINIA_ROAD,
-      node.PAKENHAM,
-    ])
+    .node(node.PAKENHAM)
     .straight(pakenhamToEastPakenham)
-    .nodes([node.EAST_PAKENHAM])
+    .node(node.EAST_PAKENHAM)
     .straight(eastPakenhamToCurve)
     .curve(defaultRadius, -45)
     .straight(standardDiagonal)
     .curve(defaultRadius, -45)
     .straight(bairnsdaleStraight)
-    .nodes([
-      node.NAR_NAR_GOON,
-      node.TYNONG,
-      node.GARFIELD,
-      node.BUNYIP,
-      node.LONGWARRY,
-      node.DROUIN,
-      node.WARRAGUL,
-      node.YARRAGON,
-      node.TRAFALGAR,
-      node.MOE,
-      node.MORWELL,
-      node.TRARALGON,
-      node.ROSEDALE,
-      node.SALE,
-      node.STRATFORD,
-      node.BAIRNSDALE,
-    ])
+    .node(node.BAIRNSDALE)
     .terminus(),
 });
