@@ -1,9 +1,9 @@
 import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
 import { fp } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-point";
+import { InterchangeBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/interchange-blueprint";
 import { LineBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/line-blueprint";
 import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
 import { GeometryBuilder } from "@/scripts/generate-map-geometry/lib/builder/geometry-builder";
-import { InterchangeBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/interchange-blueprint";
 
 const node = {
   CYAN_1: 1,

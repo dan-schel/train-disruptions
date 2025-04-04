@@ -15,12 +15,14 @@ export class InterchangeBuilder {
     private readonly _interchange: InterchangeBlueprint,
     private readonly _allNodeLocations: readonly LocatedNode[],
   ) {
-    const missingNode = this._interchange.nodeIds.find((x) =>
+    const notFound = _interchange.nodeIds.find((x) =>
       _allNodeLocations.every((l) => l.nodeId !== x),
     );
 
-    if (missingNode != null) {
-      throw new Error(`Node "${missingNode}" not found.`);
+    if (notFound != null) {
+      throw new Error(
+        `Node "${notFound}" not found for interchange "${_interchange.station}".`,
+      );
     }
   }
 
