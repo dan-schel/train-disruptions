@@ -3,10 +3,7 @@ import { FlexiLength } from "@/scripts/generate-map-geometry/lib/dimensions/flex
 import { Curve } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint-piece/curve";
 import { PathBlueprintPiece } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint-piece/path-blueprint-piece";
 import { Split } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint-piece/split";
-import {
-  InterchangePoint,
-  StationLocation,
-} from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint-piece/station-location";
+import { NodeLocation } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint-piece/node-location";
 import { Straight } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint-piece/straight";
 import { Terminus } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint-piece/terminus";
 
@@ -53,12 +50,8 @@ export class PathBlueprint {
     return this.add(new Split(split, reverse));
   }
 
-  station(input: number | InterchangePoint) {
-    if (input instanceof InterchangePoint) {
-      return this.add(new StationLocation(input.interchange.station, input));
-    } else {
-      return this.add(new StationLocation(input, null));
-    }
+  node(nodeId: number) {
+    return this.add(new NodeLocation(nodeId));
   }
 
   terminus() {

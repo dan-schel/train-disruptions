@@ -8,6 +8,7 @@ import {
   short45,
 } from "@/scripts/generate-map-geometry/ptv/utils";
 import * as loop from "@/scripts/generate-map-geometry/ptv/utils-city-loop";
+import { REGIONAL_WESTERN } from "@/shared/map-node-ids";
 
 const innerRadius = flexi(15);
 const southernCrossStraight = flexi(30);
@@ -44,6 +45,7 @@ export function southernCrossToNorthMelbourneRegional(
   return new PathBlueprint()
     .curve(curveRadius, 45)
     .straight(straightLength)
+    .node(REGIONAL_WESTERN.NORTH_MELBOURNE_JUNCTION)
     .split({
       split: new PathBlueprint()
         .straight(branchSouthernCrossStraight)

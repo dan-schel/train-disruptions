@@ -6,6 +6,7 @@ import {
 } from "@/scripts/generate-map-geometry/ptv/utils";
 import * as loop from "@/scripts/generate-map-geometry/ptv/utils-city-loop";
 import * as direct from "@/scripts/generate-map-geometry/ptv/segments/southern-cross-to-north-melbourne";
+import { NORTHERN } from "@/shared/map-node-ids";
 
 const directRadius = flexi(20);
 
@@ -47,6 +48,7 @@ export function northMelbourneLoopPortal(branch: PathBlueprint): PathBlueprint {
     .straight(southernCrossStraight)
     .curve(directRadius, -45)
     .straight(directNorthMelbourneStraight)
+    .node(NORTHERN.NORTH_MELBOURNE)
     .split({
       reverse: true,
       split: new PathBlueprint()

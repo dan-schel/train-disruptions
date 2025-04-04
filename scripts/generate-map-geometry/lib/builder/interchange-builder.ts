@@ -2,9 +2,9 @@ import { Interchange } from "@/components/map/renderer/interchange";
 import { DualPoint } from "@/components/map/renderer/dual-point";
 import {
   InterchangeBlueprint,
-  PointPosition,
+  NodePosition,
 } from "@/scripts/generate-map-geometry/lib/blueprint/interchange-blueprint";
-import { LocatedInterchange } from "@/scripts/generate-map-geometry/lib/builder/path";
+import { LocatedNode } from "@/scripts/generate-map-geometry/lib/builder/path";
 import {
   interchangeEdgeOffset,
   interchangeInnerOffset,
@@ -13,27 +13,15 @@ import {
 export class InterchangeBuilder {
   constructor(
     private readonly _interchange: InterchangeBlueprint,
-    private readonly _locatedPoints: readonly LocatedInterchange[],
+    private readonly _allNodeLocations: readonly LocatedNode[],
   ) {
-    const notFound = _interchange.points.find((x) =>
-      _locatedPoints.every((y) => y.interchangePoint.id !== x),
+    const notFound = _interchange.nodeIds.find((x) =>
+      _allNodeLocations.every((l) => l.nodeId !== x),
     );
 
     if (notFound != null) {
       throw new Error(
-        `No point "${notFound}" found for interchange "${_interchange.station}".`,
-      );
-    }
-
-    const duplicate = _locatedPoints.find((y) =>
-      _locatedPoints.some(
-        (x) => x !== y && x.interchangePoint.id === y.interchangePoint.id,
-      ),
-    );
-
-    if (duplicate != null) {
-      throw new Error(
-        `Duplicate point "${duplicate.interchangePoint.id}" found for interchange "${_interchange.station}".`,
+        `Node "${notFound}" not found for interchange "${_interchange.station}".`,
       );
     }
   }
@@ -49,28 +37,28 @@ export class InterchangeBuilder {
     return new Interchange(thickLines, thinLine);
   }
 
-  _point(pointPosition: PointPosition): DualPoint {
-    const point = this._locatePoint(pointPosition.point);
+  _point(nodePosition: NodePosition): DualPoint {
+    const point = this._locateNode(nodePosition.nodeId);
 
     const offset = {
       "left-edge": { length: interchangeEdgeOffset, angle: -90 },
       "left-inner": { length: interchangeInnerOffset, angle: -90 },
       "right-inner": { length: interchangeInnerOffset, angle: 90 },
       "right-edge": { length: interchangeEdgeOffset, angle: 90 },
-    }[pointPosition.position];
+    }[nodePosition.position];
 
     return point.point
       .move(offset.length, point.angle + offset.angle)
       .toDualPoint();
   }
 
-  _locatePoint(id: string): LocatedInterchange {
-    const point = this._locatedPoints.find((x) => x.interchangePoint.id === id);
+  _locateNode(nodeId: number): LocatedNode {
+    const node = this._allNodeLocations.find((x) => x.nodeId === nodeId);
 
-    if (point == null) {
-      throw new Error(`Point "${id}" not found.`);
+    if (node == null) {
+      throw new Error(`Node "${nodeId}" not found.`);
     }
 
-    return point;
+    return node;
   }
 }

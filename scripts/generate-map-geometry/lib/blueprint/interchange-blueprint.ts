@@ -1,67 +1,67 @@
-import { InterchangePoint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint-piece/station-location";
-
 export type RelativePosition =
   | "left-edge"
   | "left-inner"
   | "right-inner"
   | "right-edge";
 
-export type PointPosition<T extends string[] = string[]> = {
-  readonly point: T[number];
+export type NodePosition = {
+  readonly nodeId: number;
   readonly position: RelativePosition;
 };
 
-export class InterchangeBlueprint<T extends string[] = string[]> {
+export class InterchangeBlueprint {
   constructor(
     readonly station: number,
-    readonly points: T,
-    readonly thickLines: PointPosition<T>[][],
-    readonly thinLine: PointPosition<T>[] | null,
+    readonly nodeIds: number[],
+    readonly thickLines: NodePosition[][],
+    readonly thinLine: NodePosition[] | null,
   ) {
     const noThickLines = thickLines.length === 0;
     const thickLinesInvalid = thickLines.some((l) => l.length < 2);
     const thinLineInvalid = thinLine != null && thinLine.length < 2;
-    if (noThickLines || thickLinesInvalid || thinLineInvalid) {
+    const invalidNodeIds =
+      thickLines.some((l) => l.some((p) => !nodeIds.includes(p.nodeId))) ||
+      (thinLine != null && thinLine.some((p) => !nodeIds.includes(p.nodeId)));
+
+    if (
+      noThickLines ||
+      thickLinesInvalid ||
+      thinLineInvalid ||
+      invalidNodeIds
+    ) {
       throw new Error("Invalid interchange blueprint.");
     }
   }
 
-  point(id: T[number]) {
-    return new InterchangePoint(this, id);
-  }
-
-  static single<T extends string>(
-    station: number,
-    point: T,
-  ): InterchangeBlueprint<[T]> {
+  static single(station: number, nodeId: number): InterchangeBlueprint {
     return new InterchangeBlueprint(
       station,
-      [point],
+      [nodeId],
       [
         [
-          { point, position: "left-edge" },
-          { point, position: "right-edge" },
+          { nodeId, position: "left-edge" },
+          { nodeId, position: "right-edge" },
         ],
       ],
       null,
     );
   }
 
-  static simple<T extends string[]>(
+  static simple(
     station: number,
-    points: T,
-    startPoint: T[number],
+    nodeIds: number[],
+    startNodeId: number,
     startEdge: RelativePosition,
-    endPoint: T[number],
+    endNodeId: number,
     endEdge: RelativePosition,
-  ): InterchangeBlueprint<T> {
+  ): InterchangeBlueprint {
     return new InterchangeBlueprint(
       station,
-      points,
+      nodeIds,
       [
         [
-          { point: startPoint, position: startEdge },
-          { point: endPoint, position: endEdge },
+          { nodeId: startNodeId, position: startEdge },
+          { nodeId: endNodeId, position: endEdge },
         ],
       ],
       null,
