@@ -1,4 +1,3 @@
-import { groupBy } from "@dan-schel/js-utils";
 import { LineBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/line-blueprint";
 import { Geometry } from "@/components/map/renderer/geometry";
 import { InterchangeBuilder } from "@/scripts/generate-map-geometry/lib/builder/interchange-builder";
@@ -18,12 +17,12 @@ export class GeometryBuilder {
 
   build(
     lineBlueprints: LineBlueprint[],
-    _interchangeBlueprints: InterchangeBlueprint[],
+    interchangeBlueprints: InterchangeBlueprint[],
   ): Geometry {
     const paths = lineBlueprints.map((l) => l.build());
 
     const lines = this._buildLines(paths);
-    const interchanges = this._buildInterchanges(paths);
+    const interchanges = this._buildInterchanges(interchangeBlueprints, paths);
     const termini = this._buildTermini(paths);
     const viewport = this._buildDualViewport(paths);
 
@@ -42,22 +41,17 @@ export class GeometryBuilder {
     );
   }
 
-  private _buildInterchanges(paths: ColoredPathCollection[]) {
-    const locatedInterchanges = paths
-      .flatMap((l) => l.paths.flatMap((p) => p.locatedInterchanges))
-      .sort(
-        (a, b) =>
-          a.interchangePoint.interchange.station -
-          b.interchangePoint.interchange.station,
-      );
+  private _buildInterchanges(
+    blueprints: InterchangeBlueprint[],
+    paths: ColoredPathCollection[],
+  ) {
+    const allLocatedNodes = paths.flatMap((l) =>
+      l.paths.flatMap((p) => p.locatedNodes),
+    );
 
-    return groupBy(
-      locatedInterchanges,
-      (i) => i.interchangePoint.interchange.station,
-    ).map(({ items: locations }) => {
-      const interchange = locations[0].interchangePoint.interchange;
-      return new InterchangeBuilder(interchange, locations).build();
-    });
+    return blueprints.map((i) =>
+      new InterchangeBuilder(i, allLocatedNodes).build(),
+    );
   }
 
   private _buildTermini(paths: ColoredPathCollection[]) {

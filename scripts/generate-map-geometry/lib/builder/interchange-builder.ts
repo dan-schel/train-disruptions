@@ -4,7 +4,7 @@ import {
   InterchangeBlueprint,
   PointPosition,
 } from "@/scripts/generate-map-geometry/lib/blueprint/interchange-blueprint";
-import { LocatedInterchange } from "@/scripts/generate-map-geometry/lib/builder/path";
+import { LocatedNode } from "@/scripts/generate-map-geometry/lib/builder/path";
 import {
   interchangeEdgeOffset,
   interchangeInnerOffset,
@@ -13,29 +13,9 @@ import {
 export class InterchangeBuilder {
   constructor(
     private readonly _interchange: InterchangeBlueprint,
-    private readonly _locatedPoints: readonly LocatedInterchange[],
+    private readonly _allNodeLocations: readonly LocatedNode[],
   ) {
-    const notFound = _interchange.points.find((x) =>
-      _locatedPoints.every((y) => y.interchangePoint.id !== x),
-    );
-
-    if (notFound != null) {
-      throw new Error(
-        `No point "${notFound}" found for interchange "${_interchange.station}".`,
-      );
-    }
-
-    const duplicate = _locatedPoints.find((y) =>
-      _locatedPoints.some(
-        (x) => x !== y && x.interchangePoint.id === y.interchangePoint.id,
-      ),
-    );
-
-    if (duplicate != null) {
-      throw new Error(
-        `Duplicate point "${duplicate.interchangePoint.id}" found for interchange "${_interchange.station}".`,
-      );
-    }
+    // TODO: Check that the all interchange nodes have been located.
   }
 
   build(): Interchange {
@@ -50,7 +30,7 @@ export class InterchangeBuilder {
   }
 
   _point(pointPosition: PointPosition): DualPoint {
-    const point = this._locatePoint(pointPosition.point);
+    const point = this._locateNode(pointPosition.nodeId);
 
     const offset = {
       "left-edge": { length: interchangeEdgeOffset, angle: -90 },
@@ -64,13 +44,13 @@ export class InterchangeBuilder {
       .toDualPoint();
   }
 
-  _locatePoint(id: string): LocatedInterchange {
-    const point = this._locatedPoints.find((x) => x.interchangePoint.id === id);
+  _locateNode(nodeId: number): LocatedNode {
+    const node = this._allNodeLocations.find((x) => x.nodeId === nodeId);
 
-    if (point == null) {
-      throw new Error(`Point "${id}" not found.`);
+    if (node == null) {
+      throw new Error(`Node "${nodeId}" not found.`);
     }
 
-    return point;
+    return node;
   }
 }

@@ -1,5 +1,4 @@
 import { FlexiPoint } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-point";
-import { InterchangePoint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint-piece/station-location";
 import { LineColor } from "@/components/map/renderer/utils";
 
 export class ColoredPathCollection {
@@ -12,14 +11,14 @@ export class ColoredPathCollection {
 export class Path {
   constructor(
     readonly points: readonly FlexiPoint[],
-    readonly locatedInterchanges: readonly LocatedInterchange[],
+    readonly locatedNodes: readonly LocatedNode[],
     readonly locatedTermini: readonly LocatedTerminus[],
   ) {}
 }
 
-export class LocatedInterchange {
+export class LocatedNode {
   constructor(
-    readonly interchangePoint: InterchangePoint,
+    readonly nodeId: number,
     readonly point: FlexiPoint,
     readonly angle: number,
   ) {}

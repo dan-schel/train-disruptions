@@ -1,8 +1,8 @@
 import { FlexiPoint } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-point";
 import {
   Path,
-  LocatedInterchange,
   LocatedTerminus,
+  LocatedNode,
 } from "@/scripts/generate-map-geometry/lib/builder/path";
 
 export class PathBuilder {
@@ -10,7 +10,7 @@ export class PathBuilder {
   private _currentAngle: number;
 
   private readonly _points: FlexiPoint[];
-  private readonly _locatedInterchanges: LocatedInterchange[];
+  private readonly _locatedNodes: LocatedNode[];
   private readonly _termini: LocatedTerminus[];
   private readonly _subPaths: Path[];
 
@@ -19,7 +19,7 @@ export class PathBuilder {
     this._currentAngle = startAngle;
 
     this._points = [start];
-    this._locatedInterchanges = [];
+    this._locatedNodes = [];
     this._termini = [];
     this._subPaths = [];
   }
@@ -41,8 +41,8 @@ export class PathBuilder {
     this._currentAngle += angle;
   }
 
-  addInterchange(interchange: LocatedInterchange) {
-    this._locatedInterchanges.push(interchange);
+  addNode(node: LocatedNode) {
+    this._locatedNodes.push(node);
   }
 
   addTerminus(terminus: LocatedTerminus) {
@@ -56,11 +56,7 @@ export class PathBuilder {
   }
 
   getResult(): Path[] {
-    const myPath = new Path(
-      this._points,
-      this._locatedInterchanges,
-      this._termini,
-    );
+    const myPath = new Path(this._points, this._locatedNodes, this._termini);
     return [myPath, ...this._subPaths];
   }
 }
