@@ -4,7 +4,7 @@ export type RelativePosition =
   | "right-inner"
   | "right-edge";
 
-export type PointPosition = {
+export type NodePosition = {
   readonly nodeId: number;
   readonly position: RelativePosition;
 };
@@ -13,8 +13,8 @@ export class InterchangeBlueprint {
   constructor(
     readonly station: number,
     readonly nodeIds: number[],
-    readonly thickLines: PointPosition[][],
-    readonly thinLine: PointPosition[] | null,
+    readonly thickLines: NodePosition[][],
+    readonly thinLine: NodePosition[] | null,
   ) {
     const noThickLines = thickLines.length === 0;
     const thickLinesInvalid = thickLines.some((l) => l.length < 2);
