@@ -1,15 +1,11 @@
 import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
 import { LineBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/line-blueprint";
 import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
-import {
-  flindersStreet,
-  richmond,
-  southYarra,
-} from "@/scripts/generate-map-geometry/ptv/interchanges";
 import { flindersStreetToRichmond } from "@/scripts/generate-map-geometry/ptv/segments/flinders-street-to-richmond";
 import { defaultRadius } from "@/scripts/generate-map-geometry/ptv/utils";
 import * as loop from "@/scripts/generate-map-geometry/ptv/utils-city-loop";
 import { richmondToSouthYarra } from "@/scripts/generate-map-geometry/ptv/utils-shared-corridors";
+import { SANDRINGHAM as node } from "@/shared/map-node-ids";
 
 const divergeStraight = flexi(10);
 const diagonalStraight = flexi(10, 20);
@@ -22,16 +18,17 @@ export const sandringham = new LineBlueprint({
   color: "pink",
 
   path: new PathBlueprint()
-    .station(flindersStreet.point("sandringham"))
+    .node(node.FLINDERS_STREET)
     .add(flindersStreetToRichmond(loop.line.sandringham))
-    .station(richmond.point("sandringham"))
+    .node(node.RICHMOND)
     .straight(richmondToSouthYarra)
-    .station(southYarra.point("sandringham"))
+    .node(node.SOUTH_YARRA)
     .curve(defaultRadius, 45)
     .straight(divergeStraight)
     .curve(defaultRadius, 45)
     .straight(diagonalStraight)
     .curve(defaultRadius, -45)
     .straight(sandringhamStraight)
+    .node(node.SANDRINGHAM)
     .terminus(),
 });

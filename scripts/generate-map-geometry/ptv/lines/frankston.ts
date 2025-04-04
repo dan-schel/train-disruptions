@@ -2,13 +2,6 @@ import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-leng
 import { LineBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/line-blueprint";
 import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
 import {
-  caulfield,
-  flindersStreet,
-  frankston as frankstonInterchange,
-  richmond,
-  southYarra,
-} from "@/scripts/generate-map-geometry/ptv/interchanges";
-import {
   flindersStreetToRichmond,
   richmondPos,
 } from "@/scripts/generate-map-geometry/ptv/segments/flinders-street-to-richmond";
@@ -25,10 +18,10 @@ import {
   richmondToSouthYarra,
   southYarraToCaulfield,
 } from "@/scripts/generate-map-geometry/ptv/utils-shared-corridors";
+import { FRANKSTON as node } from "@/shared/map-node-ids";
 
 const aspendaleStraight = flexi(60, 120);
 const frankstonStraight = flexi(30, 60);
-const stonyPointStraight = flexi(50, 100);
 
 /** The Frankston line (colored green on the map). */
 export const frankston = new LineBlueprint({
@@ -37,35 +30,23 @@ export const frankston = new LineBlueprint({
   color: "green",
 
   path: new PathBlueprint()
-    .station(flindersStreet.point("cross-city-east"))
+    .node(node.FLINDERS_STREET)
     .add(flindersStreetToRichmond(loop.line.crossCity))
-    .station(richmond.point("frankston"))
+    .node(node.RICHMOND)
     .straight(richmondToSouthYarra)
-    .station(southYarra.point("frankston"))
+    .node(node.SOUTH_YARRA)
     .straight(southYarraToCaulfield)
-    .station(caulfield.point("frankston"))
+    .node(node.CAULFIELD)
     .curve(defaultRadius, 45)
     .straight(aspendaleStraight)
     .curve(defaultRadius, -45)
     .straight(standardDiagonal)
     .curve(defaultRadius, -45)
     .straight(frankstonStraight)
-    .station(frankstonInterchange.point("frankston")),
+    .node(node.FRANKSTON),
 });
 
-/** The Stony Point line (colored green on the map). */
-export const stonyPoint = new LineBlueprint({
-  origin: frankstonStationPos("stony-point"),
-  angle: 0,
-  color: "green",
-
-  path: new PathBlueprint()
-    .station(frankstonInterchange.point("stony-point"))
-    .straight(stonyPointStraight)
-    .terminus(),
-});
-
-function frankstonStationPos(line: "frankston" | "stony-point") {
+export function frankstonStationPos(line: "frankston" | "stony-point") {
   // TODO: We could avoid all this maths if there was a method on the
   // PathBlueprint to retrieve the FlexiPoint (so far), given an origin point.
 

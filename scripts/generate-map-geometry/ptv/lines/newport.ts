@@ -1,14 +1,6 @@
 import { LineBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/line-blueprint";
 import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
 import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
-import {
-  flindersStreet,
-  southernCross,
-  northMelbourne,
-  footscray,
-  newport as newportInterchange,
-  laverton,
-} from "@/scripts/generate-map-geometry/ptv/interchanges";
 import { flindersStreetToSouthernCross } from "@/scripts/generate-map-geometry/ptv/segments/flinders-street-to-southern-cross";
 import { northMelbourneToFootscray } from "@/scripts/generate-map-geometry/ptv/segments/north-melbourne-to-footscray";
 import { southernCrossToNorthMelbourne } from "@/scripts/generate-map-geometry/ptv/segments/southern-cross-to-north-melbourne";
@@ -17,6 +9,7 @@ import {
   diagonal,
 } from "@/scripts/generate-map-geometry/ptv/utils";
 import * as loop from "@/scripts/generate-map-geometry/ptv/utils-city-loop";
+import { NEWPORT as node } from "@/shared/map-node-ids";
 
 const newportStraight = flexi(40, 80);
 const williamstownStraight = flexi(30, 40);
@@ -37,34 +30,37 @@ export const newport = new LineBlueprint({
   color: "green",
 
   path: new PathBlueprint()
-    .station(flindersStreet.point("cross-city-west"))
+    .node(node.FLINDERS_STREET)
     .add(flindersStreetToSouthernCross(5, false))
-    .station(southernCross.point("cross-city"))
+    .node(node.SOUTHERN_CROSS)
     .add(southernCrossToNorthMelbourne(5))
-    .station(northMelbourne.point("cross-city"))
+    .node(node.NORTH_MELBOURNE)
     .add(northMelbourneToFootscray("cross-city"))
-    .station(footscray.point("cross-city"))
+    .node(node.FOOTSCRAY)
     .curve(defaultRadius, -45)
     .straight(newportStraight)
-    .station(newportInterchange.point("cross-city"))
+    .node(node.NEWPORT)
     .split({
       split: new PathBlueprint()
         .curve(defaultRadius, -45)
         .straight(williamstownStraight)
+        .node(node.WILLIAMSTOWN)
         .terminus(),
     })
     .split({
       split: new PathBlueprint()
         .curve(defaultRadius, 45)
         .straight(lavertonExpressStraight)
-        .curve(defaultRadius, 45),
+        .curve(defaultRadius, 45)
+        .node(node.LAVERTON_EXPRESS),
     })
     .straight(altonaLoopDiagonals)
     .curve(defaultRadius, 45)
     .straight(westonaStraight)
     .curve(defaultRadius, 45)
     .straight(altonaLoopDiagonals)
-    .station(laverton.point("werribee"))
+    .node(node.LAVERTON_LOOP)
     .straight(werribeeStraight)
+    .node(node.WERRIBEE)
     .terminus(),
 });

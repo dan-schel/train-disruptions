@@ -1,20 +1,6 @@
 import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
 import { LineBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/line-blueprint";
 import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
-import {
-  ballarat,
-  bendigo,
-  broadmeadows,
-  craigieburn,
-  deerPark,
-  footscray,
-  northMelbourne,
-  seymour,
-  southernCross,
-  sunbury,
-  sunshine,
-  watergardens,
-} from "@/scripts/generate-map-geometry/ptv/interchanges";
 import { northMelbourneToFootscray } from "@/scripts/generate-map-geometry/ptv/segments/north-melbourne-to-footscray";
 import { southernCrossToNorthMelbourneRegional } from "@/scripts/generate-map-geometry/ptv/segments/southern-cross-to-north-melbourne";
 import {
@@ -36,6 +22,7 @@ import {
   tottenhamStraight,
   watergardensStraight,
 } from "@/scripts/generate-map-geometry/ptv/utils-shared-corridors";
+import { REGIONAL_WESTERN as node } from "@/shared/map-node-ids";
 
 const seymourStraight = flexi(50, 100);
 const sheppartonStraight = flexi(75, 150);
@@ -65,66 +52,75 @@ export const regionalWestern = new LineBlueprint({
   color: "purple",
 
   path: new PathBlueprint()
-    .station(southernCross.point("regional-west"))
+    .node(node.SOUTHERN_CROSS)
     .add(
       southernCrossToNorthMelbourneRegional(
         new PathBlueprint()
-          .station(northMelbourne.point("regional-seymour"))
+          .node(node.NORTH_MELBOURNE_SEYMOUR)
           .straight(newmarketStraight)
           .curve(newmarketCurveSeymour, 45)
           .straight(broadmeadowsStraight)
-          .station(broadmeadows.point("seymour"))
+          .node(node.BROADMEADOWS)
           .straight(craigieburnStraight)
-          .station(craigieburn.point("seymour"))
+          .node(node.CRAIGIEBURN)
           .curve(defaultRadius, 45)
           .straight(standardDiagonal)
           .curve(defaultRadius, 45)
           .straight(seymourStraight)
-          .station(seymour.point("seymour"))
+          .node(node.SEYMOUR)
           .split({
-            split: new PathBlueprint().straight(sheppartonStraight).terminus(),
+            split: new PathBlueprint()
+              .straight(sheppartonStraight)
+              .node(node.SHEPPARTON)
+              .terminus(),
           })
           .curve(defaultRadius, 45)
           .straight(avenelStraight)
           .curve(defaultRadius, -45)
           .straight(alburyStraight)
+          .node(node.ALBURY)
           .terminus(),
       ),
     )
-    .station(northMelbourne.point("regional-rrl"))
+    .node(node.NORTH_MELBOURNE_RRL)
     .add(northMelbourneToFootscray("regional-rrl"))
-    .station(footscray.point("regional"))
+    .node(node.FOOTSCRAY)
     .straight(tottenhamStraight)
+    .node(node.SUNSHINE_JUNCTION)
     .split({
       split: new PathBlueprint()
         .curve(sunshineCurvesBendigo, 45)
         .straight(sunshineJunctionDiagonal)
-        .station(sunshine.point("bendigo"))
+        .node(node.SUNSHINE_BENDIGO)
         .straight(sunshineExitDiagonal)
         .curve(sunshineCurvesBendigo, 45)
         .straight(watergardensStraight)
-        .station(watergardens.point("bendigo"))
+        .node(node.WATERGARDENS)
         .straight(sunburyStraight)
-        .station(sunbury.point("bendigo"))
+        .node(node.SUNBURY)
         .straight(kangarooFlatStraight)
         .curve(defaultRadius, -45)
         .straight(standardDiagonal)
         .curve(defaultRadius, -45)
         .straight(bendigoStraight)
-        .station(bendigo.point("bendigo"))
+        .node(node.BENDIGO)
         .split({
-          split: new PathBlueprint().straight(echucaStraight).terminus(),
+          split: new PathBlueprint()
+            .straight(echucaStraight)
+            .node(node.ECHUCA)
+            .terminus(),
         })
         .curve(defaultRadius, -45)
         .straight(eaglehawkStraight)
         .curve(defaultRadius, 45)
         .straight(swanHillStraight)
+        .node(node.SWAN_HILL)
         .terminus(),
     })
     .straight(sunshineJunctionStraight)
-    .station(sunshine.point("deer-park"))
+    .node(node.SUNSHINE_DEER_PARK)
     .straight(deerParkStraight)
-    .station(deerPark.point("deer-park"))
+    .node(node.DEER_PARK)
     .split({
       split: new PathBlueprint()
         .straight(wyndhamValeStraight)
@@ -132,15 +128,20 @@ export const regionalWestern = new LineBlueprint({
         .straight(standardDiagonal)
         .curve(defaultRadius, -45)
         .straight(warrnamboolStraight)
+        .node(node.WARRNAMBOOL)
         .terminus(),
     })
     .curve(defaultRadius, 45)
     .straight(ballaratStraight)
-    .station(ballarat.point("ballarat"))
+    .node(node.BALLARAT)
     .split({
-      split: new PathBlueprint().straight(araratStraight).terminus(),
+      split: new PathBlueprint()
+        .straight(araratStraight)
+        .node(node.ARARAT)
+        .terminus(),
     })
     .curve(defaultRadius, 45)
     .straight(maryboroughStraight)
+    .node(node.MARYBOROUGH)
     .terminus(),
 });

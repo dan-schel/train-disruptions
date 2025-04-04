@@ -1,18 +1,6 @@
 import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
 import { LineBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/line-blueprint";
 import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
-import {
-  caulfield,
-  clayton,
-  flagstaff,
-  flindersStreet,
-  parliament,
-  richmond,
-  southernCross,
-  southYarra,
-  dandenong as dandenongInterchange,
-  pakenham,
-} from "@/scripts/generate-map-geometry/ptv/interchanges";
 import { flagstaffToParliament } from "@/scripts/generate-map-geometry/ptv/segments/flagstaff-to-parliament";
 import { flindersStreetToSouthernCross } from "@/scripts/generate-map-geometry/ptv/segments/flinders-street-to-southern-cross";
 import { richmondLoopPortal } from "@/scripts/generate-map-geometry/ptv/segments/richmond-loop-portal";
@@ -29,6 +17,7 @@ import {
   richmondToSouthYarra,
   southYarraToCaulfield,
 } from "@/scripts/generate-map-geometry/ptv/utils-shared-corridors";
+import { DANDENONG as node } from "@/shared/map-node-ids";
 
 const loopPortalStraight = flexi(20);
 const cranbourneStraight = flexi(30, 45);
@@ -43,39 +32,41 @@ export const dandenong = new LineBlueprint({
   color: "cyan",
 
   path: new PathBlueprint()
-    .station(flindersStreet.point("dandenong-loop"))
+    .node(node.FLINDERS_STREET_LOOP)
     .add(flindersStreetToSouthernCross(3, false))
-    .station(southernCross.point("dandenong"))
+    .node(node.SOUTHERN_CROSS)
     .add(southernCrossToFlagstaff(3))
-    .station(flagstaff.point("dandenong"))
-    .add(flagstaffToParliament(3, "dandenong"))
-    .station(parliament.point("dandenong"))
+    .node(node.FLAGSTAFF)
+    .add(flagstaffToParliament(3, node.MELBOURNE_CENTRAL))
+    .node(node.PARLIAMENT)
     .add(
       richmondLoopPortal(
         loop.line.dandenong,
         loopPortalStraight,
-        "dandenong-direct",
+        node.RICHMOND,
+        node.FLINDERS_STREET_DIRECT,
       ),
     )
-    .station(richmond.point("dandenong"))
     .straight(richmondToSouthYarra)
-    .station(southYarra.point("dandenong"))
+    .node(node.SOUTH_YARRA)
     .straight(southYarraToCaulfield)
-    .station(caulfield.point("dandenong"))
+    .node(node.CAULFIELD)
     .straight(caulfieldToClayton)
-    .station(clayton.point("dandenong"))
+    .node(node.CLAYTON)
     .straight(claytonToDandenong)
-    .station(dandenongInterchange.point("dandenong"))
+    .node(node.DANDENONG)
     .split({
       split: new PathBlueprint()
         .curve(defaultRadius, 45)
         .straight(cranbourneStraight)
+        .node(node.CRANBOURNE)
         .terminus(),
     })
     .straight(dandenongToHallamCurve)
     .curve(hallamCurvePakenham, -45)
     .straight(hallamToPakenham)
-    .station(pakenham.point("pakenham"))
+    .node(node.PAKENHAM)
     .straight(pakenhamToEastPakenham)
+    .node(node.EAST_PAKENHAM)
     .terminus(),
 });

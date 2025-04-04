@@ -5,12 +5,22 @@ import { LineBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/lin
 import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
 import { GeometryBuilder } from "@/scripts/generate-map-geometry/lib/builder/geometry-builder";
 
+const node = {
+  CYAN_1: 1,
+  CYAN_2: 2,
+  CYAN_3: 3,
+  CYAN_4: 4,
+  PURPLE_1: 5,
+  PURPLE_2: 6,
+  PURPLE_3: 7,
+};
+
 const interchange = InterchangeBlueprint.simple(
   1,
-  ["line1", "line2"],
-  "line1",
+  [node.CYAN_2, node.PURPLE_2],
+  node.CYAN_2,
   "left-edge",
-  "line2",
+  node.PURPLE_2,
   "right-edge",
 );
 
@@ -20,17 +30,20 @@ const line1 = new LineBlueprint({
   color: "cyan",
   path: new PathBlueprint()
     .terminus()
+    .node(node.CYAN_1)
     .straight(flexi(45, 90))
-    .station(interchange.point("line1"))
+    .node(node.CYAN_2)
     .straight(flexi(5))
     .split({
       split: new PathBlueprint()
         .curve(flexi(15), 45)
         .straight(flexi(25, 50))
+        .node(node.CYAN_3)
         .terminus(),
     })
     .curve(flexi(10), -45)
     .straight(flexi(45, 90))
+    .node(node.CYAN_4)
     .terminus(),
 });
 
@@ -40,14 +53,16 @@ const line2 = new LineBlueprint({
   color: "purple",
   path: new PathBlueprint()
     .terminus()
+    .node(node.PURPLE_1)
     .straight(flexi(45, 90))
-    .station(interchange.point("line2"))
+    .node(node.PURPLE_2)
     .straight(flexi(5))
     .curve(flexi(10), 45)
     .straight(flexi(45, 90))
+    .node(node.PURPLE_3)
     .terminus(),
 });
 
-const geometry = new GeometryBuilder().build([line1, line2]);
+const geometry = new GeometryBuilder().build([line1, line2], [interchange]);
 
 export default geometry;
