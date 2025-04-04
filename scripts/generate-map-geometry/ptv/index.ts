@@ -13,14 +13,15 @@ import * as interchange from "@/scripts/generate-map-geometry/ptv/interchanges";
 
 const geometry = new GeometryBuilder().build(
   [
-    burnley,
+    // In render (z-index) order.
+    gippsland,
+    regionalWestern,
     cliftonHill,
     dandenong,
-    frankston,
-    gippsland,
-    newport,
+    burnley,
     northern,
-    regionalWestern,
+    newport,
+    frankston,
     sandringham,
     stonyPoint,
   ],
