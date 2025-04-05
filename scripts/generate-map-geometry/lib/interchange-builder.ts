@@ -2,13 +2,13 @@ import { Interchange } from "@/components/map/renderer/interchange";
 import { DualPoint } from "@/components/map/renderer/dual-point";
 import {
   InterchangeBlueprint,
-  NodePosition,
-} from "@/scripts/generate-map-geometry/lib/blueprint/interchange-blueprint";
-import { LocatedNode } from "@/scripts/generate-map-geometry/lib/builder/path";
+  NodeWithRelativePosition,
+} from "@/scripts/generate-map-geometry/lib/interchange-blueprint";
 import {
   interchangeEdgeOffset,
   interchangeInnerOffset,
 } from "@/scripts/generate-map-geometry/lib/utils";
+import { LocatedNode } from "@/scripts/generate-map-geometry/lib/line-builder";
 
 export class InterchangeBuilder {
   constructor(
@@ -37,7 +37,7 @@ export class InterchangeBuilder {
     return new Interchange(thickLines, thinLine);
   }
 
-  _point(nodePosition: NodePosition): DualPoint {
+  _point(nodePosition: NodeWithRelativePosition): DualPoint {
     const point = this._locateNode(nodePosition.nodeId);
 
     const offset = {

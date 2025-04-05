@@ -1,4 +1,8 @@
-import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
+import {
+  curve,
+  SegmentInstruction,
+  straight,
+} from "@/scripts/generate-map-geometry/lib/segment-instructions";
 import {
   lineGap,
   long45,
@@ -10,35 +14,23 @@ import * as loop from "@/scripts/generate-map-geometry/ptv/utils-city-loop";
 export function flindersStreetToSouthernCross(
   lineNumber: loop.LineNumber,
   curveEnd: boolean,
-): PathBlueprint {
-  const flindersStreetPos = loop.pos.flindersStreet(lineNumber);
-  const southernCrossPos = loop.pos.southernCross(lineNumber);
-
+): SegmentInstruction[] {
+  const fss = loop.pos.flindersStreet(lineNumber);
+  const scs = loop.pos.southernCross(lineNumber);
   const radius = loop.radius(lineNumber);
-
-  const curveRadius = lineGap.divide(short45);
-  const curveHeight = curveRadius.times(long45);
-
-  let result = new PathBlueprint()
-    .straight(
-      flindersStreetPos.horizontalDistanceTo(southernCrossPos).minus(radius),
-    )
-    .curve(radius, 90);
+  const straight1 = fss.horizontalDistanceTo(scs).minus(radius);
+  const straight2 = scs.verticalDistanceTo(fss).minus(radius);
 
   if (curveEnd) {
-    result = result
-      .straight(
-        southernCrossPos
-          .verticalDistanceTo(flindersStreetPos)
-          .minus(radius)
-          .minus(curveHeight),
-      )
-      .curve(curveRadius, -45);
+    const curveRadius = lineGap.divide(short45);
+    const curveHeight = curveRadius.times(long45);
+    return [
+      straight(straight1),
+      curve(radius, 90),
+      straight(straight2.minus(curveHeight)),
+      curve(curveRadius, -45),
+    ];
   } else {
-    result = result.straight(
-      southernCrossPos.verticalDistanceTo(flindersStreetPos).minus(radius),
-    );
+    return [straight(straight1), curve(radius, 90), straight(straight2)];
   }
-
-  return result;
 }

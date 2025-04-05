@@ -1,5 +1,9 @@
 import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
-import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
+import {
+  curve,
+  SegmentInstruction,
+  straight,
+} from "@/scripts/generate-map-geometry/lib/segment-instructions";
 import * as loop from "@/scripts/generate-map-geometry/ptv/utils-city-loop";
 
 const radiusReduction = flexi(5);
@@ -10,16 +14,14 @@ const radiusReduction = flexi(5);
  */
 export function parliamentToFlindersStreet(
   lineNumber: loop.LineNumber,
-): PathBlueprint {
-  const parliamentPos = loop.pos.parliament(lineNumber);
-  const flindersStreetPos = loop.pos.flindersStreet(lineNumber);
-
+): SegmentInstruction[] {
+  const parliament = loop.pos.parliament(lineNumber);
+  const flindersStreet = loop.pos.flindersStreet(lineNumber);
   const radius = loop.radius(lineNumber).minus(radiusReduction);
 
-  return new PathBlueprint()
-    .straight(parliamentPos.verticalDistanceTo(flindersStreetPos).minus(radius))
-    .curve(radius, 90)
-    .straight(
-      parliamentPos.horizontalDistanceTo(flindersStreetPos).minus(radius),
-    );
+  return [
+    straight(parliament.verticalDistanceTo(flindersStreet).minus(radius)),
+    curve(radius, 90),
+    straight(parliament.horizontalDistanceTo(flindersStreet).minus(radius)),
+  ];
 }

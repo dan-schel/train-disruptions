@@ -1,8 +1,6 @@
-import { InterchangeBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/interchange-blueprint";
+import { InterchangeBlueprint } from "@/scripts/generate-map-geometry/lib/interchange-blueprint";
 import * as station from "@/shared/station-ids";
 import * as node from "@/shared/map-node-ids";
-
-// TODO: [DS] Split each interchange into it's own file.
 
 export const flindersStreet = InterchangeBlueprint.simple(
   station.FLINDERS_STREET,

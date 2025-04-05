@@ -37,14 +37,14 @@ export class DualPoint {
     return new DualPoint(parsed[0], parsed[1], parsed[2], parsed[3]);
   }
 
-  static readonly pathJson = z.string().transform((x, ctx) => {
+  static readonly commaSeparatedStringJson = z.string().transform((x, ctx) => {
     const points = x.split(",").map((x) => DualPoint.fromString(x));
     const parsed = points.filter(nonNull);
 
     if (parsed.length !== points.length) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        message: "Not a valid path.",
+        message: "Not a valid comma separated string of points.",
       });
       return z.NEVER;
     }
@@ -52,9 +52,9 @@ export class DualPoint {
     return parsed;
   });
 
-  static pathToJson(
-    path: readonly DualPoint[],
-  ): z.input<typeof DualPoint.pathJson> {
-    return path.map((x) => x.toString()).join(",");
+  static toCommaSeparatedString(
+    points: readonly DualPoint[],
+  ): z.input<typeof DualPoint.commaSeparatedStringJson> {
+    return points.map((x) => x.toString()).join(",");
   }
 }

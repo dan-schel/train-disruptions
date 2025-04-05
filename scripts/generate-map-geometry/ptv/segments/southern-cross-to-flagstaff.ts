@@ -1,19 +1,21 @@
-import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
+import {
+  curve,
+  SegmentInstruction,
+  straight,
+} from "@/scripts/generate-map-geometry/lib/segment-instructions";
 import * as loop from "@/scripts/generate-map-geometry/ptv/utils-city-loop";
 
 /** North-west corner of the city loop from Southern Cross to Flagstaff. */
 export function southernCrossToFlagstaff(
   lineNumber: loop.LineNumber,
-): PathBlueprint {
-  const southernCrossPos = loop.pos.southernCross(lineNumber);
-  const flagstaffPos = loop.pos.flagstaff(lineNumber);
-
+): SegmentInstruction[] {
+  const southernCross = loop.pos.southernCross(lineNumber);
+  const flagstaff = loop.pos.flagstaff(lineNumber);
   const radius = loop.radius(lineNumber);
 
-  return new PathBlueprint()
-    .straight(southernCrossPos.verticalDistanceTo(flagstaffPos).minus(radius))
-    .curve(radius, 90)
-    .straight(
-      flagstaffPos.horizontalDistanceTo(southernCrossPos).minus(radius),
-    );
+  return [
+    straight(southernCross.verticalDistanceTo(flagstaff).minus(radius)),
+    curve(radius, 90),
+    straight(flagstaff.horizontalDistanceTo(southernCross).minus(radius)),
+  ];
 }

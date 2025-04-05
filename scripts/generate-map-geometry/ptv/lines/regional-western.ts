@@ -1,10 +1,13 @@
 import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
-import { LineBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/line-blueprint";
-import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
 import { northMelbourneToFootscray } from "@/scripts/generate-map-geometry/ptv/segments/north-melbourne-to-footscray";
-import { southernCrossToNorthMelbourneRegional } from "@/scripts/generate-map-geometry/ptv/segments/southern-cross-to-north-melbourne";
+import {
+  northMelbourneJunctionRrl,
+  northMelbourneJunctionSeymour,
+  southernCrossToNorthMelbourneJunction,
+} from "@/scripts/generate-map-geometry/ptv/segments/southern-cross-to-north-melbourne";
 import {
   defaultRadius,
+  northWest,
   standardDiagonal,
 } from "@/scripts/generate-map-geometry/ptv/utils";
 import * as loop from "@/scripts/generate-map-geometry/ptv/utils-city-loop";
@@ -23,6 +26,11 @@ import {
   watergardensStraight,
 } from "@/scripts/generate-map-geometry/ptv/utils-shared-corridors";
 import { REGIONAL_WESTERN as node } from "@/shared/map-node-ids";
+import { LineBuilder } from "@/scripts/generate-map-geometry/lib/line-builder";
+import {
+  curve,
+  straight,
+} from "@/scripts/generate-map-geometry/lib/segment-instructions";
 
 const seymourStraight = flexi(50, 100);
 const sheppartonStraight = flexi(75, 150);
@@ -46,102 +54,88 @@ const warrnamboolStraight = flexi(75, 150);
  * (colored purple on the map) that depart Southern Cross toward North
  * Melbourne/Footscray.
  */
-export const regionalWestern = new LineBlueprint({
-  origin: loop.pos.southernCross(loop.line.dandenong),
-  angle: 225,
-  color: "purple",
+export const regionalWestern = new LineBuilder(
+  node.SOUTHERN_CROSS,
 
-  path: new PathBlueprint()
-    .node(node.SOUTHERN_CROSS)
-    .add(
-      southernCrossToNorthMelbourneRegional(
-        new PathBlueprint()
-          .node(node.NORTH_MELBOURNE_SEYMOUR)
-          .straight(newmarketStraight)
-          .curve(newmarketCurveSeymour, 45)
-          .straight(broadmeadowsStraight)
-          .node(node.BROADMEADOWS)
-          .straight(craigieburnStraight)
-          .node(node.CRAIGIEBURN)
-          .curve(defaultRadius, 45)
-          .straight(standardDiagonal)
-          .curve(defaultRadius, 45)
-          .straight(seymourStraight)
-          .node(node.SEYMOUR)
-          .split({
-            split: new PathBlueprint()
-              .straight(sheppartonStraight)
-              .node(node.SHEPPARTON)
-              .terminus(),
-          })
-          .curve(defaultRadius, 45)
-          .straight(avenelStraight)
-          .curve(defaultRadius, -45)
-          .straight(alburyStraight)
-          .node(node.ALBURY)
-          .terminus(),
-      ),
-    )
-    .node(node.NORTH_MELBOURNE_RRL)
-    .add(northMelbourneToFootscray("regional-rrl"))
-    .node(node.FOOTSCRAY)
-    .straight(tottenhamStraight)
-    .node(node.SUNSHINE_JUNCTION)
-    .split({
-      split: new PathBlueprint()
-        .curve(sunshineCurvesBendigo, 45)
-        .straight(sunshineJunctionDiagonal)
-        .node(node.SUNSHINE_BENDIGO)
-        .straight(sunshineExitDiagonal)
-        .curve(sunshineCurvesBendigo, 45)
-        .straight(watergardensStraight)
-        .node(node.WATERGARDENS)
-        .straight(sunburyStraight)
-        .node(node.SUNBURY)
-        .straight(kangarooFlatStraight)
-        .curve(defaultRadius, -45)
-        .straight(standardDiagonal)
-        .curve(defaultRadius, -45)
-        .straight(bendigoStraight)
-        .node(node.BENDIGO)
-        .split({
-          split: new PathBlueprint()
-            .straight(echucaStraight)
-            .node(node.ECHUCA)
-            .terminus(),
-        })
-        .curve(defaultRadius, -45)
-        .straight(eaglehawkStraight)
-        .curve(defaultRadius, 45)
-        .straight(swanHillStraight)
-        .node(node.SWAN_HILL)
-        .terminus(),
-    })
-    .straight(sunshineJunctionStraight)
-    .node(node.SUNSHINE_DEER_PARK)
-    .straight(deerParkStraight)
-    .node(node.DEER_PARK)
-    .split({
-      split: new PathBlueprint()
-        .straight(wyndhamValeStraight)
-        .curve(defaultRadius, -45)
-        .straight(standardDiagonal)
-        .curve(defaultRadius, -45)
-        .straight(warrnamboolStraight)
-        .node(node.WARRNAMBOOL)
-        .terminus(),
-    })
-    .curve(defaultRadius, 45)
-    .straight(ballaratStraight)
-    .node(node.BALLARAT)
-    .split({
-      split: new PathBlueprint()
-        .straight(araratStraight)
-        .node(node.ARARAT)
-        .terminus(),
-    })
-    .curve(defaultRadius, 45)
-    .straight(maryboroughStraight)
-    .node(node.MARYBOROUGH)
-    .terminus(),
-});
+  // Line does a weird curve near the Southern Cross interchange marker, so its
+  // start position is actually the Dandenong group (at a north-west angle).
+  loop.pos.southernCross(loop.line.dandenong),
+  northWest,
+
+  "purple",
+)
+  .to(node.NORTH_MELBOURNE_JUNCTION, southernCrossToNorthMelbourneJunction())
+  .split((l) =>
+    l
+      .to(node.NORTH_MELBOURNE_SEYMOUR, northMelbourneJunctionSeymour())
+
+      // TODO: One day we might show the Flemington Racecourse line, and if so,
+      // we'll want to add the node for Newmarket here.
+
+      .to(node.BROADMEADOWS, [
+        straight(newmarketStraight),
+        curve(newmarketCurveSeymour, 45),
+        straight(broadmeadowsStraight),
+      ])
+      .to(node.CRAIGIEBURN, [straight(craigieburnStraight)])
+      .to(node.SEYMOUR, [
+        curve(defaultRadius, 45),
+        straight(standardDiagonal),
+        curve(defaultRadius, 45),
+        straight(seymourStraight),
+      ])
+      .split((l) => l.to(node.SHEPPARTON, [straight(sheppartonStraight)]))
+      .to(node.ALBURY, [
+        curve(defaultRadius, 45),
+        straight(avenelStraight),
+        curve(defaultRadius, -45),
+        straight(alburyStraight),
+      ]),
+  )
+  .to(node.NORTH_MELBOURNE_RRL, northMelbourneJunctionRrl())
+  .to(node.FOOTSCRAY, northMelbourneToFootscray("regional-rrl"))
+  .to(node.SUNSHINE_JUNCTION, [straight(tottenhamStraight)])
+  .split((l) =>
+    l
+      .to(node.SUNSHINE_BENDIGO, [
+        curve(sunshineCurvesBendigo, 45),
+        straight(sunshineJunctionDiagonal),
+      ])
+      .to(node.WATERGARDENS, [
+        straight(sunshineExitDiagonal),
+        curve(sunshineCurvesBendigo, 45),
+        straight(watergardensStraight),
+      ])
+      .to(node.SUNBURY, [straight(sunburyStraight)])
+      .to(node.BENDIGO, [
+        straight(kangarooFlatStraight),
+        curve(defaultRadius, -45),
+        straight(standardDiagonal),
+        curve(defaultRadius, -45),
+        straight(bendigoStraight),
+      ])
+      .split((l) => l.to(node.ECHUCA, [straight(echucaStraight)]))
+      .to(node.SWAN_HILL, [
+        curve(defaultRadius, -45),
+        straight(eaglehawkStraight),
+        curve(defaultRadius, 45),
+        straight(swanHillStraight),
+      ]),
+  )
+  .to(node.SUNSHINE_DEER_PARK, [straight(sunshineJunctionStraight)])
+  .to(node.DEER_PARK, [straight(deerParkStraight)])
+  .split((l) =>
+    l.to(node.WARRNAMBOOL, [
+      straight(wyndhamValeStraight),
+      curve(defaultRadius, -45),
+      straight(standardDiagonal),
+      curve(defaultRadius, -45),
+      straight(warrnamboolStraight),
+    ]),
+  )
+  .to(node.BALLARAT, [curve(defaultRadius, 45), straight(ballaratStraight)])
+  .split((l) => l.to(node.ARARAT, [straight(araratStraight)]))
+  .to(node.MARYBOROUGH, [
+    curve(defaultRadius, 45),
+    straight(maryboroughStraight),
+  ]);

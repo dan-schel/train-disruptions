@@ -112,14 +112,14 @@ export class Renderer {
     ctx.scale(scale, scale);
     ctx.translate(-viewport.x, -viewport.y);
 
-    for (const line of this._geometry.lines) {
-      const color = lineColorCodes[line.color];
-      this._renderLine(line.path, lineWidth, color);
+    for (const segment of this._geometry.segments) {
+      const color = lineColorCodes[segment.color];
+      this._renderPath(segment.points, lineWidth, color);
     }
 
     for (const terminus of this._geometry.termini) {
       const color = lineColorCodes[terminus.color];
-      this._renderLine(terminus.path, terminusLineWidth, color);
+      this._renderPath(terminus.points, terminusLineWidth, color);
     }
 
     for (const interchange of this._geometry.interchanges) {
@@ -134,26 +134,26 @@ export class Renderer {
     if (interchange.thinLine != null) {
       const line = interchange.thinLine;
       const width = interchangeThinLineWidth + 2 * interchangeBorderWidth;
-      this._renderLine(line, width, interchangeStrokeColor, "round");
+      this._renderPath(line, width, interchangeStrokeColor, "round");
     }
     for (const line of interchange.thickLines) {
       const width = interchangeThickLineWidth + 2 * interchangeBorderWidth;
-      this._renderLine(line, width, interchangeStrokeColor, "round");
+      this._renderPath(line, width, interchangeStrokeColor, "round");
     }
 
     // The white "fill".
     if (interchange.thinLine != null) {
       const line = interchange.thinLine;
       const width = interchangeThinLineWidth;
-      this._renderLine(line, width, interchangeFillColor, "round");
+      this._renderPath(line, width, interchangeFillColor, "round");
     }
     for (const line of interchange.thickLines) {
       const width = interchangeThickLineWidth;
-      this._renderLine(line, width, interchangeFillColor, "round");
+      this._renderPath(line, width, interchangeFillColor, "round");
     }
   }
 
-  private _renderLine(
+  private _renderPath(
     points: readonly DualPoint[],
     lineWidth: number,
     color: string,

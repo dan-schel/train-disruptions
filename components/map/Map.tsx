@@ -3,7 +3,7 @@ import { Renderer } from "@/components/map/renderer/renderer";
 import { Geometry } from "@/components/map/renderer/geometry";
 
 // To debug geometry without needing to re-run the generator:
-// import geometry from "../../scripts/generate-map-geometry/ptv";
+// import geometry from "@/scripts/generate-map-geometry/ptv";
 import geometryJson from "@/components/map/geometry/ptv.json";
 
 export function Map() {
