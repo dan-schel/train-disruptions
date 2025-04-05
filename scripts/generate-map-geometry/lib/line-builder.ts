@@ -17,7 +17,14 @@ export class LineBuilder {
     private readonly _color: LineColor,
   ) {
     this._segments = [];
-    this._nodes = [new LocatedNode(this._startNodeId, this._startPoint)];
+    this._nodes = [
+      new LocatedNode(
+        this._startNodeId,
+        this._startPoint,
+        this._startAngle,
+        this._color,
+      ),
+    ];
     this._currentNodeId = _startNodeId;
     this._currentPosition = _startPoint;
     this._currentAngle = _startAngle;
@@ -33,7 +40,7 @@ export class LineBuilder {
     const { segment, endPoint, endAngle } = builder.build();
 
     this._segments.push(segment);
-    this._nodes.push(new LocatedNode(nodeId, endPoint));
+    this._nodes.push(new LocatedNode(nodeId, endPoint, endAngle, this._color));
     this._currentPosition = endPoint;
     this._currentAngle = endAngle;
     this._currentNodeId = nodeId;
@@ -60,12 +67,12 @@ export class LineBuilder {
     return this;
   }
 
-  build(): Line {
-    return new Line(this._segments, this._nodes);
+  build(): LineBuilderOutput {
+    return new LineBuilderOutput(this._segments, this._nodes);
   }
 }
 
-export class Line {
+export class LineBuilderOutput {
   constructor(
     readonly segments: readonly Segment[],
     readonly nodes: readonly LocatedNode[],
@@ -76,5 +83,7 @@ export class LocatedNode {
   constructor(
     readonly nodeId: number,
     readonly point: FlexiPoint,
+    readonly angle: number,
+    readonly color: LineColor,
   ) {}
 }

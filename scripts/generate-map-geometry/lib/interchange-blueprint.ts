@@ -1,10 +1,10 @@
-type RelativePosition =
+export type RelativePosition =
   | "left-edge"
   | "left-inner"
   | "right-inner"
   | "right-edge";
 
-type NodeWithRelativePosition = {
+export type NodeWithRelativePosition = {
   readonly nodeId: number;
   readonly position: RelativePosition;
 };

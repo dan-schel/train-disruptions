@@ -1,9 +1,8 @@
 import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
 import { fp } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-point";
-import { InterchangeBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/interchange-blueprint";
-import { LineBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/line-blueprint";
-import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
-import { GeometryBuilder } from "@/scripts/generate-map-geometry/lib/builder/geometry-builder";
+import { InterchangeBlueprint } from "@/scripts/generate-map-geometry/lib/interchange-blueprint";
+import { GeometryBuilder } from "@/scripts/generate-map-geometry/lib/geometry-builder";
+import { LineBuilder } from "@/scripts/generate-map-geometry/lib/line-builder";
 
 const node = {
   CYAN_1: 1,
@@ -24,39 +23,22 @@ const interchange = InterchangeBlueprint.simple(
   "right-edge",
 );
 
-const line1 = new LineBlueprint({
-  origin: fp([0, 0]),
-  angle: 0,
-  color: "cyan",
-  path: new PathBlueprint()
-    .node(node.CYAN_1)
-    .straight(flexi(45, 90))
-    .node(node.CYAN_2)
-    .straight(flexi(5))
-    .split({
-      split: new PathBlueprint()
-        .curve(flexi(15), 45)
-        .straight(flexi(25, 50))
-        .node(node.CYAN_3),
-    })
-    .curve(flexi(10), -45)
-    .straight(flexi(45, 90))
-    .node(node.CYAN_4),
-});
+const line1 = new LineBuilder(node.CYAN_1, fp([0, 0]), 0, "cyan")
+  .to(node.CYAN_2, (p) => p.straight(flexi(45, 90)))
+  .split((s) =>
+    s.to(node.CYAN_3, (p) =>
+      p.straight(flexi(5)).curve(flexi(15), 45).straight(flexi(25, 50)),
+    ),
+  )
+  .to(node.CYAN_4, (p) =>
+    p.straight(flexi(5)).curve(flexi(10), -45).straight(flexi(45, 90)),
+  );
 
-const line2 = new LineBlueprint({
-  origin: fp([0, 5]),
-  angle: 0,
-  color: "purple",
-  path: new PathBlueprint()
-    .node(node.PURPLE_1)
-    .straight(flexi(45, 90))
-    .node(node.PURPLE_2)
-    .straight(flexi(5))
-    .curve(flexi(10), 45)
-    .straight(flexi(45, 90))
-    .node(node.PURPLE_3),
-});
+const line2 = new LineBuilder(node.PURPLE_1, fp([0, 5]), 0, "purple")
+  .to(node.PURPLE_2, (p) => p.straight(flexi(45, 90)))
+  .to(node.PURPLE_3, (p) =>
+    p.straight(flexi(5)).curve(flexi(10), 45).straight(flexi(45, 90)),
+  );
 
 const geometry = new GeometryBuilder().build(
   [line1, line2],
