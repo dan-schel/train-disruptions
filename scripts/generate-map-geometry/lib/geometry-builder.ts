@@ -17,19 +17,20 @@ export class GeometryBuilder {
   constructor() {}
 
   build(
-    lineBlueprints: LineBuilder[],
-    interchangeBlueprints: InterchangeBlueprint[],
+    lines: LineBuilder[],
+    interchanges: InterchangeBlueprint[],
     terminiNodeIds: number[],
   ): Geometry {
-    const paths = lineBlueprints.map((l) => l.build());
+    const paths = lines.map((l) => l.build());
     const segments = paths.flatMap((l) => l.segments);
     const nodes = paths.flatMap((l) => l.nodes);
 
-    const interchanges = this._buildInterchanges(interchangeBlueprints, nodes);
-    const termini = this._buildTermini(terminiNodeIds, nodes);
-    const viewport = this._buildDualViewport(segments);
-
-    return new Geometry(segments, interchanges, termini, viewport);
+    return new Geometry(
+      segments,
+      this._buildInterchanges(interchanges, nodes),
+      this._buildTermini(terminiNodeIds, nodes),
+      this._buildDualViewport(segments),
+    );
   }
 
   private _buildInterchanges(
