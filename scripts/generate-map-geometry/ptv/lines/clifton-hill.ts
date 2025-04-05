@@ -14,6 +14,7 @@ import { southernCrossToFlagstaff } from "@/scripts/generate-map-geometry/ptv/se
 import {
   defaultRadius,
   standardDiagonal,
+  west,
 } from "@/scripts/generate-map-geometry/ptv/utils";
 import * as loop from "@/scripts/generate-map-geometry/ptv/utils-city-loop";
 import { CLIFTON_HILL as node } from "@/shared/map-node-ids";
@@ -33,7 +34,7 @@ const loopLine = loop.line.cliftonHill;
 export const cliftonHill = new LineBuilder(
   node.FLINDERS_STREET_LOOP,
   loop.pos.flindersStreet(loop.line.cliftonHill),
-  180,
+  west,
   "red",
 )
   .to(node.SOUTHERN_CROSS, flindersStreetToSouthernCross(loopLine, false))

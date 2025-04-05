@@ -10,6 +10,15 @@ export const diagonal = 1 / Math.sqrt(2);
 export const defaultRadius = flexi(15);
 export const standardDiagonal = flexi(5, 15);
 
+export const east = 0;
+export const southEast = 45;
+export const south = 90;
+export const southWest = 135;
+export const west = 180;
+export const northWest = 225;
+export const north = 270;
+export const northEast = 315;
+
 export function measure45CurveLockedDiagonal(
   longLength: FlexiLength,
   shortLength: FlexiLength,

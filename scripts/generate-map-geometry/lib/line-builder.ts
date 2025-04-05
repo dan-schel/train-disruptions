@@ -34,9 +34,16 @@ export class LineBuilder {
   to(nodeId: number, instructions: SegmentInstruction[]): LineBuilder {
     const result = new SegmentBuilder(this._currentPosition, this._currentAngle)
       .process(instructions)
-      .build(this._currentNodeId, nodeId, this._color);
+      .build();
 
-    const { segment, endPoint, endAngle } = result;
+    const { points, endPoint, endAngle } = result;
+    const segment = new Segment(
+      this._currentNodeId,
+      nodeId,
+      this._color,
+      points.map((x) => x.toDualPoint()),
+    );
+
     this._segments.push(segment);
     this._nodes.push(new LocatedNode(nodeId, endPoint, endAngle, this._color));
     this._currentPosition = endPoint;
@@ -76,14 +83,6 @@ export class LineBuilderOutput {
     readonly segments: readonly Segment[],
     readonly nodes: readonly LocatedNode[],
   ) {}
-
-  requireNodePosition(nodeId: number): FlexiPoint {
-    const node = this.nodes.find((n) => n.nodeId === nodeId);
-    if (node == null) {
-      throw new Error(`Node ${nodeId} not found`);
-    }
-    return node.point;
-  }
 }
 
 export class LocatedNode {

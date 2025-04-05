@@ -3,6 +3,7 @@ import { flindersStreetToRichmond } from "@/scripts/generate-map-geometry/ptv/se
 import { flindersStreetToSouthernCross } from "@/scripts/generate-map-geometry/ptv/segments/flinders-street-to-southern-cross";
 import {
   defaultRadius,
+  southEast,
   standardDiagonal,
 } from "@/scripts/generate-map-geometry/ptv/utils";
 import * as loop from "@/scripts/generate-map-geometry/ptv/utils-city-loop";
@@ -31,10 +32,10 @@ const loopLine = loop.line.regional;
 export const gippsland = new LineBuilder(
   node.SOUTHERN_CROSS,
 
-  // Line does a weird curve near the Southern Cross interchange marker, so it's
-  // start position is actually the cross-city group (and at 45 degrees).
+  // Line does a weird curve near the Southern Cross interchange marker, so its
+  // start position is actually the cross-city group (at a south-east angle).
   loop.pos.southernCross(loop.line.crossCity),
-  45,
+  southEast,
 
   "purple",
 )

@@ -1,5 +1,3 @@
-import { Segment } from "@/components/map/renderer/segment";
-import { LineColor } from "@/components/map/renderer/utils";
 import { FlexiPoint } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-point";
 import {
   CurveSegmentInstruction,
@@ -26,14 +24,9 @@ export class SegmentBuilder {
     return this;
   }
 
-  build(startNodeId: number, endNodeId: number, color: LineColor) {
+  build() {
     return {
-      segment: new Segment(
-        startNodeId,
-        endNodeId,
-        color,
-        this._points.map((x) => x.toDualPoint()),
-      ),
+      points: this._points,
       endPoint: this._currentPoint,
       endAngle: this._currentAngle,
     };

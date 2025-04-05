@@ -11,7 +11,7 @@ import { flindersStreetToSouthernCross } from "@/scripts/generate-map-geometry/p
 import { melbourneCentralToParliament } from "@/scripts/generate-map-geometry/ptv/segments/melbourne-central-to-parliament";
 import { parliamentToRichmond } from "@/scripts/generate-map-geometry/ptv/segments/parliament-to-richmond";
 import { southernCrossToFlagstaff } from "@/scripts/generate-map-geometry/ptv/segments/southern-cross-to-flagstaff";
-import { defaultRadius } from "@/scripts/generate-map-geometry/ptv/utils";
+import { defaultRadius, west } from "@/scripts/generate-map-geometry/ptv/utils";
 import * as loop from "@/scripts/generate-map-geometry/ptv/utils-city-loop";
 import {
   caulfieldToClayton,
@@ -36,7 +36,7 @@ const loopLine = loop.line.dandenong;
 export const dandenong = new LineBuilder(
   node.FLINDERS_STREET_LOOP,
   loop.pos.flindersStreet(loopLine),
-  180,
+  west,
   "cyan",
 )
   .to(node.SOUTHERN_CROSS, flindersStreetToSouthernCross(loopLine, false))

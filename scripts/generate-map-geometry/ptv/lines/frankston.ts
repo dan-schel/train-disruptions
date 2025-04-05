@@ -2,7 +2,9 @@ import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-leng
 import { flindersStreetToRichmond } from "@/scripts/generate-map-geometry/ptv/segments/flinders-street-to-richmond";
 import {
   defaultRadius,
+  east,
   lineGap,
+  south,
   standardDiagonal,
 } from "@/scripts/generate-map-geometry/ptv/utils";
 import * as loop from "@/scripts/generate-map-geometry/ptv/utils-city-loop";
@@ -16,6 +18,7 @@ import {
   curve,
   straight,
 } from "@/scripts/generate-map-geometry/lib/segment-instructions";
+import { getNodePosition } from "@/scripts/generate-map-geometry/lib/measure";
 
 const aspendaleStraight = flexi(60, 120);
 const frankstonStraight = flexi(30, 60);
@@ -25,7 +28,7 @@ const loopLine = loop.line.crossCity;
 export const frankston = new LineBuilder(
   node.FLINDERS_STREET,
   loop.pos.flindersStreet(loopLine),
-  0,
+  east,
   "green",
 )
   .to(node.RICHMOND, flindersStreetToRichmond(loopLine))
@@ -45,6 +48,6 @@ export function frankstonStationPos(line: "frankston" | "stony-point") {
     frankston: 0,
     "stony-point": 1,
   }[line];
-  const pos = frankston.build().requireNodePosition(node.FRANKSTON);
-  return pos.move(lineGap.times(offset), 90);
+  const pos = getNodePosition(frankston, node.FRANKSTON);
+  return pos.move(lineGap.times(offset), south);
 }

@@ -1,15 +1,19 @@
 import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
 import { FlexiPoint } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-point";
-import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
 import {
   defaultRadius,
-  diagonal,
   lineGap,
-  long45,
   measure45CurveLockedDiagonal,
-  short45,
+  northWest,
+  south,
 } from "@/scripts/generate-map-geometry/ptv/utils";
 import { northMelbournePos as northMelbournePosFunc } from "@/scripts/generate-map-geometry/ptv/segments/southern-cross-to-north-melbourne";
+import {
+  curve,
+  SegmentInstruction,
+  straight,
+} from "@/scripts/generate-map-geometry/lib/segment-instructions";
+import { getEndPoint } from "@/scripts/generate-map-geometry/lib/measure";
 
 const northMelbourneStraight = flexi(10);
 const northMelbourneStraightSunbury = flexi(5);
@@ -17,8 +21,8 @@ const footscrayStraight = flexi(30);
 
 /** The curves from North Melbourne to Footscray. */
 export function northMelbourneToFootscray(
-  track: "cross-city" | "regional-rrl" | "sunbury",
-): PathBlueprint {
+  track: "newport" | "regional-rrl" | "sunbury",
+): SegmentInstruction[] {
   if (track === "sunbury") {
     const northMelbournePos = northMelbournePosFunc("northern");
     const footscrayPos = footscrayPosFunc("sunbury");
@@ -31,42 +35,36 @@ export function northMelbourneToFootscray(
       northMelbourneStraightSunbury,
     );
 
-    return new PathBlueprint()
-      .straight(northMelbourneStraightSunbury)
-      .curve(radius, -45)
-      .straight(straightLength);
+    return [
+      straight(northMelbourneStraightSunbury),
+      curve(radius, -45),
+      straight(straightLength),
+    ];
   } else {
-    return new PathBlueprint()
-      .straight(northMelbourneStraight)
-      .curve(radius(track), -45)
-      .straight(footscrayStraight);
+    return [
+      straight(northMelbourneStraight),
+      curve(radius(track), -45),
+      straight(footscrayStraight),
+    ];
   }
 }
 
-function radius(track: "cross-city" | "regional-rrl") {
-  return track === "cross-city" ? defaultRadius : defaultRadius.plus(lineGap);
+function radius(track: "newport" | "regional-rrl") {
+  return track === "newport" ? defaultRadius : defaultRadius.plus(lineGap);
 }
 
 function footscrayPosFunc(
-  track: "cross-city" | "regional-rrl" | "sunbury",
+  track: "newport" | "regional-rrl" | "sunbury",
 ): FlexiPoint {
   const trackNumber = {
-    "cross-city": 0,
+    newport: 0,
     "regional-rrl": 1,
     sunbury: 2,
   }[track];
 
-  return northMelbournePosFunc("cross-city")
-    .minus({
-      x: northMelbourneStraight.times(diagonal),
-      y: northMelbourneStraight.times(diagonal),
-    })
-    .minus({
-      x: radius("cross-city").times(long45),
-      y: radius("cross-city").times(short45),
-    })
-    .minus({ x: footscrayStraight })
-    .minus({
-      y: lineGap.times(trackNumber),
-    });
+  return getEndPoint(
+    northMelbournePosFunc("newport"),
+    northWest,
+    northMelbourneToFootscray("newport"),
+  ).move(lineGap.times(trackNumber), south);
 }
