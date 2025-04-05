@@ -18,7 +18,7 @@ import {
   curve,
   straight,
 } from "@/scripts/generate-map-geometry/lib/segment-instructions";
-import { getNodePosition } from "@/scripts/generate-map-geometry/lib/measure";
+import { getNodePosition } from "@/scripts/generate-map-geometry/lib/utils";
 
 const aspendaleStraight = flexi(60, 120);
 const frankstonStraight = flexi(30, 60);

@@ -68,6 +68,10 @@ export const regionalWestern = new LineBuilder(
   .split((l) =>
     l
       .to(node.NORTH_MELBOURNE_SEYMOUR, northMelbourneJunctionSeymour())
+
+      // TODO: One day we might show the Flemington Racecourse line, and if so,
+      // we'll want to add the node for Newmarket here.
+
       .to(node.BROADMEADOWS, [
         straight(newmarketStraight),
         curve(newmarketCurveSeymour, 45),

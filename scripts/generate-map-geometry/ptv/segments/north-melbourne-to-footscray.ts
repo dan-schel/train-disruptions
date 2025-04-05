@@ -13,7 +13,7 @@ import {
   SegmentInstruction,
   straight,
 } from "@/scripts/generate-map-geometry/lib/segment-instructions";
-import { getEndPoint } from "@/scripts/generate-map-geometry/lib/measure";
+import { getEndPoint } from "@/scripts/generate-map-geometry/lib/utils";
 
 const northMelbourneStraight = flexi(10);
 const northMelbourneStraightSunbury = flexi(5);
