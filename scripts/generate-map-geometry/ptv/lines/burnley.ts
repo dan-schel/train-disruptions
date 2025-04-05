@@ -1,9 +1,11 @@
 import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
-import { LineBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/line-blueprint";
-import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
-import { flagstaffToParliament } from "@/scripts/generate-map-geometry/ptv/segments/flagstaff-to-parliament";
+import { LineBuilder } from "@/scripts/generate-map-geometry/lib/line-builder";
+import { invert } from "@/scripts/generate-map-geometry/lib/utils";
+import { flagstaffToMelbourneCentral } from "@/scripts/generate-map-geometry/ptv/segments/flagstaff-to-melbourne-central";
+import { flindersStreetToRichmond } from "@/scripts/generate-map-geometry/ptv/segments/flinders-street-to-richmond";
 import { flindersStreetToSouthernCross } from "@/scripts/generate-map-geometry/ptv/segments/flinders-street-to-southern-cross";
-import { richmondLoopPortal } from "@/scripts/generate-map-geometry/ptv/segments/richmond-loop-portal";
+import { melbourneCentralToParliament } from "@/scripts/generate-map-geometry/ptv/segments/melbourne-central-to-parliament";
+import { parliamentToRichmond } from "@/scripts/generate-map-geometry/ptv/segments/parliament-to-richmond";
 import { southernCrossToFlagstaff } from "@/scripts/generate-map-geometry/ptv/segments/southern-cross-to-flagstaff";
 import { defaultRadius } from "@/scripts/generate-map-geometry/ptv/utils";
 import * as loop from "@/scripts/generate-map-geometry/ptv/utils-city-loop";
@@ -21,63 +23,64 @@ const ringwoodStraight = flexi(30, 60);
 const belgraveStraight = flexi(40, 80);
 const lilydaleStraight = flexi(40, 80);
 
+const loopLine = loop.line.burnley;
+
 /**
  * The Alamein, Belgrave, Glen Waverley and Lilydale lines, a.k.a. the "Burnley
  * group" (colored dark blue on the map).
  */
-export const burnley = new LineBlueprint({
-  origin: loop.pos.flindersStreet(loop.line.burnley),
-  angle: 180,
-  color: "blue",
-
-  path: new PathBlueprint()
-    .node(node.FLINDERS_STREET_LOOP)
-    .add(flindersStreetToSouthernCross(2, false))
-    .node(node.SOUTHERN_CROSS)
-    .add(southernCrossToFlagstaff(2))
-    .node(node.FLAGSTAFF)
-    .add(flagstaffToParliament(2, node.MELBOURNE_CENTRAL))
-    .node(node.PARLIAMENT)
-    .add(
-      richmondLoopPortal(
-        loop.line.burnley,
-        loopPortalStraight,
-        node.RICHMOND,
-        node.FLINDERS_STREET_DIRECT,
-      ),
-    )
-    .curve(defaultRadius, -45)
-    .straight(burnleyStraight)
-    .node(node.BURNLEY)
-    .split({
-      split: new PathBlueprint()
+export const burnley = new LineBuilder(
+  node.FLINDERS_STREET_LOOP,
+  loop.pos.flindersStreet(loopLine),
+  180,
+  "blue",
+)
+  .to(node.SOUTHERN_CROSS, flindersStreetToSouthernCross(loopLine, false))
+  .to(node.FLAGSTAFF, southernCrossToFlagstaff(loopLine))
+  .to(node.MELBOURNE_CENTRAL, flagstaffToMelbourneCentral(loopLine))
+  .to(node.PARLIAMENT, melbourneCentralToParliament(loopLine))
+  .to(node.RICHMOND, parliamentToRichmond(loopLine, loopPortalStraight))
+  .split((l) =>
+    l.to(node.FLINDERS_STREET_DIRECT, (s) => {
+      // TODO: Doesn't work.
+      s.turnBack();
+      flagstaffToMelbourneCentral(loopLine)(s)
+      s.invert();
+    }
+  )
+  .to(node.BURNLEY, (s) =>
+    s.curve(defaultRadius, -45).straight(burnleyStraight),
+  )
+  .split((l) =>
+    l.to(node.GLEN_WAVERLEY, (s) =>
+      s
         .curve(defaultRadius, 45)
         .straight(glenIrisStraight)
         .curve(defaultRadius, -45)
-        .straight(glenWaverleyStraight)
-        .node(node.GLEN_WAVERLEY),
-    })
-    .curve(defaultRadius, -45)
-    .straight(camberwellStraight)
-    .node(node.CAMBERWELL)
-    .split({
-      split: new PathBlueprint()
+        .straight(glenWaverleyStraight),
+    ),
+  )
+  .to(node.CAMBERWELL, (s) =>
+    s.curve(defaultRadius, -45).straight(camberwellStraight),
+  )
+  .split((l) =>
+    l.to(node.ALAMEIN, (s) =>
+      s
         .curve(defaultRadius, 45)
         .straight(riversdaleStraight)
         .curve(defaultRadius, 45)
-        .straight(alameinStraight)
-        .node(node.ALAMEIN),
-    })
-    .straight(laburnumStraight)
-    .curve(defaultRadius, 45)
-    .straight(ringwoodStraight)
-    .node(node.RINGWOOD)
-    .split({
-      split: new PathBlueprint()
-        .curve(defaultRadius, 45)
-        .straight(belgraveStraight)
-        .node(node.BELGRAVE),
-    })
-    .straight(lilydaleStraight)
-    .node(node.LILYDALE),
-});
+        .straight(alameinStraight),
+    ),
+  )
+  .to(node.RINGWOOD, (s) =>
+    s
+      .straight(laburnumStraight)
+      .curve(defaultRadius, 45)
+      .straight(ringwoodStraight),
+  )
+  .split((l) =>
+    l.to(node.BELGRAVE, (s) =>
+      s.curve(defaultRadius, 45).straight(belgraveStraight),
+    ),
+  )
+  .to(node.LILYDALE, (s) => s.straight(lilydaleStraight));

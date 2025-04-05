@@ -3,6 +3,8 @@ import { LineColor } from "@/components/map/renderer/utils";
 import { FlexiPoint } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-point";
 import { SegmentBuilder } from "@/scripts/generate-map-geometry/lib/segment-builder";
 
+export type SegmentBuilderFunction = (builder: SegmentBuilder) => void;
+
 export class LineBuilder {
   private _segments: Segment[];
   private _nodes: LocatedNode[];
@@ -30,7 +32,7 @@ export class LineBuilder {
     this._currentAngle = _startAngle;
   }
 
-  to(nodeId: number, build: (builder: SegmentBuilder) => void): LineBuilder {
+  to(nodeId: number, build: SegmentBuilderFunction): LineBuilder {
     const builder = new SegmentBuilder(
       this._color,
       this._currentPosition,

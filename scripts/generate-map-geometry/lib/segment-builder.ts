@@ -14,9 +14,9 @@ export class SegmentBuilder {
   private _instructions: SegmentInstruction[];
 
   constructor(
-    readonly color: LineColor,
-    readonly startPoint: FlexiPoint,
-    readonly startAngle: number,
+    private readonly _color: LineColor,
+    private readonly _startPoint: FlexiPoint,
+    private readonly _startAngle: number,
   ) {
     this._instructions = [];
   }
@@ -42,7 +42,7 @@ export class SegmentBuilder {
   }
 
   build(startNodeId: number, endNodeId: number) {
-    const pointsBuilder = new PointsBuilder(this.startPoint, this.startAngle);
+    const pointsBuilder = new PointsBuilder(this._startPoint, this._startAngle);
 
     for (const instruction of this._instructions) {
       instruction.build(pointsBuilder);
@@ -52,7 +52,7 @@ export class SegmentBuilder {
       segment: new Segment(
         startNodeId,
         endNodeId,
-        this.color,
+        this._color,
         pointsBuilder.getPoints(),
       ),
       endPoint: pointsBuilder.getCurrentPoint(),

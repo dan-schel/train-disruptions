@@ -1,6 +1,6 @@
 import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
 import { FlexiPoint } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-point";
-import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
+import { SegmentBuilderFunction } from "@/scripts/generate-map-geometry/lib/line-builder";
 import {
   diagonal,
   lineGap,
@@ -19,11 +19,12 @@ const richmondStraight = flexi(5);
  */
 export function flindersStreetToRichmond(
   flindersStreetLineNumber: loop.LineNumber,
-): PathBlueprint {
-  return new PathBlueprint()
-    .straight(flindersStreetStraight)
-    .curve(radius(flindersStreetLineNumber), 45)
-    .straight(richmondStraight);
+): SegmentBuilderFunction {
+  return (builder) =>
+    builder
+      .straight(flindersStreetStraight)
+      .curve(radius(flindersStreetLineNumber), 45)
+      .straight(richmondStraight);
 }
 
 export function richmondPos(lineNumber: loop.LineNumber): FlexiPoint {
