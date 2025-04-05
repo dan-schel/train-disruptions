@@ -1,4 +1,8 @@
-import { SegmentBuilderFunction } from "@/scripts/generate-map-geometry/lib/line-builder";
+import {
+  curve,
+  SegmentInstruction,
+  straight,
+} from "@/scripts/generate-map-geometry/lib/segment-instructions";
 import {
   lineGap,
   long45,
@@ -10,28 +14,23 @@ import * as loop from "@/scripts/generate-map-geometry/ptv/utils-city-loop";
 export function flindersStreetToSouthernCross(
   lineNumber: loop.LineNumber,
   curveEnd: boolean,
-): SegmentBuilderFunction {
-  const flindersStreetPos = loop.pos.flindersStreet(lineNumber);
-  const southernCrossPos = loop.pos.southernCross(lineNumber);
+): SegmentInstruction[] {
+  const fss = loop.pos.flindersStreet(lineNumber);
+  const scs = loop.pos.southernCross(lineNumber);
   const radius = loop.radius(lineNumber);
-  const straight1 = flindersStreetPos
-    .horizontalDistanceTo(southernCrossPos)
-    .minus(radius);
-  const straight2 = southernCrossPos
-    .verticalDistanceTo(flindersStreetPos)
-    .minus(radius);
-  const curveRadius = lineGap.divide(short45);
-  const curveHeight = curveRadius.times(long45);
+  const straight1 = fss.horizontalDistanceTo(scs).minus(radius);
+  const straight2 = scs.verticalDistanceTo(fss).minus(radius);
 
   if (curveEnd) {
-    return (builder) =>
-      builder
-        .straight(straight1)
-        .curve(radius, 90)
-        .straight(straight2.minus(curveHeight))
-        .curve(curveRadius, -45);
+    const curveRadius = lineGap.divide(short45);
+    const curveHeight = curveRadius.times(long45);
+    return [
+      straight(straight1),
+      curve(radius, 90),
+      straight(straight2.minus(curveHeight)),
+      curve(curveRadius, -45),
+    ];
   } else {
-    return (builder) =>
-      builder.straight(straight1).curve(radius, 90).straight(straight2);
+    return [straight(straight1), curve(radius, 90), straight(straight2)];
   }
 }

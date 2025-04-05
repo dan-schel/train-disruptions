@@ -1,13 +1,14 @@
-import { SegmentBuilderFunction } from "@/scripts/generate-map-geometry/lib/line-builder";
+import {
+  SegmentInstruction,
+  straight,
+} from "@/scripts/generate-map-geometry/lib/segment-instructions";
 import * as loop from "@/scripts/generate-map-geometry/ptv/utils-city-loop";
 
 /** Underground city loop section from Flagstaff to Melbourne Central. */
 export function flagstaffToMelbourneCentral(
   lineNumber: loop.LineNumber,
-): SegmentBuilderFunction {
-  const flagstaffPos = loop.pos.flagstaff(lineNumber);
-  const melbourneCentralPos = loop.pos.melbourneCentral(lineNumber);
-
-  return (builder) =>
-    builder.straight(flagstaffPos.horizontalDistanceTo(melbourneCentralPos));
+): SegmentInstruction[] {
+  const flagstaff = loop.pos.flagstaff(lineNumber);
+  const melbourneCentral = loop.pos.melbourneCentral(lineNumber);
+  return [straight(flagstaff.horizontalDistanceTo(melbourneCentral))];
 }

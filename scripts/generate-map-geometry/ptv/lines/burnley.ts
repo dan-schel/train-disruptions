@@ -1,6 +1,10 @@
 import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
 import { LineBuilder } from "@/scripts/generate-map-geometry/lib/line-builder";
-import { invert } from "@/scripts/generate-map-geometry/lib/utils";
+import {
+  curve,
+  straight,
+  turnBack,
+} from "@/scripts/generate-map-geometry/lib/segment-instructions";
 import { flagstaffToMelbourneCentral } from "@/scripts/generate-map-geometry/ptv/segments/flagstaff-to-melbourne-central";
 import { flindersStreetToRichmond } from "@/scripts/generate-map-geometry/ptv/segments/flinders-street-to-richmond";
 import { flindersStreetToSouthernCross } from "@/scripts/generate-map-geometry/ptv/segments/flinders-street-to-southern-cross";
@@ -41,46 +45,38 @@ export const burnley = new LineBuilder(
   .to(node.PARLIAMENT, melbourneCentralToParliament(loopLine))
   .to(node.RICHMOND, parliamentToRichmond(loopLine, loopPortalStraight))
   .split((l) =>
-    l.to(node.FLINDERS_STREET_DIRECT, (s) => {
-      // TODO: Doesn't work.
-      s.turnBack();
-      flagstaffToMelbourneCentral(loopLine)(s)
-      s.invert();
-    }
+    l.to(node.FLINDERS_STREET_DIRECT, [
+      turnBack(),
+      ...flindersStreetToRichmond(loopLine).reverse(),
+    ]),
   )
-  .to(node.BURNLEY, (s) =>
-    s.curve(defaultRadius, -45).straight(burnleyStraight),
-  )
+  .to(node.BURNLEY, [curve(defaultRadius, -45), straight(burnleyStraight)])
   .split((l) =>
-    l.to(node.GLEN_WAVERLEY, (s) =>
-      s
-        .curve(defaultRadius, 45)
-        .straight(glenIrisStraight)
-        .curve(defaultRadius, -45)
-        .straight(glenWaverleyStraight),
-    ),
+    l.to(node.GLEN_WAVERLEY, [
+      curve(defaultRadius, 45),
+      straight(glenIrisStraight),
+      curve(defaultRadius, -45),
+      straight(glenWaverleyStraight),
+    ]),
   )
-  .to(node.CAMBERWELL, (s) =>
-    s.curve(defaultRadius, -45).straight(camberwellStraight),
-  )
+  .to(node.CAMBERWELL, [
+    curve(defaultRadius, -45),
+    straight(camberwellStraight),
+  ])
   .split((l) =>
-    l.to(node.ALAMEIN, (s) =>
-      s
-        .curve(defaultRadius, 45)
-        .straight(riversdaleStraight)
-        .curve(defaultRadius, 45)
-        .straight(alameinStraight),
-    ),
+    l.to(node.ALAMEIN, [
+      curve(defaultRadius, 45),
+      straight(riversdaleStraight),
+      curve(defaultRadius, 45),
+      straight(alameinStraight),
+    ]),
   )
-  .to(node.RINGWOOD, (s) =>
-    s
-      .straight(laburnumStraight)
-      .curve(defaultRadius, 45)
-      .straight(ringwoodStraight),
-  )
+  .to(node.RINGWOOD, [
+    straight(laburnumStraight),
+    curve(defaultRadius, 45),
+    straight(ringwoodStraight),
+  ])
   .split((l) =>
-    l.to(node.BELGRAVE, (s) =>
-      s.curve(defaultRadius, 45).straight(belgraveStraight),
-    ),
+    l.to(node.BELGRAVE, [curve(defaultRadius, 45), straight(belgraveStraight)]),
   )
-  .to(node.LILYDALE, (s) => s.straight(lilydaleStraight));
+  .to(node.LILYDALE, [straight(lilydaleStraight)]);

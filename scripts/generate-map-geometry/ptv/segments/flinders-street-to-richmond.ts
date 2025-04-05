@@ -1,6 +1,10 @@
 import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
 import { FlexiPoint } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-point";
-import { SegmentBuilderFunction } from "@/scripts/generate-map-geometry/lib/line-builder";
+import {
+  curve,
+  SegmentInstruction,
+  straight,
+} from "@/scripts/generate-map-geometry/lib/segment-instructions";
 import {
   diagonal,
   lineGap,
@@ -19,12 +23,12 @@ const richmondStraight = flexi(5);
  */
 export function flindersStreetToRichmond(
   flindersStreetLineNumber: loop.LineNumber,
-): SegmentBuilderFunction {
-  return (builder) =>
-    builder
-      .straight(flindersStreetStraight)
-      .curve(radius(flindersStreetLineNumber), 45)
-      .straight(richmondStraight);
+): SegmentInstruction[] {
+  return [
+    straight(flindersStreetStraight),
+    curve(radius(flindersStreetLineNumber), -45),
+    straight(richmondStraight),
+  ];
 }
 
 export function richmondPos(lineNumber: loop.LineNumber): FlexiPoint {

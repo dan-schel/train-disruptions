@@ -2,8 +2,7 @@ import { Segment } from "@/components/map/renderer/segment";
 import { LineColor } from "@/components/map/renderer/utils";
 import { FlexiPoint } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-point";
 import { SegmentBuilder } from "@/scripts/generate-map-geometry/lib/segment-builder";
-
-export type SegmentBuilderFunction = (builder: SegmentBuilder) => void;
+import { SegmentInstruction } from "@/scripts/generate-map-geometry/lib/segment-instructions";
 
 export class LineBuilder {
   private _segments: Segment[];
@@ -32,24 +31,18 @@ export class LineBuilder {
     this._currentAngle = _startAngle;
   }
 
-  to(nodeId: number, build: SegmentBuilderFunction): LineBuilder {
-    const builder = new SegmentBuilder(
-      this._color,
-      this._currentPosition,
-      this._currentAngle,
-    );
-    build(builder);
+  to(nodeId: number, instructions: SegmentInstruction[]): LineBuilder {
+    const result = new SegmentBuilder(this._currentPosition, this._currentAngle)
+      .process(instructions)
+      .build(this._currentNodeId, nodeId, this._color);
 
-    const { segment, endPoint, endAngle } = builder.build(
-      this._currentNodeId,
-      nodeId,
-    );
-
+    const { segment, endPoint, endAngle } = result;
     this._segments.push(segment);
     this._nodes.push(new LocatedNode(nodeId, endPoint, endAngle, this._color));
     this._currentPosition = endPoint;
     this._currentAngle = endAngle;
     this._currentNodeId = nodeId;
+
     return this;
   }
 

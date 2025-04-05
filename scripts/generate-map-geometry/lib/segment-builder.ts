@@ -1,62 +1,85 @@
 import { Segment } from "@/components/map/renderer/segment";
 import { LineColor } from "@/components/map/renderer/utils";
-import { FlexiLength } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
 import { FlexiPoint } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-point";
-import { CurveSegmentInstruction } from "@/scripts/generate-map-geometry/lib/segment-instruction/curve-segment-instruction";
 import {
-  PointsBuilder,
+  CurveSegmentInstruction,
   SegmentInstruction,
-} from "@/scripts/generate-map-geometry/lib/segment-instruction/segment-instruction";
-import { StraightSegmentInstruction } from "@/scripts/generate-map-geometry/lib/segment-instruction/straight-segment-instruction";
-import { TurnBackSegmentInstruction } from "@/scripts/generate-map-geometry/lib/segment-instruction/turn-back-segment-instruction";
+  StraightSegmentInstruction,
+} from "@/scripts/generate-map-geometry/lib/segment-instructions";
 
 export class SegmentBuilder {
-  private _instructions: SegmentInstruction[];
+  private _currentPoint: FlexiPoint;
+  private _currentAngle: number;
+  private _points: FlexiPoint[];
 
-  constructor(
-    private readonly _color: LineColor,
-    private readonly _startPoint: FlexiPoint,
-    private readonly _startAngle: number,
-  ) {
-    this._instructions = [];
+  constructor(startPoint: FlexiPoint, startAngle: number) {
+    this._currentPoint = startPoint;
+    this._currentAngle = startAngle;
+    this._points = [startPoint];
   }
 
-  straight(length: FlexiLength): SegmentBuilder {
-    this._instructions.push(new StraightSegmentInstruction(length));
-    return this;
-  }
-
-  curve(radius: FlexiLength, angle: -90 | -45 | 45 | 90): SegmentBuilder {
-    this._instructions.push(new CurveSegmentInstruction(radius, angle));
-    return this;
-  }
-
-  turnBack(): SegmentBuilder {
-    this._instructions.push(new TurnBackSegmentInstruction());
-    return this;
-  }
-
-  invert(): SegmentBuilder {
-    this._instructions.reverse();
-    return this;
-  }
-
-  build(startNodeId: number, endNodeId: number) {
-    const pointsBuilder = new PointsBuilder(this._startPoint, this._startAngle);
-
-    for (const instruction of this._instructions) {
-      instruction.build(pointsBuilder);
+  process(instructions: SegmentInstruction[]): SegmentBuilder {
+    for (const instruction of instructions) {
+      this._processInstruction(instruction);
     }
 
+    return this;
+  }
+
+  build(startNodeId: number, endNodeId: number, color: LineColor) {
     return {
       segment: new Segment(
         startNodeId,
         endNodeId,
-        this._color,
-        pointsBuilder.getPoints(),
+        color,
+        this._points.map((x) => x.toDualPoint()),
       ),
-      endPoint: pointsBuilder.getCurrentPoint(),
-      endAngle: pointsBuilder.getCurrentAngle(),
+      endPoint: this._currentPoint,
+      endAngle: this._currentAngle,
     };
+  }
+
+  private _processInstruction(instruction: SegmentInstruction) {
+    switch (instruction.type) {
+      case "straight":
+        return this._processStraight(instruction);
+      case "curve":
+        return this._processCurve(instruction);
+      case "turnBack":
+        return this._processTurnBack();
+      default:
+        throw new Error(`Unknown instruction: ${JSON.stringify(instruction)}`);
+    }
+  }
+
+  private _processStraight(instruction: StraightSegmentInstruction) {
+    const { length } = instruction;
+    const nextPoint = this._currentPoint.move(length, this._currentAngle);
+    this._addPoint(nextPoint);
+  }
+
+  private _processCurve(instruction: CurveSegmentInstruction) {
+    const { radius, angle: totalAngle } = instruction;
+
+    const centerAngle = this._currentAngle + (totalAngle < 0 ? -90 : 90);
+    const center = this._currentPoint.move(radius, centerAngle);
+
+    const numOfPoints = (Math.abs(totalAngle) / 45) * 5;
+    for (let i = 1; i <= numOfPoints; i++) {
+      const angle = centerAngle + 180 + (totalAngle / numOfPoints) * i;
+      const point = center.move(radius, angle);
+      this._addPoint(point);
+    }
+
+    this._currentAngle += totalAngle;
+  }
+
+  private _processTurnBack() {
+    this._currentAngle += 180;
+  }
+
+  private _addPoint(point: FlexiPoint) {
+    this._points.push(point);
+    this._currentPoint = point;
   }
 }
