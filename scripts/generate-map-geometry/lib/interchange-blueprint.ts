@@ -1,10 +1,10 @@
-export type RelativePosition =
+type RelativePosition =
   | "left-edge"
   | "left-inner"
   | "right-inner"
   | "right-edge";
 
-export type NodePosition = {
+type NodeWithRelativePosition = {
   readonly nodeId: number;
   readonly position: RelativePosition;
 };
@@ -13,8 +13,8 @@ export class InterchangeBlueprint {
   constructor(
     readonly station: number,
     readonly nodeIds: number[],
-    readonly thickLines: NodePosition[][],
-    readonly thinLine: NodePosition[] | null,
+    readonly thickLines: NodeWithRelativePosition[][],
+    readonly thinLine: NodeWithRelativePosition[] | null,
   ) {
     const noThickLines = thickLines.length === 0;
     const thickLinesInvalid = thickLines.some((l) => l.length < 2);
