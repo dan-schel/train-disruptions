@@ -55,8 +55,7 @@ export const burnley = new LineBlueprint({
         .straight(glenIrisStraight)
         .curve(defaultRadius, -45)
         .straight(glenWaverleyStraight)
-        .node(node.GLEN_WAVERLEY)
-        .terminus(),
+        .node(node.GLEN_WAVERLEY),
     })
     .curve(defaultRadius, -45)
     .straight(camberwellStraight)
@@ -67,8 +66,7 @@ export const burnley = new LineBlueprint({
         .straight(riversdaleStraight)
         .curve(defaultRadius, 45)
         .straight(alameinStraight)
-        .node(node.ALAMEIN)
-        .terminus(),
+        .node(node.ALAMEIN),
     })
     .straight(laburnumStraight)
     .curve(defaultRadius, 45)
@@ -78,10 +76,8 @@ export const burnley = new LineBlueprint({
       split: new PathBlueprint()
         .curve(defaultRadius, 45)
         .straight(belgraveStraight)
-        .node(node.BELGRAVE)
-        .terminus(),
+        .node(node.BELGRAVE),
     })
     .straight(lilydaleStraight)
-    .node(node.LILYDALE)
-    .terminus(),
+    .node(node.LILYDALE),
 });

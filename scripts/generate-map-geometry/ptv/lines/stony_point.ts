@@ -15,6 +15,5 @@ export const stonyPoint = new LineBlueprint({
   path: new PathBlueprint()
     .node(node.FRANKSTON)
     .straight(stonyPointStraight)
-    .node(node.STONY_POINT)
-    .terminus(),
+    .node(node.STONY_POINT),
 });

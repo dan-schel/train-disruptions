@@ -71,15 +71,13 @@ export const regionalWestern = new LineBlueprint({
           .split({
             split: new PathBlueprint()
               .straight(sheppartonStraight)
-              .node(node.SHEPPARTON)
-              .terminus(),
+              .node(node.SHEPPARTON),
           })
           .curve(defaultRadius, 45)
           .straight(avenelStraight)
           .curve(defaultRadius, -45)
           .straight(alburyStraight)
-          .node(node.ALBURY)
-          .terminus(),
+          .node(node.ALBURY),
       ),
     )
     .node(node.NORTH_MELBOURNE_RRL)
@@ -105,17 +103,13 @@ export const regionalWestern = new LineBlueprint({
         .straight(bendigoStraight)
         .node(node.BENDIGO)
         .split({
-          split: new PathBlueprint()
-            .straight(echucaStraight)
-            .node(node.ECHUCA)
-            .terminus(),
+          split: new PathBlueprint().straight(echucaStraight).node(node.ECHUCA),
         })
         .curve(defaultRadius, -45)
         .straight(eaglehawkStraight)
         .curve(defaultRadius, 45)
         .straight(swanHillStraight)
-        .node(node.SWAN_HILL)
-        .terminus(),
+        .node(node.SWAN_HILL),
     })
     .straight(sunshineJunctionStraight)
     .node(node.SUNSHINE_DEER_PARK)
@@ -128,20 +122,15 @@ export const regionalWestern = new LineBlueprint({
         .straight(standardDiagonal)
         .curve(defaultRadius, -45)
         .straight(warrnamboolStraight)
-        .node(node.WARRNAMBOOL)
-        .terminus(),
+        .node(node.WARRNAMBOOL),
     })
     .curve(defaultRadius, 45)
     .straight(ballaratStraight)
     .node(node.BALLARAT)
     .split({
-      split: new PathBlueprint()
-        .straight(araratStraight)
-        .node(node.ARARAT)
-        .terminus(),
+      split: new PathBlueprint().straight(araratStraight).node(node.ARARAT),
     })
     .curve(defaultRadius, 45)
     .straight(maryboroughStraight)
-    .node(node.MARYBOROUGH)
-    .terminus(),
+    .node(node.MARYBOROUGH),
 });

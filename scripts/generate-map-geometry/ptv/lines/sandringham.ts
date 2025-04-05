@@ -29,6 +29,5 @@ export const sandringham = new LineBlueprint({
     .straight(diagonalStraight)
     .curve(defaultRadius, -45)
     .straight(sandringhamStraight)
-    .node(node.SANDRINGHAM)
-    .terminus(),
+    .node(node.SANDRINGHAM),
 });

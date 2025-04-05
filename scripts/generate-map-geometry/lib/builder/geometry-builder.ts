@@ -18,12 +18,13 @@ export class GeometryBuilder {
   build(
     lineBlueprints: LineBlueprint[],
     interchangeBlueprints: InterchangeBlueprint[],
+    terminiiNodeIds: number[],
   ): Geometry {
     const paths = lineBlueprints.map((l) => l.build());
 
     const lines = this._buildLines(paths);
     const interchanges = this._buildInterchanges(interchangeBlueprints, paths);
-    const termini = this._buildTermini(paths);
+    const termini = this._buildTermini(paths, terminiiNodeIds);
     const viewport = this._buildDualViewport(paths);
 
     return new Geometry(lines, interchanges, termini, viewport);
@@ -54,20 +55,25 @@ export class GeometryBuilder {
     );
   }
 
-  private _buildTermini(paths: ColoredPathCollection[]) {
-    return paths.flatMap((l) =>
-      l.paths.flatMap((p) =>
-        p.locatedTermini.map((t) => {
-          const pointA = t.point
-            .move(terminusExtents, t.angle - 90)
-            .toDualPoint();
-          const pointB = t.point
-            .move(terminusExtents, t.angle + 90)
-            .toDualPoint();
-          return new Terminus(l.color, [pointA, pointB]);
-        }),
-      ),
-    );
+  private _buildTermini(
+    paths: ColoredPathCollection[],
+    terminiiNodeIds: number[],
+  ) {
+    return terminiiNodeIds.map((t) => {
+      for (const path of paths) {
+        const node = path.paths
+          .flatMap((l) => l.locatedNodes)
+          .find((n) => n.nodeId === t);
+
+        if (node == null) continue;
+
+        return new Terminus(path.color, [
+          node.point.move(terminusExtents, node.angle - 90).toDualPoint(),
+          node.point.move(terminusExtents, node.angle + 90).toDualPoint(),
+        ]);
+      }
+      throw new Error(`Terminus node "${t}" not found.`);
+    });
   }
 
   private _buildDualViewport(paths: ColoredPathCollection[]): DualViewport {

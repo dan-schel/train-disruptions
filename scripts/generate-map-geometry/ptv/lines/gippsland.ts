@@ -54,6 +54,5 @@ export const gippsland = new LineBlueprint({
     .straight(standardDiagonal)
     .curve(defaultRadius, -45)
     .straight(bairnsdaleStraight)
-    .node(node.BAIRNSDALE)
-    .terminus(),
+    .node(node.BAIRNSDALE),
 });

@@ -59,8 +59,7 @@ export const northern = new LineBlueprint({
         .straight(brunswickStraight)
         .curve(defaultRadius, -45)
         .straight(upfieldStraight)
-        .node(node.UPFIELD)
-        .terminus(),
+        .node(node.UPFIELD),
     })
     .split({
       split: new PathBlueprint()

@@ -29,7 +29,6 @@ const line1 = new LineBlueprint({
   angle: 0,
   color: "cyan",
   path: new PathBlueprint()
-    .terminus()
     .node(node.CYAN_1)
     .straight(flexi(45, 90))
     .node(node.CYAN_2)
@@ -38,13 +37,11 @@ const line1 = new LineBlueprint({
       split: new PathBlueprint()
         .curve(flexi(15), 45)
         .straight(flexi(25, 50))
-        .node(node.CYAN_3)
-        .terminus(),
+        .node(node.CYAN_3),
     })
     .curve(flexi(10), -45)
     .straight(flexi(45, 90))
-    .node(node.CYAN_4)
-    .terminus(),
+    .node(node.CYAN_4),
 });
 
 const line2 = new LineBlueprint({
@@ -52,17 +49,19 @@ const line2 = new LineBlueprint({
   angle: 0,
   color: "purple",
   path: new PathBlueprint()
-    .terminus()
     .node(node.PURPLE_1)
     .straight(flexi(45, 90))
     .node(node.PURPLE_2)
     .straight(flexi(5))
     .curve(flexi(10), 45)
     .straight(flexi(45, 90))
-    .node(node.PURPLE_3)
-    .terminus(),
+    .node(node.PURPLE_3),
 });
 
-const geometry = new GeometryBuilder().build([line1, line2], [interchange]);
+const geometry = new GeometryBuilder().build(
+  [line1, line2],
+  [interchange],
+  [node.CYAN_1, node.CYAN_3, node.CYAN_4, node.PURPLE_1, node.PURPLE_3],
+);
 
 export default geometry;

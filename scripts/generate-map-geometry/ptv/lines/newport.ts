@@ -44,8 +44,7 @@ export const newport = new LineBlueprint({
       split: new PathBlueprint()
         .curve(defaultRadius, -45)
         .straight(williamstownStraight)
-        .node(node.WILLIAMSTOWN)
-        .terminus(),
+        .node(node.WILLIAMSTOWN),
     })
     .split({
       split: new PathBlueprint()
@@ -61,6 +60,5 @@ export const newport = new LineBlueprint({
     .straight(altonaLoopDiagonals)
     .node(node.LAVERTON_LOOP)
     .straight(werribeeStraight)
-    .node(node.WERRIBEE)
-    .terminus(),
+    .node(node.WERRIBEE),
 });

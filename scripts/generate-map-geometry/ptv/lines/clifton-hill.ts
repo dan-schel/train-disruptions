@@ -43,8 +43,7 @@ export const cliftonHill = new LineBlueprint({
         .straight(heidelbergStraight)
         .curve(defaultRadius, 45)
         .straight(hurstbridgeStraight)
-        .node(node.HURSTBRIDGE)
-        .terminus(),
+        .node(node.HURSTBRIDGE),
     })
     .curve(defaultRadius, -45)
     .straight(prestonStraight)
@@ -52,6 +51,5 @@ export const cliftonHill = new LineBlueprint({
     .straight(standardDiagonal)
     .curve(defaultRadius, 45)
     .straight(merndaStraight)
-    .node(node.MERNDA)
-    .terminus(),
+    .node(node.MERNDA),
 });

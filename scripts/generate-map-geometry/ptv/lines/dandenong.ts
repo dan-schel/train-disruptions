@@ -59,14 +59,12 @@ export const dandenong = new LineBlueprint({
       split: new PathBlueprint()
         .curve(defaultRadius, 45)
         .straight(cranbourneStraight)
-        .node(node.CRANBOURNE)
-        .terminus(),
+        .node(node.CRANBOURNE),
     })
     .straight(dandenongToHallamCurve)
     .curve(hallamCurvePakenham, -45)
     .straight(hallamToPakenham)
     .node(node.PAKENHAM)
     .straight(pakenhamToEastPakenham)
-    .node(node.EAST_PAKENHAM)
-    .terminus(),
+    .node(node.EAST_PAKENHAM),
 });

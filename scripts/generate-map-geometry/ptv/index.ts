@@ -10,6 +10,17 @@ import { regionalWestern } from "@/scripts/generate-map-geometry/ptv/lines/regio
 import { sandringham } from "@/scripts/generate-map-geometry/ptv/lines/sandringham";
 import { stonyPoint } from "@/scripts/generate-map-geometry/ptv/lines/stony_point";
 import * as interchange from "@/scripts/generate-map-geometry/ptv/interchanges";
+import {
+  BURNLEY,
+  CLIFTON_HILL,
+  DANDENONG,
+  GIPPSLAND,
+  NEWPORT,
+  NORTHERN,
+  REGIONAL_WESTERN,
+  SANDRINGHAM,
+  STONY_POINT,
+} from "@/shared/map-node-ids";
 
 const geometry = new GeometryBuilder().build(
   [
@@ -55,6 +66,29 @@ const geometry = new GeometryBuilder().build(
     interchange.bendigo,
     interchange.ballarat,
     interchange.deerPark,
+  ],
+  [
+    BURNLEY.GLEN_WAVERLEY,
+    BURNLEY.ALAMEIN,
+    BURNLEY.BELGRAVE,
+    BURNLEY.LILYDALE,
+    CLIFTON_HILL.HURSTBRIDGE,
+    CLIFTON_HILL.MERNDA,
+    DANDENONG.CRANBOURNE,
+    DANDENONG.EAST_PAKENHAM,
+    GIPPSLAND.BAIRNSDALE,
+    NEWPORT.WILLIAMSTOWN,
+    NEWPORT.WERRIBEE,
+    NORTHERN.UPFIELD,
+    REGIONAL_WESTERN.SHEPPARTON,
+    REGIONAL_WESTERN.ALBURY,
+    REGIONAL_WESTERN.ECHUCA,
+    REGIONAL_WESTERN.SWAN_HILL,
+    REGIONAL_WESTERN.WARRNAMBOOL,
+    REGIONAL_WESTERN.ARARAT,
+    REGIONAL_WESTERN.MARYBOROUGH,
+    SANDRINGHAM.SANDRINGHAM,
+    STONY_POINT.STONY_POINT,
   ],
 );
 
