@@ -1,8 +1,11 @@
 import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
 import { FlexiPoint } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-point";
 import {
+  diagonal,
   lineGap,
+  long45,
   measure45CurveLockedRadius,
+  short45,
 } from "@/scripts/generate-map-geometry/ptv/utils";
 import * as loop from "@/scripts/generate-map-geometry/ptv/utils-city-loop";
 import {
@@ -56,35 +59,31 @@ export function southernCrossToNorthMelbourneNorthernLoop(): SegmentInstruction[
   ];
 }
 
-// /**
-//  * The direct path from Southern Cross to North Melbourne that the regional
-//  * lines use, including the split just before North Melbourne.
-//  */
-// export function southernCrossToNorthMelbourneRegional(
-//   branch: PathBlueprint,
-// ): PathBlueprint {
-//   const curveRadius = lineGap.divide(short45);
-//   const curveHeight = curveRadius.times(long45);
+export function southernCrossToNorthMelbourneJunction(): SegmentInstruction[] {
+  const curveRadius = lineGap.divide(short45);
+  const curveHeight = curveRadius.times(long45);
+  const straightLength = southernCrossStraight.minus(curveHeight);
 
-//   const straightLength = southernCrossStraight.minus(curveHeight);
+  return [curve(curveRadius, 45), straight(straightLength)];
+}
 
-//   const branchSouthernCrossStraight = flexi(10).times(diagonal);
-//   const branchNorthMelbourneStraight = flexi(5);
+export function northMelbourneJunctionSeymour(): SegmentInstruction[] {
+  const branchSouthernCrossStraight = flexi(10).times(diagonal);
+  const branchNorthMelbourneStraight = flexi(5);
 
-//   return new PathBlueprint()
-//     .curve(curveRadius, 45)
-//     .straight(straightLength)
-//     .node(REGIONAL_WESTERN.NORTH_MELBOURNE_JUNCTION)
-//     .split({
-//       split: new PathBlueprint()
-//         .straight(branchSouthernCrossStraight)
-//         .curve(radius(loop.line.regional), -45)
-//         .straight(branchNorthMelbourneStraight)
-//         .add(branch),
-//     })
-//     .curve(radius(loop.line.regional), -45)
-//     .straight(northMelbourneStraight);
-// }
+  return [
+    straight(branchSouthernCrossStraight),
+    curve(radius(loop.line.regional), -45),
+    straight(branchNorthMelbourneStraight),
+  ];
+}
+
+export function northMelbourneJunctionRrl(): SegmentInstruction[] {
+  return [
+    curve(radius(loop.line.regional), -45),
+    straight(northMelbourneStraight),
+  ];
+}
 
 export function northMelbournePos(
   track: "newport" | "regional-rrl" | "regional-seymour" | "northern",
