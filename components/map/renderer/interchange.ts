@@ -16,16 +16,18 @@ export class Interchange {
 
   static readonly json = z
     .object({
-      thick: DualPoint.pathJson.array(),
-      thin: DualPoint.pathJson.optional(),
+      thick: DualPoint.commaSeparatedStringJson.array(),
+      thin: DualPoint.commaSeparatedStringJson.optional(),
     })
     .transform((x) => new Interchange(x.thick, x.thin ?? null));
 
   toJSON(): z.input<typeof Interchange.json> {
     return {
-      thick: this.thickLines.map((l) => DualPoint.pathToJson(l)),
+      thick: this.thickLines.map((l) => DualPoint.toCommaSeparatedString(l)),
       thin:
-        this.thinLine != null ? DualPoint.pathToJson(this.thinLine) : undefined,
+        this.thinLine != null
+          ? DualPoint.toCommaSeparatedString(this.thinLine)
+          : undefined,
     };
   }
 }

@@ -5,20 +5,20 @@ import { LineColor, lineColors } from "@/components/map/renderer/utils";
 export class Segment {
   constructor(
     readonly color: LineColor,
-    readonly path: readonly DualPoint[],
+    readonly points: readonly DualPoint[],
   ) {}
 
   static readonly json = z
     .object({
       color: z.enum(lineColors),
-      path: DualPoint.pathJson,
+      points: DualPoint.commaSeparatedStringJson,
     })
-    .transform((x) => new Segment(x.color, x.path));
+    .transform((x) => new Segment(x.color, x.points));
 
   toJSON(): z.input<typeof Segment.json> {
     return {
       color: this.color,
-      path: this.path.map((x) => x.toString()).join(","),
+      points: this.points.map((x) => x.toString()).join(","),
     };
   }
 }

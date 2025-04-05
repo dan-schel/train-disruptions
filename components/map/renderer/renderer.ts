@@ -114,12 +114,12 @@ export class Renderer {
 
     for (const segment of this._geometry.segments) {
       const color = lineColorCodes[segment.color];
-      this._renderPath(segment.path, lineWidth, color);
+      this._renderPath(segment.points, lineWidth, color);
     }
 
     for (const terminus of this._geometry.termini) {
       const color = lineColorCodes[terminus.color];
-      this._renderPath(terminus.path, terminusLineWidth, color);
+      this._renderPath(terminus.points, terminusLineWidth, color);
     }
 
     for (const interchange of this._geometry.interchanges) {
