@@ -4,6 +4,10 @@ import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-leng
 import { GeometryBuilder } from "@/scripts/generate-map-geometry/lib/geometry-builder";
 import { InterchangeBlueprint } from "@/scripts/generate-map-geometry/lib/interchange-blueprint";
 import { LineBuilder } from "@/scripts/generate-map-geometry/lib/line-builder";
+import {
+  curve,
+  straight,
+} from "@/scripts/generate-map-geometry/lib/segment-instructions";
 
 describe("GeometryBuilder", () => {
   it("builds the geometry as expected", () => {
@@ -27,21 +31,27 @@ describe("GeometryBuilder", () => {
     );
 
     const line1 = new LineBuilder(node.CYAN_1, fp([0, 0]), 0, "cyan")
-      .to(node.CYAN_2, (p) => p.straight(flexi(45, 90)))
+      .to(node.CYAN_2, [straight(flexi(45, 90))])
       .split((s) =>
-        s.to(node.CYAN_3, (p) =>
-          p.straight(flexi(5)).curve(flexi(15), 45).straight(flexi(25, 50)),
-        ),
+        s.to(node.CYAN_3, [
+          straight(flexi(5)),
+          curve(flexi(15), 45),
+          straight(flexi(25, 50)),
+        ]),
       )
-      .to(node.CYAN_4, (p) =>
-        p.straight(flexi(5)).curve(flexi(10), -45).straight(flexi(45, 90)),
-      );
+      .to(node.CYAN_4, [
+        straight(flexi(5)),
+        curve(flexi(10), -45),
+        straight(flexi(45, 90)),
+      ]);
 
     const line2 = new LineBuilder(node.PURPLE_1, fp([0, 5]), 0, "purple")
-      .to(node.PURPLE_2, (p) => p.straight(flexi(45, 90)))
-      .to(node.PURPLE_3, (p) =>
-        p.straight(flexi(5)).curve(flexi(10), 45).straight(flexi(45, 90)),
-      );
+      .to(node.PURPLE_2, [straight(flexi(45, 90))])
+      .to(node.PURPLE_3, [
+        straight(flexi(5)),
+        curve(flexi(10), 45),
+        straight(flexi(45, 90)),
+      ]);
 
     const geometry = new GeometryBuilder().build(
       [line1, line2],
