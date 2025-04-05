@@ -1,7 +1,7 @@
 import { LineBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/line-blueprint";
 import { Geometry } from "@/components/map/renderer/geometry";
 import { InterchangeBuilder } from "@/scripts/generate-map-geometry/lib/builder/interchange-builder";
-import { Line } from "@/components/map/renderer/line";
+import { Segment } from "@/components/map/renderer/segment";
 import { Terminus } from "@/components/map/renderer/terminus";
 import {
   DualViewport,
@@ -33,7 +33,7 @@ export class GeometryBuilder {
     return paths.flatMap((l) =>
       l.paths.map(
         (p) =>
-          new Line(
+          new Segment(
             l.color,
             p.points.map((x) => x.toDualPoint()),
           ),

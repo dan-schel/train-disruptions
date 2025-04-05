@@ -1,4 +1,4 @@
-import { Line } from "@/components/map/renderer/line";
+import { Segment } from "@/components/map/renderer/segment";
 import { Interchange } from "@/components/map/renderer/interchange";
 import { Terminus } from "@/components/map/renderer/terminus";
 import { z } from "zod";
@@ -7,7 +7,7 @@ import { viewportPadding } from "@/components/map/renderer/utils";
 
 export class Geometry {
   constructor(
-    readonly lines: readonly Line[],
+    readonly segments: readonly Segment[],
     readonly interchanges: readonly Interchange[],
     readonly termini: readonly Terminus[],
     readonly viewport: DualViewport,
@@ -15,18 +15,18 @@ export class Geometry {
 
   static readonly json = z
     .object({
-      lines: Line.json.array(),
+      segments: Segment.json.array(),
       interchanges: Interchange.json.array(),
       termini: Terminus.json.array(),
       viewport: DualViewport.json,
     })
     .transform(
-      (x) => new Geometry(x.lines, x.interchanges, x.termini, x.viewport),
+      (x) => new Geometry(x.segments, x.interchanges, x.termini, x.viewport),
     );
 
   toJSON(): z.input<typeof Geometry.json> {
     return {
-      lines: this.lines.map((l) => l.toJSON()),
+      segments: this.segments.map((l) => l.toJSON()),
       interchanges: this.interchanges.map((i) => i.toJSON()),
       termini: this.termini.map((t) => t.toJSON()),
       viewport: this.viewport.toJSON(),
