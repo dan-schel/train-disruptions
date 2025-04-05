@@ -4,11 +4,11 @@ import {
   InterchangeBlueprint,
   NodeWithRelativePosition,
 } from "@/scripts/generate-map-geometry/lib/interchange-blueprint";
-import { LocatedNode } from "@/scripts/generate-map-geometry/lib/builder/path";
 import {
   interchangeEdgeOffset,
   interchangeInnerOffset,
 } from "@/scripts/generate-map-geometry/lib/utils";
+import { LocatedNode } from "@/scripts/generate-map-geometry/lib/line-builder";
 
 export class InterchangeBuilder {
   constructor(
