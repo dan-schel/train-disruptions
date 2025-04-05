@@ -4,9 +4,8 @@ import { LineColor, lineColors } from "@/components/map/renderer/utils";
 
 export class Segment {
   constructor(
-    // TODO: [DS] Only nullable while the old geometry builder is in use.
-    readonly startNodeId: number | null,
-    readonly endNodeId: number | null,
+    readonly startNodeId: number,
+    readonly endNodeId: number,
 
     readonly color: LineColor,
     readonly points: readonly DualPoint[],
@@ -14,8 +13,8 @@ export class Segment {
 
   static readonly json = z
     .object({
-      startNodeId: z.number().nullable(),
-      endNodeId: z.number().nullable(),
+      startNodeId: z.number(),
+      endNodeId: z.number(),
       color: z.enum(lineColors),
       points: DualPoint.commaSeparatedStringJson,
     })
