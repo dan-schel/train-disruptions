@@ -1,4 +1,3 @@
-import { DualPoint } from "@/components/map/renderer/dual-point";
 import { Segment } from "@/components/map/renderer/segment";
 import { LineColor } from "@/components/map/renderer/utils";
 import { FlexiPoint } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-point";
@@ -18,9 +17,7 @@ export class LineBuilder {
     private readonly _color: LineColor,
   ) {
     this._segments = [];
-    this._nodes = [
-      new LocatedNode(this._startNodeId, this._startPoint.toDualPoint()),
-    ];
+    this._nodes = [new LocatedNode(this._startNodeId, this._startPoint)];
     this._currentNodeId = _startNodeId;
     this._currentPosition = _startPoint;
     this._currentAngle = _startAngle;
@@ -36,7 +33,7 @@ export class LineBuilder {
     const { segment, endPoint, endAngle } = builder.build();
 
     this._segments.push(segment);
-    this._nodes.push(new LocatedNode(nodeId, endPoint.toDualPoint()));
+    this._nodes.push(new LocatedNode(nodeId, endPoint));
     this._currentPosition = endPoint;
     this._currentAngle = endAngle;
     this._currentNodeId = nodeId;
@@ -78,6 +75,6 @@ export class Line {
 export class LocatedNode {
   constructor(
     readonly nodeId: number,
-    readonly point: DualPoint,
+    readonly point: FlexiPoint,
   ) {}
 }
