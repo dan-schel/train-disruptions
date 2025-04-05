@@ -1,6 +1,9 @@
 import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
 import { FlexiPoint } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-point";
-import { lineGap } from "@/scripts/generate-map-geometry/ptv/utils";
+import {
+  lineGap,
+  measure45CurveLockedRadius,
+} from "@/scripts/generate-map-geometry/ptv/utils";
 import * as loop from "@/scripts/generate-map-geometry/ptv/utils-city-loop";
 import {
   curve,
@@ -10,6 +13,7 @@ import {
 import { getEndPoint } from "@/scripts/generate-map-geometry/lib/measure";
 
 const innerRadius = flexi(15);
+const loopDirectRadius = flexi(20);
 const southernCrossStraight = flexi(30);
 const northMelbourneStraight = flexi(10);
 
@@ -24,6 +28,31 @@ export function southernCrossToNorthMelbourne(
     straight(southernCrossStraight),
     curve(radius(southernCrossLineNumber), -45),
     straight(northMelbourneStraight),
+  ];
+}
+
+/**
+ * The curve from Southern Cross to North Melbourne for the Northern Loop lines.
+ */
+export function southernCrossToNorthMelbourneNorthernLoop(): SegmentInstruction[] {
+  const southernCross = loop.pos.southernCross(loop.line.northern);
+  const northMelbourne = northMelbournePos("northern");
+  const directLongLength = northMelbourne.verticalDistanceTo(southernCross);
+  const directShortLength = northMelbourne.horizontalDistanceTo(southernCross);
+
+  const {
+    straightLength: southernCrossStraight,
+    diagonalLength: directNorthMelbourneStraight,
+  } = measure45CurveLockedRadius(
+    directLongLength,
+    directShortLength,
+    loopDirectRadius,
+  );
+
+  return [
+    straight(southernCrossStraight),
+    curve(loopDirectRadius, -45),
+    straight(directNorthMelbourneStraight),
   ];
 }
 

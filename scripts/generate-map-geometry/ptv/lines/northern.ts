@@ -1,12 +1,18 @@
 import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
-import { LineBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/line-blueprint";
-import { PathBlueprint } from "@/scripts/generate-map-geometry/lib/blueprint/path-blueprint";
-import { flagstaffToParliament } from "@/scripts/generate-map-geometry/ptv/segments/flagstaff-to-melbourne-central";
+import { LineBuilder } from "@/scripts/generate-map-geometry/lib/line-builder";
+import {
+  curve,
+  straight,
+  turnBack,
+} from "@/scripts/generate-map-geometry/lib/segment-instructions";
+import { flagstaffToMelbourneCentral } from "@/scripts/generate-map-geometry/ptv/segments/flagstaff-to-melbourne-central";
 import { flindersStreetToSouthernCross } from "@/scripts/generate-map-geometry/ptv/segments/flinders-street-to-southern-cross";
-import { northMelbourneLoopPortal } from "@/scripts/generate-map-geometry/ptv/segments/north-melbourne-loop-portal";
+import { melbourneCentralToParliament } from "@/scripts/generate-map-geometry/ptv/segments/melbourne-central-to-parliament";
+import { northMelbourneToFlagstaff } from "@/scripts/generate-map-geometry/ptv/segments/north-melbourne-to-flagstaff";
 import { northMelbourneToFootscray } from "@/scripts/generate-map-geometry/ptv/segments/north-melbourne-to-footscray";
 import { parliamentToFlindersStreet } from "@/scripts/generate-map-geometry/ptv/segments/parliament-to-flinders-street";
-import { defaultRadius } from "@/scripts/generate-map-geometry/ptv/utils";
+import { southernCrossToNorthMelbourneNorthernLoop } from "@/scripts/generate-map-geometry/ptv/segments/southern-cross-to-north-melbourne";
+import { defaultRadius, west } from "@/scripts/generate-map-geometry/ptv/utils";
 import * as loop from "@/scripts/generate-map-geometry/ptv/utils-city-loop";
 import {
   broadmeadowsStraight,
@@ -26,63 +32,58 @@ const upfieldJunctionStraight = flexi(5);
 const macaulayStraight = flexi(10);
 const brunswickStraight = flexi(30, 60);
 const upfieldStraight = flexi(25, 50);
+const loopLine = loop.line.northern;
 
 /**
  * The Craigieburn, Sunbury, and Upfield lines, a.k.a. the "Northern group"
  * (colored yellow on the map).
  */
-export const northern = new LineBlueprint({
-  origin: loop.pos.flindersStreet(loop.line.northern),
-  angle: 180,
-  color: "yellow",
-
-  path: new PathBlueprint()
-    .node(node.FLINDERS_STREET_DIRECT)
-    .add(flindersStreetToSouthernCross(0, false))
-    .node(node.SOUTHERN_CROSS)
-    .add(
-      northMelbourneLoopPortal(
-        new PathBlueprint()
-          .node(node.FLAGSTAFF)
-          .add(flagstaffToParliament(0, node.MELBOURNE_CENTRAL))
-          .node(node.PARLIAMENT)
-          .add(parliamentToFlindersStreet(0))
-          .node(node.FLINDERS_STREET_LOOP),
-      ),
-    )
-    .split({
-      split: new PathBlueprint()
-        .straight(upfieldJunctionStraight)
-        .curve(defaultRadius, 45)
-        .straight(macaulayStraight)
-        .curve(defaultRadius, 45)
-        .straight(brunswickStraight)
-        .curve(defaultRadius, -45)
-        .straight(upfieldStraight)
-        .node(node.UPFIELD),
-    })
-    .split({
-      split: new PathBlueprint()
-        .straight(newmarketStraight)
-        .curve(newmarketCurveCraigieburn, 45)
-        // TODO: The Flemington Racecourse line branches off here. Not sure
-        // whether we need to show it or not.
-        .straight(broadmeadowsStraight)
-        .node(node.BROADMEADOWS)
-        .straight(craigieburnStraight)
-        .node(node.CRAIGIEBURN),
-    })
-    .add(northMelbourneToFootscray("sunbury"))
-    .node(node.FOOTSCRAY)
-    .straight(tottenhamStraight)
-    .node(node.SUNSHINE_JUNCTION)
-    .curve(sunshineCurvesSunbury, 45)
-    .straight(sunshineJunctionDiagonal)
-    .node(node.SUNSHINE)
-    .straight(sunshineExitDiagonal)
-    .curve(sunshineCurvesSunbury, 45)
-    .straight(watergardensStraight)
-    .node(node.WATERGARDENS)
-    .straight(sunburyStraight)
-    .node(node.SUNBURY),
-});
+export const northern = new LineBuilder(
+  node.FLINDERS_STREET_DIRECT,
+  loop.pos.flindersStreet(loopLine),
+  west,
+  "yellow",
+)
+  .to(node.SOUTHERN_CROSS, flindersStreetToSouthernCross(loopLine, false))
+  .to(node.NORTH_MELBOURNE, southernCrossToNorthMelbourneNorthernLoop())
+  .split((l) =>
+    l
+      .to(node.FLAGSTAFF, [turnBack(), ...northMelbourneToFlagstaff()])
+      .to(node.MELBOURNE_CENTRAL, flagstaffToMelbourneCentral(loopLine))
+      .to(node.PARLIAMENT, melbourneCentralToParliament(loopLine))
+      .to(node.FLINDERS_STREET_LOOP, parliamentToFlindersStreet(loopLine)),
+  )
+  .split((l) =>
+    l.to(node.UPFIELD, [
+      straight(upfieldJunctionStraight),
+      curve(defaultRadius, 45),
+      straight(macaulayStraight),
+      curve(defaultRadius, 45),
+      straight(brunswickStraight),
+      curve(defaultRadius, -45),
+      straight(upfieldStraight),
+    ]),
+  )
+  .split((l) =>
+    l
+      // TODO: One day we might show the Flemington Racecourse line, and if so,
+      // we'll want to add the node for Newmarket here.
+      .to(node.BROADMEADOWS, [
+        straight(newmarketStraight),
+        curve(newmarketCurveCraigieburn, 45),
+        straight(broadmeadowsStraight),
+      ])
+      .to(node.CRAIGIEBURN, [straight(craigieburnStraight)]),
+  )
+  .to(node.FOOTSCRAY, northMelbourneToFootscray("sunbury"))
+  .to(node.SUNSHINE_JUNCTION, [straight(tottenhamStraight)])
+  .to(node.SUNSHINE, [
+    curve(sunshineCurvesSunbury, 45),
+    straight(sunshineJunctionDiagonal),
+  ])
+  .to(node.WATERGARDENS, [
+    straight(sunshineExitDiagonal),
+    curve(sunshineCurvesSunbury, 45),
+    straight(watergardensStraight),
+  ])
+  .to(node.SUNBURY, [straight(sunburyStraight)]);
