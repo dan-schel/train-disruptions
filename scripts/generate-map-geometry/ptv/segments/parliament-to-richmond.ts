@@ -25,7 +25,7 @@ export function parliamentToRichmond(
 
   return [
     straight(straightLength),
-    curve(radius, 90),
+    curve(radius, -45),
     straight(portalStraight),
   ];
 }

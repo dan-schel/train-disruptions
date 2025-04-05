@@ -26,7 +26,7 @@ export function flindersStreetToRichmond(
 ): SegmentInstruction[] {
   return [
     straight(flindersStreetStraight),
-    curve(radius(flindersStreetLineNumber), -45),
+    curve(radius(flindersStreetLineNumber), 45),
     straight(richmondStraight),
   ];
 }

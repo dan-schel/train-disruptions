@@ -23,6 +23,7 @@ import {
   curve,
   straight,
 } from "@/scripts/generate-map-geometry/lib/segment-instructions";
+import { invert } from "@/scripts/generate-map-geometry/lib/utils";
 
 const eastPakenhamCurve = flexi(10, 25);
 const bairnsdaleStraight = flexi(60, 120);
@@ -40,7 +41,7 @@ export const gippsland = new LineBuilder(
   "purple",
 )
   .to(node.FLINDERS_STREET, [
-    ...flindersStreetToSouthernCross(loopLine, true).reverse(),
+    ...invert(flindersStreetToSouthernCross(loopLine, true)),
   ])
   .to(node.RICHMOND, flindersStreetToRichmond(loopLine))
   .to(node.SOUTH_YARRA, [straight(richmondToSouthYarra)])

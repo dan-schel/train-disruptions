@@ -5,6 +5,7 @@ import {
   straight,
   turnBack,
 } from "@/scripts/generate-map-geometry/lib/segment-instructions";
+import { invert } from "@/scripts/generate-map-geometry/lib/utils";
 import { flagstaffToMelbourneCentral } from "@/scripts/generate-map-geometry/ptv/segments/flagstaff-to-melbourne-central";
 import { flindersStreetToRichmond } from "@/scripts/generate-map-geometry/ptv/segments/flinders-street-to-richmond";
 import { flindersStreetToSouthernCross } from "@/scripts/generate-map-geometry/ptv/segments/flinders-street-to-southern-cross";
@@ -47,7 +48,7 @@ export const burnley = new LineBuilder(
   .split((l) =>
     l.to(node.FLINDERS_STREET_DIRECT, [
       turnBack(),
-      ...flindersStreetToRichmond(loopLine).reverse(),
+      ...invert(flindersStreetToRichmond(loopLine)),
     ]),
   )
   .to(node.BURNLEY, [curve(defaultRadius, -45), straight(burnleyStraight)])

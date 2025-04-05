@@ -4,10 +4,11 @@ import {
   defaultRadius,
   lineGap,
   measure45CurveLockedDiagonal,
+  north,
   northWest,
   south,
 } from "@/scripts/generate-map-geometry/ptv/utils";
-import { northMelbournePos as northMelbournePosFunc } from "@/scripts/generate-map-geometry/ptv/segments/southern-cross-to-north-melbourne";
+import { northMelbournePos } from "@/scripts/generate-map-geometry/ptv/segments/southern-cross-to-north-melbourne";
 import {
   curve,
   SegmentInstruction,
@@ -24,11 +25,11 @@ export function northMelbourneToFootscray(
   track: "newport" | "regional-rrl" | "sunbury",
 ): SegmentInstruction[] {
   if (track === "sunbury") {
-    const northMelbournePos = northMelbournePosFunc("northern");
-    const footscrayPos = footscrayPosFunc("sunbury");
+    const northMelbourne = northMelbournePos("northern");
+    const footscray = footscrayPosFunc("sunbury");
 
-    const longLength = northMelbournePos.horizontalDistanceTo(footscrayPos);
-    const shortLength = northMelbournePos.verticalDistanceTo(footscrayPos);
+    const longLength = northMelbourne.horizontalDistanceTo(footscray);
+    const shortLength = northMelbourne.verticalDistanceTo(footscray);
     const { straightLength, radius } = measure45CurveLockedDiagonal(
       longLength,
       shortLength,
@@ -63,8 +64,8 @@ function footscrayPosFunc(
   }[track];
 
   return getEndPoint(
-    northMelbournePosFunc("newport"),
+    northMelbournePos("newport"),
     northWest,
     northMelbourneToFootscray("newport"),
-  ).move(lineGap.times(trackNumber), south);
+  ).move(lineGap.times(trackNumber), north);
 }
