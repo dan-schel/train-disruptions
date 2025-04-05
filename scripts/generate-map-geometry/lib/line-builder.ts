@@ -37,7 +37,11 @@ export class LineBuilder {
       this._currentAngle,
     );
     build(builder);
-    const { segment, endPoint, endAngle } = builder.build();
+
+    const { segment, endPoint, endAngle } = builder.build(
+      this._currentNodeId,
+      nodeId,
+    );
 
     this._segments.push(segment);
     this._nodes.push(new LocatedNode(nodeId, endPoint, endAngle, this._color));

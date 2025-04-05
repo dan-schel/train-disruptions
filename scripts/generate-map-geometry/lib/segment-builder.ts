@@ -41,7 +41,7 @@ export class SegmentBuilder {
     return this;
   }
 
-  build() {
+  build(startNodeId: number, endNodeId: number) {
     const pointsBuilder = new PointsBuilder(this.startPoint, this.startAngle);
 
     for (const instruction of this._instructions) {
@@ -49,7 +49,12 @@ export class SegmentBuilder {
     }
 
     return {
-      segment: new Segment(this.color, pointsBuilder.getPoints()),
+      segment: new Segment(
+        startNodeId,
+        endNodeId,
+        this.color,
+        pointsBuilder.getPoints(),
+      ),
       endPoint: pointsBuilder.getCurrentPoint(),
       endAngle: pointsBuilder.getCurrentAngle(),
     };

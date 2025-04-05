@@ -35,6 +35,8 @@ export class GeometryBuilder {
       l.paths.map(
         (p) =>
           new Segment(
+            null,
+            null,
             l.color,
             p.points.map((x) => x.toDualPoint()),
           ),
