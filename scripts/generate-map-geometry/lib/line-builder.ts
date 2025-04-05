@@ -76,6 +76,14 @@ export class LineBuilderOutput {
     readonly segments: readonly Segment[],
     readonly nodes: readonly LocatedNode[],
   ) {}
+
+  requireNodePosition(nodeId: number): FlexiPoint {
+    const node = this.nodes.find((n) => n.nodeId === nodeId);
+    if (node == null) {
+      throw new Error(`Node ${nodeId} not found`);
+    }
+    return node.point;
+  }
 }
 
 export class LocatedNode {
