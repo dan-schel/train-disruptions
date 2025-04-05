@@ -6,7 +6,6 @@ import {
   measure45CurveLockedDiagonal,
   north,
   northWest,
-  south,
 } from "@/scripts/generate-map-geometry/ptv/utils";
 import { northMelbournePos } from "@/scripts/generate-map-geometry/ptv/segments/southern-cross-to-north-melbourne";
 import {
