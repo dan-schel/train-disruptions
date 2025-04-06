@@ -12,6 +12,7 @@ import {
   LineBuilder,
   LocatedNode,
 } from "@/scripts/generate-map-geometry/lib/line-builder";
+import { Point } from "@/components/map/renderer/point";
 
 export class GeometryBuilder {
   constructor() {}
@@ -47,8 +48,8 @@ export class GeometryBuilder {
       if (node == null) throw new Error(`Terminus node "${t}" not found.`);
 
       return new Terminus(node.color, [
-        node.point.move(terminusExtents, node.angle - 90).toDualPoint(),
-        node.point.move(terminusExtents, node.angle + 90).toDualPoint(),
+        node.point.move(terminusExtents, node.angle - 90),
+        node.point.move(terminusExtents, node.angle + 90),
       ]);
     });
   }
@@ -56,12 +57,12 @@ export class GeometryBuilder {
   private _buildDualViewport(paths: Segment[]): DualViewport {
     const points = paths.flatMap((p) => p.points);
     return new DualViewport(
-      this._buildViewport(points.map((p) => ({ x: p.minX, y: p.minY }))),
-      this._buildViewport(points.map((p) => ({ x: p.maxX, y: p.maxY }))),
+      this._buildViewport(points.map((p) => p.min)),
+      this._buildViewport(points.map((p) => p.max)),
     );
   }
 
-  private _buildViewport(points: { x: number; y: number }[]) {
+  private _buildViewport(points: Point[]) {
     const lowestMinX = Math.min(...points.map((p) => p.x));
     const highestMinX = Math.max(...points.map((p) => p.x));
     const lowestMinY = Math.min(...points.map((p) => p.y));

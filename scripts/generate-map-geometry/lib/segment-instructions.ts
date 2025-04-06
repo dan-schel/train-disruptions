@@ -1,4 +1,4 @@
-import { FlexiLength } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
+import { FlexiLength } from "@/components/map/renderer/flexi-length";
 
 export type StraightSegmentInstruction = ReturnType<typeof straight>;
 export type CurveSegmentInstruction = ReturnType<typeof curve>;

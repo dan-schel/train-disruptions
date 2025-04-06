@@ -1,4 +1,4 @@
-import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
+import { flexi } from "@/components/map/renderer/flexi-length";
 import { interchangeEdgeOffset } from "@/scripts/generate-map-geometry/lib/utils";
 import {
   defaultRadius,

@@ -1,6 +1,6 @@
 import { Segment } from "@/components/map/renderer/segment";
 import { LineColor } from "@/components/map/renderer/utils";
-import { FlexiPoint } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-point";
+import { FlexiPoint } from "@/components/map/renderer/flexi-point";
 import { SegmentBuilder } from "@/scripts/generate-map-geometry/lib/segment-builder";
 import { SegmentInstruction } from "@/scripts/generate-map-geometry/lib/segment-instructions";
 
@@ -36,12 +36,13 @@ export class LineBuilder {
       .process(instructions)
       .build();
 
-    const { points, endPoint, endAngle } = result;
+    const { points, distances, endPoint, endAngle } = result;
     const segment = new Segment(
       this._currentNodeId,
       nodeId,
       this._color,
-      points.map((x) => x.toDualPoint()),
+      points,
+      distances,
     );
 
     this._segments.push(segment);

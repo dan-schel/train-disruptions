@@ -1,5 +1,5 @@
-import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
-import { fp } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-point";
+import { flexi } from "@/components/map/renderer/flexi-length";
+import { fp } from "@/components/map/renderer/flexi-point";
 import { lineGap } from "@/scripts/generate-map-geometry/ptv/utils";
 
 const innerRadius = flexi(15);
