@@ -5,12 +5,19 @@ import { Geometry } from "@/components/map/renderer/geometry";
 // To debug geometry without needing to re-run the generator:
 // import geometry from "@/scripts/generate-map-geometry/ptv";
 import geometryJson from "@/components/map/geometry/ptv.json";
+import { SerializedMapHighlighting } from "@/shared/types/map-data";
 
-export function Map() {
+export type MapProps = {
+  highlighting?: SerializedMapHighlighting;
+};
+
+export function Map(props: MapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const geometry = useMemo(() => Geometry.json.parse(geometryJson), []);
+
+  console.log(props.highlighting);
 
   useEffect(() => {
     if (containerRef.current == null || canvasRef.current == null) {

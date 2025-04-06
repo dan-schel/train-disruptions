@@ -2,6 +2,13 @@ import { z } from "zod";
 
 export class MapPoint {
   constructor(
+    // TODO: I think you actually need four map nodes to identify some stations,
+    // e.g. Essendon. It falls between North Melbourne and Broadmeadows, but
+    // across two different lines (the yellow Craigieburn line and the purple
+    // Seymour line). So it think we'd need the algorithm to find the Essendon
+    // spot for the yellow AND purple line, and use the midpoint of the two.
+    //
+    // (Fun!)
     readonly mapNodeA: number,
     readonly mapNodeB: number,
     readonly percentage: number,
@@ -31,5 +38,17 @@ export class MapPoint {
       mapNodeB: this.mapNodeB,
       percentage: this.percentage,
     };
+  }
+
+  reverse(): MapPoint {
+    return new MapPoint(this.mapNodeB, this.mapNodeA, 1 - this.percentage);
+  }
+
+  normalize(): MapPoint {
+    if (this.mapNodeA < this.mapNodeB) {
+      return this;
+    } else {
+      return this.reverse();
+    }
   }
 }

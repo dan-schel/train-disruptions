@@ -1,24 +1,40 @@
 import { MapPoint } from "@/server/data/map-point";
 import { MapSegment } from "@/server/data/map-segment";
+import {
+  SerializedHighlightedMapPoint,
+  SerializedHighlightedMapSegment,
+  SerializedMapHighlighting,
+} from "@/shared/types/map-data";
 import { z } from "zod";
 
 export class HighlightedSegment {
   constructor(
     readonly segment: MapSegment,
-    readonly highlighting: "standard",
+    readonly style: "standard",
   ) {}
 
   static readonly bson = z
     .object({
       segment: MapSegment.bson,
-      highlighting: z.literal("standard"),
+      style: z.literal("standard"),
     })
-    .transform((x) => new HighlightedSegment(x.segment, x.highlighting));
+    .transform((x) => new HighlightedSegment(x.segment, x.style));
 
   toBson(): z.input<typeof HighlightedSegment.bson> {
     return {
       segment: this.segment.toBson(),
-      highlighting: this.highlighting,
+      style: this.style,
+    };
+  }
+
+  toSerialized(): SerializedHighlightedMapSegment {
+    const segment = this.segment.normalize();
+    return {
+      nodeIdA: segment.mapNodeA,
+      nodeIdB: segment.mapNodeB,
+      start: segment.percentage.min,
+      end: segment.percentage.max,
+      style: this.style,
     };
   }
 }
@@ -26,20 +42,30 @@ export class HighlightedSegment {
 export class HighlightedPoint {
   constructor(
     readonly point: MapPoint,
-    readonly highlighting: "standard",
+    readonly style: "standard",
   ) {}
 
   static readonly bson = z
     .object({
       point: MapPoint.bson,
-      highlighting: z.literal("standard"),
+      style: z.literal("standard"),
     })
-    .transform((x) => new HighlightedPoint(x.point, x.highlighting));
+    .transform((x) => new HighlightedPoint(x.point, x.style));
 
   toBson(): z.input<typeof HighlightedPoint.bson> {
     return {
       point: this.point.toBson(),
-      highlighting: this.highlighting,
+      style: this.style,
+    };
+  }
+
+  toSerialized(): SerializedHighlightedMapPoint {
+    const point = this.point.normalize();
+    return {
+      nodeIdA: point.mapNodeA,
+      nodeIdB: point.mapNodeB,
+      percentage: point.percentage,
+      style: this.style,
     };
   }
 }
@@ -63,6 +89,19 @@ export class MapHighlighting {
     return {
       segments: this.segments.map((s) => s.toBson()),
       points: this.points.map((p) => p.toBson()),
+    };
+  }
+
+  static serializeGroup(
+    highlighting: MapHighlighting[],
+  ): SerializedMapHighlighting {
+    return {
+      segments: highlighting.flatMap((h) =>
+        h.segments.map((x) => x.toSerialized()),
+      ),
+      points: highlighting.flatMap((h) =>
+        h.points.map((x) => x.toSerialized()),
+      ),
     };
   }
 }
