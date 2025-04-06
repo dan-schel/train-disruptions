@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import React from "react";
-import { LinePageData } from "@/pages/line/@id/+data";
+import { LinePageActiveDisruption } from "@/shared/types/line-page";
 
 import { Row } from "@/components/core/Row";
 import { Link } from "@/components/core/Link";
@@ -10,7 +10,7 @@ import { MingcuteCloseCircleFill } from "@/components/icons/MingcuteCloseCircleF
 
 type ActiveDisruptionProps = {
   lineNumber: number;
-  disruption: LinePageData;
+  disruption: LinePageActiveDisruption;
 };
 
 export function ActiveDisruption({

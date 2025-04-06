@@ -12,10 +12,15 @@ import {
   LineStatusIndicatorPriority,
 } from "@/server/data/disruption/writeup/disruption-writeup";
 import { Disruption } from "@/server/data/disruption/disruption";
+import {
+  LinePageActiveDisruption,
+  LinePageStatusColour,
+  LinePageUpcomingDisruption,
+} from "@/shared/types/line-page";
 
 const statusColorMapping: Record<
   LineStatusIndicatorPriority,
-  "text-status-green" | "text-status-yellow" | "text-status-red"
+  LinePageStatusColour
 > = {
   "very-low": "text-status-yellow",
   low: "text-status-yellow",
@@ -24,21 +29,13 @@ const statusColorMapping: Record<
   hidden: "text-status-green",
 };
 
-export type LinePageData = {
-  id: string;
-  headline: string | null;
-  subject: string;
-  period: string | null;
-  colour: (typeof statusColorMapping)[LineStatusIndicatorPriority];
-};
-
 export type Data = {
   line: {
     id: number;
     name: string;
     calendar: CalendarData;
-    active: LinePageData[];
-    upcoming: Omit<LinePageData, "colour">[];
+    active: LinePageActiveDisruption[];
+    upcoming: LinePageUpcomingDisruption[];
   } | null;
 };
 

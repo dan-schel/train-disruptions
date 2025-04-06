@@ -1,5 +1,5 @@
 import React from "react";
-import { LinePageData } from "@/pages/line/@id/+data";
+import { LinePageUpcomingDisruption } from "@/shared/types/line-page";
 
 import { Link } from "@/components/core/Link";
 import { Text } from "@/components/core/Text";
@@ -7,7 +7,7 @@ import { Column } from "@/components/core/Column";
 
 type UpcomingDisruptionProps = {
   lineNumber: number;
-  disruption: Omit<LinePageData, "colour">;
+  disruption: LinePageUpcomingDisruption;
 };
 
 export function UpcomingDisruption({
