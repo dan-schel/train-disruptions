@@ -12,6 +12,7 @@ import { ActiveDisruption } from "@/pages/line/@id/ActiveDisruption";
 import { UpcomingDisruption } from "@/pages/line/@id/UpcomingDisruption";
 import { MingcuteCheckCircleFill } from "@/components/icons/MingcuteCheckCircleFill";
 import { Row } from "@/components/core/Row";
+import { With } from "@/components/core/With";
 
 export default function Page() {
   const { line } = useData<Data>();
@@ -19,11 +20,11 @@ export default function Page() {
   return (
     <Column>
       <BackNavigation name="Overview" href="/overview" />
-      <PageCenterer>
-        <PagePadding>
-          <Column className="gap-4">
+      <With flexGrow="1">
+        <PageCenterer>
+          <PagePadding>
             {line != null ? (
-              <>
+              <Column className="gap-4">
                 <Text style="megatitle">Is it buses...</Text>
                 <Text>
                   on the <b>{line.name}</b> line?
@@ -47,7 +48,7 @@ export default function Page() {
                         Trains are running
                       </Text>
                     </Row>
-                    <Text>There are no reported disruptions</Text>
+                    <Text>There are no reported disruptions.</Text>
                   </Column>
                 )}
 
@@ -63,21 +64,30 @@ export default function Page() {
 
                 <Text style="subtitle">Upcoming disruptions</Text>
                 <Column className="divide-soft-border divide-y">
-                  {line.upcoming.map((x) => (
-                    <UpcomingDisruption
-                      key={x.id}
-                      lineNumber={line.id}
-                      disruption={x}
-                    />
-                  ))}
+                  {line.upcoming.length > 0 ? (
+                    line.upcoming.map((x) => (
+                      <UpcomingDisruption
+                        key={x.id}
+                        lineNumber={line.id}
+                        disruption={x}
+                      />
+                    ))
+                  ) : (
+                    <Text>There are no disruptions coming up!</Text>
+                  )}
                 </Column>
-              </>
+              </Column>
             ) : (
-              <Text>We don&apos;t know about this line 😔</Text>
+              <Column align="center" justify="center" className="h-full gap-4">
+                <Text align="center">
+                  It looks like your train has gone of its rails because we
+                  couldn&apos;t find which line you&apos;ve ended up at.
+                </Text>
+              </Column>
             )}
-          </Column>
-        </PagePadding>
-      </PageCenterer>
+          </PagePadding>
+        </PageCenterer>
+      </With>
     </Column>
   );
 }
