@@ -53,29 +53,40 @@ const mapSegment = {
 const lineShapeEdges = [
   new LineShapeEdge(station.SOUTHERN_CROSS, station.FLINDERS_STREET, [
     routeGraph.southernCrossToPakenham,
-  ], []),
+  ], [
+    mapSegment.southernCrossToFlindersStreet,
+  ]),
   new LineShapeEdge(station.FLINDERS_STREET, station.RICHMOND, [
     routeGraph.southernCrossToPakenham,
     routeGraph.flindersStreetToPakenham,
-  ], []),
+  ], [
+    mapSegment.flindersStreetToRichmond,
+  ]),
   new LineShapeEdge(station.RICHMOND, station.CAULFIELD, [
     routeGraph.southernCrossToPakenham,
     routeGraph.flindersStreetToPakenham,
     routeGraph.richmondToPakenham,
-  ], []),
+  ], [
+    mapSegment.richmondToSouthYarra,
+    mapSegment.southYarraToCaulfield,
+  ]),
   new LineShapeEdge(station.CAULFIELD, station.CLAYTON, [
     routeGraph.southernCrossToPakenham,
     routeGraph.flindersStreetToPakenham,
     routeGraph.richmondToPakenham,
     routeGraph.caulfieldToPakenham,
-  ], []),
+  ], [
+    mapSegment.caulfieldToClayton,
+  ]),
   new LineShapeEdge(station.CLAYTON, station.DANDENONG, [
     routeGraph.southernCrossToPakenham,
     routeGraph.flindersStreetToPakenham,
     routeGraph.richmondToPakenham,
     routeGraph.caulfieldToPakenham,
     routeGraph.claytonToPakenham,
-  ], []),
+  ], [
+    mapSegment.claytonToDandenong,
+  ]),
   new LineShapeEdge(station.DANDENONG, station.PAKENHAM, [
     routeGraph.southernCrossToPakenham,
     routeGraph.flindersStreetToPakenham,
@@ -83,55 +94,90 @@ const lineShapeEdges = [
     routeGraph.caulfieldToPakenham,
     routeGraph.claytonToPakenham,
     routeGraph.dandenongToPakenham,
-  ], []),
+  ], [
+    mapSegment.dandenongToPakenham,
+  ]),
   new LineShapeEdge(station.PAKENHAM, station.NAR_NAR_GOON, [
     routeGraph.pakenhamToNarNarGoon,
-  ], []),
+  ], [
+    mapSegment.pakenhamToEastPakenham,
+    mapSegment.eastPakenhamToBairnsdale.part(1, 16),
+  ]),
   new LineShapeEdge(station.NAR_NAR_GOON, station.TYNONG, [
     routeGraph.narNarGoonToTynong,
-  ], []),
+  ], [
+    mapSegment.eastPakenhamToBairnsdale.part(2, 16),
+  ]),
   new LineShapeEdge(station.TYNONG, station.GARFIELD, [
     routeGraph.tynongToGarfield,
-  ], []),
+  ], [
+    mapSegment.eastPakenhamToBairnsdale.part(3, 16),
+  ]),
   new LineShapeEdge(station.GARFIELD, station.BUNYIP, [
     routeGraph.garfieldToBunyip,
-  ], []),
+  ], [
+    mapSegment.eastPakenhamToBairnsdale.part(4, 16),
+  ]),
   new LineShapeEdge(station.BUNYIP, station.LONGWARRY, [
     routeGraph.bunyipToLongwarry,
-  ], []),
+  ], [
+    mapSegment.eastPakenhamToBairnsdale.part(5, 16),
+  ]),
   new LineShapeEdge(station.LONGWARRY, station.DROUIN, [
     routeGraph.longwarryToDrouin,
-  ], []),
+  ], [
+    mapSegment.eastPakenhamToBairnsdale.part(6, 16),
+  ]),
   new LineShapeEdge(station.DROUIN, station.WARRAGUL, [
     routeGraph.drouinToWarragul,
-  ], []),
+  ], [
+    mapSegment.eastPakenhamToBairnsdale.part(7, 16),
+  ]),
   new LineShapeEdge(station.WARRAGUL, station.YARRAGON, [
     routeGraph.warragulToYarragon,
-  ], []),
+  ], [
+    mapSegment.eastPakenhamToBairnsdale.part(8, 16),
+  ]),
   new LineShapeEdge(station.YARRAGON, station.TRAFALGAR, [
     routeGraph.yarragonToTrafalgar,
-  ], []),
+  ], [
+    mapSegment.eastPakenhamToBairnsdale.part(9, 16),
+  ]),
   new LineShapeEdge(station.TRAFALGAR, station.MOE, [
     routeGraph.trafalgarToMoe,
-  ], []),
+  ], [
+    mapSegment.eastPakenhamToBairnsdale.part(10, 16),
+  ]),
   new LineShapeEdge(station.MOE, station.MORWELL, [
     routeGraph.moeToMorwell,
-  ], []),
+  ], [
+    mapSegment.eastPakenhamToBairnsdale.part(11, 16),
+  ]),
   new LineShapeEdge(station.MORWELL, station.TRARALGON, [
     routeGraph.morwellToTraralgon,
-  ], []),
+  ], [
+    mapSegment.eastPakenhamToBairnsdale.part(12, 16),
+  ]),
   new LineShapeEdge(station.TRARALGON, station.ROSEDALE, [
     routeGraph.traralgonToRosedale,
-  ], []),
+  ], [
+    mapSegment.eastPakenhamToBairnsdale.part(13, 16),
+  ]),
   new LineShapeEdge(station.ROSEDALE, station.SALE, [
     routeGraph.rosedaleToSale,
-  ], []),
+  ], [
+    mapSegment.eastPakenhamToBairnsdale.part(14, 16),
+  ]),
   new LineShapeEdge(station.SALE, station.STRATFORD, [
     routeGraph.saleToStratford,
-  ], []),
+  ], [
+    mapSegment.eastPakenhamToBairnsdale.part(15, 16),
+  ]),
   new LineShapeEdge(station.STRATFORD, station.BAIRNSDALE, [
     routeGraph.stratfordToBairnsdale,
-  ], []),
+  ], [
+    mapSegment.eastPakenhamToBairnsdale.part(16, 16),
+  ]),
 ];
 
 const routeGraphPairs = Object.values(routeGraph);

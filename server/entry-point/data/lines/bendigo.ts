@@ -57,82 +57,136 @@ const mapSegment = {
 const lineShapeEdges = [
   new LineShapeEdge(station.SOUTHERN_CROSS, station.FOOTSCRAY, [
     routeGraph.southernCrossToSunbury,
-  ], []),
+  ], [
+    mapSegment.southernCrossToNorthMelbourneJunction,
+    mapSegment.northMelbourneJunctionToNorthMelbourne,
+    mapSegment.northMelbourneToFootscray,
+  ]),
   new LineShapeEdge(station.FOOTSCRAY, station.WATERGARDENS, [
     routeGraph.southernCrossToSunbury,
     routeGraph.footscrayToSunbury,
-  ], []),
+  ], [
+    mapSegment.footscrayToSunshineJunction,
+    mapSegment.sunshineJunctionToSunshine,
+    mapSegment.sunshineToWatergardens,
+  ]),
   new LineShapeEdge(station.WATERGARDENS, station.SUNBURY, [
     routeGraph.southernCrossToSunbury,
     routeGraph.footscrayToSunbury,
     routeGraph.watergardensToSunbury,
-  ], []),
+  ], [
+    mapSegment.watergardensToSunbury,
+  ]),
   new LineShapeEdge(station.SUNBURY, station.CLARKEFIELD, [
     routeGraph.sunburyToClarkefield,
-  ], []),
+  ], [
+    mapSegment.sunburyToBendigo.part(1, 10),
+  ]),
   new LineShapeEdge(station.CLARKEFIELD, station.RIDDELLS_CREEK, [
     routeGraph.clarkefieldToRiddellsCreek,
-  ], []),
+  ], [
+    mapSegment.sunburyToBendigo.part(2, 10),
+  ]),
   new LineShapeEdge(station.RIDDELLS_CREEK, station.GISBORNE, [
     routeGraph.riddellsCreekToGisborne,
-  ], []),
+  ], [
+    mapSegment.sunburyToBendigo.part(3, 10),
+  ]),
   new LineShapeEdge(station.GISBORNE, station.MACEDON, [
     routeGraph.gisborneToMacedon,
-  ], []),
+  ], [
+    mapSegment.sunburyToBendigo.part(4, 10),
+  ]),
   new LineShapeEdge(station.MACEDON, station.WOODEND, [
     routeGraph.macedonToWoodend,
-  ], []),
+  ], [
+    mapSegment.sunburyToBendigo.part(5, 10),
+  ]),
   new LineShapeEdge(station.WOODEND, station.KYNETON, [
     routeGraph.woodendToKyneton,
-  ], []),
+  ], [
+    mapSegment.sunburyToBendigo.part(6, 10),
+  ]),
   new LineShapeEdge(station.KYNETON, station.MALMSBURY, [
     routeGraph.kynetonToMalmsbury,
-  ], []),
+  ], [
+    mapSegment.sunburyToBendigo.part(7, 10),
+  ]),
   new LineShapeEdge(station.MALMSBURY, station.CASTLEMAINE, [
     routeGraph.malmsburyToCastlemaine,
-  ], []),
+  ], [
+    mapSegment.sunburyToBendigo.part(8, 10),
+  ]),
   new LineShapeEdge(station.CASTLEMAINE, station.KANGAROO_FLAT, [
     routeGraph.castlemaineToKangarooFlat,
-  ], []),
+  ], [
+    mapSegment.sunburyToBendigo.part(9, 10),
+  ]),
   new LineShapeEdge(station.KANGAROO_FLAT, station.BENDIGO, [
     routeGraph.kangarooFlatToBendigo,
-  ], []),
+  ], [
+    mapSegment.sunburyToBendigo.part(10, 10),
+  ]),
   new LineShapeEdge(station.BENDIGO, station.EPSOM, [
     routeGraph.bendigoToEpsom,
-  ], []),
+  ], [
+    mapSegment.bendigoToEchuca.part(1, 6),
+  ]),
   new LineShapeEdge(station.EPSOM, station.HUNTLY, [
     routeGraph.epsomToHuntly,
-  ], []),
+  ], [
+    mapSegment.bendigoToEchuca.part(2, 6),
+  ]),
   new LineShapeEdge(station.HUNTLY, station.GOORNONG, [
     routeGraph.huntlyToGoornong,
-  ], []),
+  ], [
+    mapSegment.bendigoToEchuca.part(3, 6),
+  ]),
   new LineShapeEdge(station.GOORNONG, station.ELMORE, [
     routeGraph.goornongToElmore,
-  ], []),
+  ], [
+    mapSegment.bendigoToEchuca.part(4, 6),
+  ]),
   new LineShapeEdge(station.ELMORE, station.ROCHESTER, [
     routeGraph.elmoreToRochester,
-  ], []),
+  ], [
+    mapSegment.bendigoToEchuca.part(5, 6),
+  ]),
   new LineShapeEdge(station.ROCHESTER, station.ECHUCA, [
     routeGraph.rochesterToEchuca,
-  ], []),
+  ], [
+    mapSegment.bendigoToEchuca.part(6, 6),
+  ]),
   new LineShapeEdge(station.BENDIGO, station.EAGLEHAWK, [
     routeGraph.bendigoToEaglehawk,
-  ], []),
+  ], [
+    mapSegment.bendigoToSwanHill.part(1, 6),
+  ]),
   new LineShapeEdge(station.EAGLEHAWK, station.RAYWOOD, [
     routeGraph.eaglehawkToRaywood,
-  ], []),
+  ], [
+    mapSegment.bendigoToSwanHill.part(2, 6),
+  ]),
   new LineShapeEdge(station.RAYWOOD, station.DINGEE, [
     routeGraph.raywoodToDingee,
-  ], []),
+  ], [
+    mapSegment.bendigoToSwanHill.part(3, 6),
+  ]),
   new LineShapeEdge(station.DINGEE, station.PYRAMID, [
     routeGraph.dingeeToPyramid,
-  ], []),
+  ], [
+    mapSegment.bendigoToSwanHill.part(4, 6),
+  ]),
   new LineShapeEdge(station.PYRAMID, station.KERANG, [
     routeGraph.pyramidToKerang,
-  ], []),
+  ], [
+    mapSegment.bendigoToSwanHill.part(5, 6),
+  ]),
   new LineShapeEdge(station.KERANG, station.SWAN_HILL, [
     routeGraph.kerangToSwanHill,
-  ], []),
+  ], [
+    mapSegment.bendigoToSwanHill.part(6, 6),
+  ]),
 ];
 
 const routeGraphPairs = Object.values(routeGraph);
