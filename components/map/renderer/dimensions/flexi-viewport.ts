@@ -27,7 +27,7 @@ export class Viewport {
   }
 }
 
-export class DualViewport {
+export class FlexiViewport {
   constructor(
     readonly min: Viewport,
     readonly max: Viewport,
@@ -47,9 +47,9 @@ export class DualViewport {
       min: Viewport.json,
       max: Viewport.json,
     })
-    .transform((x) => new DualViewport(x.min, x.max));
+    .transform((x) => new FlexiViewport(x.min, x.max));
 
-  toJSON(): z.input<typeof DualViewport.json> {
+  toJSON(): z.input<typeof FlexiViewport.json> {
     return {
       min: this.min,
       max: this.max,

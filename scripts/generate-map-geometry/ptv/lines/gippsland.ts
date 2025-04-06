@@ -1,4 +1,4 @@
-import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
+import { flexi } from "@/components/map/renderer/dimensions/flexi-length";
 import { flindersStreetToRichmond } from "@/scripts/generate-map-geometry/ptv/segments/flinders-street-to-richmond";
 import { flindersStreetToSouthernCross } from "@/scripts/generate-map-geometry/ptv/segments/flinders-street-to-southern-cross";
 import {

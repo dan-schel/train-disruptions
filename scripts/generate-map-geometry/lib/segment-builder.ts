@@ -1,4 +1,8 @@
-import { FlexiPoint } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-point";
+import {
+  flexi,
+  FlexiLength,
+} from "@/components/map/renderer/dimensions/flexi-length";
+import { FlexiPoint } from "@/components/map/renderer/dimensions/flexi-point";
 import {
   CurveSegmentInstruction,
   SegmentInstruction,
@@ -9,11 +13,13 @@ export class SegmentBuilder {
   private _currentPoint: FlexiPoint;
   private _currentAngle: number;
   private _points: FlexiPoint[];
+  private _distances: FlexiLength[];
 
   constructor(startPoint: FlexiPoint, startAngle: number) {
     this._currentPoint = startPoint;
     this._currentAngle = startAngle;
     this._points = [startPoint];
+    this._distances = [flexi(0)];
   }
 
   process(instructions: SegmentInstruction[]): SegmentBuilder {
@@ -27,6 +33,7 @@ export class SegmentBuilder {
   build() {
     return {
       points: this._points,
+      distances: this._distances,
       endPoint: this._currentPoint,
       endAngle: this._currentAngle,
     };
@@ -72,7 +79,12 @@ export class SegmentBuilder {
   }
 
   private _addPoint(point: FlexiPoint) {
+    const prevPoint = this._points[this._points.length - 1];
+    const prevDistance = this._distances[this._distances.length - 1];
+    const distance = prevPoint.pythagoreanDistanceTo(point);
+
     this._points.push(point);
+    this._distances.push(prevDistance.plus(distance));
     this._currentPoint = point;
   }
 }

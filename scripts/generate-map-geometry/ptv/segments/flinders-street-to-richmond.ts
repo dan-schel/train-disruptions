@@ -1,5 +1,5 @@
-import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
-import { FlexiPoint } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-point";
+import { flexi } from "@/components/map/renderer/dimensions/flexi-length";
+import { FlexiPoint } from "@/components/map/renderer/dimensions/flexi-point";
 import {
   curve,
   SegmentInstruction,

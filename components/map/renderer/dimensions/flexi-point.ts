@@ -1,20 +1,19 @@
-import { DualPoint } from "@/components/map/renderer/dual-point";
-import { FlexiLength } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
-import { Point } from "@/scripts/generate-map-geometry/lib/dimensions/point";
+import { FlexiLength } from "@/components/map/renderer/dimensions/flexi-length";
+import { Point } from "@/components/map/renderer/dimensions/point";
+import { nonNull, parseFloatNull } from "@dan-schel/js-utils";
 
-// TODO: I kinda hate that this is just a clone of DualPoint, with some extra
-// methods. But the reason it's this way is:
-//   - Keeps unnecessary logic (i.e. the distance/plus/minus/etc. methods) out
-//     of DualPoint. DualPoint is in the client JS bundle, so I don't want to
-//     bloat it with logic that only the script needs.
-//   - FlexiLength kinda goes along with this class, but again, only the script
-//     needs it.
-// Is there a better solution?
 export class FlexiPoint {
   constructor(
     readonly min: Point,
     readonly max: Point,
   ) {}
+
+  amplify(amplification: number) {
+    return {
+      x: this.min.x + (this.max.x - this.min.x) * amplification,
+      y: this.min.y + (this.max.y - this.min.y) * amplification,
+    };
+  }
 
   horizontalDistanceTo(other: FlexiPoint): FlexiLength {
     return new FlexiLength(
@@ -27,6 +26,15 @@ export class FlexiPoint {
     return new FlexiLength(
       Math.abs(this.min.y - other.min.y),
       Math.abs(this.max.y - other.max.y),
+    );
+  }
+
+  pythagoreanDistanceTo(point: FlexiPoint): FlexiLength {
+    const dx = this.horizontalDistanceTo(point);
+    const dy = this.verticalDistanceTo(point);
+    return new FlexiLength(
+      Math.sqrt(dx.min * dx.min + dy.min * dy.min),
+      Math.sqrt(dx.max * dx.max + dy.max * dy.max),
     );
   }
 
@@ -55,8 +63,28 @@ export class FlexiPoint {
     );
   }
 
-  toDualPoint(): DualPoint {
-    return new DualPoint(this.min.x, this.min.y, this.max.x, this.max.y);
+  toString() {
+    const minX = this.min.x.toFixed(2);
+    const minY = this.min.y.toFixed(2);
+    const maxX = this.max.x.toFixed(2);
+    const maxY = this.max.y.toFixed(2);
+    return `${minX} ${minY} ${maxX} ${maxY}`;
+  }
+
+  static fromString(s: string) {
+    const parsed = s
+      .split(" ")
+      .map((n) => parseFloatNull(n))
+      .filter(nonNull);
+
+    if (parsed.length !== 4) {
+      return null;
+    }
+
+    return new FlexiPoint(
+      new Point(parsed[0], parsed[1]),
+      new Point(parsed[2], parsed[3]),
+    );
   }
 }
 

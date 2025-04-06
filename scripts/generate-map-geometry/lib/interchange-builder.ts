@@ -1,5 +1,4 @@
 import { Interchange } from "@/components/map/renderer/interchange";
-import { DualPoint } from "@/components/map/renderer/dual-point";
 import {
   InterchangeBlueprint,
   NodeWithRelativePosition,
@@ -9,6 +8,7 @@ import {
   interchangeInnerOffset,
 } from "@/scripts/generate-map-geometry/lib/utils";
 import { LocatedNode } from "@/scripts/generate-map-geometry/lib/line-builder";
+import { FlexiPoint } from "@/components/map/renderer/dimensions/flexi-point";
 
 export class InterchangeBuilder {
   constructor(
@@ -37,7 +37,7 @@ export class InterchangeBuilder {
     return new Interchange(thickLines, thinLine);
   }
 
-  _point(nodePosition: NodeWithRelativePosition): DualPoint {
+  _point(nodePosition: NodeWithRelativePosition): FlexiPoint {
     const point = this._locateNode(nodePosition.nodeId);
 
     const offset = {
@@ -47,9 +47,7 @@ export class InterchangeBuilder {
       "right-edge": { length: interchangeEdgeOffset, angle: 90 },
     }[nodePosition.position];
 
-    return point.point
-      .move(offset.length, point.angle + offset.angle)
-      .toDualPoint();
+    return point.point.move(offset.length, point.angle + offset.angle);
   }
 
   _locateNode(nodeId: number): LocatedNode {

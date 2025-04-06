@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { fp } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-point";
-import { flexi } from "@/scripts/generate-map-geometry/lib/dimensions/flexi-length";
+import { fp } from "@/components/map/renderer/dimensions/flexi-point";
+import { flexi } from "@/components/map/renderer/dimensions/flexi-length";
 import { GeometryBuilder } from "@/scripts/generate-map-geometry/lib/geometry-builder";
 import { InterchangeBlueprint } from "@/scripts/generate-map-geometry/lib/interchange-blueprint";
 import { LineBuilder } from "@/scripts/generate-map-geometry/lib/line-builder";

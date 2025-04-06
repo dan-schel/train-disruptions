@@ -2,23 +2,27 @@ import { Segment } from "@/components/map/renderer/segment";
 import { Interchange } from "@/components/map/renderer/interchange";
 import { Terminus } from "@/components/map/renderer/terminus";
 import { z } from "zod";
-import { DualViewport } from "@/components/map/renderer/dual-viewport";
+import { FlexiViewport } from "@/components/map/renderer/dimensions/flexi-viewport";
 import { viewportPadding } from "@/components/map/renderer/utils";
 
 export class Geometry {
+  readonly segments: readonly Segment[];
+
   constructor(
-    readonly segments: readonly Segment[],
+    segments: readonly Segment[],
     readonly interchanges: readonly Interchange[],
     readonly termini: readonly Terminus[],
-    readonly viewport: DualViewport,
-  ) {}
+    readonly viewport: FlexiViewport,
+  ) {
+    this.segments = segments.map((s) => s.normalize());
+  }
 
   static readonly json = z
     .object({
       segments: Segment.json.array(),
       interchanges: Interchange.json.array(),
       termini: Terminus.json.array(),
-      viewport: DualViewport.json,
+      viewport: FlexiViewport.json,
     })
     .transform(
       (x) => new Geometry(x.segments, x.interchanges, x.termini, x.viewport),

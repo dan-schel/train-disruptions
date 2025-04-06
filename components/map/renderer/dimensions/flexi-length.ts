@@ -1,3 +1,5 @@
+import { nonNull, parseFloatNull } from "@dan-schel/js-utils";
+
 export class FlexiLength {
   // Note: "min" == the compressed length, "max" == the stretched length. In
   // some rare cases, "max" may be less than "min"!
@@ -20,6 +22,25 @@ export class FlexiLength {
 
   divide(factor: number): FlexiLength {
     return new FlexiLength(this.min / factor, this.max / factor);
+  }
+
+  toString() {
+    const min = this.min.toFixed(2);
+    const max = this.max.toFixed(2);
+    return `${min} ${max}`;
+  }
+
+  static fromString(s: string) {
+    const parsed = s
+      .split(" ")
+      .map((n) => parseFloatNull(n))
+      .filter(nonNull);
+
+    if (parsed.length !== 2) {
+      return null;
+    }
+
+    return new FlexiLength(parsed[0], parsed[1]);
   }
 }
 

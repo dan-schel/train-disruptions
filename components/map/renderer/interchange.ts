@@ -1,10 +1,14 @@
+import { FlexiPoint } from "@/components/map/renderer/dimensions/flexi-point";
+import {
+  createFlexiPointString,
+  flexiPointStringJson,
+} from "@/components/map/renderer/dimensions/json";
 import { z } from "zod";
-import { DualPoint } from "@/components/map/renderer/dual-point";
 
 export class Interchange {
   constructor(
-    readonly thickLines: readonly (readonly DualPoint[])[],
-    readonly thinLine: readonly DualPoint[] | null,
+    readonly thickLines: readonly (readonly FlexiPoint[])[],
+    readonly thinLine: readonly FlexiPoint[] | null,
   ) {
     const noThickLines = thickLines.length === 0;
     const thickLinesInvalid = thickLines.some((l) => l.length < 2);
@@ -16,17 +20,17 @@ export class Interchange {
 
   static readonly json = z
     .object({
-      thick: DualPoint.commaSeparatedStringJson.array(),
-      thin: DualPoint.commaSeparatedStringJson.optional(),
+      thick: flexiPointStringJson.array(),
+      thin: flexiPointStringJson.optional(),
     })
     .transform((x) => new Interchange(x.thick, x.thin ?? null));
 
   toJSON(): z.input<typeof Interchange.json> {
     return {
-      thick: this.thickLines.map((l) => DualPoint.toCommaSeparatedString(l)),
+      thick: this.thickLines.map((l) => createFlexiPointString(l)),
       thin:
         this.thinLine != null
-          ? DualPoint.toCommaSeparatedString(this.thinLine)
+          ? createFlexiPointString(this.thinLine)
           : undefined,
     };
   }

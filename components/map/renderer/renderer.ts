@@ -1,6 +1,6 @@
+import { FlexiPoint } from "@/components/map/renderer/dimensions/flexi-point";
 import { Geometry } from "@/components/map/renderer/geometry";
 import { Interchange } from "@/components/map/renderer/interchange";
-import { DualPoint } from "@/components/map/renderer/dual-point";
 import {
   interchangeBorderWidth,
   interchangeFillColor,
@@ -154,7 +154,7 @@ export class Renderer {
   }
 
   private _renderPath(
-    points: readonly DualPoint[],
+    points: readonly FlexiPoint[],
     lineWidth: number,
     color: string,
     lineCap: CanvasLineCap = "butt",
