@@ -46,47 +46,74 @@ const mapSegment = {
 const lineShapeEdges = [
   new LineShapeEdge(station.FLINDERS_STREET, station.SOUTHERN_CROSS, [
     routeGraph.flindersStreetToSouthernCross,
-  ], []),
+  ], [
+    mapSegment.flindersStreetToSouthernCross,
+  ]),
   new LineShapeEdge(station.SOUTHERN_CROSS, station.NORTH_MELBOURNE, [
     routeGraph.southernCrossToNorthMelbourne,
-  ], []),
+  ], [
+    mapSegment.southernCrossToNorthMelbourne,
+  ]),
   new LineShapeEdge(station.NORTH_MELBOURNE, station.SOUTH_KENSINGTON, [
     routeGraph.northMelbourneToSouthKensington,
-  ], []),
+  ], [
+    mapSegment.northMelbourneToFootscray.part(1, 2),
+  ]),
   new LineShapeEdge(station.SOUTH_KENSINGTON, station.FOOTSCRAY, [
     routeGraph.southKensingtonToFootscray,
-  ], []),
+  ], [
+    mapSegment.northMelbourneToFootscray.part(2, 2),
+  ]),
   new LineShapeEdge(station.FOOTSCRAY, station.SEDDON, [
     routeGraph.footscrayToSeddon,
-  ], []),
+  ], [
+    mapSegment.footscrayToNewport.part(1, 4),
+  ]),
   new LineShapeEdge(station.SEDDON, station.YARRAVILLE, [
     routeGraph.seddonToYarraville,
-  ], []),
+  ], [
+    mapSegment.footscrayToNewport.part(2, 4),
+  ]),
   new LineShapeEdge(station.YARRAVILLE, station.SPOTSWOOD, [
     routeGraph.yarravilleToSpotswood,
-  ], []),
+  ], [
+    mapSegment.footscrayToNewport.part(3, 4),
+  ]),
   new LineShapeEdge(station.SPOTSWOOD, station.NEWPORT, [
     routeGraph.spotswoodToNewport,
-  ], []),
+  ], [
+    mapSegment.footscrayToNewport.part(4, 4),
+  ]),
   new LineShapeEdge(station.NEWPORT, station.LAVERTON, [
     routeGraph.newportToSeaholme,
     routeGraph.seaholmeToAltona,
     routeGraph.altonaToWestona,
     routeGraph.westonaToLaverton,
     routeGraph.newportToLaverton,
-  ], []),
+  ], [
+    mapSegment.newportToLavertonLoop,
+    mapSegment.newportToLavertonExpress,
+  ]),
   new LineShapeEdge(station.LAVERTON, station.AIRCRAFT, [
     routeGraph.lavertonToAircraft,
-  ], []),
+  ], [
+    mapSegment.lavertonToWerribee.part(1, 4),
+  ]),
   new LineShapeEdge(station.AIRCRAFT, station.WILLIAMS_LANDING, [
     routeGraph.aircraftToWilliamsLanding,
-  ], []),
+  ], [
+    mapSegment.lavertonToWerribee.part(2, 4),
+  ]),
   new LineShapeEdge(station.WILLIAMS_LANDING, station.HOPPERS_CROSSING, [
     routeGraph.williamsLandingToHoppersCrossing,
-  ], []),
+  ], [
+    mapSegment.lavertonToWerribee.part(3, 4),
+  ]),
   new LineShapeEdge(station.HOPPERS_CROSSING, station.WERRIBEE, [
     routeGraph.hoppersCrossingToWerribee,
-  ], []),
+  ], [
+    mapSegment.lavertonToWerribee.part(4, 4),
+  ]),
 ];
 
 const routeGraphPairs = Object.values(routeGraph);

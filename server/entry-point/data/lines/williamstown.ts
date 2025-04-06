@@ -38,37 +38,59 @@ const mapSegment = {
 const lineShapeEdges = [
   new LineShapeEdge(station.FLINDERS_STREET, station.SOUTHERN_CROSS, [
     routeGraph.flindersStreetToSouthernCross,
-  ], []),
+  ], [
+    mapSegment.flindersStreetToSouthernCross,
+  ]),
   new LineShapeEdge(station.SOUTHERN_CROSS, station.NORTH_MELBOURNE, [
     routeGraph.southernCrossToNorthMelbourne,
-  ], []),
+  ], [
+    mapSegment.southernCrossToNorthMelbourne,
+  ]),
   new LineShapeEdge(station.NORTH_MELBOURNE, station.SOUTH_KENSINGTON, [
     routeGraph.northMelbourneToSouthKensington,
-  ], []),
+  ], [
+    mapSegment.northMelbourneToFootscray.part(1, 2),
+  ]),
   new LineShapeEdge(station.SOUTH_KENSINGTON, station.FOOTSCRAY, [
     routeGraph.southKensingtonToFootscray,
-  ], []),
+  ], [
+    mapSegment.northMelbourneToFootscray.part(2, 2),
+  ]),
   new LineShapeEdge(station.FOOTSCRAY, station.SEDDON, [
     routeGraph.footscrayToSeddon,
-  ], []),
+  ], [
+    mapSegment.footscrayToNewport.part(1, 4),
+  ]),
   new LineShapeEdge(station.SEDDON, station.YARRAVILLE, [
     routeGraph.seddonToYarraville,
-  ], []),
+  ], [
+    mapSegment.footscrayToNewport.part(2, 4),
+  ]),
   new LineShapeEdge(station.YARRAVILLE, station.SPOTSWOOD, [
     routeGraph.yarravilleToSpotswood,
-  ], []),
+  ], [
+    mapSegment.footscrayToNewport.part(3, 4),
+  ]),
   new LineShapeEdge(station.SPOTSWOOD, station.NEWPORT, [
     routeGraph.spotswoodToNewport,
-  ], []),
+  ], [
+    mapSegment.footscrayToNewport.part(4, 4),
+  ]),
   new LineShapeEdge(station.NEWPORT, station.NORTH_WILLIAMSTOWN, [
     routeGraph.newportToNorthWilliamstown,
-  ], []),
+  ], [
+    mapSegment.newportToWilliamstown.part(1, 3),
+  ]),
   new LineShapeEdge(station.NORTH_WILLIAMSTOWN, station.WILLIAMSTOWN_BEACH, [
     routeGraph.northWilliamstownToWilliamstownBeach,
-  ], []),
+  ], [
+    mapSegment.newportToWilliamstown.part(2, 3),
+  ]),
   new LineShapeEdge(station.WILLIAMSTOWN_BEACH, station.WILLIAMSTOWN, [
     routeGraph.williamstownBeachToWilliamstown,
-  ], []),
+  ], [
+    mapSegment.newportToWilliamstown.part(3, 3),
+  ]),
 ];
 
 const routeGraphPairs = Object.values(routeGraph);
