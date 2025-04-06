@@ -37,70 +37,70 @@ const routeGraph = {
 const lineShapeEdges = [
   new LineShapeEdge(station.SOUTHERN_CROSS, station.FOOTSCRAY, [
     routeGraph.southernCrossToDeerPark,
-  ]),
+  ], []),
   new LineShapeEdge(station.FOOTSCRAY, station.SUNSHINE, [
     routeGraph.southernCrossToDeerPark,
     routeGraph.footscrayToDeerPark,
-  ]),
+  ], []),
   new LineShapeEdge(station.SUNSHINE, station.DEER_PARK, [
     routeGraph.southernCrossToDeerPark,
     routeGraph.footscrayToDeerPark,
     routeGraph.sunshineToDeerPark,
-  ]),
+  ], []),
   new LineShapeEdge(station.DEER_PARK, station.TARNEIT, [
     routeGraph.deerParkToTarneit,
-  ]),
+  ], []),
   new LineShapeEdge(station.TARNEIT, station.WYNDHAM_VALE, [
     routeGraph.tarneitToWyndhamVale,
-  ]),
+  ], []),
   new LineShapeEdge(station.WYNDHAM_VALE, station.LITTLE_RIVER, [
     routeGraph.wyndhamValeToLittleRiver,
-  ]),
+  ], []),
   new LineShapeEdge(station.LITTLE_RIVER, station.LARA, [
     routeGraph.littleRiverToLara,
-  ]),
+  ], []),
   new LineShapeEdge(station.LARA, station.CORIO, [
     routeGraph.laraToCorio,
-  ]),
+  ], []),
   new LineShapeEdge(station.CORIO, station.NORTH_SHORE, [
     routeGraph.corioToNorthShore,
-  ]),
+  ], []),
   new LineShapeEdge(station.NORTH_SHORE, station.NORTH_GEELONG, [
     routeGraph.northShoreToNorthGeelong,
-  ]),
+  ], []),
   new LineShapeEdge(station.NORTH_GEELONG, station.GEELONG, [
     routeGraph.northGeelongToGeelong,
-  ]),
+  ], []),
   new LineShapeEdge(station.GEELONG, station.SOUTH_GEELONG, [
     routeGraph.geelongToSouthGeelong,
-  ]),
+  ], []),
   new LineShapeEdge(station.SOUTH_GEELONG, station.MARSHALL, [
     routeGraph.southGeelongToMarshall,
-  ]),
+  ], []),
   new LineShapeEdge(station.MARSHALL, station.WAURN_PONDS, [
     routeGraph.marshallToWaurnPonds,
-  ]),
+  ], []),
   new LineShapeEdge(station.WAURN_PONDS, station.WINCHELSEA, [
     routeGraph.waurnPondsToWinchelsea,
-  ]),
+  ], []),
   new LineShapeEdge(station.WINCHELSEA, station.BIRREGURRA, [
     routeGraph.winchelseaToBirregurra,
-  ]),
+  ], []),
   new LineShapeEdge(station.BIRREGURRA, station.COLAC, [
     routeGraph.birregurraToColac,
-  ]),
+  ], []),
   new LineShapeEdge(station.COLAC, station.CAMPERDOWN, [
     routeGraph.colacToCamperdown,
-  ]),
+  ], []),
   new LineShapeEdge(station.CAMPERDOWN, station.TERANG, [
     routeGraph.camperdownToTerang,
-  ]),
+  ], []),
   new LineShapeEdge(station.TERANG, station.SHERWOOD_PARK, [
     routeGraph.terangToSherwoodPark,
-  ]),
+  ], []),
   new LineShapeEdge(station.SHERWOOD_PARK, station.WARRNAMBOOL, [
     routeGraph.sherwoodParkToWarrnambool,
-  ]),
+  ], []),
 ];
 
 const routeGraphPairs = Object.values(routeGraph);

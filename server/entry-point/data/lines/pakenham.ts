@@ -49,73 +49,73 @@ const lineShapeEdges = [
     routeGraph.flagstaffToMelbourneCentral,
     routeGraph.melbourneCentralToParliament,
     routeGraph.parliamentToRichmond,
-  ]),
+  ], []),
   new LineShapeEdge(station.RICHMOND, station.SOUTH_YARRA, [
     routeGraph.richmondToSouthYarra,
-  ]),
+  ], []),
   new LineShapeEdge(station.SOUTH_YARRA, station.CAULFIELD, [
     routeGraph.southYarraToCaulfield,
-  ]),
+  ], []),
   new LineShapeEdge(station.CAULFIELD, station.CARNEGIE, [
     routeGraph.caulfieldToCarnegie,
-  ]),
+  ], []),
   new LineShapeEdge(station.CARNEGIE, station.MURRUMBEENA, [
     routeGraph.carnegieToMurrumbeena,
-  ]),
+  ], []),
   new LineShapeEdge(station.MURRUMBEENA, station.HUGHESDALE, [
     routeGraph.murrumbeenaToHughesdale,
-  ]),
+  ], []),
   new LineShapeEdge(station.HUGHESDALE, station.OAKLEIGH, [
     routeGraph.hughesdaleToOakleigh,
-  ]),
+  ], []),
   new LineShapeEdge(station.OAKLEIGH, station.HUNTINGDALE, [
     routeGraph.oakleighToHuntingdale,
-  ]),
+  ], []),
   new LineShapeEdge(station.HUNTINGDALE, station.CLAYTON, [
     routeGraph.huntingdaleToClayton,
-  ]),
+  ], []),
   new LineShapeEdge(station.CLAYTON, station.WESTALL, [
     routeGraph.claytonToWestall,
-  ]),
+  ], []),
   new LineShapeEdge(station.WESTALL, station.SPRINGVALE, [
     routeGraph.westallToSpringvale,
-  ]),
+  ], []),
   new LineShapeEdge(station.SPRINGVALE, station.SANDOWN_PARK, [
     routeGraph.springvaleToSandownPark,
-  ]),
+  ], []),
   new LineShapeEdge(station.SANDOWN_PARK, station.NOBLE_PARK, [
     routeGraph.sandownParkToNoblePark,
-  ]),
+  ], []),
   new LineShapeEdge(station.NOBLE_PARK, station.YARRAMAN, [
     routeGraph.nobleParkToYarraman,
-  ]),
+  ], []),
   new LineShapeEdge(station.YARRAMAN, station.DANDENONG, [
     routeGraph.yarramanToDandenong,
-  ]),
+  ], []),
   new LineShapeEdge(station.DANDENONG, station.HALLAM, [
     routeGraph.dandenongToHallam,
-  ]),
+  ], []),
   new LineShapeEdge(station.HALLAM, station.NARRE_WARREN, [
     routeGraph.hallamToNarreWarren,
-  ]),
+  ], []),
   new LineShapeEdge(station.NARRE_WARREN, station.BERWICK, [
     routeGraph.narreWarrenToBerwick,
-  ]),
+  ], []),
   new LineShapeEdge(station.BERWICK, station.BEACONSFIELD, [
     routeGraph.berwickToBeaconsfield,
-  ]),
+  ], []),
   new LineShapeEdge(station.BEACONSFIELD, station.OFFICER, [
     routeGraph.beaconsfieldToOfficer,
-  ]),
+  ], []),
   new LineShapeEdge(station.OFFICER, station.CARDINIA_ROAD, [
     routeGraph.officerToCardiniaRoad,
-  ]),
+  ], []),
   new LineShapeEdge(station.CARDINIA_ROAD, station.PAKENHAM, [
     routeGraph.cardiniaRoadToPakenham,
-  ]),
+  ], []),
   new LineShapeEdge(station.PAKENHAM, station.EAST_PAKENHAM, [
     routeGraph.pakenhamToEastPakenham,
-  ]),
+  ], []),
 ];
 
 const routeGraphPairs = Object.values(routeGraph);

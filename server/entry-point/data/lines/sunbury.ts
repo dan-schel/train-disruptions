@@ -39,43 +39,43 @@ const lineShapeEdges = [
     routeGraph.parliamentToMelbourneCentral,
     routeGraph.melbourneCentralToFlagstaff,
     routeGraph.flagstaffToNorthMelbourne,
-  ]),
+  ], []),
   new LineShapeEdge(station.NORTH_MELBOURNE, station.FOOTSCRAY, [
     routeGraph.northMelbourneToFootscray,
-  ]),
+  ], []),
   new LineShapeEdge(station.FOOTSCRAY, station.MIDDLE_FOOTSCRAY, [
     routeGraph.footscrayToMiddleFootscray,
-  ]),
+  ], []),
   new LineShapeEdge(station.MIDDLE_FOOTSCRAY, station.WEST_FOOTSCRAY, [
     routeGraph.middleFootscrayToWestFootscray,
-  ]),
+  ], []),
   new LineShapeEdge(station.WEST_FOOTSCRAY, station.TOTTENHAM, [
     routeGraph.westFootscrayToTottenham,
-  ]),
+  ], []),
   new LineShapeEdge(station.TOTTENHAM, station.SUNSHINE, [
     routeGraph.tottenhamToSunshine,
-  ]),
+  ], []),
   new LineShapeEdge(station.SUNSHINE, station.ALBION, [
     routeGraph.sunshineToAlbion,
-  ]),
+  ], []),
   new LineShapeEdge(station.ALBION, station.GINIFER, [
     routeGraph.albionToGinifer,
-  ]),
+  ], []),
   new LineShapeEdge(station.GINIFER, station.ST_ALBANS, [
     routeGraph.giniferToStAlbans,
-  ]),
+  ], []),
   new LineShapeEdge(station.ST_ALBANS, station.KEILOR_PLAINS, [
     routeGraph.stAlbansToKeilorPlains,
-  ]),
+  ], []),
   new LineShapeEdge(station.KEILOR_PLAINS, station.WATERGARDENS, [
     routeGraph.keilorPlainsToWatergardens,
-  ]),
+  ], []),
   new LineShapeEdge(station.WATERGARDENS, station.DIGGERS_REST, [
     routeGraph.watergardensToDiggersRest,
-  ]),
+  ], []),
   new LineShapeEdge(station.DIGGERS_REST, station.SUNBURY, [
     routeGraph.diggersRestToSunbury,
-  ]),
+  ], []),
 ];
 
 const routeGraphPairs = Object.values(routeGraph);

@@ -34,61 +34,61 @@ const routeGraph = {
 const lineShapeEdges = [
   new LineShapeEdge(station.SOUTHERN_CROSS, station.FOOTSCRAY, [
     routeGraph.southernCrossToArdeer,
-  ]),
+  ], []),
   new LineShapeEdge(station.FOOTSCRAY, station.SUNSHINE, [
     routeGraph.southernCrossToArdeer,
     routeGraph.footscrayToArdeer,
-  ]),
+  ], []),
   new LineShapeEdge(station.SUNSHINE, station.ARDEER, [
     routeGraph.southernCrossToArdeer,
     routeGraph.footscrayToArdeer,
     routeGraph.sunshineToArdeer,
-  ]),
+  ], []),
   new LineShapeEdge(station.ARDEER, station.DEER_PARK, [
     routeGraph.ardeerToDeerPark,
-  ]),
+  ], []),
   new LineShapeEdge(station.DEER_PARK, station.CAROLINE_SPRINGS, [
     routeGraph.deerParkToCarolineSprings,
-  ]),
+  ], []),
   new LineShapeEdge(station.CAROLINE_SPRINGS, station.ROCKBANK, [
     routeGraph.carolineSpringsToRockbank,
-  ]),
+  ], []),
   new LineShapeEdge(station.ROCKBANK, station.COBBLEBANK, [
     routeGraph.rockbankToCobblebank,
-  ]),
+  ], []),
   new LineShapeEdge(station.COBBLEBANK, station.MELTON, [
     routeGraph.cobblebankToMelton,
-  ]),
+  ], []),
   new LineShapeEdge(station.MELTON, station.BACCHUS_MARSH, [
     routeGraph.meltonToBacchusMarsh,
-  ]),
+  ], []),
   new LineShapeEdge(station.BACCHUS_MARSH, station.BALLAN, [
     routeGraph.bacchusMarshToBallan,
-  ]),
+  ], []),
   new LineShapeEdge(station.BALLAN, station.BALLARAT, [
     routeGraph.ballanToBallarat,
-  ]),
+  ], []),
   new LineShapeEdge(station.BALLARAT, station.CRESWICK, [
     routeGraph.ballaratToCreswick,
-  ]),
+  ], []),
   new LineShapeEdge(station.CRESWICK, station.CLUNES, [
     routeGraph.creswickToClunes,
-  ]),
+  ], []),
   new LineShapeEdge(station.CLUNES, station.TALBOT, [
     routeGraph.clunesToTalbot,
-  ]),
+  ], []),
   new LineShapeEdge(station.TALBOT, station.MARYBOROUGH, [
     routeGraph.talbotToMaryborough,
-  ]),
+  ], []),
   new LineShapeEdge(station.BALLARAT, station.WENDOUREE, [
     routeGraph.ballaratToWendouree,
-  ]),
+  ], []),
   new LineShapeEdge(station.WENDOUREE, station.BEAUFORT, [
     routeGraph.wendoureeToBeaufort,
-  ]),
+  ], []),
   new LineShapeEdge(station.BEAUFORT, station.ARARAT, [
     routeGraph.beaufortToArarat,
-  ]),
+  ], []),
 ];
 
 const routeGraphPairs = Object.values(routeGraph);

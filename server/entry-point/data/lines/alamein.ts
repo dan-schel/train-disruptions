@@ -39,43 +39,43 @@ const lineShapeEdges = [
     routeGraph.flagstaffToMelbourneCentral,
     routeGraph.melbourneCentralToParliament,
     routeGraph.parliamentToRichmond,
-  ]),
+  ], []),
   new LineShapeEdge(station.RICHMOND, station.EAST_RICHMOND, [
     routeGraph.richmondToEastRichmond,
-  ]),
+  ], []),
   new LineShapeEdge(station.EAST_RICHMOND, station.BURNLEY, [
     routeGraph.eastRichmondToBurnley,
-  ]),
+  ], []),
   new LineShapeEdge(station.BURNLEY, station.HAWTHORN, [
     routeGraph.burnleyToHawthorn,
-  ]),
+  ], []),
   new LineShapeEdge(station.HAWTHORN, station.GLENFERRIE, [
     routeGraph.hawthornToGlenferrie,
-  ]),
+  ], []),
   new LineShapeEdge(station.GLENFERRIE, station.AUBURN, [
     routeGraph.glenferrieToAuburn,
-  ]),
+  ], []),
   new LineShapeEdge(station.AUBURN, station.CAMBERWELL, [
     routeGraph.auburnToCamberwell,
-  ]),
+  ], []),
   new LineShapeEdge(station.CAMBERWELL, station.RIVERSDALE, [
     routeGraph.camberwellToRiversdale,
-  ]),
+  ], []),
   new LineShapeEdge(station.RIVERSDALE, station.WILLISON, [
     routeGraph.riversdaleToWillison,
-  ]),
+  ], []),
   new LineShapeEdge(station.WILLISON, station.HARTWELL, [
     routeGraph.willisonToHartwell,
-  ]),
+  ], []),
   new LineShapeEdge(station.HARTWELL, station.BURWOOD, [
     routeGraph.hartwellToBurwood,
-  ]),
+  ], []),
   new LineShapeEdge(station.BURWOOD, station.ASHBURTON, [
     routeGraph.burwoodToAshburton,
-  ]),
+  ], []),
   new LineShapeEdge(station.ASHBURTON, station.ALAMEIN, [
     routeGraph.ashburtonToAlamein,
-  ]),
+  ], []),
 ];
 
 const routeGraphPairs = Object.values(routeGraph);

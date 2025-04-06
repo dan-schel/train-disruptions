@@ -50,76 +50,76 @@ const lineShapeEdges = [
     routeGraph.flagstaffToMelbourneCentral,
     routeGraph.melbourneCentralToParliament,
     routeGraph.parliamentToJolimont,
-  ]),
+  ], []),
   new LineShapeEdge(station.JOLIMONT, station.WEST_RICHMOND, [
     routeGraph.jolimontToWestRichmond,
-  ]),
+  ], []),
   new LineShapeEdge(station.WEST_RICHMOND, station.NORTH_RICHMOND, [
     routeGraph.westRichmondToNorthRichmond,
-  ]),
+  ], []),
   new LineShapeEdge(station.NORTH_RICHMOND, station.COLLINGWOOD, [
     routeGraph.northRichmondToCollingwood,
-  ]),
+  ], []),
   new LineShapeEdge(station.COLLINGWOOD, station.VICTORIA_PARK, [
     routeGraph.collingwoodToVictoriaPark,
-  ]),
+  ], []),
   new LineShapeEdge(station.VICTORIA_PARK, station.CLIFTON_HILL, [
     routeGraph.victoriaParkToCliftonHill,
-  ]),
+  ], []),
   new LineShapeEdge(station.CLIFTON_HILL, station.RUSHALL, [
     routeGraph.cliftonHillToRushall,
-  ]),
+  ], []),
   new LineShapeEdge(station.RUSHALL, station.MERRI, [
     routeGraph.rushallToMerri,
-  ]),
+  ], []),
   new LineShapeEdge(station.MERRI, station.NORTHCOTE, [
     routeGraph.merriToNorthcote,
-  ]),
+  ], []),
   new LineShapeEdge(station.NORTHCOTE, station.CROXTON, [
     routeGraph.northcoteToCroxton,
-  ]),
+  ], []),
   new LineShapeEdge(station.CROXTON, station.THORNBURY, [
     routeGraph.croxtonToThornbury,
-  ]),
+  ], []),
   new LineShapeEdge(station.THORNBURY, station.BELL, [
     routeGraph.thornburyToBell,
-  ]),
+  ], []),
   new LineShapeEdge(station.BELL, station.PRESTON, [
     routeGraph.bellToPreston,
-  ]),
+  ], []),
   new LineShapeEdge(station.PRESTON, station.REGENT, [
     routeGraph.prestonToRegent,
-  ]),
+  ], []),
   new LineShapeEdge(station.REGENT, station.RESERVOIR, [
     routeGraph.regentToReservoir,
-  ]),
+  ], []),
   new LineShapeEdge(station.RESERVOIR, station.RUTHVEN, [
     routeGraph.reservoirToRuthven,
-  ]),
+  ], []),
   new LineShapeEdge(station.RUTHVEN, station.KEON_PARK, [
     routeGraph.ruthvenToKeonPark,
-  ]),
+  ], []),
   new LineShapeEdge(station.KEON_PARK, station.THOMASTOWN, [
     routeGraph.keonParkToThomastown,
-  ]),
+  ], []),
   new LineShapeEdge(station.THOMASTOWN, station.LALOR, [
     routeGraph.thomastownToLalor,
-  ]),
+  ], []),
   new LineShapeEdge(station.LALOR, station.EPPING, [
     routeGraph.lalorToEpping,
-  ]),
+  ], []),
   new LineShapeEdge(station.EPPING, station.SOUTH_MORANG, [
     routeGraph.eppingToSouthMorang,
-  ]),
+  ], []),
   new LineShapeEdge(station.SOUTH_MORANG, station.MIDDLE_GORGE, [
     routeGraph.southMorangToMiddleGorge,
-  ]),
+  ], []),
   new LineShapeEdge(station.MIDDLE_GORGE, station.HAWKSTOWE, [
     routeGraph.middleGorgeToHawkstowe,
-  ]),
+  ], []),
   new LineShapeEdge(station.HAWKSTOWE, station.MERNDA, [
     routeGraph.hawkstoweToMernda,
-  ]),
+  ], []),
 ];
 
 const routeGraphPairs = Object.values(routeGraph);

@@ -44,58 +44,58 @@ const lineShapeEdges = [
     routeGraph.flagstaffToMelbourneCentral,
     routeGraph.melbourneCentralToParliament,
     routeGraph.parliamentToRichmond,
-  ]),
+  ], []),
   new LineShapeEdge(station.RICHMOND, station.SOUTH_YARRA, [
     routeGraph.richmondToSouthYarra,
-  ]),
+  ], []),
   new LineShapeEdge(station.SOUTH_YARRA, station.CAULFIELD, [
     routeGraph.southYarraToCaulfield,
-  ]),
+  ], []),
   new LineShapeEdge(station.CAULFIELD, station.CARNEGIE, [
     routeGraph.caulfieldToCarnegie,
-  ]),
+  ], []),
   new LineShapeEdge(station.CARNEGIE, station.MURRUMBEENA, [
     routeGraph.carnegieToMurrumbeena,
-  ]),
+  ], []),
   new LineShapeEdge(station.MURRUMBEENA, station.HUGHESDALE, [
     routeGraph.murrumbeenaToHughesdale,
-  ]),
+  ], []),
   new LineShapeEdge(station.HUGHESDALE, station.OAKLEIGH, [
     routeGraph.hughesdaleToOakleigh,
-  ]),
+  ], []),
   new LineShapeEdge(station.OAKLEIGH, station.HUNTINGDALE, [
     routeGraph.oakleighToHuntingdale,
-  ]),
+  ], []),
   new LineShapeEdge(station.HUNTINGDALE, station.CLAYTON, [
     routeGraph.huntingdaleToClayton,
-  ]),
+  ], []),
   new LineShapeEdge(station.CLAYTON, station.WESTALL, [
     routeGraph.claytonToWestall,
-  ]),
+  ], []),
   new LineShapeEdge(station.WESTALL, station.SPRINGVALE, [
     routeGraph.westallToSpringvale,
-  ]),
+  ], []),
   new LineShapeEdge(station.SPRINGVALE, station.SANDOWN_PARK, [
     routeGraph.springvaleToSandownPark,
-  ]),
+  ], []),
   new LineShapeEdge(station.SANDOWN_PARK, station.NOBLE_PARK, [
     routeGraph.sandownParkToNoblePark,
-  ]),
+  ], []),
   new LineShapeEdge(station.NOBLE_PARK, station.YARRAMAN, [
     routeGraph.nobleParkToYarraman,
-  ]),
+  ], []),
   new LineShapeEdge(station.YARRAMAN, station.DANDENONG, [
     routeGraph.yarramanToDandenong,
-  ]),
+  ], []),
   new LineShapeEdge(station.DANDENONG, station.LYNBROOK, [
     routeGraph.dandenongToLynbrook,
-  ]),
+  ], []),
   new LineShapeEdge(station.LYNBROOK, station.MERINDA_PARK, [
     routeGraph.lynbrookToMerindaPark,
-  ]),
+  ], []),
   new LineShapeEdge(station.MERINDA_PARK, station.CRANBOURNE, [
     routeGraph.merindaParkToCranbourne,
-  ]),
+  ], []),
 ];
 
 const routeGraphPairs = Object.values(routeGraph);

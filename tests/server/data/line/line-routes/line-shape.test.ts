@@ -7,24 +7,25 @@ import { StationPair } from "@/server/data/line/line-routes/station-pair";
 
 describe("LineShape", () => {
   const lineShape = new LineShape("the-city", [
-    new LineShapeEdge("the-city", 1, [
-      new StationPair(20, 1),
-      new StationPair(21, 1),
-      new StationPair(22, 1),
-    ]),
-    new LineShapeEdge(1, 2, [new StationPair(1, 2)]),
-    new LineShapeEdge(2, 3, [new StationPair(2, 3)]),
-    new LineShapeEdge(3, 4, [new StationPair(3, 4)]),
-    new LineShapeEdge(4, 5, [new StationPair(4, 5)]),
-    new LineShapeEdge(3, 6, [new StationPair(3, 6)]),
-    new LineShapeEdge(6, 7, [new StationPair(6, 7)]),
+    new LineShapeEdge(
+      "the-city",
+      1,
+      [new StationPair(20, 1), new StationPair(21, 1), new StationPair(22, 1)],
+      [],
+    ),
+    new LineShapeEdge(1, 2, [new StationPair(1, 2)], []),
+    new LineShapeEdge(2, 3, [new StationPair(2, 3)], []),
+    new LineShapeEdge(3, 4, [new StationPair(3, 4)], []),
+    new LineShapeEdge(4, 5, [new StationPair(4, 5)], []),
+    new LineShapeEdge(3, 6, [new StationPair(3, 6)], []),
+    new LineShapeEdge(6, 7, [new StationPair(6, 7)], []),
   ]);
 
   it("disallows construction of invalid shapes", () => {
     expect(
       () =>
         new LineShape("the-city", [
-          new LineShapeEdge(1, 2, [new StationPair(1, 2)]),
+          new LineShapeEdge(1, 2, [new StationPair(1, 2)], []),
         ]),
     ).toThrow();
   });
@@ -116,10 +117,13 @@ describe("LineShape", () => {
 
 describe("LineShapeEdge", () => {
   it("disallows construction of invalid edges", () => {
-    expect(() => new LineShapeEdge(1, 2, [])).toThrow();
-    expect(() => new LineShapeEdge(1, 1, [new StationPair(1, 2)])).toThrow();
+    expect(() => new LineShapeEdge(1, 2, [], [])).toThrow();
     expect(
-      () => new LineShapeEdge("the-city", "the-city", [new StationPair(1, 2)]),
+      () => new LineShapeEdge(1, 1, [new StationPair(1, 2)], []),
+    ).toThrow();
+    expect(
+      () =>
+        new LineShapeEdge("the-city", "the-city", [new StationPair(1, 2)], []),
     ).toThrow();
   });
 });

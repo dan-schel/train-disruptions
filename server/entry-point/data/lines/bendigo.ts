@@ -41,82 +41,82 @@ const routeGraph = {
 const lineShapeEdges = [
   new LineShapeEdge(station.SOUTHERN_CROSS, station.FOOTSCRAY, [
     routeGraph.southernCrossToSunbury,
-  ]),
+  ], []),
   new LineShapeEdge(station.FOOTSCRAY, station.WATERGARDENS, [
     routeGraph.southernCrossToSunbury,
     routeGraph.footscrayToSunbury,
-  ]),
+  ], []),
   new LineShapeEdge(station.WATERGARDENS, station.SUNBURY, [
     routeGraph.southernCrossToSunbury,
     routeGraph.footscrayToSunbury,
     routeGraph.watergardensToSunbury,
-  ]),
+  ], []),
   new LineShapeEdge(station.SUNBURY, station.CLARKEFIELD, [
     routeGraph.sunburyToClarkefield,
-  ]),
+  ], []),
   new LineShapeEdge(station.CLARKEFIELD, station.RIDDELLS_CREEK, [
     routeGraph.clarkefieldToRiddellsCreek,
-  ]),
+  ], []),
   new LineShapeEdge(station.RIDDELLS_CREEK, station.GISBORNE, [
     routeGraph.riddellsCreekToGisborne,
-  ]),
+  ], []),
   new LineShapeEdge(station.GISBORNE, station.MACEDON, [
     routeGraph.gisborneToMacedon,
-  ]),
+  ], []),
   new LineShapeEdge(station.MACEDON, station.WOODEND, [
     routeGraph.macedonToWoodend,
-  ]),
+  ], []),
   new LineShapeEdge(station.WOODEND, station.KYNETON, [
     routeGraph.woodendToKyneton,
-  ]),
+  ], []),
   new LineShapeEdge(station.KYNETON, station.MALMSBURY, [
     routeGraph.kynetonToMalmsbury,
-  ]),
+  ], []),
   new LineShapeEdge(station.MALMSBURY, station.CASTLEMAINE, [
     routeGraph.malmsburyToCastlemaine,
-  ]),
+  ], []),
   new LineShapeEdge(station.CASTLEMAINE, station.KANGAROO_FLAT, [
     routeGraph.castlemaineToKangarooFlat,
-  ]),
+  ], []),
   new LineShapeEdge(station.KANGAROO_FLAT, station.BENDIGO, [
     routeGraph.kangarooFlatToBendigo,
-  ]),
+  ], []),
   new LineShapeEdge(station.BENDIGO, station.EPSOM, [
     routeGraph.bendigoToEpsom,
-  ]),
+  ], []),
   new LineShapeEdge(station.EPSOM, station.HUNTLY, [
     routeGraph.epsomToHuntly,
-  ]),
+  ], []),
   new LineShapeEdge(station.HUNTLY, station.GOORNONG, [
     routeGraph.huntlyToGoornong,
-  ]),
+  ], []),
   new LineShapeEdge(station.GOORNONG, station.ELMORE, [
     routeGraph.goornongToElmore,
-  ]),
+  ], []),
   new LineShapeEdge(station.ELMORE, station.ROCHESTER, [
     routeGraph.elmoreToRochester,
-  ]),
+  ], []),
   new LineShapeEdge(station.ROCHESTER, station.ECHUCA, [
     routeGraph.rochesterToEchuca,
-  ]),
+  ], []),
   new LineShapeEdge(station.BENDIGO, station.EAGLEHAWK, [
     routeGraph.bendigoToEaglehawk,
-  ]),
+  ], []),
   new LineShapeEdge(station.EAGLEHAWK, station.RAYWOOD, [
     routeGraph.eaglehawkToRaywood,
-  ]),
+  ], []),
   new LineShapeEdge(station.RAYWOOD, station.DINGEE, [
     routeGraph.raywoodToDingee,
-  ]),
+  ], []),
   new LineShapeEdge(station.DINGEE, station.PYRAMID, [
     routeGraph.dingeeToPyramid,
-  ]),
+  ], []),
   new LineShapeEdge(station.PYRAMID, station.KERANG, [
     routeGraph.pyramidToKerang,
-  ]),
+  ], []),
   new LineShapeEdge(station.KERANG, station.SWAN_HILL, [
     routeGraph.kerangToSwanHill,
-  ]),
+  ], []),
 ];
 
 const routeGraphPairs = Object.values(routeGraph);

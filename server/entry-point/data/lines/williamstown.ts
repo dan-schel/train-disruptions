@@ -27,37 +27,37 @@ const routeGraph = {
 const lineShapeEdges = [
   new LineShapeEdge(station.FLINDERS_STREET, station.SOUTHERN_CROSS, [
     routeGraph.flindersStreetToSouthernCross,
-  ]),
+  ], []),
   new LineShapeEdge(station.SOUTHERN_CROSS, station.NORTH_MELBOURNE, [
     routeGraph.southernCrossToNorthMelbourne,
-  ]),
+  ], []),
   new LineShapeEdge(station.NORTH_MELBOURNE, station.SOUTH_KENSINGTON, [
     routeGraph.northMelbourneToSouthKensington,
-  ]),
+  ], []),
   new LineShapeEdge(station.SOUTH_KENSINGTON, station.FOOTSCRAY, [
     routeGraph.southKensingtonToFootscray,
-  ]),
+  ], []),
   new LineShapeEdge(station.FOOTSCRAY, station.SEDDON, [
     routeGraph.footscrayToSeddon,
-  ]),
+  ], []),
   new LineShapeEdge(station.SEDDON, station.YARRAVILLE, [
     routeGraph.seddonToYarraville,
-  ]),
+  ], []),
   new LineShapeEdge(station.YARRAVILLE, station.SPOTSWOOD, [
     routeGraph.yarravilleToSpotswood,
-  ]),
+  ], []),
   new LineShapeEdge(station.SPOTSWOOD, station.NEWPORT, [
     routeGraph.spotswoodToNewport,
-  ]),
+  ], []),
   new LineShapeEdge(station.NEWPORT, station.NORTH_WILLIAMSTOWN, [
     routeGraph.newportToNorthWilliamstown,
-  ]),
+  ], []),
   new LineShapeEdge(station.NORTH_WILLIAMSTOWN, station.WILLIAMSTOWN_BEACH, [
     routeGraph.northWilliamstownToWilliamstownBeach,
-  ]),
+  ], []),
   new LineShapeEdge(station.WILLIAMSTOWN_BEACH, station.WILLIAMSTOWN, [
     routeGraph.williamstownBeachToWilliamstown,
-  ]),
+  ], []),
 ];
 
 const routeGraphPairs = Object.values(routeGraph);

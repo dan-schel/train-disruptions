@@ -38,29 +38,29 @@ const routeGraph = {
 const lineShapeEdges = [
   new LineShapeEdge(station.SOUTHERN_CROSS, station.FLINDERS_STREET, [
     routeGraph.southernCrossToPakenham,
-  ]),
+  ], []),
   new LineShapeEdge(station.FLINDERS_STREET, station.RICHMOND, [
     routeGraph.southernCrossToPakenham,
     routeGraph.flindersStreetToPakenham,
-  ]),
+  ], []),
   new LineShapeEdge(station.RICHMOND, station.CAULFIELD, [
     routeGraph.southernCrossToPakenham,
     routeGraph.flindersStreetToPakenham,
     routeGraph.richmondToPakenham,
-  ]),
+  ], []),
   new LineShapeEdge(station.CAULFIELD, station.CLAYTON, [
     routeGraph.southernCrossToPakenham,
     routeGraph.flindersStreetToPakenham,
     routeGraph.richmondToPakenham,
     routeGraph.caulfieldToPakenham,
-  ]),
+  ], []),
   new LineShapeEdge(station.CLAYTON, station.DANDENONG, [
     routeGraph.southernCrossToPakenham,
     routeGraph.flindersStreetToPakenham,
     routeGraph.richmondToPakenham,
     routeGraph.caulfieldToPakenham,
     routeGraph.claytonToPakenham,
-  ]),
+  ], []),
   new LineShapeEdge(station.DANDENONG, station.PAKENHAM, [
     routeGraph.southernCrossToPakenham,
     routeGraph.flindersStreetToPakenham,
@@ -68,55 +68,55 @@ const lineShapeEdges = [
     routeGraph.caulfieldToPakenham,
     routeGraph.claytonToPakenham,
     routeGraph.dandenongToPakenham,
-  ]),
+  ], []),
   new LineShapeEdge(station.PAKENHAM, station.NAR_NAR_GOON, [
     routeGraph.pakenhamToNarNarGoon,
-  ]),
+  ], []),
   new LineShapeEdge(station.NAR_NAR_GOON, station.TYNONG, [
     routeGraph.narNarGoonToTynong,
-  ]),
+  ], []),
   new LineShapeEdge(station.TYNONG, station.GARFIELD, [
     routeGraph.tynongToGarfield,
-  ]),
+  ], []),
   new LineShapeEdge(station.GARFIELD, station.BUNYIP, [
     routeGraph.garfieldToBunyip,
-  ]),
+  ], []),
   new LineShapeEdge(station.BUNYIP, station.LONGWARRY, [
     routeGraph.bunyipToLongwarry,
-  ]),
+  ], []),
   new LineShapeEdge(station.LONGWARRY, station.DROUIN, [
     routeGraph.longwarryToDrouin,
-  ]),
+  ], []),
   new LineShapeEdge(station.DROUIN, station.WARRAGUL, [
     routeGraph.drouinToWarragul,
-  ]),
+  ], []),
   new LineShapeEdge(station.WARRAGUL, station.YARRAGON, [
     routeGraph.warragulToYarragon,
-  ]),
+  ], []),
   new LineShapeEdge(station.YARRAGON, station.TRAFALGAR, [
     routeGraph.yarragonToTrafalgar,
-  ]),
+  ], []),
   new LineShapeEdge(station.TRAFALGAR, station.MOE, [
     routeGraph.trafalgarToMoe,
-  ]),
+  ], []),
   new LineShapeEdge(station.MOE, station.MORWELL, [
     routeGraph.moeToMorwell,
-  ]),
+  ], []),
   new LineShapeEdge(station.MORWELL, station.TRARALGON, [
     routeGraph.morwellToTraralgon,
-  ]),
+  ], []),
   new LineShapeEdge(station.TRARALGON, station.ROSEDALE, [
     routeGraph.traralgonToRosedale,
-  ]),
+  ], []),
   new LineShapeEdge(station.ROSEDALE, station.SALE, [
     routeGraph.rosedaleToSale,
-  ]),
+  ], []),
   new LineShapeEdge(station.SALE, station.STRATFORD, [
     routeGraph.saleToStratford,
-  ]),
+  ], []),
   new LineShapeEdge(station.STRATFORD, station.BAIRNSDALE, [
     routeGraph.stratfordToBairnsdale,
-  ]),
+  ], []),
 ];
 
 const routeGraphPairs = Object.values(routeGraph);

@@ -1,10 +1,14 @@
 import { unique } from "@dan-schel/js-utils";
 import { StationPair } from "@/server/data/line/line-routes/station-pair";
 import { Edge, Tree } from "@/server/data/line/line-routes/tree";
+import { MapSegment } from "@/server/data/map-segment";
 
 export type LineShapeNode = number | "the-city";
 
-export type LineShapeEdgeData = { routeGraphPairs: StationPair[] };
+export type LineShapeEdgeData = {
+  routeGraphPairs: StationPair[];
+  mapSegments: MapSegment[];
+};
 
 /**
  * An edge in the LineShape tree. Each edge stores the route graph pairs that
@@ -15,8 +19,12 @@ export class LineShapeEdge extends Edge<LineShapeNode, LineShapeEdgeData> {
     from: LineShapeNode,
     to: LineShapeNode,
     routeGraphPairs: StationPair[],
+    mapSegments: MapSegment[],
   ) {
-    super(from, to, { routeGraphPairs });
+    super(from, to, {
+      routeGraphPairs,
+      mapSegments: mapSegments.map((x) => x.normalize()),
+    });
 
     if (routeGraphPairs.length === 0) {
       throw new Error("LineShapeEdge created without any routeGraphPairs.");

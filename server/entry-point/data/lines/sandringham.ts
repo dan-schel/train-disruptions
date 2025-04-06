@@ -29,43 +29,43 @@ const routeGraph = {
 const lineShapeEdges = [
   new LineShapeEdge(station.FLINDERS_STREET, station.RICHMOND, [
     routeGraph.flindersStreetToRichmond,
-  ]),
+  ], []),
   new LineShapeEdge(station.RICHMOND, station.SOUTH_YARRA, [
     routeGraph.richmondToSouthYarra,
-  ]),
+  ], []),
   new LineShapeEdge(station.SOUTH_YARRA, station.PRAHRAN, [
     routeGraph.southYarraToPrahran,
-  ]),
+  ], []),
   new LineShapeEdge(station.PRAHRAN, station.WINDSOR, [
     routeGraph.prahranToWindsor,
-  ]),
+  ], []),
   new LineShapeEdge(station.WINDSOR, station.BALACLAVA, [
     routeGraph.windsorToBalaclava,
-  ]),
+  ], []),
   new LineShapeEdge(station.BALACLAVA, station.RIPPONLEA, [
     routeGraph.balaclavaToRipponlea,
-  ]),
+  ], []),
   new LineShapeEdge(station.RIPPONLEA, station.ELSTERNWICK, [
     routeGraph.ripponleaToElsternwick,
-  ]),
+  ], []),
   new LineShapeEdge(station.ELSTERNWICK, station.GARDENVALE, [
     routeGraph.elsternwickToGardenvale,
-  ]),
+  ], []),
   new LineShapeEdge(station.GARDENVALE, station.NORTH_BRIGHTON, [
     routeGraph.gardenvaleToNorthBrighton,
-  ]),
+  ], []),
   new LineShapeEdge(station.NORTH_BRIGHTON, station.MIDDLE_BRIGHTON, [
     routeGraph.northBrightonToMiddleBrighton,
-  ]),
+  ], []),
   new LineShapeEdge(station.MIDDLE_BRIGHTON, station.BRIGHTON_BEACH, [
     routeGraph.middleBrightonToBrightonBeach,
-  ]),
+  ], []),
   new LineShapeEdge(station.BRIGHTON_BEACH, station.HAMPTON, [
     routeGraph.brightonBeachToHampton,
-  ]),
+  ], []),
   new LineShapeEdge(station.HAMPTON, station.SANDRINGHAM, [
     routeGraph.hamptonToSandringham,
-  ]),
+  ], []),
 ];
 
 const routeGraphPairs = Object.values(routeGraph);

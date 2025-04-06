@@ -20,16 +20,16 @@ const routeGraph = {
 const lineShapeEdges = [
   new LineShapeEdge(station.FLINDERS_STREET, station.SOUTHERN_CROSS, [
     routeGraph.flindersStreetToSouthernCross,
-  ]),
+  ], []),
   new LineShapeEdge(station.SOUTHERN_CROSS, station.NORTH_MELBOURNE, [
     routeGraph.southernCrossToNorthMelbourne,
-  ]),
+  ], []),
   new LineShapeEdge(station.NORTH_MELBOURNE, station.SHOWGROUNDS, [
     routeGraph.northMelbourneToShowgrounds,
-  ]),
+  ], []),
   new LineShapeEdge(station.SHOWGROUNDS, station.FLEMINGTON_RACECOURSE, [
     routeGraph.showgroundsToFlemingtonRacecourse,
-  ]),
+  ], []),
 ];
 
 const routeGraphPairs = Object.values(routeGraph);

@@ -25,31 +25,31 @@ const routeGraph = {
 const lineShapeEdges = [
   new LineShapeEdge(station.FRANKSTON, station.LEAWARRA, [
     routeGraph.frankstonToLeawarra,
-  ]),
+  ], []),
   new LineShapeEdge(station.LEAWARRA, station.BAXTER, [
     routeGraph.leawarraToBaxter,
-  ]),
+  ], []),
   new LineShapeEdge(station.BAXTER, station.SOMERVILLE, [
     routeGraph.baxterToSomerville,
-  ]),
+  ], []),
   new LineShapeEdge(station.SOMERVILLE, station.TYABB, [
     routeGraph.somervilleToTyabb,
-  ]),
+  ], []),
   new LineShapeEdge(station.TYABB, station.HASTINGS, [
     routeGraph.tyabbToHastings,
-  ]),
+  ], []),
   new LineShapeEdge(station.HASTINGS, station.BITTERN, [
     routeGraph.hastingsToBittern,
-  ]),
+  ], []),
   new LineShapeEdge(station.BITTERN, station.MORRADOO, [
     routeGraph.bitternToMorradoo,
-  ]),
+  ], []),
   new LineShapeEdge(station.MORRADOO, station.CRIB_POINT, [
     routeGraph.morradooToCribPoint,
-  ]),
+  ], []),
   new LineShapeEdge(station.CRIB_POINT, station.STONY_POINT, [
     routeGraph.cribPointToStonyPoint,
-  ]),
+  ], []),
 ];
 
 const routeGraphPairs = Object.values(routeGraph);

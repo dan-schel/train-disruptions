@@ -43,85 +43,85 @@ const routeGraph = {
 const lineShapeEdges = [
   new LineShapeEdge(station.FLINDERS_STREET, station.RICHMOND, [
     routeGraph.flindersStreetToRichmond,
-  ]),
+  ], []),
   new LineShapeEdge(station.RICHMOND, station.SOUTH_YARRA, [
     routeGraph.richmondToSouthYarra,
-  ]),
+  ], []),
   new LineShapeEdge(station.SOUTH_YARRA, station.HAWKSBURN, [
     routeGraph.southYarraToHawksburn,
-  ]),
+  ], []),
   new LineShapeEdge(station.HAWKSBURN, station.TOORAK, [
     routeGraph.hawksburnToToorak,
-  ]),
+  ], []),
   new LineShapeEdge(station.TOORAK, station.ARMADALE, [
     routeGraph.toorakToArmadale,
-  ]),
+  ], []),
   new LineShapeEdge(station.ARMADALE, station.MALVERN, [
     routeGraph.armadaleToMalvern,
-  ]),
+  ], []),
   new LineShapeEdge(station.MALVERN, station.CAULFIELD, [
     routeGraph.malvernToCaulfield,
-  ]),
+  ], []),
   new LineShapeEdge(station.CAULFIELD, station.GLEN_HUNTLY, [
     routeGraph.caulfieldToGlenHuntly,
-  ]),
+  ], []),
   new LineShapeEdge(station.GLEN_HUNTLY, station.ORMOND, [
     routeGraph.glenHuntlyToOrmond,
-  ]),
+  ], []),
   new LineShapeEdge(station.ORMOND, station.MCKINNON, [
     routeGraph.ormondToMcKinnon,
-  ]),
+  ], []),
   new LineShapeEdge(station.MCKINNON, station.BENTLEIGH, [
     routeGraph.mcKinnonToBentleigh,
-  ]),
+  ], []),
   new LineShapeEdge(station.BENTLEIGH, station.PATTERSON, [
     routeGraph.bentleighToPatterson,
-  ]),
+  ], []),
   new LineShapeEdge(station.PATTERSON, station.MOORABBIN, [
     routeGraph.pattersonToMoorabbin,
-  ]),
+  ], []),
   new LineShapeEdge(station.MOORABBIN, station.HIGHETT, [
     routeGraph.moorabbinToHighett,
-  ]),
+  ], []),
   new LineShapeEdge(station.HIGHETT, station.SOUTHLAND, [
     routeGraph.highettToSouthland,
-  ]),
+  ], []),
   new LineShapeEdge(station.SOUTHLAND, station.CHELTENHAM, [
     routeGraph.southlandToCheltenham,
-  ]),
+  ], []),
   new LineShapeEdge(station.CHELTENHAM, station.MENTONE, [
     routeGraph.cheltenhamToMentone,
-  ]),
+  ], []),
   new LineShapeEdge(station.MENTONE, station.PARKDALE, [
     routeGraph.mentoneToParkdale,
-  ]),
+  ], []),
   new LineShapeEdge(station.PARKDALE, station.MORDIALLOC, [
     routeGraph.parkdaleToMordialloc,
-  ]),
+  ], []),
   new LineShapeEdge(station.MORDIALLOC, station.ASPENDALE, [
     routeGraph.mordiallocToAspendale,
-  ]),
+  ], []),
   new LineShapeEdge(station.ASPENDALE, station.EDITHVALE, [
     routeGraph.aspendaleToEdithvale,
-  ]),
+  ], []),
   new LineShapeEdge(station.EDITHVALE, station.CHELSEA, [
     routeGraph.edithvaleToChelsea,
-  ]),
+  ], []),
   new LineShapeEdge(station.CHELSEA, station.BONBEACH, [
     routeGraph.chelseaToBonbeach,
-  ]),
+  ], []),
   new LineShapeEdge(station.BONBEACH, station.CARRUM, [
     routeGraph.bonbeachToCarrum,
-  ]),
+  ], []),
   new LineShapeEdge(station.CARRUM, station.SEAFORD, [
     routeGraph.carrumToSeaford,
-  ]),
+  ], []),
   new LineShapeEdge(station.SEAFORD, station.KANANOOK, [
     routeGraph.seafordToKananook,
-  ]),
+  ], []),
   new LineShapeEdge(station.KANANOOK, station.FRANKSTON, [
     routeGraph.kananookToFrankston,
-  ]),
+  ], []),
 ];
 
 const routeGraphPairs = Object.values(routeGraph);

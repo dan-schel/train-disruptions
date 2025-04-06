@@ -40,82 +40,82 @@ const routeGraph = {
 const lineShapeEdges = [
   new LineShapeEdge(station.SOUTHERN_CROSS, station.NORTH_MELBOURNE, [
     routeGraph.southernCrossToDonnybrook,
-  ]),
+  ], []),
   new LineShapeEdge(station.NORTH_MELBOURNE, station.BROADMEADOWS, [
     routeGraph.southernCrossToDonnybrook,
     routeGraph.northMelbourneToDonnybrook,
-  ]),
+  ], []),
   new LineShapeEdge(station.BROADMEADOWS, station.CRAIGIEBURN, [
     routeGraph.southernCrossToDonnybrook,
     routeGraph.northMelbourneToDonnybrook,
     routeGraph.broadmeadowsToDonnybrook,
-  ]),
+  ], []),
   new LineShapeEdge(station.CRAIGIEBURN, station.DONNYBROOK, [
     routeGraph.southernCrossToDonnybrook,
     routeGraph.northMelbourneToDonnybrook,
     routeGraph.broadmeadowsToDonnybrook,
     routeGraph.craigieburnToDonnybrook,
-  ]),
+  ], []),
   new LineShapeEdge(station.DONNYBROOK, station.WALLAN, [
     routeGraph.donnybrookToWallan,
-  ]),
+  ], []),
   new LineShapeEdge(station.WALLAN, station.HEATHCOTE_JUNCTION, [
     routeGraph.wallanToHeathcoteJunction,
-  ]),
+  ], []),
   new LineShapeEdge(station.HEATHCOTE_JUNCTION, station.WANDONG, [
     routeGraph.heathcoteJunctionToWandong,
-  ]),
+  ], []),
   new LineShapeEdge(station.WANDONG, station.KILMORE_EAST, [
     routeGraph.wandongToKilmoreEast,
-  ]),
+  ], []),
   new LineShapeEdge(station.KILMORE_EAST, station.BROADFORD, [
     routeGraph.kilmoreEastToBroadford,
-  ]),
+  ], []),
   new LineShapeEdge(station.BROADFORD, station.TALLAROOK, [
     routeGraph.broadfordToTallarook,
-  ]),
+  ], []),
   new LineShapeEdge(station.TALLAROOK, station.SEYMOUR, [
     routeGraph.tallarookToSeymour,
-  ]),
+  ], []),
   new LineShapeEdge(station.SEYMOUR, station.AVENEL, [
     routeGraph.seymourToAvenel,
-  ]),
+  ], []),
   new LineShapeEdge(station.AVENEL, station.EUROA, [
     routeGraph.avenelToEuroa,
-  ]),
+  ], []),
   new LineShapeEdge(station.EUROA, station.VIOLET_TOWN, [
     routeGraph.euroaToVioletTown,
-  ]),
+  ], []),
   new LineShapeEdge(station.VIOLET_TOWN, station.BENALLA, [
     routeGraph.violetTownToBenalla,
-  ]),
+  ], []),
   new LineShapeEdge(station.BENALLA, station.WANGARATTA, [
     routeGraph.benallaToWangaratta,
-  ]),
+  ], []),
   new LineShapeEdge(station.WANGARATTA, station.SPRINGHURST, [
     routeGraph.wangarattaToSpringhurst,
-  ]),
+  ], []),
   new LineShapeEdge(station.SPRINGHURST, station.CHILTERN, [
     routeGraph.springhurstToChiltern,
-  ]),
+  ], []),
   new LineShapeEdge(station.CHILTERN, station.WODONGA, [
     routeGraph.chilternToWodonga,
-  ]),
+  ], []),
   new LineShapeEdge(station.WODONGA, station.ALBURY, [
     routeGraph.wodongaToAlbury,
-  ]),
+  ], []),
   new LineShapeEdge(station.SEYMOUR, station.NAGAMBIE, [
     routeGraph.seymourToNagambie,
-  ]),
+  ], []),
   new LineShapeEdge(station.NAGAMBIE, station.MURCHISON_EAST, [
     routeGraph.nagambieToMurchisonEast,
-  ]),
+  ], []),
   new LineShapeEdge(station.MURCHISON_EAST, station.MOOROOPNA, [
     routeGraph.murchisonEastToMooroopna,
-  ]),
+  ], []),
   new LineShapeEdge(station.MOOROOPNA, station.SHEPPARTON, [
     routeGraph.mooroopnaToShepparton,
-  ]),
+  ], []),
 ];
 
 const routeGraphPairs = Object.values(routeGraph);

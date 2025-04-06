@@ -33,47 +33,47 @@ const routeGraph = {
 const lineShapeEdges = [
   new LineShapeEdge(station.FLINDERS_STREET, station.SOUTHERN_CROSS, [
     routeGraph.flindersStreetToSouthernCross,
-  ]),
+  ], []),
   new LineShapeEdge(station.SOUTHERN_CROSS, station.NORTH_MELBOURNE, [
     routeGraph.southernCrossToNorthMelbourne,
-  ]),
+  ], []),
   new LineShapeEdge(station.NORTH_MELBOURNE, station.SOUTH_KENSINGTON, [
     routeGraph.northMelbourneToSouthKensington,
-  ]),
+  ], []),
   new LineShapeEdge(station.SOUTH_KENSINGTON, station.FOOTSCRAY, [
     routeGraph.southKensingtonToFootscray,
-  ]),
+  ], []),
   new LineShapeEdge(station.FOOTSCRAY, station.SEDDON, [
     routeGraph.footscrayToSeddon,
-  ]),
+  ], []),
   new LineShapeEdge(station.SEDDON, station.YARRAVILLE, [
     routeGraph.seddonToYarraville,
-  ]),
+  ], []),
   new LineShapeEdge(station.YARRAVILLE, station.SPOTSWOOD, [
     routeGraph.yarravilleToSpotswood,
-  ]),
+  ], []),
   new LineShapeEdge(station.SPOTSWOOD, station.NEWPORT, [
     routeGraph.spotswoodToNewport,
-  ]),
+  ], []),
   new LineShapeEdge(station.NEWPORT, station.LAVERTON, [
     routeGraph.newportToSeaholme,
     routeGraph.seaholmeToAltona,
     routeGraph.altonaToWestona,
     routeGraph.westonaToLaverton,
     routeGraph.newportToLaverton,
-  ]),
+  ], []),
   new LineShapeEdge(station.LAVERTON, station.AIRCRAFT, [
     routeGraph.lavertonToAircraft,
-  ]),
+  ], []),
   new LineShapeEdge(station.AIRCRAFT, station.WILLIAMS_LANDING, [
     routeGraph.aircraftToWilliamsLanding,
-  ]),
+  ], []),
   new LineShapeEdge(station.WILLIAMS_LANDING, station.HOPPERS_CROSSING, [
     routeGraph.williamsLandingToHoppersCrossing,
-  ]),
+  ], []),
   new LineShapeEdge(station.HOPPERS_CROSSING, station.WERRIBEE, [
     routeGraph.hoppersCrossingToWerribee,
-  ]),
+  ], []),
 ];
 
 const routeGraphPairs = Object.values(routeGraph);

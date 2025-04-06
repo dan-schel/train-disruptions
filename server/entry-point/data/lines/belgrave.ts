@@ -52,82 +52,82 @@ const lineShapeEdges = [
     routeGraph.flagstaffToMelbourneCentral,
     routeGraph.melbourneCentralToParliament,
     routeGraph.parliamentToRichmond,
-  ]),
+  ], []),
   new LineShapeEdge(station.RICHMOND, station.EAST_RICHMOND, [
     routeGraph.richmondToEastRichmond,
-  ]),
+  ], []),
   new LineShapeEdge(station.EAST_RICHMOND, station.BURNLEY, [
     routeGraph.eastRichmondToBurnley,
-  ]),
+  ], []),
   new LineShapeEdge(station.BURNLEY, station.HAWTHORN, [
     routeGraph.burnleyToHawthorn,
-  ]),
+  ], []),
   new LineShapeEdge(station.HAWTHORN, station.GLENFERRIE, [
     routeGraph.hawthornToGlenferrie,
-  ]),
+  ], []),
   new LineShapeEdge(station.GLENFERRIE, station.AUBURN, [
     routeGraph.glenferrieToAuburn,
-  ]),
+  ], []),
   new LineShapeEdge(station.AUBURN, station.CAMBERWELL, [
     routeGraph.auburnToCamberwell,
-  ]),
+  ], []),
   new LineShapeEdge(station.CAMBERWELL, station.EAST_CAMBERWELL, [
     routeGraph.camberwellToEastCamberwell,
-  ]),
+  ], []),
   new LineShapeEdge(station.EAST_CAMBERWELL, station.CANTERBURY, [
     routeGraph.eastCamberwellToCanterbury,
-  ]),
+  ], []),
   new LineShapeEdge(station.CANTERBURY, station.CHATHAM, [
     routeGraph.canterburyToChatham,
-  ]),
+  ], []),
   new LineShapeEdge(station.CHATHAM, station.UNION, [
     routeGraph.chathamToUnion,
-  ]),
+  ], []),
   new LineShapeEdge(station.UNION, station.BOX_HILL, [
     routeGraph.unionToBoxHill,
-  ]),
+  ], []),
   new LineShapeEdge(station.BOX_HILL, station.LABURNUM, [
     routeGraph.boxHillToLaburnum,
-  ]),
+  ], []),
   new LineShapeEdge(station.LABURNUM, station.BLACKBURN, [
     routeGraph.laburnumToBlackburn,
-  ]),
+  ], []),
   new LineShapeEdge(station.BLACKBURN, station.NUNAWADING, [
     routeGraph.blackburnToNunawading,
-  ]),
+  ], []),
   new LineShapeEdge(station.NUNAWADING, station.MITCHAM, [
     routeGraph.nunawadingToMitcham,
-  ]),
+  ], []),
   new LineShapeEdge(station.MITCHAM, station.HEATHERDALE, [
     routeGraph.mitchamToHeatherdale,
-  ]),
+  ], []),
   new LineShapeEdge(station.HEATHERDALE, station.RINGWOOD, [
     routeGraph.heatherdaleToRingwood,
-  ]),
+  ], []),
   new LineShapeEdge(station.RINGWOOD, station.HEATHMONT, [
     routeGraph.ringwoodToHeathmont,
-  ]),
+  ], []),
   new LineShapeEdge(station.HEATHMONT, station.BAYSWATER, [
     routeGraph.heathmontToBayswater,
-  ]),
+  ], []),
   new LineShapeEdge(station.BAYSWATER, station.BORONIA, [
     routeGraph.bayswaterToBoronia,
-  ]),
+  ], []),
   new LineShapeEdge(station.BORONIA, station.FERNTREE_GULLY, [
     routeGraph.boroniaToFerntreeGully,
-  ]),
+  ], []),
   new LineShapeEdge(station.FERNTREE_GULLY, station.UPPER_FERNTREE_GULLY, [
     routeGraph.ferntreeGullyToUpperFerntreeGully,
-  ]),
+  ], []),
   new LineShapeEdge(station.UPPER_FERNTREE_GULLY, station.UPWEY, [
     routeGraph.upperFerntreeGullyToUpwey,
-  ]),
+  ], []),
   new LineShapeEdge(station.UPWEY, station.TECOMA, [
     routeGraph.upweyToTecoma,
-  ]),
+  ], []),
   new LineShapeEdge(station.TECOMA, station.BELGRAVE, [
     routeGraph.tecomaToBelgrave,
-  ]),
+  ], []),
 ];
 
 const routeGraphPairs = Object.values(routeGraph);

@@ -42,52 +42,52 @@ const lineShapeEdges = [
     routeGraph.parliamentToMelbourneCentral,
     routeGraph.melbourneCentralToFlagstaff,
     routeGraph.flagstaffToNorthMelbourne,
-  ]),
+  ], []),
   new LineShapeEdge(station.NORTH_MELBOURNE, station.KENSINGTON, [
     routeGraph.northMelbourneToKensington,
-  ]),
+  ], []),
   new LineShapeEdge(station.KENSINGTON, station.NEWMARKET, [
     routeGraph.kensingtonToNewmarket,
-  ]),
+  ], []),
   new LineShapeEdge(station.NEWMARKET, station.ASCOT_VALE, [
     routeGraph.newmarketToAscotVale,
-  ]),
+  ], []),
   new LineShapeEdge(station.ASCOT_VALE, station.MOONEE_PONDS, [
     routeGraph.ascotValeToMooneePonds,
-  ]),
+  ], []),
   new LineShapeEdge(station.MOONEE_PONDS, station.ESSENDON, [
     routeGraph.mooneePondsToEssendon,
-  ]),
+  ], []),
   new LineShapeEdge(station.ESSENDON, station.GLENBERVIE, [
     routeGraph.essendonToGlenbervie,
-  ]),
+  ], []),
   new LineShapeEdge(station.GLENBERVIE, station.STRATHMORE, [
     routeGraph.glenbervieToStrathmore,
-  ]),
+  ], []),
   new LineShapeEdge(station.STRATHMORE, station.PASCOE_VALE, [
     routeGraph.strathmoreToPascoeVale,
-  ]),
+  ], []),
   new LineShapeEdge(station.PASCOE_VALE, station.OAK_PARK, [
     routeGraph.pascoeValeToOakPark,
-  ]),
+  ], []),
   new LineShapeEdge(station.OAK_PARK, station.GLENROY, [
     routeGraph.oakParkToGlenroy,
-  ]),
+  ], []),
   new LineShapeEdge(station.GLENROY, station.JACANA, [
     routeGraph.glenroyToJacana,
-  ]),
+  ], []),
   new LineShapeEdge(station.JACANA, station.BROADMEADOWS, [
     routeGraph.jacanaToBroadmeadows,
-  ]),
+  ], []),
   new LineShapeEdge(station.BROADMEADOWS, station.COOLAROO, [
     routeGraph.broadmeadowsToCoolaroo,
-  ]),
+  ], []),
   new LineShapeEdge(station.COOLAROO, station.ROXBURGH_PARK, [
     routeGraph.coolarooToRoxburghPark,
-  ]),
+  ], []),
   new LineShapeEdge(station.ROXBURGH_PARK, station.CRAIGIEBURN, [
     routeGraph.roxburghParkToCraigieburn,
-  ]),
+  ], []),
 ];
 
 const routeGraphPairs = Object.values(routeGraph);

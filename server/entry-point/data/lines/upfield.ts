@@ -40,46 +40,46 @@ const lineShapeEdges = [
     routeGraph.parliamentToMelbourneCentral,
     routeGraph.melbourneCentralToFlagstaff,
     routeGraph.flagstaffToNorthMelbourne,
-  ]),
+  ], []),
   new LineShapeEdge(station.NORTH_MELBOURNE, station.MACAULAY, [
     routeGraph.northMelbourneToMacaulay,
-  ]),
+  ], []),
   new LineShapeEdge(station.MACAULAY, station.FLEMINGTON_BRIDGE, [
     routeGraph.macaulayToFlemingtonBridge,
-  ]),
+  ], []),
   new LineShapeEdge(station.FLEMINGTON_BRIDGE, station.ROYAL_PARK, [
     routeGraph.flemingtonBridgeToRoyalPark,
-  ]),
+  ], []),
   new LineShapeEdge(station.ROYAL_PARK, station.JEWELL, [
     routeGraph.royalParkToJewell,
-  ]),
+  ], []),
   new LineShapeEdge(station.JEWELL, station.BRUNSWICK, [
     routeGraph.jewellToBrunswick,
-  ]),
+  ], []),
   new LineShapeEdge(station.BRUNSWICK, station.ANSTEY, [
     routeGraph.brunswickToAnstey,
-  ]),
+  ], []),
   new LineShapeEdge(station.ANSTEY, station.MORELAND, [
     routeGraph.ansteyToMoreland,
-  ]),
+  ], []),
   new LineShapeEdge(station.MORELAND, station.COBURG, [
     routeGraph.morelandToCoburg,
-  ]),
+  ], []),
   new LineShapeEdge(station.COBURG, station.BATMAN, [
     routeGraph.coburgToBatman,
-  ]),
+  ], []),
   new LineShapeEdge(station.BATMAN, station.MERLYNSTON, [
     routeGraph.batmanToMerlynston,
-  ]),
+  ], []),
   new LineShapeEdge(station.MERLYNSTON, station.FAWKNER, [
     routeGraph.merlynstonToFawkner,
-  ]),
+  ], []),
   new LineShapeEdge(station.FAWKNER, station.GOWRIE, [
     routeGraph.fawknerToGowrie,
-  ]),
+  ], []),
   new LineShapeEdge(station.GOWRIE, station.UPFIELD, [
     routeGraph.gowrieToUpfield,
-  ]),
+  ], []),
 ];
 
 const routeGraphPairs = Object.values(routeGraph);
