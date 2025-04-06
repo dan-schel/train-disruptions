@@ -50,6 +50,14 @@ export class MapSegment {
     return new MapSegment(this.mapNodeA, this.mapNodeB, range);
   }
 
+  part(part: number, total: number): MapSegment {
+    return new MapSegment(
+      this.mapNodeA,
+      this.mapNodeB,
+      new Range((part - 1) / total, part / total),
+    );
+  }
+
   static condense(segments: MapSegment[]): MapSegment[] {
     function key(s: MapSegment): string {
       return `${s.mapNodeA}-${s.mapNodeB}`;

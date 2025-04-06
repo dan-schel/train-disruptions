@@ -54,43 +54,74 @@ const lineShapeEdges = [
     routeGraph.flagstaffToMelbourneCentral,
     routeGraph.melbourneCentralToParliament,
     routeGraph.parliamentToRichmond,
-  ], []),
+  ], [
+    mapSegment.flindersStreetToRichmond,
+    mapSegment.flindersStreetToSouthernCross,
+    mapSegment.southernCrossToFlagstaff,
+    mapSegment.flagstaffToMelbourneCentral,
+    mapSegment.melbourneCentralToParliament,
+    mapSegment.parliamentToRichmond,
+  ]),
   new LineShapeEdge(station.RICHMOND, station.EAST_RICHMOND, [
     routeGraph.richmondToEastRichmond,
-  ], []),
+  ], [
+    mapSegment.richmondToBurnley.part(1, 2),
+  ]),
   new LineShapeEdge(station.EAST_RICHMOND, station.BURNLEY, [
     routeGraph.eastRichmondToBurnley,
-  ], []),
+  ], [
+    mapSegment.richmondToBurnley.part(2, 2),
+  ]),
   new LineShapeEdge(station.BURNLEY, station.HAWTHORN, [
     routeGraph.burnleyToHawthorn,
-  ], []),
+  ], [
+    mapSegment.burnleyToCamberwell.part(1, 4),
+  ]),
   new LineShapeEdge(station.HAWTHORN, station.GLENFERRIE, [
     routeGraph.hawthornToGlenferrie,
-  ], []),
+  ], [
+    mapSegment.burnleyToCamberwell.part(2, 4),
+  ]),
   new LineShapeEdge(station.GLENFERRIE, station.AUBURN, [
     routeGraph.glenferrieToAuburn,
-  ], []),
+  ], [
+    mapSegment.burnleyToCamberwell.part(3, 4),
+  ]),
   new LineShapeEdge(station.AUBURN, station.CAMBERWELL, [
     routeGraph.auburnToCamberwell,
-  ], []),
+  ], [
+    mapSegment.burnleyToCamberwell.part(4, 4),
+  ]),
   new LineShapeEdge(station.CAMBERWELL, station.RIVERSDALE, [
     routeGraph.camberwellToRiversdale,
-  ], []),
+  ], [
+    mapSegment.camberwellToAlamein.part(1, 6),
+  ]),
   new LineShapeEdge(station.RIVERSDALE, station.WILLISON, [
     routeGraph.riversdaleToWillison,
-  ], []),
+  ], [
+    mapSegment.camberwellToAlamein.part(2, 6),
+  ]),
   new LineShapeEdge(station.WILLISON, station.HARTWELL, [
     routeGraph.willisonToHartwell,
-  ], []),
+  ], [
+    mapSegment.camberwellToAlamein.part(3, 6),
+  ]),
   new LineShapeEdge(station.HARTWELL, station.BURWOOD, [
     routeGraph.hartwellToBurwood,
-  ], []),
+  ], [
+    mapSegment.camberwellToAlamein.part(4, 6),
+  ]),
   new LineShapeEdge(station.BURWOOD, station.ASHBURTON, [
     routeGraph.burwoodToAshburton,
-  ], []),
+  ], [
+    mapSegment.camberwellToAlamein.part(5, 6),
+  ]),
   new LineShapeEdge(station.ASHBURTON, station.ALAMEIN, [
     routeGraph.ashburtonToAlamein,
-  ], []),
+  ], [
+    mapSegment.camberwellToAlamein.part(6, 6),
+  ]),
 ];
 
 const routeGraphPairs = Object.values(routeGraph);

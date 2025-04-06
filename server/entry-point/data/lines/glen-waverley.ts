@@ -55,49 +55,84 @@ const lineShapeEdges = [
     routeGraph.flagstaffToMelbourneCentral,
     routeGraph.melbourneCentralToParliament,
     routeGraph.parliamentToRichmond,
-  ], []),
+  ], [
+    mapSegment.flindersStreetToRichmond,
+    mapSegment.flindersStreetToSouthernCross,
+    mapSegment.southernCrossToFlagstaff,
+    mapSegment.flagstaffToMelbourneCentral,
+    mapSegment.melbourneCentralToParliament,
+    mapSegment.parliamentToRichmond,
+  ]),
   new LineShapeEdge(station.RICHMOND, station.EAST_RICHMOND, [
     routeGraph.richmondToEastRichmond,
-  ], []),
+  ], [
+    mapSegment.richmondToBurnley.part(1, 2),
+  ]),
   new LineShapeEdge(station.EAST_RICHMOND, station.BURNLEY, [
     routeGraph.eastRichmondToBurnley,
-  ], []),
+  ], [
+    mapSegment.richmondToBurnley.part(2, 2),
+  ]),
   new LineShapeEdge(station.BURNLEY, station.HEYINGTON, [
     routeGraph.burnleyToHeyington,
-  ], []),
+  ], [
+    mapSegment.burnleyToGlenWaverley.part(1, 12),
+  ]),
   new LineShapeEdge(station.HEYINGTON, station.KOOYONG, [
     routeGraph.heyingtonToKooyong,
-  ], []),
+  ], [
+    mapSegment.burnleyToGlenWaverley.part(2, 12),
+  ]),
   new LineShapeEdge(station.KOOYONG, station.TOORONGA, [
     routeGraph.kooyongToTooronga,
-  ], []),
+  ], [
+    mapSegment.burnleyToGlenWaverley.part(3, 12),
+  ]),
   new LineShapeEdge(station.TOORONGA, station.GARDINER, [
     routeGraph.toorongaToGardiner,
-  ], []),
+  ], [
+    mapSegment.burnleyToGlenWaverley.part(4, 12),
+  ]),
   new LineShapeEdge(station.GARDINER, station.GLEN_IRIS, [
     routeGraph.gardinerToGlenIris,
-  ], []),
+  ], [
+    mapSegment.burnleyToGlenWaverley.part(5, 12),
+  ]),
   new LineShapeEdge(station.GLEN_IRIS, station.DARLING, [
     routeGraph.glenIrisToDarling,
-  ], []),
+  ], [
+    mapSegment.burnleyToGlenWaverley.part(6, 12),
+  ]),
   new LineShapeEdge(station.DARLING, station.EAST_MALVERN, [
     routeGraph.darlingToEastMalvern,
-  ], []),
+  ], [
+    mapSegment.burnleyToGlenWaverley.part(7, 12),
+  ]),
   new LineShapeEdge(station.EAST_MALVERN, station.HOLMESGLEN, [
     routeGraph.eastMalvernToHolmesglen,
-  ], []),
+  ], [
+    mapSegment.burnleyToGlenWaverley.part(8, 12),
+  ]),
   new LineShapeEdge(station.HOLMESGLEN, station.JORDANVILLE, [
     routeGraph.holmesglenToJordanville,
-  ], []),
+  ], [
+    mapSegment.burnleyToGlenWaverley.part(9, 12),
+  ]),
   new LineShapeEdge(station.JORDANVILLE, station.MOUNT_WAVERLEY, [
     routeGraph.jordanvilleToMountWaverley,
-  ], []),
+  ], [
+    mapSegment.burnleyToGlenWaverley.part(10, 12),
+  ]),
   new LineShapeEdge(station.MOUNT_WAVERLEY, station.SYNDAL, [
     routeGraph.mountWaverleyToSyndal,
-  ], []),
+  ], [
+    mapSegment.burnleyToGlenWaverley.part(11, 12),
+  ]),
   new LineShapeEdge(station.SYNDAL, station.GLEN_WAVERLEY, [
     routeGraph.syndalToGlenWaverley,
-  ], []),
+  ], [
+    mapSegment.burnleyToGlenWaverley.part(12, 12),
+  ]),
 ];
 
 const routeGraphPairs = Object.values(routeGraph);
