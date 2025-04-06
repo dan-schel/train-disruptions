@@ -50,6 +50,7 @@ export function data(pageContext: PageContext): Data & JsonSerializable {
     };
   }
 
+  // Filter out disruptions from the past and sort by priority
   const disruptions = getDemoDisruptions(app)
     .filter(
       (x) =>
@@ -58,17 +59,17 @@ export function data(pageContext: PageContext): Data & JsonSerializable {
           "hidden" &&
         x.period.intersects(new TimeRange(app.time.now(), null)),
     )
-    .sort((a, b) => {
-      return (
+    .sort(
+      (a, b) =>
         LineStatusIndicatorPriorities.indexOf(
           b.data.getWriteupAuthor().write(app, b).lineStatusIndicator.priority,
         ) -
         LineStatusIndicatorPriorities.indexOf(
           a.data.getWriteupAuthor().write(app, a).lineStatusIndicator.priority,
-        )
-      );
-    });
+        ),
+    );
 
+  // Split the disruptions that occur today from the ones that occur in the future
   const [today, future] = disruptions.reduce<[Disruption[], Disruption[]]>(
     (groups, x) => {
       if (x.period.occursAt(app.time.now())) {
