@@ -1,4 +1,4 @@
-import { FlexiPoint } from "@/components/map/renderer/flexi-point";
+import { FlexiPoint } from "@/components/map/renderer/dimensions/flexi-point";
 import { Geometry } from "@/components/map/renderer/geometry";
 import { Interchange } from "@/components/map/renderer/interchange";
 import {

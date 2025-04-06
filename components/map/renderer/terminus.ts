@@ -1,10 +1,10 @@
 import { z } from "zod";
 import { LineColor, lineColors } from "@/components/map/renderer/utils";
-import { FlexiPoint } from "@/components/map/renderer/flexi-point";
+import { FlexiPoint } from "@/components/map/renderer/dimensions/flexi-point";
 import {
   createFlexiPointString,
   flexiPointStringJson,
-} from "@/components/map/renderer/json";
+} from "@/components/map/renderer/dimensions/json";
 
 export class Terminus {
   constructor(

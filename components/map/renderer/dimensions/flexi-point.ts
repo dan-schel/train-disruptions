@@ -1,5 +1,5 @@
 import { FlexiLength } from "@/components/map/renderer/dimensions/flexi-length";
-import { Point } from "@/components/map/renderer/point";
+import { Point } from "@/components/map/renderer/dimensions/point";
 import { nonNull, parseFloatNull } from "@dan-schel/js-utils";
 
 export class FlexiPoint {

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { fp } from "@/components/map/renderer/flexi-point";
+import { fp } from "@/components/map/renderer/dimensions/flexi-point";
 import { flexi } from "@/components/map/renderer/dimensions/flexi-length";
 import { GeometryBuilder } from "@/scripts/generate-map-geometry/lib/geometry-builder";
 import { InterchangeBlueprint } from "@/scripts/generate-map-geometry/lib/interchange-blueprint";

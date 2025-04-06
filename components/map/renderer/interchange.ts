@@ -1,8 +1,8 @@
-import { FlexiPoint } from "@/components/map/renderer/flexi-point";
+import { FlexiPoint } from "@/components/map/renderer/dimensions/flexi-point";
 import {
   createFlexiPointString,
   flexiPointStringJson,
-} from "@/components/map/renderer/json";
+} from "@/components/map/renderer/dimensions/json";
 import { z } from "zod";
 
 export class Interchange {

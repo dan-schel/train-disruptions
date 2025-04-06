@@ -2,7 +2,7 @@ import { Segment } from "@/components/map/renderer/segment";
 import { Interchange } from "@/components/map/renderer/interchange";
 import { Terminus } from "@/components/map/renderer/terminus";
 import { z } from "zod";
-import { FlexiViewport } from "@/components/map/renderer/flexi-viewport";
+import { FlexiViewport } from "@/components/map/renderer/dimensions/flexi-viewport";
 import { viewportPadding } from "@/components/map/renderer/utils";
 
 export class Geometry {

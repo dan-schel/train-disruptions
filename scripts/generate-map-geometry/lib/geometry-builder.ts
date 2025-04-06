@@ -5,14 +5,14 @@ import { Terminus } from "@/components/map/renderer/terminus";
 import {
   FlexiViewport,
   Viewport,
-} from "@/components/map/renderer/flexi-viewport";
+} from "@/components/map/renderer/dimensions/flexi-viewport";
 import { terminusExtents } from "@/scripts/generate-map-geometry/lib/utils";
 import { InterchangeBlueprint } from "@/scripts/generate-map-geometry/lib/interchange-blueprint";
 import {
   LineBuilder,
   LocatedNode,
 } from "@/scripts/generate-map-geometry/lib/line-builder";
-import { Point } from "@/components/map/renderer/point";
+import { Point } from "@/components/map/renderer/dimensions/point";
 
 export class GeometryBuilder {
   constructor() {}

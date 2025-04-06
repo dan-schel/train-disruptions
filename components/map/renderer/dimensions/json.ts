@@ -1,5 +1,5 @@
 import { FlexiLength } from "@/components/map/renderer/dimensions/flexi-length";
-import { FlexiPoint } from "@/components/map/renderer/flexi-point";
+import { FlexiPoint } from "@/components/map/renderer/dimensions/flexi-point";
 import { nonNull } from "@dan-schel/js-utils";
 import { z } from "zod";
 

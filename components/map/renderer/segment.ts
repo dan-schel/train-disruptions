@@ -6,8 +6,8 @@ import {
   createFlexiPointString,
   flexiLengthStringJson,
   flexiPointStringJson,
-} from "@/components/map/renderer/json";
-import { FlexiPoint } from "@/components/map/renderer/flexi-point";
+} from "@/components/map/renderer/dimensions/json";
+import { FlexiPoint } from "@/components/map/renderer/dimensions/flexi-point";
 
 export class Segment {
   constructor(

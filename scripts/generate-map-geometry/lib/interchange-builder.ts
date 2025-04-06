@@ -8,7 +8,7 @@ import {
   interchangeInnerOffset,
 } from "@/scripts/generate-map-geometry/lib/utils";
 import { LocatedNode } from "@/scripts/generate-map-geometry/lib/line-builder";
-import { FlexiPoint } from "@/components/map/renderer/flexi-point";
+import { FlexiPoint } from "@/components/map/renderer/dimensions/flexi-point";
 
 export class InterchangeBuilder {
   constructor(
