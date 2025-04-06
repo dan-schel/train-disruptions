@@ -50,6 +50,10 @@ export class Segment {
     }
   }
 
+  pointsForRange(start: number, end: number): readonly FlexiPoint[] {
+    return this.points;
+  }
+
   static readonly json = z
     .object({
       startNodeId: z.number(),

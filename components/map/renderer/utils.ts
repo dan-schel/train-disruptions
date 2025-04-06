@@ -31,3 +31,4 @@ export const lineColorCodes: Record<LineColor, string> = {
 
 export const interchangeStrokeColor = "#45474d";
 export const interchangeFillColor = "#ffffff";
+export const ghostLineColor = "#dddddd";

@@ -17,8 +17,6 @@ export function Map(props: MapProps) {
 
   const geometry = useMemo(() => Geometry.json.parse(geometryJson), []);
 
-  console.log(props.highlighting);
-
   useEffect(() => {
     if (containerRef.current == null || canvasRef.current == null) {
       return;
@@ -28,6 +26,7 @@ export function Map(props: MapProps) {
       containerRef.current,
       canvasRef.current,
       geometry,
+      props.highlighting ?? null,
     );
     renderer.start();
 
@@ -36,7 +35,7 @@ export function Map(props: MapProps) {
         renderer.destroy();
       }
     };
-  }, [geometry]);
+  }, [geometry, props.highlighting]);
 
   return (
     <div
