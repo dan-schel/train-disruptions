@@ -1,163 +1,50 @@
-import { Line } from "@/server/data/line/line";
 import { LineCollection } from "@/server/data/line/line-collection";
-import * as line from "@/shared/line-ids";
-import * as route from "@/server/entry-point/data/line-routes";
+import { line as alamein } from "@/server/entry-point/data/lines/alamein";
+import { line as ballarat } from "@/server/entry-point/data/lines/ballarat";
+import { line as belgrave } from "@/server/entry-point/data/lines/belgrave";
+import { line as bendigo } from "@/server/entry-point/data/lines/bendigo";
+import { line as craigieburn } from "@/server/entry-point/data/lines/craigieburn";
+import { line as cranbourne } from "@/server/entry-point/data/lines/cranbourne";
+import { line as flemingtonRacecourse } from "@/server/entry-point/data/lines/flemington-racecourse";
+import { line as frankston } from "@/server/entry-point/data/lines/frankston";
+import { line as geelong } from "@/server/entry-point/data/lines/geelong";
+import { line as gippsland } from "@/server/entry-point/data/lines/gippsland";
+import { line as glenWaverley } from "@/server/entry-point/data/lines/glen-waverley";
+import { line as hurstbridge } from "@/server/entry-point/data/lines/hurstbridge";
+import { line as lilydale } from "@/server/entry-point/data/lines/lilydale";
+import { line as mernda } from "@/server/entry-point/data/lines/mernda";
+import { line as pakenham } from "@/server/entry-point/data/lines/pakenham";
+import { line as sandringham } from "@/server/entry-point/data/lines/sandringham";
+import { line as seymour } from "@/server/entry-point/data/lines/seymour";
+import { line as stonyPoint } from "@/server/entry-point/data/lines/stony-point";
+import { line as sunbury } from "@/server/entry-point/data/lines/sunbury";
+import { line as upfield } from "@/server/entry-point/data/lines/upfield";
+import { line as werribee } from "@/server/entry-point/data/lines/werribee";
+import { line as williamstown } from "@/server/entry-point/data/lines/williamstown";
 
-const data = [
-  new Line({
-    id: line.SANDRINGHAM,
-    name: "Sandringham",
-    ptvIds: [12],
-    route: route.SANDRINGHAM,
-    lineGroup: "suburban",
-  }),
-  new Line({
-    id: line.FRANKSTON,
-    name: "Frankston",
-    ptvIds: [6],
-    route: route.FRANKSTON,
-    lineGroup: "suburban",
-  }),
-  new Line({
-    id: line.STONY_POINT,
-    name: "Stony Point",
-    ptvIds: [13],
-    route: route.STONY_POINT,
-    lineGroup: "suburban",
-  }),
-  new Line({
-    id: line.CRANBOURNE,
-    name: "Cranbourne",
-    ptvIds: [4],
-    route: route.CRANBOURNE,
-    lineGroup: "suburban",
-  }),
-  new Line({
-    id: line.PAKENHAM,
-    name: "Pakenham",
-    ptvIds: [11],
-    route: route.PAKENHAM,
-    lineGroup: "suburban",
-  }),
-  new Line({
-    id: line.GIPPSLAND,
-    name: "Gippsland",
-    ptvIds: [1823, 1824],
-    route: route.GIPPSLAND,
-    lineGroup: "regional",
-  }),
-  new Line({
-    id: line.GLEN_WAVERLEY,
-    name: "Glen Waverley",
-    ptvIds: [7],
-    route: route.GLEN_WAVERLEY,
-    lineGroup: "suburban",
-  }),
-  new Line({
-    id: line.ALAMEIN,
-    name: "Alamein",
-    ptvIds: [1],
-    route: route.ALAMEIN,
-    lineGroup: "suburban",
-  }),
-  new Line({
-    id: line.BELGRAVE,
-    name: "Belgrave",
-    ptvIds: [2],
-    route: route.BELGRAVE,
-    lineGroup: "suburban",
-  }),
-  new Line({
-    id: line.LILYDALE,
-    name: "Lilydale",
-    ptvIds: [9],
-    route: route.LILYDALE,
-    lineGroup: "suburban",
-  }),
-  new Line({
-    id: line.HURSTBRIDGE,
-    name: "Hurstbridge",
-    ptvIds: [8],
-    route: route.HURSTBRIDGE,
-    lineGroup: "suburban",
-  }),
-  new Line({
-    id: line.MERNDA,
-    name: "Mernda",
-    ptvIds: [5],
-    route: route.MERNDA,
-    lineGroup: "suburban",
-  }),
-  new Line({
-    id: line.UPFIELD,
-    name: "Upfield",
-    ptvIds: [15],
-    route: route.UPFIELD,
-    lineGroup: "suburban",
-  }),
-  new Line({
-    id: line.CRAIGIEBURN,
-    name: "Craigieburn",
-    ptvIds: [3],
-    route: route.CRAIGIEBURN,
-    lineGroup: "suburban",
-  }),
-  new Line({
-    id: line.SEYMOUR,
-    name: "Seymour",
-    ptvIds: [1706, 1710, 1908],
-    route: route.SEYMOUR,
-    lineGroup: "regional",
-  }),
-  new Line({
-    id: line.FLEMINGTON_RACECOURSE,
-    name: "Flemington Racecourse",
-    ptvIds: [1482],
-    route: route.FLEMINGTON_RACECOURSE,
-    lineGroup: "suburban",
-  }),
-  new Line({
-    id: line.SUNBURY,
-    name: "Sunbury",
-    ptvIds: [14],
-    route: route.SUNBURY,
-    lineGroup: "suburban",
-  }),
-  new Line({
-    id: line.BENDIGO,
-    name: "Bendigo",
-    ptvIds: [1740, 1848, 1849],
-    route: route.BENDIGO,
-    lineGroup: "regional",
-  }),
-  new Line({
-    id: line.BALLARAT,
-    name: "Ballarat",
-    ptvIds: [1728, 1837, 4871],
-    route: route.BALLARAT,
-    lineGroup: "regional",
-  }),
-  new Line({
-    id: line.GEELONG,
-    name: "Geelong",
-    ptvIds: [1745, 1853],
-    route: route.GEELONG,
-    lineGroup: "regional",
-  }),
-  new Line({
-    id: line.WERRIBEE,
-    name: "Werribee",
-    ptvIds: [16],
-    route: route.WERRIBEE,
-    lineGroup: "suburban",
-  }),
-  new Line({
-    id: line.WILLIAMSTOWN,
-    name: "Williamstown",
-    ptvIds: [17],
-    route: route.WILLIAMSTOWN,
-    lineGroup: "suburban",
-  }),
-];
-
-export const lines = new LineCollection(data);
+export const lines = new LineCollection(
+  [
+    alamein,
+    ballarat,
+    belgrave,
+    bendigo,
+    craigieburn,
+    cranbourne,
+    flemingtonRacecourse,
+    frankston,
+    geelong,
+    gippsland,
+    glenWaverley,
+    hurstbridge,
+    lilydale,
+    mernda,
+    pakenham,
+    sandringham,
+    seymour,
+    stonyPoint,
+    sunbury,
+    upfield,
+    werribee,
+    williamstown,
+  ].sort((a, b) => a.id - b.id),
+);
