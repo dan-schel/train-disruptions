@@ -3,9 +3,9 @@ import { InterchangeBuilder } from "@/scripts/generate-map-geometry/lib/intercha
 import { Segment } from "@/components/map/renderer/segment";
 import { Terminus } from "@/components/map/renderer/terminus";
 import {
-  DualViewport,
+  FlexiViewport,
   Viewport,
-} from "@/components/map/renderer/dual-viewport";
+} from "@/components/map/renderer/flexi-viewport";
 import { terminusExtents } from "@/scripts/generate-map-geometry/lib/utils";
 import { InterchangeBlueprint } from "@/scripts/generate-map-geometry/lib/interchange-blueprint";
 import {
@@ -30,7 +30,7 @@ export class GeometryBuilder {
       segments,
       this._buildInterchanges(interchanges, nodes),
       this._buildTermini(terminiNodeIds, nodes),
-      this._buildDualViewport(segments),
+      this._buildFlexiViewport(segments),
     );
   }
 
@@ -54,9 +54,9 @@ export class GeometryBuilder {
     });
   }
 
-  private _buildDualViewport(paths: Segment[]): DualViewport {
+  private _buildFlexiViewport(paths: Segment[]): FlexiViewport {
     const points = paths.flatMap((p) => p.points);
-    return new DualViewport(
+    return new FlexiViewport(
       this._buildViewport(points.map((p) => p.min)),
       this._buildViewport(points.map((p) => p.max)),
     );
