@@ -170,7 +170,11 @@ export class Renderer {
 
     const color = lineColorCodes[segment.color];
     this._renderPath(
-      segment.pointsForRange(highlighting.start, highlighting.end),
+      segment.pointsForRange(
+        this._amplification,
+        highlighting.start,
+        highlighting.end,
+      ),
       lineWidth,
       color,
     );
