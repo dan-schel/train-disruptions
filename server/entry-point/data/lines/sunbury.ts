@@ -1,5 +1,6 @@
 import * as id from "@/shared/line-ids";
 import * as station from "@/shared/station-ids";
+import * as map from "@/shared/map-node-ids";
 import { Line } from "@/server/data/line/line";
 import { StationPair } from "@/server/data/line/line-routes/station-pair";
 import {
@@ -7,6 +8,7 @@ import {
   LineShapeEdge,
 } from "@/server/data/line/line-routes/line-shape";
 import { LineRoute } from "@/server/data/line/line-routes/line-route";
+import { MapSegment } from "@/server/data/map-segment";
 
 // prettier-ignore
 const routeGraph = {
@@ -28,6 +30,21 @@ const routeGraph = {
   keilorPlainsToWatergardens: new StationPair(station.KEILOR_PLAINS, station.WATERGARDENS),
   watergardensToDiggersRest: new StationPair(station.WATERGARDENS, station.DIGGERS_REST),
   diggersRestToSunbury: new StationPair(station.DIGGERS_REST, station.SUNBURY),
+};
+
+// prettier-ignore
+const mapSegment = {
+  flindersStreetToSouthernCross: MapSegment.full(map.NORTHERN.FLINDERS_STREET_DIRECT, map.NORTHERN.SOUTHERN_CROSS),
+  southernCrossToNorthMelbourne: MapSegment.full(map.NORTHERN.SOUTHERN_CROSS, map.NORTHERN.NORTH_MELBOURNE),
+  northMelbourneToFlagstaff: MapSegment.full(map.NORTHERN.NORTH_MELBOURNE, map.NORTHERN.FLAGSTAFF),
+  flagstaffToMelbourneCentral: MapSegment.full(map.NORTHERN.FLAGSTAFF, map.NORTHERN.MELBOURNE_CENTRAL),
+  melbourneCentralToParliament: MapSegment.full(map.NORTHERN.MELBOURNE_CENTRAL, map.NORTHERN.PARLIAMENT),
+  parliamentToFlindersStreet: MapSegment.full(map.NORTHERN.PARLIAMENT, map.NORTHERN.FLINDERS_STREET_LOOP),
+  northMelbourneToFootscray: MapSegment.full(map.NORTHERN.NORTH_MELBOURNE, map.NORTHERN.FOOTSCRAY),
+  footscrayToSunshineJunction: MapSegment.full(map.NORTHERN.FOOTSCRAY, map.NORTHERN.SUNSHINE_JUNCTION),
+  sunshineJunctionToSunshine: MapSegment.full(map.NORTHERN.SUNSHINE_JUNCTION, map.NORTHERN.SUNSHINE),
+  sunshineToWatergardens: MapSegment.full(map.NORTHERN.SUNSHINE, map.NORTHERN.WATERGARDENS),
+  watergardensToSunbury: MapSegment.full(map.NORTHERN.WATERGARDENS, map.NORTHERN.SUNBURY),
 };
 
 // prettier-ignore

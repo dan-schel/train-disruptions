@@ -1,5 +1,6 @@
 import * as id from "@/shared/line-ids";
 import * as station from "@/shared/station-ids";
+import * as map from "@/shared/map-node-ids";
 import { Line } from "@/server/data/line/line";
 import { StationPair } from "@/server/data/line/line-routes/station-pair";
 import {
@@ -7,6 +8,7 @@ import {
   LineShapeEdge,
 } from "@/server/data/line/line-routes/line-shape";
 import { LineRoute } from "@/server/data/line/line-routes/line-route";
+import { MapSegment } from "@/server/data/map-segment";
 
 // prettier-ignore
 const routeGraph = {
@@ -19,6 +21,11 @@ const routeGraph = {
   bitternToMorradoo: new StationPair(station.BITTERN, station.MORRADOO),
   morradooToCribPoint: new StationPair(station.MORRADOO, station.CRIB_POINT),
   cribPointToStonyPoint: new StationPair(station.CRIB_POINT, station.STONY_POINT),
+};
+
+// prettier-ignore
+const mapSegment = {
+  frankstonToStonyPoint: MapSegment.full(map.STONY_POINT.FRANKSTON, map.STONY_POINT.STONY_POINT),
 };
 
 // prettier-ignore

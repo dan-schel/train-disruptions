@@ -1,5 +1,6 @@
 import * as id from "@/shared/line-ids";
 import * as station from "@/shared/station-ids";
+import * as map from "@/shared/map-node-ids";
 import { Line } from "@/server/data/line/line";
 import { StationPair } from "@/server/data/line/line-routes/station-pair";
 import {
@@ -7,6 +8,7 @@ import {
   LineShapeEdge,
 } from "@/server/data/line/line-routes/line-shape";
 import { LineRoute } from "@/server/data/line/line-routes/line-route";
+import { MapSegment } from "@/server/data/map-segment";
 
 // prettier-ignore
 const routeGraph = {
@@ -35,6 +37,20 @@ const routeGraph = {
   dingeeToPyramid: new StationPair(station.DINGEE, station.PYRAMID),
   pyramidToKerang: new StationPair(station.PYRAMID, station.KERANG),
   kerangToSwanHill: new StationPair(station.KERANG, station.SWAN_HILL),
+};
+
+// prettier-ignore
+const mapSegment = {
+  southernCrossToNorthMelbourneJunction: MapSegment.full(map.REGIONAL_WESTERN.SOUTHERN_CROSS, map.REGIONAL_WESTERN.NORTH_MELBOURNE_JUNCTION),
+  northMelbourneJunctionToNorthMelbourne: MapSegment.full(map.REGIONAL_WESTERN.NORTH_MELBOURNE_JUNCTION, map.REGIONAL_WESTERN.NORTH_MELBOURNE_RRL),
+  northMelbourneToFootscray: MapSegment.full(map.REGIONAL_WESTERN.NORTH_MELBOURNE_RRL, map.REGIONAL_WESTERN.FOOTSCRAY),
+  footscrayToSunshineJunction: MapSegment.full(map.REGIONAL_WESTERN.FOOTSCRAY, map.REGIONAL_WESTERN.SUNSHINE_JUNCTION),
+  sunshineJunctionToSunshine: MapSegment.full(map.REGIONAL_WESTERN.SUNSHINE_JUNCTION, map.REGIONAL_WESTERN.SUNSHINE_BENDIGO),
+  sunshineToWatergardens: MapSegment.full(map.REGIONAL_WESTERN.SUNSHINE_BENDIGO, map.REGIONAL_WESTERN.WATERGARDENS),
+  watergardensToSunbury: MapSegment.full(map.REGIONAL_WESTERN.WATERGARDENS, map.REGIONAL_WESTERN.SUNBURY),
+  sunburyToBendigo: MapSegment.full(map.REGIONAL_WESTERN.SUNBURY, map.REGIONAL_WESTERN.BENDIGO),
+  bendigoToEchuca: MapSegment.full(map.REGIONAL_WESTERN.BENDIGO, map.REGIONAL_WESTERN.ECHUCA),
+  bendigoToSwanHill: MapSegment.full(map.REGIONAL_WESTERN.BENDIGO, map.REGIONAL_WESTERN.SWAN_HILL),
 };
 
 // prettier-ignore

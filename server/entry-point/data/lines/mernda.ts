@@ -1,5 +1,6 @@
 import * as id from "@/shared/line-ids";
 import * as station from "@/shared/station-ids";
+import * as map from "@/shared/map-node-ids";
 import { Line } from "@/server/data/line/line";
 import { StationPair } from "@/server/data/line/line-routes/station-pair";
 import {
@@ -7,6 +8,7 @@ import {
   LineShapeEdge,
 } from "@/server/data/line/line-routes/line-shape";
 import { LineRoute } from "@/server/data/line/line-routes/line-route";
+import { MapSegment } from "@/server/data/map-segment";
 
 // prettier-ignore
 const routeGraph = {
@@ -39,6 +41,18 @@ const routeGraph = {
   southMorangToMiddleGorge: new StationPair(station.SOUTH_MORANG, station.MIDDLE_GORGE),
   middleGorgeToHawkstowe: new StationPair(station.MIDDLE_GORGE, station.HAWKSTOWE),
   hawkstoweToMernda: new StationPair(station.HAWKSTOWE, station.MERNDA),
+};
+
+// prettier-ignore
+const mapSegment = {
+  flindersStreetToJolimont: MapSegment.full(map.CLIFTON_HILL.FLINDERS_STREET_DIRECT, map.CLIFTON_HILL.JOLIMONT),
+  flindersStreetToSouthernCross: MapSegment.full(map.CLIFTON_HILL.FLINDERS_STREET_LOOP, map.CLIFTON_HILL.SOUTHERN_CROSS),
+  southernCrossToFlagstaff: MapSegment.full(map.CLIFTON_HILL.SOUTHERN_CROSS, map.CLIFTON_HILL.FLAGSTAFF),
+  flagstaffToMelbourneCentral: MapSegment.full(map.CLIFTON_HILL.FLAGSTAFF, map.CLIFTON_HILL.MELBOURNE_CENTRAL),
+  melbourneCentralToParliament: MapSegment.full(map.CLIFTON_HILL.MELBOURNE_CENTRAL, map.CLIFTON_HILL.PARLIAMENT),
+  parliamentToJolimont: MapSegment.full(map.CLIFTON_HILL.PARLIAMENT, map.CLIFTON_HILL.JOLIMONT),
+  jolimontToCliftonHill: MapSegment.full(map.CLIFTON_HILL.JOLIMONT, map.CLIFTON_HILL.CLIFTON_HILL),
+  cliftonHillToMernda: MapSegment.full(map.CLIFTON_HILL.CLIFTON_HILL, map.CLIFTON_HILL.MERNDA),
 };
 
 // prettier-ignore

@@ -1,5 +1,6 @@
 import * as id from "@/shared/line-ids";
 import * as station from "@/shared/station-ids";
+import * as map from "@/shared/map-node-ids";
 import { Line } from "@/server/data/line/line";
 import { StationPair } from "@/server/data/line/line-routes/station-pair";
 import {
@@ -7,6 +8,7 @@ import {
   LineShapeEdge,
 } from "@/server/data/line/line-routes/line-shape";
 import { LineRoute } from "@/server/data/line/line-routes/line-route";
+import { MapSegment } from "@/server/data/map-segment";
 
 // prettier-ignore
 const routeGraph = {
@@ -30,6 +32,18 @@ const routeGraph = {
   jordanvilleToMountWaverley: new StationPair(station.JORDANVILLE, station.MOUNT_WAVERLEY),
   mountWaverleyToSyndal: new StationPair(station.MOUNT_WAVERLEY, station.SYNDAL),
   syndalToGlenWaverley: new StationPair(station.SYNDAL, station.GLEN_WAVERLEY),
+};
+
+// prettier-ignore
+const mapSegment = {
+  flindersStreetToRichmond: MapSegment.full(map.BURNLEY.FLINDERS_STREET_DIRECT, map.BURNLEY.RICHMOND),
+  flindersStreetToSouthernCross: MapSegment.full(map.BURNLEY.FLINDERS_STREET_LOOP, map.BURNLEY.SOUTHERN_CROSS),
+  southernCrossToFlagstaff: MapSegment.full(map.BURNLEY.SOUTHERN_CROSS, map.BURNLEY.FLAGSTAFF),
+  flagstaffToMelbourneCentral: MapSegment.full(map.BURNLEY.FLAGSTAFF, map.BURNLEY.MELBOURNE_CENTRAL),
+  melbourneCentralToParliament: MapSegment.full(map.BURNLEY.MELBOURNE_CENTRAL, map.BURNLEY.PARLIAMENT),
+  parliamentToRichmond: MapSegment.full(map.BURNLEY.PARLIAMENT, map.BURNLEY.RICHMOND),
+  richmondToBurnley: MapSegment.full(map.BURNLEY.RICHMOND, map.BURNLEY.BURNLEY),
+  burnleyToGlenWaverley: MapSegment.full(map.BURNLEY.BURNLEY, map.BURNLEY.GLEN_WAVERLEY),
 };
 
 // prettier-ignore

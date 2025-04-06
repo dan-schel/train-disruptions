@@ -1,5 +1,6 @@
 import * as id from "@/shared/line-ids";
 import * as station from "@/shared/station-ids";
+import * as map from "@/shared/map-node-ids";
 import { Line } from "@/server/data/line/line";
 import { StationPair } from "@/server/data/line/line-routes/station-pair";
 import {
@@ -7,6 +8,7 @@ import {
   LineShapeEdge,
 } from "@/server/data/line/line-routes/line-shape";
 import { LineRoute } from "@/server/data/line/line-routes/line-route";
+import { MapSegment } from "@/server/data/map-segment";
 
 // prettier-ignore
 const routeGraph = {
@@ -21,6 +23,15 @@ const routeGraph = {
   newportToNorthWilliamstown: new StationPair(station.NEWPORT, station.NORTH_WILLIAMSTOWN),
   northWilliamstownToWilliamstownBeach: new StationPair(station.NORTH_WILLIAMSTOWN, station.WILLIAMSTOWN_BEACH),
   williamstownBeachToWilliamstown: new StationPair(station.WILLIAMSTOWN_BEACH, station.WILLIAMSTOWN),
+};
+
+// prettier-ignore
+const mapSegment = {
+  flindersStreetToSouthernCross: MapSegment.full(map.NEWPORT.FLINDERS_STREET, map.NEWPORT.SOUTHERN_CROSS),
+  southernCrossToNorthMelbourne: MapSegment.full(map.NEWPORT.SOUTHERN_CROSS, map.NEWPORT.NORTH_MELBOURNE),
+  northMelbourneToFootscray: MapSegment.full(map.NEWPORT.NORTH_MELBOURNE, map.NEWPORT.FOOTSCRAY),
+  footscrayToNewport: MapSegment.full(map.NEWPORT.FOOTSCRAY, map.NEWPORT.NEWPORT),
+  newportToWilliamstown: MapSegment.full(map.NEWPORT.NEWPORT, map.NEWPORT.WILLIAMSTOWN),
 };
 
 // prettier-ignore

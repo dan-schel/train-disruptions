@@ -1,5 +1,6 @@
 import * as id from "@/shared/line-ids";
 import * as station from "@/shared/station-ids";
+import * as map from "@/shared/map-node-ids";
 import { Line } from "@/server/data/line/line";
 import { StationPair } from "@/server/data/line/line-routes/station-pair";
 import {
@@ -7,6 +8,7 @@ import {
   LineShapeEdge,
 } from "@/server/data/line/line-routes/line-shape";
 import { LineRoute } from "@/server/data/line/line-routes/line-route";
+import { MapSegment } from "@/server/data/map-segment";
 
 // prettier-ignore
 const routeGraph = {
@@ -31,6 +33,18 @@ const routeGraph = {
   broadmeadowsToCoolaroo: new StationPair(station.BROADMEADOWS, station.COOLAROO),
   coolarooToRoxburghPark: new StationPair(station.COOLAROO, station.ROXBURGH_PARK),
   roxburghParkToCraigieburn: new StationPair(station.ROXBURGH_PARK, station.CRAIGIEBURN),
+};
+
+// prettier-ignore
+const mapSegment = {
+  flindersStreetToSouthernCross: MapSegment.full(map.NORTHERN.FLINDERS_STREET_DIRECT, map.NORTHERN.SOUTHERN_CROSS),
+  southernCrossToNorthMelbourne: MapSegment.full(map.NORTHERN.SOUTHERN_CROSS, map.NORTHERN.NORTH_MELBOURNE),
+  northMelbourneToFlagstaff: MapSegment.full(map.NORTHERN.NORTH_MELBOURNE, map.NORTHERN.FLAGSTAFF),
+  flagstaffToMelbourneCentral: MapSegment.full(map.NORTHERN.FLAGSTAFF, map.NORTHERN.MELBOURNE_CENTRAL),
+  melbourneCentralToParliament: MapSegment.full(map.NORTHERN.MELBOURNE_CENTRAL, map.NORTHERN.PARLIAMENT),
+  parliamentToFlindersStreet: MapSegment.full(map.NORTHERN.PARLIAMENT, map.NORTHERN.FLINDERS_STREET_LOOP),
+  northMelbourneToBroadmeadows: MapSegment.full(map.NORTHERN.NORTH_MELBOURNE, map.NORTHERN.BROADMEADOWS),
+  broadmeadowsToCraigieburn: MapSegment.full(map.NORTHERN.BROADMEADOWS, map.NORTHERN.CRAIGIEBURN),
 };
 
 // prettier-ignore

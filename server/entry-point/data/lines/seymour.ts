@@ -1,5 +1,6 @@
 import * as id from "@/shared/line-ids";
 import * as station from "@/shared/station-ids";
+import * as map from "@/shared/map-node-ids";
 import { Line } from "@/server/data/line/line";
 import { StationPair } from "@/server/data/line/line-routes/station-pair";
 import {
@@ -7,6 +8,7 @@ import {
   LineShapeEdge,
 } from "@/server/data/line/line-routes/line-shape";
 import { LineRoute } from "@/server/data/line/line-routes/line-route";
+import { MapSegment } from "@/server/data/map-segment";
 
 // prettier-ignore
 const routeGraph = {
@@ -34,6 +36,17 @@ const routeGraph = {
   nagambieToMurchisonEast: new StationPair(station.NAGAMBIE, station.MURCHISON_EAST),
   murchisonEastToMooroopna: new StationPair(station.MURCHISON_EAST, station.MOOROOPNA),
   mooroopnaToShepparton: new StationPair(station.MOOROOPNA, station.SHEPPARTON),
+};
+
+// prettier-ignore
+const mapSegment = {
+  southernCrossToNorthMelbourneJunction: MapSegment.full(map.REGIONAL_WESTERN.SOUTHERN_CROSS, map.REGIONAL_WESTERN.NORTH_MELBOURNE_JUNCTION),
+  northMelbourneJunctionToNorthMelbourne: MapSegment.full(map.REGIONAL_WESTERN.NORTH_MELBOURNE_JUNCTION, map.REGIONAL_WESTERN.NORTH_MELBOURNE_SEYMOUR),
+  northMelbourneToBroadmeadows: MapSegment.full(map.REGIONAL_WESTERN.NORTH_MELBOURNE_SEYMOUR, map.REGIONAL_WESTERN.BROADMEADOWS),
+  broadmeadowsToCraigieburn: MapSegment.full(map.REGIONAL_WESTERN.BROADMEADOWS, map.REGIONAL_WESTERN.CRAIGIEBURN),
+  craigieburnToSeymour: MapSegment.full(map.REGIONAL_WESTERN.CRAIGIEBURN, map.REGIONAL_WESTERN.SEYMOUR),
+  seymourToAlbury: MapSegment.full(map.REGIONAL_WESTERN.SEYMOUR, map.REGIONAL_WESTERN.ALBURY),
+  seymourToShepparton: MapSegment.full(map.REGIONAL_WESTERN.SEYMOUR, map.REGIONAL_WESTERN.SHEPPARTON),
 };
 
 // prettier-ignore

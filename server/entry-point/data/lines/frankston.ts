@@ -1,5 +1,6 @@
 import * as id from "@/shared/line-ids";
 import * as station from "@/shared/station-ids";
+import * as map from "@/shared/map-node-ids";
 import { Line } from "@/server/data/line/line";
 import { StationPair } from "@/server/data/line/line-routes/station-pair";
 import {
@@ -7,6 +8,7 @@ import {
   LineShapeEdge,
 } from "@/server/data/line/line-routes/line-shape";
 import { LineRoute } from "@/server/data/line/line-routes/line-route";
+import { MapSegment } from "@/server/data/map-segment";
 
 // prettier-ignore
 const routeGraph = {
@@ -37,6 +39,14 @@ const routeGraph = {
   carrumToSeaford: new StationPair(station.CARRUM, station.SEAFORD),
   seafordToKananook: new StationPair(station.SEAFORD, station.KANANOOK),
   kananookToFrankston: new StationPair(station.KANANOOK, station.FRANKSTON),
+};
+
+// prettier-ignore
+const mapSegment = {
+  flindersStreetToRichmond: MapSegment.full(map.FRANKSTON.FLINDERS_STREET, map.FRANKSTON.RICHMOND),
+  richmondToSouthYarra: MapSegment.full(map.FRANKSTON.RICHMOND, map.FRANKSTON.SOUTH_YARRA),
+  southYarraToCaulfield: MapSegment.full(map.FRANKSTON.SOUTH_YARRA, map.FRANKSTON.CAULFIELD),
+  caulfieldToFrankston: MapSegment.full(map.FRANKSTON.CAULFIELD, map.FRANKSTON.FRANKSTON),
 };
 
 // prettier-ignore

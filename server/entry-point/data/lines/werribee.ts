@@ -1,5 +1,6 @@
 import * as id from "@/shared/line-ids";
 import * as station from "@/shared/station-ids";
+import * as map from "@/shared/map-node-ids";
 import { Line } from "@/server/data/line/line";
 import { StationPair } from "@/server/data/line/line-routes/station-pair";
 import {
@@ -7,6 +8,7 @@ import {
   LineShapeEdge,
 } from "@/server/data/line/line-routes/line-shape";
 import { LineRoute } from "@/server/data/line/line-routes/line-route";
+import { MapSegment } from "@/server/data/map-segment";
 
 // prettier-ignore
 const routeGraph = {
@@ -27,6 +29,17 @@ const routeGraph = {
   aircraftToWilliamsLanding: new StationPair(station.AIRCRAFT, station.WILLIAMS_LANDING),
   williamsLandingToHoppersCrossing: new StationPair(station.WILLIAMS_LANDING, station.HOPPERS_CROSSING),
   hoppersCrossingToWerribee: new StationPair(station.HOPPERS_CROSSING, station.WERRIBEE),
+};
+
+// prettier-ignore
+const mapSegment = {
+  flindersStreetToSouthernCross: MapSegment.full(map.NEWPORT.FLINDERS_STREET, map.NEWPORT.SOUTHERN_CROSS),
+  southernCrossToNorthMelbourne: MapSegment.full(map.NEWPORT.SOUTHERN_CROSS, map.NEWPORT.NORTH_MELBOURNE),
+  northMelbourneToFootscray: MapSegment.full(map.NEWPORT.NORTH_MELBOURNE, map.NEWPORT.FOOTSCRAY),
+  footscrayToNewport: MapSegment.full(map.NEWPORT.FOOTSCRAY, map.NEWPORT.NEWPORT),
+  newportToLavertonLoop: MapSegment.full(map.NEWPORT.NEWPORT, map.NEWPORT.LAVERTON_LOOP),
+  newportToLavertonExpress: MapSegment.full(map.NEWPORT.NEWPORT, map.NEWPORT.LAVERTON_EXPRESS),
+  lavertonToWerribee: MapSegment.full(map.NEWPORT.LAVERTON_LOOP, map.NEWPORT.WERRIBEE),
 };
 
 // prettier-ignore

@@ -1,5 +1,6 @@
 import * as id from "@/shared/line-ids";
 import * as station from "@/shared/station-ids";
+import * as map from "@/shared/map-node-ids";
 import { Line } from "@/server/data/line/line";
 import { StationPair } from "@/server/data/line/line-routes/station-pair";
 import {
@@ -7,6 +8,7 @@ import {
   LineShapeEdge,
 } from "@/server/data/line/line-routes/line-shape";
 import { LineRoute } from "@/server/data/line/line-routes/line-route";
+import { MapSegment } from "@/server/data/map-segment";
 
 // prettier-ignore
 const routeGraph = {
@@ -41,6 +43,20 @@ const routeGraph = {
   upperFerntreeGullyToUpwey: new StationPair(station.UPPER_FERNTREE_GULLY, station.UPWEY),
   upweyToTecoma: new StationPair(station.UPWEY, station.TECOMA),
   tecomaToBelgrave: new StationPair(station.TECOMA, station.BELGRAVE),
+};
+
+// prettier-ignore
+const mapSegment = {
+  flindersStreetToRichmond: MapSegment.full(map.BURNLEY.FLINDERS_STREET_DIRECT, map.BURNLEY.RICHMOND),
+  flindersStreetToSouthernCross: MapSegment.full(map.BURNLEY.FLINDERS_STREET_LOOP, map.BURNLEY.SOUTHERN_CROSS),
+  southernCrossToFlagstaff: MapSegment.full(map.BURNLEY.SOUTHERN_CROSS, map.BURNLEY.FLAGSTAFF),
+  flagstaffToMelbourneCentral: MapSegment.full(map.BURNLEY.FLAGSTAFF, map.BURNLEY.MELBOURNE_CENTRAL),
+  melbourneCentralToParliament: MapSegment.full(map.BURNLEY.MELBOURNE_CENTRAL, map.BURNLEY.PARLIAMENT),
+  parliamentToRichmond: MapSegment.full(map.BURNLEY.PARLIAMENT, map.BURNLEY.RICHMOND),
+  richmondToBurnley: MapSegment.full(map.BURNLEY.RICHMOND, map.BURNLEY.BURNLEY),
+  burnleyToCamberwell: MapSegment.full(map.BURNLEY.BURNLEY, map.BURNLEY.CAMBERWELL),
+  camberwellToRingwood: MapSegment.full(map.BURNLEY.CAMBERWELL, map.BURNLEY.RINGWOOD),
+  ringwoodToBelgrave: MapSegment.full(map.BURNLEY.RINGWOOD, map.BURNLEY.BELGRAVE),
 };
 
 // prettier-ignore

@@ -1,5 +1,6 @@
 import * as id from "@/shared/line-ids";
 import * as station from "@/shared/station-ids";
+import * as map from "@/shared/map-node-ids";
 import { Line } from "@/server/data/line/line";
 import { StationPair } from "@/server/data/line/line-routes/station-pair";
 import {
@@ -7,6 +8,7 @@ import {
   LineShapeEdge,
 } from "@/server/data/line/line-routes/line-shape";
 import { LineRoute } from "@/server/data/line/line-routes/line-route";
+import { MapSegment } from "@/server/data/map-segment";
 
 // prettier-ignore
 const routeGraph = {
@@ -38,6 +40,22 @@ const routeGraph = {
   officerToCardiniaRoad: new StationPair(station.OFFICER, station.CARDINIA_ROAD),
   cardiniaRoadToPakenham: new StationPair(station.CARDINIA_ROAD, station.PAKENHAM),
   pakenhamToEastPakenham: new StationPair(station.PAKENHAM, station.EAST_PAKENHAM),
+};
+
+// prettier-ignore
+const mapSegment = {
+  flindersStreetToRichmond: MapSegment.full(map.DANDENONG.FLINDERS_STREET_DIRECT, map.DANDENONG.RICHMOND),
+  flindersStreetToSouthernCross: MapSegment.full(map.DANDENONG.FLINDERS_STREET_LOOP, map.DANDENONG.SOUTHERN_CROSS),
+  southernCrossToFlagstaff: MapSegment.full(map.DANDENONG.SOUTHERN_CROSS, map.DANDENONG.FLAGSTAFF),
+  flagstaffToMelbourneCentral: MapSegment.full(map.DANDENONG.FLAGSTAFF, map.DANDENONG.MELBOURNE_CENTRAL),
+  melbourneCentralToParliament: MapSegment.full(map.DANDENONG.MELBOURNE_CENTRAL, map.DANDENONG.PARLIAMENT),
+  parliamentToRichmond: MapSegment.full(map.DANDENONG.PARLIAMENT, map.DANDENONG.RICHMOND),
+  richmondToSouthYarra: MapSegment.full(map.DANDENONG.RICHMOND, map.DANDENONG.SOUTH_YARRA),
+  southYarraToCaulfield: MapSegment.full(map.DANDENONG.SOUTH_YARRA, map.DANDENONG.CAULFIELD),
+  caulfieldToClayton: MapSegment.full(map.DANDENONG.CAULFIELD, map.DANDENONG.CLAYTON),
+  claytonToDandenong: MapSegment.full(map.DANDENONG.CLAYTON, map.DANDENONG.DANDENONG),
+  dandenongToPakenham: MapSegment.full(map.DANDENONG.DANDENONG, map.DANDENONG.PAKENHAM),
+  pakenhamToEastPakenham: MapSegment.full(map.DANDENONG.PAKENHAM, map.DANDENONG.EAST_PAKENHAM),
 };
 
 // prettier-ignore

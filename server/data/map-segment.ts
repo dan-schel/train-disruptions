@@ -62,4 +62,8 @@ export class MapSegment {
       return condensedRanges.map((r) => group.items[0].withRange(r));
     });
   }
+
+  static full(mapNodeA: number, mapNodeB: number): MapSegment {
+    return new MapSegment(mapNodeA, mapNodeB, new Range(0, 1));
+  }
 }

@@ -1,5 +1,6 @@
 import * as id from "@/shared/line-ids";
 import * as station from "@/shared/station-ids";
+import * as map from "@/shared/map-node-ids";
 import { Line } from "@/server/data/line/line";
 import { StationPair } from "@/server/data/line/line-routes/station-pair";
 import {
@@ -7,6 +8,7 @@ import {
   LineShapeEdge,
 } from "@/server/data/line/line-routes/line-shape";
 import { LineRoute } from "@/server/data/line/line-routes/line-route";
+import { MapSegment } from "@/server/data/map-segment";
 
 // prettier-ignore
 const routeGraph = {
@@ -32,6 +34,19 @@ const routeGraph = {
   rosedaleToSale: new StationPair(station.ROSEDALE, station.SALE),
   saleToStratford: new StationPair(station.SALE, station.STRATFORD),
   stratfordToBairnsdale: new StationPair(station.STRATFORD, station.BAIRNSDALE),
+};
+
+// prettier-ignore
+const mapSegment = {
+  southernCrossToFlindersStreet: MapSegment.full(map.GIPPSLAND.SOUTHERN_CROSS, map.GIPPSLAND.FLINDERS_STREET),
+  flindersStreetToRichmond: MapSegment.full(map.GIPPSLAND.FLINDERS_STREET, map.GIPPSLAND.RICHMOND),
+  richmondToSouthYarra: MapSegment.full(map.GIPPSLAND.RICHMOND, map.GIPPSLAND.SOUTH_YARRA),
+  southYarraToCaulfield: MapSegment.full(map.GIPPSLAND.SOUTH_YARRA, map.GIPPSLAND.CAULFIELD),
+  caulfieldToClayton: MapSegment.full(map.GIPPSLAND.CAULFIELD, map.GIPPSLAND.CLAYTON),
+  claytonToDandenong: MapSegment.full(map.GIPPSLAND.CLAYTON, map.GIPPSLAND.DANDENONG),
+  dandenongToPakenham: MapSegment.full(map.GIPPSLAND.DANDENONG, map.GIPPSLAND.PAKENHAM),
+  pakenhamToEastPakenham: MapSegment.full(map.GIPPSLAND.PAKENHAM, map.GIPPSLAND.EAST_PAKENHAM),
+  eastPakenhamToBairnsdale: MapSegment.full(map.GIPPSLAND.EAST_PAKENHAM, map.GIPPSLAND.BAIRNSDALE),
 };
 
 // prettier-ignore

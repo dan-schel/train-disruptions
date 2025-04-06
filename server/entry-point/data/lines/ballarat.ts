@@ -1,5 +1,6 @@
 import * as id from "@/shared/line-ids";
 import * as station from "@/shared/station-ids";
+import * as map from "@/shared/map-node-ids";
 import { Line } from "@/server/data/line/line";
 import { StationPair } from "@/server/data/line/line-routes/station-pair";
 import {
@@ -7,6 +8,7 @@ import {
   LineShapeEdge,
 } from "@/server/data/line/line-routes/line-shape";
 import { LineRoute } from "@/server/data/line/line-routes/line-route";
+import { MapSegment } from "@/server/data/map-segment";
 
 // prettier-ignore
 const routeGraph = {
@@ -28,6 +30,19 @@ const routeGraph = {
   ballaratToWendouree: new StationPair(station.BALLARAT, station.WENDOUREE),
   wendoureeToBeaufort: new StationPair(station.WENDOUREE, station.BEAUFORT),
   beaufortToArarat: new StationPair(station.BEAUFORT, station.ARARAT),
+};
+
+// prettier-ignore
+const mapSegment = {
+  southernCrossToNorthMelbourneJunction: MapSegment.full(map.REGIONAL_WESTERN.SOUTHERN_CROSS, map.REGIONAL_WESTERN.NORTH_MELBOURNE_JUNCTION),
+  northMelbourneJunctionToNorthMelbourne: MapSegment.full(map.REGIONAL_WESTERN.NORTH_MELBOURNE_JUNCTION, map.REGIONAL_WESTERN.NORTH_MELBOURNE_RRL),
+  northMelbourneToFootscray: MapSegment.full(map.REGIONAL_WESTERN.NORTH_MELBOURNE_RRL, map.REGIONAL_WESTERN.FOOTSCRAY),
+  footscrayToSunshineJunction: MapSegment.full(map.REGIONAL_WESTERN.FOOTSCRAY, map.REGIONAL_WESTERN.SUNSHINE_JUNCTION),
+  sunshineJunctionToSunshine: MapSegment.full(map.REGIONAL_WESTERN.SUNSHINE_JUNCTION, map.REGIONAL_WESTERN.SUNSHINE_DEER_PARK),
+  sunshineToDeerPark: MapSegment.full(map.REGIONAL_WESTERN.SUNSHINE_DEER_PARK, map.REGIONAL_WESTERN.DEER_PARK),
+  deerParkToBallarat: MapSegment.full(map.REGIONAL_WESTERN.DEER_PARK, map.REGIONAL_WESTERN.BALLARAT),
+  ballaratToMaryborough: MapSegment.full(map.REGIONAL_WESTERN.BALLARAT, map.REGIONAL_WESTERN.MARYBOROUGH),
+  ballaratToArarat: MapSegment.full(map.REGIONAL_WESTERN.BALLARAT, map.REGIONAL_WESTERN.ARARAT),
 };
 
 // prettier-ignore
