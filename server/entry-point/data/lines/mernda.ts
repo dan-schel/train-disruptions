@@ -64,76 +64,129 @@ const lineShapeEdges = [
     routeGraph.flagstaffToMelbourneCentral,
     routeGraph.melbourneCentralToParliament,
     routeGraph.parliamentToJolimont,
-  ], []),
+  ], [
+    mapSegment.flindersStreetToJolimont,
+    mapSegment.flindersStreetToSouthernCross,
+    mapSegment.southernCrossToFlagstaff,
+    mapSegment.flagstaffToMelbourneCentral,
+    mapSegment.melbourneCentralToParliament,
+    mapSegment.parliamentToJolimont,
+  ]),
   new LineShapeEdge(station.JOLIMONT, station.WEST_RICHMOND, [
     routeGraph.jolimontToWestRichmond,
-  ], []),
+  ], [
+    mapSegment.jolimontToCliftonHill.part(1, 5),
+  ]),
   new LineShapeEdge(station.WEST_RICHMOND, station.NORTH_RICHMOND, [
     routeGraph.westRichmondToNorthRichmond,
-  ], []),
+  ], [
+    mapSegment.jolimontToCliftonHill.part(2, 5),
+  ]),
   new LineShapeEdge(station.NORTH_RICHMOND, station.COLLINGWOOD, [
     routeGraph.northRichmondToCollingwood,
-  ], []),
+  ], [
+    mapSegment.jolimontToCliftonHill.part(3, 5),
+  ]),
   new LineShapeEdge(station.COLLINGWOOD, station.VICTORIA_PARK, [
     routeGraph.collingwoodToVictoriaPark,
-  ], []),
+  ], [
+    mapSegment.jolimontToCliftonHill.part(4, 5),
+  ]),
   new LineShapeEdge(station.VICTORIA_PARK, station.CLIFTON_HILL, [
     routeGraph.victoriaParkToCliftonHill,
-  ], []),
+  ], [
+    mapSegment.jolimontToCliftonHill.part(5, 5),
+  ]),
   new LineShapeEdge(station.CLIFTON_HILL, station.RUSHALL, [
     routeGraph.cliftonHillToRushall,
-  ], []),
+  ], [
+    mapSegment.cliftonHillToMernda.part(1, 18),
+  ]),
   new LineShapeEdge(station.RUSHALL, station.MERRI, [
     routeGraph.rushallToMerri,
-  ], []),
+  ], [
+    mapSegment.cliftonHillToMernda.part(2, 18),
+  ]),
   new LineShapeEdge(station.MERRI, station.NORTHCOTE, [
     routeGraph.merriToNorthcote,
-  ], []),
+  ], [
+    mapSegment.cliftonHillToMernda.part(3, 18),
+  ]),
   new LineShapeEdge(station.NORTHCOTE, station.CROXTON, [
     routeGraph.northcoteToCroxton,
-  ], []),
+  ], [
+    mapSegment.cliftonHillToMernda.part(4, 18),
+  ]),
   new LineShapeEdge(station.CROXTON, station.THORNBURY, [
     routeGraph.croxtonToThornbury,
-  ], []),
+  ], [
+    mapSegment.cliftonHillToMernda.part(5, 18),
+  ]),
   new LineShapeEdge(station.THORNBURY, station.BELL, [
     routeGraph.thornburyToBell,
-  ], []),
+  ], [
+    mapSegment.cliftonHillToMernda.part(6, 18),
+  ]),
   new LineShapeEdge(station.BELL, station.PRESTON, [
     routeGraph.bellToPreston,
-  ], []),
+  ], [
+    mapSegment.cliftonHillToMernda.part(7, 18),
+  ]),
   new LineShapeEdge(station.PRESTON, station.REGENT, [
     routeGraph.prestonToRegent,
-  ], []),
+  ], [
+    mapSegment.cliftonHillToMernda.part(8, 18),
+  ]),
   new LineShapeEdge(station.REGENT, station.RESERVOIR, [
     routeGraph.regentToReservoir,
-  ], []),
+  ], [
+    mapSegment.cliftonHillToMernda.part(9, 18),
+  ]),
   new LineShapeEdge(station.RESERVOIR, station.RUTHVEN, [
     routeGraph.reservoirToRuthven,
-  ], []),
+  ], [
+    mapSegment.cliftonHillToMernda.part(10, 18),
+  ]),
   new LineShapeEdge(station.RUTHVEN, station.KEON_PARK, [
     routeGraph.ruthvenToKeonPark,
-  ], []),
+  ], [
+    mapSegment.cliftonHillToMernda.part(11, 18),
+  ]),
   new LineShapeEdge(station.KEON_PARK, station.THOMASTOWN, [
     routeGraph.keonParkToThomastown,
-  ], []),
+  ], [
+    mapSegment.cliftonHillToMernda.part(12, 18),
+  ]),
   new LineShapeEdge(station.THOMASTOWN, station.LALOR, [
     routeGraph.thomastownToLalor,
-  ], []),
+  ], [
+    mapSegment.cliftonHillToMernda.part(13, 18),
+  ]),
   new LineShapeEdge(station.LALOR, station.EPPING, [
     routeGraph.lalorToEpping,
-  ], []),
+  ], [
+    mapSegment.cliftonHillToMernda.part(14, 18),
+  ]),
   new LineShapeEdge(station.EPPING, station.SOUTH_MORANG, [
     routeGraph.eppingToSouthMorang,
-  ], []),
+  ], [
+    mapSegment.cliftonHillToMernda.part(15, 18),
+  ]),
   new LineShapeEdge(station.SOUTH_MORANG, station.MIDDLE_GORGE, [
     routeGraph.southMorangToMiddleGorge,
-  ], []),
+  ], [
+    mapSegment.cliftonHillToMernda.part(16, 18),
+  ]),
   new LineShapeEdge(station.MIDDLE_GORGE, station.HAWKSTOWE, [
     routeGraph.middleGorgeToHawkstowe,
-  ], []),
+  ], [
+    mapSegment.cliftonHillToMernda.part(17, 18),
+  ]),
   new LineShapeEdge(station.HAWKSTOWE, station.MERNDA, [
     routeGraph.hawkstoweToMernda,
-  ], []),
+  ], [
+    mapSegment.cliftonHillToMernda.part(18, 18),
+  ]),
 ];
 
 const routeGraphPairs = Object.values(routeGraph);
