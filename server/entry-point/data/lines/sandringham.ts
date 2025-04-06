@@ -38,43 +38,69 @@ const mapSegment = {
 const lineShapeEdges = [
   new LineShapeEdge(station.FLINDERS_STREET, station.RICHMOND, [
     routeGraph.flindersStreetToRichmond,
-  ], []),
+  ], [
+    mapSegment.flindersStreetToRichmond,
+  ]),
   new LineShapeEdge(station.RICHMOND, station.SOUTH_YARRA, [
     routeGraph.richmondToSouthYarra,
-  ], []),
+  ], [
+    mapSegment.richmondToSouthYarra,
+  ]),
   new LineShapeEdge(station.SOUTH_YARRA, station.PRAHRAN, [
     routeGraph.southYarraToPrahran,
-  ], []),
+  ], [
+    mapSegment.southYarraToSandringham.part(1, 11),
+  ]),
   new LineShapeEdge(station.PRAHRAN, station.WINDSOR, [
     routeGraph.prahranToWindsor,
-  ], []),
+  ], [
+    mapSegment.southYarraToSandringham.part(2, 11),
+  ]),
   new LineShapeEdge(station.WINDSOR, station.BALACLAVA, [
     routeGraph.windsorToBalaclava,
-  ], []),
+  ], [
+    mapSegment.southYarraToSandringham.part(3, 11),
+  ]),
   new LineShapeEdge(station.BALACLAVA, station.RIPPONLEA, [
     routeGraph.balaclavaToRipponlea,
-  ], []),
+  ], [
+    mapSegment.southYarraToSandringham.part(4, 11),
+  ]),
   new LineShapeEdge(station.RIPPONLEA, station.ELSTERNWICK, [
     routeGraph.ripponleaToElsternwick,
-  ], []),
+  ], [
+    mapSegment.southYarraToSandringham.part(5, 11),
+  ]),
   new LineShapeEdge(station.ELSTERNWICK, station.GARDENVALE, [
     routeGraph.elsternwickToGardenvale,
-  ], []),
+  ], [
+    mapSegment.southYarraToSandringham.part(6, 11),
+  ]),
   new LineShapeEdge(station.GARDENVALE, station.NORTH_BRIGHTON, [
     routeGraph.gardenvaleToNorthBrighton,
-  ], []),
+  ], [
+    mapSegment.southYarraToSandringham.part(7, 11),
+  ]),
   new LineShapeEdge(station.NORTH_BRIGHTON, station.MIDDLE_BRIGHTON, [
     routeGraph.northBrightonToMiddleBrighton,
-  ], []),
+  ], [
+    mapSegment.southYarraToSandringham.part(8, 11),
+  ]),
   new LineShapeEdge(station.MIDDLE_BRIGHTON, station.BRIGHTON_BEACH, [
     routeGraph.middleBrightonToBrightonBeach,
-  ], []),
+  ], [
+    mapSegment.southYarraToSandringham.part(9, 11),
+  ]),
   new LineShapeEdge(station.BRIGHTON_BEACH, station.HAMPTON, [
     routeGraph.brightonBeachToHampton,
-  ], []),
+  ], [
+    mapSegment.southYarraToSandringham.part(10, 11),
+  ]),
   new LineShapeEdge(station.HAMPTON, station.SANDRINGHAM, [
     routeGraph.hamptonToSandringham,
-  ], []),
+  ], [
+    mapSegment.southYarraToSandringham.part(11, 11),
+  ]),
 ];
 
 const routeGraphPairs = Object.values(routeGraph);
