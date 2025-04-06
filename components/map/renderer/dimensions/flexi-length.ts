@@ -26,7 +26,7 @@ export class FlexiLength {
 
   toString() {
     const min = this.min.toFixed(2);
-    const max = this.min.toFixed(2);
+    const max = this.max.toFixed(2);
     return `${min} ${max}`;
   }
 
