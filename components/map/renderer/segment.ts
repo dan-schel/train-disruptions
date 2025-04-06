@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { LineColor, lineColors } from "@/components/map/renderer/utils";
-import { FlexiLength } from "@/components/map/renderer/flexi-length";
+import { FlexiLength } from "@/components/map/renderer/dimensions/flexi-length";
 import {
   createFlexiLengthString,
   createFlexiPointString,

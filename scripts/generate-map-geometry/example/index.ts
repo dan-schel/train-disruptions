@@ -1,4 +1,4 @@
-import { flexi } from "@/components/map/renderer/flexi-length";
+import { flexi } from "@/components/map/renderer/dimensions/flexi-length";
 import { fp } from "@/components/map/renderer/flexi-point";
 import { InterchangeBlueprint } from "@/scripts/generate-map-geometry/lib/interchange-blueprint";
 import { GeometryBuilder } from "@/scripts/generate-map-geometry/lib/geometry-builder";

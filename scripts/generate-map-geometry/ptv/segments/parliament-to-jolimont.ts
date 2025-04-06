@@ -1,4 +1,4 @@
-import { flexi } from "@/components/map/renderer/flexi-length";
+import { flexi } from "@/components/map/renderer/dimensions/flexi-length";
 import {
   curve,
   SegmentInstruction,
