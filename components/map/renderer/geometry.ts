@@ -6,12 +6,16 @@ import { DualViewport } from "@/components/map/renderer/dual-viewport";
 import { viewportPadding } from "@/components/map/renderer/utils";
 
 export class Geometry {
+  readonly segments: readonly Segment[];
+
   constructor(
-    readonly segments: readonly Segment[],
+    segments: readonly Segment[],
     readonly interchanges: readonly Interchange[],
     readonly termini: readonly Terminus[],
     readonly viewport: DualViewport,
-  ) {}
+  ) {
+    this.segments = segments.map((s) => s.normalize());
+  }
 
   static readonly json = z
     .object({

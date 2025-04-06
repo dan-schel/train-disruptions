@@ -17,11 +17,36 @@ export class Segment {
     readonly points: readonly FlexiPoint[],
     readonly distances: readonly FlexiLength[],
   ) {
-    if (startNodeId >= endNodeId) {
-      throw new Error("Segment created with startNodeId >= endNodeId.");
+    if (startNodeId === endNodeId) {
+      throw new Error(
+        "Segment created with identical startNodeId and endNodeId.",
+      );
     }
     if (distances.length !== points.length) {
       throw new Error("Distances and points must have the same length.");
+    }
+  }
+
+  reverse(): Segment {
+    const maxDistance = this.distances[this.distances.length - 1];
+    const reversedDistances = this.distances
+      .map((x) => maxDistance.minus(x))
+      .reverse();
+
+    return new Segment(
+      this.endNodeId,
+      this.startNodeId,
+      this.color,
+      [...this.points].reverse(),
+      reversedDistances,
+    );
+  }
+
+  normalize(): Segment {
+    if (this.startNodeId < this.endNodeId) {
+      return this;
+    } else {
+      return this.reverse();
     }
   }
 
