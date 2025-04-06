@@ -56,43 +56,75 @@ const lineShapeEdges = [
     routeGraph.parliamentToMelbourneCentral,
     routeGraph.melbourneCentralToFlagstaff,
     routeGraph.flagstaffToNorthMelbourne,
-  ], []),
+  ], [
+    mapSegment.flindersStreetToSouthernCross,
+    mapSegment.southernCrossToNorthMelbourne,
+    mapSegment.northMelbourneToFlagstaff,
+    mapSegment.flagstaffToMelbourneCentral,
+    mapSegment.melbourneCentralToParliament,
+    mapSegment.parliamentToFlindersStreet,
+  ]),
   new LineShapeEdge(station.NORTH_MELBOURNE, station.FOOTSCRAY, [
     routeGraph.northMelbourneToFootscray,
-  ], []),
+  ], [
+    mapSegment.northMelbourneToFootscray,
+  ]),
   new LineShapeEdge(station.FOOTSCRAY, station.MIDDLE_FOOTSCRAY, [
     routeGraph.footscrayToMiddleFootscray,
-  ], []),
+  ], [
+    mapSegment.footscrayToSunshineJunction.part(1, 4),
+  ]),
   new LineShapeEdge(station.MIDDLE_FOOTSCRAY, station.WEST_FOOTSCRAY, [
     routeGraph.middleFootscrayToWestFootscray,
-  ], []),
+  ], [
+    mapSegment.footscrayToSunshineJunction.part(2, 4),
+  ]),
   new LineShapeEdge(station.WEST_FOOTSCRAY, station.TOTTENHAM, [
     routeGraph.westFootscrayToTottenham,
-  ], []),
+  ], [
+    mapSegment.footscrayToSunshineJunction.part(3, 4),
+  ]),
   new LineShapeEdge(station.TOTTENHAM, station.SUNSHINE, [
     routeGraph.tottenhamToSunshine,
-  ], []),
+  ], [
+    mapSegment.footscrayToSunshineJunction.part(4, 4),
+    mapSegment.sunshineJunctionToSunshine,
+  ]),
   new LineShapeEdge(station.SUNSHINE, station.ALBION, [
     routeGraph.sunshineToAlbion,
-  ], []),
+  ], [
+    mapSegment.sunshineToWatergardens.part(1, 5),
+  ]),
   new LineShapeEdge(station.ALBION, station.GINIFER, [
     routeGraph.albionToGinifer,
-  ], []),
+  ], [
+    mapSegment.sunshineToWatergardens.part(2, 5),
+  ]),
   new LineShapeEdge(station.GINIFER, station.ST_ALBANS, [
     routeGraph.giniferToStAlbans,
-  ], []),
+  ], [
+    mapSegment.sunshineToWatergardens.part(3, 5),
+  ]),
   new LineShapeEdge(station.ST_ALBANS, station.KEILOR_PLAINS, [
     routeGraph.stAlbansToKeilorPlains,
-  ], []),
+  ], [
+    mapSegment.sunshineToWatergardens.part(4, 5),
+  ]),
   new LineShapeEdge(station.KEILOR_PLAINS, station.WATERGARDENS, [
     routeGraph.keilorPlainsToWatergardens,
-  ], []),
+  ], [
+    mapSegment.sunshineToWatergardens.part(5, 5),
+  ]),
   new LineShapeEdge(station.WATERGARDENS, station.DIGGERS_REST, [
     routeGraph.watergardensToDiggersRest,
-  ], []),
+  ], [
+    mapSegment.watergardensToSunbury.part(1, 2),
+  ]),
   new LineShapeEdge(station.DIGGERS_REST, station.SUNBURY, [
     routeGraph.diggersRestToSunbury,
-  ], []),
+  ], [
+    mapSegment.watergardensToSunbury.part(2, 2),
+  ]),
 ];
 
 const routeGraphPairs = Object.values(routeGraph);

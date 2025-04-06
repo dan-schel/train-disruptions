@@ -56,52 +56,89 @@ const lineShapeEdges = [
     routeGraph.parliamentToMelbourneCentral,
     routeGraph.melbourneCentralToFlagstaff,
     routeGraph.flagstaffToNorthMelbourne,
-  ], []),
+  ], [
+    mapSegment.flindersStreetToSouthernCross,
+    mapSegment.southernCrossToNorthMelbourne,
+    mapSegment.northMelbourneToFlagstaff,
+    mapSegment.flagstaffToMelbourneCentral,
+    mapSegment.melbourneCentralToParliament,
+    mapSegment.parliamentToFlindersStreet,
+  ]),
   new LineShapeEdge(station.NORTH_MELBOURNE, station.KENSINGTON, [
     routeGraph.northMelbourneToKensington,
-  ], []),
+  ], [
+    mapSegment.northMelbourneToBroadmeadows.part(1, 12),
+  ]),
   new LineShapeEdge(station.KENSINGTON, station.NEWMARKET, [
     routeGraph.kensingtonToNewmarket,
-  ], []),
+  ], [
+    mapSegment.northMelbourneToBroadmeadows.part(2, 12),
+  ]),
   new LineShapeEdge(station.NEWMARKET, station.ASCOT_VALE, [
     routeGraph.newmarketToAscotVale,
-  ], []),
+  ], [
+    mapSegment.northMelbourneToBroadmeadows.part(3, 12),
+  ]),
   new LineShapeEdge(station.ASCOT_VALE, station.MOONEE_PONDS, [
     routeGraph.ascotValeToMooneePonds,
-  ], []),
+  ], [
+    mapSegment.northMelbourneToBroadmeadows.part(4, 12),
+  ]),
   new LineShapeEdge(station.MOONEE_PONDS, station.ESSENDON, [
     routeGraph.mooneePondsToEssendon,
-  ], []),
+  ], [
+    mapSegment.northMelbourneToBroadmeadows.part(5, 12),
+  ]),
   new LineShapeEdge(station.ESSENDON, station.GLENBERVIE, [
     routeGraph.essendonToGlenbervie,
-  ], []),
+  ], [
+    mapSegment.northMelbourneToBroadmeadows.part(6, 12),
+  ]),
   new LineShapeEdge(station.GLENBERVIE, station.STRATHMORE, [
     routeGraph.glenbervieToStrathmore,
-  ], []),
+  ], [
+    mapSegment.northMelbourneToBroadmeadows.part(7, 12),
+  ]),
   new LineShapeEdge(station.STRATHMORE, station.PASCOE_VALE, [
     routeGraph.strathmoreToPascoeVale,
-  ], []),
+  ], [
+    mapSegment.northMelbourneToBroadmeadows.part(8, 12),
+  ]),
   new LineShapeEdge(station.PASCOE_VALE, station.OAK_PARK, [
     routeGraph.pascoeValeToOakPark,
-  ], []),
+  ], [
+    mapSegment.northMelbourneToBroadmeadows.part(9, 12),
+  ]),
   new LineShapeEdge(station.OAK_PARK, station.GLENROY, [
     routeGraph.oakParkToGlenroy,
-  ], []),
+  ], [
+    mapSegment.northMelbourneToBroadmeadows.part(10, 12),
+  ]),
   new LineShapeEdge(station.GLENROY, station.JACANA, [
     routeGraph.glenroyToJacana,
-  ], []),
+  ], [
+    mapSegment.northMelbourneToBroadmeadows.part(11, 12),
+  ]),
   new LineShapeEdge(station.JACANA, station.BROADMEADOWS, [
     routeGraph.jacanaToBroadmeadows,
-  ], []),
+  ], [
+    mapSegment.northMelbourneToBroadmeadows.part(12, 12),
+  ]),
   new LineShapeEdge(station.BROADMEADOWS, station.COOLAROO, [
     routeGraph.broadmeadowsToCoolaroo,
-  ], []),
+  ], [
+    mapSegment.broadmeadowsToCraigieburn.part(1, 3),
+  ]),
   new LineShapeEdge(station.COOLAROO, station.ROXBURGH_PARK, [
     routeGraph.coolarooToRoxburghPark,
-  ], []),
+  ], [
+    mapSegment.broadmeadowsToCraigieburn.part(2, 3),
+  ]),
   new LineShapeEdge(station.ROXBURGH_PARK, station.CRAIGIEBURN, [
     routeGraph.roxburghParkToCraigieburn,
-  ], []),
+  ], [
+    mapSegment.broadmeadowsToCraigieburn.part(3, 3),
+  ]),
 ];
 
 const routeGraphPairs = Object.values(routeGraph);
