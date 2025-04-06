@@ -7,6 +7,8 @@ import { unique } from "@dan-schel/js-utils";
 import { BusReplacementsDisruptionWriteupAuthor } from "@/server/data/disruption/writeup/bus-replacements-disruption-writeup-author";
 import { BusReplacementsRouteGraphModifier } from "@/server/data/disruption/route-graph-modifier/bus-replacements-route-graph-modifier";
 import { App } from "@/server/app";
+import { MapHighlighter } from "@/server/data/disruption/map-highlighting/map-highlighter";
+import { SectionMapHighlighter } from "@/server/data/disruption/map-highlighting/section-map-highlighter";
 
 /** All or part of one or more train lines are replaced by buses. */
 export class BusReplacementsDisruptionData extends DisruptionDataBase {
@@ -42,5 +44,9 @@ export class BusReplacementsDisruptionData extends DisruptionDataBase {
 
   getRouteGraphModifier(): RouteGraphModifier {
     return new BusReplacementsRouteGraphModifier(this.sections);
+  }
+
+  getMapHighlighter(): MapHighlighter {
+    return new SectionMapHighlighter(this.sections);
   }
 }
