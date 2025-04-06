@@ -16,19 +16,31 @@ export const lineColors = [
   "pink",
   "grey",
 ] as const;
+
 export type LineColor = (typeof lineColors)[number];
 
-export const lineColorCodes: Record<LineColor, string> = {
-  red: "#e42b23",
-  yellow: "#ffb531",
-  green: "#159943",
-  cyan: "#16b4e8",
-  blue: "#094c8d",
-  purple: "#6c3b9f",
-  pink: "#fc7fbb",
-  grey: "#9b9c9f",
-};
+export type MapColor =
+  | LineColor
+  | "interchangeStroke"
+  | "interchangeFill"
+  | "ghostLine";
 
-export const interchangeStrokeColor = "#45474d";
-export const interchangeFillColor = "#ffffff";
-export const ghostLineColor = "#dddddd";
+export type MapCssColors = Record<MapColor, string>;
+
+export function getColors(): MapCssColors {
+  const css = window.getComputedStyle(document.body);
+
+  return {
+    red: css.getPropertyValue("--color-ptv-red"),
+    yellow: css.getPropertyValue("--color-ptv-yellow"),
+    green: css.getPropertyValue("--color-ptv-green"),
+    cyan: css.getPropertyValue("--color-ptv-cyan"),
+    blue: css.getPropertyValue("--color-ptv-blue"),
+    purple: css.getPropertyValue("--color-ptv-purple"),
+    pink: css.getPropertyValue("--color-ptv-pink"),
+    grey: css.getPropertyValue("--color-switch"),
+    interchangeFill: css.getPropertyValue("--color-interchange-fill"),
+    interchangeStroke: css.getPropertyValue("--color-interchange-stroke"),
+    ghostLine: css.getPropertyValue("--color-soft-border"),
+  };
+}
