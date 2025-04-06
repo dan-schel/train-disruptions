@@ -16,20 +16,22 @@ const routeGraph = {
   showgroundsToFlemingtonRacecourse: new StationPair(station.SHOWGROUNDS, station.FLEMINGTON_RACECOURSE),
 };
 
+// NODE: The Flemington Racecourse line is currently not represented on the map.
+
 // prettier-ignore
 const lineShapeEdges = [
   new LineShapeEdge(station.FLINDERS_STREET, station.SOUTHERN_CROSS, [
     routeGraph.flindersStreetToSouthernCross,
-  ]),
+  ], []),
   new LineShapeEdge(station.SOUTHERN_CROSS, station.NORTH_MELBOURNE, [
     routeGraph.southernCrossToNorthMelbourne,
-  ]),
+  ], []),
   new LineShapeEdge(station.NORTH_MELBOURNE, station.SHOWGROUNDS, [
     routeGraph.northMelbourneToShowgrounds,
-  ]),
+  ], []),
   new LineShapeEdge(station.SHOWGROUNDS, station.FLEMINGTON_RACECOURSE, [
     routeGraph.showgroundsToFlemingtonRacecourse,
-  ]),
+  ], []),
 ];
 
 const routeGraphPairs = Object.values(routeGraph);

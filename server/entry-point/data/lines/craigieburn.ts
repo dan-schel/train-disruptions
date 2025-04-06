@@ -1,5 +1,6 @@
 import * as id from "@/shared/line-ids";
 import * as station from "@/shared/station-ids";
+import * as map from "@/shared/map-node-ids";
 import { Line } from "@/server/data/line/line";
 import { StationPair } from "@/server/data/line/line-routes/station-pair";
 import {
@@ -7,6 +8,7 @@ import {
   LineShapeEdge,
 } from "@/server/data/line/line-routes/line-shape";
 import { LineRoute } from "@/server/data/line/line-routes/line-route";
+import { MapSegment } from "@/server/data/map-segment";
 
 // prettier-ignore
 const routeGraph = {
@@ -34,6 +36,18 @@ const routeGraph = {
 };
 
 // prettier-ignore
+const mapSegment = {
+  flindersStreetToSouthernCross: MapSegment.full(map.NORTHERN.FLINDERS_STREET_DIRECT, map.NORTHERN.SOUTHERN_CROSS),
+  southernCrossToNorthMelbourne: MapSegment.full(map.NORTHERN.SOUTHERN_CROSS, map.NORTHERN.NORTH_MELBOURNE),
+  northMelbourneToFlagstaff: MapSegment.full(map.NORTHERN.NORTH_MELBOURNE, map.NORTHERN.FLAGSTAFF),
+  flagstaffToMelbourneCentral: MapSegment.full(map.NORTHERN.FLAGSTAFF, map.NORTHERN.MELBOURNE_CENTRAL),
+  melbourneCentralToParliament: MapSegment.full(map.NORTHERN.MELBOURNE_CENTRAL, map.NORTHERN.PARLIAMENT),
+  parliamentToFlindersStreet: MapSegment.full(map.NORTHERN.PARLIAMENT, map.NORTHERN.FLINDERS_STREET_LOOP),
+  northMelbourneToBroadmeadows: MapSegment.full(map.NORTHERN.NORTH_MELBOURNE, map.NORTHERN.BROADMEADOWS),
+  broadmeadowsToCraigieburn: MapSegment.full(map.NORTHERN.BROADMEADOWS, map.NORTHERN.CRAIGIEBURN),
+};
+
+// prettier-ignore
 const lineShapeEdges = [
   new LineShapeEdge("the-city", station.NORTH_MELBOURNE, [
     routeGraph.flindersStreetToSouthernCross,
@@ -42,51 +56,88 @@ const lineShapeEdges = [
     routeGraph.parliamentToMelbourneCentral,
     routeGraph.melbourneCentralToFlagstaff,
     routeGraph.flagstaffToNorthMelbourne,
+  ], [
+    mapSegment.flindersStreetToSouthernCross,
+    mapSegment.southernCrossToNorthMelbourne,
+    mapSegment.northMelbourneToFlagstaff,
+    mapSegment.flagstaffToMelbourneCentral,
+    mapSegment.melbourneCentralToParliament,
+    mapSegment.parliamentToFlindersStreet,
   ]),
   new LineShapeEdge(station.NORTH_MELBOURNE, station.KENSINGTON, [
     routeGraph.northMelbourneToKensington,
+  ], [
+    mapSegment.northMelbourneToBroadmeadows.part(1, 12),
   ]),
   new LineShapeEdge(station.KENSINGTON, station.NEWMARKET, [
     routeGraph.kensingtonToNewmarket,
+  ], [
+    mapSegment.northMelbourneToBroadmeadows.part(2, 12),
   ]),
   new LineShapeEdge(station.NEWMARKET, station.ASCOT_VALE, [
     routeGraph.newmarketToAscotVale,
+  ], [
+    mapSegment.northMelbourneToBroadmeadows.part(3, 12),
   ]),
   new LineShapeEdge(station.ASCOT_VALE, station.MOONEE_PONDS, [
     routeGraph.ascotValeToMooneePonds,
+  ], [
+    mapSegment.northMelbourneToBroadmeadows.part(4, 12),
   ]),
   new LineShapeEdge(station.MOONEE_PONDS, station.ESSENDON, [
     routeGraph.mooneePondsToEssendon,
+  ], [
+    mapSegment.northMelbourneToBroadmeadows.part(5, 12),
   ]),
   new LineShapeEdge(station.ESSENDON, station.GLENBERVIE, [
     routeGraph.essendonToGlenbervie,
+  ], [
+    mapSegment.northMelbourneToBroadmeadows.part(6, 12),
   ]),
   new LineShapeEdge(station.GLENBERVIE, station.STRATHMORE, [
     routeGraph.glenbervieToStrathmore,
+  ], [
+    mapSegment.northMelbourneToBroadmeadows.part(7, 12),
   ]),
   new LineShapeEdge(station.STRATHMORE, station.PASCOE_VALE, [
     routeGraph.strathmoreToPascoeVale,
+  ], [
+    mapSegment.northMelbourneToBroadmeadows.part(8, 12),
   ]),
   new LineShapeEdge(station.PASCOE_VALE, station.OAK_PARK, [
     routeGraph.pascoeValeToOakPark,
+  ], [
+    mapSegment.northMelbourneToBroadmeadows.part(9, 12),
   ]),
   new LineShapeEdge(station.OAK_PARK, station.GLENROY, [
     routeGraph.oakParkToGlenroy,
+  ], [
+    mapSegment.northMelbourneToBroadmeadows.part(10, 12),
   ]),
   new LineShapeEdge(station.GLENROY, station.JACANA, [
     routeGraph.glenroyToJacana,
+  ], [
+    mapSegment.northMelbourneToBroadmeadows.part(11, 12),
   ]),
   new LineShapeEdge(station.JACANA, station.BROADMEADOWS, [
     routeGraph.jacanaToBroadmeadows,
+  ], [
+    mapSegment.northMelbourneToBroadmeadows.part(12, 12),
   ]),
   new LineShapeEdge(station.BROADMEADOWS, station.COOLAROO, [
     routeGraph.broadmeadowsToCoolaroo,
+  ], [
+    mapSegment.broadmeadowsToCraigieburn.part(1, 3),
   ]),
   new LineShapeEdge(station.COOLAROO, station.ROXBURGH_PARK, [
     routeGraph.coolarooToRoxburghPark,
+  ], [
+    mapSegment.broadmeadowsToCraigieburn.part(2, 3),
   ]),
   new LineShapeEdge(station.ROXBURGH_PARK, station.CRAIGIEBURN, [
     routeGraph.roxburghParkToCraigieburn,
+  ], [
+    mapSegment.broadmeadowsToCraigieburn.part(3, 3),
   ]),
 ];
 

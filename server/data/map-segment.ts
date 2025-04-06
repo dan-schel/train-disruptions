@@ -50,6 +50,14 @@ export class MapSegment {
     return new MapSegment(this.mapNodeA, this.mapNodeB, range);
   }
 
+  part(part: number, total: number): MapSegment {
+    return new MapSegment(
+      this.mapNodeA,
+      this.mapNodeB,
+      new Range((part - 1) / total, part / total),
+    );
+  }
+
   static condense(segments: MapSegment[]): MapSegment[] {
     function key(s: MapSegment): string {
       return `${s.mapNodeA}-${s.mapNodeB}`;
@@ -61,5 +69,9 @@ export class MapSegment {
       const condensedRanges = Range.condense(ranges);
       return condensedRanges.map((r) => group.items[0].withRange(r));
     });
+  }
+
+  static full(mapNodeA: number, mapNodeB: number): MapSegment {
+    return new MapSegment(mapNodeA, mapNodeB, new Range(0, 1));
   }
 }
