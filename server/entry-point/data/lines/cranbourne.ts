@@ -61,58 +61,99 @@ const lineShapeEdges = [
     routeGraph.flagstaffToMelbourneCentral,
     routeGraph.melbourneCentralToParliament,
     routeGraph.parliamentToRichmond,
-  ], []),
+  ], [
+    mapSegment.flindersStreetToRichmond,
+    mapSegment.flindersStreetToSouthernCross,
+    mapSegment.southernCrossToFlagstaff,
+    mapSegment.flagstaffToMelbourneCentral,
+    mapSegment.melbourneCentralToParliament,
+    mapSegment.parliamentToRichmond,
+  ]),
   new LineShapeEdge(station.RICHMOND, station.SOUTH_YARRA, [
     routeGraph.richmondToSouthYarra,
-  ], []),
+  ], [
+    mapSegment.richmondToSouthYarra,
+  ]),
   new LineShapeEdge(station.SOUTH_YARRA, station.CAULFIELD, [
     routeGraph.southYarraToCaulfield,
-  ], []),
+  ], [
+    mapSegment.southYarraToCaulfield,
+  ]),
   new LineShapeEdge(station.CAULFIELD, station.CARNEGIE, [
     routeGraph.caulfieldToCarnegie,
-  ], []),
+  ], [
+    mapSegment.caulfieldToClayton.part(1, 6),
+  ]),
   new LineShapeEdge(station.CARNEGIE, station.MURRUMBEENA, [
     routeGraph.carnegieToMurrumbeena,
-  ], []),
+  ], [
+    mapSegment.caulfieldToClayton.part(2, 6),
+  ]),
   new LineShapeEdge(station.MURRUMBEENA, station.HUGHESDALE, [
     routeGraph.murrumbeenaToHughesdale,
-  ], []),
+  ], [
+    mapSegment.caulfieldToClayton.part(3, 6),
+  ]),
   new LineShapeEdge(station.HUGHESDALE, station.OAKLEIGH, [
     routeGraph.hughesdaleToOakleigh,
-  ], []),
+  ], [
+    mapSegment.caulfieldToClayton.part(4, 6),
+  ]),
   new LineShapeEdge(station.OAKLEIGH, station.HUNTINGDALE, [
     routeGraph.oakleighToHuntingdale,
-  ], []),
+  ], [
+    mapSegment.caulfieldToClayton.part(5, 6),
+  ]),
   new LineShapeEdge(station.HUNTINGDALE, station.CLAYTON, [
     routeGraph.huntingdaleToClayton,
-  ], []),
+  ], [
+    mapSegment.caulfieldToClayton.part(6, 6),
+  ]),
   new LineShapeEdge(station.CLAYTON, station.WESTALL, [
     routeGraph.claytonToWestall,
-  ], []),
+  ], [
+    mapSegment.claytonToDandenong.part(1, 6),
+  ]),
   new LineShapeEdge(station.WESTALL, station.SPRINGVALE, [
     routeGraph.westallToSpringvale,
-  ], []),
+  ], [
+    mapSegment.claytonToDandenong.part(2, 6),
+  ]),
   new LineShapeEdge(station.SPRINGVALE, station.SANDOWN_PARK, [
     routeGraph.springvaleToSandownPark,
-  ], []),
+  ], [
+    mapSegment.claytonToDandenong.part(3, 6),
+  ]),
   new LineShapeEdge(station.SANDOWN_PARK, station.NOBLE_PARK, [
     routeGraph.sandownParkToNoblePark,
-  ], []),
+  ], [
+    mapSegment.claytonToDandenong.part(4, 6),
+  ]),
   new LineShapeEdge(station.NOBLE_PARK, station.YARRAMAN, [
     routeGraph.nobleParkToYarraman,
-  ], []),
+  ], [
+    mapSegment.claytonToDandenong.part(5, 6),
+  ]),
   new LineShapeEdge(station.YARRAMAN, station.DANDENONG, [
     routeGraph.yarramanToDandenong,
-  ], []),
+  ], [
+    mapSegment.claytonToDandenong.part(6, 6),
+  ]),
   new LineShapeEdge(station.DANDENONG, station.LYNBROOK, [
     routeGraph.dandenongToLynbrook,
-  ], []),
+  ], [
+    mapSegment.dandenongToCranbourne.part(1, 3),
+  ]),
   new LineShapeEdge(station.LYNBROOK, station.MERINDA_PARK, [
     routeGraph.lynbrookToMerindaPark,
-  ], []),
+  ], [
+    mapSegment.dandenongToCranbourne.part(2, 3),
+  ]),
   new LineShapeEdge(station.MERINDA_PARK, station.CRANBOURNE, [
     routeGraph.merindaParkToCranbourne,
-  ], []),
+  ], [
+    mapSegment.dandenongToCranbourne.part(3, 3),
+  ]),
 ];
 
 const routeGraphPairs = Object.values(routeGraph);
