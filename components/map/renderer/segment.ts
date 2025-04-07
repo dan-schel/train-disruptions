@@ -9,6 +9,8 @@ import {
 } from "@/components/map/renderer/dimensions/json";
 import { FlexiPoint } from "@/components/map/renderer/dimensions/flexi-point";
 import { Point } from "@/components/map/renderer/dimensions/point";
+import { fpff } from "@/components/map/renderer/coloring-strategy/range-fns";
+import { mapClamp } from "@dan-schel/js-utils";
 
 export class Segment {
   constructor(
@@ -57,12 +59,13 @@ export class Segment {
     end: number,
   ): readonly FlexiPoint[] {
     const distances = this.distances.map((x) => x.amplify(amplification));
-    const startDistance = start * distances[distances.length - 1];
-    const endDistance = end * distances[distances.length - 1];
+    const totalDistance = distances[distances.length - 1];
+    const startDistance = bias(start * totalDistance, totalDistance);
+    const endDistance = bias(end * totalDistance, totalDistance);
     const points = this.points.filter(
-      // TODO: [DS] Might be susceptible to floating point errors. Would it have
-      // any impact though?
-      (_, i) => distances[i] > startDistance && distances[i] < endDistance,
+      (_, i) =>
+        distances[i] > startDistance - fpff &&
+        distances[i] < endDistance + fpff,
     );
 
     return [
@@ -81,7 +84,8 @@ export class Segment {
     // Copilot keeps trying to mention binary search. Would it work?
 
     const distances = this.distances.map((x) => x.amplify(amplification));
-    const distance = percentage * distances[distances.length - 1];
+    const totalDistance = distances[distances.length - 1];
+    const distance = bias(percentage * totalDistance, totalDistance);
     const before = distances.findLastIndex((x) => x <= distance);
     const after = distances.findIndex((x) => x >= distance);
 
@@ -140,5 +144,19 @@ export class Segment {
       points: createFlexiPointString(this.points),
       distances: createFlexiLengthString(this.distances),
     };
+  }
+}
+
+function bias(distance: number, total: number) {
+  if (distance < fpff) {
+    return 0;
+  } else if (distance > total - fpff) {
+    return total;
+  } else {
+    // Reserve 20% of the distance on each side for highlighting which goes
+    // right up to that end. If we always did it fully proportional, then it
+    // would make highlighting that's one station away from the node difficult
+    // to distinguish from highlighting that goes all the way to the node.
+    return mapClamp(distance, 0, total, total * 0.2, total * 0.8);
   }
 }

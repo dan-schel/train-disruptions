@@ -1,4 +1,7 @@
-import { ColoringStrategy } from "@/components/map/renderer/coloring-strategy/coloring-strategy";
+import {
+  ColoringStrategy,
+  SegmentColoring,
+} from "@/components/map/renderer/coloring-strategy/coloring-strategy";
 import { FlexiPoint } from "@/components/map/renderer/dimensions/flexi-point";
 import { Geometry } from "@/components/map/renderer/geometry";
 import { Interchange } from "@/components/map/renderer/interchange";
@@ -164,19 +167,28 @@ export class Renderer {
   }
 
   private _renderSegmentBackground(segment: Segment) {
-    const color = this._coloringStrategy.getSegmentBackgroundColor(segment);
-    if (color == null) return;
-    this._renderPath(segment.points, lineWidth, color);
+    this._renderColoredSegments(
+      this._coloringStrategy
+        .getSegmentColoring(segment)
+        .filter((x) => x.color === "ghost-line"),
+    );
   }
 
   private _renderSegmentForeground(segment: Segment) {
-    const coloring = this._coloringStrategy.getSegmentColoring(segment);
-    for (const segmentColoring of coloring) {
+    this._renderColoredSegments(
+      this._coloringStrategy
+        .getSegmentColoring(segment)
+        .filter((x) => x.color !== "ghost-line"),
+    );
+  }
+
+  private _renderColoredSegments(segments: SegmentColoring[]) {
+    for (const segmentColoring of segments) {
       this._renderPath(
-        segment.pointsForRange(
+        segmentColoring.segment.pointsForRange(
           this._amplification,
-          segmentColoring.startPercentage,
-          segmentColoring.endPercentage,
+          segmentColoring.min,
+          segmentColoring.max,
         ),
         lineWidth,
         segmentColoring.color,

@@ -1,3 +1,4 @@
+import { includes } from "@/components/map/renderer/coloring-strategy/range-fns";
 import { Geometry } from "@/components/map/renderer/geometry";
 import { Segment } from "@/components/map/renderer/segment";
 import { Terminus } from "@/components/map/renderer/terminus";
@@ -7,13 +8,11 @@ import {
   SerializedMapHighlighting,
 } from "@/shared/types/map-data";
 
-const fpff = 0.00001;
-
 export class SegmentColoring {
   constructor(
     readonly segment: Segment,
-    readonly startPercentage: number,
-    readonly endPercentage: number,
+    readonly min: number,
+    readonly max: number,
     readonly color: MapColor,
   ) {}
 }
@@ -23,8 +22,6 @@ export abstract class ColoringStrategy {
     private readonly geometry: Geometry,
     private readonly _mapHighlighting: SerializedMapHighlighting,
   ) {}
-
-  abstract getSegmentBackgroundColor(segment: Segment): MapColor | null;
 
   abstract getSegmentColoring(segment: Segment): SegmentColoring[];
 
@@ -67,8 +64,8 @@ export abstract class ColoringStrategy {
     nodeId: number,
   ): boolean {
     return (
-      (highlighting.nodeIdA === nodeId && highlighting.start <= fpff) ||
-      (highlighting.nodeIdB === nodeId && highlighting.end >= 1 - fpff)
+      (highlighting.nodeIdA === nodeId && includes(highlighting, 0)) ||
+      (highlighting.nodeIdB === nodeId && includes(highlighting, 1))
     );
   }
 }

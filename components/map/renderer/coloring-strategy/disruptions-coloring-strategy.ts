@@ -2,21 +2,27 @@ import {
   ColoringStrategy,
   SegmentColoring,
 } from "@/components/map/renderer/coloring-strategy/coloring-strategy";
+import {
+  condense,
+  subtractAll,
+} from "@/components/map/renderer/coloring-strategy/range-fns";
 import { Segment } from "@/components/map/renderer/segment";
 import { Terminus } from "@/components/map/renderer/terminus";
 import { MapColor } from "@/components/map/renderer/utils";
 
 export class DisruptionsColoringStrategy extends ColoringStrategy {
-  getSegmentBackgroundColor(_segment: Segment): MapColor | null {
-    // TODO: Can return null if the segment is fully highlighted.
-    return "ghost-line";
-  }
-
   getSegmentColoring(segment: Segment): SegmentColoring[] {
-    // TODO: Can be optimized by merging adjacent highlights.
-    return this._getHighlightingFor(segment).map(
-      (h) => new SegmentColoring(segment, h.start, h.end, segment.color),
-    );
+    const highlighting = condense(this._getHighlightingFor(segment));
+    const remainder = subtractAll([{ min: 0, max: 1 }], highlighting);
+
+    return [
+      ...remainder.map(
+        (h) => new SegmentColoring(segment, h.min, h.max, "ghost-line"),
+      ),
+      ...highlighting.map(
+        (r) => new SegmentColoring(segment, r.min, r.max, segment.color),
+      ),
+    ];
   }
 
   getTerminusColor(terminus: Terminus): MapColor {
