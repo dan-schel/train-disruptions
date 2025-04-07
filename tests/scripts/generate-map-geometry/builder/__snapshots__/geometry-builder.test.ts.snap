@@ -41,6 +41,10 @@ exports[`GeometryBuilder > builds the geometry as expected 1`] = `
   ],
   "interchanges": [
     {
+      "nodeIds": [
+        2,
+        6
+      ],
       "thick": [
         "45.00 -2.00 90.00 -2.00,45.00 7.00 90.00 7.00"
       ]
@@ -48,22 +52,27 @@ exports[`GeometryBuilder > builds the geometry as expected 1`] = `
   ],
   "termini": [
     {
+      "nodeId": 1,
       "color": "cyan",
       "points": "0.00 -5.00 0.00 -5.00,0.00 5.00 0.00 5.00"
     },
     {
+      "nodeId": 3,
       "color": "cyan",
       "points": "81.82 18.54 144.50 36.21,74.75 25.61 137.43 43.28"
     },
     {
+      "nodeId": 4,
       "color": "cyan",
       "points": "85.36 -38.28 162.18 -70.10,92.43 -31.21 169.25 -63.03"
     },
     {
+      "nodeId": 5,
       "color": "purple",
       "points": "0.00 0.00 0.00 0.00,0.00 10.00 0.00 10.00"
     },
     {
+      "nodeId": 7,
       "color": "purple",
       "points": "92.43 36.21 169.25 68.03,85.36 43.28 162.18 75.10"
     }

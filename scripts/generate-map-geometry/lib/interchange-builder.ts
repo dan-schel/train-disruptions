@@ -34,7 +34,7 @@ export class InterchangeBuilder {
     const thinLine =
       this._interchange.thinLine?.map((pos) => this._point(pos)) ?? null;
 
-    return new Interchange(thickLines, thinLine);
+    return new Interchange(this._interchange.nodeIds, thickLines, thinLine);
   }
 
   _point(nodePosition: NodeWithRelativePosition): FlexiPoint {

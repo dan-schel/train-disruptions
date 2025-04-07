@@ -7,6 +7,7 @@ import { z } from "zod";
 
 export class Interchange {
   constructor(
+    readonly nodeIds: readonly number[],
     readonly thickLines: readonly (readonly FlexiPoint[])[],
     readonly thinLine: readonly FlexiPoint[] | null,
   ) {
@@ -20,13 +21,15 @@ export class Interchange {
 
   static readonly json = z
     .object({
+      nodeIds: z.number().array().readonly(),
       thick: flexiPointStringJson.array(),
       thin: flexiPointStringJson.optional(),
     })
-    .transform((x) => new Interchange(x.thick, x.thin ?? null));
+    .transform((x) => new Interchange(x.nodeIds, x.thick, x.thin ?? null));
 
   toJSON(): z.input<typeof Interchange.json> {
     return {
+      nodeIds: this.nodeIds,
       thick: this.thickLines.map((l) => createFlexiPointString(l)),
       thin:
         this.thinLine != null
