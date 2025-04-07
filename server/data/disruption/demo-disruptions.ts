@@ -20,7 +20,7 @@ export function getDemoDisruptions(app: App): Disruption[] {
   // Uses a seeded random number generator to re-roll random disruptions every
   // day at midnight Melbourne time.
   const today = startOfDay(utcToLocalTime(app.time.now()));
-  const rand = seededRandom(today.toISOString());
+  const rand = seededRandom(today.toISOString() + "A");
 
   const result: Disruption[] = [];
 

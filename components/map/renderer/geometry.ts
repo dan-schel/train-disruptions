@@ -44,4 +44,11 @@ export class Geometry {
       (this.viewport.max.w + padding) / (this.viewport.max.h + padding),
     );
   }
+
+  getSegmentsInvolving(nodeId: number): Segment[] {
+    return this.segments.filter(
+      (segment) =>
+        segment.startNodeId === nodeId || segment.endNodeId === nodeId,
+    );
+  }
 }

@@ -1,3 +1,4 @@
+import { ColoringStrategy } from "@/components/map/renderer/coloring-strategy/coloring-strategy";
 import { FlexiPoint } from "@/components/map/renderer/dimensions/flexi-point";
 import { Geometry } from "@/components/map/renderer/geometry";
 import { Interchange } from "@/components/map/renderer/interchange";
@@ -8,6 +9,7 @@ import {
   interchangeThickLineWidth,
   interchangeThinLineWidth,
   lineWidth,
+  MapColor,
   MapCssColors,
   terminusLineWidth,
   viewportPadding,
@@ -41,6 +43,7 @@ export class Renderer {
     private readonly _canvas: HTMLCanvasElement,
     private readonly _geometry: Geometry,
     private readonly _highlighting: SerializedMapHighlighting | null,
+    private readonly _coloringStrategy: ColoringStrategy,
   ) {
     const ctx = this._canvas.getContext("2d");
     if (!ctx) {
@@ -117,15 +120,15 @@ export class Renderer {
     ctx.translate(-viewport.x, -viewport.y);
 
     for (const segment of this._geometry.segments) {
-      this._renderSegmentBottomLayer(segment);
+      this._renderSegmentBackground(segment);
     }
 
     for (const segment of this._geometry.segments) {
-      this._renderSegmentTopLayer(segment);
+      this._renderSegmentForeground(segment);
     }
 
     for (const terminus of this._geometry.termini) {
-      const color = this._css[terminus.color];
+      const color = this._coloringStrategy.getTerminusColor(terminus);
       this._renderPath(terminus.points, terminusLineWidth, color);
     }
 
@@ -141,56 +144,57 @@ export class Renderer {
     if (interchange.thinLine != null) {
       const line = interchange.thinLine;
       const width = interchangeThinLineWidth + 2 * interchangeBorderWidth;
-      this._renderPath(line, width, this._css.interchangeStroke, "round");
+      this._renderPath(line, width, "interchange-stroke", "round");
     }
     for (const line of interchange.thickLines) {
       const width = interchangeThickLineWidth + 2 * interchangeBorderWidth;
-      this._renderPath(line, width, this._css.interchangeStroke, "round");
+      this._renderPath(line, width, "interchange-stroke", "round");
     }
 
     // The white "fill".
     if (interchange.thinLine != null) {
       const line = interchange.thinLine;
       const width = interchangeThinLineWidth;
-      this._renderPath(line, width, this._css.interchangeFill, "round");
+      this._renderPath(line, width, "interchange-fill", "round");
     }
     for (const line of interchange.thickLines) {
       const width = interchangeThickLineWidth;
-      this._renderPath(line, width, this._css.interchangeFill, "round");
+      this._renderPath(line, width, "interchange-fill", "round");
     }
   }
 
-  private _renderSegmentBottomLayer(segment: Segment) {
-    this._renderPath(segment.points, lineWidth, this._css.ghostLine);
+  private _renderSegmentBackground(segment: Segment) {
+    const color = this._coloringStrategy.getSegmentBackgroundColor(segment);
+    if (color == null) return;
+    this._renderPath(segment.points, lineWidth, color);
   }
 
-  private _renderSegmentTopLayer(segment: Segment) {
-    const highlighting = this._getHighlightingForSegment(segment);
-    if (highlighting == null) return;
-
-    const color = this._css[segment.color];
-    this._renderPath(
-      segment.pointsForRange(
-        this._amplification,
-        highlighting.start,
-        highlighting.end,
-      ),
-      lineWidth,
-      color,
-    );
+  private _renderSegmentForeground(segment: Segment) {
+    const coloring = this._coloringStrategy.getSegmentColoring(segment);
+    for (const segmentColoring of coloring) {
+      this._renderPath(
+        segment.pointsForRange(
+          this._amplification,
+          segmentColoring.startPercentage,
+          segmentColoring.endPercentage,
+        ),
+        lineWidth,
+        segmentColoring.color,
+      );
+    }
   }
 
   private _renderPath(
     points: readonly FlexiPoint[],
     lineWidth: number,
-    color: string,
+    color: MapColor,
     lineCap: CanvasLineCap = "butt",
   ) {
     const ctx = this._ctx;
 
     ctx.lineCap = lineCap;
     ctx.lineWidth = lineWidth;
-    ctx.strokeStyle = color;
+    ctx.strokeStyle = this._css[color];
     ctx.beginPath();
 
     let firstPoint = true;
@@ -207,14 +211,5 @@ export class Renderer {
     }
 
     ctx.stroke();
-  }
-
-  private _getHighlightingForSegment(segment: Segment) {
-    return (
-      this._highlighting?.segments.find(
-        (x) =>
-          x.nodeIdA === segment.startNodeId && x.nodeIdB === segment.endNodeId,
-      ) ?? null
-    );
   }
 }

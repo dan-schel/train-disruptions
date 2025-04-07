@@ -21,9 +21,9 @@ export type LineColor = (typeof lineColors)[number];
 
 export type MapColor =
   | LineColor
-  | "interchangeStroke"
-  | "interchangeFill"
-  | "ghostLine";
+  | "interchange-stroke"
+  | "interchange-fill"
+  | "ghost-line";
 
 export type MapCssColors = Record<MapColor, string>;
 
@@ -39,8 +39,8 @@ export function getColors(): MapCssColors {
     purple: css.getPropertyValue("--color-ptv-purple"),
     pink: css.getPropertyValue("--color-ptv-pink"),
     grey: css.getPropertyValue("--color-switch"),
-    interchangeFill: css.getPropertyValue("--color-interchange-fill"),
-    interchangeStroke: css.getPropertyValue("--color-interchange-stroke"),
-    ghostLine: css.getPropertyValue("--color-soft-border"),
+    "interchange-fill": css.getPropertyValue("--color-interchange-fill"),
+    "interchange-stroke": css.getPropertyValue("--color-interchange-stroke"),
+    "ghost-line": css.getPropertyValue("--color-soft-border"),
   };
 }
