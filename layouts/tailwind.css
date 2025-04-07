@@ -42,15 +42,6 @@
   --color-error: hsl(0, 100%, 45%);
   --color-error-hover: hsl(0, 100%, 50%);
   --color-error-active: hsl(0, 100%, 60%);
-  --color-ptv-red: hsl(0, 80%, 50%);
-  --color-ptv-yellow: hsl(40, 100%, 60%);
-  --color-ptv-green: hsl(140, 75%, 35%);
-  --color-ptv-cyan: hsl(195, 85%, 50%);
-  --color-ptv-blue: hsl(210, 90%, 30%);
-  --color-ptv-purple: hsl(270, 45%, 45%);
-  --color-ptv-pink: hsl(330, 95%, 75%);
-  --color-interchange-fill: var(--color-background);
-  --color-interchange-stroke: var(--color-foreground);
 
   --leading-*: initial;
   --leading-none: 0em;
@@ -85,15 +76,6 @@
   --color-error: hsl(0, 100%, 70%);
   --color-error-hover: hsl(0, 100%, 65%);
   --color-error-active: hsl(0, 100%, 60%);
-  --color-ptv-red: hsl(0, 80%, 60%);
-  --color-ptv-yellow: hsl(40, 100%, 60%);
-  --color-ptv-green: hsl(140, 75%, 40%);
-  --color-ptv-cyan: hsl(195, 85%, 50%);
-  --color-ptv-blue: hsl(210, 90%, 40%);
-  --color-ptv-purple: hsl(270, 45%, 55%);
-  --color-ptv-pink: hsl(330, 95%, 75%);
-  --color-interchange-fill: var(--color-foreground); /* Remains light. */
-  --color-interchange-stroke: var(--color-background); /* Remains dark. */
 }
 
 /* Override leading to set --line-spacing instead (see ./css/text.css). */

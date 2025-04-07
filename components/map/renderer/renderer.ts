@@ -1,14 +1,14 @@
 import { FlexiPoint } from "@/components/map/renderer/dimensions/flexi-point";
 import { Geometry } from "@/components/map/renderer/geometry";
 import { Interchange } from "@/components/map/renderer/interchange";
-import { Segment } from "@/components/map/renderer/segment";
 import {
-  getColors,
   interchangeBorderWidth,
+  interchangeFillColor,
+  interchangeStrokeColor,
   interchangeThickLineWidth,
   interchangeThinLineWidth,
+  lineColorCodes,
   lineWidth,
-  MapCssColors,
   terminusLineWidth,
   viewportPadding,
 } from "@/components/map/renderer/utils";
@@ -27,7 +27,6 @@ const maxAmplificationWidth = 800;
 
 export class Renderer {
   private readonly _ctx;
-  private _css: MapCssColors;
 
   private _width = 0;
   private _height = 0;
@@ -48,7 +47,6 @@ export class Renderer {
     }
     this._ctx = ctx;
 
-    this._css = getColors();
     this._resizeListener = this._onResize.bind(this);
   }
 
@@ -117,15 +115,12 @@ export class Renderer {
     ctx.translate(-viewport.x, -viewport.y);
 
     for (const segment of this._geometry.segments) {
-      this._renderSegmentBottomLayer(segment);
-    }
-
-    for (const segment of this._geometry.segments) {
-      this._renderSegmentTopLayer(segment);
+      const color = lineColorCodes[segment.color];
+      this._renderPath(segment.points, lineWidth, color);
     }
 
     for (const terminus of this._geometry.termini) {
-      const color = this._css[terminus.color];
+      const color = lineColorCodes[terminus.color];
       this._renderPath(terminus.points, terminusLineWidth, color);
     }
 
@@ -141,43 +136,23 @@ export class Renderer {
     if (interchange.thinLine != null) {
       const line = interchange.thinLine;
       const width = interchangeThinLineWidth + 2 * interchangeBorderWidth;
-      this._renderPath(line, width, this._css.interchangeStroke, "round");
+      this._renderPath(line, width, interchangeStrokeColor, "round");
     }
     for (const line of interchange.thickLines) {
       const width = interchangeThickLineWidth + 2 * interchangeBorderWidth;
-      this._renderPath(line, width, this._css.interchangeStroke, "round");
+      this._renderPath(line, width, interchangeStrokeColor, "round");
     }
 
     // The white "fill".
     if (interchange.thinLine != null) {
       const line = interchange.thinLine;
       const width = interchangeThinLineWidth;
-      this._renderPath(line, width, this._css.interchangeFill, "round");
+      this._renderPath(line, width, interchangeFillColor, "round");
     }
     for (const line of interchange.thickLines) {
       const width = interchangeThickLineWidth;
-      this._renderPath(line, width, this._css.interchangeFill, "round");
+      this._renderPath(line, width, interchangeFillColor, "round");
     }
-  }
-
-  private _renderSegmentBottomLayer(segment: Segment) {
-    this._renderPath(segment.points, lineWidth, this._css.ghostLine);
-  }
-
-  private _renderSegmentTopLayer(segment: Segment) {
-    const highlighting = this._getHighlightingForSegment(segment);
-    if (highlighting == null) return;
-
-    const color = this._css[segment.color];
-    this._renderPath(
-      segment.pointsForRange(
-        this._amplification,
-        highlighting.start,
-        highlighting.end,
-      ),
-      lineWidth,
-      color,
-    );
   }
 
   private _renderPath(
@@ -207,14 +182,5 @@ export class Renderer {
     }
 
     ctx.stroke();
-  }
-
-  private _getHighlightingForSegment(segment: Segment) {
-    return (
-      this._highlighting?.segments.find(
-        (x) =>
-          x.nodeIdA === segment.startNodeId && x.nodeIdB === segment.endNodeId,
-      ) ?? null
-    );
   }
 }
