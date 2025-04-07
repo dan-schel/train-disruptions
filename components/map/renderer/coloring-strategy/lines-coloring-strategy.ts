@@ -11,9 +11,6 @@ import { Terminus } from "@/components/map/renderer/terminus";
 import { MapColor } from "@/components/map/renderer/utils";
 
 export class LinesColoringStrategy extends ColoringStrategy {
-  // TODO: This is temporary implementation. Drawing ghost-line over the
-  // segment's default color looks kinda awful, and isn't layered properly.
-
   getSegmentColoring(segment: Segment): SegmentColoring[] {
     const highlighting = condense(this._getHighlightingFor(segment));
     const remainder = subtractAll([{ min: 0, max: 1 }], highlighting);
