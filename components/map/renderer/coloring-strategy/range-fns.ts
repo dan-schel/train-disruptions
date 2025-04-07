@@ -73,27 +73,3 @@ export function subtractAll(ranges: RangeObj[], subtractions: RangeObj[]) {
   }
   return result;
 }
-
-export function map(
-  n: number,
-  start1: number,
-  stop1: number,
-  start2: number,
-  stop2: number,
-): number {
-  return ((n - start1) / (stop1 - start1)) * (stop2 - start2) + start2;
-}
-
-export function clamp(n: number, start: number, stop: number): number {
-  return Math.max(start, Math.min(stop, n));
-}
-
-export function mapClamp(
-  n: number,
-  start1: number,
-  stop1: number,
-  start2: number,
-  stop2: number,
-): number {
-  return clamp(map(n, start1, stop1, start2, stop2), start2, stop2);
-}
