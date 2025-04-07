@@ -5,6 +5,7 @@ import {
   LineShapeNode,
 } from "@/server/data/line/line-routes/line-shape";
 import { unique } from "@dan-schel/js-utils";
+import { MapSegment } from "@/server/data/map-segment";
 
 /**
  * Knows deeply about the stations this line serves, and in which manner. It's
@@ -24,6 +25,10 @@ export class LineRoute {
 
   getRouteGraphPairsInSection(lineSection: LineSection): StationPair[] {
     return this._shape.getRouteGraphPairsBetween(lineSection.a, lineSection.b);
+  }
+
+  getMapSegmentsInSection(lineSection: LineSection): MapSegment[] {
+    return this._shape.getMapSegmentsBetween(lineSection.a, lineSection.b);
   }
 
   getAllServedStations(): readonly number[] {

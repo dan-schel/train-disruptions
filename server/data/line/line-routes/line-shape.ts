@@ -63,6 +63,14 @@ export class LineShape {
     return unique(pairs, (a, b) => a.equals(b));
   }
 
+  getMapSegmentsBetween(a: LineShapeNode, b: LineShapeNode): MapSegment[] {
+    const segments = this._tree
+      .getPathBetween(a, b)
+      .flatMap((e) => e.data.mapSegments);
+
+    return MapSegment.condense(segments);
+  }
+
   getAllRouteGraphPairs(): StationPair[] {
     return unique(
       this.edges.flatMap((e) => e.data.routeGraphPairs),

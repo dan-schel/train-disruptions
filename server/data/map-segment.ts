@@ -1,5 +1,6 @@
 import { Range } from "@/server/data/utils/range";
 import { groupBy } from "@dan-schel/js-utils";
+import { z } from "zod";
 
 export class MapSegment {
   constructor(
@@ -17,6 +18,22 @@ export class MapSegment {
     if (percentage.max > 1) {
       throw new Error("Max percentage cannot be greater than 1.");
     }
+  }
+
+  static readonly bson = z
+    .object({
+      mapNodeA: z.number(),
+      mapNodeB: z.number(),
+      percentage: Range.bson,
+    })
+    .transform((x) => new MapSegment(x.mapNodeA, x.mapNodeB, x.percentage));
+
+  toBson(): z.input<typeof MapSegment.bson> {
+    return {
+      mapNodeA: this.mapNodeA,
+      mapNodeB: this.mapNodeB,
+      percentage: this.percentage.toBson(),
+    };
   }
 
   reverse(): MapSegment {

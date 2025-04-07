@@ -15,7 +15,7 @@ import { PageCenterer } from "@/components/common/PageCenterer";
 import { DisruptionButton } from "@/pages/overview/DisruptionButton";
 
 export default function Page() {
-  const { disruptions, suburban, regional } = useData<Data>();
+  const { disruptions, suburban, regional, mapHighlighting } = useData<Data>();
 
   return (
     <PageCenterer>
@@ -45,7 +45,7 @@ export default function Page() {
           <Spacer h="4" />
 
           <With className="border-soft-border rounded-md border">
-            <Map />
+            <Map highlighting={mapHighlighting} />
           </With>
           <Spacer h="2" />
 

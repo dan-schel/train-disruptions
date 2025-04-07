@@ -10,6 +10,9 @@ import {
 } from "@/server/data/route-graph/edge/route-graph-edge";
 import { RouteGraphModifier } from "@/server/data/disruption/route-graph-modifier/route-graph-modifier";
 import { SimpleRouteGraphModifier } from "@/server/data/disruption/route-graph-modifier/simple-route-graph-modifier";
+import { CustomMapHighlighter } from "@/server/data/disruption/map-highlighting/custom-map-highlighter";
+import { MapHighlighting } from "@/server/data/disruption/map-highlighting/map-highlighting";
+import { MapHighlighter } from "@/server/data/disruption/map-highlighting/map-highlighter";
 
 /**
  * Used in edge cases where the normal disruption types we have don't cut it.
@@ -22,6 +25,7 @@ export class CustomDisruptionData extends DisruptionDataBase {
     readonly writeup: DisruptionWriteup,
     readonly edgesToRemove: readonly RouteGraphTrainEdge[],
     readonly edgesToAdd: readonly RouteGraphEdge[],
+    readonly highlighting: MapHighlighting,
   ) {
     super();
   }
@@ -33,6 +37,7 @@ export class CustomDisruptionData extends DisruptionDataBase {
       writeup: DisruptionWriteup.bson,
       edgesToRemove: RouteGraphTrainEdge.bson.array(),
       edgesToAdd: routeGraphEdgeBson.array(),
+      highlighting: MapHighlighting.bson,
     })
     .transform(
       (x) =>
@@ -41,6 +46,7 @@ export class CustomDisruptionData extends DisruptionDataBase {
           x.writeup,
           x.edgesToRemove,
           x.edgesToAdd,
+          x.highlighting,
         ),
     );
 
@@ -51,6 +57,7 @@ export class CustomDisruptionData extends DisruptionDataBase {
       writeup: this.writeup.toBson(),
       edgesToRemove: this.edgesToRemove.map((x) => x.toBson()),
       edgesToAdd: this.edgesToAdd.map((x) => x.toBson()),
+      highlighting: this.highlighting.toBson(),
     };
   }
 
@@ -64,5 +71,9 @@ export class CustomDisruptionData extends DisruptionDataBase {
 
   getRouteGraphModifier(): RouteGraphModifier {
     return new SimpleRouteGraphModifier(this.edgesToRemove, this.edgesToAdd);
+  }
+
+  getMapHighlighter(): MapHighlighter {
+    return new CustomMapHighlighter(this.highlighting);
   }
 }

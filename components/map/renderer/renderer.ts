@@ -12,6 +12,7 @@ import {
   terminusLineWidth,
   viewportPadding,
 } from "@/components/map/renderer/utils";
+import { SerializedMapHighlighting } from "@/shared/types/map-data";
 
 // Canvas has `backingStorePixelRatio`, but Typescript doesn't know about it for
 // some reason. (Probably the target "ES____" version we're using idk.)
@@ -37,7 +38,8 @@ export class Renderer {
   constructor(
     private readonly _canvasContainer: HTMLDivElement,
     private readonly _canvas: HTMLCanvasElement,
-    private _geometry: Geometry,
+    private readonly _geometry: Geometry,
+    private readonly _highlighting: SerializedMapHighlighting | null,
   ) {
     const ctx = this._canvas.getContext("2d");
     if (!ctx) {

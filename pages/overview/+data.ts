@@ -13,6 +13,8 @@ import {
   LineStatusIndicatorPriority,
 } from "@/server/data/disruption/writeup/disruption-writeup";
 import { Line } from "@/server/data/line/line";
+import { MapHighlighting } from "@/server/data/disruption/map-highlighting/map-highlighting";
+import { SerializedMapHighlighting } from "@/shared/types/map-data";
 
 const statusColorMapping: Record<
   LineStatusIndicatorPriority,
@@ -29,12 +31,14 @@ export type Data = {
   disruptions: OverviewPageDisruptionSummary[];
   suburban: OverviewPageLineData[];
   regional: OverviewPageLineData[];
+  mapHighlighting: SerializedMapHighlighting;
 };
 
 type PreprocessedDisruption = {
   disruption: Disruption;
   lines: readonly number[];
   writeup: DisruptionWriteup;
+  map: MapHighlighting;
 };
 
 export function data(pageContext: PageContext): Data & JsonSerializable {
@@ -46,11 +50,15 @@ export function data(pageContext: PageContext): Data & JsonSerializable {
       disruption: x,
       lines: x.data.getImpactedLines(app),
       writeup: x.data.getWriteupAuthor().write(app, x),
+      map: x.data.getMapHighlighter().getHighlighting(app),
     }));
 
   return {
     disruptions: getSummaries(disruptions),
     ...getLines(app.lines, disruptions),
+    mapHighlighting: MapHighlighting.serializeGroup(
+      disruptions.map((x) => x.map),
+    ),
   };
 }
 

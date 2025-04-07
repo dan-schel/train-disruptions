@@ -47,7 +47,7 @@ export class GeometryBuilder {
 
       if (node == null) throw new Error(`Terminus node "${t}" not found.`);
 
-      return new Terminus(node.color, [
+      return new Terminus(node.nodeId, node.color, [
         node.point.move(terminusExtents, node.angle - 90),
         node.point.move(terminusExtents, node.angle + 90),
       ]);

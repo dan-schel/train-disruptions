@@ -8,19 +8,22 @@ import {
 
 export class Terminus {
   constructor(
+    readonly nodeId: number,
     readonly color: LineColor,
     readonly points: readonly FlexiPoint[],
   ) {}
 
   static readonly json = z
     .object({
+      nodeId: z.number(),
       color: z.enum(lineColors),
       points: flexiPointStringJson,
     })
-    .transform((x) => new Terminus(x.color, x.points));
+    .transform((x) => new Terminus(x.nodeId, x.color, x.points));
 
   toJSON(): z.input<typeof Terminus.json> {
     return {
+      nodeId: this.nodeId,
       color: this.color,
       points: createFlexiPointString(this.points),
     };

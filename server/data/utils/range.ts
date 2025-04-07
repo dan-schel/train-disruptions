@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 // Floating point fudge factor! (Numbers this close are considered equal.)
 const fpff = 0.000001;
 
@@ -9,6 +11,20 @@ export class Range {
     if (min > max) {
       throw new Error("Min cannot be greater than max.");
     }
+  }
+
+  static readonly bson = z
+    .object({
+      min: z.number(),
+      max: z.number(),
+    })
+    .transform((x) => new Range(x.min, x.max));
+
+  toBson(): z.input<typeof Range.bson> {
+    return {
+      min: this.min,
+      max: this.max,
+    };
   }
 
   equals(other: Range): boolean {

@@ -8,6 +8,10 @@ export class FlexiLength {
     readonly max: number,
   ) {}
 
+  amplify(amplification: number) {
+    return this.min + (this.max - this.min) * amplification;
+  }
+
   plus(other: FlexiLength): FlexiLength {
     return new FlexiLength(this.min + other.min, this.max + other.max);
   }

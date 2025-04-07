@@ -5,8 +5,13 @@ import { Geometry } from "@/components/map/renderer/geometry";
 // To debug geometry without needing to re-run the generator:
 // import geometry from "@/scripts/generate-map-geometry/ptv";
 import geometryJson from "@/components/map/geometry/ptv.json";
+import { SerializedMapHighlighting } from "@/shared/types/map-data";
 
-export function Map() {
+export type MapProps = {
+  highlighting?: SerializedMapHighlighting;
+};
+
+export function Map(props: MapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -21,6 +26,7 @@ export function Map() {
       containerRef.current,
       canvasRef.current,
       geometry,
+      props.highlighting ?? null,
     );
     renderer.start();
 
@@ -29,7 +35,7 @@ export function Map() {
         renderer.destroy();
       }
     };
-  }, [geometry]);
+  }, [geometry, props.highlighting]);
 
   return (
     <div
