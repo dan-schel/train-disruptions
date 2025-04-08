@@ -4,6 +4,7 @@ import { AlertSource } from "@/server/alert-source/alert-source";
 import { migrations } from "@/server/database/migrations/migrations";
 import { LineCollection } from "@/server/data/line/line-collection";
 import { TimeProvider } from "@/server/time-provider/time-provider";
+import { PopulateInboxQueueTask } from "@/server/task/tasks/populate-inbox-queue-task";
 import { LogHistoricalAlertsTask } from "@/server/task/tasks/log-historical-alerts-task";
 import { SendStartupMessageTask } from "@/server/task/tasks/send-startup-message-task";
 import { areUnique } from "@dan-schel/js-utils";
@@ -30,6 +31,7 @@ export class App {
   ) {
     const tasks = [
       new SendStartupMessageTask(),
+      new PopulateInboxQueueTask(),
       new LogHistoricalAlertsTask(),
       new SeedSuperAdminTask(this.username, this.password),
       new ClearExpiredSessionTask(),
