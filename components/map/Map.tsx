@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from "react";
+import React from "react";
 import { Renderer } from "@/components/map/renderer/renderer";
 import { Geometry } from "@/components/map/renderer/geometry";
 
@@ -6,27 +6,46 @@ import { Geometry } from "@/components/map/renderer/geometry";
 // import geometry from "@/scripts/generate-map-geometry/ptv";
 import geometryJson from "@/components/map/geometry/ptv.json";
 import { SerializedMapHighlighting } from "@/shared/types/map-data";
+import { LinesColoringStrategy } from "@/components/map/renderer/coloring-strategy/lines-coloring-strategy";
+import { DisruptionsColoringStrategy } from "@/components/map/renderer/coloring-strategy/disruptions-coloring-strategy";
+
+export type MapMode = "show-disruptions" | "show-lines-running";
 
 export type MapProps = {
   highlighting?: SerializedMapHighlighting;
+  mode?: MapMode;
 };
 
 export function Map(props: MapProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  const canvasRef = React.useRef<HTMLCanvasElement>(null);
 
-  const geometry = useMemo(() => Geometry.json.parse(geometryJson), []);
+  const geometry = React.useMemo(() => Geometry.json.parse(geometryJson), []);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (containerRef.current == null || canvasRef.current == null) {
       return;
     }
+
+    const highlighting = props.highlighting ?? { segments: [], points: [] };
+
+    const defaultMode =
+      props.highlighting != null ? "show-disruptions" : "show-lines-running";
+
+    const strategy = {
+      "show-disruptions": new DisruptionsColoringStrategy(
+        geometry,
+        highlighting,
+      ),
+      "show-lines-running": new LinesColoringStrategy(geometry, highlighting),
+    }[props.mode ?? defaultMode];
 
     const renderer = new Renderer(
       containerRef.current,
       canvasRef.current,
       geometry,
-      props.highlighting ?? null,
+      highlighting,
+      strategy,
     );
     renderer.start();
 
@@ -35,7 +54,7 @@ export function Map(props: MapProps) {
         renderer.destroy();
       }
     };
-  }, [geometry, props.highlighting]);
+  }, [geometry, props.highlighting, props.mode]);
 
   return (
     <div

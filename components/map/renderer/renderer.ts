@@ -1,14 +1,19 @@
+import {
+  ColoringStrategy,
+  SegmentColoring,
+} from "@/components/map/renderer/coloring-strategy/coloring-strategy";
 import { FlexiPoint } from "@/components/map/renderer/dimensions/flexi-point";
 import { Geometry } from "@/components/map/renderer/geometry";
 import { Interchange } from "@/components/map/renderer/interchange";
+import { Segment } from "@/components/map/renderer/segment";
 import {
+  getColors,
   interchangeBorderWidth,
-  interchangeFillColor,
-  interchangeStrokeColor,
   interchangeThickLineWidth,
   interchangeThinLineWidth,
-  lineColorCodes,
   lineWidth,
+  MapColor,
+  MapCssColors,
   terminusLineWidth,
   viewportPadding,
 } from "@/components/map/renderer/utils";
@@ -27,6 +32,7 @@ const maxAmplificationWidth = 800;
 
 export class Renderer {
   private readonly _ctx;
+  private _css: MapCssColors;
 
   private _width = 0;
   private _height = 0;
@@ -40,6 +46,7 @@ export class Renderer {
     private readonly _canvas: HTMLCanvasElement,
     private readonly _geometry: Geometry,
     private readonly _highlighting: SerializedMapHighlighting | null,
+    private readonly _coloringStrategy: ColoringStrategy,
   ) {
     const ctx = this._canvas.getContext("2d");
     if (!ctx) {
@@ -47,6 +54,7 @@ export class Renderer {
     }
     this._ctx = ctx;
 
+    this._css = getColors();
     this._resizeListener = this._onResize.bind(this);
   }
 
@@ -115,12 +123,15 @@ export class Renderer {
     ctx.translate(-viewport.x, -viewport.y);
 
     for (const segment of this._geometry.segments) {
-      const color = lineColorCodes[segment.color];
-      this._renderPath(segment.points, lineWidth, color);
+      this._renderSegmentBackground(segment);
+    }
+
+    for (const segment of this._geometry.segments) {
+      this._renderSegmentForeground(segment);
     }
 
     for (const terminus of this._geometry.termini) {
-      const color = lineColorCodes[terminus.color];
+      const color = this._coloringStrategy.getTerminusColor(terminus);
       this._renderPath(terminus.points, terminusLineWidth, color);
     }
 
@@ -136,36 +147,66 @@ export class Renderer {
     if (interchange.thinLine != null) {
       const line = interchange.thinLine;
       const width = interchangeThinLineWidth + 2 * interchangeBorderWidth;
-      this._renderPath(line, width, interchangeStrokeColor, "round");
+      this._renderPath(line, width, "interchange-stroke", "round");
     }
     for (const line of interchange.thickLines) {
       const width = interchangeThickLineWidth + 2 * interchangeBorderWidth;
-      this._renderPath(line, width, interchangeStrokeColor, "round");
+      this._renderPath(line, width, "interchange-stroke", "round");
     }
 
     // The white "fill".
     if (interchange.thinLine != null) {
       const line = interchange.thinLine;
       const width = interchangeThinLineWidth;
-      this._renderPath(line, width, interchangeFillColor, "round");
+      this._renderPath(line, width, "interchange-fill", "round");
     }
     for (const line of interchange.thickLines) {
       const width = interchangeThickLineWidth;
-      this._renderPath(line, width, interchangeFillColor, "round");
+      this._renderPath(line, width, "interchange-fill", "round");
+    }
+  }
+
+  private _renderSegmentBackground(segment: Segment) {
+    this._renderColoredSegments(
+      this._coloringStrategy
+        .getSegmentColoring(segment)
+        .filter((x) => x.color === "ghost-line"),
+    );
+  }
+
+  private _renderSegmentForeground(segment: Segment) {
+    this._renderColoredSegments(
+      this._coloringStrategy
+        .getSegmentColoring(segment)
+        .filter((x) => x.color !== "ghost-line"),
+    );
+  }
+
+  private _renderColoredSegments(segments: SegmentColoring[]) {
+    for (const segmentColoring of segments) {
+      this._renderPath(
+        segmentColoring.segment.pointsForRange(
+          this._amplification,
+          segmentColoring.min,
+          segmentColoring.max,
+        ),
+        lineWidth,
+        segmentColoring.color,
+      );
     }
   }
 
   private _renderPath(
     points: readonly FlexiPoint[],
     lineWidth: number,
-    color: string,
+    color: MapColor,
     lineCap: CanvasLineCap = "butt",
   ) {
     const ctx = this._ctx;
 
     ctx.lineCap = lineCap;
     ctx.lineWidth = lineWidth;
-    ctx.strokeStyle = color;
+    ctx.strokeStyle = this._css[color];
     ctx.beginPath();
 
     let firstPoint = true;

@@ -6,8 +6,8 @@ export type SerializedMapHighlighting = {
 export type SerializedHighlightedMapSegment = {
   nodeIdA: number;
   nodeIdB: number;
-  start: number;
-  end: number;
+  min: number;
+  max: number;
   style: "standard";
 };
 

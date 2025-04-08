@@ -26,7 +26,7 @@ import {
 } from "@/scripts/generate-map-geometry/ptv/utils-shared-corridors";
 import { DANDENONG as node } from "@/shared/map-node-ids";
 
-const loopPortalStraight = flexi(20);
+const loopPortalStraight = flexi(10);
 const cranbourneStraight = flexi(30, 45);
 const loopLine = loop.line.dandenong;
 
