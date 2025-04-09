@@ -11,10 +11,15 @@ export type AlertData = {
 export type Alert = {
   id: string;
   data: AlertData;
-  // updatedData: AlertData | null;
+  updatedData: AlertData | null;
   appearedAt: Date;
   processedAt: Date | null;
   updatedAt: Date | null;
   ignoreFutureUpdates: boolean;
   deleteAt: Date | null;
+}[];
+
+export type AlertPreview = {
+  id: string;
+  title: string;
 }[];

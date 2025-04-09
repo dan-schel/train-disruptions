@@ -1,12 +1,12 @@
 import React from "react";
 
-import { Alert } from "@/shared/types/alert-data";
+import { AlertPreview } from "@/shared/types/alert-data";
 
 import { Column } from "@/components/core/Column";
 import { AlertButton } from "@/components/alerts/AlertButton";
 
 type AlertListContainerProps = {
-  alerts: Alert;
+  alerts: AlertPreview;
 };
 
 export function AlertListContainer({ alerts }: AlertListContainerProps) {
@@ -17,7 +17,7 @@ export function AlertListContainer({ alerts }: AlertListContainerProps) {
           key={alert.id}
           // action={`/admin/alerts/${alert.id}`}
           action={""}
-          title={alert.data.title}
+          title={alert.title}
           id={alert.id}
         />
       ))}
