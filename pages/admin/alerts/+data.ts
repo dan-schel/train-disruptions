@@ -1,30 +1,11 @@
 import { PageContext } from "vike/types";
 import { ALERTS } from "@/server/database/models/models";
 import { JsonSerializable } from "@/shared/json-serializable";
-
-type AlertData = {
-  title: string;
-  description: string;
-  url: string;
-  startsAt: Date | null;
-  endsAt: Date | null;
-  affectedLinePtvIds: number[];
-  affectedStationPtvIds: number[];
-};
+import { Alert } from "@/shared/types/alert-data";
 
 export type Data = {
-  alerts: {
-    id: string;
-    data: AlertData;
-    // updatedData: AlertData | null;
-    appearedAt: Date;
-    processedAt: Date | null;
-    updatedAt: Date | null;
-    ignoreFutureUpdates: boolean;
-    deleteAt: Date | null;
-  }[];
+  alerts: Alert;
 };
-
 export async function data(
   pageContext: PageContext,
 ): Promise<Data & JsonSerializable> {

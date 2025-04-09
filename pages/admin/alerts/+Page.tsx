@@ -30,7 +30,7 @@ export default function Page() {
                   : "unprocessed alerts from PTV"}
               </Text>
             </Row>
-            <AlertListContainer data={alerts} />
+            <AlertListContainer alerts={alerts} />
           </Column>
         </PagePadding>
       </PageCenterer>
