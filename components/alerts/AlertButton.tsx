@@ -20,7 +20,7 @@ export function AlertButton({ action, title, id }: AlertButtonProps) {
       <Grid
         columns="1fr auto"
         align="center"
-        className="group-hover:bg-soft-hover group-active:bg-soft-active rounded"
+        className="group-hover:bg-soft-hover group-active:bg-soft-active gap-3 rounded p-2"
       >
         <Column className="gap-3">
           <Text>{title}</Text>
