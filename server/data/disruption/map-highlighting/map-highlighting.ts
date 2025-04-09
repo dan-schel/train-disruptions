@@ -32,8 +32,8 @@ export class HighlightedSegment {
     return {
       nodeIdA: segment.mapNodeA,
       nodeIdB: segment.mapNodeB,
-      start: segment.percentage.min,
-      end: segment.percentage.max,
+      min: segment.percentage.min,
+      max: segment.percentage.max,
       style: this.style,
     };
   }

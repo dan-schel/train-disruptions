@@ -4,7 +4,7 @@ import { useData } from "vike-react/useData";
 import { Data } from "@/pages/overview/+data";
 
 import { Lines } from "@/pages/overview/Lines";
-import { Map } from "@/components/map/Map";
+import { Map, MapMode } from "@/components/map/Map";
 import { Row } from "@/components/core/Row";
 import { With } from "@/components/core/With";
 import { Text } from "@/components/core/Text";
@@ -17,6 +17,18 @@ import { DisruptionButton } from "@/pages/overview/DisruptionButton";
 export default function Page() {
   const { disruptions, suburban, regional, mapHighlighting } = useData<Data>();
 
+  const [mapMode, setMapMode] = React.useState<MapMode>("show-disruptions");
+
+  function handleMapModeChange(event: React.ChangeEvent<HTMLSelectElement>) {
+    if (event.target.value === "show-disruptions") {
+      setMapMode("show-disruptions");
+    } else if (event.target.value === "show-lines-running") {
+      setMapMode("show-lines-running");
+    } else {
+      throw new Error(`Unknown map mode: ${event.target.value}`);
+    }
+  }
+
   return (
     <PageCenterer>
       <PagePadding>
@@ -27,25 +39,25 @@ export default function Page() {
           <Text>Melbourne&apos;s train disruptions, visualised</Text>
           <Spacer h="8" />
 
-          {/* TODO: determine the options for both selects */}
           <Row align="center" className="max-w-md gap-1.5" wrap>
-            <Row align="center" className="flex-grow gap-1.5">
-              <Text>Show</Text>
-              <select className="border-soft-border flex-grow rounded border">
-                <option value={"all"}>all disruptions</option>
-              </select>
-            </Row>
-            <Row align="center" className="flex-grow gap-1.5">
-              <Text>occurring</Text>
-              <select className="border-soft-border flex-grow rounded border">
-                <option value={"now"}>right now</option>
-              </select>
-            </Row>
+            <Text>Show</Text>
+            <select
+              className="border-soft-border flex-grow rounded border"
+              onChange={handleMapModeChange}
+            >
+              <option value="show-disruptions">disruptions occuring</option>
+              <option value="show-lines-running">train lines running</option>
+            </select>
+
+            {/* TODO: Determine/implement time range options. */}
+            <select className="border-soft-border flex-grow rounded border">
+              <option value="now">right now</option>
+            </select>
           </Row>
           <Spacer h="4" />
 
           <With className="border-soft-border rounded-md border">
-            <Map highlighting={mapHighlighting} />
+            <Map mode={mapMode} highlighting={mapHighlighting} />
           </With>
           <Spacer h="2" />
 
