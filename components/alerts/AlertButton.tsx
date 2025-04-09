@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Text } from "@/components/core/Text";
-import { With } from "@/components/core/With";
+import { Column } from "@/components/core/Column";
 import { Button } from "@/components/core/Button";
 import { MingcuteRightLine } from "@/components/icons/MingcuteRightLine";
 import { Grid } from "@/components/core/Grid";
@@ -22,13 +22,11 @@ export function AlertButton({ action, title, id }: AlertButtonProps) {
         align="center"
         className="group-hover:bg-soft-hover group-active:bg-soft-active rounded"
       >
-        <Text>{title}</Text>
-        <With gridColumn="1" gridRow="2" className="py-3">
+        <Column className="gap-3">
+          <Text>{title}</Text>
           <Text>#{id}</Text>
-        </With>
-        <With gridColumn="2" gridRow="1">
-          <MingcuteRightLine className="size-6" />
-        </With>
+        </Column>
+        <MingcuteRightLine />
       </Grid>
     </Button>
   );

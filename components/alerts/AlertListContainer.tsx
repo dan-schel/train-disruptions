@@ -29,20 +29,16 @@ type ContentTableProps = {
 
 export function AlertListContainer({ data }: ContentTableProps) {
   return (
-    <>
-      <Column>
-        <Column className="gap-4">
-          {data.map((alert) => (
-            <AlertButton
-              key={alert.id}
-              // action={`/admin/alerts/${alert.id}`}
-              action={""}
-              title={alert.data.title}
-              id={alert.id}
-            />
-          ))}
-        </Column>
-      </Column>
-    </>
+    <Column className="gap-4">
+      {data.map((alert) => (
+        <AlertButton
+          key={alert.id}
+          // action={`/admin/alerts/${alert.id}`}
+          action={""}
+          title={alert.data.title}
+          id={alert.id}
+        />
+      ))}
+    </Column>
   );
 }
