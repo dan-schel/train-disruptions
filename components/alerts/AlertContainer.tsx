@@ -5,11 +5,11 @@ import { AlertPreview } from "@/shared/types/alert-data";
 import { AlertListContainer } from "@/components/alerts/AlertListContainer";
 import { AlertListPagination } from "@/components/alerts/AlertListPagination";
 
-type AlertListContainerProps = {
+type AlertContainerProps = {
   alerts: AlertPreview;
 };
 
-export function AlertContainer({ alerts }: AlertListContainerProps) {
+export function AlertContainer({ alerts }: AlertContainerProps) {
   const [currentPage, setCurrentPage] = React.useState(1);
   const [alertsPerPage] = React.useState(10);
 
