@@ -1,5 +1,5 @@
 import { PageContext } from "vike/types";
-import { UNPROCESSED_ALERTS } from "@/server/database/models/models";
+import { ALERTS } from "@/server/database/models/models";
 import { JsonSerializable } from "@/shared/json-serializable";
 
 type AlertData = {
@@ -31,7 +31,7 @@ export async function data(
   const { app } = pageContext.custom;
 
   const alerts = await app.database
-    .of(UNPROCESSED_ALERTS)
+    .of(ALERTS)
     .find({ where: { processedAt: null } });
 
   return {

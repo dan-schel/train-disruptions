@@ -1,6 +1,6 @@
 import { App } from "@/server/app";
 import { Alert, AlertData } from "@/server/data/alert";
-import { UNPROCESSED_ALERTS } from "@/server/database/models/models";
+import { ALERTS } from "@/server/database/models/models";
 import { IntervalScheduler } from "@/server/task/lib/interval-scheduler";
 import { Task } from "@/server/task/lib/task";
 import { TaskScheduler } from "@/server/task/lib/task-scheduler";
@@ -26,12 +26,12 @@ export class PopulateInboxQueueTask extends Task {
 
       for (const disruption of disruptions) {
         const existing = await app.database
-          .of(UNPROCESSED_ALERTS)
+          .of(ALERTS)
           .get(disruption.disruption_id.toString());
 
         if (existing != null) return;
 
-        const unprocessed_alert = new Alert(
+        const alerts = new Alert(
           disruption.disruption_id.toString(),
           new AlertData(
             disruption.title,
@@ -43,13 +43,13 @@ export class PopulateInboxQueueTask extends Task {
             disruption.stops.map((stop) => stop.stop_id),
           ),
           null,
-          new Date(disruption.published_on),
+          app.time.now(),
           null,
           null,
           false,
           null,
         );
-        await app.database.of(UNPROCESSED_ALERTS).create(unprocessed_alert);
+        await app.database.of(ALERTS).create(alerts);
       }
     } catch (error) {
       console.warn("Failed to populate unprocessed alerts.");
