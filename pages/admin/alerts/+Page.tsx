@@ -8,7 +8,7 @@ import { BackNavigation } from "@/components/navigation/BackNavigation";
 import { PageCenterer } from "@/components/common/PageCenterer";
 import { Row } from "@/components/core/Row";
 import { PagePadding } from "@/components/common/PagePadding";
-import { AlertListContainer } from "@/components/alerts/AlertListContainer";
+import { AlertContainer } from "@/components/alerts/AlertContainer";
 
 export default function Page() {
   const { alerts } = useData<Data>();
@@ -30,7 +30,7 @@ export default function Page() {
                   : "unprocessed alerts from PTV"}
               </Text>
             </Row>
-            <AlertListContainer alerts={alerts} />
+            <AlertContainer alerts={alerts} />
           </Column>
         </PagePadding>
       </PageCenterer>
