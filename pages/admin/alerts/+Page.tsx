@@ -8,10 +8,10 @@ import { BackNavigation } from "@/components/navigation/BackNavigation";
 import { PageCenterer } from "@/components/common/PageCenterer";
 import { Row } from "@/components/core/Row";
 import { PagePadding } from "@/components/common/PagePadding";
-import { Spacer } from "@/components/core/Spacer";
+import { AlertListContainer } from "@/components/alerts/AlertListContainer";
 
 export default function Page() {
-  const { unprocessedAlertCount } = useData<Data>();
+  const { alerts } = useData<Data>();
 
   return (
     <Column>
@@ -24,14 +24,13 @@ export default function Page() {
             </Row>
             <Row align="center">
               <Text>
-                {unprocessedAlertCount}{" "}
-                {unprocessedAlertCount === 1
+                🚨 {alerts.length}{" "}
+                {alerts.length === 1
                   ? "unprocessed alert from PTV"
                   : "unprocessed alerts from PTV"}
               </Text>
             </Row>
-            <Spacer h="6" />
-            {/* Data Table? */}
+            <AlertListContainer data={alerts} />
           </Column>
         </PagePadding>
       </PageCenterer>
