@@ -12,8 +12,10 @@ export type SerializedHighlightedMapSegment = {
 };
 
 export type SerializedHighlightedMapPoint = {
-  nodeIdA: number;
-  nodeIdB: number;
+  segmentANodeA: number;
+  segmentANodeB: number;
+  segmentBNodeA: number;
+  segmentBNodeB: number;
   percentage: number;
   style: "standard";
 };
