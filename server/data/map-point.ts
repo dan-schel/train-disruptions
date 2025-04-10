@@ -44,6 +44,14 @@ export class MapPoint {
       percentage: this.percentage,
     };
   }
+
+  static at(nodeId: number) {
+    return new MapPoint(nodeId, nodeId, nodeId, nodeId, 0);
+  }
+
+  static between(nodeA: number, nodeB: number) {
+    return new MapPoint(nodeA, nodeA, nodeB, nodeB, 0);
+  }
 }
 
 export class MapCorridor {
@@ -54,13 +62,31 @@ export class MapCorridor {
     readonly segmentBNodeB: number,
   ) {}
 
-  pointAt(percentage: number): MapPoint {
+  static complex(
+    segmentANodeA: number,
+    segmentANodeB: number,
+    segmentBNodeA: number,
+    segmentBNodeB: number,
+  ): MapCorridor {
+    return new MapCorridor(
+      segmentANodeA,
+      segmentANodeB,
+      segmentBNodeA,
+      segmentBNodeB,
+    );
+  }
+
+  static single(nodeA: number, nodeB: number): MapCorridor {
+    return new MapCorridor(nodeA, nodeB, nodeA, nodeB);
+  }
+
+  pointAt(part: number, total: number): MapPoint {
     return new MapPoint(
       this.segmentANodeA,
       this.segmentANodeB,
       this.segmentBNodeA,
       this.segmentBNodeB,
-      percentage,
+      part / total,
     );
   }
 }
