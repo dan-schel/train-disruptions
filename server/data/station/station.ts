@@ -16,7 +16,7 @@ export class Station {
     id: number;
     name: string;
     ptvIds: readonly number[];
-    mapLocation?: MapPoint | null; // TODO: [DS] Optional temporarily.
+    mapLocation: MapPoint | null;
   }) {
     this.id = id;
     this.name = name;
