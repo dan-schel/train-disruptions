@@ -12,6 +12,7 @@ import { PageCenterer } from "@/components/common/PageCenterer";
 import { MingcuteExitFill } from "@/components/icons/MingcuteExitFill";
 import { MingcuteUser4Fill } from "@/components/icons/MingcuteUser4Fill";
 import { MingcuteGroup2Fill } from "@/components/icons/MingcuteGroup2Fill";
+import { MingcuteMailFill } from "@/components/icons/MingcuteMailFill";
 
 export default function Page() {
   // TODO: This is temporary. Saves me having to check the prod database all the
@@ -45,6 +46,12 @@ export default function Page() {
             That&apos;s an average of {historicalAlertsAvgPerDay.toFixed(2)} per
             day.
           </Text>
+
+          <AdminButton
+            action={"/admin/alerts"}
+            icon={<MingcuteMailFill className="size-8" />}
+            label="Alert Inbox"
+          />
 
           <AdminButton
             action={"/admin/account"}
