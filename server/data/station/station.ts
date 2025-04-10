@@ -5,7 +5,6 @@ export class Station {
   readonly name: string;
   readonly ptvIds: readonly number[];
 
-  // TODO: [DS] Nullable temporarily.
   readonly mapLocation: MapPoint | null;
 
   constructor({
@@ -17,7 +16,7 @@ export class Station {
     id: number;
     name: string;
     ptvIds: readonly number[];
-    mapLocation?: MapPoint;
+    mapLocation?: MapPoint | null; // TODO: [DS] Optional temporarily.
   }) {
     this.id = id;
     this.name = name;

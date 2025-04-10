@@ -40,6 +40,11 @@ export const dandenongToPakenham = MapCorridor.complex(
   GIPPSLAND.PAKENHAM,
 );
 
+export const dandenongToCranbourne = MapCorridor.single(
+  DANDENONG.DANDENONG,
+  DANDENONG.CRANBOURNE,
+);
+
 export const eastPakenhamToBairnsdale = MapCorridor.single(
   GIPPSLAND.EAST_PAKENHAM,
   GIPPSLAND.BAIRNSDALE,
