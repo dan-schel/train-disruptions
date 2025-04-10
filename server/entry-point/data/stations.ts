@@ -1152,7 +1152,12 @@ const data = [
     ptvIds: [1133],
     mapLocation: corridor.ringwoodToLilydale.pointAt(3, 4),
   }),
-  new Station({ id: station.MOOROOPNA, name: "Mooroopna", ptvIds: [1541] }),
+  new Station({
+    id: station.MOOROOPNA,
+    name: "Mooroopna",
+    ptvIds: [1541],
+    mapLocation: corridor.seymourToShepparton.pointAt(3, 4),
+  }),
   new Station({
     id: station.MORDIALLOC,
     name: "Mordialloc",
@@ -1187,6 +1192,7 @@ const data = [
     id: station.MURCHISON_EAST,
     name: "Murchison East",
     ptvIds: [1543],
+    mapLocation: corridor.seymourToShepparton.pointAt(2, 4),
   }),
   new Station({
     id: station.MURRUMBEENA,
@@ -1194,7 +1200,12 @@ const data = [
     ptvIds: [1138],
     mapLocation: corridor.caulfieldToClayton.pointAt(2, 6),
   }),
-  new Station({ id: station.NAGAMBIE, name: "Nagambie", ptvIds: [1544] }),
+  new Station({
+    id: station.NAGAMBIE,
+    name: "Nagambie",
+    ptvIds: [1544],
+    mapLocation: corridor.seymourToShepparton.pointAt(1, 4),
+  }),
   new Station({
     id: station.NAR_NAR_GOON,
     name: "Nar Nar Goon",
@@ -1213,8 +1224,18 @@ const data = [
     ptvIds: [1140],
     mapLocation: corridor.northMelbourneToBroadmeadows.pointAt(2, 12),
   }),
-  new Station({ id: station.NEWPORT, name: "Newport", ptvIds: [1141] }),
-  new Station({ id: station.NOBLE_PARK, name: "Noble Park", ptvIds: [1142] }),
+  new Station({
+    id: station.NEWPORT,
+    name: "Newport",
+    ptvIds: [1141],
+    mapLocation: MapPoint.at(node.NEWPORT.NEWPORT),
+  }),
+  new Station({
+    id: station.NOBLE_PARK,
+    name: "Noble Park",
+    ptvIds: [1142],
+    mapLocation: corridor.claytonToDandenong.pointAt(4, 6),
+  }),
   new Station({
     id: station.NORTH_BRIGHTON,
     name: "North Brighton",
@@ -1231,6 +1252,10 @@ const data = [
     id: station.NORTH_MELBOURNE,
     name: "North Melbourne",
     ptvIds: [1144],
+    mapLocation: MapPoint.between(
+      node.NORTHERN.NORTH_MELBOURNE,
+      node.NEWPORT.NORTH_MELBOURNE,
+    ),
   }),
   new Station({
     id: station.NORTH_RICHMOND,
@@ -1248,6 +1273,7 @@ const data = [
     id: station.NORTH_WILLIAMSTOWN,
     name: "North Williamstown",
     ptvIds: [1146],
+    mapLocation: corridor.newportToWilliamstown.pointAt(1, 3),
   }),
   new Station({
     id: station.NORTHCOTE,
@@ -1285,14 +1311,30 @@ const data = [
     ptvIds: [1152],
     mapLocation: corridor.caulfieldToFrankston.pointAt(2, 20),
   }),
-  new Station({ id: station.PAKENHAM, name: "Pakenham", ptvIds: [1153] }),
+  new Station({
+    id: station.PAKENHAM,
+    name: "Pakenham",
+    ptvIds: [1153],
+    mapLocation: MapPoint.between(
+      node.DANDENONG.PAKENHAM,
+      node.GIPPSLAND.PAKENHAM,
+    ),
+  }),
   new Station({
     id: station.PARKDALE,
     name: "Parkdale",
     ptvIds: [1154],
     mapLocation: corridor.caulfieldToFrankston.pointAt(11, 20),
   }),
-  new Station({ id: station.PARLIAMENT, name: "Parliament", ptvIds: [1155] }),
+  new Station({
+    id: station.PARLIAMENT,
+    name: "Parliament",
+    ptvIds: [1155],
+    mapLocation: MapPoint.between(
+      node.NORTHERN.PARLIAMENT,
+      node.DANDENONG.PARLIAMENT,
+    ),
+  }),
   new Station({
     id: station.PASCOE_VALE,
     name: "Pascoe Vale",
@@ -1335,14 +1377,27 @@ const data = [
     ptvIds: [1161],
     mapLocation: corridor.cliftonHillToMernda.pointAt(9, 18),
   }),
-  new Station({ id: station.RICHMOND, name: "Richmond", ptvIds: [1162] }),
+  new Station({
+    id: station.RICHMOND,
+    name: "Richmond",
+    ptvIds: [1162],
+    mapLocation: MapPoint.between(
+      node.SANDRINGHAM.RICHMOND,
+      node.BURNLEY.RICHMOND,
+    ),
+  }),
   new Station({
     id: station.RIDDELLS_CREEK,
     name: "Riddells Creek",
     ptvIds: [1549],
     mapLocation: corridor.sunburyToBendigo.pointAt(2, 10),
   }),
-  new Station({ id: station.RINGWOOD, name: "Ringwood", ptvIds: [1163] }),
+  new Station({
+    id: station.RINGWOOD,
+    name: "Ringwood",
+    ptvIds: [1163],
+    mapLocation: MapPoint.at(node.BURNLEY.RINGWOOD),
+  }),
   new Station({
     id: station.RINGWOOD_EAST,
     name: "Ringwood East",
@@ -1419,8 +1474,14 @@ const data = [
     id: station.SANDOWN_PARK,
     name: "Sandown Park",
     ptvIds: [1172],
+    mapLocation: corridor.claytonToDandenong.pointAt(3, 6),
   }),
-  new Station({ id: station.SANDRINGHAM, name: "Sandringham", ptvIds: [1173] }),
+  new Station({
+    id: station.SANDRINGHAM,
+    name: "Sandringham",
+    ptvIds: [1173],
+    mapLocation: MapPoint.at(node.SANDRINGHAM.SANDRINGHAM),
+  }),
   new Station({
     id: station.SEAFORD,
     name: "Seaford",
@@ -1433,16 +1494,36 @@ const data = [
     ptvIds: [1175],
     mapLocation: corridor.newportToLavertonLoop.pointAt(1, 4),
   }),
-  new Station({ id: station.SEDDON, name: "Seddon", ptvIds: [1176] }),
-  new Station({ id: station.SEYMOUR, name: "Seymour", ptvIds: [1554] }),
-  new Station({ id: station.SHEPPARTON, name: "Shepparton", ptvIds: [1555] }),
+  new Station({
+    id: station.SEDDON,
+    name: "Seddon",
+    ptvIds: [1176],
+    mapLocation: corridor.footscrayToNewport.pointAt(1, 4),
+  }),
+  new Station({
+    id: station.SEYMOUR,
+    name: "Seymour",
+    ptvIds: [1554],
+    mapLocation: MapPoint.at(node.REGIONAL_WESTERN.SEYMOUR),
+  }),
+  new Station({
+    id: station.SHEPPARTON,
+    name: "Shepparton",
+    ptvIds: [1555],
+    mapLocation: MapPoint.at(node.REGIONAL_WESTERN.SHEPPARTON),
+  }),
   new Station({
     id: station.SHERWOOD_PARK,
     name: "Sherwood Park",
     ptvIds: [1575],
     mapLocation: corridor.deerParkToWarrnambool.pointAt(17, 18),
   }),
-  new Station({ id: station.SHOWGROUNDS, name: "Showgrounds", ptvIds: [1177] }),
+  new Station({
+    id: station.SHOWGROUNDS,
+    name: "Showgrounds",
+    ptvIds: [1177],
+    mapLocation: null,
+  }),
   new Station({
     id: station.SOMERVILLE,
     name: "Somerville",
@@ -1459,6 +1540,7 @@ const data = [
     id: station.SOUTH_KENSINGTON,
     name: "South Kensington",
     ptvIds: [1179],
+    mapLocation: corridor.northMelbourneToFootscray.pointAt(1, 2),
   }),
   new Station({
     id: station.SOUTH_MORANG,
@@ -1466,11 +1548,23 @@ const data = [
     ptvIds: [1224],
     mapLocation: corridor.cliftonHillToMernda.pointAt(15, 18),
   }),
-  new Station({ id: station.SOUTH_YARRA, name: "South Yarra", ptvIds: [1180] }),
+  new Station({
+    id: station.SOUTH_YARRA,
+    name: "South Yarra",
+    ptvIds: [1180],
+    mapLocation: MapPoint.between(
+      node.SANDRINGHAM.SOUTH_YARRA,
+      node.DANDENONG.SOUTH_YARRA,
+    ),
+  }),
   new Station({
     id: station.SOUTHERN_CROSS,
     name: "Southern Cross",
     ptvIds: [1181],
+    mapLocation: MapPoint.between(
+      node.NORTHERN.SOUTHERN_CROSS,
+      node.NEWPORT.SOUTHERN_CROSS,
+    ),
   }),
   new Station({
     id: station.SOUTHLAND,
@@ -1478,21 +1572,36 @@ const data = [
     ptvIds: [1001],
     mapLocation: corridor.caulfieldToFrankston.pointAt(8, 20),
   }),
-  new Station({ id: station.SPOTSWOOD, name: "Spotswood", ptvIds: [1182] }),
+  new Station({
+    id: station.SPOTSWOOD,
+    name: "Spotswood",
+    ptvIds: [1182],
+    mapLocation: corridor.footscrayToNewport.pointAt(3, 4),
+  }),
   new Station({
     id: station.SPRINGHURST,
     name: "Springhurst",
     ptvIds: [1557],
     mapLocation: corridor.seymourToAlbury.pointAt(6, 9),
   }),
-  new Station({ id: station.SPRINGVALE, name: "Springvale", ptvIds: [1183] }),
+  new Station({
+    id: station.SPRINGVALE,
+    name: "Springvale",
+    ptvIds: [1183],
+    mapLocation: corridor.claytonToDandenong.pointAt(2, 6),
+  }),
   new Station({
     id: station.ST_ALBANS,
     name: "St Albans",
     ptvIds: [1184],
     mapLocation: corridor.sunshineToWatergardens.pointAt(3, 5),
   }),
-  new Station({ id: station.STONY_POINT, name: "Stony Point", ptvIds: [1185] }),
+  new Station({
+    id: station.STONY_POINT,
+    name: "Stony Point",
+    ptvIds: [1185],
+    mapLocation: MapPoint.at(node.STONY_POINT.STONY_POINT),
+  }),
   new Station({
     id: station.STRATFORD,
     name: "Stratford",
@@ -1505,9 +1614,30 @@ const data = [
     ptvIds: [1186],
     mapLocation: corridor.northMelbourneToBroadmeadows.pointAt(7, 12),
   }),
-  new Station({ id: station.SUNBURY, name: "Sunbury", ptvIds: [1187] }),
-  new Station({ id: station.SUNSHINE, name: "Sunshine", ptvIds: [1218] }),
-  new Station({ id: station.SWAN_HILL, name: "Swan Hill", ptvIds: [1559] }),
+  new Station({
+    id: station.SUNBURY,
+    name: "Sunbury",
+    ptvIds: [1187],
+    mapLocation: MapPoint.between(
+      node.REGIONAL_WESTERN.SUNBURY,
+      node.NORTHERN.SUNBURY,
+    ),
+  }),
+  new Station({
+    id: station.SUNSHINE,
+    name: "Sunshine",
+    ptvIds: [1218],
+    mapLocation: MapPoint.between(
+      node.NORTHERN.SUNSHINE,
+      node.REGIONAL_WESTERN.SUNSHINE_DEER_PARK,
+    ),
+  }),
+  new Station({
+    id: station.SWAN_HILL,
+    name: "Swan Hill",
+    ptvIds: [1559],
+    mapLocation: MapPoint.at(node.REGIONAL_WESTERN.SWAN_HILL),
+  }),
   new Station({
     id: station.SYNDAL,
     name: "Syndal",
@@ -1598,7 +1728,12 @@ const data = [
     ptvIds: [1564],
     mapLocation: corridor.eastPakenhamToBairnsdale.pointAt(2, 16),
   }),
-  new Station({ id: station.UPFIELD, name: "Upfield", ptvIds: [1198] }),
+  new Station({
+    id: station.UPFIELD,
+    name: "Upfield",
+    ptvIds: [1198],
+    mapLocation: MapPoint.at(node.NORTHERN.UPFIELD),
+  }),
   new Station({
     id: station.UPPER_FERNTREE_GULLY,
     name: "Upper Ferntree Gully",
@@ -1647,11 +1782,20 @@ const data = [
     ptvIds: [1568],
     mapLocation: corridor.eastPakenhamToBairnsdale.pointAt(7, 16),
   }),
-  new Station({ id: station.WARRNAMBOOL, name: "Warrnambool", ptvIds: [1569] }),
+  new Station({
+    id: station.WARRNAMBOOL,
+    name: "Warrnambool",
+    ptvIds: [1569],
+    mapLocation: MapPoint.at(node.REGIONAL_WESTERN.WARRNAMBOOL),
+  }),
   new Station({
     id: station.WATERGARDENS,
     name: "Watergardens",
     ptvIds: [1202],
+    mapLocation: MapPoint.between(
+      node.NORTHERN.WATERGARDENS,
+      node.REGIONAL_WESTERN.WATERGARDENS,
+    ),
   }),
   new Station({
     id: station.WATSONIA,
@@ -1677,7 +1821,12 @@ const data = [
     ptvIds: [1589],
     mapLocation: corridor.ballaratToArarat.pointAt(1, 3),
   }),
-  new Station({ id: station.WERRIBEE, name: "Werribee", ptvIds: [1205] }),
+  new Station({
+    id: station.WERRIBEE,
+    name: "Werribee",
+    ptvIds: [1205],
+    mapLocation: MapPoint.at(node.NEWPORT.WERRIBEE),
+  }),
   new Station({
     id: station.WEST_FOOTSCRAY,
     name: "West Footscray",
@@ -1690,7 +1839,12 @@ const data = [
     ptvIds: [1207],
     mapLocation: corridor.jolimontToCliftonHill.pointAt(1, 5),
   }),
-  new Station({ id: station.WESTALL, name: "Westall", ptvIds: [1208] }),
+  new Station({
+    id: station.WESTALL,
+    name: "Westall",
+    ptvIds: [1208],
+    mapLocation: corridor.claytonToDandenong.pointAt(1, 6),
+  }),
   new Station({
     id: station.WESTGARTH,
     name: "Westgarth",
@@ -1713,11 +1867,13 @@ const data = [
     id: station.WILLIAMSTOWN,
     name: "Williamstown",
     ptvIds: [1211],
+    mapLocation: MapPoint.at(node.NEWPORT.WILLIAMSTOWN),
   }),
   new Station({
     id: station.WILLIAMSTOWN_BEACH,
     name: "Williamstown Beach",
     ptvIds: [1212],
+    mapLocation: corridor.newportToWilliamstown.pointAt(2, 3),
   }),
   new Station({
     id: station.WILLISON,
@@ -1761,8 +1917,18 @@ const data = [
     ptvIds: [1573],
     mapLocation: corridor.eastPakenhamToBairnsdale.pointAt(8, 16),
   }),
-  new Station({ id: station.YARRAMAN, name: "Yarraman", ptvIds: [1215] }),
-  new Station({ id: station.YARRAVILLE, name: "Yarraville", ptvIds: [1216] }),
+  new Station({
+    id: station.YARRAMAN,
+    name: "Yarraman",
+    ptvIds: [1215],
+    mapLocation: corridor.claytonToDandenong.pointAt(5, 6),
+  }),
+  new Station({
+    id: station.YARRAVILLE,
+    name: "Yarraville",
+    ptvIds: [1216],
+    mapLocation: corridor.footscrayToNewport.pointAt(2, 4),
+  }),
   new Station({
     id: station.HUNTLY,
     name: "Huntly",
@@ -1785,6 +1951,10 @@ const data = [
     id: station.EAST_PAKENHAM,
     name: "East Pakenham",
     ptvIds: [1230],
+    mapLocation: MapPoint.between(
+      node.DANDENONG.EAST_PAKENHAM,
+      node.GIPPSLAND.EAST_PAKENHAM,
+    ),
   }),
 ];
 
