@@ -60,11 +60,12 @@ export class HighlightedPoint {
   }
 
   toSerialized(): SerializedHighlightedMapPoint {
-    const point = this.point.normalize();
     return {
-      nodeIdA: point.mapNodeA,
-      nodeIdB: point.mapNodeB,
-      percentage: point.percentage,
+      segmentANodeA: this.point.segmentANodeA,
+      segmentANodeB: this.point.segmentANodeB,
+      segmentBNodeA: this.point.segmentBNodeA,
+      segmentBNodeB: this.point.segmentBNodeB,
+      percentage: this.point.percentage,
       style: this.style,
     };
   }

@@ -2,20 +2,12 @@ import { z } from "zod";
 
 export class MapPoint {
   constructor(
-    // TODO: I think you actually need four map nodes to identify some stations,
-    // e.g. Essendon. It falls between North Melbourne and Broadmeadows, but
-    // across two different lines (the yellow Craigieburn line and the purple
-    // Seymour line). So it think we'd need the algorithm to find the Essendon
-    // spot for the yellow AND purple line, and use the midpoint of the two.
-    //
-    // (Fun!)
-    readonly mapNodeA: number,
-    readonly mapNodeB: number,
+    readonly segmentANodeA: number,
+    readonly segmentANodeB: number,
+    readonly segmentBNodeA: number,
+    readonly segmentBNodeB: number,
     readonly percentage: number,
   ) {
-    // Map nodes CAN be the same, e.g. if the map point is something like South
-    // Yarra, which happens to have a dedicated map node.
-
     if (percentage < 0) {
       throw new Error("Percentage cannot be less than 0.");
     }
@@ -26,29 +18,49 @@ export class MapPoint {
 
   static readonly bson = z
     .object({
-      mapNodeA: z.number(),
-      mapNodeB: z.number(),
+      segmentANodeA: z.number(),
+      segmentANodeB: z.number(),
+      segmentBNodeA: z.number(),
+      segmentBNodeB: z.number(),
       percentage: z.number(),
     })
-    .transform((x) => new MapPoint(x.mapNodeA, x.mapNodeB, x.percentage));
+    .transform(
+      (x) =>
+        new MapPoint(
+          x.segmentANodeA,
+          x.segmentANodeB,
+          x.segmentBNodeA,
+          x.segmentBNodeB,
+          x.percentage,
+        ),
+    );
 
   toBson(): z.input<typeof MapPoint.bson> {
     return {
-      mapNodeA: this.mapNodeA,
-      mapNodeB: this.mapNodeB,
+      segmentANodeA: this.segmentANodeA,
+      segmentANodeB: this.segmentANodeB,
+      segmentBNodeA: this.segmentBNodeA,
+      segmentBNodeB: this.segmentBNodeB,
       percentage: this.percentage,
     };
   }
+}
 
-  reverse(): MapPoint {
-    return new MapPoint(this.mapNodeB, this.mapNodeA, 1 - this.percentage);
-  }
+export class MapCorridor {
+  constructor(
+    readonly segmentANodeA: number,
+    readonly segmentANodeB: number,
+    readonly segmentBNodeA: number,
+    readonly segmentBNodeB: number,
+  ) {}
 
-  normalize(): MapPoint {
-    if (this.mapNodeA < this.mapNodeB) {
-      return this;
-    } else {
-      return this.reverse();
-    }
+  pointAt(percentage: number): MapPoint {
+    return new MapPoint(
+      this.segmentANodeA,
+      this.segmentANodeB,
+      this.segmentBNodeA,
+      this.segmentBNodeB,
+      percentage,
+    );
   }
 }
