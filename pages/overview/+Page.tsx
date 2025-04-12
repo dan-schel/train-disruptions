@@ -13,6 +13,7 @@ import { Spacer } from "@/components/core/Spacer";
 import { PagePadding } from "@/components/common/PagePadding";
 import { PageCenterer } from "@/components/common/PageCenterer";
 import { DisruptionButton } from "@/pages/overview/DisruptionButton";
+import { Select } from "@/components/common/Select";
 
 export default function Page() {
   const { disruptions, suburban, regional, mapHighlighting } = useData<Data>();
@@ -41,18 +42,22 @@ export default function Page() {
 
           <Row align="center" className="max-w-md gap-1.5" wrap>
             <Text>Show</Text>
-            <select
-              className="border-soft-border flex-grow rounded border"
-              onChange={handleMapModeChange}
-            >
-              <option value="show-disruptions">disruptions occuring</option>
-              <option value="show-lines-running">train lines running</option>
-            </select>
-
+            <Select<MapMode>
+              options={[
+                { label: "disruptions occuring", value: "show-disruptions" },
+                {
+                  label: "train lines running",
+                  value: "show-lines-running",
+                },
+              ]}
+              value={mapMode}
+              handleChange={handleMapModeChange}
+            />
             {/* TODO: Determine/implement time range options. */}
-            <select className="border-soft-border flex-grow rounded border">
-              <option value="now">right now</option>
-            </select>
+            <Select
+              options={[{ label: "right now", value: "now" }]}
+              handleChange={() => {}}
+            />
           </Row>
           <Spacer h="4" />
 
