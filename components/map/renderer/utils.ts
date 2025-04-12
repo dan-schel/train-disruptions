@@ -3,6 +3,8 @@ export const interchangeThinLineWidth = 1;
 export const interchangeThickLineWidth = 4;
 export const interchangeBorderWidth = 1;
 export const terminusLineWidth = 3;
+export const iconRadius = 8;
+export const iconStrokeWidth = 1;
 
 export const viewportPadding = 10;
 

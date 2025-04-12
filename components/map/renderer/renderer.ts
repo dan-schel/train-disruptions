@@ -8,6 +8,8 @@ import { Interchange } from "@/components/map/renderer/interchange";
 import { Segment } from "@/components/map/renderer/segment";
 import {
   getColors,
+  iconRadius,
+  iconStrokeWidth,
   interchangeBorderWidth,
   interchangeThickLineWidth,
   interchangeThinLineWidth,
@@ -298,9 +300,9 @@ export class Renderer {
     const { x, y } = point.amplify(this._amplification);
     ctx.fillStyle = this._css.foreground;
     ctx.strokeStyle = this._css["on-foreground"];
-    ctx.lineWidth = 1;
+    ctx.lineWidth = iconStrokeWidth;
     ctx.beginPath();
-    ctx.ellipse(x, y, 8, 8, 0, 0, Math.PI * 2);
+    ctx.ellipse(x, y, iconRadius, iconRadius, 0, 0, Math.PI * 2);
     ctx.fill();
     ctx.stroke();
 
