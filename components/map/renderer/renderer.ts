@@ -241,20 +241,14 @@ export class Renderer {
         (x) =>
           x.startNodeId === effectiveNodeA && x.endNodeId === effectiveNodeB,
       );
-
-      if (segment == null) {
-        return null;
-      }
+      if (segment == null) return null;
 
       return segment.pointAt(this._amplification, effectivePercentage);
     } else {
       const segment = this._geometry.segments.find(
         (x) => x.startNodeId === nodeA || x.endNodeId === nodeA,
       );
-
-      if (segment == null) {
-        return null;
-      }
+      if (segment == null) return null;
 
       return segment.startNodeId === nodeA
         ? segment.pointAt(this._amplification, 0)
