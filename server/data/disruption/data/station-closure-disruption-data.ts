@@ -6,7 +6,7 @@ import { RouteGraphModifier } from "@/server/data/disruption/route-graph-modifie
 import { StationClosureRouteGraphModifier } from "@/server/data/disruption/route-graph-modifier/station-closure-route-graph-modifier";
 import { App } from "@/server/app";
 import { MapHighlighter } from "@/server/data/disruption/map-highlighting/map-highlighter";
-import { EmptyMapHighlighter } from "@/server/data/disruption/map-highlighting/empty-map-highlighter";
+import { StationMapHighlighter } from "@/server/data/disruption/map-highlighting/station-map-highlighter";
 
 /**
  * A single station is closed. (Trains may be continuing to run express through
@@ -44,7 +44,6 @@ export class StationClosureDisruptionData extends DisruptionDataBase {
   }
 
   getMapHighlighter(): MapHighlighter {
-    // TODO: Use a highlighter to mark the station on the map.
-    return new EmptyMapHighlighter();
+    return new StationMapHighlighter([this.stationId]);
   }
 }

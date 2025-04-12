@@ -71,6 +71,13 @@ export class FlexiPoint {
     return `${minX} ${minY} ${maxX} ${maxY}`;
   }
 
+  static midpoint(a: FlexiPoint, b: FlexiPoint): FlexiPoint {
+    return new FlexiPoint(
+      new Point((a.min.x + b.min.x) / 2, (a.min.y + b.min.y) / 2),
+      new Point((a.max.x + b.max.x) / 2, (a.max.y + b.max.y) / 2),
+    );
+  }
+
   static fromString(s: string) {
     const parsed = s
       .split(" ")

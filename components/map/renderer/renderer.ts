@@ -17,7 +17,10 @@ import {
   terminusLineWidth,
   viewportPadding,
 } from "@/components/map/renderer/utils";
-import { SerializedMapHighlighting } from "@/shared/types/map-data";
+import {
+  SerializedHighlightedMapPoint,
+  SerializedMapHighlighting,
+} from "@/shared/types/map-data";
 
 // Canvas has `backingStorePixelRatio`, but Typescript doesn't know about it for
 // some reason. (Probably the target "ES____" version we're using idk.)
@@ -139,6 +142,10 @@ export class Renderer {
       this._renderInterchange(interchange);
     }
 
+    for (const highlightedPoint of this._highlighting?.points ?? []) {
+      this._renderHighlightedPoint(highlightedPoint);
+    }
+
     ctx.restore();
   }
 
@@ -196,6 +203,63 @@ export class Renderer {
     }
   }
 
+  private _renderHighlightedPoint(
+    highlightedPoint: SerializedHighlightedMapPoint,
+  ) {
+    const positionA = this._getPosition(
+      highlightedPoint.segmentANodeA,
+      highlightedPoint.segmentANodeB,
+      highlightedPoint.percentage,
+    );
+    const positionB = this._getPosition(
+      highlightedPoint.segmentBNodeA,
+      highlightedPoint.segmentBNodeB,
+      highlightedPoint.percentage,
+    );
+
+    if (positionA == null || positionB == null) {
+      return;
+    }
+
+    const point = FlexiPoint.midpoint(positionA, positionB);
+    this._renderIcon(point, highlightedPoint.style);
+  }
+
+  private _getPosition(
+    nodeA: number,
+    nodeB: number,
+    percentage: number,
+  ): FlexiPoint | null {
+    if (nodeA !== nodeB) {
+      const effectiveNodeA = Math.min(nodeA, nodeB);
+      const effectiveNodeB = Math.max(nodeA, nodeB);
+      const effectivePercentage = nodeA < nodeB ? percentage : 1 - percentage;
+
+      const segment = this._geometry.segments.find(
+        (x) =>
+          x.startNodeId === effectiveNodeA && x.endNodeId === effectiveNodeB,
+      );
+
+      if (segment == null) {
+        return null;
+      }
+
+      return segment.pointAt(this._amplification, effectivePercentage);
+    } else {
+      const segment = this._geometry.segments.find(
+        (x) => x.startNodeId === nodeA || x.endNodeId === nodeA,
+      );
+
+      if (segment == null) {
+        return null;
+      }
+
+      return segment.startNodeId === nodeA
+        ? segment.pointAt(this._amplification, 0)
+        : segment.pointAt(this._amplification, 1);
+    }
+  }
+
   private _renderPath(
     points: readonly FlexiPoint[],
     lineWidth: number,
@@ -223,5 +287,32 @@ export class Renderer {
     }
 
     ctx.stroke();
+  }
+
+  private _renderIcon(
+    point: FlexiPoint,
+    iconType: SerializedHighlightedMapPoint["style"],
+  ) {
+    const ctx = this._ctx;
+
+    const { x, y } = point.amplify(this._amplification);
+    ctx.fillStyle = this._css.foreground;
+    ctx.strokeStyle = this._css["on-foreground"];
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.ellipse(x, y, 8, 8, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.stroke();
+
+    if (iconType === "standard") {
+      ctx.lineCap = "round";
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(x - 2.5, y - 2.5);
+      ctx.lineTo(x + 2.5, y + 2.5);
+      ctx.moveTo(x + 2.5, y - 2.5);
+      ctx.lineTo(x - 2.5, y + 2.5);
+      ctx.stroke();
+    }
   }
 }
