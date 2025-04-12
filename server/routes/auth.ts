@@ -16,16 +16,14 @@ export function createAuthRouter(app: App) {
 
       const user = await app.database.of(ADMINS).first({ where: { username } });
       if (!user) {
-        return res
-          .status(403)
-          .json({ error: "Username/password is incorrect" });
+        res.status(403).json({ error: "Username/password is incorrect" });
+        return;
       }
 
       const isValid = await compare(password, user.password);
       if (!isValid) {
-        return res
-          .status(403)
-          .json({ error: "Username/password is incorrect" });
+        res.status(403).json({ error: "Username/password is incorrect" });
+        return;
       }
 
       await req.session.create(req, res, user);

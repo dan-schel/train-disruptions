@@ -29,10 +29,11 @@ export function createAdminRouter(app: App) {
       const { id, username } = req.body;
 
       if (!app.discordBot) {
-        return res.status(412).json({
+        res.status(412).json({
           error:
             "Discord bot is unavailable at this moment. Try again at another time.",
         });
+        return;
       }
 
       let existing = await app.database.of(ADMINS).first({
@@ -41,9 +42,10 @@ export function createAdminRouter(app: App) {
         },
       });
       if (existing) {
-        return res.status(409).json({
+        res.status(409).json({
           error: "A user is already associated with this Discord account",
         });
+        return;
       }
 
       existing = await app.database.of(ADMINS).first({
@@ -52,9 +54,10 @@ export function createAdminRouter(app: App) {
         },
       });
       if (existing) {
-        return res.status(409).json({
+        res.status(409).json({
           error: "Username unavailable",
         });
+        return;
       }
 
       const password = generatePassword();
@@ -70,7 +73,7 @@ export function createAdminRouter(app: App) {
           `${req.protocol}://${req.hostname}${req.hostname === "localhost" ? ":3000" : ""}`,
       );
 
-      return res.json();
+      res.json();
     },
   );
 
@@ -93,23 +96,26 @@ export function createAdminRouter(app: App) {
       const { username, password } = req.body;
 
       if (req.session.getUser()?.id !== id) {
-        return res.status(403).json({
+        res.status(403).json({
           error: "You cannot update someone else's credentials.",
         });
+        return;
       }
 
       const user = await app.database.of(ADMINS).get(id);
       if (!user) {
-        return res.status(401).json({ error: "Not authorized" });
+        res.status(401).json({ error: "Not authorized" });
+        return;
       }
 
       const existingUsername = await app.database
         .of(ADMINS)
         .first({ where: { username } });
       if (existingUsername && existingUsername.id !== user.id) {
-        return res.status(409).json({
+        res.status(409).json({
           error: "Username unavailable",
         });
+        return;
       }
 
       let hashedPW = null;
@@ -123,7 +129,7 @@ export function createAdminRouter(app: App) {
         password: hashedPW ?? user.password,
       });
 
-      return res.json();
+      res.json();
     },
   );
 
@@ -141,21 +147,24 @@ export function createAdminRouter(app: App) {
       const { id } = req.params;
 
       if (req.session.getUser()?.id === id) {
-        return res.status(409).json({ error: "You cannot delete yourself" });
+        res.status(409).json({ error: "You cannot delete yourself" });
+        return;
       }
 
       if (req.session.getUser()?.role === "admin") {
-        return res.status(403).json({ error: "Insufficient privileges" });
+        res.status(403).json({ error: "Insufficient privileges" });
+        return;
       }
 
       const admin = await app.database.of(ADMINS).get(id);
       if (!admin || admin.role === "super") {
-        return res.status(404).json({ error: "Admin doesn't exist" });
+        res.status(404).json({ error: "Admin doesn't exist" });
+        return;
       }
 
       await app.database.of(ADMINS).delete(admin.id);
 
-      return res.json();
+      res.json();
     },
   );
 
