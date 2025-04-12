@@ -11,8 +11,9 @@ export const errorHandler = (
   _: NextFunction,
 ) => {
   if (err instanceof ValidationError) {
-    return res.status(err.status).json({ error: err.errors });
+    res.status(err.status).json({ error: err.errors });
+    return;
   }
 
-  return res.status(400).json({ error: err.message });
+  res.status(400).json({ error: err.message });
 };

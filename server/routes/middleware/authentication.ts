@@ -151,6 +151,10 @@ export function isAuthenticated(
   res: Response,
   next: NextFunction,
 ) {
-  if (req.session.getId()) next();
-  else return res.status(401).json({ error: "Unauthorized" });
+  if (req.session.getId()) {
+    next();
+    return;
+  }
+
+  res.status(401).json({ error: "Unauthorized" });
 }
