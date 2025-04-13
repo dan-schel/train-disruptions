@@ -19,7 +19,7 @@ export class SegmentColoring {
 
 export abstract class ColoringStrategy {
   constructor(
-    private readonly geometry: Geometry,
+    private readonly _geometry: Geometry,
     private readonly _mapHighlighting: SerializedMapHighlighting,
   ) {}
 
@@ -30,7 +30,7 @@ export abstract class ColoringStrategy {
   protected _getNodeHighlightingCoverage(
     nodeId: number,
   ): "full" | "partial" | "zero" {
-    const segments = this.geometry.getSegmentsInvolving(nodeId);
+    const segments = this._geometry.getSegmentsInvolving(nodeId);
     const highlightedCount = segments.reduce((acc, segment) => {
       const highlighting = this._getHighlightingFor(segment);
       if (highlighting.some((h) => this._highlightsNode(h, nodeId))) {
