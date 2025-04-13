@@ -1,5 +1,4 @@
 import React from "react";
-import { Text } from "@/components/core/Text";
 
 type SelectOption<T> = { label: string; value: T };
 
