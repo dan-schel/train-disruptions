@@ -26,7 +26,7 @@ export type MapColor =
   | "interchange-stroke"
   | "interchange-fill"
   | "ghost-line"
-  | "foreground"
+  | "foreground-strong"
   | "on-foreground";
 
 export type MapCssColors = Record<MapColor, string>;
@@ -46,7 +46,7 @@ export function getColors(): MapCssColors {
     "interchange-fill": css.getPropertyValue("--color-interchange-fill"),
     "interchange-stroke": css.getPropertyValue("--color-interchange-stroke"),
     "ghost-line": css.getPropertyValue("--color-soft-border"),
-    foreground: css.getPropertyValue("--color-foreground"),
+    "foreground-strong": css.getPropertyValue("--color-foreground-strong"),
     "on-foreground": css.getPropertyValue("--color-background"),
   };
 }

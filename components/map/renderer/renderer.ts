@@ -292,7 +292,7 @@ export class Renderer {
     const ctx = this._ctx;
 
     const { x, y } = point.amplify(this._amplification);
-    ctx.fillStyle = this._css.foreground;
+    ctx.fillStyle = this._css["foreground-strong"];
     ctx.strokeStyle = this._css["on-foreground"];
     ctx.lineWidth = iconStrokeWidth;
     ctx.beginPath();
