@@ -1,10 +1,7 @@
 import React from "react";
 import { Text } from "@/components/core/Text";
 
-type SelectOption<T> = {
-  label: string;
-  value: T;
-};
+type SelectOption<T> = { label: string; value: T };
 
 type SelectProps<T> = {
   id?: string;
@@ -37,7 +34,7 @@ export function Select<T extends string | number>({
     >
       {options.map((x, i) => (
         <option key={i} value={x.value} className="bg-background!">
-          <Text>{x.label}</Text>
+          {x.label}
         </option>
       ))}
     </select>
