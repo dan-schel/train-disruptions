@@ -3,6 +3,8 @@ export const interchangeThinLineWidth = 1;
 export const interchangeThickLineWidth = 4;
 export const interchangeBorderWidth = 1;
 export const terminusLineWidth = 3;
+export const iconRadius = 8;
+export const iconStrokeWidth = 1;
 
 export const viewportPadding = 10;
 
@@ -23,7 +25,9 @@ export type MapColor =
   | LineColor
   | "interchange-stroke"
   | "interchange-fill"
-  | "ghost-line";
+  | "ghost-line"
+  | "foreground-strong"
+  | "on-foreground";
 
 export type MapCssColors = Record<MapColor, string>;
 
@@ -42,5 +46,7 @@ export function getColors(): MapCssColors {
     "interchange-fill": css.getPropertyValue("--color-interchange-fill"),
     "interchange-stroke": css.getPropertyValue("--color-interchange-stroke"),
     "ghost-line": css.getPropertyValue("--color-soft-border"),
+    "foreground-strong": css.getPropertyValue("--color-foreground-strong"),
+    "on-foreground": css.getPropertyValue("--color-background"),
   };
 }
