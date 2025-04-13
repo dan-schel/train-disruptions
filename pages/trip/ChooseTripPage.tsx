@@ -9,6 +9,7 @@ import { BackNavigation } from "@/components/navigation/BackNavigation";
 import { Spacer } from "@/components/core/Spacer";
 import { MingcuteSearch2Line } from "@/components/icons/MingcureSearch2Line";
 import { ChooseData } from "@/pages/trip/+data";
+import { Select } from "@/components/common/Select";
 
 export type ChooseTripPageProps = {
   data: ChooseData;
@@ -55,17 +56,11 @@ function StationSelect(props: StationSelectProps) {
   return (
     <Row className="gap-2">
       <label htmlFor={props.id}>{props.label}</label>
-      <select
+      <Select
         id={props.id}
         name={props.id}
-        className="border-soft-border rounded border"
-      >
-        {props.stations.map((station) => (
-          <option key={station.id} value={station.id}>
-            {station.name}
-          </option>
-        ))}
-      </select>
+        options={props.stations.map((x) => ({ label: x.name, value: x.id }))}
+      />
     </Row>
   );
 }
