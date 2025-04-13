@@ -1,0 +1,80 @@
+import { PageContext } from "vike/types";
+import { ALERTS } from "@/server/database/models/models";
+import { JsonSerializable } from "@/shared/json-serializable";
+import { AlertData } from "@/server/data/alert";
+import { App } from "@/server/app";
+import { nonNull, unique } from "@dan-schel/js-utils";
+
+export type Data = {
+  alert: {
+    data: {
+      title: string;
+      description: string;
+      url: string;
+      startsAt: Date | null;
+      endsAt: Date | null;
+      affectedLines: {
+        name: string;
+      }[];
+      affectedStations: {
+        name: string;
+      }[];
+      ptvHtml: string | null;
+    };
+  } | null;
+};
+
+export async function data(
+  pageContext: PageContext,
+): Promise<Data & JsonSerializable> {
+  const {
+    routeParams,
+    custom: { app },
+  } = pageContext;
+
+  const id = routeParams.id;
+  const alert = await app.database.of(ALERTS).get(id);
+
+  if (alert == null) {
+    return { alert: null };
+  }
+
+  const crawledData = await fetchDetails(app, alert.data.url);
+
+  return {
+    alert: {
+      data: serializeData(alert.updatedData ?? alert.data, app, crawledData),
+    },
+  };
+}
+
+function serializeData(data: AlertData, app: App, ptvHtml: string | null) {
+  const affectedLines = unique(
+    data.affectedLinePtvIds
+      .map((id) => app.lines.findByPtvId(id))
+      .filter(nonNull),
+  ).map((x) => ({ name: x.name }));
+
+  const affectedStations = unique(
+    data.affectedStationPtvIds
+      .map((id) => app.stations.findByPtvId(id))
+      .filter(nonNull),
+  ).map((x) => ({ name: x.name }));
+
+  return {
+    title: data.title,
+    description: data.description,
+    url: data.url,
+    startsAt: data.startsAt,
+    endsAt: data.endsAt,
+    affectedLines,
+    affectedStations,
+    ptvHtml,
+  };
+}
+
+async function fetchDetails(app: App, url: string): Promise<string | null> {
+  const details = await app.alertSource.fetchDetails(url);
+
+  return details;
+}

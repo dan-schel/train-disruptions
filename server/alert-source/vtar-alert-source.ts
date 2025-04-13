@@ -4,7 +4,7 @@ import { AlertSource } from "@/server/alert-source/alert-source";
 
 export class VtarAlertSource extends AlertSource {
   constructor(
-    private endpointUrl: string,
+    private vtarUrl: string,
     private relayKey: string,
   ) {
     super();
@@ -19,7 +19,7 @@ export class VtarAlertSource extends AlertSource {
       }),
     });
 
-    const response = await fetch(this.endpointUrl, {
+    const response = await fetch(`${this.vtarUrl}/ptv-disruptions.json`, {
       headers: {
         "relay-key": this.relayKey,
       },
@@ -39,5 +39,35 @@ export class VtarAlertSource extends AlertSource {
     ];
 
     return combined;
+  }
+
+  async fetchDetails(url: string): Promise<string | null> {
+    const responseSchema = z.union([
+      z.object({ error: z.literal(true) }),
+      z.object({ details: z.string() }),
+    ]);
+
+    const response = await fetch(
+      `${this.vtarUrl}/ptv-disruption-details?url=${encodeURIComponent(url)}`,
+      {
+        headers: {
+          "relay-key": this.relayKey,
+        },
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error(`${response.status} ${response.statusText}`);
+    }
+
+    const data = responseSchema.parse(await response.json());
+
+    // Return null to indicate the fetch worked, but VTAR failed to extract
+    // the disruption details.
+    if ("error" in data) {
+      return null;
+    }
+
+    return data.details;
   }
 }

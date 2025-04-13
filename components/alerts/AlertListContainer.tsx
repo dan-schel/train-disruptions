@@ -15,8 +15,7 @@ export function AlertListContainer({ alerts }: AlertListContainerProps) {
       {alerts.map((alert) => (
         <AlertButton
           key={alert.id}
-          // action={`/admin/alerts/${alert.id}`}
-          action={""}
+          action={`/admin/alerts/${alert.id}`}
           title={alert.title}
           id={alert.id}
         />

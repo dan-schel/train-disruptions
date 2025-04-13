@@ -6,4 +6,8 @@ export class FakeAlertSource extends AlertSource {
   async fetchDisruptions(): Promise<Disruption[]> {
     return [];
   }
+
+  async fetchDetails(_url: string): Promise<string | null> {
+    return null;
+  }
 }
