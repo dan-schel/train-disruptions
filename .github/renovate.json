@@ -5,6 +5,7 @@
   "prHourlyLimit": 10,
   "prConcurrentLimit": 500,
   "lockFileMaintenance": { "enabled": true },
+  "rangeStrategy": "pin",
   "packageRules": [
     {
       "matchCurrentVersion": ">=1.0.0",
