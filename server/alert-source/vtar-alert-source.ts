@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { Disruption, disruptionSchema } from "@/types/disruption";
-import { AlertSource } from "@/server/alert-source/alert-source";
+import { AlertSource, Details } from "@/server/alert-source/alert-source";
 
 export class VtarAlertSource extends AlertSource {
   constructor(
@@ -41,14 +41,27 @@ export class VtarAlertSource extends AlertSource {
     return combined;
   }
 
-  async fetchDetails(url: string): Promise<string | null> {
+  async fetchDetails(url: string): Promise<Details> {
     const responseSchema = z.union([
-      z.object({ error: z.literal(true) }),
+      z.object({
+        // It's not a coincidence that these match the supported values of
+        // DetailsError, but we shouldn't couple the two together. The list here
+        // need to match what VTAR returns, but DetailsError is generic to any
+        // alert source implementation. All that to say, it's fine to duplicate
+        // the list here imo.
+        error: z.enum([
+          "invalid-request",
+          "unknown-error",
+          "not-found",
+          "unsupported-url",
+          "rate-limited",
+        ]),
+      }),
       z.object({ details: z.string() }),
     ]);
 
     const response = await fetch(
-      `${this.vtarUrl}/ptv-disruption-details?url=${encodeURIComponent(url)}`,
+      `${this.vtarUrl}/ptv-disruption-details?url=${encodeURIComponent(url.replace("http://", "https://"))}`,
       {
         headers: {
           "relay-key": this.relayKey,
@@ -62,12 +75,10 @@ export class VtarAlertSource extends AlertSource {
 
     const data = responseSchema.parse(await response.json());
 
-    // Return null to indicate the fetch worked, but VTAR failed to extract
-    // the disruption details.
-    if ("error" in data) {
-      return null;
+    if ("details" in data) {
+      return { details: data.details };
+    } else {
+      return { error: data.error };
     }
-
-    return data.details;
   }
 }

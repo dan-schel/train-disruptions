@@ -4,6 +4,9 @@ import { JsonSerializable } from "@/shared/json-serializable";
 import { AlertData } from "@/server/data/alert";
 import { App } from "@/server/app";
 import { nonNull, unique } from "@dan-schel/js-utils";
+import { DetailsError } from "@/server/alert-source/alert-source";
+
+type UrlPreview = { html: string } | { error: string };
 
 export type Data = {
   alert: {
@@ -19,7 +22,7 @@ export type Data = {
       affectedStations: {
         name: string;
       }[];
-      ptvHtml: string | null;
+      urlPreview: UrlPreview;
     };
   } | null;
 };
@@ -39,16 +42,16 @@ export async function data(
     return { alert: null };
   }
 
-  const crawledData = await fetchDetails(app, alert.data.url);
+  const urlPreview = await generateUrlPreview(app, alert.data.url);
 
   return {
     alert: {
-      data: serializeData(alert.updatedData ?? alert.data, app, crawledData),
+      data: serializeData(alert.updatedData ?? alert.data, app, urlPreview),
     },
   };
 }
 
-function serializeData(data: AlertData, app: App, ptvHtml: string | null) {
+function serializeData(data: AlertData, app: App, urlPreview: UrlPreview) {
   const affectedLines = unique(
     data.affectedLinePtvIds
       .map((id) => app.lines.findByPtvId(id))
@@ -69,12 +72,28 @@ function serializeData(data: AlertData, app: App, ptvHtml: string | null) {
     endsAt: data.endsAt,
     affectedLines,
     affectedStations,
-    ptvHtml,
+    urlPreview,
   };
 }
 
-async function fetchDetails(app: App, url: string): Promise<string | null> {
+const errorMapping: Record<DetailsError, string> = {
+  "invalid-request": "Unknown error while generating the preview.",
+  "unknown-error": "Unknown error while generating the preview.",
+  "not-found": "Page no longer exists on PTV's website.",
+  "unsupported-url": "Previews are only generated for PTV disruption articles.",
+  "rate-limited":
+    "Preview generation skipped to avoid spamming PTV - try again later.",
+};
+
+async function generateUrlPreview(app: App, url: string): Promise<UrlPreview> {
   const details = await app.alertSource.fetchDetails(url);
 
-  return details;
+  if ("error" in details) {
+    return { error: errorMapping[details.error] };
+  }
+
+  // TODO: [DS] Sanitize the HTML.
+  //
+  // (Don't let me merge this PR if this comment is still here!)
+  return { html: details.details };
 }
