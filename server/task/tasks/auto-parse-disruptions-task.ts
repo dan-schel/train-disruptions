@@ -1,9 +1,10 @@
 import { App } from "@/server/app";
-import { OnStartupScheduler } from "@/server/task/lib/on-startup-scheduler";
 import { Task } from "@/server/task/lib/task";
 import { TaskScheduler } from "@/server/task/lib/task-scheduler";
 import { BusReplacementsParser } from "@/server/auto-parser/bus-replacements-parser";
 import { DisruptionParser } from "@/server/auto-parser/auto-parser";
+import { IntervalScheduler } from "@/server/task/lib/interval-scheduler";
+import { DelaysParser } from "@/server/auto-parser/delays-parser";
 
 /**
  * Seeds a Super Admin into the database if the credentials are provided via environment variables
@@ -15,11 +16,11 @@ export class AutoParseDisruptionsTask extends Task {
 
   constructor() {
     super(AutoParseDisruptionsTask.TASK_ID);
-    this.parsers = [new BusReplacementsParser()];
+    this.parsers = [new BusReplacementsParser(), new DelaysParser()];
   }
 
   getScheduler(app: App): TaskScheduler {
-    return new OnStartupScheduler(app, this);
+    return new IntervalScheduler(app, this, IntervalScheduler.FIVE_MINUTES);
   }
 
   async execute(app: App): Promise<void> {

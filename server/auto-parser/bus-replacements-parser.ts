@@ -1,5 +1,9 @@
 import { App } from "@/server/app";
 import { AutoParserBase } from "@/server/auto-parser/auto-parser-base";
+import {
+  isPartOfTheCity,
+  doesLineRunsThroughCityLoop,
+} from "@/server/auto-parser/utils";
 import { Alert } from "@/server/data/alert";
 import { BusReplacementsDisruptionData } from "@/server/data/disruption/data/bus-replacements-disruption-data";
 import { Disruption } from "@/server/data/disruption/disruption";
@@ -63,9 +67,14 @@ export class BusReplacementsParser extends AutoParserBase {
       }
 
       const nodes = line.route.getAllLineShapeNodes();
-      // TODO: Might need a safer way to determine if a station is part of "the-city"
-      const a = nodes.find((x) => x === stations[0].id) ?? "the-city";
-      const b = nodes.find((x) => x === stations[1].id) ?? "the-city";
+      const a =
+        doesLineRunsThroughCityLoop(nodes) && isPartOfTheCity(stations[0].id)
+          ? "the-city"
+          : stations[0].id;
+      const b =
+        doesLineRunsThroughCityLoop(nodes) && isPartOfTheCity(stations[1].id)
+          ? "the-city"
+          : stations[1].id;
 
       const section = new LineSection(x.id, a, b);
       if (!line.route.isValidSection(section)) {
