@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import React from "react";
 import { Grid } from "@/components/core/Grid";
 import { Text } from "@/components/core/Text";
@@ -42,7 +43,12 @@ function DisruptionIcon({
   if (icon.startsWith("line")) {
     return (
       <div className="bg-soft flex size-8 items-center justify-center overflow-hidden rounded-full">
-        <div className="bg-accent grid h-full w-2 rotate-45" />
+        <div
+          className={clsx(
+            "grid h-full w-2 rotate-45",
+            icon.includes("dashed") ? "bg-dashed-accent" : "bg-accent",
+          )}
+        />
       </div>
     );
   } else if (icon === "cross") {

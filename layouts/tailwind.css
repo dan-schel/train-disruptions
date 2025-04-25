@@ -102,6 +102,20 @@
   --line-spacing: --value(--leading-*);
 }
 
+@utility bg-dashed-* {
+  /* prettier-ignore */
+  background-image: linear-gradient(
+    --value(--color-*) 20%,
+    transparent 20%,
+    transparent 40%,
+    --value(--color-*) 40%,
+    --value(--color-*) 60%,
+    transparent 60%,
+    transparent 80%,
+    --value(--color-*) 80%
+  );
+}
+
 @font-face {
   font-family: "Outfit";
   font-style: normal;
