@@ -4,5 +4,12 @@
   "labels": ["dependencies"],
   "prHourlyLimit": 10,
   "prConcurrentLimit": 500,
-  "lockFileMaintenance": { "enabled": true }
+  "lockFileMaintenance": { "enabled": true },
+  "packageRules": [
+    {
+      "matchCurrentVersion": ">=1.0.0",
+      "matchUpdateTypes": ["patch", "minor"],
+      "groupName": "all non-major updates"
+    }
+  ]
 }
