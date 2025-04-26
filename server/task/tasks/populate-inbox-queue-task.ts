@@ -28,7 +28,7 @@ export class PopulateInboxQueueTask extends Task {
       this._addNewAlerts(app, disruptions, alerts);
       this._cleanupOldAlerts(app, disruptions, alerts);
     } catch (error) {
-      console.warn("Failed to process incoming alerts.");
+      console.warn("Failed to populate unprocessed alerts.");
       console.warn(error);
     }
   }
