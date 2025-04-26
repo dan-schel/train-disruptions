@@ -72,6 +72,11 @@ export abstract class Repository<Model extends DatabaseModel> {
     }
     return items[0];
   }
+
+  /** Returns all records in this repository. */
+  async all(): Promise<DataOf<Model>[]> {
+    return this.find({});
+  }
 }
 
 export abstract class MigrationHandler {
