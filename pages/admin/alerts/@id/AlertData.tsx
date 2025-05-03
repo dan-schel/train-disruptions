@@ -4,6 +4,8 @@ import { Text } from "@/components/core/Text";
 import { listifyAnd } from "@dan-schel/js-utils";
 import { Link } from "@/components/core/Link";
 import { Spacer } from "@/components/core/Spacer";
+import { PtvPreview } from "@/pages/admin/alerts/@id/PtvPreview";
+import { With } from "@/components/core/With";
 
 export type AlertDataProps = {
   data: {
@@ -57,29 +59,24 @@ export function AlertData({ data }: AlertDataProps) {
 
       <Text style="subtitle">Additional details</Text>
       <Spacer h="2" />
-      <Text style="tiny-weak">{data.url}</Text>
+      <Text style="tiny-weak">
+        <Link href={data.url} target="_blank">
+          {data.url}
+        </Link>
+      </Text>
       <Spacer h="6" />
-      {/* // TODO: [DS] Obviously temporary!! */}
-      {"html" in data.urlPreview && (
-        <div
-          dangerouslySetInnerHTML={{
-            __html: data.urlPreview.html,
-          }}
-        />
-      )}
-      {"error" in data.urlPreview && (
-        <>
-          <Text>
-            <b>Error:</b> {data.urlPreview.error}
-          </Text>
-          <Spacer h="4" />
-          <Text>
-            <Link href={data.url} target="_blank">
-              Open the page in a new tab instead
-            </Link>
-          </Text>
-        </>
-      )}
+      <div className="border-soft-border divide-soft-border divide-y rounded-md border">
+        {"error" in data.urlPreview && (
+          <With className="p-4">
+            <Text>
+              <b>Error:</b> {data.urlPreview.error}
+            </Text>
+          </With>
+        )}
+        {"html" in data.urlPreview && (
+          <PtvPreview html={data.urlPreview.html} />
+        )}
+      </div>
     </Column>
   );
 }

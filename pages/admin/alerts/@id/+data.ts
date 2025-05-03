@@ -5,6 +5,7 @@ import { AlertData } from "@/server/data/alert";
 import { App } from "@/server/app";
 import { nonNull, unique } from "@dan-schel/js-utils";
 import { DetailsError } from "@/server/alert-source/alert-source";
+import sanitizeHtml from "sanitize-html";
 
 type UrlPreview = { html: string } | { error: string };
 
@@ -25,6 +26,11 @@ export type Data = {
       urlPreview: UrlPreview;
     };
   } | null;
+};
+
+const sanitizeOptions: sanitizeHtml.IOptions = {
+  allowedTags: ["h1", "h2", "h3", "h4", "h5", "h6", "p", "a", "ul", "ol", "li"],
+  disallowedTagsMode: "recursiveEscape",
 };
 
 export async function data(
@@ -92,8 +98,5 @@ async function generateUrlPreview(app: App, url: string): Promise<UrlPreview> {
     return { error: errorMapping[details.error] };
   }
 
-  // TODO: [DS] Sanitize the HTML.
-  //
-  // (Don't let me merge this PR if this comment is still here!)
-  return { html: details.details };
+  return { html: sanitizeHtml(details.details, sanitizeOptions) };
 }
