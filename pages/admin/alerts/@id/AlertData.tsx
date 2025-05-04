@@ -13,8 +13,8 @@ export type AlertDataProps = {
     title: string;
     description: string;
     url: string;
-    startsAt: Date | null;
-    endsAt: Date | null;
+    startsAt: string | null;
+    endsAt: string | null;
     affectedLines: {
       name: string;
     }[];
@@ -31,10 +31,8 @@ export function AlertData({ data }: AlertDataProps) {
       <Column className="gap-4">
         <Text>{data.title}</Text>
         <Text>{data.description}</Text>
-
-        {/* TODO: [DS] Need to use custom formatter. Causes hydration issues. */}
-        <Text>Starts at: {data.startsAt?.toString()}</Text>
-        <Text>Ends at: {data.endsAt?.toString()}</Text>
+        <Text>Starts at: {data.startsAt}</Text>
+        <Text>Ends at: {data.endsAt}</Text>
 
         <Text>
           Affected lines:{" "}

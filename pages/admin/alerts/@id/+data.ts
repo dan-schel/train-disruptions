@@ -6,6 +6,7 @@ import { App } from "@/server/app";
 import { nonNull, unique } from "@dan-schel/js-utils";
 import { DetailsError } from "@/server/alert-source/alert-source";
 import sanitizeHtml from "sanitize-html";
+import { formatDate } from "@/server/data/disruption/period/utils/utils";
 
 type UrlPreview = { html: string } | { error: string };
 
@@ -15,8 +16,8 @@ export type Data = {
       title: string;
       description: string;
       url: string;
-      startsAt: Date | null;
-      endsAt: Date | null;
+      startsAt: string | null;
+      endsAt: string | null;
       affectedLines: {
         name: string;
       }[];
@@ -98,8 +99,10 @@ function serializeData(data: AlertData, app: App, urlPreview: UrlPreview) {
     title: data.title,
     description: data.description,
     url: data.url,
-    startsAt: data.startsAt,
-    endsAt: data.endsAt,
+    startsAt:
+      data.startsAt != null ? formatDate(data.startsAt, app.time.now()) : null,
+    endsAt:
+      data.endsAt != null ? formatDate(data.endsAt, app.time.now()) : null,
     affectedLines,
     affectedStations,
     urlPreview,
