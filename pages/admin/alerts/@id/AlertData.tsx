@@ -64,7 +64,7 @@ export function AlertData({ data }: AlertDataProps) {
         </Link>
       </Text>
       <Spacer h="6" />
-      <div className="border-soft-border divide-soft-border bg-soft divide-y overflow-x-scroll rounded-md border">
+      <Column className="border-soft-border divide-soft-border bg-soft divide-y overflow-x-scroll rounded-md border">
         {"error" in data.urlPreview && (
           <Column className="gap-2 px-4 py-8" align="center">
             <With className="text-2xl">
@@ -78,7 +78,7 @@ export function AlertData({ data }: AlertDataProps) {
         {"html" in data.urlPreview && (
           <PtvPreview html={data.urlPreview.html} />
         )}
-      </div>
+      </Column>
     </Column>
   );
 }
