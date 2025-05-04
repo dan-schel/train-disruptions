@@ -6,6 +6,7 @@ import { Link } from "@/components/core/Link";
 import { Spacer } from "@/components/core/Spacer";
 import { PtvPreview } from "@/pages/admin/alerts/@id/PtvPreview";
 import { With } from "@/components/core/With";
+import { MingcuteAlertLine } from "@/components/icons/MingcuteAlertLine";
 
 export type AlertDataProps = {
   data: {
@@ -65,13 +66,16 @@ export function AlertData({ data }: AlertDataProps) {
         </Link>
       </Text>
       <Spacer h="6" />
-      <div className="border-soft-border divide-soft-border divide-y rounded-md border">
+      <div className="border-soft-border divide-soft-border bg-soft divide-y overflow-x-scroll rounded-md border">
         {"error" in data.urlPreview && (
-          <With className="p-4">
+          <Column className="gap-2 px-4 py-8" align="center">
+            <With className="text-2xl">
+              <MingcuteAlertLine />
+            </With>
             <Text>
               <b>Error:</b> {data.urlPreview.error}
             </Text>
-          </With>
+          </Column>
         )}
         {"html" in data.urlPreview && (
           <PtvPreview html={data.urlPreview.html} />

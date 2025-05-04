@@ -17,7 +17,7 @@ export default function Page() {
       <PageCenterer>
         <PagePadding>
           {alert != null ? (
-            <Column className="gap-4">
+            <Column className="min-w-0 gap-4">
               <Text style="megatitle">Process alert</Text>
               <AlertData data={alert.data} />
             </Column>

@@ -29,7 +29,31 @@ export type Data = {
 };
 
 const sanitizeOptions: sanitizeHtml.IOptions = {
-  allowedTags: ["h1", "h2", "h3", "h4", "h5", "h6", "p", "a", "ul", "ol", "li"],
+  allowedTags: [
+    "h1",
+    "h2",
+    "h3",
+    "h4",
+    "h5",
+    "h6",
+    "p",
+    "a",
+    "ul",
+    "ol",
+    "li",
+    "span",
+    "strong",
+    "b",
+    "i",
+    "em",
+    "img",
+    "table",
+    "tbody",
+    "thead",
+    "tr",
+    "th",
+    "td",
+  ],
   disallowedTagsMode: "recursiveEscape",
 };
 
@@ -92,11 +116,15 @@ const errorMapping: Record<DetailsError, string> = {
 };
 
 async function generateUrlPreview(app: App, url: string): Promise<UrlPreview> {
-  const details = await app.alertSource.fetchDetails(url);
+  try {
+    const details = await app.alertSource.fetchDetails(url);
 
-  if ("error" in details) {
-    return { error: errorMapping[details.error] };
+    if ("error" in details) {
+      return { error: errorMapping[details.error] };
+    }
+
+    return { html: sanitizeHtml(details.details, sanitizeOptions) };
+  } catch {
+    return { error: errorMapping["unknown-error"] };
   }
-
-  return { html: sanitizeHtml(details.details, sanitizeOptions) };
 }
