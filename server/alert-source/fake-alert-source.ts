@@ -1,5 +1,5 @@
 import { Disruption } from "@/types/disruption";
-import { AlertSource } from "@/server/alert-source/alert-source";
+import { AlertSource, Details } from "@/server/alert-source/alert-source";
 
 // For testing purposes.
 export class FakeAlertSource extends AlertSource {
@@ -13,7 +13,7 @@ export class FakeAlertSource extends AlertSource {
     return this._alerts;
   }
 
-  async fetchDetails(_url: string): Promise<string | null> {
-    return null;
+  async fetchDetails(_url: string): Promise<Details> {
+    return { error: "not-found" };
   }
 }
