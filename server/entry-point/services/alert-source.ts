@@ -9,7 +9,7 @@ import { VtarAlertSource } from "@/server/alert-source/vtar-alert-source";
  */
 export function initAlertSource() {
   if (env.RELAY_KEY != null) {
-    return new VtarAlertSource(config.VTAR_ENDPOINT_URL, env.RELAY_KEY);
+    return new VtarAlertSource(config.VTAR_URL, env.RELAY_KEY);
   } else {
     return new FakeAlertSource();
   }

@@ -40,7 +40,7 @@ export const admin: NavTab = {
   icon: <MingcuteToolLine />,
   iconFill: <MingcuteToolFill />,
   path: "/admin",
-  active: (url: string) => url === "/admin",
+  active: (url: string) => url === "/admin" || url.startsWith("/admin/"),
 };
 
 export const settings: NavTab = {
