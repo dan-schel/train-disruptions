@@ -5,6 +5,12 @@ export type InputProps = {
   onChange: (value: string) => void;
 };
 
+// TODO: [DS] Consider renaming to TextInput. Consider renaming existing
+// TextInput to something else (TextField?) as it seems to have additional stuff
+// going on.
+
+// TODO: [DS] If this remains a core component, document it in the style of the
+// other core components.
 export function Input(props: InputProps) {
   return (
     <input
