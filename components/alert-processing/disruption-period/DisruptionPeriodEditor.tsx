@@ -26,7 +26,7 @@ const formattedDisruptionPeriodTypes: Record<
   string
 > = {
   standard: "Continuously",
-  "evenings-only": "Evenings only",
+  "evenings-only": "During the evenings only",
 };
 
 export function DisruptionPeriodEditor(props: DisruptionPeriodEditorProps) {
@@ -51,7 +51,8 @@ export function DisruptionPeriodEditor(props: DisruptionPeriodEditorProps) {
   }, [props, type, standard, eveningsOnly]);
 
   return (
-    <Column>
+    <Column className="gap-4">
+      <Text>Disruption occurs:</Text>
       {periodTypes.map((x) => (
         <RadioButton
           key={x}

@@ -27,8 +27,10 @@ export function StandardDisruptionPeriodEditor(
   }, [props, start, end]);
 
   return (
-    <Column>
+    <Column className="gap-4">
+      <Text>Starting:</Text>
       <DateInput value={start} onChange={setStart} />
+      <Text>And ending:</Text>
       <EndsEditor initialValue={end} onChange={setEnd} />
       {error != null && <Text style="small-red">{error}</Text>}
     </Column>

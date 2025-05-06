@@ -32,9 +32,12 @@ export function EveningsOnlyDisruptionPeriodEditor(
   }, [props, start, end, startHourEachDay]);
 
   return (
-    <Column>
+    <Column className="gap-4">
+      <Text>Starting:</Text>
       <DateInput value={start} onChange={setStart} />
+      <Text>And ending:</Text>
       <EndsEditor initialValue={end} onChange={setEnd} />
+      <Text>Starting each day at:</Text>
       <Input value={startHourEachDay} onChange={setStartHourEachDay} />
       {error != null && <Text style="small-red">{error}</Text>}
     </Column>

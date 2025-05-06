@@ -27,9 +27,15 @@ export function EndsApproximatelyEditor(props: EndsApproximatelyEditorProps) {
   }, [props, displayText, earliest, latest]);
 
   return (
-    <Column>
+    <Column className="gap-4">
+      <Text>In:</Text>
       <Input value={displayText} onChange={setDisplayText} />
+      <Text style="tiny-weak">
+        e.g. &quot;late May&quot;, &quot;this afternoon&quot;, etc.
+      </Text>
+      <Text>Earliest interpretable date/time:</Text>
       <DateInput value={earliest} onChange={setEarliest} />
+      <Text>Latest interpretable date/time:</Text>
       <DateInput value={latest} onChange={setLatest} />
       {error != null && <Text style="small-red">{error}</Text>}
     </Column>

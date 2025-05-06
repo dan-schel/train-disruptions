@@ -17,6 +17,8 @@ export function Input(props: InputProps) {
       type="text"
       value={props.value}
       onChange={(e) => props.onChange(e.target.value)}
+      // TODO: [DS] Temporary!
+      className="border-switch rounded-sm border-2"
     />
   );
 }

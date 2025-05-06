@@ -19,9 +19,9 @@ export type EndsEditorProps = {
 };
 
 const endsTypes: EndsInput["type"][] = [
+  "ends-exactly",
   "ends-after-last-service",
   "ends-approximately",
-  "ends-exactly",
   "ends-never",
   "ends-when-alert-ends",
 ];
@@ -30,8 +30,8 @@ const formattedEndsTypes: Record<EndsInput["type"], string> = {
   "ends-after-last-service": "After last service",
   "ends-approximately": "Approximately",
   "ends-exactly": "Exactly",
-  "ends-never": "Never",
-  "ends-when-alert-ends": "When alerts ends",
+  "ends-never": "Never (unknown)",
+  "ends-when-alert-ends": "When alert ends (automatic)",
 };
 
 export function EndsEditor(props: EndsEditorProps) {
@@ -64,7 +64,7 @@ export function EndsEditor(props: EndsEditorProps) {
   }, [props, type, afterLastService, approximately, exactly]);
 
   return (
-    <Column>
+    <Column className="gap-4">
       {endsTypes.map((x) => (
         <RadioButton
           key={x}

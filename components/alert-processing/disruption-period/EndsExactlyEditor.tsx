@@ -20,7 +20,8 @@ export function EndsExactlyEditor(props: EndsExactlyEditorProps) {
   }, [props, date]);
 
   return (
-    <Column>
+    <Column className="gap-4">
+      <Text>At:</Text>
       <DateInput value={date} onChange={setDate} />
       {error != null && <Text style="small-red">{error}</Text>}
     </Column>

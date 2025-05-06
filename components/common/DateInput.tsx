@@ -8,12 +8,14 @@ export type DateInputProps = {
 export function DateInput(props: DateInputProps) {
   return (
     <input
-      type="date"
+      type="datetime-local"
       value={props.value ? props.value.toISOString().split("T")[0] : ""}
       onChange={(e) => {
         const value = e.target.value;
         props.onChange(value ? new Date(value) : null);
       }}
+      // TODO: [DS] Temporary!
+      className="border-switch rounded-sm border-2"
     />
   );
 }

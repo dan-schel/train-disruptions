@@ -27,7 +27,8 @@ export function EndsAfterLastServiceEditor(
   }, [props, year, month, day]);
 
   return (
-    <Column>
+    <Column className="gap-4">
+      <Text>On:</Text>
       <Row>
         <Input value={year} onChange={setYear} />
         <Input value={month} onChange={setMonth} />
