@@ -22,7 +22,7 @@ export function EndsExactlyEditor(props: EndsExactlyEditorProps) {
   return (
     <Column>
       <DateInput value={date} onChange={setDate} />
-      {error != null && <Text>{error}</Text>}
+      {error != null && <Text style="small-red">{error}</Text>}
     </Column>
   );
 }

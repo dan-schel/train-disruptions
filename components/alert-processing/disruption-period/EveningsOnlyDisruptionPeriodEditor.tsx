@@ -36,7 +36,7 @@ export function EveningsOnlyDisruptionPeriodEditor(
       <DateInput value={start} onChange={setStart} />
       <EndsEditor initialValue={end} onChange={setEnd} />
       <Input value={startHourEachDay} onChange={setStartHourEachDay} />
-      {error != null && <Text>{error}</Text>}
+      {error != null && <Text style="small-red">{error}</Text>}
     </Column>
   );
 }

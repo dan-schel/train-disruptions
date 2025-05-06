@@ -30,7 +30,7 @@ export function StandardDisruptionPeriodEditor(
     <Column>
       <DateInput value={start} onChange={setStart} />
       <EndsEditor initialValue={end} onChange={setEnd} />
-      {error != null && <Text>{error}</Text>}
+      {error != null && <Text style="small-red">{error}</Text>}
     </Column>
   );
 }

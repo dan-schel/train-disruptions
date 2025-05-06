@@ -31,7 +31,7 @@ export function EndsApproximatelyEditor(props: EndsApproximatelyEditorProps) {
       <Input value={displayText} onChange={setDisplayText} />
       <DateInput value={earliest} onChange={setEarliest} />
       <DateInput value={latest} onChange={setLatest} />
-      {error != null && <Text>{error}</Text>}
+      {error != null && <Text style="small-red">{error}</Text>}
     </Column>
   );
 }

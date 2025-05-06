@@ -33,7 +33,7 @@ export function EndsAfterLastServiceEditor(
         <Input value={month} onChange={setMonth} />
         <Input value={day} onChange={setDay} />
       </Row>
-      {error != null && <Text>{error}</Text>}
+      {error != null && <Text style="small-red">{error}</Text>}
     </Column>
   );
 }
