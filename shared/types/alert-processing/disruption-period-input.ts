@@ -14,16 +14,12 @@ export type EndsExactlyInput = {
   date: Date;
 };
 
-export type EndsWhenAlertEndsInput = {
-  alertId: string;
-};
-
 export type EndsInput =
   | ({ type: "ends-after-last-service" } & EndsAfterLastServiceInput)
   | ({ type: "ends-approximately" } & EndsApproximatelyInputInput)
   | ({ type: "ends-exactly" } & EndsExactlyInput)
   | { type: "ends-never" }
-  | ({ type: "ends-when-alert-ends" } & EndsWhenAlertEndsInput);
+  | { type: "ends-when-alert-ends" };
 
 export type StandardDisruptionPeriodInput = {
   start: Date;
