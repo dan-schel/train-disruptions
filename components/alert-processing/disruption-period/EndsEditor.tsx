@@ -96,7 +96,7 @@ export function EndsEditor(props: EndsEditorProps) {
 
 // TODO: [DS] Remove this comment.
 // No need for { value } | { error } as this component doesn't need to display
-// errors. This is no state of error this component can be in, except when a
+// errors. There is no state of error this component can be in, except when a
 // child component is in error. As the child component displays it's own errors,
 // this component doesn't need to. Maybe this changes if we don't select a type
 // by default.
