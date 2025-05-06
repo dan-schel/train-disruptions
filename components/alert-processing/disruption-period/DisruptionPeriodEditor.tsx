@@ -51,18 +51,20 @@ export function DisruptionPeriodEditor(props: DisruptionPeriodEditorProps) {
   }, [props, type, standard, eveningsOnly]);
 
   return (
-    <Column className="gap-4">
-      <Text>Disruption occurs:</Text>
-      {periodTypes.map((x) => (
-        <RadioButton
-          key={x}
-          group={group}
-          checked={type === x}
-          onChange={() => setType(x)}
-        >
-          <Text>{formattedDisruptionPeriodTypes[x]}</Text>
-        </RadioButton>
-      ))}
+    <Column className="gap-8">
+      <Column className="gap-4">
+        <Text>Disruption occurs:</Text>
+        {periodTypes.map((x) => (
+          <RadioButton
+            key={x}
+            group={group}
+            checked={type === x}
+            onChange={() => setType(x)}
+          >
+            <Text>{formattedDisruptionPeriodTypes[x]}</Text>
+          </RadioButton>
+        ))}
+      </Column>
       {type === "standard" && (
         <StandardDisruptionPeriodEditor
           initialValue={standard}

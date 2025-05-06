@@ -64,17 +64,19 @@ export function EndsEditor(props: EndsEditorProps) {
   }, [props, type, afterLastService, approximately, exactly]);
 
   return (
-    <Column className="gap-4">
-      {endsTypes.map((x) => (
-        <RadioButton
-          key={x}
-          group={group}
-          checked={type === x}
-          onChange={() => setType(x)}
-        >
-          <Text>{formattedEndsTypes[x]}</Text>
-        </RadioButton>
-      ))}
+    <Column className="gap-8">
+      <Column className="gap-4">
+        {endsTypes.map((x) => (
+          <RadioButton
+            key={x}
+            group={group}
+            checked={type === x}
+            onChange={() => setType(x)}
+          >
+            <Text>{formattedEndsTypes[x]}</Text>
+          </RadioButton>
+        ))}
+      </Column>
       {type === "ends-after-last-service" && (
         <EndsAfterLastServiceEditor
           initialValue={afterLastService}
