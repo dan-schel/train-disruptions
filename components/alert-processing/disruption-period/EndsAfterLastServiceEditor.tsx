@@ -29,7 +29,7 @@ export function EndsAfterLastServiceEditor(
   return (
     <Column className="gap-2">
       <Text>On:</Text>
-      <Row>
+      <Row className="gap-2">
         <Input value={year} onChange={setYear} />
         <Input value={month} onChange={setMonth} />
         <Input value={day} onChange={setDay} />
