@@ -29,6 +29,7 @@ export type StandardDisruptionPeriodInput = {
 export type EveningsOnlyDisruptionPeriodInput = {
   start: Date;
   end: EndsInput;
+  startHourEachDay: number;
 };
 
 export type DisruptionPeriodInput =
