@@ -4,7 +4,7 @@ export type EndsAfterLastServiceInput = {
   day: number;
 };
 
-export type EndsApproximatelyInputInput = {
+export type EndsApproximatelyInput = {
   displayText: string;
   earliest: Date;
   latest: Date;
@@ -16,7 +16,7 @@ export type EndsExactlyInput = {
 
 export type EndsInput =
   | ({ type: "ends-after-last-service" } & EndsAfterLastServiceInput)
-  | ({ type: "ends-approximately" } & EndsApproximatelyInputInput)
+  | ({ type: "ends-approximately" } & EndsApproximatelyInput)
   | ({ type: "ends-exactly" } & EndsExactlyInput)
   | { type: "ends-never" }
   | { type: "ends-when-alert-ends" };

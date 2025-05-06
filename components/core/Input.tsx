@@ -11,7 +11,6 @@ export function Input(props: InputProps) {
       type="text"
       value={props.value}
       onChange={(e) => props.onChange(e.target.value)}
-      className="rounded-md border border-gray-300 p-2"
     />
   );
 }
