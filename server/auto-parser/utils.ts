@@ -28,7 +28,7 @@ export function isOnCityBoundary({ a, b }: StationPair) {
   );
 }
 
-export function doesLineRunsThroughCityLoop(
+export function doesLineRunThroughCityLoop(
   lineShapeNodes: readonly LineShapeNode[],
 ) {
   return lineShapeNodes.includes("the-city");

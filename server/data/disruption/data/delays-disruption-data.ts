@@ -6,7 +6,8 @@ import { RouteGraphModifier } from "@/server/data/disruption/route-graph-modifie
 import { DisruptionWriteupAuthor } from "@/server/data/disruption/writeup/disruption-writeup-author";
 import { DelaysDisruptionWriteupAuthor } from "@/server/data/disruption/writeup/delays-disruption-writeup-author";
 import { LineSection } from "@/server/data/line-section";
-import { StationSurroundingMapHighlighter } from "@/server/data/disruption/map-highlighting/station-surrounding-map-highlighter";
+import { DelayedSectionMapHighlighter } from "@/server/data/disruption/map-highlighting/delayed-section-map-highlighter";
+import { SimpleRouteGraphModifier } from "@/server/data/disruption/route-graph-modifier/simple-route-graph-modifier";
 
 export class DelaysDisruptionData extends DisruptionDataBase {
   constructor(
@@ -25,18 +26,19 @@ export class DelaysDisruptionData extends DisruptionDataBase {
     .object({
       type: z.literal("delays"),
       stationId: z.number(),
-      delayment: z.number(),
+      delayInMinutes: z.number(),
       sections: LineSection.bson.array(),
     })
     .transform(
-      (x) => new DelaysDisruptionData(x.stationId, x.delayment, x.sections),
+      (x) =>
+        new DelaysDisruptionData(x.stationId, x.delayInMinutes, x.sections),
     );
 
   toBson(): z.input<typeof DelaysDisruptionData.bson> {
     return {
       type: "delays",
       stationId: this.stationId,
-      delayment: this.delayInMinutes,
+      delayInMinutes: this.delayInMinutes,
       sections: this.sections.map((x) => x.toBson()),
     };
   }
@@ -50,13 +52,12 @@ export class DelaysDisruptionData extends DisruptionDataBase {
   }
 
   getRouteGraphModifier(): RouteGraphModifier {
-    // TODO
-    throw new Error("Method not implemented.");
+    // Services would usually continue running whilst there is a delay
+    // Not entirely sure if we need to modify the graph
+    return new SimpleRouteGraphModifier([], []);
   }
 
   getMapHighlighter(): MapHighlighter {
-    return new StationSurroundingMapHighlighter(this.sections, [
-      this.stationId,
-    ]);
+    return new DelayedSectionMapHighlighter(this.sections);
   }
 }

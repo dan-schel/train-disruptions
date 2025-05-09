@@ -25,6 +25,7 @@ export class EveningsOnlyDisruptionPeriod extends DisruptionPeriodBase {
 
     /** E.g. `18` for 6pm to last service each day. */
     readonly startHourEachDay: number,
+    readonly startMinuteEachDay: number = 0,
   ) {
     super();
 
@@ -41,6 +42,17 @@ export class EveningsOnlyDisruptionPeriod extends DisruptionPeriodBase {
           `between ${eveningStarts} and 23.`,
       );
     }
+
+    if (
+      !Number.isInteger(startMinuteEachDay) ||
+      startMinuteEachDay < 0 ||
+      startMinuteEachDay >= 60
+    ) {
+      throw new Error(
+        `Invalid start minute each day: ${startMinuteEachDay}. Must be an integer ` +
+          `between 0 and 59.`,
+      );
+    }
   }
 
   static readonly bson = z
@@ -49,10 +61,16 @@ export class EveningsOnlyDisruptionPeriod extends DisruptionPeriodBase {
       start: z.date().nullable(),
       end: endsBson,
       startHourEachDay: z.number(),
+      startMinuteEachDay: z.number().default(0),
     })
     .transform(
       (x) =>
-        new EveningsOnlyDisruptionPeriod(x.start, x.end, x.startHourEachDay),
+        new EveningsOnlyDisruptionPeriod(
+          x.start,
+          x.end,
+          x.startHourEachDay,
+          x.startMinuteEachDay,
+        ),
     );
 
   toBson(): z.input<typeof EveningsOnlyDisruptionPeriod.bson> {
@@ -72,7 +90,7 @@ export class EveningsOnlyDisruptionPeriod extends DisruptionPeriodBase {
     // EveningsOnlyDisruptionPeriods more specialized (only take JustDates).
 
     const { hour, half } = hour24To12(this.startHourEachDay);
-    const hourStr = `${hour}${half} to last service each night`;
+    const hourStr = `${hour}${this.startMinuteEachDay ? `:${this.startMinuteEachDay}` : ""}${half} to last service each night`;
 
     const endStr = this.end.getDisplayString({ now: options.now });
 

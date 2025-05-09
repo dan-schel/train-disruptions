@@ -18,6 +18,7 @@ export class DisruptionModel extends DatabaseModel<
     data: disruptionDataBson,
     sourceAlertIds: z.string().array(),
     period: disruptionPeriodBson,
+    curation: z.enum(["automatic", "manual"]).default("manual"),
 
     // Computed fields - included for ease of querying.
     earliestImpactedDate: z.date(),
@@ -39,6 +40,7 @@ export class DisruptionModel extends DatabaseModel<
       data: item.data.toBson(),
       sourceAlertIds: item.sourceAlertIds,
       period: item.period.toBson(),
+      curation: item.curation,
 
       earliestImpactedDate: start,
       latestImpactedDate: end,
@@ -52,6 +54,7 @@ export class DisruptionModel extends DatabaseModel<
       parsed.data,
       parsed.sourceAlertIds,
       parsed.period,
+      parsed.curation,
     );
   }
 
