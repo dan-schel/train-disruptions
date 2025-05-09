@@ -38,7 +38,7 @@ export class DisruptionWriteup {
 
       // TODO: Choosing the icon should probably be the responsibility of the
       // code which handles telling the <Map> what to do.
-      readonly iconType: "line" | "cross" | "altered-route" | "line-dashed";
+      readonly iconType: "line" | "cross" | "altered-route" | "traffic";
     },
     /** Line status indicator text on the overview page. */
     readonly lineStatusIndicator: {
@@ -59,7 +59,7 @@ export class DisruptionWriteup {
           z.literal("line"),
           z.literal("cross"),
           z.literal("altered-route"),
-          z.literal("line-dashed"),
+          z.literal("traffic"),
         ]),
       }),
       lineStatusIndicator: z.object({

@@ -14,8 +14,6 @@ export class DelaysDisruptionWriteupAuthor extends DisruptionWriteupAuthor {
 
   write(app: App, disruption: Disruption): DisruptionWriteup {
     const stationName = app.stations.require(this._data.stationId).name;
-    // const periodString =
-    //   disruption.period.getFullyEncompassingTimeRange().start;
     const delayStatus = this._data.delayInMinutes >= 30 ? "Major" : "Minor";
     const lines = listifyAnd(
       disruption.data
@@ -35,8 +33,8 @@ export class DelaysDisruptionWriteupAuthor extends DisruptionWriteupAuthor {
       {
         headline: `${delayStatus} delays`,
         subject: `${delayStatus} delays near ${stationName} station`,
-        period: null,
-        iconType: "line-dashed",
+        period: `Reported at ${startStr}, lasting up to ${this._data.delayInMinutes} minutes`,
+        iconType: "traffic",
       },
       {
         summary: `${delayStatus} delays near ${stationName} station`,

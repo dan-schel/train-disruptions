@@ -61,6 +61,7 @@ export class DelaysParser extends AutoParserBase {
           x.route.getAllServedStations().includes(affectedStation.id),
       );
 
+    // Get sections comprising of adjacent stations
     const sections = affectedLines.flatMap((line) => {
       const nodes = line.route.getAllLineShapeNodes();
       const adjacentStations = unique(
@@ -98,11 +99,7 @@ export class DelaysParser extends AutoParserBase {
         return [];
       }
 
-      if (line.route.isValidSection(section)) {
-        return section;
-      } else {
-        return [];
-      }
+      return line.route.isValidSection(section) ? section : [];
     });
 
     return new Disruption(

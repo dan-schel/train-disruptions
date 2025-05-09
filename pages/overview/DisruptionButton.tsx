@@ -1,4 +1,3 @@
-import clsx from "clsx";
 import React from "react";
 import { Grid } from "@/components/core/Grid";
 import { Text } from "@/components/core/Text";
@@ -8,6 +7,7 @@ import { MingcuteRightLine } from "@/components/icons/MingcuteRightLine";
 import { MingcuteRouteFill } from "@/components/icons/MingcuteRouteFill";
 import { MingcuteCloseCircleFill } from "@/components/icons/MingcuteCloseCircleFill";
 import { OverviewPageDisruptionSummary } from "@/shared/types/overview-page";
+import { PTVSignalStop } from "@/components/icons/PTVSignalStop";
 
 export type DisruptionButtonProps = {
   data: OverviewPageDisruptionSummary;
@@ -40,15 +40,10 @@ function DisruptionIcon({
 }: {
   icon: OverviewPageDisruptionSummary["icon"];
 }) {
-  if (icon.startsWith("line")) {
+  if (icon === "line") {
     return (
       <div className="bg-soft flex size-8 items-center justify-center overflow-hidden rounded-full">
-        <div
-          className={clsx(
-            "grid h-full w-2 rotate-45",
-            icon.includes("dashed") ? "bg-dashed-accent" : "bg-accent",
-          )}
-        />
+        <div className="bg-accent grid h-full w-2 rotate-45" />
       </div>
     );
   } else if (icon === "cross") {
@@ -57,6 +52,12 @@ function DisruptionIcon({
     return (
       <div className="bg-soft flex size-8 items-center justify-center rounded-full">
         <MingcuteRouteFill className="text-accent size-full p-1" />
+      </div>
+    );
+  } else if (icon === "traffic") {
+    return (
+      <div className="bg-soft flex size-8 items-center justify-center rounded-full">
+        <PTVSignalStop className="size-full" />
       </div>
     );
   } else {

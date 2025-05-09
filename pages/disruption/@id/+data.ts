@@ -7,6 +7,8 @@ import { App } from "@/server/app";
 import { LineCollection } from "@/server/data/line/line-collection";
 import { Line } from "@/server/data/line/line";
 import { parseIntNull } from "@dan-schel/js-utils";
+import { SerializedMapHighlighting } from "@/shared/types/map-data";
+import { MapHighlighting } from "@/server/data/disruption/map-highlighting/map-highlighting";
 
 export type Data = {
   disruption: {
@@ -14,6 +16,7 @@ export type Data = {
     bodyMarkdown: string;
     link: string;
     calendar: CalendarData;
+    highlighting: SerializedMapHighlighting;
   } | null;
   back: {
     name: string;
@@ -45,6 +48,9 @@ export function data(pageContext: PageContext): Data & JsonSerializable {
       link: "https://www.ptv.vic.gov.au/live-travel-updates/",
 
       calendar: createCalendarData([disruption.period], app.time.now()),
+      highlighting: MapHighlighting.serializeGroup([
+        disruption.data.getMapHighlighter().getHighlighting(app),
+      ]),
     },
     back,
   };

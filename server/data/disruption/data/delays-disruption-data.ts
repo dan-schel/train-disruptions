@@ -6,7 +6,7 @@ import { RouteGraphModifier } from "@/server/data/disruption/route-graph-modifie
 import { DisruptionWriteupAuthor } from "@/server/data/disruption/writeup/disruption-writeup-author";
 import { DelaysDisruptionWriteupAuthor } from "@/server/data/disruption/writeup/delays-disruption-writeup-author";
 import { LineSection } from "@/server/data/line-section";
-import { DelayedSectionMapHighlighter } from "@/server/data/disruption/map-highlighting/delayed-section-map-highlighter";
+import { DelayMapHighlighter } from "@/server/data/disruption/map-highlighting/delay-map-highlighter";
 import { SimpleRouteGraphModifier } from "@/server/data/disruption/route-graph-modifier/simple-route-graph-modifier";
 
 export class DelaysDisruptionData extends DisruptionDataBase {
@@ -58,6 +58,6 @@ export class DelaysDisruptionData extends DisruptionDataBase {
   }
 
   getMapHighlighter(): MapHighlighter {
-    return new DelayedSectionMapHighlighter(this.sections);
+    return new DelayMapHighlighter(this.sections, [this.stationId]);
   }
 }

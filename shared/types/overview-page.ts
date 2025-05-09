@@ -12,5 +12,5 @@ export type OverviewPageDisruptionSummary = {
   headline: string | null;
   subject: string;
   period: string | null;
-  icon: "line" | "cross" | "altered-route" | "line-dashed";
+  icon: "line" | "cross" | "altered-route" | "traffic";
 };
