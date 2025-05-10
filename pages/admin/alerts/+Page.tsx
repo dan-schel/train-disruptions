@@ -19,9 +19,7 @@ export default function Page() {
       <PageCenterer>
         <PagePadding>
           <Column className="gap-4">
-            <Row align="center" justify="space-between">
-              <Text style="title">Alerts</Text>
-            </Row>
+            <Text style="megatitle">Alerts</Text>
             <Row align="center">
               <Text>
                 🚨 {alerts.length}{" "}
