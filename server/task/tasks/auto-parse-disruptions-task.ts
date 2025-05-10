@@ -11,7 +11,6 @@ import { Alert } from "@/server/data/alert";
 
 /**
  * Parsers alerts stored in the database into Disruptions
- * TODO: Save the disruptions to database
  */
 export class AutoParseDisruptionsTask extends Task {
   static readonly TASK_ID = "auto-parse-disruptions";

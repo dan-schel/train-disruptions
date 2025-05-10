@@ -26,7 +26,7 @@ export class DisruptionModel extends DatabaseModel<
   });
 
   private constructor() {
-    super("alerts");
+    super("disruptions");
   }
 
   getId(item: Disruption): string {

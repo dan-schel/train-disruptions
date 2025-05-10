@@ -15,6 +15,7 @@ import {
 import { Line } from "@/server/data/line/line";
 import { MapHighlighting } from "@/server/data/disruption/map-highlighting/map-highlighting";
 import { SerializedMapHighlighting } from "@/shared/types/map-data";
+import { DISRUPTIONS } from "@/server/database/models/models";
 
 const statusColorMapping: Record<
   LineStatusIndicatorPriority,
@@ -41,10 +42,13 @@ type PreprocessedDisruption = {
   map: MapHighlighting;
 };
 
-export function data(pageContext: PageContext): Data & JsonSerializable {
+export async function data(
+  pageContext: PageContext,
+): Promise<Data & JsonSerializable> {
   const { app } = pageContext.custom;
 
   const disruptions: PreprocessedDisruption[] = getDemoDisruptions(app)
+    .concat(await app.database.of(DISRUPTIONS).all())
     .filter((x) => x.period.occursAt(app.time.now()))
     .map((x) => ({
       disruption: x,

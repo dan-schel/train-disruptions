@@ -9,6 +9,7 @@ import { Line } from "@/server/data/line/line";
 import { parseIntNull } from "@dan-schel/js-utils";
 import { SerializedMapHighlighting } from "@/shared/types/map-data";
 import { MapHighlighting } from "@/server/data/disruption/map-highlighting/map-highlighting";
+import { DISRUPTIONS } from "@/server/database/models/models";
 
 export type Data = {
   disruption: {
@@ -24,21 +25,24 @@ export type Data = {
   };
 };
 
-export function data(pageContext: PageContext): Data & JsonSerializable {
+export async function data(
+  pageContext: PageContext,
+): Promise<Data & JsonSerializable> {
   const { urlParsed, routeParams } = pageContext;
   const app = pageContext.custom.app;
 
   const back = determineBackBehaviour(app, urlParsed);
   const id = routeParams.id;
 
-  const disruption = getDemoDisruptions(app).find((x) => x.id === id);
+  const disruption = getDemoDisruptions(app)
+    .concat((await app.database.of(DISRUPTIONS).get(id)) ?? [])
+    .find((x) => x?.id === id);
 
   if (disruption == null) {
     return { disruption: null, back };
   }
 
   const writeup = disruption.data.getWriteupAuthor().write(app, disruption);
-
   return {
     disruption: {
       title: writeup.title,

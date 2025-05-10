@@ -17,6 +17,7 @@ import {
   LinePageStatusColour,
   LinePageUpcomingDisruption,
 } from "@/shared/types/line-page";
+import { DISRUPTIONS } from "@/server/database/models/models";
 
 const statusColorMapping: Record<
   LineStatusIndicatorPriority,
@@ -39,7 +40,9 @@ export type Data = {
   } | null;
 };
 
-export function data(pageContext: PageContext): Data & JsonSerializable {
+export async function data(
+  pageContext: PageContext,
+): Promise<Data & JsonSerializable> {
   const { app } = pageContext.custom;
 
   const line = tryGetLine(app.lines, pageContext.routeParams.id);
@@ -52,6 +55,7 @@ export function data(pageContext: PageContext): Data & JsonSerializable {
 
   // Filter out disruptions from the past and sort by priority
   const disruptions = getDemoDisruptions(app)
+    .concat(await app.database.of(DISRUPTIONS).all())
     .filter(
       (x) =>
         x.data.getImpactedLines(app).includes(line.id) &&

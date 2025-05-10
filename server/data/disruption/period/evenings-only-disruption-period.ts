@@ -79,6 +79,7 @@ export class EveningsOnlyDisruptionPeriod extends DisruptionPeriodBase {
       start: this.start,
       end: this.end.toBson(),
       startHourEachDay: this.startHourEachDay,
+      startMinuteEachDay: this.startMinuteEachDay,
     };
   }
 
