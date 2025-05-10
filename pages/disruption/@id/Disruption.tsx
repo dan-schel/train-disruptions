@@ -7,6 +7,7 @@ import { With } from "@/components/core/With";
 import { Column } from "@/components/core/Column";
 import { Calendar } from "@/components/calendar/Calendar";
 import { CalendarData } from "@/shared/types/calendar-data";
+import { SerializedMapHighlighting } from "@/shared/types/map-data";
 
 export type DisruptionProps = {
   data: {
@@ -14,11 +15,12 @@ export type DisruptionProps = {
     bodyMarkdown: string;
     link: string;
     calendar: CalendarData;
+    highlighting: SerializedMapHighlighting;
   };
 };
 
 export function Disruption(props: DisruptionProps) {
-  const { title, bodyMarkdown, link, calendar } = props.data;
+  const { title, bodyMarkdown, link, calendar, highlighting } = props.data;
 
   return (
     <Column className="gap-8">
@@ -47,9 +49,8 @@ export function Disruption(props: DisruptionProps) {
        */}
       <Calendar data={calendar} />
 
-      {/* TODO: Draw the disruption on the map. */}
       <With className="border-soft-border rounded-md border">
-        <Map />
+        <Map highlighting={highlighting} mode="show-disruptions" />
       </With>
     </Column>
   );

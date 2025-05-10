@@ -1,6 +1,6 @@
 import { App } from "@/server/app";
 import { Alert, AlertData } from "@/server/data/alert";
-import { ALERTS } from "@/server/database/models/models";
+import { ALERTS, DISRUPTIONS } from "@/server/database/models/models";
 import { IntervalScheduler } from "@/server/task/lib/interval-scheduler";
 import { Task } from "@/server/task/lib/task";
 import { TaskScheduler } from "@/server/task/lib/task-scheduler";
@@ -65,6 +65,14 @@ export class PopulateInboxQueueTask extends Task {
     for (const alert of alerts) {
       if (!disruptions.some((d) => d.disruption_id.toString() === alert.id)) {
         await app.database.of(ALERTS).delete(alert.id);
+        const _disruptions = await app.database.of(DISRUPTIONS).find({
+          where: {
+            sourceAlertIds: alert.id,
+          },
+        });
+        for (const { id } of _disruptions) {
+          await app.database.of(DISRUPTIONS).delete(id);
+        }
       }
     }
   }
