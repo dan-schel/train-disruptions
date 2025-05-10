@@ -8,12 +8,11 @@ import {
 import { Alert } from "@/server/data/alert";
 import { DelaysDisruptionData } from "@/server/data/disruption/data/delays-disruption-data";
 import { Disruption } from "@/server/data/disruption/disruption";
-import { EndsApproximately } from "@/server/data/disruption/period/ends/ends-approximately";
+import { EndsNever } from "@/server/data/disruption/period/ends/ends-never";
 import { StandardDisruptionPeriod } from "@/server/data/disruption/period/standard-disruption-period";
 import { LineSection } from "@/server/data/line-section";
 import { Line } from "@/server/data/line/line";
-import { nonNull, parseIntNull, unique } from "@dan-schel/js-utils";
-import { addMinutes } from "date-fns";
+import { nonNull, parseIntNull, unique, uuid } from "@dan-schel/js-utils";
 
 export class DelaysParser extends AutoParserBase {
   constructor() {
@@ -103,18 +102,10 @@ export class DelaysParser extends AutoParserBase {
     });
 
     return new Disruption(
-      id,
+      uuid(),
       new DelaysDisruptionData(affectedStation.id, delayInMinutes, sections),
       [id],
-      new StandardDisruptionPeriod(
-        data.startsAt!,
-        // TODO: Change this to when EndsWhenAlertEnds is implemented
-        new EndsApproximately(
-          `approximately ${delayInMinutes} minutes`,
-          data.startsAt!,
-          addMinutes(data.startsAt!, delayInMinutes),
-        ),
-      ),
+      new StandardDisruptionPeriod(data.startsAt!, new EndsNever()),
       "automatic",
     );
   }

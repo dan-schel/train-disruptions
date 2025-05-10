@@ -5,6 +5,9 @@ import { BusReplacementsParser } from "@/server/auto-parser/bus-replacements-par
 import { AutoParser } from "@/server/auto-parser/auto-parser";
 import { IntervalScheduler } from "@/server/task/lib/interval-scheduler";
 import { DelaysParser } from "@/server/auto-parser/delays-parser";
+import { ALERTS, DISRUPTIONS } from "@/server/database/models/models";
+import { nonNull, unique } from "@dan-schel/js-utils";
+import { Alert } from "@/server/data/alert";
 
 /**
  * Parsers alerts stored in the database into Disruptions
@@ -28,8 +31,37 @@ export class AutoParseDisruptionsTask extends Task {
 
   async execute(app: App): Promise<void> {
     try {
-      await this.parser.parseAlerts(app);
-      // TODO: Save to database
+      const alerts = await app.database.of(ALERTS).find({
+        where: {
+          state: "new",
+          ignoreFutureUpdates: false,
+        },
+      });
+      const disruptions = await this.parser.parseAlerts(alerts, app);
+
+      const processedAlerts = unique(
+        disruptions.flatMap((x) => x.sourceAlertIds),
+      )
+        .map((x) => alerts.find((y) => y.id === x) ?? null)
+        .filter(nonNull);
+
+      for (const alert of processedAlerts) {
+        const updatedAlert = new Alert(
+          alert.id,
+          alert.data,
+          alert.updatedData,
+          alert.appearedAt,
+          app.time.now(),
+          alert.updatedAt,
+          alert.ignoreFutureUpdates,
+          alert.deleteAt,
+        );
+        await app.database.of(ALERTS).update(updatedAlert);
+      }
+
+      for (const disruption of disruptions) {
+        await app.database.of(DISRUPTIONS).create(disruption);
+      }
     } catch (error) {
       console.warn("Failed to auto parse disruptions.");
       console.warn(error);

@@ -14,7 +14,7 @@ import { StandardDisruptionPeriod } from "@/server/data/disruption/period/standa
 import { JustDate } from "@/server/data/disruption/period/utils/just-date";
 import { utcToLocalTime } from "@/server/data/disruption/period/utils/utils";
 import { LineSection } from "@/server/data/line-section";
-import { nonNull } from "@dan-schel/js-utils";
+import { nonNull, uuid } from "@dan-schel/js-utils";
 
 export class BusReplacementsParser extends AutoParserBase {
   constructor() {
@@ -97,7 +97,7 @@ export class BusReplacementsParser extends AutoParserBase {
       : new StandardDisruptionPeriod(data.startsAt, ends);
 
     return new Disruption(
-      id,
+      uuid(),
       new BusReplacementsDisruptionData(lineSections),
       [id],
       period,
