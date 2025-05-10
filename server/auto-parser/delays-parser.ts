@@ -20,19 +20,19 @@ export class DelaysParser extends AutoParserBase {
   }
 
   parseAlerts(alerts: Alert[], app: App): Disruption[] {
-    return this.filterAlerts(alerts)
-      .flatMap((x) => this._parser(x, app))
+    return this._filterAlerts(alerts)
+      .flatMap((x) => this._process(x, app))
       .filter(nonNull);
   }
 
-  filterAlerts(alerts: Alert[]): Alert[] {
+  private _filterAlerts(alerts: Alert[]): Alert[] {
     return alerts.filter(
       ({ data }) =>
         data.title.startsWith("Delays up to") && data.startsAt !== null,
     );
   }
 
-  private _parser({ id, data }: Alert, app: App): Disruption | null {
+  private _process({ id, data }: Alert, app: App): Disruption | null {
     const delayInMinutes = parseIntNull(
       data.title
         .match(/(\d+ minutes)+/g)

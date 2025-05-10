@@ -22,12 +22,12 @@ export class BusReplacementsParser extends AutoParserBase {
   }
 
   parseAlerts(alerts: Alert[], app: App): Disruption[] {
-    return this.filterAlerts(alerts)
-      .map((x) => this._parse(x, app))
+    return this._filterAlerts(alerts)
+      .map((x) => this._process(x, app))
       .filter(nonNull);
   }
 
-  filterAlerts(alerts: Alert[]): Alert[] {
+  private _filterAlerts(alerts: Alert[]): Alert[] {
     return alerts.filter(
       ({ data }) =>
         data.description.toLowerCase().includes("buses replace trains") &&
@@ -37,7 +37,7 @@ export class BusReplacementsParser extends AutoParserBase {
     );
   }
 
-  private _parse({ id, data }: Alert, app: App) {
+  private _process({ id, data }: Alert, app: App): Disruption | null {
     const affectedLines = data.affectedLinePtvIds
       .map((x) => app.lines.findByPtvId(x))
       .filter(nonNull);

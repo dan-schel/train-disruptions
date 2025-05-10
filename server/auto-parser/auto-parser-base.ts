@@ -4,5 +4,4 @@ import { Disruption } from "@/server/data/disruption/disruption";
 
 export abstract class AutoParserBase {
   abstract parseAlerts(alerts: Alert[], app: App): Disruption[];
-  abstract filterAlerts(alerts: Alert[]): Alert[];
 }

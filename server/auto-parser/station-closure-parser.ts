@@ -2,20 +2,26 @@ import { App } from "@/server/app";
 import { AutoParserBase } from "@/server/auto-parser/auto-parser-base";
 import { Alert } from "@/server/data/alert";
 import { Disruption } from "@/server/data/disruption/disruption";
+import { nonNull } from "@dan-schel/js-utils";
 
 export class StationClosureAutoParser extends AutoParserBase {
   constructor() {
     super();
   }
 
-  parseAlerts(_alerts: Alert[], _app: App): Disruption[] {
+  parseAlerts(alerts: Alert[], app: App): Disruption[] {
     // TODO: currently don't have any examples :(
-    // return this.parseAlerts(alerts).map((x) => disruption);
-    return [];
+    return this._filterAlerts(alerts)
+      .map((x) => this._process(x, app))
+      .filter(nonNull);
   }
 
-  filterAlerts(alerts: Alert[]): Alert[] {
+  private _filterAlerts(alerts: Alert[]): Alert[] {
     // TODO: currently don't have any examples :(
     return alerts;
+  }
+
+  private _process(_alert: Alert, _app: App): Disruption | null {
+    return null;
   }
 }
