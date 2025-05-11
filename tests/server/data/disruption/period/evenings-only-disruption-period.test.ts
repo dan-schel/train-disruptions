@@ -15,18 +15,38 @@ describe("EveningsOnlyDisruptionPeriod", () => {
     expect(() => period(null, null, 19.5)).toThrow();
   });
 
+  it("doesn't allow startMinuteEachDay to be invalid", () => {
+    expect(() => period(null, null, 18, 30)).not.toThrow();
+    expect(() => period(null, null, 20, 59)).not.toThrow();
+    expect(() => period(null, null, 23, 0)).not.toThrow();
+    expect(() => period(null, null, 17, 60)).toThrow();
+    expect(() => period(null, null, 21, -1)).toThrow();
+    expect(() => period(null, null, 19, 30.5)).toThrow();
+  });
+
   describe("#getDisplayString", () => {
     it("works", () => {
       const period1 = period("2025-03-10T21:00:00", "2025-03-14T03:00:00", 21);
+      const period2 = period(
+        "2025-03-10T21:30:00",
+        "2025-03-14T03:00:00",
+        21,
+        30,
+      );
       const now = new Date("2025-03-10T11:50:35+11:00");
 
       // TODO: This would ideally be "9pm to last service each night, Mon 10th
       // Mar to Thu 14th Mar".
-      const expectedStr =
+      const expectedStr1 =
         "9pm to last service each night, starting 9:00pm Mon 10th Mar until " +
         "3:00am Fri 14th Mar";
 
-      expect(period1.getDisplayString({ now })).toBe(expectedStr);
+      const expectedStr2 =
+        "9:30pm to last service each night, starting 9:30pm Mon 10th Mar until " +
+        "3:00am Fri 14th Mar";
+
+      expect(period1.getDisplayString({ now })).toBe(expectedStr1);
+      expect(period2.getDisplayString({ now })).toBe(expectedStr2);
     });
   });
 
@@ -199,11 +219,13 @@ describe("EveningsOnlyDisruptionPeriod", () => {
     start: string | null,
     end: string | null,
     startHourEachDay: number,
+    startMinuteEachDay?: number,
   ) {
     return new EveningsOnlyDisruptionPeriod(
       start != null ? new Date(start + "+11:00") : null,
       end != null ? new EndsExactly(new Date(end + "+11:00")) : new EndsNever(),
       startHourEachDay,
+      startMinuteEachDay,
     );
   }
 });

@@ -47,13 +47,21 @@ export class DelaysParser extends AutoParserBase {
       .map((x) => app.lines.findByPtvId(x))
       .filter(nonNull);
 
-    const affectedStation = app.stations.first(
+    const possibleStations = app.stations.filter(
       (x) =>
         data.title.includes(x.name) &&
         affectedLines.every((line) =>
           line.route.getAllServedStations().includes(x.id),
         ),
     );
+
+    // Some lines have stations where their name is a substring of other stations
+    // e.g. Footscray, Middle Footscray, West Footscray
+    // We would need to get the station with the longest name as it would be an exact match,
+    // and the shorter names would be partial matches
+    const affectedStation = possibleStations
+      .sort((a, b) => b.name.length - a.name.length)
+      .shift();
     if (!affectedStation) {
       return null;
     }

@@ -18,6 +18,7 @@ export class AutoParseDisruptionsTask extends Task {
 
   constructor() {
     super(AutoParseDisruptionsTask.TASK_ID);
+    // Include new parser below
     this.parser = new AutoParser([
       new BusReplacementsParser(),
       new DelaysParser(),
@@ -30,6 +31,7 @@ export class AutoParseDisruptionsTask extends Task {
 
   async execute(app: App): Promise<void> {
     try {
+      // TODO [XV]: include updated alerts when infrasture is setup
       const alerts = await app.database.of(ALERTS).find({
         where: {
           state: "new",
