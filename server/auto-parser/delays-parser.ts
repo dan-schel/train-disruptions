@@ -11,7 +11,6 @@ import { Disruption } from "@/server/data/disruption/disruption";
 import { EndsNever } from "@/server/data/disruption/period/ends/ends-never";
 import { StandardDisruptionPeriod } from "@/server/data/disruption/period/standard-disruption-period";
 import { LineSection } from "@/server/data/line-section";
-import { Line } from "@/server/data/line/line";
 import { nonNull, parseIntNull, unique, uuid } from "@dan-schel/js-utils";
 
 export class DelaysParser extends AutoParserBase {
@@ -40,25 +39,24 @@ export class DelaysParser extends AutoParserBase {
         ?.split(" ")
         .at(0) ?? "",
     );
-
     if (!delayInMinutes) {
-      return null;
-    }
-
-    const affectedStation = app.stations.first((x) =>
-      data.title.includes(x.name),
-    );
-    if (!affectedStation) {
       return null;
     }
 
     const affectedLines = data.affectedLinePtvIds
       .map((x) => app.lines.findByPtvId(x))
-      .filter(
-        (x): x is Line =>
-          x !== null &&
-          x.route.getAllServedStations().includes(affectedStation.id),
-      );
+      .filter(nonNull);
+
+    const affectedStation = app.stations.first(
+      (x) =>
+        data.title.includes(x.name) &&
+        affectedLines.every((line) =>
+          line.route.getAllServedStations().includes(x.id),
+        ),
+    );
+    if (!affectedStation) {
+      return null;
+    }
 
     // Get sections comprising of adjacent stations
     const sections = affectedLines.flatMap((line) => {
