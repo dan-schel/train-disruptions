@@ -36,9 +36,8 @@ const formattedEndsTypes: Record<EndsInput["type"], string> = {
 
 export function EndsEditor(props: EndsEditorProps) {
   const [group] = useState(uuid());
-  const [type, setType] = useState<EndsInput["type"]>(
-    props.initialValue?.type ?? "ends-exactly",
-  );
+  const [type, setType] = useState(props.initialValue?.type ?? null);
+  const [error, setError] = useState<string | null>(null);
 
   const [afterLastService, setAfterLastService] =
     useState<EndsAfterLastServiceInput | null>(
@@ -60,7 +59,8 @@ export function EndsEditor(props: EndsEditorProps) {
 
   useEffect(() => {
     const parsed = parse(type, afterLastService, approximately, exactly);
-    props.onChange(parsed);
+    props.onChange("value" in parsed ? parsed.value : null);
+    setError("error" in parsed ? parsed.error : null);
   }, [props, type, afterLastService, approximately, exactly]);
 
   return (
@@ -92,6 +92,7 @@ export function EndsEditor(props: EndsEditorProps) {
       {type === "ends-exactly" && (
         <EndsExactlyEditor initialValue={exactly} onChange={setExactly} />
       )}
+      {error != null && <Text style="small-red">{error}</Text>}
     </Column>
   );
 }
@@ -103,21 +104,23 @@ export function EndsEditor(props: EndsEditorProps) {
 // this component doesn't need to. Maybe this changes if we don't select a type
 // by default.
 function parse(
-  type: EndsInput["type"],
+  type: EndsInput["type"] | null,
   afterLastService: EndsAfterLastServiceInput | null,
   approximately: EndsApproximatelyInput | null,
   exactly: EndsExactlyInput | null,
-): EndsInput | null {
+): { value: EndsInput } | { error: string | null } {
   if (type === "ends-after-last-service") {
-    if (afterLastService == null) return null;
-    return { type, ...afterLastService };
+    if (afterLastService == null) return { error: null };
+    return { value: { type, ...afterLastService } };
   } else if (type === "ends-approximately") {
-    if (approximately == null) return null;
-    return { type, ...approximately };
+    if (approximately == null) return { error: null };
+    return { value: { type, ...approximately } };
   } else if (type === "ends-exactly") {
-    if (exactly == null) return null;
-    return { type, ...exactly };
+    if (exactly == null) return { error: null };
+    return { value: { type, ...exactly } };
+  } else if (type != null) {
+    return { value: { type } };
   } else {
-    return { type };
+    return { error: "Choose an option." };
   }
 }

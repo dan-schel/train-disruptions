@@ -31,9 +31,8 @@ const formattedDisruptionPeriodTypes: Record<
 
 export function DisruptionPeriodEditor(props: DisruptionPeriodEditorProps) {
   const [group] = useState(uuid());
-  const [type, setType] = useState<DisruptionPeriodInput["type"]>(
-    props.initialValue?.type ?? "standard",
-  );
+  const [type, setType] = useState(props.initialValue?.type ?? null);
+  const [error, setError] = useState<string | null>(null);
 
   const [standard, setStandard] =
     useState<StandardDisruptionPeriodInput | null>(
@@ -47,7 +46,8 @@ export function DisruptionPeriodEditor(props: DisruptionPeriodEditorProps) {
 
   useEffect(() => {
     const parsed = parse(type, standard, eveningsOnly);
-    props.onChange(parsed);
+    props.onChange("value" in parsed ? parsed.value : null);
+    setError("error" in parsed ? parsed.error : null);
   }, [props, type, standard, eveningsOnly]);
 
   return (
@@ -77,6 +77,7 @@ export function DisruptionPeriodEditor(props: DisruptionPeriodEditorProps) {
           onChange={setEveningsOnly}
         />
       )}
+      {error != null && <Text style="small-red">{error}</Text>}
     </Column>
   );
 }
@@ -88,17 +89,17 @@ export function DisruptionPeriodEditor(props: DisruptionPeriodEditorProps) {
 // this component doesn't need to. Maybe this changes if we don't select a type
 // by default.
 function parse(
-  type: DisruptionPeriodInput["type"],
+  type: DisruptionPeriodInput["type"] | null,
   standard: StandardDisruptionPeriodInput | null,
   eveningsOnly: EveningsOnlyDisruptionPeriodInput | null,
-): DisruptionPeriodInput | null {
+): { value: DisruptionPeriodInput } | { error: string | null } {
   if (type === "standard") {
-    if (standard == null) return null;
-    return { type, ...standard };
+    if (standard == null) return { error: null };
+    return { value: { type, ...standard } };
   } else if (type === "evenings-only") {
-    if (eveningsOnly == null) return null;
-    return { type, ...eveningsOnly };
+    if (eveningsOnly == null) return { error: null };
+    return { value: { type, ...eveningsOnly } };
   } else {
-    return null;
+    return { error: "Choose an option." };
   }
 }
