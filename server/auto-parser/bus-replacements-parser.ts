@@ -65,11 +65,7 @@ export class BusReplacementsParser extends AutoParserBase {
           : stations[1];
 
       const section = new LineSection(line.id, a, b);
-      if (!line.route.isValidSection(section)) {
-        return [];
-      }
-
-      return section;
+      return line.route.isValidSection(section) ? section : [];
     });
 
     if (lineSections.length === 0) {
