@@ -20,7 +20,7 @@ export function isPartOfTheCity(stationId: number) {
   return TheCityStations.includes(stationId);
 }
 
-/** Check if the station pair includes excatly one station that is part of the city loop */
+/** Check if the station pair includes exactly one station that is part of the city loop */
 export function isOnCityBoundary({ a, b }: StationPair) {
   return (
     (isPartOfTheCity(a) && !isPartOfTheCity(b)) ||

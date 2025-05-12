@@ -17,6 +17,7 @@ export class DelayMapHighlighter extends MapHighlighter {
 
   // Currently only renders an icon on the affected station.
   // It would be nice to make the line dashed to indicator on the map that services are still running but slowly
+  // If we choose not to show track sections, we can remove sections from DelaysDisruptionData
   getHighlighting(app: App): MapHighlighting {
     const points = this._stationIds
       .map((x) => app.stations.require(x).mapLocation)

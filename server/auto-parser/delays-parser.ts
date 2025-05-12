@@ -37,7 +37,7 @@ export class DelaysParser extends AutoParserBase {
         ?.split(" ")
         .at(0) ?? "",
     );
-    if (!delayInMinutes) {
+    if (!delayInMinutes || delayInMinutes < 1) {
       return null;
     }
 

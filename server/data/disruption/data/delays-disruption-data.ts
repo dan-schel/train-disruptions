@@ -20,6 +20,13 @@ export class DelaysDisruptionData extends DisruptionDataBase {
     if (sections.length === 0) {
       throw new Error("Must have at least one section.");
     }
+
+    if (!Number.isInteger(delayInMinutes) || delayInMinutes < 1) {
+      throw new Error(
+        `Invalid delay in minutes: ${delayInMinutes}. Must be an integer` +
+          "that is greater than 0.",
+      );
+    }
   }
 
   static readonly bson = z
