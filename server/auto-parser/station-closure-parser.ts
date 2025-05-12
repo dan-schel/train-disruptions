@@ -11,14 +11,15 @@ export class StationClosureAutoParser extends AutoParserBase {
 
   parseAlerts(alerts: Alert[], app: App): Disruption[] {
     // TODO: currently don't have any examples :(
-    return this._filterAlerts(alerts)
+    return alerts
+      .filter(this._filter)
       .map((x) => this._process(x, app))
       .filter(nonNull);
   }
 
-  private _filterAlerts(alerts: Alert[]): Alert[] {
+  private _filter(_alert: Alert): boolean {
     // TODO: currently don't have any examples :(
-    return alerts;
+    return true;
   }
 
   private _process(_alert: Alert, _app: App): Disruption | null {

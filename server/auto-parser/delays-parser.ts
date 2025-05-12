@@ -19,13 +19,14 @@ export class DelaysParser extends AutoParserBase {
   }
 
   parseAlerts(alerts: Alert[], app: App): Disruption[] {
-    return this._filterAlerts(alerts)
+    return alerts
+      .filter(this._filter)
       .flatMap((x) => this._process(x, app))
       .filter(nonNull);
   }
 
-  private _filterAlerts(alerts: Alert[]): Alert[] {
-    return alerts.filter(({ data }) => data.title.startsWith("Delays up to"));
+  private _filter({ data }: Alert): boolean {
+    return data.title.startsWith("Delays up to");
   }
 
   private _process({ id, data }: Alert, app: App): Disruption | null {

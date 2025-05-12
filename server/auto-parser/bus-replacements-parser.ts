@@ -22,18 +22,18 @@ export class BusReplacementsParser extends AutoParserBase {
   }
 
   parseAlerts(alerts: Alert[], app: App): Disruption[] {
-    return this._filterAlerts(alerts)
+    return alerts
+      .filter(this._filter)
       .map((x) => this._process(x, app))
       .filter(nonNull);
   }
 
-  private _filterAlerts(alerts: Alert[]): Alert[] {
-    return alerts.filter(
-      ({ data }) =>
-        data.description.toLowerCase().includes("buses replace trains") &&
-        // Only parse disruptions that have a definitive time period
-        data.startsAt !== null &&
-        data.endsAt !== null,
+  private _filter({ data }: Alert): boolean {
+    return (
+      data.description.toLowerCase().includes("buses replace trains") &&
+      // Only parse disruptions that have a definitive time period
+      data.startsAt !== null &&
+      data.endsAt !== null
     );
   }
 
