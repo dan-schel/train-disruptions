@@ -20,14 +20,16 @@ export class DelaysDisruptionWriteupAuthor extends DisruptionWriteupAuthor {
         .map((x) => app.lines.require(x).name),
     );
 
+    const endStr = disruption.period.getDisplayString({ now: app.time.now() });
+
     return new DisruptionWriteup(
       `${delayStatus} delays near ${stationName} station`,
-      `Delays of up to ${this._data.delayInMinutes} minute${this._data.delayInMinutes > 1 ? "s" : ""} are expected from ${disruption.period.getDisplayString({ now: app.time.now() })}.\n` +
+      `Delays up to ${this._data.delayInMinutes} minute${this._data.delayInMinutes > 1 ? "s" : ""} are expected ${endStr}.\n` +
         `${delayStatus} delays are currently affecting train services near ${stationName} station along the ${lines} line.`,
       {
         headline: null,
         subject: `${delayStatus} delays near ${stationName} station`,
-        period: `Expect delays of up to ${this._data.delayInMinutes} minute${this._data.delayInMinutes > 1 ? "s" : ""}`,
+        period: `Expect delays up to ${this._data.delayInMinutes} minute${this._data.delayInMinutes > 1 ? "s" : ""} ${endStr}`,
         iconType: "traffic",
       },
       {

@@ -14,7 +14,7 @@ export type DisruptionProps = {
     title: string;
     bodyMarkdown: string;
     link: string;
-    calendar: CalendarData;
+    calendar: CalendarData | null;
     highlighting: SerializedMapHighlighting;
   };
 };
@@ -42,12 +42,7 @@ export function Disruption(props: DisruptionProps) {
         </Text>
       </Column>
 
-      {/*
-       * TODO: For live disruptions where the end date is not known, e.g.
-       * delays, we should probably just hide the calendar. Have the server
-       * return null for `calendar` instead of a `CalendarData` object?
-       */}
-      <Calendar data={calendar} />
+      {calendar && <Calendar data={calendar} />}
 
       <With className="border-soft-border rounded-md border">
         <Map highlighting={highlighting} mode="show-disruptions" />

@@ -28,10 +28,10 @@ describe("EveningsOnlyDisruptionPeriod", () => {
     it("works", () => {
       const period1 = period("2025-03-10T21:00:00", "2025-03-14T03:00:00", 21);
       const period2 = period(
-        "2025-03-10T21:30:00",
+        "2025-03-10T21:05:00",
         "2025-03-14T03:00:00",
         21,
-        30,
+        5,
       );
       const now = new Date("2025-03-10T11:50:35+11:00");
 
@@ -42,7 +42,7 @@ describe("EveningsOnlyDisruptionPeriod", () => {
         "3:00am Fri 14th Mar";
 
       const expectedStr2 =
-        "9:30pm to last service each night, starting 9:30pm Mon 10th Mar until " +
+        "9:05pm to last service each night, starting 9:05pm Mon 10th Mar until " +
         "3:00am Fri 14th Mar";
 
       expect(period1.getDisplayString({ now })).toBe(expectedStr1);

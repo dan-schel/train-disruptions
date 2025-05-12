@@ -121,7 +121,12 @@ export async function data(
       id: line.id,
       name: line.name,
       calendar: createCalendarData(
-        disruptions.map((x) => x.period),
+        disruptions
+          .filter((x) => {
+            const period = x.period.toBson();
+            return "end" in period ? period.end.type !== "never" : true;
+          })
+          .map((x) => x.period),
         app.time.now(),
       ),
       active,

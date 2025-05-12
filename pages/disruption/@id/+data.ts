@@ -16,7 +16,7 @@ export type Data = {
     title: string;
     bodyMarkdown: string;
     link: string;
-    calendar: CalendarData;
+    calendar: CalendarData | null;
     highlighting: SerializedMapHighlighting;
   } | null;
   back: {
@@ -34,13 +34,16 @@ export async function data(
   const back = determineBackBehaviour(app, urlParsed);
   const id = routeParams.id;
 
-  const disruption = getDemoDisruptions(app)
-    .concat((await app.database.of(DISRUPTIONS).get(id)) ?? [])
-    .find((x) => x?.id === id);
+  const disruption =
+    (await app.database.of(DISRUPTIONS).get(id)) ??
+    getDemoDisruptions(app).find((x) => x?.id === id);
 
   if (disruption == null) {
     return { disruption: null, back };
   }
+
+  const period = disruption.period.toBson();
+  const itNeverEnds = "end" in period ? period.end.type === "never" : false;
 
   const writeup = disruption.data.getWriteupAuthor().write(app, disruption);
   return {
@@ -51,7 +54,9 @@ export async function data(
       // TODO: Fetch from the source alerts, presumably?
       link: "https://www.ptv.vic.gov.au/live-travel-updates/",
 
-      calendar: createCalendarData([disruption.period], app.time.now()),
+      calendar: itNeverEnds
+        ? null
+        : createCalendarData([disruption.period], app.time.now()),
       highlighting: MapHighlighting.serializeGroup([
         disruption.data.getMapHighlighter().getHighlighting(app),
       ]),
@@ -66,7 +71,6 @@ function determineBackBehaviour(
 ) {
   const from = urlParsed.search.from ?? "";
 
-  // TODO: I don't think this is ever used in practice yet.
   if (from.startsWith("line")) {
     const line = tryGetLine(app.lines, from.split("-")[1]);
     if (line != null) {

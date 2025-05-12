@@ -25,10 +25,7 @@ export class DelaysParser extends AutoParserBase {
   }
 
   private _filterAlerts(alerts: Alert[]): Alert[] {
-    return alerts.filter(
-      ({ data }) =>
-        data.title.startsWith("Delays up to") && data.startsAt !== null,
-    );
+    return alerts.filter(({ data }) => data.title.startsWith("Delays up to"));
   }
 
   private _process({ id, data }: Alert, app: App): Disruption | null {
@@ -111,7 +108,7 @@ export class DelaysParser extends AutoParserBase {
       uuid(),
       new DelaysDisruptionData(affectedStation.id, delayInMinutes, sections),
       [id],
-      new StandardDisruptionPeriod(data.startsAt!, new EndsNever()),
+      new StandardDisruptionPeriod(null, new EndsNever()),
       "automatic",
     );
   }

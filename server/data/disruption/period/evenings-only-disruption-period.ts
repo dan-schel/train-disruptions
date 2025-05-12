@@ -91,7 +91,7 @@ export class EveningsOnlyDisruptionPeriod extends DisruptionPeriodBase {
     // EveningsOnlyDisruptionPeriods more specialized (only take JustDates).
 
     const { hour, half } = hour24To12(this.startHourEachDay);
-    const hourStr = `${hour}${this.startMinuteEachDay ? `:${this.startMinuteEachDay}` : ""}${half} to last service each night`;
+    const hourStr = `${hour}${this.startMinuteEachDay ? `:${this.startMinuteEachDay.toString().padStart(2, "0")}` : ""}${half} to last service each night`;
 
     const endStr = this.end.getDisplayString({ now: options.now });
 

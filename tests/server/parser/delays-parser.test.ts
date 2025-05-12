@@ -37,10 +37,7 @@ describe("Delays Auto Parser", () => {
     ]);
     expect(disruptions.at(0)).toHaveProperty(
       "period",
-      new StandardDisruptionPeriod(
-        AlertStandardToNeverEnds.data.startsAt,
-        new EndsNever(),
-      ),
+      new StandardDisruptionPeriod(null, new EndsNever()),
     );
     expect(disruptions.at(0)).toHaveProperty("curation", "automatic");
   });
@@ -75,10 +72,7 @@ describe("Delays Auto Parser", () => {
     ]);
     expect(disruptions.at(0)).toHaveProperty(
       "period",
-      new StandardDisruptionPeriod(
-        AlertNameCollision.data.startsAt,
-        new EndsNever(),
-      ),
+      new StandardDisruptionPeriod(null, new EndsNever()),
     );
     expect(disruptions.at(0)).toHaveProperty("curation", "automatic");
   });
