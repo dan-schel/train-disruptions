@@ -322,6 +322,9 @@ export class Renderer {
       ctx.fillStyle = this._css["red"];
       ctx.beginPath();
       ctx.ellipse(x, y - 2.5, 2, 2, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = this._css["yellow"];
+      ctx.beginPath();
       ctx.ellipse(x, y + 2.5, 2, 2, 0, 0, Math.PI * 2);
       ctx.fill();
     }

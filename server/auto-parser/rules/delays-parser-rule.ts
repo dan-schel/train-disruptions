@@ -1,10 +1,10 @@
 import { App } from "@/server/app";
-import { AutoParserBase } from "@/server/auto-parser/auto-parser-base";
+import { AutoParserRuleBase } from "@/server/auto-parser/rules/auto-parser-rule-base";
 import {
   isOnCityBoundary,
   isPartOfTheCity,
   doesLineRunThroughCityLoop,
-} from "@/server/auto-parser/utils";
+} from "@/server/auto-parser/rules/utils";
 import { Alert } from "@/server/data/alert";
 import { DelaysDisruptionData } from "@/server/data/disruption/data/delays-disruption-data";
 import { Disruption } from "@/server/data/disruption/disruption";
@@ -13,19 +13,18 @@ import { StandardDisruptionPeriod } from "@/server/data/disruption/period/standa
 import { LineSection } from "@/server/data/line-section";
 import { nonNull, parseIntNull, unique, uuid } from "@dan-schel/js-utils";
 
-export class DelaysParser extends AutoParserBase {
+export class DelaysParserRule extends AutoParserRuleBase {
   constructor() {
     super();
   }
 
-  parseAlerts(alerts: Alert[], app: App): Disruption[] {
-    return alerts
-      .filter(this._filter)
-      .flatMap((x) => this._process(x, app))
-      .filter(nonNull);
+  parseAlert(alert: Alert, app: App): Disruption | null {
+    if (!this._couldParse(alert)) return null;
+
+    return this._process(alert, app);
   }
 
-  private _filter({ data }: Alert): boolean {
+  private _couldParse({ data }: Alert): boolean {
     return data.title.startsWith("Delays up to");
   }
 

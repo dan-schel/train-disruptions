@@ -3,7 +3,7 @@ import type { SVGProps } from "react";
 
 // Stop Signal Diagram used by trains in Victoria
 // https://www.victorianrailways.net/signaling/3pos.html#:~:text=R/R-,Stop,-%22On%20the%20red
-export function PTVSignalStop(props: SVGProps<SVGSVGElement>) {
+export function PTVSignalMediumSpeedWarning(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -22,7 +22,7 @@ export function PTVSignalStop(props: SVGProps<SVGSVGElement>) {
         stroke="var(--color-foreground)"
       />
       <circle cx="12" cy="8.5" r="2" fill="var(--color-status-red)" />
-      <circle cx="12" cy="15.5" r="2" fill="var(--color-status-red)" />
+      <circle cx="12" cy="15.5" r="2" fill="var(--color-status-yellow)" />
     </svg>
   );
 }

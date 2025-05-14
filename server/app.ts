@@ -14,7 +14,6 @@ import { TaskScheduler } from "@/server/task/lib/task-scheduler";
 import { SeedSuperAdminTask } from "@/server/task/tasks/seed-super-admin-task";
 import { DiscordBot } from "@/server/discord/bot";
 import { ClearExpiredSessionTask } from "@/server/task/tasks/clear-expired-sessions-task";
-import { AutoParseDisruptionsTask } from "@/server/task/tasks/auto-parse-disruptions-task";
 
 export class App {
   private readonly _taskSchedulers: TaskScheduler[];
@@ -36,7 +35,6 @@ export class App {
       new LogHistoricalAlertsTask(),
       new SeedSuperAdminTask(this.username, this.password),
       new ClearExpiredSessionTask(),
-      new AutoParseDisruptionsTask(),
     ];
 
     if (!areUnique(tasks.map((x) => x.taskId))) {

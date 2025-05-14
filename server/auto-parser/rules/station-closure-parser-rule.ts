@@ -1,23 +1,21 @@
 import { App } from "@/server/app";
-import { AutoParserBase } from "@/server/auto-parser/auto-parser-base";
+import { AutoParserRuleBase } from "@/server/auto-parser/rules/auto-parser-rule-base";
 import { Alert } from "@/server/data/alert";
 import { Disruption } from "@/server/data/disruption/disruption";
-import { nonNull } from "@dan-schel/js-utils";
 
-export class StationClosureAutoParser extends AutoParserBase {
+export class StationClosureAutoParserRule extends AutoParserRuleBase {
   constructor() {
     super();
   }
 
-  parseAlerts(alerts: Alert[], app: App): Disruption[] {
+  parseAlert(alert: Alert, app: App): Disruption | null {
     // TODO: currently don't have any examples :(
-    return alerts
-      .filter(this._filter)
-      .map((x) => this._process(x, app))
-      .filter(nonNull);
+    if (!this._couldParse(alert)) return null;
+
+    return this._process(alert, app);
   }
 
-  private _filter(_alert: Alert): boolean {
+  private _couldParse(_alert: Alert): boolean {
     // TODO: currently don't have any examples :(
     return true;
   }

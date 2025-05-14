@@ -1,4 +1,4 @@
-import { DelaysParser } from "@/server/auto-parser/delays-parser";
+import { DelaysParserRule } from "@/server/auto-parser/rules/delays-parser-rule";
 import { DelaysDisruptionData } from "@/server/data/disruption/data/delays-disruption-data";
 import { EndsNever } from "@/server/data/disruption/period/ends/ends-never";
 import { StandardDisruptionPeriod } from "@/server/data/disruption/period/standard-disruption-period";
@@ -21,59 +21,60 @@ describe("Delays Auto Parser", () => {
 
   it("parses alert to a disruption with a standard period that never ends", () => {
     const { app } = createTestApp();
-    const parser = new DelaysParser();
+    const parser = new DelaysParserRule();
 
-    const disruptions = parser.parseAlerts([AlertStandardToNeverEnds], app);
+    const disruption = parser.parseAlert(AlertStandardToNeverEnds, app);
 
-    expect(disruptions).toHaveLength(1);
-    expect(disruptions.at(0)).toHaveProperty(
+    expect(disruption).not.toBeNull();
+    expect(disruption).toHaveProperty(
       "data",
       new DelaysDisruptionData(MALVERN, 10, [
         new LineSection(FRANKSTON, ARMADALE, CAULFIELD),
       ]),
     );
-    expect(disruptions.at(0)).toHaveProperty("sourceAlertIds", [
+    expect(disruption).toHaveProperty("sourceAlertIds", [
       AlertStandardToNeverEnds.id,
     ]);
-    expect(disruptions.at(0)).toHaveProperty(
+    expect(disruption).toHaveProperty(
       "period",
       new StandardDisruptionPeriod(null, new EndsNever()),
     );
-    expect(disruptions.at(0)).toHaveProperty("curation", "automatic");
+    expect(disruption).toHaveProperty("curation", "automatic");
   });
 
   it("ignores alerts that don't qualify as delays", () => {
     const { app } = createTestApp();
-    const parser = new DelaysParser();
+    const parser = new DelaysParserRule();
 
-    const disruptions = parser.parseAlerts(
-      Object.values(SampleAlerts.BusReplacements),
-      app,
+    const alerts = Object.values(SampleAlerts.BusReplacements);
+    const disruptions = alerts.map((x) => parser.parseAlert(x, app));
+
+    expect(disruptions).toHaveLength(alerts.length);
+    expect(disruptions).toStrictEqual(
+      Array.from({ length: alerts.length }, () => null),
     );
-
-    expect(disruptions).toHaveLength(0);
   });
 
   it("selects the correct station", () => {
     const { app } = createTestApp();
-    const parser = new DelaysParser();
+    const parser = new DelaysParserRule();
 
-    const disruptions = parser.parseAlerts([AlertNameCollision], app);
+    const disruption = parser.parseAlert(AlertNameCollision, app);
 
-    expect(disruptions).toHaveLength(1);
-    expect(disruptions.at(0)).toHaveProperty(
+    expect(disruption).not.toBeNull();
+    expect(disruption).toHaveProperty(
       "data",
       new DelaysDisruptionData(MIDDLE_FOOTSCRAY, 50, [
         new LineSection(SUNBURY, FOOTSCRAY, WEST_FOOTSCRAY),
       ]),
     );
-    expect(disruptions.at(0)).toHaveProperty("sourceAlertIds", [
+    expect(disruption).toHaveProperty("sourceAlertIds", [
       AlertNameCollision.id,
     ]);
-    expect(disruptions.at(0)).toHaveProperty(
+    expect(disruption).toHaveProperty(
       "period",
       new StandardDisruptionPeriod(null, new EndsNever()),
     );
-    expect(disruptions.at(0)).toHaveProperty("curation", "automatic");
+    expect(disruption).toHaveProperty("curation", "automatic");
   });
 });

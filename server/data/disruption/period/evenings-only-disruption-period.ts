@@ -13,7 +13,7 @@ import {
 } from "@/server/data/disruption/period/utils/utils";
 import { TimeRange } from "@/server/data/disruption/period/utils/time-range";
 import { JustDate } from "@/server/data/disruption/period/utils/just-date";
-import { addHours, isSameDay, setHours, startOfHour } from "date-fns";
+import { addHours, isSameDay, set, setHours, startOfHour } from "date-fns";
 import { hour24To12 } from "@dan-schel/js-utils";
 import { CalendarMark } from "@/shared/types/calendar-data";
 
@@ -131,7 +131,11 @@ export class EveningsOnlyDisruptionPeriod extends DisruptionPeriodBase {
     if (
       isSameDay(localStart, localEnd) &&
       localStart.getHours() >= dayStarts &&
-      localEnd <= setHours(startOfHour(localEnd), this.startHourEachDay)
+      localEnd <=
+        set(startOfHour(localEnd), {
+          hours: this.startHourEachDay,
+          minutes: this.startMinuteEachDay,
+        })
     ) {
       return false;
     }
@@ -145,7 +149,13 @@ export class EveningsOnlyDisruptionPeriod extends DisruptionPeriodBase {
     if (!range.includes(date)) return false;
 
     const localHour = utcToLocalTime(date).getHours();
-    return localHour >= this.startHourEachDay || localHour < dayStarts;
+    const localMinute = utcToLocalTime(date).getMinutes();
+    return (
+      (localHour === this.startHourEachDay &&
+        localMinute >= this.startMinuteEachDay) ||
+      localHour > this.startHourEachDay ||
+      localHour < dayStarts
+    );
   }
 
   getFullyEncompassingTimeRange(): TimeRange {
@@ -169,11 +179,21 @@ export class EveningsOnlyDisruptionPeriod extends DisruptionPeriodBase {
     if (this.start == null) return null;
 
     const localHour = utcToLocalTime(this.start).getHours();
-    if (localHour < dayStarts || localHour >= this.startHourEachDay) {
+    const localMinute = utcToLocalTime(this.start).getMinutes();
+    if (
+      localHour < dayStarts ||
+      localHour > this.startHourEachDay ||
+      (localHour === this.startHourEachDay &&
+        localMinute >= this.startMinuteEachDay)
+    ) {
       return this.start;
     } else {
       const localTime = utcToLocalTime(this.start);
-      const adjusted = setHours(startOfHour(localTime), this.startHourEachDay);
+      const adjusted = set(startOfHour(localTime), {
+        hours: this.startHourEachDay,
+        minutes: this.startMinuteEachDay,
+      });
+
       return localToUtcTime(adjusted);
     }
   }
@@ -192,7 +212,13 @@ export class EveningsOnlyDisruptionPeriod extends DisruptionPeriodBase {
     if (end == null) return null;
 
     const localHour = utcToLocalTime(end).getHours();
-    if (localHour < dayStarts || localHour >= this.startHourEachDay) {
+    const localMinute = utcToLocalTime(end).getMinutes();
+    if (
+      localHour < dayStarts ||
+      localHour > this.startHourEachDay ||
+      (localHour === this.startHourEachDay &&
+        localMinute >= this.startMinuteEachDay)
+    ) {
       return end;
     } else {
       const localTime = utcToLocalTime(end);

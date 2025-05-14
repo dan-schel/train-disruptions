@@ -7,7 +7,7 @@ import { MingcuteRightLine } from "@/components/icons/MingcuteRightLine";
 import { MingcuteRouteFill } from "@/components/icons/MingcuteRouteFill";
 import { MingcuteCloseCircleFill } from "@/components/icons/MingcuteCloseCircleFill";
 import { OverviewPageDisruptionSummary } from "@/shared/types/overview-page";
-import { PTVSignalStop } from "@/components/icons/PTVSignalStop";
+import { PTVSignalMediumSpeedWarning } from "@/components/icons/PTVSignalMediumSpeedWarning";
 
 export type DisruptionButtonProps = {
   data: OverviewPageDisruptionSummary;
@@ -57,7 +57,7 @@ function DisruptionIcon({
   } else if (icon === "traffic") {
     return (
       <div className="bg-soft flex size-8 items-center justify-center rounded-full">
-        <PTVSignalStop className="size-full" />
+        <PTVSignalMediumSpeedWarning className="size-full" />
       </div>
     );
   } else {

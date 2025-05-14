@@ -1,9 +1,9 @@
 import { App } from "@/server/app";
-import { AutoParserBase } from "@/server/auto-parser/auto-parser-base";
+import { AutoParserRuleBase } from "@/server/auto-parser/rules/auto-parser-rule-base";
 import {
   isPartOfTheCity,
   doesLineRunThroughCityLoop,
-} from "@/server/auto-parser/utils";
+} from "@/server/auto-parser/rules/utils";
 import { Alert } from "@/server/data/alert";
 import { BusReplacementsDisruptionData } from "@/server/data/disruption/data/bus-replacements-disruption-data";
 import { Disruption } from "@/server/data/disruption/disruption";
@@ -16,19 +16,18 @@ import { utcToLocalTime } from "@/server/data/disruption/period/utils/utils";
 import { LineSection } from "@/server/data/line-section";
 import { nonNull, uuid } from "@dan-schel/js-utils";
 
-export class BusReplacementsParser extends AutoParserBase {
+export class BusReplacementsParserRule extends AutoParserRuleBase {
   constructor() {
     super();
   }
 
-  parseAlerts(alerts: Alert[], app: App): Disruption[] {
-    return alerts
-      .filter(this._filter)
-      .map((x) => this._process(x, app))
-      .filter(nonNull);
+  parseAlert(alert: Alert, app: App): Disruption | null {
+    if (!this._couldParse(alert)) return null;
+
+    return this._process(alert, app);
   }
 
-  private _filter({ data }: Alert): boolean {
+  private _couldParse({ data }: Alert): boolean {
     return (
       data.description.toLowerCase().includes("buses replace trains") &&
       // Only parse disruptions that have a definitive time period
