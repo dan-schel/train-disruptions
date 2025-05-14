@@ -7,18 +7,20 @@ import { With } from "@/components/core/With";
 import { Column } from "@/components/core/Column";
 import { Calendar } from "@/components/calendar/Calendar";
 import { CalendarData } from "@/shared/types/calendar-data";
+import { SerializedMapHighlighting } from "@/shared/types/map-data";
 
 export type DisruptionProps = {
   data: {
     title: string;
     bodyMarkdown: string;
     link: string;
-    calendar: CalendarData;
+    calendar: CalendarData | null;
+    highlighting: SerializedMapHighlighting;
   };
 };
 
 export function Disruption(props: DisruptionProps) {
-  const { title, bodyMarkdown, link, calendar } = props.data;
+  const { title, bodyMarkdown, link, calendar, highlighting } = props.data;
 
   return (
     <Column className="gap-8">
@@ -40,16 +42,10 @@ export function Disruption(props: DisruptionProps) {
         </Text>
       </Column>
 
-      {/*
-       * TODO: For live disruptions where the end date is not known, e.g.
-       * delays, we should probably just hide the calendar. Have the server
-       * return null for `calendar` instead of a `CalendarData` object?
-       */}
-      <Calendar data={calendar} />
+      {calendar && <Calendar data={calendar} />}
 
-      {/* TODO: Draw the disruption on the map. */}
       <With className="border-soft-border rounded-md border">
-        <Map />
+        <Map highlighting={highlighting} mode="show-disruptions" />
       </With>
     </Column>
   );

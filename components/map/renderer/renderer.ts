@@ -309,6 +309,24 @@ export class Renderer {
       ctx.moveTo(x + 2.5, y - 2.5);
       ctx.lineTo(x - 2.5, y + 2.5);
       ctx.stroke();
+    } else if (iconType === "delayed") {
+      ctx.lineWidth = iconStrokeWidth * 2;
+      ctx.fillStyle = this._css["interchange-stroke"];
+      ctx.beginPath();
+      ctx.arc(x, y + 3, 3, 0, Math.PI);
+      ctx.arc(x, y - 3, 3, Math.PI, 0);
+      ctx.lineTo(x + 3, y + 3);
+      ctx.stroke();
+      ctx.fill();
+
+      ctx.fillStyle = this._css["red"];
+      ctx.beginPath();
+      ctx.ellipse(x, y - 2.5, 2, 2, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = this._css["yellow"];
+      ctx.beginPath();
+      ctx.ellipse(x, y + 2.5, 2, 2, 0, 0, Math.PI * 2);
+      ctx.fill();
     }
   }
 }

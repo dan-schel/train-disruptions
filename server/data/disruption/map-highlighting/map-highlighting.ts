@@ -42,13 +42,13 @@ export class HighlightedSegment {
 export class HighlightedPoint {
   constructor(
     readonly point: MapPoint,
-    readonly style: "standard",
+    readonly style: "standard" | "delayed",
   ) {}
 
   static readonly bson = z
     .object({
       point: MapPoint.bson,
-      style: z.literal("standard"),
+      style: z.enum(["standard", "delayed"]),
     })
     .transform((x) => new HighlightedPoint(x.point, x.style));
 

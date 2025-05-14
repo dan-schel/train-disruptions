@@ -64,6 +64,35 @@ export const ptvDisruption2: Disruption = {
   display_status: false,
 };
 
+export const ptvDisruption3: Disruption = {
+  disruption_id: 335425,
+  title:
+    "Delays up to 10 minutes due to an operational issue in the Malvern area.",
+  url: "http://ptv.vic.gov.au/live-travel-updates/",
+  description:
+    "Delays up to 10 minutes due to an operational issue in the Malvern area.",
+  disruption_status: "Current",
+  disruption_type: "Minor Delays",
+  published_on: "2024-12-25T10:15:38Z",
+  last_updated: "2024-12-25T10:15:39Z",
+  from_date: "2024-12-25T10:08:00Z",
+  to_date: null,
+  routes: [
+    {
+      route_type: 0,
+      route_id: 6,
+      route_name: "Frankston",
+      route_number: "",
+      route_gtfs_id: "2-FKN",
+      direction: null,
+    },
+  ],
+  stops: [],
+  colour: "#ffd500",
+  display_on_board: false,
+  display_status: false,
+};
+
 export const alert1 = new Alert(
   "333750",
   new AlertData(
@@ -93,6 +122,25 @@ export const alert2 = new Alert(
     null,
     [13],
     [1088],
+  ),
+  null,
+  new Date("2025-01-01T00:00:00Z"),
+  null,
+  null,
+  false,
+  null,
+);
+
+export const alert3 = new Alert(
+  "335425",
+  new AlertData(
+    "Delays up to 10 minutes due to an operational issue in the Malvern area.",
+    "Delays up to 10 minutes due to an operational issue in the Malvern area.",
+    "http://ptv.vic.gov.au/live-travel-updates/",
+    new Date("2024-12-25T10:08:00Z"),
+    null,
+    [6],
+    [],
   ),
   null,
   new Date("2025-01-01T00:00:00Z"),

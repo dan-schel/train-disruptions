@@ -17,5 +17,5 @@ export type SerializedHighlightedMapPoint = {
   segmentBNodeA: number;
   segmentBNodeB: number;
   percentage: number;
-  style: "standard";
+  style: "standard" | "delayed";
 };

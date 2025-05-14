@@ -1,6 +1,9 @@
 import { App } from "@/server/app";
+import { AutoParsingPipeline } from "@/server/auto-parser/auto-parsing-pipeline";
+import { BusReplacementsParserRule } from "@/server/auto-parser/rules/bus-replacements-parser-rule";
+import { DelaysParserRule } from "@/server/auto-parser/rules/delays-parser-rule";
 import { Alert, AlertData } from "@/server/data/alert";
-import { ALERTS } from "@/server/database/models/models";
+import { ALERTS, DISRUPTIONS } from "@/server/database/models/models";
 import { IntervalScheduler } from "@/server/task/lib/interval-scheduler";
 import { Task } from "@/server/task/lib/task";
 import { TaskScheduler } from "@/server/task/lib/task-scheduler";
@@ -23,9 +26,13 @@ export class PopulateInboxQueueTask extends Task {
 
   async execute(app: App): Promise<void> {
     try {
+      const parser = new AutoParsingPipeline([
+        new BusReplacementsParserRule(),
+        new DelaysParserRule(),
+      ]);
       const disruptions = await app.alertSource.fetchDisruptions();
       const alerts = await app.database.of(ALERTS).all();
-      this._addNewAlerts(app, disruptions, alerts);
+      this._addNewAlerts(app, parser, disruptions, alerts);
       this._cleanupOldAlerts(app, disruptions, alerts);
     } catch (error) {
       console.warn("Failed to populate unprocessed alerts.");
@@ -35,6 +42,7 @@ export class PopulateInboxQueueTask extends Task {
 
   private async _addNewAlerts(
     app: App,
+    parser: AutoParsingPipeline,
     disruptions: Disruption[],
     alerts: Alert[],
   ) {
@@ -54,6 +62,17 @@ export class PopulateInboxQueueTask extends Task {
       );
 
       await app.database.of(ALERTS).create(alert);
+
+      // Prevent a failed parse attempt from not processing the rest of alerts
+      try {
+        const parsedDisruption = parser.parseAlert(alert, app);
+        if (parsedDisruption) {
+          await app.database.of(DISRUPTIONS).create(parsedDisruption);
+        }
+      } catch (error) {
+        console.warn(`Failed to parse alert #${alert.id}.`);
+        console.warn(error);
+      }
     }
   }
 
@@ -65,6 +84,15 @@ export class PopulateInboxQueueTask extends Task {
     for (const alert of alerts) {
       if (!disruptions.some((d) => d.disruption_id.toString() === alert.id)) {
         await app.database.of(ALERTS).delete(alert.id);
+        const _disruptions = await app.database.of(DISRUPTIONS).find({
+          where: {
+            sourceAlertIds: alert.id,
+            curation: "automatic",
+          },
+        });
+        for (const { id } of _disruptions) {
+          await app.database.of(DISRUPTIONS).delete(id);
+        }
       }
     }
   }
