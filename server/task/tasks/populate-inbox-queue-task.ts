@@ -32,8 +32,10 @@ export class PopulateInboxQueueTask extends Task {
       ]);
       const disruptions = await app.alertSource.fetchDisruptions();
       const alerts = await app.database.of(ALERTS).all();
-      this._addNewAlerts(app, parser, disruptions, alerts);
-      this._cleanupOldAlerts(app, disruptions, alerts);
+      await Promise.all([
+        this._addNewAlerts(app, parser, disruptions, alerts),
+        this._cleanupOldAlerts(app, disruptions, alerts),
+      ]);
     } catch (error) {
       console.warn("Failed to populate unprocessed alerts.");
       console.warn(error);
@@ -68,6 +70,20 @@ export class PopulateInboxQueueTask extends Task {
         const parsedDisruption = parser.parseAlert(alert, app);
         if (parsedDisruption) {
           await app.database.of(DISRUPTIONS).create(parsedDisruption);
+          await app.database
+            .of(ALERTS)
+            .update(
+              new Alert(
+                alert.id,
+                alert.data,
+                alert.updatedData,
+                alert.appearedAt,
+                app.time.now(),
+                alert.updatedAt,
+                alert.ignoreFutureUpdates,
+                alert.deleteAt,
+              ),
+            );
         }
       } catch (error) {
         console.warn(`Failed to parse alert #${alert.id}.`);

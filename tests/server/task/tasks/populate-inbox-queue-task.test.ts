@@ -53,7 +53,7 @@ describe("PopulateInboxQueueTask", () => {
     it("creates disruptions from applicable alerts", async () => {
       const { app, db, alertSource } = createTestApp();
       const task = new PopulateInboxQueueTask();
-      alertSource.setAlerts([ptvDisruption3]);
+      alertSource.setAlerts([ptvDisruption2, ptvDisruption3]);
 
       let disruptions = await db.of(DISRUPTIONS).all();
       expect(disruptions).toHaveLength(0);
@@ -61,7 +61,7 @@ describe("PopulateInboxQueueTask", () => {
       await task.execute(app);
 
       const alerts = await db.of(ALERTS).all();
-      expect(alerts).toStrictEqual([alert3]);
+      expect(alerts).toStrictEqual([alert2, alert3]);
 
       disruptions = await db.of(DISRUPTIONS).all();
       expect(disruptions).toHaveLength(1);

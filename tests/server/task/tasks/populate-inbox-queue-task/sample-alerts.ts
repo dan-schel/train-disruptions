@@ -144,7 +144,7 @@ export const alert3 = new Alert(
   ),
   null,
   new Date("2025-01-01T00:00:00Z"),
-  null,
+  new Date("2025-01-01T00:00:00Z"),
   null,
   false,
   null,
