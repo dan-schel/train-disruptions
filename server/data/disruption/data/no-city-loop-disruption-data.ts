@@ -1,0 +1,57 @@
+import { App } from "@/server/app";
+import { DisruptionDataBase } from "@/server/data/disruption/data/disruption-data-base";
+import { CityLoopMapHighlighter } from "@/server/data/disruption/map-highlighting/city-loop-map-highlighter";
+import { MapHighlighter } from "@/server/data/disruption/map-highlighting/map-highlighter";
+import { NoCityLoopRouteGraphModifier } from "@/server/data/disruption/route-graph-modifier/no-city-loop-route-graph-modifier";
+import { RouteGraphModifier } from "@/server/data/disruption/route-graph-modifier/route-graph-modifier";
+import { DisruptionWriteupAuthor } from "@/server/data/disruption/writeup/disruption-writeup-author";
+import { NoCityLoopDisruptionWriteupAuthor } from "@/server/data/disruption/writeup/no-city-loop-disruption-writeup-author";
+import { unique } from "@dan-schel/js-utils";
+import { z } from "zod";
+
+export class NoCityLoopDisruptionData extends DisruptionDataBase {
+  constructor(readonly lineIds: number[]) {
+    super();
+
+    if (this.lineIds.length < 1) {
+      throw new Error("Must have at least one affected city loop line");
+    }
+  }
+
+  static readonly bson = z
+    .object({
+      type: z.literal("no-city-loop"),
+      lineIds: z.number().array(),
+    })
+    .transform((x) => new NoCityLoopDisruptionData(x.lineIds));
+
+  toBson(): z.input<typeof NoCityLoopDisruptionData.bson> {
+    return {
+      type: "no-city-loop",
+      lineIds: this.lineIds,
+    };
+  }
+
+  getImpactedLines(app: App): readonly number[] {
+    return unique(
+      this.lineIds.filter((lineId) =>
+        app.lines
+          .get(lineId)
+          ?.route.getAllLineShapeNodes()
+          .includes("the-city"),
+      ),
+    );
+  }
+
+  getWriteupAuthor(): DisruptionWriteupAuthor {
+    return new NoCityLoopDisruptionWriteupAuthor(this);
+  }
+
+  getRouteGraphModifier(): RouteGraphModifier {
+    return new NoCityLoopRouteGraphModifier(this.lineIds);
+  }
+
+  getMapHighlighter(): MapHighlighter {
+    return new CityLoopMapHighlighter(this.lineIds);
+  }
+}
