@@ -6,15 +6,11 @@ import {
 } from "@/server/data/disruption/map-highlighting/map-highlighting";
 import { LineSection } from "@/server/data/line-section";
 import { nonNull } from "@dan-schel/js-utils";
-import {
-  BURNLEY,
-  CLIFTON_HILL,
-  DANDENONG,
-  NORTHERN,
-} from "@/shared/map-node-ids";
 import * as line from "@/shared/line-ids";
 import { JOLIMONT, NORTH_MELBOURNE, RICHMOND } from "@/shared/station-ids";
+import * as mapNode from "@/shared/map-node-ids";
 
+// Maps each line with the last station traversed before entering the city loop
 const LineSectionMapping: Readonly<Record<number, number[]>> = {
   [RICHMOND]: [
     line.ALAMEIN,
@@ -28,14 +24,16 @@ const LineSectionMapping: Readonly<Record<number, number[]>> = {
   [NORTH_MELBOURNE]: [line.CRAIGIEBURN, line.SUNBURY, line.UPFIELD],
 };
 
-const FLINDERS_STREET_DIRECT = [
-  BURNLEY.FLINDERS_STREET_DIRECT,
-  CLIFTON_HILL.FLINDERS_STREET_DIRECT,
-  DANDENONG.FLINDERS_STREET_DIRECT,
-  NORTHERN.FLINDERS_STREET_DIRECT,
+// Map nodes to remove from map segements
+const DirectToFlindersStreet = [
+  mapNode.BURNLEY.FLINDERS_STREET_DIRECT,
+  mapNode.CLIFTON_HILL.FLINDERS_STREET_DIRECT,
+  mapNode.DANDENONG.FLINDERS_STREET_DIRECT,
+  mapNode.NORTHERN.FLINDERS_STREET_DIRECT,
+  mapNode.NORTHERN.SOUTHERN_CROSS, // Northern loop needs to pass through Southern Cross
 ];
 
-export class CityLoopMapHighlighter extends MapHighlighter {
+export class NoCityLoopMapHighlighter extends MapHighlighter {
   constructor(private _lineIds: number[]) {
     super();
   }
@@ -57,13 +55,12 @@ export class CityLoopMapHighlighter extends MapHighlighter {
       })
       .filter(nonNull);
     const segments = lines
-      .flatMap((x) =>
-        x.line.route.getMapSegmentsInSection(x.section).filter(
-          (x) =>
-            FLINDERS_STREET_DIRECT.every((node) => x.mapNodeA !== node) &&
-            // Northern loop needs to pass through Southern Cross
-            x.mapNodeA !== NORTHERN.SOUTHERN_CROSS,
-        ),
+      .flatMap(({ line, section }) =>
+        line.route
+          .getMapSegmentsInSection(section)
+          .filter(({ mapNodeA }) =>
+            DirectToFlindersStreet.every((node) => mapNodeA !== node),
+          ),
       )
       .map((x) => new HighlightedSegment(x, "standard"));
 

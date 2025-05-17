@@ -63,9 +63,9 @@ export class NoCityLoopRouteGraphModifier extends RouteGraphModifier {
   }
 
   apply(graph: RouteGraph): RouteGraph {
-    // TODO: Figure out when to add edges, usually commuters could
-    // change to other platforms, but what if the city loop is closed
-    // on every line. Do we just add a tram edge incase?
+    // TODO: Figure out when to add edges (city circle services),
+    // usually commuters could change to other platforms, but
+    // what if the city loop is closed on every line.
 
     // Get edges to remove based on which loop the line runs on
     // const edgesToRemove = this.lines

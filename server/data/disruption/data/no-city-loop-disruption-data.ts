@@ -1,6 +1,6 @@
 import { App } from "@/server/app";
 import { DisruptionDataBase } from "@/server/data/disruption/data/disruption-data-base";
-import { CityLoopMapHighlighter } from "@/server/data/disruption/map-highlighting/city-loop-map-highlighter";
+import { NoCityLoopMapHighlighter } from "@/server/data/disruption/map-highlighting/no-city-loop-map-highlighter";
 import { MapHighlighter } from "@/server/data/disruption/map-highlighting/map-highlighter";
 import { NoCityLoopRouteGraphModifier } from "@/server/data/disruption/route-graph-modifier/no-city-loop-route-graph-modifier";
 import { RouteGraphModifier } from "@/server/data/disruption/route-graph-modifier/route-graph-modifier";
@@ -52,6 +52,6 @@ export class NoCityLoopDisruptionData extends DisruptionDataBase {
   }
 
   getMapHighlighter(): MapHighlighter {
-    return new CityLoopMapHighlighter(this.lineIds);
+    return new NoCityLoopMapHighlighter(this.lineIds);
   }
 }
