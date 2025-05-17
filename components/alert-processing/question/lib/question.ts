@@ -15,21 +15,9 @@ export function useQuestion<T extends NonNull>(props: QuestionProps<T>) {
     setEditMode(true);
   }
 
-  return { editMode, onEditClick, error, setError };
-}
-
-export function useQuestions() {
-  const [activeQuestionIndex, setActiveQuestionIndex] = React.useState(0);
-
-  function createSubmitHandlerForIndex<T>(
-    index: number,
-    onSubmit: (value: T) => void,
-  ) {
-    return (value: T) => {
-      onSubmit(value);
-      setActiveQuestionIndex(index + 1);
-    };
+  function onEditCancelClick() {
+    setEditMode(false);
   }
 
-  return { activeQuestionIndex, createSubmitHandlerForIndex };
+  return { editMode, onEditClick, onEditCancelClick, error, setError };
 }

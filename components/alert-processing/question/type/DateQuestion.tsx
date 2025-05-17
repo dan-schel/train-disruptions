@@ -5,21 +5,27 @@ import {
 } from "@/components/alert-processing/question/lib/question";
 import { SubmittedQuestion } from "@/components/alert-processing/question/lib/SubmittedQuestion";
 import { ActiveQuestion } from "@/components/alert-processing/question/lib/ActiveQuestion";
-import { Input } from "@/components/core/Input";
+import { DateInput } from "@/components/common/DateInput";
 
-export type DateQuestionProps = QuestionProps<string> & {
+export type DateQuestionProps = QuestionProps<Date> & {
   label: string;
-  validate?: (value: string) => string | null;
+  validate?: (value: Date) => string | null;
 };
 
 export function DateQuestion(props: DateQuestionProps) {
-  const { editMode, onEditClick, error, setError } = useQuestion(props);
+  const { editMode, onEditClick, onEditCancelClick, error, setError } =
+    useQuestion(props);
 
-  const [text, setText] = React.useState<string>(props.value ?? "");
+  const [date, setDate] = React.useState<Date | null>(props.value);
 
   function handleSubmit() {
+    if (date == null) {
+      setError("Please select a date.");
+      return;
+    }
+
     if (props.validate != null) {
-      const validationError = props.validate(text);
+      const validationError = props.validate(date);
       if (validationError != null) {
         setError(validationError);
         return;
@@ -27,16 +33,14 @@ export function DateQuestion(props: DateQuestionProps) {
     }
 
     setError(null);
-    props.onSubmit(text);
+    props.onSubmit(date);
   }
-
-  function handleCancel() {}
 
   if (!editMode) {
     return (
       <SubmittedQuestion
         label={props.label}
-        value={props.value ?? "<null>"}
+        value={props.value?.toISOString() ?? "<null>"}
         onEditClick={onEditClick}
       />
     );
@@ -48,9 +52,9 @@ export function DateQuestion(props: DateQuestionProps) {
       onSubmit={handleSubmit}
       error={error}
       isCancelable={true}
-      onCancel={handleCancel}
+      onCancel={onEditCancelClick}
     >
-      <Input value={text} onChange={setText} />
+      <DateInput value={date} onChange={setDate} />
     </ActiveQuestion>
   );
 }
