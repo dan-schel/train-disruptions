@@ -79,12 +79,19 @@ export function useQuestionStack<T, Raw>(args: QuestionHookArgs<T, Raw>) {
 
   function handleSubquestionSubmit(change: (value: Raw) => Raw) {
     setRaw(change);
+
+    // TODO: [DS] This runs with the current value of raw, not the new one.
     handleSubmit();
   }
 
   // TODO: [DS] Question stacks shouldn't have a way of setting errors, instead
   // they need a way to invalidate questions in the stack.
   // Therefore their validate function will be completely different.
+
+  // TODO: [DS] I'm starting to think that while the props will be the same,
+  // questions and question stacks should probably have completely separate
+  // implementations. They can't share the error logic, and they handle raw
+  // values differently, so everything is useQuestionBase is useless.
 
   return {
     value: raw,
