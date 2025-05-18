@@ -1,6 +1,8 @@
 import React from "react";
 import {
+  QuestionInput,
   QuestionProps,
+  QuestionValidator,
   useQuestion,
 } from "@/components/alert-processing/question/lib/question";
 import { SubmittedQuestion } from "@/components/alert-processing/question/lib/SubmittedQuestion";
@@ -13,48 +15,42 @@ export type DateQuestionProps = QuestionProps<Date> & {
 };
 
 export function DateQuestion(props: DateQuestionProps) {
-  const { editMode, onEditClick, onEditCancelClick, error, setError } =
-    useQuestion(props);
+  const question = useQuestion({ props, setup, validate: validator(props) });
 
-  const [date, setDate] = React.useState<Date | null>(props.value);
-
-  function handleSubmit() {
-    if (date == null) {
-      setError("Please select a date.");
-      return;
-    }
-
-    if (props.validate != null) {
-      const validationError = props.validate(date);
-      if (validationError != null) {
-        setError(validationError);
-        return;
-      }
-    }
-
-    setError(null);
-    props.onSubmit(date);
-  }
-
-  if (!editMode) {
-    return (
-      <SubmittedQuestion
-        label={props.label}
-        value={props.value?.toISOString() ?? "<null>"}
-        onEditClick={onEditClick}
-      />
-    );
-  }
-
-  return (
+  return question.isEditorOpen ? (
     <ActiveQuestion
       label={props.label}
-      onSubmit={handleSubmit}
-      error={error}
-      isCancelable={true}
-      onCancel={onEditCancelClick}
+      onSubmit={question.handleSubmit}
+      error={question.error}
+      isCancelable={question.isEditMode}
+      onCancel={question.onEditCancelClick}
     >
-      <DateInput value={date} onChange={setDate} />
+      <DateInput value={question.value} onChange={question.setValue} />
     </ActiveQuestion>
+  ) : (
+    <SubmittedQuestion
+      label={props.label}
+      value={question.value.toISOString()}
+      onEditClick={question.onEditClick}
+    />
   );
+}
+
+function setup(input: QuestionInput<Date>) {
+  return input?.value ?? null;
+}
+
+function validator(
+  props: DateQuestionProps,
+): QuestionValidator<Date, Date | null> {
+  return (raw) => {
+    if (raw == null) {
+      return { error: "No date entered" };
+    }
+
+    const error = props.validate?.(raw);
+    if (error != null) return { error };
+
+    return { value: raw };
+  };
 }

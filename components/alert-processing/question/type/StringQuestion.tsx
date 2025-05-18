@@ -1,6 +1,8 @@
 import React from "react";
 import {
+  QuestionInput,
   QuestionProps,
+  QuestionValidator,
   useQuestion,
 } from "@/components/alert-processing/question/lib/question";
 import { SubmittedQuestion } from "@/components/alert-processing/question/lib/SubmittedQuestion";
@@ -13,44 +15,37 @@ export type StringQuestionProps = QuestionProps<string> & {
 };
 
 export function StringQuestion(props: StringQuestionProps) {
-  const { editMode, onEditClick, error, setError } = useQuestion(props);
+  const question = useQuestion({ props, setup, validate: validator(props) });
 
-  const [text, setText] = React.useState<string>(props.value ?? "");
-
-  function handleSubmit() {
-    if (props.validate != null) {
-      const validationError = props.validate(text);
-      if (validationError != null) {
-        setError(validationError);
-        return;
-      }
-    }
-
-    setError(null);
-    props.onSubmit(text);
-  }
-
-  function handleCancel() {}
-
-  if (!editMode) {
-    return (
-      <SubmittedQuestion
-        label={props.label}
-        value={props.value ?? "<null>"}
-        onEditClick={onEditClick}
-      />
-    );
-  }
-
-  return (
+  return question.isEditorOpen ? (
     <ActiveQuestion
       label={props.label}
-      onSubmit={handleSubmit}
-      error={error}
-      isCancelable={true}
-      onCancel={handleCancel}
+      onSubmit={question.handleSubmit}
+      error={question.error}
+      isCancelable={question.isEditMode}
+      onCancel={question.onEditCancelClick}
     >
-      <Input value={text} onChange={setText} />
+      <Input value={question.value} onChange={question.setValue} />
     </ActiveQuestion>
+  ) : (
+    <SubmittedQuestion
+      label={props.label}
+      value={question.value}
+      onEditClick={question.onEditClick}
+    />
   );
+}
+
+function setup(input: QuestionInput<string>) {
+  return input?.value ?? "";
+}
+
+function validator(
+  props: StringQuestionProps,
+): QuestionValidator<string, string> {
+  return (raw) => {
+    const error = props.validate?.(raw);
+    if (error != null) return { error };
+    return { value: raw };
+  };
 }

@@ -1,56 +1,75 @@
 import React from "react";
 import { DateQuestion } from "@/components/alert-processing/question/type/DateQuestion";
 import { StringQuestion } from "@/components/alert-processing/question/type/StringQuestion";
-import { QuestionProps } from "@/components/alert-processing/question/lib/question";
+import {
+  QuestionInput,
+  QuestionProps,
+  update,
+  useQuestionStack,
+  wrapInput,
+} from "@/components/alert-processing/question/lib/question";
 import { EndsApproximatelyInput } from "@/shared/types/alert-processing/disruption-period-input";
 
-export type EndsApproximatelyQuestionsProps =
+type RawType = {
+  displayText: string | null;
+  earliest: Date | null;
+  latest: Date | null;
+};
+
+export type EndsApproximatelyQuestionProps =
   QuestionProps<EndsApproximatelyInput>;
 
-export function EndsApproximatelyQuestions(
-  props: EndsApproximatelyQuestionsProps,
+export function EndsApproximatelyQuestion(
+  props: EndsApproximatelyQuestionProps,
 ) {
-  const [displayText, setDisplayText] = React.useState<string | null>(null);
-  const [earliest, setEarliest] = React.useState<Date | null>(null);
-  const [latest, setLatest] = React.useState<Date | null>(null);
-
-  function handleChildSubmitted<T>(setter: (value: T) => void) {
-    return (value: T) => {
-      setter(value);
-
-      // TODO: [DS] Will never work because whichever value is modified by
-      // setter will not be updated yet when this runs.
-      if (displayText != null && earliest != null && latest != null) {
-        props.onSubmit({
-          displayText,
-          earliest,
-          latest,
-        });
-      }
-    };
-  }
+  const question = useQuestionStack({ props, setup, validate });
 
   return (
     <>
       <StringQuestion
         label="The disruption ends in..."
-        value={displayText}
-        onSubmit={handleChildSubmitted(setDisplayText)}
+        input={wrapInput(question.value.displayText)}
+        onSubmit={update(question.handleSubquestionSubmit, "displayText")}
       />
-      {displayText != null && (
+      {question.value.displayText != null && (
         <DateQuestion
           label="Earliest interpretable date/time"
-          value={earliest}
-          onSubmit={handleChildSubmitted(setEarliest)}
+          input={wrapInput(question.value.earliest)}
+          onSubmit={update(question.handleSubquestionSubmit, "earliest")}
         />
       )}
-      {earliest != null && (
+      {question.value.earliest != null && (
         <DateQuestion
           label="Latest interpretable date/time"
-          value={latest}
-          onSubmit={handleChildSubmitted(setLatest)}
+          input={wrapInput(question.value.latest)}
+          onSubmit={update(question.handleSubquestionSubmit, "latest")}
         />
       )}
     </>
   );
+}
+
+function setup(input: QuestionInput<EndsApproximatelyInput>) {
+  return {
+    displayText: input?.value.displayText ?? null,
+    earliest: input?.value.earliest ?? null,
+    latest: input?.value.latest ?? null,
+  };
+}
+
+function validate({ displayText, earliest, latest }: RawType) {
+  if (displayText == null) {
+    return { error: "No display text entered" };
+  }
+  if (earliest == null) {
+    return { error: "No earliest date entered" };
+  }
+  if (latest == null) {
+    return { error: "No latest date entered" };
+  }
+  if (latest < earliest) {
+    return { error: "Latest date cannot be earlier that earliest date" };
+  }
+
+  return { value: { displayText, earliest, latest } };
 }
