@@ -1,28 +1,35 @@
 import React from "react";
-import { DateQuestion } from "@/components/alert-processing/question/type/DateQuestion";
 import { StringQuestion } from "@/components/alert-processing/question/type/StringQuestion";
+import { useQuestionGroup } from "@/components/alert-processing/question/lib/use-question-group";
 import {
   QuestionInput,
   QuestionProps,
+} from "@/components/alert-processing/question/lib/use-question";
+import {
   update,
-  useQuestionStack,
   wrapInput,
-} from "@/components/alert-processing/question/lib/question";
-import { EndsApproximatelyInput } from "@/shared/types/alert-processing/disruption-period-input";
+} from "@/components/alert-processing/question/lib/question-group-helpers";
+
+// TODO: [DS] Remove this and use EndsApproximatelyInput, and switch the raw
+// type to use dates for earliest/latest.
+type BakedType = {
+  displayText: string;
+  earliest: string;
+  latest: string;
+};
 
 type RawType = {
   displayText: string | null;
-  earliest: Date | null;
-  latest: Date | null;
+  earliest: string | null;
+  latest: string | null;
 };
 
-export type EndsApproximatelyQuestionProps =
-  QuestionProps<EndsApproximatelyInput>;
+export type EndsApproximatelyQuestionProps = QuestionProps<BakedType>;
 
 export function EndsApproximatelyQuestion(
   props: EndsApproximatelyQuestionProps,
 ) {
-  const question = useQuestionStack({ props, setup, validate });
+  const question = useQuestionGroup({ props, setup, validate });
 
   return (
     <>
@@ -32,15 +39,15 @@ export function EndsApproximatelyQuestion(
         onSubmit={update(question.handleSubquestionSubmit, "displayText")}
       />
       {question.value.displayText != null && (
-        <DateQuestion
-          label="Earliest interpretable date/time"
+        <StringQuestion
+          label="Some short text"
           input={wrapInput(question.value.earliest)}
           onSubmit={update(question.handleSubquestionSubmit, "earliest")}
         />
       )}
       {question.value.earliest != null && (
-        <DateQuestion
-          label="Latest interpretable date/time"
+        <StringQuestion
+          label="Some long text"
           input={wrapInput(question.value.latest)}
           onSubmit={update(question.handleSubquestionSubmit, "latest")}
           // Enforce that the latest date is after the earliest date.
@@ -51,7 +58,7 @@ export function EndsApproximatelyQuestion(
   );
 }
 
-function setup(input: QuestionInput<EndsApproximatelyInput>) {
+function setup(input: QuestionInput<BakedType>) {
   return {
     displayText: input?.value.displayText ?? null,
     earliest: input?.value.earliest ?? null,
@@ -60,17 +67,15 @@ function setup(input: QuestionInput<EndsApproximatelyInput>) {
 }
 
 function validate({ displayText, earliest, latest }: RawType) {
-  if (displayText == null) {
-    return { error: "No display text entered" };
+  if (displayText == null || earliest == null || latest == null) {
+    return { raw: { displayText, earliest, latest }, error: null };
   }
-  if (earliest == null) {
-    return { error: "No earliest date entered" };
-  }
-  if (latest == null) {
-    return { error: "No latest date entered" };
-  }
-  if (latest < earliest) {
-    return { error: "Latest date cannot be earlier that earliest date" };
+
+  if (latest.length <= earliest.length) {
+    return {
+      raw: { displayText, earliest, latest: null },
+      error: "Latest string must be longer than the earliest string",
+    };
   }
 
   return { value: { displayText, earliest, latest } };

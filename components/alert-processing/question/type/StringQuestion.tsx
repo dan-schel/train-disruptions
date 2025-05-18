@@ -4,7 +4,7 @@ import {
   QuestionProps,
   QuestionValidator,
   useQuestion,
-} from "@/components/alert-processing/question/lib/question";
+} from "@/components/alert-processing/question/lib/use-question";
 import { SubmittedQuestion } from "@/components/alert-processing/question/lib/SubmittedQuestion";
 import { ActiveQuestion } from "@/components/alert-processing/question/lib/ActiveQuestion";
 import { Input } from "@/components/core/Input";
