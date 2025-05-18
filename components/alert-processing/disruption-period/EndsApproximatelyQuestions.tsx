@@ -37,6 +37,7 @@ export function EndsApproximatelyQuestion(
         label="The disruption ends in..."
         input={wrapInput(question.value.displayText)}
         onSubmit={update(question.handleSubquestionSubmit, "displayText")}
+        // parentError={question.error ?? props.parentError}
       />
       {question.value.displayText != null && (
         <StringQuestion

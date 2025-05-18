@@ -1,5 +1,6 @@
 import React from "react";
 
+// TODO: [DS] Let's just use undefined. It makes everything so much easier!
 export type QuestionInput<T> = { value: T } | null;
 
 export type QuestionProps<T> = {
