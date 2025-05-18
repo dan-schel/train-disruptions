@@ -17,7 +17,9 @@ export type QuestionHookArgs<T, Raw> = {
   validate: QuestionValidator<T, Raw>;
 };
 
-function useQuestionBase<T, Raw>(args: QuestionHookArgs<T, Raw>) {
+function useQuestionBase<T, Raw>(
+  args: QuestionHookArgs<T, Raw> & { onSuccessfulSubmit?: () => void },
+) {
   const [raw, setRaw] = React.useState<Raw>(args.setup(args.props.input));
   const [error, setError] = React.useState<string | null>(null);
 
@@ -28,6 +30,7 @@ function useQuestionBase<T, Raw>(args: QuestionHookArgs<T, Raw>) {
     } else {
       setError(null);
       args.props.onSubmit(result.value);
+      args.onSuccessfulSubmit?.();
     }
   }
 
@@ -35,8 +38,14 @@ function useQuestionBase<T, Raw>(args: QuestionHookArgs<T, Raw>) {
 }
 
 export function useQuestion<T, Raw>(args: QuestionHookArgs<T, Raw>) {
-  const { raw, setRaw, error, handleSubmit } = useQuestionBase(args);
   const [isEditMode, setEditMode] = React.useState(false);
+
+  const { raw, setRaw, error, handleSubmit } = useQuestionBase({
+    ...args,
+    onSuccessfulSubmit: () => {
+      setEditMode(false);
+    },
+  });
 
   function onEditClick() {
     setEditMode(true);
@@ -65,8 +74,6 @@ export function useQuestion<T, Raw>(args: QuestionHookArgs<T, Raw>) {
   }
 }
 
-// TODO: [DS] Convienience function to track changes to raw and submit each
-// time (handleChange).
 export function useQuestionStack<T, Raw>(args: QuestionHookArgs<T, Raw>) {
   const { raw, setRaw, error, handleSubmit } = useQuestionBase(args);
 
@@ -74,6 +81,10 @@ export function useQuestionStack<T, Raw>(args: QuestionHookArgs<T, Raw>) {
     setRaw(change);
     handleSubmit();
   }
+
+  // TODO: [DS] Question stacks shouldn't have a way of setting errors, instead
+  // they need a way to invalidate questions in the stack.
+  // Therefore their validate function will be completely different.
 
   return {
     value: raw,

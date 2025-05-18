@@ -43,6 +43,8 @@ export function EndsApproximatelyQuestion(
           label="Latest interpretable date/time"
           input={wrapInput(question.value.latest)}
           onSubmit={update(question.handleSubquestionSubmit, "latest")}
+          // Enforce that the latest date is after the earliest date.
+          // validate={}
         />
       )}
     </>
