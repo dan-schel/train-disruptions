@@ -14,7 +14,7 @@ export class NoCityLoopDisruptionData extends DisruptionDataBase {
     super();
 
     if (this.lineIds.length < 1) {
-      throw new Error("Must have at least one affected city loop line");
+      throw new Error("Must have at least one affected line");
     }
   }
 

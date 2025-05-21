@@ -24,7 +24,7 @@ export class NoCityLoopDisruptionWriteupAuthor extends DisruptionWriteupAuthor {
 
     return new DisruptionWriteup(
       `No city loop services ${subjectString}`,
-      `Occurs ${periodString}.\nTrains on the ${listifyAnd(lines.map((x) => x.name))} line${lines.length > 1 ? "s" : ""} will run direct to and from Flinders Street, not via the City Loop.`,
+      `Occurs ${periodString}.\nTrains ${subjectString} will run direct to and from Flinders Street, not via the City Loop.`,
       {
         headline: "No city loop services",
         subject: subjectString,
