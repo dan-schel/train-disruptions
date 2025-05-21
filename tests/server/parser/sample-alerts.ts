@@ -56,6 +56,24 @@ export const SampleAlerts = {
       false,
       null,
     ),
+    AlertNameCollision: new Alert(
+      "333417",
+      new AlertData(
+        "Sunbury line: Buses replace trains from 8:30pm to last service each night, Monday 12 May to Wednesday 14 May 2025",
+        "Buses replace trains between West Footscray and Middle Footscray from 8:30pm to last service each night, Monday 12 May to Wednesday 14 May, due to maintenance works.",
+        "http://ptv.vic.gov.au/live-travel-updates/article/belgrave-and-lilydale-lines-buses-replace-trains-from-8-30pm-to-last-service-each-night-monday-12-may-to-wednesday-14-may-2025",
+        new Date("2025-05-12T10:30:00"),
+        new Date("2025-05-14T17:00:00"),
+        [14],
+        [],
+      ),
+      null,
+      new Date("2025-04-03T01:37:34"),
+      null,
+      null,
+      false,
+      null,
+    ),
   },
   Delays: {
     AlertStandardToNeverEnds: new Alert(
