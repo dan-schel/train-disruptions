@@ -10,7 +10,7 @@
     "format-check": "prettier --check ."
   },
   "dependencies": {
-    "@dan-schel/js-utils": "4.0.4",
+    "@dan-schel/js-utils": "4.0.5",
     "@tailwindcss/vite": "4.1.7",
     "@vitejs/plugin-react": "4.5.0",
     "axios": "1.9.0",
