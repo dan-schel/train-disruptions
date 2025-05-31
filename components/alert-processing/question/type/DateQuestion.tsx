@@ -10,10 +10,13 @@ import { DateInput } from "@/components/common/DateInput";
 
 type Q = UseQuestionArgs<Date, Date | null>;
 
-export type DateQuestionProps = QuestionProps<Date> & {
+export type DateQuestionAdditionalProps = {
   label: string;
   validate?: (value: Date) => string | null;
 };
+
+export type DateQuestionProps = QuestionProps<Date> &
+  DateQuestionAdditionalProps;
 
 export function DateQuestion(props: DateQuestionProps) {
   const validate = React.useCallback<Q["validate"]>(

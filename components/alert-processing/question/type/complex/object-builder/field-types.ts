@@ -1,5 +1,11 @@
-export type StringField = { type: "string"; label: string };
-export type DateField = { type: "date"; label: string };
+import { DateQuestionAdditionalProps } from "@/components/alert-processing/question/type/DateQuestion";
+import { StringQuestionAdditionalProps } from "@/components/alert-processing/question/type/StringQuestion";
+
+export type StringField = {
+  type: "string";
+  props: StringQuestionAdditionalProps;
+};
+export type DateField = { type: "date"; props: DateQuestionAdditionalProps };
 export type Field = StringField | DateField;
 
 // prettier-ignore

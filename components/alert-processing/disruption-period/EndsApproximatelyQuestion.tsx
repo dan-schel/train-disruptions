@@ -11,15 +11,15 @@ import { ObjectBuilderQuestion } from "@/components/alert-processing/question/ty
 const config = {
   displayText: {
     type: "string",
-    label: "The disruption ends in...",
+    props: { label: "The disruption ends in..." },
   },
   earliest: {
     type: "date",
-    label: "Earliest interpretable date",
+    props: { label: "Earliest interpretable date" },
   },
   latest: {
     type: "date",
-    label: "Latest interpretable date",
+    props: { label: "Latest interpretable date" },
   },
 } satisfies ConfigBase;
 

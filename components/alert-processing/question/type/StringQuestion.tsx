@@ -10,10 +10,13 @@ import { Input } from "@/components/core/Input";
 
 type Q = UseQuestionArgs<string, string>;
 
-export type StringQuestionProps = QuestionProps<string> & {
+export type StringQuestionAdditionalProps = {
   label: string;
   validate?: (value: string) => string | null;
 };
+
+export type StringQuestionProps = QuestionProps<string> &
+  StringQuestionAdditionalProps;
 
 export function StringQuestion(props: StringQuestionProps) {
   const validate = React.useCallback<Q["validate"]>(
