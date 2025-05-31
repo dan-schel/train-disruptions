@@ -13,7 +13,7 @@ import {
   ConfigBase,
   RawValueOfConfig,
   ValueOfConfig,
-} from "@/components/alert-processing/question/type/simple-object/field-types";
+} from "@/components/alert-processing/question/type/complex/object-builder/field-types";
 import { nonNull } from "@dan-schel/js-utils";
 
 type Q<Config extends ConfigBase> = UseQuestionGroupArgs<
@@ -21,15 +21,15 @@ type Q<Config extends ConfigBase> = UseQuestionGroupArgs<
   RawValueOfConfig<Config>
 >;
 
-export type SimpleObjectQuestionProps<Config extends ConfigBase> = {
+export type ObjectBuilderQuestionProps<Config extends ConfigBase> = {
   config: Config;
   validate: (
     input: ValueOfConfig<Config>,
   ) => { error: string; questionsToInvalidate: (keyof Config)[] } | null;
 } & Q<Config>["props"];
 
-export function SimpleObjectQuestion<Config extends ConfigBase>(
-  props: SimpleObjectQuestionProps<Config>,
+export function ObjectBuilderQuestion<Config extends ConfigBase>(
+  props: ObjectBuilderQuestionProps<Config>,
 ) {
   const setup = React.useCallback<Q<Config>["setup"]>(
     (input) => {

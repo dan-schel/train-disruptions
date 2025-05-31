@@ -1,12 +1,12 @@
 import React from "react";
 import { EndsApproximatelyInput } from "@/shared/types/alert-processing/disruption-period-input";
 import { isAfter } from "date-fns";
-import { SimpleObjectQuestion } from "@/components/alert-processing/question/type/simple-object/SimpleObjectQuestion";
 import {
   ConfigBase,
   ValidateFunction,
-} from "@/components/alert-processing/question/type/simple-object/field-types";
+} from "@/components/alert-processing/question/type/complex/object-builder/field-types";
 import { QuestionProps } from "@/components/alert-processing/question/lib/use-question";
+import { ObjectBuilderQuestion } from "@/components/alert-processing/question/type/complex/object-builder/ObjectBuilderQuestion";
 
 const config = {
   displayText: {
@@ -38,11 +38,6 @@ export function EndsApproximatelyQuestion(
   props: QuestionProps<EndsApproximatelyInput>,
 ) {
   return (
-    <SimpleObjectQuestion
-      config={config}
-      validate={validate}
-      input={props.input}
-      onSubmit={props.onSubmit}
-    />
+    <ObjectBuilderQuestion config={config} validate={validate} {...props} />
   );
 }
