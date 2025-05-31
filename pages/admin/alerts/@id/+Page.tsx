@@ -7,6 +7,7 @@ import { BackNavigation } from "@/components/navigation/BackNavigation";
 import { Data } from "@/pages/admin/alerts/@id/+data";
 import { useData } from "vike-react/useData";
 import { AlertData } from "@/pages/admin/alerts/@id/AlertData";
+import { EndsApproximatelyQuestion } from "@/components/alert-processing/disruption-period/EndsApproximatelyQuestion";
 
 export default function Page() {
   const { alert } = useData<Data>();
@@ -18,6 +19,11 @@ export default function Page() {
         <PagePadding>
           {alert != null ? (
             <Column className="min-w-0 gap-4">
+              {/* TODO: [DS] Temporary! */}
+              <EndsApproximatelyQuestion
+                input={null}
+                onSubmit={(value) => console.log(value)}
+              />
               <Text style="megatitle">Process alert</Text>
               <AlertData data={alert.data} />
             </Column>

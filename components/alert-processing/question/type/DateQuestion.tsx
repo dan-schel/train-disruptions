@@ -1,0 +1,61 @@
+import React from "react";
+import {
+  QuestionProps,
+  useQuestion,
+  UseQuestionArgs,
+} from "@/components/alert-processing/question/lib/use-question";
+import { SubmittedQuestion } from "@/components/alert-processing/question/lib/SubmittedQuestion";
+import { ActiveQuestion } from "@/components/alert-processing/question/lib/ActiveQuestion";
+import { DateInput } from "@/components/common/DateInput";
+
+type Q = UseQuestionArgs<Date, Date | null>;
+
+export type DateQuestionAdditionalProps = {
+  label: string;
+  validate?: (value: Date) => string | null;
+};
+
+export type DateQuestionProps = QuestionProps<Date> &
+  DateQuestionAdditionalProps;
+
+export function DateQuestion(props: DateQuestionProps) {
+  const validate = React.useCallback<Q["validate"]>(
+    (raw) => {
+      if (raw == null) {
+        return { error: "No date entered" };
+      }
+
+      const error = props.validate?.(raw);
+      if (error != null) return { error };
+
+      return { value: raw };
+    },
+    [props],
+  );
+
+  const question = useQuestion({ props, setup, validate });
+
+  return question.isEditorOpen ? (
+    <ActiveQuestion
+      label={props.label}
+      onSubmit={question.handleSubmit}
+      error={question.error}
+      isCancelable={question.isEditMode}
+      onCancel={question.onEditCancelClick}
+    >
+      <DateInput value={question.value} onChange={question.setValue} />
+    </ActiveQuestion>
+  ) : (
+    <SubmittedQuestion
+      label={props.label}
+      // TODO: [DS] Causes a hydration error if the question is already answered
+      // when rendered on the server.
+      value={question.value.toLocaleString()}
+      onEditClick={question.onEditClick}
+    />
+  );
+}
+
+const setup: Q["setup"] = (input) => {
+  return input?.value ?? null;
+};
