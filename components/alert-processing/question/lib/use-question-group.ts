@@ -5,9 +5,6 @@ import {
   QuestionProps,
 } from "@/components/alert-processing/question/lib/use-question";
 
-// I think it's fine to just use error: string, instead of specifying which
-// field is invalid. The error should be shown on ALL fields that are invalid.
-// Submitting the subquestion causes validation to run again anyway.
 export type QuestionGroupValidator<T, Raw> = (
   raw: Raw,
 ) => { value: T } | { raw: Raw; error: string | null };
@@ -20,6 +17,7 @@ export type UseQuestionGroupArgs<T, Raw> = {
 
 export function useQuestionGroup<T, Raw>(args: UseQuestionGroupArgs<T, Raw>) {
   const [raw, setRaw] = React.useState<Raw>(args.setup(args.props.input));
+  const [error, setError] = React.useState<string | null>(null);
 
   function handleSubquestionSubmit(change: (value: Raw) => Raw) {
     const newRaw = change(raw);
@@ -27,9 +25,10 @@ export function useQuestionGroup<T, Raw>(args: UseQuestionGroupArgs<T, Raw>) {
 
     if ("raw" in result) {
       setRaw(result.raw);
-      // TODO [DS]: Use error for the child question that needs it.
+      setError(result.error);
     } else {
       setRaw(newRaw);
+      setError(null);
       args.props.onSubmit(result.value);
     }
   }
@@ -37,5 +36,6 @@ export function useQuestionGroup<T, Raw>(args: UseQuestionGroupArgs<T, Raw>) {
   return {
     value: raw,
     handleSubquestionSubmit,
+    error: error ?? args.props.parentError ?? null,
   };
 }

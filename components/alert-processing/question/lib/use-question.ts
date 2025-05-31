@@ -1,11 +1,11 @@
 import React from "react";
 
-// TODO: [DS] Let's just use undefined. It makes everything so much easier!
 export type QuestionInput<T> = { value: T } | null;
 
 export type QuestionProps<T> = {
   input: QuestionInput<T>;
   onSubmit: (value: T) => void;
+  parentError?: string | null;
 };
 
 export type QuestionValidator<T, Raw> = (
@@ -29,6 +29,7 @@ export function useQuestion<T, Raw>(args: UseQuestionArgs<T, Raw>) {
 
   function onEditCancelClick() {
     setEditMode(false);
+    setError(null);
   }
 
   function handleSubmit() {
@@ -51,7 +52,7 @@ export function useQuestion<T, Raw>(args: UseQuestionArgs<T, Raw>) {
       value: raw,
       setValue: setRaw,
       handleSubmit,
-      error,
+      error: error ?? args.props.parentError ?? null,
     };
   } else {
     return {
@@ -59,6 +60,7 @@ export function useQuestion<T, Raw>(args: UseQuestionArgs<T, Raw>) {
       onEditClick,
 
       value: args.props.input.value,
+      error: args.props.parentError ?? null,
     };
   }
 }

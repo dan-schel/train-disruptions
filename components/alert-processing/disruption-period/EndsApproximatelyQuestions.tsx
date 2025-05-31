@@ -37,13 +37,14 @@ export function EndsApproximatelyQuestion(
         label="The disruption ends in..."
         input={wrapInput(question.value.displayText)}
         onSubmit={update(question.handleSubquestionSubmit, "displayText")}
-        // parentError={question.error ?? props.parentError}
+        parentError={question.error}
       />
       {question.value.displayText != null && (
         <StringQuestion
           label="Some short text"
           input={wrapInput(question.value.earliest)}
           onSubmit={update(question.handleSubquestionSubmit, "earliest")}
+          parentError={question.error}
         />
       )}
       {question.value.earliest != null && (
@@ -51,6 +52,7 @@ export function EndsApproximatelyQuestion(
           label="Some long text"
           input={wrapInput(question.value.latest)}
           onSubmit={update(question.handleSubquestionSubmit, "latest")}
+          parentError={question.error}
           // Enforce that the latest date is after the earliest date.
           // validate={}
         />
