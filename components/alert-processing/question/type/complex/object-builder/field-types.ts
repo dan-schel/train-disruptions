@@ -1,6 +1,10 @@
 import { DateQuestionAdditionalProps } from "@/components/alert-processing/question/type/DateQuestion";
 import { StringQuestionAdditionalProps } from "@/components/alert-processing/question/type/StringQuestion";
 
+// TODO: [DS] I wonder if this could be even more generic, i.e. we just pass
+// which type of Question component to use, i.e. instead of "string" and "date"
+// we use StringQuestion and DateQuestion?
+
 export type StringField = {
   type: "string";
   props: StringQuestionAdditionalProps;
