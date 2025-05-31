@@ -45,6 +45,8 @@ export function DateQuestion(props: DateQuestionProps) {
   ) : (
     <SubmittedQuestion
       label={props.label}
+      // TODO: [DS] Causes a hydration error if the question is already answered
+      // when rendered on the server.
       value={question.value.toLocaleString()}
       onEditClick={question.onEditClick}
     />
