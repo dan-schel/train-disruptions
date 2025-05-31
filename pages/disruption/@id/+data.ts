@@ -7,13 +7,17 @@ import { App } from "@/server/app";
 import { LineCollection } from "@/server/data/line/line-collection";
 import { Line } from "@/server/data/line/line";
 import { parseIntNull } from "@dan-schel/js-utils";
+import { SerializedMapHighlighting } from "@/shared/types/map-data";
+import { MapHighlighting } from "@/server/data/disruption/map-highlighting/map-highlighting";
+import { DISRUPTIONS } from "@/server/database/models/models";
 
 export type Data = {
   disruption: {
     title: string;
     bodyMarkdown: string;
     link: string;
-    calendar: CalendarData;
+    calendar: CalendarData | null;
+    highlighting: SerializedMapHighlighting;
   } | null;
   back: {
     name: string;
@@ -21,21 +25,27 @@ export type Data = {
   };
 };
 
-export function data(pageContext: PageContext): Data & JsonSerializable {
+export async function data(
+  pageContext: PageContext,
+): Promise<Data & JsonSerializable> {
   const { urlParsed, routeParams } = pageContext;
   const app = pageContext.custom.app;
 
   const back = determineBackBehaviour(app, urlParsed);
   const id = routeParams.id;
 
-  const disruption = getDemoDisruptions(app).find((x) => x.id === id);
+  const disruption =
+    (await app.database.of(DISRUPTIONS).get(id)) ??
+    getDemoDisruptions(app).find((x) => x?.id === id);
 
   if (disruption == null) {
     return { disruption: null, back };
   }
 
-  const writeup = disruption.data.getWriteupAuthor().write(app, disruption);
+  const period = disruption.period.toBson();
+  const itNeverEnds = "end" in period ? period.end.type === "never" : false;
 
+  const writeup = disruption.data.getWriteupAuthor().write(app, disruption);
   return {
     disruption: {
       title: writeup.title,
@@ -44,7 +54,12 @@ export function data(pageContext: PageContext): Data & JsonSerializable {
       // TODO: Fetch from the source alerts, presumably?
       link: "https://www.ptv.vic.gov.au/live-travel-updates/",
 
-      calendar: createCalendarData([disruption.period], app.time.now()),
+      calendar: itNeverEnds
+        ? null
+        : createCalendarData([disruption.period], app.time.now()),
+      highlighting: MapHighlighting.serializeGroup([
+        disruption.data.getMapHighlighter().getHighlighting(app),
+      ]),
     },
     back,
   };
@@ -56,7 +71,6 @@ function determineBackBehaviour(
 ) {
   const from = urlParsed.search.from ?? "";
 
-  // TODO: I don't think this is ever used in practice yet.
   if (from.startsWith("line")) {
     const line = tryGetLine(app.lines, from.split("-")[1]);
     if (line != null) {
