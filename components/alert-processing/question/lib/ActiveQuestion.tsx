@@ -7,7 +7,11 @@ import { Row } from "@/components/core/Row";
 import { MingcuteCloseLine } from "@/components/icons/MingcuteCloseLine";
 import { MingcuteCheckLine } from "@/components/icons/MingcuteCheckLine";
 
-export type ActiveQuestionProps = {
+export type ActiveQuestionProps = ActiveQuestionInnardsProps & {
+  wrapInForm?: boolean;
+};
+
+export type ActiveQuestionInnardsProps = {
   label: string;
   children: React.ReactNode;
   error: string | null;
@@ -17,7 +21,25 @@ export type ActiveQuestionProps = {
 };
 
 export function ActiveQuestion(props: ActiveQuestionProps) {
-  // TODO: [DS] Prop to wrap everything in a form to get enter key submission.
+  const { wrapInForm, ...innardsProps } = props;
+
+  if (wrapInForm) {
+    return (
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          props.onSubmit();
+        }}
+      >
+        <ActiveQuestionInnards {...innardsProps} />
+      </form>
+    );
+  } else {
+    return <ActiveQuestionInnards {...innardsProps} />;
+  }
+}
+
+function ActiveQuestionInnards(props: ActiveQuestionInnardsProps) {
   return (
     <Column align="left" className="gap-2">
       <Text>{props.label}</Text>

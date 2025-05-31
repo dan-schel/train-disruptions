@@ -24,6 +24,7 @@ export function StringQuestion(props: StringQuestionProps) {
       error={question.error}
       isCancelable={question.isEditMode}
       onCancel={question.onEditCancelClick}
+      wrapInForm={true}
     >
       <Input value={question.value} onChange={question.setValue} />
     </ActiveQuestion>
