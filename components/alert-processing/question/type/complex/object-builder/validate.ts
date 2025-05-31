@@ -7,15 +7,15 @@ import {
   ValueOfConfig,
 } from "@/components/alert-processing/question/type/complex/object-builder/field-types";
 
-type Validate<Config extends ConfigBase> = QuestionGroupValidator<
-  ValueOfConfig<Config>,
-  RawValueOfConfig<Config>
->;
-
 export function useObjectBuilderValidate<Config extends ConfigBase>(
   validate: ValidateFunction<Config>,
 ) {
-  return React.useCallback<Validate<Config>>(
+  type Type = QuestionGroupValidator<
+    ValueOfConfig<Config>,
+    RawValueOfConfig<Config>
+  >;
+
+  return React.useCallback<Type>(
     (raw) => {
       // If any questions are unanswered (fields are null), do nothing.
       if (Object.values(raw).some((value) => value == null)) {
