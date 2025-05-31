@@ -1,13 +1,14 @@
 import React from "react";
 import {
-  QuestionInput,
   QuestionProps,
-  QuestionValidator,
   useQuestion,
+  UseQuestionArgs,
 } from "@/components/alert-processing/question/lib/use-question";
 import { SubmittedQuestion } from "@/components/alert-processing/question/lib/SubmittedQuestion";
 import { ActiveQuestion } from "@/components/alert-processing/question/lib/ActiveQuestion";
 import { Input } from "@/components/core/Input";
+
+type Q = UseQuestionArgs<string, string>;
 
 export type StringQuestionProps = QuestionProps<string> & {
   label: string;
@@ -15,7 +16,16 @@ export type StringQuestionProps = QuestionProps<string> & {
 };
 
 export function StringQuestion(props: StringQuestionProps) {
-  const question = useQuestion({ props, setup, validate: validator(props) });
+  const validate = React.useCallback<Q["validate"]>(
+    (raw) => {
+      const error = props.validate?.(raw);
+      if (error != null) return { error };
+      return { value: raw };
+    },
+    [props],
+  );
+
+  const question = useQuestion({ props, setup, validate });
 
   return question.isEditorOpen ? (
     <ActiveQuestion
@@ -37,16 +47,6 @@ export function StringQuestion(props: StringQuestionProps) {
   );
 }
 
-function setup(input: QuestionInput<string>) {
+const setup: Q["setup"] = (input) => {
   return input?.value ?? "";
-}
-
-function validator(
-  props: StringQuestionProps,
-): QuestionValidator<string, string> {
-  return (raw) => {
-    const error = props.validate?.(raw);
-    if (error != null) return { error };
-    return { value: raw };
-  };
-}
+};

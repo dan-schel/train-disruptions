@@ -8,13 +8,15 @@ export type QuestionProps<T> = {
   parentError?: string | null;
 };
 
+export type QuestionSetup<T, Raw> = (input: QuestionInput<T>) => Raw;
+
 export type QuestionValidator<T, Raw> = (
   raw: Raw,
 ) => { value: T } | { error: string };
 
 export type UseQuestionArgs<T, Raw> = {
   props: QuestionProps<T>;
-  setup: (state: QuestionInput<T>) => Raw;
+  setup: QuestionSetup<T, Raw>;
   validate: QuestionValidator<T, Raw>;
 };
 

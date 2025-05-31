@@ -1,10 +1,9 @@
 import React from "react";
 import { StringQuestion } from "@/components/alert-processing/question/type/StringQuestion";
-import { useQuestionGroup } from "@/components/alert-processing/question/lib/use-question-group";
 import {
-  QuestionInput,
-  QuestionProps,
-} from "@/components/alert-processing/question/lib/use-question";
+  useQuestionGroup,
+  UseQuestionGroupArgs,
+} from "@/components/alert-processing/question/lib/use-question-group";
 import {
   update,
   wrapInput,
@@ -13,14 +12,16 @@ import { EndsApproximatelyInput } from "@/shared/types/alert-processing/disrupti
 import { isAfter } from "date-fns";
 import { DateQuestion } from "@/components/alert-processing/question/type/DateQuestion";
 
-type RawType = {
-  displayText: string | null;
-  earliest: Date | null;
-  latest: Date | null;
-};
+type Q = UseQuestionGroupArgs<
+  EndsApproximatelyInput,
+  {
+    displayText: string | null;
+    earliest: Date | null;
+    latest: Date | null;
+  }
+>;
 
-export type EndsApproximatelyQuestionProps =
-  QuestionProps<EndsApproximatelyInput>;
+export type EndsApproximatelyQuestionProps = Q["props"];
 
 export function EndsApproximatelyQuestion(
   props: EndsApproximatelyQuestionProps,
@@ -55,15 +56,15 @@ export function EndsApproximatelyQuestion(
   );
 }
 
-function setup(input: QuestionInput<EndsApproximatelyInput>) {
+const setup: Q["setup"] = (input) => {
   return {
     displayText: input?.value.displayText ?? null,
     earliest: input?.value.earliest ?? null,
     latest: input?.value.latest ?? null,
   };
-}
+};
 
-function validate({ displayText, earliest, latest }: RawType) {
+const validate: Q["validate"] = ({ displayText, earliest, latest }) => {
   if (displayText == null || earliest == null || latest == null) {
     return { raw: { displayText, earliest, latest }, error: null };
   }
@@ -75,5 +76,7 @@ function validate({ displayText, earliest, latest }: RawType) {
     };
   }
 
-  return { value: { displayText, earliest, latest } };
-}
+  return {
+    value: { displayText, earliest, latest },
+  };
+};

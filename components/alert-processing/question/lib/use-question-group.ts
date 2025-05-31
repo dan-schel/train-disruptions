@@ -1,8 +1,8 @@
 import React from "react";
 
 import {
-  QuestionInput,
   QuestionProps,
+  QuestionSetup,
 } from "@/components/alert-processing/question/lib/use-question";
 
 export type QuestionGroupValidator<T, Raw> = (
@@ -11,7 +11,7 @@ export type QuestionGroupValidator<T, Raw> = (
 
 export type UseQuestionGroupArgs<T, Raw> = {
   props: QuestionProps<T>;
-  setup: (state: QuestionInput<T>) => Raw;
+  setup: QuestionSetup<T, Raw>;
   validate: QuestionGroupValidator<T, Raw>;
 };
 

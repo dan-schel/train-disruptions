@@ -1,13 +1,14 @@
 import React from "react";
 import {
-  QuestionInput,
   QuestionProps,
-  QuestionValidator,
   useQuestion,
+  UseQuestionArgs,
 } from "@/components/alert-processing/question/lib/use-question";
 import { SubmittedQuestion } from "@/components/alert-processing/question/lib/SubmittedQuestion";
 import { ActiveQuestion } from "@/components/alert-processing/question/lib/ActiveQuestion";
 import { DateInput } from "@/components/common/DateInput";
+
+type Q = UseQuestionArgs<Date, Date | null>;
 
 export type DateQuestionProps = QuestionProps<Date> & {
   label: string;
@@ -15,7 +16,21 @@ export type DateQuestionProps = QuestionProps<Date> & {
 };
 
 export function DateQuestion(props: DateQuestionProps) {
-  const question = useQuestion({ props, setup, validate: validator(props) });
+  const validate = React.useCallback<Q["validate"]>(
+    (raw) => {
+      if (raw == null) {
+        return { error: "No date entered" };
+      }
+
+      const error = props.validate?.(raw);
+      if (error != null) return { error };
+
+      return { value: raw };
+    },
+    [props],
+  );
+
+  const question = useQuestion({ props, setup, validate });
 
   return question.isEditorOpen ? (
     <ActiveQuestion
@@ -36,21 +51,6 @@ export function DateQuestion(props: DateQuestionProps) {
   );
 }
 
-function setup(input: QuestionInput<Date>) {
+const setup: Q["setup"] = (input) => {
   return input?.value ?? null;
-}
-
-function validator(
-  props: DateQuestionProps,
-): QuestionValidator<Date, Date | null> {
-  return (raw) => {
-    if (raw == null) {
-      return { error: "No date entered" };
-    }
-
-    const error = props.validate?.(raw);
-    if (error != null) return { error };
-
-    return { value: raw };
-  };
-}
+};
