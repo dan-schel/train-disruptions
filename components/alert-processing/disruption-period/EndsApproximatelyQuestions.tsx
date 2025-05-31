@@ -9,22 +9,18 @@ import {
   update,
   wrapInput,
 } from "@/components/alert-processing/question/lib/question-group-helpers";
-
-// TODO: [DS] Remove this and use EndsApproximatelyInput, and switch the raw
-// type to use dates for earliest/latest.
-type BakedType = {
-  displayText: string;
-  earliest: string;
-  latest: string;
-};
+import { EndsApproximatelyInput } from "@/shared/types/alert-processing/disruption-period-input";
+import { isAfter } from "date-fns";
+import { DateQuestion } from "@/components/alert-processing/question/type/DateQuestion";
 
 type RawType = {
   displayText: string | null;
-  earliest: string | null;
-  latest: string | null;
+  earliest: Date | null;
+  latest: Date | null;
 };
 
-export type EndsApproximatelyQuestionProps = QuestionProps<BakedType>;
+export type EndsApproximatelyQuestionProps =
+  QuestionProps<EndsApproximatelyInput>;
 
 export function EndsApproximatelyQuestion(
   props: EndsApproximatelyQuestionProps,
@@ -40,28 +36,26 @@ export function EndsApproximatelyQuestion(
         parentError={question.error}
       />
       {question.value.displayText != null && (
-        <StringQuestion
-          label="Some short text"
+        <DateQuestion
+          label="Earliest interpretable date"
           input={wrapInput(question.value.earliest)}
           onSubmit={update(question.handleSubquestionSubmit, "earliest")}
           parentError={question.error}
         />
       )}
       {question.value.earliest != null && (
-        <StringQuestion
-          label="Some long text"
+        <DateQuestion
+          label="Latest interpretable date"
           input={wrapInput(question.value.latest)}
           onSubmit={update(question.handleSubquestionSubmit, "latest")}
           parentError={question.error}
-          // Enforce that the latest date is after the earliest date.
-          // validate={}
         />
       )}
     </>
   );
 }
 
-function setup(input: QuestionInput<BakedType>) {
+function setup(input: QuestionInput<EndsApproximatelyInput>) {
   return {
     displayText: input?.value.displayText ?? null,
     earliest: input?.value.earliest ?? null,
@@ -74,10 +68,10 @@ function validate({ displayText, earliest, latest }: RawType) {
     return { raw: { displayText, earliest, latest }, error: null };
   }
 
-  if (latest.length <= earliest.length) {
+  if (!isAfter(latest, earliest)) {
     return {
       raw: { displayText, earliest, latest: null },
-      error: "Latest string must be longer than the earliest string",
+      error: "Must be later than the earliest interpretable date",
     };
   }
 

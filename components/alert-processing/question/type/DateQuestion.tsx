@@ -30,7 +30,7 @@ export function DateQuestion(props: DateQuestionProps) {
   ) : (
     <SubmittedQuestion
       label={props.label}
-      value={question.value.toISOString()}
+      value={question.value.toLocaleString()}
       onEditClick={question.onEditClick}
     />
   );
