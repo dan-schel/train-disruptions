@@ -1,45 +1,38 @@
 import React from "react";
-import { StringQuestion } from "@/components/alert-processing/question/type/StringQuestion";
-import { DateQuestion } from "@/components/alert-processing/question/type/DateQuestion";
-import {
-  ConfigBase,
-  Field,
-  RawValueOfConfig,
-  ValueOfConfig,
-} from "@/components/alert-processing/question/type/complex/object-builder/field-types";
-import {
-  update,
-  wrapInput,
-} from "@/components/alert-processing/question/lib/question-group-helpers";
+import { update } from "@/components/alert-processing/question/lib/question-group-helpers";
 import { useQuestionGroup } from "@/components/alert-processing/question/lib/use-question-group";
+import {
+  AnyConfigType,
+  ObjectValue,
+  RawObjectValue,
+} from "@/components/alert-processing/question/type/complex/object-builder/types";
 
-type Question<Config extends ConfigBase> = ReturnType<
-  typeof useQuestionGroup<ValueOfConfig<Config>, RawValueOfConfig<Config>>
+type Question<Config extends AnyConfigType> = ReturnType<
+  typeof useQuestionGroup<ObjectValue<Config>, RawObjectValue<Config>>
 >;
 
-export type SubquestionProps<Config extends ConfigBase> = {
+export type SubquestionProps<Config extends AnyConfigType> = {
   fieldKey: string;
-  field: Field;
+  field: Config[string];
   question: Question<Config>;
 };
 
-export function Subquestion<Config extends ConfigBase>({
+export function Subquestion<Config extends AnyConfigType>({
   fieldKey,
   field,
   question,
 }: SubquestionProps<Config>) {
-  const Element = {
-    string: StringQuestion,
-    date: DateQuestion,
-  }[field.type];
+  const Element = field.type;
+  const input = question.value[fieldKey];
+  const props = field.props;
 
   /* eslint-disable @typescript-eslint/no-explicit-any */
   return (
     <Element
-      input={wrapInput(question.value[fieldKey]) as any}
+      input={input as any}
       onSubmit={update(question.handleSubquestionSubmit, fieldKey) as any}
       parentError={question.error}
-      {...(field.props as any)}
+      props={props as any}
     />
   );
   /* eslint-enable @typescript-eslint/no-explicit-any */

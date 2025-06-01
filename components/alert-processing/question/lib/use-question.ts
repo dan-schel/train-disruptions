@@ -1,27 +1,37 @@
+import { Maybe } from "@/shared/types/maybe";
 import React from "react";
 
-export type QuestionInput<T> = { value: T } | null;
+// TODO: [DS] Instead of T and Raw, we could say Output and State.
 
-export type QuestionProps<T> = {
-  input: QuestionInput<T>;
-  onSubmit: (value: T) => void;
+type Submit<T> = (value: T) => void;
+
+export type QuestionProps<T, Extra> = {
+  input: Maybe<T>;
+  onSubmit: Submit<T>;
+  parentError?: string | null;
+  props: Extra;
+};
+
+export type PartialQuestionProps<T> = {
+  input: Maybe<T>;
+  onSubmit: Submit<T>;
   parentError?: string | null;
 };
 
-export type QuestionSetup<T, Raw> = (input: QuestionInput<T>) => Raw;
+export type QuestionSetup<T, State> = (input: Maybe<T>) => State;
 
-export type QuestionValidator<T, Raw> = (
-  raw: Raw,
+export type QuestionValidator<T, State> = (
+  raw: State,
 ) => { value: T } | { error: string };
 
-export type UseQuestionArgs<T, Raw> = {
-  props: QuestionProps<T>;
-  setup: QuestionSetup<T, Raw>;
-  validate: QuestionValidator<T, Raw>;
+export type UseQuestionArgs<T, State> = {
+  props: PartialQuestionProps<T>;
+  setup: QuestionSetup<T, State>;
+  validate: QuestionValidator<T, State>;
 };
 
-export function useQuestion<T, Raw>(args: UseQuestionArgs<T, Raw>) {
-  const [raw, setRaw] = React.useState<Raw>(args.setup(args.props.input));
+export function useQuestion<T, State>(args: UseQuestionArgs<T, State>) {
+  const [state, setState] = React.useState<State>(args.setup(args.props.input));
   const [isEditMode, setEditMode] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
 
@@ -35,7 +45,7 @@ export function useQuestion<T, Raw>(args: UseQuestionArgs<T, Raw>) {
   }
 
   function handleSubmit() {
-    const result = args.validate(raw);
+    const result = args.validate(state);
     if ("error" in result) {
       setError(result.error);
     } else {
@@ -51,8 +61,8 @@ export function useQuestion<T, Raw>(args: UseQuestionArgs<T, Raw>) {
       isEditMode,
       onEditCancelClick,
 
-      value: raw,
-      setValue: setRaw,
+      value: state,
+      setValue: setState,
       handleSubmit,
       error: error ?? args.props.parentError ?? null,
     };

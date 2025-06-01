@@ -1,7 +1,7 @@
 import React from "react";
 
 import {
-  QuestionProps,
+  PartialQuestionProps,
   QuestionSetup,
 } from "@/components/alert-processing/question/lib/use-question";
 
@@ -10,7 +10,7 @@ export type QuestionGroupValidator<T, Raw> = (
 ) => { value: T } | { raw: Raw; error: string | null };
 
 export type UseQuestionGroupArgs<T, Raw> = {
-  props: QuestionProps<T>;
+  props: PartialQuestionProps<T>;
   setup: QuestionSetup<T, Raw>;
   validate: QuestionGroupValidator<T, Raw>;
 };

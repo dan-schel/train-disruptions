@@ -1,6 +1,6 @@
-import { QuestionInput } from "@/components/alert-processing/question/lib/use-question";
+import { Maybe } from "@/shared/types/maybe";
 
-export function wrapInput<T>(input: T | null): QuestionInput<T> {
+export function wrapInput<T>(input: T | null): Maybe<T> {
   return input == null ? null : { value: input };
 }
 

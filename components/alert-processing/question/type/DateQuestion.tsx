@@ -15,8 +15,10 @@ export type DateQuestionAdditionalProps = {
   validate?: (value: Date) => string | null;
 };
 
-export type DateQuestionProps = QuestionProps<Date> &
-  DateQuestionAdditionalProps;
+export type DateQuestionProps = QuestionProps<
+  Date,
+  DateQuestionAdditionalProps
+>;
 
 export function DateQuestion(props: DateQuestionProps) {
   const validate = React.useCallback<Q["validate"]>(
@@ -25,7 +27,7 @@ export function DateQuestion(props: DateQuestionProps) {
         return { error: "No date entered" };
       }
 
-      const error = props.validate?.(raw);
+      const error = props.props.validate?.(raw);
       if (error != null) return { error };
 
       return { value: raw };
@@ -37,7 +39,7 @@ export function DateQuestion(props: DateQuestionProps) {
 
   return question.isEditorOpen ? (
     <ActiveQuestion
-      label={props.label}
+      label={props.props.label}
       onSubmit={question.handleSubmit}
       error={question.error}
       isCancelable={question.isEditMode}
@@ -47,7 +49,7 @@ export function DateQuestion(props: DateQuestionProps) {
     </ActiveQuestion>
   ) : (
     <SubmittedQuestion
-      label={props.label}
+      label={props.props.label}
       // TODO: [DS] Causes a hydration error if the question is already answered
       // when rendered on the server.
       value={question.value.toLocaleString()}

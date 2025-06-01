@@ -1,18 +1,18 @@
 import React from "react";
 import { QuestionGroupValidator } from "@/components/alert-processing/question/lib/use-question-group";
 import {
-  ConfigBase,
-  RawValueOfConfig,
+  AnyConfigType,
+  ObjectValue,
+  RawObjectValue,
   ValidateFunction,
-  ValueOfConfig,
-} from "@/components/alert-processing/question/type/complex/object-builder/field-types";
+} from "@/components/alert-processing/question/type/complex/object-builder/types";
 
-export function useObjectBuilderValidate<Config extends ConfigBase>(
+export function useObjectBuilderValidate<Config extends AnyConfigType>(
   validate: ValidateFunction<Config>,
 ) {
   type Type = QuestionGroupValidator<
-    ValueOfConfig<Config>,
-    RawValueOfConfig<Config>
+    ObjectValue<Config>,
+    RawObjectValue<Config>
   >;
 
   return React.useCallback<Type>(
@@ -27,7 +27,11 @@ export function useObjectBuilderValidate<Config extends ConfigBase>(
 
       // Once all questions are answered, call the validate function passed as
       // props.
-      const error = validate(raw as ValueOfConfig<Config>);
+      const processed: ObjectValue<Config> = Object.fromEntries(
+        Object.entries(raw).map(([key, value]) => [key, value.value]),
+      ) as ObjectValue<Config>;
+
+      const error = validate(processed);
 
       if (error != null) {
         // If the validation fails, clear any requested fields so they can be
@@ -38,14 +42,14 @@ export function useObjectBuilderValidate<Config extends ConfigBase>(
         }
 
         return {
-          raw: newRaw as RawValueOfConfig<Config>,
+          raw: newRaw,
           error: error.error,
         };
       }
 
       // Otherwise if everything's good, declare the value as processed!
       return {
-        value: raw as ValueOfConfig<Config>,
+        value: processed,
       };
     },
     [validate],

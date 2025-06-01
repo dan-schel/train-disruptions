@@ -1,27 +1,29 @@
 import React from "react";
 import { EndsApproximatelyInput } from "@/shared/types/alert-processing/disruption-period-input";
 import { isAfter } from "date-fns";
-import {
-  ConfigBase,
-  ValidateFunction,
-} from "@/components/alert-processing/question/type/complex/object-builder/field-types";
 import { QuestionProps } from "@/components/alert-processing/question/lib/use-question";
 import { ObjectBuilderQuestion } from "@/components/alert-processing/question/type/complex/object-builder/ObjectBuilderQuestion";
+import {
+  AnyConfigType,
+  ValidateFunction,
+} from "@/components/alert-processing/question/type/complex/object-builder/types";
+import { StringQuestion } from "@/components/alert-processing/question/type/StringQuestion";
+import { DateQuestion } from "@/components/alert-processing/question/type/DateQuestion";
 
 const config = {
   displayText: {
-    type: "string",
+    type: StringQuestion,
     props: { label: "The disruption ends in..." },
   },
   earliest: {
-    type: "date",
+    type: DateQuestion,
     props: { label: "Earliest interpretable date" },
   },
   latest: {
-    type: "date",
+    type: DateQuestion,
     props: { label: "Latest interpretable date" },
   },
-} satisfies ConfigBase;
+} satisfies AnyConfigType;
 
 const validate: ValidateFunction<typeof config> = (input) => {
   if (!isAfter(input.latest, input.earliest)) {
@@ -35,9 +37,12 @@ const validate: ValidateFunction<typeof config> = (input) => {
 };
 
 export function EndsApproximatelyQuestion(
-  props: QuestionProps<EndsApproximatelyInput>,
+  props: QuestionProps<EndsApproximatelyInput, null>,
 ) {
   return (
-    <ObjectBuilderQuestion config={config} validate={validate} {...props} />
+    <ObjectBuilderQuestion<typeof config>
+      {...props}
+      props={{ config, validate }}
+    />
   );
 }

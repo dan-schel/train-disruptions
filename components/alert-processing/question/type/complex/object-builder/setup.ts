@@ -1,15 +1,15 @@
 import React from "react";
 import { QuestionSetup } from "@/components/alert-processing/question/lib/use-question";
 import {
-  ConfigBase,
-  RawValueOfConfig,
-  ValueOfConfig,
-} from "@/components/alert-processing/question/type/complex/object-builder/field-types";
+  AnyConfigType,
+  ObjectValue,
+  RawObjectValue,
+} from "@/components/alert-processing/question/type/complex/object-builder/types";
 
-export function useObjectBuilderSetup<Config extends ConfigBase>(
+export function useObjectBuilderSetup<Config extends AnyConfigType>(
   config: Config,
 ) {
-  type Type = QuestionSetup<ValueOfConfig<Config>, RawValueOfConfig<Config>>;
+  type Type = QuestionSetup<ObjectValue<Config>, RawObjectValue<Config>>;
 
   return React.useCallback<Type>(
     (input) => {
@@ -17,12 +17,16 @@ export function useObjectBuilderSetup<Config extends ConfigBase>(
       // the raw value follows the same shape, it just allows nulls for each
       // field).
       if (input != null) {
-        return input.value;
+        const entries = Object.entries(input).map(([key, value]) => [
+          key,
+          { value: value },
+        ]);
+        return Object.fromEntries(entries) as RawObjectValue<Config>;
       }
 
       // Otherwise, construct an object with null for each field in the config.
       const entries = Object.keys(config).map((key) => [key, null]);
-      return Object.fromEntries(entries) as RawValueOfConfig<Config>;
+      return Object.fromEntries(entries) as RawObjectValue<Config>;
     },
     [config],
   );

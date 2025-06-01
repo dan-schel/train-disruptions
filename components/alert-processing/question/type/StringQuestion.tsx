@@ -15,13 +15,15 @@ export type StringQuestionAdditionalProps = {
   validate?: (value: string) => string | null;
 };
 
-export type StringQuestionProps = QuestionProps<string> &
-  StringQuestionAdditionalProps;
+export type StringQuestionProps = QuestionProps<
+  string,
+  StringQuestionAdditionalProps
+>;
 
 export function StringQuestion(props: StringQuestionProps) {
   const validate = React.useCallback<Q["validate"]>(
     (raw) => {
-      const error = props.validate?.(raw);
+      const error = props.props.validate?.(raw);
       if (error != null) return { error };
       return { value: raw };
     },
@@ -32,7 +34,7 @@ export function StringQuestion(props: StringQuestionProps) {
 
   return question.isEditorOpen ? (
     <ActiveQuestion
-      label={props.label}
+      label={props.props.label}
       onSubmit={question.handleSubmit}
       error={question.error}
       isCancelable={question.isEditMode}
@@ -43,7 +45,7 @@ export function StringQuestion(props: StringQuestionProps) {
     </ActiveQuestion>
   ) : (
     <SubmittedQuestion
-      label={props.label}
+      label={props.props.label}
       value={question.value}
       onEditClick={question.onEditClick}
     />
