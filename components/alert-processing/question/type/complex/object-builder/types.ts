@@ -11,11 +11,11 @@ export type Field<T, Extra> = {
   props: Extra;
 };
 
-export type KnownFieldTypes =
+export type AnyField =
   | Field<string, StringQuestionAdditionalProps>
   | Field<Date, DateQuestionAdditionalProps>;
 
-export type AnyConfigType = { [key: string]: KnownFieldTypes };
+export type AnyConfigType = { [key: string]: AnyField };
 
 type FieldValue<T extends Field<any, any>> =
   T extends Field<infer V, any> ? V : never;
