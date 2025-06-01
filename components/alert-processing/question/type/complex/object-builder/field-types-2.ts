@@ -49,11 +49,6 @@ const StringQuestion: StringQuestionComponent = ({ props }) => props.label;
 type BooleanQuestionComponent = QuestionComponent<boolean, { format: "true-false" | "yes-no" }>;
 const BooleanQuestion: BooleanQuestionComponent = ({ props }) => props.format;
 
-// prettier-ignore
-type ComplexQuestionComponent<T extends AnyConfigType> = QuestionComponent<ObjectValue<T>, { config: T }>;
-// prettier-ignore
-const ComplexQuestion: ComplexQuestionComponent<T> = <T>({ props }) => props.format; // Not sure how this could ever work... but also not sure it needs to!
-
 const config = {
   firstName: {
     type: StringQuestion,
