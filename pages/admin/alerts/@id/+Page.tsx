@@ -23,6 +23,7 @@ export default function Page() {
               <EndsApproximatelyQuestion
                 input={null}
                 onSubmit={(value) => console.log(value)}
+                props={null}
               />
               <Text style="megatitle">Process alert</Text>
               <AlertData data={alert.data} />

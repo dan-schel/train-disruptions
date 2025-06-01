@@ -11,7 +11,7 @@ export function update<Raw extends object, Key extends keyof Raw>(
   return (raw: Raw[Key]) => {
     handleSubquestionSubmit((existingValue) => ({
       ...existingValue,
-      [key]: raw,
+      [key]: { value: raw },
     }));
   };
 }
