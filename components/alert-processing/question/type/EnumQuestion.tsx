@@ -10,7 +10,6 @@ import { Text } from "@/components/core/Text";
 import { RadioButton } from "@/components/common/RadioButton";
 import { uuid } from "@dan-schel/js-utils";
 import { Column } from "@/components/core/Column";
-import { Spacer } from "@/components/core/Spacer";
 
 type Q<T extends string> = UseQuestionArgs<T, T | null>;
 
