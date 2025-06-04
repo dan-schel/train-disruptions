@@ -7,8 +7,8 @@ import {
   AnyConfigType,
   ValidateFunction,
 } from "@/components/alert-processing/question/type/complex/object-builder/types";
-import { StringQuestion } from "@/components/alert-processing/question/type/StringQuestion";
 import { DateQuestion } from "@/components/alert-processing/question/type/DateQuestion";
+import { StringQuestion } from "@/components/alert-processing/question/type/StringQuestion";
 
 const config = {
   displayText: {
