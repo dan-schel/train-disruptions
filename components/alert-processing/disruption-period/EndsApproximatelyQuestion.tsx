@@ -7,22 +7,18 @@ import {
   AnyConfigType,
   ValidateFunction,
 } from "@/components/alert-processing/question/type/complex/object-builder/types";
-import { DateQuestion } from "@/components/alert-processing/question/type/DateQuestion";
-import { StringQuestion } from "@/components/alert-processing/question/type/StringQuestion";
+import { q } from "@/components/alert-processing/question/type/complex/object-builder/field-builders";
 
 const config = {
-  displayText: {
-    type: StringQuestion,
-    props: { label: "The disruption ends in..." },
-  },
-  earliest: {
-    type: DateQuestion,
-    props: { label: "Earliest interpretable date" },
-  },
-  latest: {
-    type: DateQuestion,
-    props: { label: "Latest interpretable date" },
-  },
+  displayText: q.string({
+    label: "The disruption ends in...",
+  }),
+  earliest: q.date({
+    label: "Earliest interpretable date",
+  }),
+  latest: q.date({
+    label: "Latest interpretable date",
+  }),
 } satisfies AnyConfigType;
 
 const validate: ValidateFunction<typeof config> = (input) => {

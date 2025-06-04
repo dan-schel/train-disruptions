@@ -6,15 +6,16 @@ import {
   ObjectValue,
   ValidateFunction,
 } from "@/components/alert-processing/question/type/complex/object-builder/types";
-import { EnumQuestion } from "@/components/alert-processing/question/type/EnumQuestion";
-
-const options = ["option-1", "option-2", "option-3"] as const;
+import { q } from "@/components/alert-processing/question/type/complex/object-builder/field-builders";
 
 const config = {
-  mode: {
-    type: EnumQuestion<(typeof options)[number]>,
-    props: { label: "Some enum question", values: options },
-  },
+  mode: q.enum({
+    label: "Some enum question",
+
+    // TODO: [DS] Would be cool if the `as const` wasn't needed. Zod seems to
+    // work without it for z.enum().
+    values: ["option-1", "option-2", "option-3"] as const,
+  }),
 } satisfies AnyConfigType;
 
 const validate: ValidateFunction<typeof config> = () => {
