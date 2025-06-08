@@ -10,15 +10,7 @@ import { createTestApp } from "@/tests/server/utils";
 import { describe, expect, it } from "vitest";
 import { SampleAlerts } from "@/tests/server/parser/sample-alerts";
 import { BELGRAVE, LILYDALE, SUNBURY, WERRIBEE } from "@/shared/line-ids";
-import {
-  BELGRAVE as BELGRAVE_STATION,
-  BLACKBURN,
-  LILYDALE as LILYDALE_STATION,
-  NEWPORT,
-  NORTH_MELBOURNE,
-  SUNSHINE,
-  WERRIBEE as WERRIBEE_STATION,
-} from "@/shared/station-ids";
+import * as station from "@/shared/station-ids";
 import { utcToLocalTime } from "@/server/data/disruption/period/utils/utils";
 
 describe("Bus Replacement Auto Parser", () => {
@@ -26,6 +18,7 @@ describe("Bus Replacement Auto Parser", () => {
     AlertStandardToAfterLastService,
     AlertStandardToExactly,
     AlertEveningsOnlyToAfterLastService,
+    AlertNameCollision,
   } = SampleAlerts.BusReplacements;
 
   it("parses alert to a disruption with a standard period that ends after the last service", () => {
@@ -38,7 +31,7 @@ describe("Bus Replacement Auto Parser", () => {
     expect(disruption).toHaveProperty(
       "data",
       new BusReplacementsDisruptionData([
-        new LineSection(SUNBURY, NORTH_MELBOURNE, SUNSHINE),
+        new LineSection(SUNBURY, station.NORTH_MELBOURNE, station.SUNSHINE),
       ]),
     );
     expect(disruption).toHaveProperty("sourceAlertIds", [
@@ -68,7 +61,7 @@ describe("Bus Replacement Auto Parser", () => {
     expect(disruption).toHaveProperty(
       "data",
       new BusReplacementsDisruptionData([
-        new LineSection(WERRIBEE, NEWPORT, WERRIBEE_STATION),
+        new LineSection(WERRIBEE, station.NEWPORT, station.WERRIBEE),
       ]),
     );
     expect(disruption).toHaveProperty("sourceAlertIds", [
@@ -97,8 +90,8 @@ describe("Bus Replacement Auto Parser", () => {
     expect(disruption).toHaveProperty(
       "data",
       new BusReplacementsDisruptionData([
-        new LineSection(BELGRAVE, BLACKBURN, BELGRAVE_STATION),
-        new LineSection(LILYDALE, BLACKBURN, LILYDALE_STATION),
+        new LineSection(BELGRAVE, station.BLACKBURN, station.BELGRAVE),
+        new LineSection(LILYDALE, station.BLACKBURN, station.LILYDALE),
       ]),
     );
     expect(disruption).toHaveProperty("sourceAlertIds", [
@@ -119,6 +112,40 @@ describe("Bus Replacement Auto Parser", () => {
         utcToLocalTime(
           AlertEveningsOnlyToAfterLastService.data.startsAt!,
         ).getMinutes(),
+      ),
+    );
+    expect(disruption).toHaveProperty("curation", "automatic");
+  });
+
+  it("selects the correct stations", () => {
+    const { app } = createTestApp();
+    const parser = new BusReplacementsParserRule();
+
+    const disruption = parser.parseAlert(AlertNameCollision, app);
+
+    expect(disruption).not.toBeNull();
+    expect(disruption).toHaveProperty(
+      "data",
+      new BusReplacementsDisruptionData([
+        new LineSection(
+          SUNBURY,
+          station.MIDDLE_FOOTSCRAY,
+          station.WEST_FOOTSCRAY,
+        ),
+      ]),
+    );
+    expect(disruption).toHaveProperty("sourceAlertIds", [
+      AlertNameCollision.id,
+    ]);
+    expect(disruption).toHaveProperty(
+      "period",
+      new EveningsOnlyDisruptionPeriod(
+        AlertNameCollision.data.startsAt,
+        new EndsAfterLastService(
+          JustDate.extractFromDate(AlertNameCollision.data.endsAt!),
+        ),
+        utcToLocalTime(AlertNameCollision.data.startsAt!).getHours(),
+        utcToLocalTime(AlertNameCollision.data.startsAt!).getMinutes(),
       ),
     );
     expect(disruption).toHaveProperty("curation", "automatic");
