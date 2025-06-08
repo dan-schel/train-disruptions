@@ -11,17 +11,19 @@ import { JOLIMONT, NORTH_MELBOURNE, RICHMOND } from "@/shared/station-ids";
 import * as mapNode from "@/shared/map-node-ids";
 
 // Maps each line with the last station traversed before entering the city loop
-const LineSectionMapping: Readonly<Record<number, number[]>> = {
-  [RICHMOND]: [
-    line.ALAMEIN,
-    line.BELGRAVE,
-    line.CRANBOURNE,
-    line.GLEN_WAVERLEY,
-    line.LILYDALE,
-    line.PAKENHAM,
-  ],
-  [JOLIMONT]: [line.HURSTBRIDGE, line.MERNDA],
-  [NORTH_MELBOURNE]: [line.CRAIGIEBURN, line.SUNBURY, line.UPFIELD],
+// TODO: Remove Cranbourne, Pakenham, and Sunbury when Metro Tunnel is operating
+const LineJunctionMapping: Readonly<Record<number, number>> = {
+  [line.ALAMEIN]: RICHMOND,
+  [line.BELGRAVE]: RICHMOND,
+  [line.GLEN_WAVERLEY]: RICHMOND,
+  [line.LILYDALE]: RICHMOND,
+  [line.HURSTBRIDGE]: JOLIMONT,
+  [line.MERNDA]: JOLIMONT,
+  [line.CRANBOURNE]: RICHMOND,
+  [line.PAKENHAM]: RICHMOND,
+  [line.CRAIGIEBURN]: NORTH_MELBOURNE,
+  [line.SUNBURY]: NORTH_MELBOURNE,
+  [line.UPFIELD]: NORTH_MELBOURNE,
 };
 
 // Map nodes to remove from map segements
@@ -42,15 +44,12 @@ export class NoCityLoopMapHighlighter extends MapHighlighter {
     const lines = this._lineIds
       .map((x) => {
         const line = app.lines.get(x);
-        const sectionStation = Object.keys(LineSectionMapping).find((station) =>
-          LineSectionMapping[parseInt(station)].includes(x),
-        );
-
-        if (!line || !sectionStation) return null;
+        const junctionStation = LineJunctionMapping[x];
+        if (!line || !junctionStation) return null;
 
         return {
           line,
-          section: new LineSection(x, "the-city", parseInt(sectionStation)),
+          section: new LineSection(x, "the-city", junctionStation),
         };
       })
       .filter(nonNull);

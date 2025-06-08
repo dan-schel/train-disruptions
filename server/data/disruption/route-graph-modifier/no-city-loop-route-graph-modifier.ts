@@ -4,23 +4,11 @@ import { RouteGraph } from "@/server/data/route-graph/route-graph";
 // import * as line from "@/shared/line-ids";
 // import * as station from "@/shared/station-ids";
 
-// type LoopLine = "BURNLEY" | "CLIFTON_HILL" | "DANDENONG" | "NORTHERN";
+// type Junction = "JOLIMONT" | "RICHMOND" | "NORTH_MELBOURNE";
 
-// const LineLoopMapping: Readonly<Record<number, LoopLine>> = {
-//   [line.ALAMEIN]: "BURNLEY",
-//   [line.BELGRAVE]: "BURNLEY",
-//   [line.GLEN_WAVERLEY]: "BURNLEY",
-//   [line.LILYDALE]: "BURNLEY",
-//   [line.HURSTBRIDGE]: "CLIFTON_HILL",
-//   [line.MERNDA]: "CLIFTON_HILL",
-//   [line.CRANBOURNE]: "DANDENONG",
-//   [line.PAKENHAM]: "DANDENONG",
-//   [line.CRAIGIEBURN]: "NORTHERN",
-//   [line.SUNBURY]: "NORTHERN",
-//   [line.UPFIELD]: "NORTHERN",
-// };
-// const LoopEdgeMapping: Readonly<Record<LoopLine, number[]>> = {
-//   BURNLEY: [
+// Arrays used to create pairings for city loop edges to remove
+// const JunctionEdgeMapping: Readonly<Record<Junction, number[]>> = {
+//   RICHMOND: [
 //     station.FLINDERS_STREET,
 //     station.SOUTHERN_CROSS,
 //     station.FLAGSTAFF,
@@ -28,7 +16,7 @@ import { RouteGraph } from "@/server/data/route-graph/route-graph";
 //     station.PARLIAMENT,
 //     station.RICHMOND,
 //   ],
-//   CLIFTON_HILL: [
+//   JOLIMONT: [
 //     station.FLINDERS_STREET,
 //     station.SOUTHERN_CROSS,
 //     station.FLAGSTAFF,
@@ -36,21 +24,29 @@ import { RouteGraph } from "@/server/data/route-graph/route-graph";
 //     station.PARLIAMENT,
 //     station.JOLIMONT,
 //   ],
-//   DANDENONG: [
-//     station.FLINDERS_STREET,
-//     station.SOUTHERN_CROSS,
-//     station.FLAGSTAFF,
-//     station.MELBOURNE_CENTRAL,
-//     station.PARLIAMENT,
-//     station.RICHMOND,
-//   ],
-//   NORTHERN: [
+//   NORTH_MELBOURNE: [
 //     station.FLINDERS_STREET,
 //     station.PARLIAMENT,
 //     station.MELBOURNE_CENTRAL,
 //     station.FLAGSTAFF,
 //     station.NORTH_MELBOURNE,
 //   ],
+// };
+
+// Mapping of train lines to city loop edges to remove
+// TODO: Remove Cranbourne, Pakenham, and Sunbury when Metro Tunnel is operating
+// const LineJunctionMapping: Readonly<Record<number, number[]>> = {
+//   [line.ALAMEIN]: JunctionEdgeMapping["RICHMOND"],
+//   [line.BELGRAVE]: JunctionEdgeMapping["RICHMOND"],
+//   [line.GLEN_WAVERLEY]: JunctionEdgeMapping["RICHMOND"],
+//   [line.LILYDALE]: JunctionEdgeMapping["RICHMOND"],
+//   [line.HURSTBRIDGE]: JunctionEdgeMapping["JOLIMONT"],
+//   [line.MERNDA]: JunctionEdgeMapping["JOLIMONT"],
+//   [line.CRANBOURNE]: JunctionEdgeMapping["RICHMOND"],
+//   [line.PAKENHAM]: JunctionEdgeMapping["RICHMOND"],
+//   [line.CRAIGIEBURN]: JunctionEdgeMapping["NORTH_MELBOURNE"],
+//   [line.SUNBURY]: JunctionEdgeMapping["NORTH_MELBOURNE"],
+//   [line.UPFIELD]: JunctionEdgeMapping["NORTH_MELBOURNE"],
 // };
 
 /**
@@ -69,12 +65,9 @@ export class NoCityLoopRouteGraphModifier extends RouteGraphModifier {
 
     // Get edges to remove based on which loop the line runs on
     // const edgesToRemove = this.lines
-    //   .filter((line) => LineLoopMapping[line])
+    //   .filter((line) => LineJunctionMapping[line])
     //   .flatMap((line) =>
-    //     this._generateEdgesToRemove(
-    //       line,
-    //       LoopEdgeMapping[LineLoopMapping[line]],
-    //     ),
+    //     this._generateEdgesToRemove(line, LineJunctionMapping[line]),
     //   );
 
     // return graph
