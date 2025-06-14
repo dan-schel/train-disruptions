@@ -1,12 +1,12 @@
 import React from "react";
 import { QuestionProps } from "@/components/alert-processing/question/lib/use-question";
-import { ObjectBuilderQuestion } from "@/components/alert-processing/question/type/complex/object-builder/ObjectBuilderQuestion";
+import { q } from "@/components/alert-processing/question";
+import { ObjectQuestion } from "@/components/alert-processing/question/object/ObjectQuestion";
 import {
   AnyConfigType,
+  ObjectValidateFunction,
   ObjectValue,
-  ValidateFunction,
-} from "@/components/alert-processing/question/type/complex/object-builder/types";
-import { q } from "@/components/alert-processing/question/type/complex/object-builder/field-builders";
+} from "@/components/alert-processing/question/object/types";
 
 const config = {
   mode: q.enum({
@@ -18,7 +18,7 @@ const config = {
   }),
 } satisfies AnyConfigType;
 
-const validate: ValidateFunction<typeof config> = () => {
+const validate: ObjectValidateFunction<typeof config> = () => {
   return null;
 };
 
@@ -26,9 +26,6 @@ export function SomeQuestion(
   props: QuestionProps<ObjectValue<typeof config>, null>,
 ) {
   return (
-    <ObjectBuilderQuestion<typeof config>
-      {...props}
-      props={{ config, validate }}
-    />
+    <ObjectQuestion<typeof config> {...props} props={{ config, validate }} />
   );
 }

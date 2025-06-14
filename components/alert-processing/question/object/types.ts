@@ -18,6 +18,6 @@ export type RawObjectValue<C extends AnyConfigType> = {
   [K in keyof C]: Maybe<FieldValue<C[K]>>;
 };
 
-export type ValidateFunction<Config extends AnyConfigType> = (
+export type ObjectValidateFunction<Config extends AnyConfigType> = (
   input: ObjectValue<Config>,
 ) => { error: string; questionsToInvalidate: (keyof Config)[] } | null;
