@@ -6,23 +6,23 @@ import {
   useObjectValidator,
 } from "@/components/alert-processing/question/object/hooks";
 import {
-  AnyConfigType,
+  AnyObjectConfig,
   ObjectValidateFunction,
   ObjectValue,
 } from "@/components/alert-processing/question/object/types";
 import { nonNull } from "@dan-schel/js-utils";
 
-export type ObjectQuestionAdditionalProps<Config extends AnyConfigType> = {
+export type ObjectQuestionAdditionalProps<Config extends AnyObjectConfig> = {
   config: Config;
   validate: ObjectValidateFunction<Config>;
 };
 
-export type ObjectQuestionProps<Config extends AnyConfigType> = QuestionProps<
+export type ObjectQuestionProps<Config extends AnyObjectConfig> = QuestionProps<
   ObjectValue<Config>,
   ObjectQuestionAdditionalProps<Config>
 >;
 
-export function ObjectQuestion<Config extends AnyConfigType>(
+export function ObjectQuestion<Config extends AnyObjectConfig>(
   props: ObjectQuestionProps<Config>,
 ) {
   const setup = useObjectInitializer(props.props.config);

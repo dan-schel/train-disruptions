@@ -3,7 +3,7 @@ import { Field } from "@/components/alert-processing/question/lib/field";
 import { Submit } from "@/components/alert-processing/question/lib/use-question";
 import { Maybe } from "@/shared/types/maybe";
 import {
-  AnyConfigType,
+  AnyObjectConfig,
   ObjectValue,
 } from "@/components/alert-processing/question/object/types";
 import {
@@ -11,7 +11,7 @@ import {
   ObjectQuestionAdditionalProps,
 } from "@/components/alert-processing/question/object/ObjectQuestion";
 
-export class ObjectField<Config extends AnyConfigType> extends Field<
+export class ObjectField<Config extends AnyObjectConfig> extends Field<
   ObjectValue<Config>,
   ObjectQuestionAdditionalProps<Config>
 > {

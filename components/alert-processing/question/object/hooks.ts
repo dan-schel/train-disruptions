@@ -1,14 +1,14 @@
 import React from "react";
 import { QuestionSetup } from "@/components/alert-processing/question/lib/use-question";
 import {
-  AnyConfigType,
+  AnyObjectConfig,
   ObjectValidateFunction,
   ObjectValue,
   RawObjectValue,
 } from "@/components/alert-processing/question/object/types";
 import { QuestionGroupValidator } from "@/components/alert-processing/question/lib/use-question-group";
 
-export function useObjectInitializer<Config extends AnyConfigType>(
+export function useObjectInitializer<Config extends AnyObjectConfig>(
   config: Config,
 ) {
   type Type = QuestionSetup<ObjectValue<Config>, RawObjectValue<Config>>;
@@ -34,7 +34,7 @@ export function useObjectInitializer<Config extends AnyConfigType>(
   );
 }
 
-export function useObjectValidator<Config extends AnyConfigType>(
+export function useObjectValidator<Config extends AnyObjectConfig>(
   validate: ObjectValidateFunction<Config>,
 ) {
   type Type = QuestionGroupValidator<

@@ -3,7 +3,7 @@ import { QuestionProps } from "@/components/alert-processing/question/lib/use-qu
 import { q } from "@/components/alert-processing/question";
 import { ObjectQuestion } from "@/components/alert-processing/question/object/ObjectQuestion";
 import {
-  AnyConfigType,
+  AnyObjectConfig,
   ObjectValidateFunction,
   ObjectValue,
 } from "@/components/alert-processing/question/object/types";
@@ -16,7 +16,7 @@ const config = {
     // work without it for z.enum().
     values: ["option-1", "option-2", "option-3"] as const,
   }),
-} satisfies AnyConfigType;
+} satisfies AnyObjectConfig;
 
 const validate: ObjectValidateFunction<typeof config> = () => {
   return null;

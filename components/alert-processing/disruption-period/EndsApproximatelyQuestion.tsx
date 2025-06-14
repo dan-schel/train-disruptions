@@ -5,7 +5,7 @@ import { QuestionProps } from "@/components/alert-processing/question/lib/use-qu
 import { q } from "@/components/alert-processing/question";
 import { ObjectQuestion } from "@/components/alert-processing/question/object/ObjectQuestion";
 import {
-  AnyConfigType,
+  AnyObjectConfig,
   ObjectValidateFunction,
 } from "@/components/alert-processing/question/object/types";
 
@@ -19,7 +19,7 @@ const config = {
   latest: q.date({
     label: "Latest interpretable date",
   }),
-} satisfies AnyConfigType;
+} satisfies AnyObjectConfig;
 
 const validate: ObjectValidateFunction<typeof config> = (input) => {
   if (!isAfter(input.latest, input.earliest)) {
