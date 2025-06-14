@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useId } from "react";
 import {
   QuestionProps,
   QuestionSetup,
@@ -9,7 +9,6 @@ import { SubmittedQuestion } from "@/components/alert-processing/question/lib/Su
 import { ActiveQuestion } from "@/components/alert-processing/question/lib/ActiveQuestion";
 import { Text } from "@/components/core/Text";
 import { RadioButton } from "@/components/common/RadioButton";
-import { uuid } from "@dan-schel/js-utils";
 import { Column } from "@/components/core/Column";
 
 export type EnumQuestionAdditionalProps<T extends string> = {
@@ -23,7 +22,7 @@ export type EnumQuestionProps<T extends string> = QuestionProps<
 >;
 
 export function EnumQuestion<T extends string>(props: EnumQuestionProps<T>) {
-  const [group] = React.useMemo(() => "", []);
+  const groupId = useId();
 
   const validate = React.useCallback<QuestionValidator<T, T | null>>((raw) => {
     if (raw == null) return { error: "Please choose an option" };
@@ -49,7 +48,7 @@ export function EnumQuestion<T extends string>(props: EnumQuestionProps<T>) {
         {props.props.values.map((value) => (
           <RadioButton
             key={value}
-            group={group}
+            group={groupId}
             checked={question.value === value}
             onChange={() => question.setValue(value)}
           >
