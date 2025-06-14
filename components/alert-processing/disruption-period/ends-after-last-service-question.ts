@@ -1,26 +1,36 @@
 import { q } from "@/components/alert-processing/question";
-import { isValid } from "date-fns";
+import { EndsAfterLastServiceInput } from "@/shared/types/alert-processing/disruption-period-input";
+import { isValid, parse } from "date-fns";
+
+function validate(input: EndsAfterLastServiceInput) {
+  const isoishString = `${input.year}-${input.month}-${input.day}`;
+  const a = parse(isoishString, "yyyy-MM-dd", new Date());
+  if (!isValid(a)) {
+    return {
+      error: "Not a valid date",
+      questionsToInvalidate: ["day" as const],
+    };
+  }
+  return null;
+}
 
 export const endsAfterLastServiceQuestion = q.object(
   {
-    year: q.number({
+    year: q.integer({
       label: "Year",
+      min: 1900,
+      max: 2200,
     }),
-    month: q.number({
+    month: q.integer({
       label: "Month",
+      min: 1,
+      max: 12,
     }),
-    day: q.number({
+    day: q.integer({
       label: "Day",
+      min: 1,
+      max: 31,
     }),
   },
-  (input) => {
-    // TODO: This isValid() function doesn't help in the slightest!
-    if (!isValid(new Date(input.year, input.month - 1, input.day))) {
-      return {
-        error: "Not a valid date",
-        questionsToInvalidate: ["day"],
-      };
-    }
-    return null;
-  },
+  validate,
 );

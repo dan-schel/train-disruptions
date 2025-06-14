@@ -7,10 +7,10 @@ import { BackNavigation } from "@/components/navigation/BackNavigation";
 import { Data } from "@/pages/admin/alerts/@id/+data";
 import { useData } from "vike-react/useData";
 import { AlertData } from "@/pages/admin/alerts/@id/AlertData";
-import { Questionaire } from "@/components/alert-processing/question/Questionaire";
 import { Spacer } from "@/components/core/Spacer";
 import { disruptionPeriodQuestion } from "@/components/alert-processing/disruption-period/disruption-period-question";
 import { DisruptionPeriodInput } from "@/shared/types/alert-processing/disruption-period-input";
+import { Questionaire } from "@/components/alert-processing/question";
 
 export default function Page() {
   const { alert } = useData<Data>();
