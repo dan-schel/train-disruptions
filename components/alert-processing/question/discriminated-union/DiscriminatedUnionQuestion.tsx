@@ -45,6 +45,8 @@ export function DiscriminatedUnionQuestion<
   const type = question.value.type as TypesWithinUnion<Config>;
 
   function handleTypeChange(newType: TypesWithinUnion<Config>) {
+    // Handle the unusual case where the object for a particular type of
+    // discriminator has no fields (so we can submit immediately).
     const newObjIsEmpty = !props.props.config[newType].hasKeys();
     const newValue = newObjIsEmpty ? {} : null;
 
