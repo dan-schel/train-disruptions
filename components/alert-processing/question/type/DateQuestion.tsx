@@ -1,14 +1,13 @@
 import React from "react";
 import {
   QuestionProps,
+  QuestionSetup,
+  QuestionValidator,
   useQuestion,
-  UseQuestionArgs,
 } from "@/components/alert-processing/question/lib/use-question";
 import { SubmittedQuestion } from "@/components/alert-processing/question/lib/SubmittedQuestion";
 import { ActiveQuestion } from "@/components/alert-processing/question/lib/ActiveQuestion";
 import { DateInput } from "@/components/common/DateInput";
-
-type Q = UseQuestionArgs<Date, Date | null>;
 
 export type DateQuestionAdditionalProps = {
   label: string;
@@ -21,7 +20,7 @@ export type DateQuestionProps = QuestionProps<
 >;
 
 export function DateQuestion(props: DateQuestionProps) {
-  const validate = React.useCallback<Q["validate"]>(
+  const validate = React.useCallback<QuestionValidator<Date, Date | null>>(
     (raw) => {
       if (raw == null) {
         return { error: "No date entered" };
@@ -58,6 +57,6 @@ export function DateQuestion(props: DateQuestionProps) {
   );
 }
 
-const setup: Q["setup"] = (input) => {
+const setup: QuestionSetup<Date, Date | null> = (input) => {
   return input?.value ?? null;
 };

@@ -1,8 +1,9 @@
 import React from "react";
 import {
   QuestionProps,
+  QuestionSetup,
+  QuestionValidator,
   useQuestion,
-  UseQuestionArgs,
 } from "@/components/alert-processing/question/lib/use-question";
 import { SubmittedQuestion } from "@/components/alert-processing/question/lib/SubmittedQuestion";
 import { ActiveQuestion } from "@/components/alert-processing/question/lib/ActiveQuestion";
@@ -10,8 +11,6 @@ import { Text } from "@/components/core/Text";
 import { RadioButton } from "@/components/common/RadioButton";
 import { uuid } from "@dan-schel/js-utils";
 import { Column } from "@/components/core/Column";
-
-type Q<T extends string> = UseQuestionArgs<T, T | null>;
 
 export type EnumQuestionAdditionalProps<T extends string> = {
   label: string;
@@ -26,12 +25,12 @@ export type EnumQuestionProps<T extends string> = QuestionProps<
 export function EnumQuestion<T extends string>(props: EnumQuestionProps<T>) {
   const [group] = React.useMemo(uuid, []);
 
-  const validate = React.useCallback<Q<T>["validate"]>((raw) => {
+  const validate = React.useCallback<QuestionValidator<T, T | null>>((raw) => {
     if (raw == null) return { error: "Please choose an option" };
     return { value: raw };
   }, []);
 
-  const setup = React.useCallback<Q<T>["setup"]>((input) => {
+  const setup = React.useCallback<QuestionSetup<T, T | null>>((input) => {
     return input?.value ?? null;
   }, []);
 
