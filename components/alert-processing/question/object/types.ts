@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import {
   AnyField,
   Field,
@@ -8,7 +6,8 @@ import { Maybe } from "@/shared/types/maybe";
 
 export type AnyObjectConfig = { [key: string]: AnyField };
 
-type FieldValue<T extends Field<any, any>> =
+type FieldValue<T extends AnyField> =
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   T extends Field<infer V, any> ? V : never;
 
 export type ObjectValue<Config extends AnyObjectConfig> = {
