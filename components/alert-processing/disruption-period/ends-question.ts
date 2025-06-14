@@ -1,7 +1,7 @@
 import { endsAfterLastServiceQuestion } from "@/components/alert-processing/disruption-period/ends-after-last-service-question";
 import { endsApproximatelyQuestion } from "@/components/alert-processing/disruption-period/ends-approximately-question";
 import { endsExactlyQuestion } from "@/components/alert-processing/disruption-period/ends-exactly-question";
-import { q } from "@/components/alert-processing/question";
+import { q } from "@/components/question";
 
 export const endsQuestion = q.discriminatedUnion(
   "type",

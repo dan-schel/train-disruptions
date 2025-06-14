@@ -1,4 +1,4 @@
-import { q } from "@/components/alert-processing/question";
+import { q } from "@/components/question";
 import { EndsAfterLastServiceInput } from "@/shared/types/alert-processing/disruption-period-input";
 import { isValid, parse } from "date-fns";
 

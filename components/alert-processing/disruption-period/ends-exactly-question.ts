@@ -1,4 +1,4 @@
-import { q } from "@/components/alert-processing/question";
+import { q } from "@/components/question";
 
 export const endsExactlyQuestion = q.object({
   date: q.date({

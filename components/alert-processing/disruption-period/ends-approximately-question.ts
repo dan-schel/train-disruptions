@@ -1,5 +1,5 @@
 import { isAfter } from "date-fns";
-import { q } from "@/components/alert-processing/question";
+import { q } from "@/components/question";
 import { EndsApproximatelyInput } from "@/shared/types/alert-processing/disruption-period-input";
 
 function validate(input: EndsApproximatelyInput) {

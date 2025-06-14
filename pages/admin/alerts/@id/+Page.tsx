@@ -10,7 +10,7 @@ import { AlertData } from "@/pages/admin/alerts/@id/AlertData";
 import { Spacer } from "@/components/core/Spacer";
 import { disruptionPeriodQuestion } from "@/components/alert-processing/disruption-period/disruption-period-question";
 import { DisruptionPeriodInput } from "@/shared/types/alert-processing/disruption-period-input";
-import { Questionaire } from "@/components/alert-processing/question";
+import { Questionaire } from "@/components/question";
 
 export default function Page() {
   const { alert } = useData<Data>();

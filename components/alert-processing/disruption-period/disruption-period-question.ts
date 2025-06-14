@@ -1,6 +1,6 @@
 import { eveningsOnlyDisruptionPeriodQuestion } from "@/components/alert-processing/disruption-period/evenings-only-disruption-period-question";
 import { standardDisruptionPeriodQuestion } from "@/components/alert-processing/disruption-period/standard-disruption-period-question";
-import { q } from "@/components/alert-processing/question";
+import { q } from "@/components/question";
 
 export const disruptionPeriodQuestion = q.discriminatedUnion(
   "type",
