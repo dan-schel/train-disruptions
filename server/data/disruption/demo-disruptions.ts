@@ -1,5 +1,6 @@
 import { App } from "@/server/app";
 import { BusReplacementsDisruptionData } from "@/server/data/disruption/data/bus-replacements-disruption-data";
+import { NoCityLoopDisruptionData } from "@/server/data/disruption/data/no-city-loop-disruption-data";
 import { StationClosureDisruptionData } from "@/server/data/disruption/data/station-closure-disruption-data";
 import { Disruption } from "@/server/data/disruption/disruption";
 import { DisruptionPeriod } from "@/server/data/disruption/period/disruption-period";
@@ -25,18 +26,24 @@ export function getDemoDisruptions(app: App): Disruption[] {
   const result: Disruption[] = [];
 
   for (const line of app.lines.all()) {
+    const runsThroughCityLoop = line.route
+      .getAllLineShapeNodes()
+      .includes("the-city");
     const numDisruptions = randomInt(rand, 0, 3);
     for (let i = 0; i < numDisruptions; i++) {
-      const disruptionType = randomChoice(rand, [
-        "bus-replacement",
-        "station-closure",
-      ] as const);
+      const disruptionType = randomChoice(
+        rand,
+        runsThroughCityLoop
+          ? (["bus-replacement", "station-closure", "no-city-loop"] as const)
+          : (["bus-replacement", "station-closure"] as const),
+      );
 
       const disruptionId = (result.length + 1).toFixed();
 
       const disruption = {
         "bus-replacement": createBusReplacementsDisruption,
         "station-closure": createStationClosureDisruption,
+        "no-city-loop": createNoCityLoopDiruption,
       }[disruptionType](rand, disruptionId, app, line, today);
 
       result.push(disruption);
@@ -85,6 +92,21 @@ function createStationClosureDisruption(
   return new Disruption(
     id,
     new StationClosureDisruptionData(station),
+    [],
+    createDisruptionPeriod(rand, today),
+  );
+}
+
+function createNoCityLoopDiruption(
+  rand: () => number,
+  id: string,
+  _app: App,
+  line: Line,
+  today: Date,
+): Disruption {
+  return new Disruption(
+    id,
+    new NoCityLoopDisruptionData([line.id]),
     [],
     createDisruptionPeriod(rand, today),
   );
