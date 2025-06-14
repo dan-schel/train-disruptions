@@ -4,6 +4,8 @@ import { DiscriminatedUnionField } from "@/components/alert-processing/question/
 import { AnyDiscriminatedUnionConfig } from "@/components/alert-processing/question/discriminated-union/types";
 import { EnumField } from "@/components/alert-processing/question/enum/EnumField";
 import { EnumQuestionAdditionalProps } from "@/components/alert-processing/question/enum/EnumQuestion";
+import { NumberField } from "@/components/alert-processing/question/number/NumberField";
+import { NumberQuestionAdditionalProps } from "@/components/alert-processing/question/number/NumberQuestion";
 import { ObjectField } from "@/components/alert-processing/question/object/ObjectField";
 import {
   AnyObjectConfig,
@@ -14,6 +16,10 @@ import { StringQuestionAdditionalProps } from "@/components/alert-processing/que
 
 function buildString(p: StringQuestionAdditionalProps) {
   return new StringField(p);
+}
+
+function buildNumber(p: NumberQuestionAdditionalProps) {
+  return new NumberField(p);
 }
 
 function buildDate(p: DateQuestionAdditionalProps) {
@@ -46,6 +52,7 @@ function buildDiscriminatedUnion<
 
 export const q = {
   string: buildString,
+  number: buildNumber,
   date: buildDate,
   enum: buildEnum,
   object: buildObject,

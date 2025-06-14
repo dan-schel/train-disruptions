@@ -34,35 +34,3 @@ export type RawDiscriminatedUnionValue<
 
 export type TypesWithinUnion<Config extends AnyDiscriminatedUnionConfig> =
   keyof Config & string;
-
-export type ObjectsWithinUnion<Config extends AnyDiscriminatedUnionConfig> =
-  Config[keyof Config];
-
-// const config = {
-//   option1: q.object({
-//     config: {
-//       field1: q.string({ label: "Field 1" }),
-//     },
-//     validate: () => null,
-//   }),
-//   option2: q.object({
-//     config: {
-//       field2: q.string({ label: "Field 1" }),
-//     },
-//     validate: () => null,
-//   }),
-// } satisfies AnyDiscriminatedUnionConfig;
-
-// type ExampleUnion = DiscriminatedUnionValue<"type", typeof config>;
-// type RawExampleUnion = RawDiscriminatedUnionValue<"type", typeof config>;
-
-// const test1: ExampleUnion = {
-//   type: "option1",
-//   field1: "test",
-// };
-
-// const test2: RawExampleUnion = test1;
-
-// const test3: RawExampleUnion = {
-//   type: null,
-// };
