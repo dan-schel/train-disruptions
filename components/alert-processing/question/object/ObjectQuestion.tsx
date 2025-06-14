@@ -1,5 +1,4 @@
 import React from "react";
-import { update } from "@/components/alert-processing/question/lib/question-group-helpers";
 import { QuestionProps } from "@/components/alert-processing/question/lib/use-question";
 import { useQuestionGroup } from "@/components/alert-processing/question/lib/use-question-group";
 import {
@@ -42,7 +41,12 @@ export function ObjectQuestion<Config extends AnyConfigType>(
         return field.getComponent(
           key,
           question.value[key],
-          update(question.handleSubquestionSubmit, key),
+          (newValue) => {
+            question.handleSubquestionSubmit((existingValue) => ({
+              ...existingValue,
+              [key]: { value: newValue },
+            }));
+          },
           question.error,
         );
       })}

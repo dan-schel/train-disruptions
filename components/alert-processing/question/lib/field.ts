@@ -1,6 +1,6 @@
 import { Submit } from "@/components/alert-processing/question/lib/use-question";
 import { Maybe } from "@/shared/types/maybe";
-import React from "react";
+import { ReactElement } from "react";
 
 export abstract class Field<Type, Props> {
   constructor(protected readonly _props: Props) {}
@@ -10,5 +10,5 @@ export abstract class Field<Type, Props> {
     input: Maybe<Type>,
     onSubmit: Submit<Type>,
     parentError: string | null,
-  ): React.ReactElement;
+  ): ReactElement;
 }
