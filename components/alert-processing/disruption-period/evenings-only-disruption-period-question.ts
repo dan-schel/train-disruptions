@@ -2,10 +2,10 @@ import { endsQuestion } from "@/components/alert-processing/disruption-period/en
 import { q } from "@/components/alert-processing/question";
 
 export const eveningsOnlyDisruptionPeriodQuestion = q.object({
-  start: q.date({ label: "Starts" }),
+  start: q.date({ label: "Starting" }),
   end: endsQuestion,
   startHourEachDay: q.integer({
-    label: "Start hour each day",
+    label: "Which hour each evening the disruption starts",
     min: 18,
     max: 23,
   }),

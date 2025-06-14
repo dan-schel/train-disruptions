@@ -15,7 +15,7 @@ function validate(input: EndsApproximatelyInput) {
 export const endsApproximatelyQuestion = q.object(
   {
     displayText: q.string({
-      label: "The disruption ends in...",
+      label: "Text describing when the disruption ends",
     }),
     earliest: q.date({
       label: "Earliest interpretable date",

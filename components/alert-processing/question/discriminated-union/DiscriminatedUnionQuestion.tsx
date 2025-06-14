@@ -20,6 +20,8 @@ export type DiscriminatedUnionQuestionAdditionalProps<
 > = {
   discriminator: Discriminator;
   config: Config;
+  typeQuestion: string;
+  typeFormatting: Record<TypesWithinUnion<Config>, string>;
 };
 
 export type DiscriminatedUnionQuestionProps<
@@ -64,8 +66,9 @@ export function DiscriminatedUnionQuestion<
         input={type != null ? { value: type } : null}
         onSubmit={handleTypeChange}
         props={{
-          label: "Choose type",
+          label: props.props.typeQuestion,
           values: Object.keys(props.props.config),
+          formatting: props.props.typeFormatting,
         }}
       />
       {type != null &&

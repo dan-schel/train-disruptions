@@ -3,10 +3,21 @@ import { endsApproximatelyQuestion } from "@/components/alert-processing/disrupt
 import { endsExactlyQuestion } from "@/components/alert-processing/disruption-period/ends-exactly-question";
 import { q } from "@/components/alert-processing/question";
 
-export const endsQuestion = q.discriminatedUnion("type", {
-  "ends-after-last-service": endsAfterLastServiceQuestion,
-  "ends-approximately": endsApproximatelyQuestion,
-  "ends-exactly": endsExactlyQuestion,
-  "ends-never": q.object({}),
-  "ends-when-alert-ends": q.object({}),
-});
+export const endsQuestion = q.discriminatedUnion(
+  "type",
+  "And ending...",
+  {
+    "ends-exactly": endsExactlyQuestion,
+    "ends-approximately": endsApproximatelyQuestion,
+    "ends-after-last-service": endsAfterLastServiceQuestion,
+    "ends-when-alert-ends": q.object({}),
+    "ends-never": q.object({}),
+  },
+  {
+    "ends-exactly": "At an exact time",
+    "ends-approximately": 'At an approximate time (e.g. "late May")',
+    "ends-after-last-service": '"After last service" on a particular day',
+    "ends-when-alert-ends": "When this alert ends (automatic)",
+    "ends-never": "Never (currently unknown)",
+  },
+);

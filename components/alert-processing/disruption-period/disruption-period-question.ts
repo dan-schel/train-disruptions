@@ -2,7 +2,15 @@ import { eveningsOnlyDisruptionPeriodQuestion } from "@/components/alert-process
 import { standardDisruptionPeriodQuestion } from "@/components/alert-processing/disruption-period/standard-disruption-period-question";
 import { q } from "@/components/alert-processing/question";
 
-export const disruptionPeriodQuestion = q.discriminatedUnion("type", {
-  standard: standardDisruptionPeriodQuestion,
-  "evenings-only": eveningsOnlyDisruptionPeriodQuestion,
-});
+export const disruptionPeriodQuestion = q.discriminatedUnion(
+  "type",
+  "The disruption occurs...",
+  {
+    standard: standardDisruptionPeriodQuestion,
+    "evenings-only": eveningsOnlyDisruptionPeriodQuestion,
+  },
+  {
+    standard: "Continuously",
+    "evenings-only": "During the evenings only",
+  },
+);

@@ -16,6 +16,7 @@ import { Text } from "@/components/core/Text";
 export type EnumQuestionAdditionalProps<T extends string> = {
   label: string;
   values: T[];
+  formatting: Record<T, string>;
 };
 
 export type EnumQuestionProps<T extends string> = QuestionProps<
@@ -47,7 +48,7 @@ export function EnumQuestion<T extends string>(props: EnumQuestionProps<T>) {
             checked={question.value === value}
             onChange={() => question.setValue(value)}
           >
-            <Text>{value}</Text>
+            <Text>{props.props.formatting[value]}</Text>
           </RadioButton>
         ))}
       </Column>
@@ -55,7 +56,7 @@ export function EnumQuestion<T extends string>(props: EnumQuestionProps<T>) {
   ) : (
     <SubmittedQuestion
       label={props.props.label}
-      value={question.value}
+      value={props.props.formatting[question.value]}
       onEditClick={question.onEditClick}
     />
   );

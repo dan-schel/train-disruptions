@@ -1,7 +1,10 @@
 import { DateField } from "@/components/alert-processing/question/date/DateField";
 import { DateQuestionAdditionalProps } from "@/components/alert-processing/question/date/DateQuestion";
 import { DiscriminatedUnionField } from "@/components/alert-processing/question/discriminated-union/DiscriminatedUnionField";
-import { AnyDiscriminatedUnionConfig } from "@/components/alert-processing/question/discriminated-union/types";
+import {
+  AnyDiscriminatedUnionConfig,
+  TypesWithinUnion,
+} from "@/components/alert-processing/question/discriminated-union/types";
 import { EnumField } from "@/components/alert-processing/question/enum/EnumField";
 import { EnumQuestionAdditionalProps } from "@/components/alert-processing/question/enum/EnumQuestion";
 import { NumberField } from "@/components/alert-processing/question/number/NumberField";
@@ -43,9 +46,16 @@ export function buildObject<Config extends AnyObjectConfig>(
 export function buildDiscriminatedUnion<
   Discriminator extends string,
   Config extends AnyDiscriminatedUnionConfig,
->(discriminator: Discriminator, config: Config) {
+>(
+  discriminator: Discriminator,
+  typeQuestion: string,
+  config: Config,
+  typeFormatting: Record<TypesWithinUnion<Config>, string>,
+) {
   return new DiscriminatedUnionField<Discriminator, Config>({
     discriminator,
     config,
+    typeQuestion,
+    typeFormatting,
   });
 }
