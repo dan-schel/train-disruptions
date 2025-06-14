@@ -1,15 +1,17 @@
 import React, { useId } from "react";
 import {
+  useEnumInitializer,
+  useEnumValidator,
+} from "@/components/alert-processing/question/enum/hooks";
+import { ActiveQuestion } from "@/components/alert-processing/question/lib/ActiveQuestion";
+import { SubmittedQuestion } from "@/components/alert-processing/question/lib/SubmittedQuestion";
+import {
   QuestionProps,
-  QuestionSetup,
-  QuestionValidator,
   useQuestion,
 } from "@/components/alert-processing/question/lib/use-question";
-import { SubmittedQuestion } from "@/components/alert-processing/question/lib/SubmittedQuestion";
-import { ActiveQuestion } from "@/components/alert-processing/question/lib/ActiveQuestion";
-import { Text } from "@/components/core/Text";
 import { RadioButton } from "@/components/common/RadioButton";
 import { Column } from "@/components/core/Column";
+import { Text } from "@/components/core/Text";
 
 export type EnumQuestionAdditionalProps<T extends string> = {
   label: string;
@@ -22,18 +24,11 @@ export type EnumQuestionProps<T extends string> = QuestionProps<
 >;
 
 export function EnumQuestion<T extends string>(props: EnumQuestionProps<T>) {
-  const groupId = useId();
-
-  const validate = React.useCallback<QuestionValidator<T, T | null>>((raw) => {
-    if (raw == null) return { error: "Please choose an option" };
-    return { value: raw };
-  }, []);
-
-  const setup = React.useCallback<QuestionSetup<T, T | null>>((input) => {
-    return input?.value ?? null;
-  }, []);
-
+  const setup = useEnumInitializer<T>();
+  const validate = useEnumValidator<T>();
   const question = useQuestion({ props, setup, validate });
+
+  const groupId = useId();
 
   return question.isEditorOpen ? (
     <ActiveQuestion

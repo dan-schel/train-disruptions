@@ -1,13 +1,15 @@
 import React from "react";
 import {
   QuestionProps,
-  QuestionSetup,
-  QuestionValidator,
   useQuestion,
 } from "@/components/alert-processing/question/lib/use-question";
 import { SubmittedQuestion } from "@/components/alert-processing/question/lib/SubmittedQuestion";
 import { ActiveQuestion } from "@/components/alert-processing/question/lib/ActiveQuestion";
 import { Input } from "@/components/core/Input";
+import {
+  useStringInitializer,
+  useStringValidator,
+} from "@/components/alert-processing/question/string/hooks";
 
 export type StringQuestionAdditionalProps = {
   label: string;
@@ -20,15 +22,8 @@ export type StringQuestionProps = QuestionProps<
 >;
 
 export function StringQuestion(props: StringQuestionProps) {
-  const validate = React.useCallback<QuestionValidator<string, string>>(
-    (raw) => {
-      const error = props.props.validate?.(raw);
-      if (error != null) return { error };
-      return { value: raw };
-    },
-    [props],
-  );
-
+  const setup = useStringInitializer();
+  const validate = useStringValidator(props.props.validate ?? null);
   const question = useQuestion({ props, setup, validate });
 
   return question.isEditorOpen ? (
@@ -50,7 +45,3 @@ export function StringQuestion(props: StringQuestionProps) {
     />
   );
 }
-
-const setup: QuestionSetup<string, string> = (input) => {
-  return input?.value ?? "";
-};

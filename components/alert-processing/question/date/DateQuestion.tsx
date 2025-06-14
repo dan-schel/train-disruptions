@@ -1,12 +1,14 @@
 import React from "react";
 import {
   QuestionProps,
-  QuestionSetup,
-  QuestionValidator,
   useQuestion,
 } from "@/components/alert-processing/question/lib/use-question";
 import { SubmittedQuestion } from "@/components/alert-processing/question/lib/SubmittedQuestion";
 import { ActiveQuestion } from "@/components/alert-processing/question/lib/ActiveQuestion";
+import {
+  useDateInitializer,
+  useDateValidator,
+} from "@/components/alert-processing/question/date/hooks";
 import { DateInput } from "@/components/common/DateInput";
 
 export type DateQuestionAdditionalProps = {
@@ -20,20 +22,8 @@ export type DateQuestionProps = QuestionProps<
 >;
 
 export function DateQuestion(props: DateQuestionProps) {
-  const validate = React.useCallback<QuestionValidator<Date, Date | null>>(
-    (raw) => {
-      if (raw == null) {
-        return { error: "No date entered" };
-      }
-
-      const error = props.props.validate?.(raw);
-      if (error != null) return { error };
-
-      return { value: raw };
-    },
-    [props],
-  );
-
+  const setup = useDateInitializer();
+  const validate = useDateValidator(props.props.validate ?? null);
   const question = useQuestion({ props, setup, validate });
 
   return question.isEditorOpen ? (
@@ -43,6 +33,7 @@ export function DateQuestion(props: DateQuestionProps) {
       error={question.error}
       isCancelable={question.isEditMode}
       onCancel={question.onEditCancelClick}
+      wrapInForm={true}
     >
       <DateInput value={question.value} onChange={question.setValue} />
     </ActiveQuestion>
@@ -56,7 +47,3 @@ export function DateQuestion(props: DateQuestionProps) {
     />
   );
 }
-
-const setup: QuestionSetup<Date, Date | null> = (input) => {
-  return input?.value ?? null;
-};
