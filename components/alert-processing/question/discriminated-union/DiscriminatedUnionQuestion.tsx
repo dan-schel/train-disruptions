@@ -50,7 +50,7 @@ export function DiscriminatedUnionQuestion<
           question.handleSubquestionSubmit(() => ({ type: value, value: null }))
         }
         props={{
-          label: "asdasd",
+          label: "Choose type",
           values: Object.keys(props.props.config),
         }}
       />

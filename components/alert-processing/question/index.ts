@@ -1,5 +1,8 @@
 import { DateField } from "@/components/alert-processing/question/date/DateField";
 import { DateQuestionAdditionalProps } from "@/components/alert-processing/question/date/DateQuestion";
+import { DiscriminatedUnionField } from "@/components/alert-processing/question/discriminated-union/DiscriminatedUnionField";
+import { DiscriminatedUnionQuestionAdditionalProps } from "@/components/alert-processing/question/discriminated-union/DiscriminatedUnionQuestion";
+import { AnyDiscriminatedUnionConfig } from "@/components/alert-processing/question/discriminated-union/types";
 import { EnumField } from "@/components/alert-processing/question/enum/EnumField";
 import { EnumQuestionAdditionalProps } from "@/components/alert-processing/question/enum/EnumQuestion";
 import { ObjectField } from "@/components/alert-processing/question/object/ObjectField";
@@ -16,4 +19,10 @@ export const q = {
   object: <Config extends AnyObjectConfig>(
     p: ObjectQuestionAdditionalProps<Config>,
   ) => new ObjectField<Config>(p),
+  discriminatedUnion: <
+    Discriminator extends string,
+    Config extends AnyDiscriminatedUnionConfig,
+  >(
+    p: DiscriminatedUnionQuestionAdditionalProps<Discriminator, Config>,
+  ) => new DiscriminatedUnionField<Discriminator, Config>(p),
 };
