@@ -31,4 +31,8 @@ export class ObjectField<Config extends AnyObjectConfig> extends Field<
       />
     );
   }
+
+  hasKeys() {
+    return Object.keys(this._props.config).length > 0;
+  }
 }

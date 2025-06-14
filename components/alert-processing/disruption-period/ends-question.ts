@@ -7,6 +7,6 @@ export const endsQuestion = q.discriminatedUnion("type", {
   "ends-after-last-service": endsAfterLastServiceQuestion,
   "ends-approximately": endsApproximatelyQuestion,
   "ends-exactly": endsExactlyQuestion,
-  "ends-never": q.object({}), // TODO: Currently broken.
-  "ends-when-alert-ends": q.object({}), // TODO: Currently broken.
+  "ends-never": q.object({}),
+  "ends-when-alert-ends": q.object({}),
 });

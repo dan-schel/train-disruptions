@@ -4,6 +4,7 @@ import { useQuestionGroup } from "@/components/alert-processing/question/lib/use
 import {
   AnyDiscriminatedUnionConfig,
   DiscriminatedUnionValue,
+  RawDiscriminatedUnionValue,
   SemiRawDiscriminatedUnionValue,
   TypesWithinUnion,
 } from "@/components/alert-processing/question/discriminated-union/types";
@@ -42,13 +43,24 @@ export function DiscriminatedUnionQuestion<
   const question = useQuestionGroup({ props, setup, validate });
 
   const type = question.value.type as TypesWithinUnion<Config>;
+
+  function handleTypeChange(newType: TypesWithinUnion<Config>) {
+    const newObjIsEmpty = !props.props.config[newType].hasKeys();
+    const newValue = newObjIsEmpty ? {} : null;
+
+    const newRaw = {
+      type: newType,
+      value: newValue,
+    } as RawDiscriminatedUnionValue<Config>;
+
+    question.handleSubquestionSubmit(() => newRaw);
+  }
+
   return (
     <>
       <EnumQuestion<TypesWithinUnion<Config>>
         input={type != null ? { value: type } : null}
-        onSubmit={(value) =>
-          question.handleSubquestionSubmit(() => ({ type: value, value: null }))
-        }
+        onSubmit={handleTypeChange}
         props={{
           label: "Choose type",
           values: Object.keys(props.props.config),
