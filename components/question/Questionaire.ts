@@ -1,4 +1,4 @@
-import { Field } from "@/components/question/lib/field";
+import { Field } from "@/components/question/common/field";
 import { Maybe } from "@/shared/types/maybe";
 
 export type QuestionaireProps<T> = {

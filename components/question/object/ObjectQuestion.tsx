@@ -1,6 +1,6 @@
 import React from "react";
-import { QuestionProps } from "@/components/question/lib/use-question";
-import { useQuestionGroup } from "@/components/question/lib/use-question-group";
+import { QuestionProps } from "@/components/question/common/use-question";
+import { useQuestionGroup } from "@/components/question/common/use-question-group";
 import {
   useObjectInitializer,
   useObjectValidator,

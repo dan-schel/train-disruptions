@@ -3,7 +3,7 @@ import React from "react";
 import {
   PartialQuestionProps,
   QuestionSetup,
-} from "@/components/question/lib/use-question";
+} from "@/components/question/common/use-question";
 
 export type QuestionGroupValidator<T, Raw> = (
   raw: Raw,

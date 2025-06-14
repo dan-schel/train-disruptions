@@ -1,6 +1,6 @@
 import React from "react";
-import { QuestionSetup } from "@/components/question/lib/use-question";
-import { QuestionGroupValidator } from "@/components/question/lib/use-question-group";
+import { QuestionSetup } from "@/components/question/common/use-question";
+import { QuestionGroupValidator } from "@/components/question/common/use-question-group";
 import {
   AnyDiscriminatedUnionConfig,
   RawDiscriminatedUnionValue,

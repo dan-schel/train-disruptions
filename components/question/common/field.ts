@@ -1,4 +1,4 @@
-import { Submit } from "@/components/question/lib/use-question";
+import { Submit } from "@/components/question/common/use-question";
 import { Maybe } from "@/shared/types/maybe";
 import { ReactElement } from "react";
 

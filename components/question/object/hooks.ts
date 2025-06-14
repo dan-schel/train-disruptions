@@ -1,12 +1,12 @@
 import React from "react";
-import { QuestionSetup } from "@/components/question/lib/use-question";
+import { QuestionSetup } from "@/components/question/common/use-question";
 import {
   AnyObjectConfig,
   ObjectValidateFunction,
   ObjectValue,
   RawObjectValue,
 } from "@/components/question/object/types";
-import { QuestionGroupValidator } from "@/components/question/lib/use-question-group";
+import { QuestionGroupValidator } from "@/components/question/common/use-question-group";
 
 export function useObjectInitializer<Config extends AnyObjectConfig>(
   config: Config,

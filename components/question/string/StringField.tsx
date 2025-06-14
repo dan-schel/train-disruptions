@@ -1,6 +1,6 @@
 import React from "react";
-import { Field } from "@/components/question/lib/field";
-import { Submit } from "@/components/question/lib/use-question";
+import { Field } from "@/components/question/common/field";
+import { Submit } from "@/components/question/common/use-question";
 import {
   StringQuestion,
   StringQuestionAdditionalProps,

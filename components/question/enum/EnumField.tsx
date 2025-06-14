@@ -3,8 +3,8 @@ import {
   EnumQuestion,
   EnumQuestionAdditionalProps,
 } from "@/components/question/enum/EnumQuestion";
-import { Field } from "@/components/question/lib/field";
-import { Submit } from "@/components/question/lib/use-question";
+import { Field } from "@/components/question/common/field";
+import { Submit } from "@/components/question/common/use-question";
 import { Maybe } from "@/shared/types/maybe";
 
 export class EnumField<T extends string> extends Field<

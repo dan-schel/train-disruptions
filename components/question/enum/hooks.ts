@@ -2,7 +2,7 @@ import React from "react";
 import {
   QuestionSetup,
   QuestionValidator,
-} from "@/components/question/lib/use-question";
+} from "@/components/question/common/use-question";
 
 export function useEnumInitializer<T extends string>() {
   return React.useCallback<QuestionSetup<T, T | null>>((input) => {

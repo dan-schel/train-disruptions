@@ -1,4 +1,4 @@
-import { AnyField, Field } from "@/components/question/lib/field";
+import { AnyField, Field } from "@/components/question/common/field";
 import { Maybe } from "@/shared/types/maybe";
 
 export type AnyObjectConfig = { [key: string]: AnyField };

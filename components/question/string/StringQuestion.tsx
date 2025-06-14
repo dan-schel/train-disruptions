@@ -2,9 +2,9 @@ import React from "react";
 import {
   QuestionProps,
   useQuestion,
-} from "@/components/question/lib/use-question";
-import { SubmittedQuestion } from "@/components/question/lib/SubmittedQuestion";
-import { ActiveQuestion } from "@/components/question/lib/ActiveQuestion";
+} from "@/components/question/common/use-question";
+import { SubmittedQuestion } from "@/components/question/common/SubmittedQuestion";
+import { ActiveQuestion } from "@/components/question/common/ActiveQuestion";
 import { Input } from "@/components/core/Input";
 import {
   useStringInitializer,

@@ -2,7 +2,7 @@ import React from "react";
 import {
   QuestionSetup,
   QuestionValidator,
-} from "@/components/question/lib/use-question";
+} from "@/components/question/common/use-question";
 import { parseFloatNull } from "@dan-schel/js-utils";
 
 export function useNumberInitializer() {

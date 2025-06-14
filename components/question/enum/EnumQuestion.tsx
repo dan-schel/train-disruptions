@@ -3,12 +3,12 @@ import {
   useEnumInitializer,
   useEnumValidator,
 } from "@/components/question/enum/hooks";
-import { ActiveQuestion } from "@/components/question/lib/ActiveQuestion";
-import { SubmittedQuestion } from "@/components/question/lib/SubmittedQuestion";
+import { ActiveQuestion } from "@/components/question/common/ActiveQuestion";
+import { SubmittedQuestion } from "@/components/question/common/SubmittedQuestion";
 import {
   QuestionProps,
   useQuestion,
-} from "@/components/question/lib/use-question";
+} from "@/components/question/common/use-question";
 import { RadioButton } from "@/components/common/RadioButton";
 import { Column } from "@/components/core/Column";
 import { Text } from "@/components/core/Text";
