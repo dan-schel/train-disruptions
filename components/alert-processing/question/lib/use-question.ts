@@ -3,7 +3,7 @@ import React from "react";
 
 // TODO: [DS] Instead of T and Raw, we could say Output and State.
 
-type Submit<T> = (value: T) => void;
+export type Submit<T> = (value: T) => void;
 
 export type QuestionProps<T, Extra> = {
   input: Maybe<T>;

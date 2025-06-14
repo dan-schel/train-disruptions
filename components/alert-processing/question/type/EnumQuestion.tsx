@@ -23,7 +23,7 @@ export type EnumQuestionProps<T extends string> = QuestionProps<
 >;
 
 export function EnumQuestion<T extends string>(props: EnumQuestionProps<T>) {
-  const [group] = React.useMemo(uuid, []);
+  const [group] = React.useMemo(() => "", []);
 
   const validate = React.useCallback<QuestionValidator<T, T | null>>((raw) => {
     if (raw == null) return { error: "Please choose an option" };

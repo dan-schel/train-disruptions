@@ -1,13 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { QuestionProps } from "@/components/alert-processing/question/lib/use-question";
+import { Field } from "@/components/alert-processing/question/lib/field";
 import { Maybe } from "@/shared/types/maybe";
-import React from "react";
-
-export type Field<T, Extra> = {
-  type: React.FC<QuestionProps<T, Extra>>;
-  props: Extra;
-};
 
 export type AnyField = Field<any, any>;
 

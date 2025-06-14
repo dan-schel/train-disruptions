@@ -3,13 +3,13 @@ import { useQuestionGroup } from "@/components/alert-processing/question/lib/use
 import { nonNull } from "@dan-schel/js-utils";
 import { useObjectBuilderSetup } from "@/components/alert-processing/question/type/complex/object-builder/setup";
 import { useObjectBuilderValidate } from "@/components/alert-processing/question/type/complex/object-builder/validate";
-import { Subquestion } from "@/components/alert-processing/question/type/complex/object-builder/Subquestion";
 import { QuestionProps } from "@/components/alert-processing/question/lib/use-question";
 import {
   AnyConfigType,
   ObjectValue,
   ValidateFunction,
 } from "@/components/alert-processing/question/type/complex/object-builder/types";
+import { update } from "@/components/alert-processing/question/lib/question-group-helpers";
 
 export type ObjectBuilderQuestionProps<Config extends AnyConfigType> =
   QuestionProps<
@@ -36,14 +36,11 @@ export function ObjectBuilderQuestion<Config extends AnyConfigType>(
   return (
     <>
       {questionsToShow.map(([key, field]) => {
-        return (
-          <Subquestion
-            key={key}
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            field={field as any}
-            fieldKey={key}
-            question={question}
-          />
+        return field.getComponent(
+          key,
+          question.value[key],
+          update(question.handleSubquestionSubmit, key),
+          question.error,
         );
       })}
     </>
