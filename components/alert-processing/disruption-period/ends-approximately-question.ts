@@ -1,0 +1,28 @@
+import { isAfter } from "date-fns";
+import { q } from "@/components/alert-processing/question";
+import { EndsApproximatelyInput } from "@/shared/types/alert-processing/disruption-period-input";
+
+function validate(input: EndsApproximatelyInput) {
+  if (!isAfter(input.latest, input.earliest)) {
+    return {
+      error: "Latest date must be after earliest date",
+      questionsToInvalidate: ["latest" as const],
+    };
+  }
+  return null;
+}
+
+export const endsApproximatelyQuestion = q.object(
+  {
+    displayText: q.string({
+      label: "Text describing when the disruption ends",
+    }),
+    earliest: q.date({
+      label: "Earliest interpretable date",
+    }),
+    latest: q.date({
+      label: "Latest interpretable date",
+    }),
+  },
+  validate,
+);
