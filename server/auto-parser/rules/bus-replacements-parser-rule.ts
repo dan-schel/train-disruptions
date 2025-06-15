@@ -42,11 +42,23 @@ export class BusReplacementsParserRule extends AutoParserRuleBase {
       .filter(nonNull);
 
     const lineSections = affectedLines.flatMap((line) => {
-      const stations = line.route
+      let stations = line.route
         .getAllServedStations()
         .filter((station) =>
           data.description.includes(app.stations.require(station).name),
         );
+
+      // Indication that paritial match has occured
+      if (stations.length > 2) {
+        const names = stations.map((x) => app.stations.require(x).name);
+        // Filter only stations where its name is only a substring to itself
+        stations = stations.filter(
+          (station) =>
+            names.filter((stationName) =>
+              stationName.includes(app.stations.require(station).name),
+            ).length === 1,
+        );
+      }
 
       // Requires two stations to form a section
       if (stations.length !== 2) {
