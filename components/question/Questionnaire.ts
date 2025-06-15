@@ -1,7 +1,7 @@
 import { Field } from "@/components/question/common/field";
 import { Maybe } from "@/shared/types/maybe";
 
-export type QuestionaireProps<T> = {
+export type QuestionnaireProps<T> = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   config: Field<T, any>;
 
@@ -14,12 +14,12 @@ export type QuestionaireProps<T> = {
   error?: string | null;
 };
 
-export function Questionaire<T>(props: QuestionaireProps<T>) {
+export function Questionnaire<T>(props: QuestionnaireProps<T>) {
   const input: Maybe<T> =
     props.input === undefined ? null : { value: props.input };
 
   return props.config.getComponent(
-    "questionaire",
+    "questionnaire",
     input,
     props.onSubmit,
     props.error ?? null,

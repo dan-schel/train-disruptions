@@ -18,4 +18,4 @@ export const q = {
   discriminatedUnion: buildDiscriminatedUnion,
 };
 
-export { Questionaire } from "@/components/question/Questionaire";
+export { Questionnaire } from "@/components/question/Questionnaire";
