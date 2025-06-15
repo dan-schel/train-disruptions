@@ -6,14 +6,17 @@ import {
 import { SubmittedQuestion } from "@/components/question/common/SubmittedQuestion";
 import { ActiveQuestion } from "@/components/question/common/ActiveQuestion";
 import { Input } from "@/components/core/Input";
+import { Text } from "@/components/core/Text";
 import {
   useStringInitializer,
   useStringValidator,
 } from "@/components/question/string/hooks";
+import { Spacer } from "@/components/core/Spacer";
 
 export type StringQuestionAdditionalProps = {
   label: string;
   validate?: (value: string) => string | null;
+  description?: string;
 };
 
 export type StringQuestionProps = QuestionProps<
@@ -36,6 +39,12 @@ export function StringQuestion(props: StringQuestionProps) {
       wrapInForm={true}
     >
       <Input value={question.value} onChange={question.setValue} />
+      {props.props.description != null && (
+        <>
+          <Spacer h="2" />
+          <Text style="tiny-weak">{props.props.description}</Text>
+        </>
+      )}
     </ActiveQuestion>
   ) : (
     <SubmittedQuestion

@@ -40,7 +40,7 @@ export function EnumQuestion<T extends string>(props: EnumQuestionProps<T>) {
       onCancel={question.onEditCancelClick}
       wrapInForm={true}
     >
-      <Column className="gap-4 pt-2 pb-4">
+      <Column className="gap-4 py-2">
         {props.props.values.map((value) => (
           <RadioButton
             key={value}

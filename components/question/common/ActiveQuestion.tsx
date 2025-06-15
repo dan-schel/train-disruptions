@@ -6,6 +6,7 @@ import { MingcuteArrowRightLine } from "@/components/icons/MingcuteArrowRightLin
 import { Row } from "@/components/core/Row";
 import { MingcuteCloseLine } from "@/components/icons/MingcuteCloseLine";
 import { MingcuteCheckLine } from "@/components/icons/MingcuteCheckLine";
+import { Spacer } from "@/components/core/Spacer";
 
 export type ActiveQuestionProps = ActiveQuestionInnardsProps & {
   wrapInForm?: boolean;
@@ -41,10 +42,17 @@ export function ActiveQuestion(props: ActiveQuestionProps) {
 
 function ActiveQuestionInnards(props: ActiveQuestionInnardsProps) {
   return (
-    <Column align="left" className="gap-2">
+    <Column align="left">
       <Text>{props.label}</Text>
+      <Spacer h="2" />
       {props.children}
-      {props.error && <Text style="small-red">{props.error}</Text>}
+      {props.error && (
+        <>
+          <Spacer h="2" />
+          <Text style="small-red">{props.error}</Text>
+        </>
+      )}
+      <Spacer h="4" />
       <Row className="gap-2">
         {props.isCancelable && (
           <SimpleButton
@@ -54,7 +62,7 @@ function ActiveQuestionInnards(props: ActiveQuestionInnardsProps) {
           />
         )}
         <SimpleButton
-          text={props.isCancelable ? "Update" : "Continue"}
+          text={props.isCancelable ? "Update" : "Next"}
           icon={
             props.isCancelable ? (
               <MingcuteCheckLine />

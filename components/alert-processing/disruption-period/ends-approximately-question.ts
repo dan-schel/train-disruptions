@@ -16,6 +16,7 @@ export const endsApproximatelyQuestion = q.object(
   {
     displayText: q.string({
       label: "Text describing when the disruption ends",
+      description: 'e.g. "late May", "2026", etc.',
     }),
     earliest: q.date({
       label: "Earliest interpretable date",

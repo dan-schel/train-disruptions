@@ -30,7 +30,7 @@ export default function Page() {
               <Spacer h="8" />
               <Text style="subtitle">Disruption builder</Text>
               <Spacer h="4" />
-              <Column className="gap-4">
+              <Column className="gap-6">
                 <Questionaire
                   config={disruptionPeriodQuestion}
                   // eslint-disable-next-line no-console
