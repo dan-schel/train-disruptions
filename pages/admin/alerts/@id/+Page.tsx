@@ -7,6 +7,10 @@ import { BackNavigation } from "@/components/navigation/BackNavigation";
 import { Data } from "@/pages/admin/alerts/@id/+data";
 import { useData } from "vike-react/useData";
 import { AlertData } from "@/pages/admin/alerts/@id/AlertData";
+import { Spacer } from "@/components/core/Spacer";
+import { disruptionPeriodQuestion } from "@/components/alert-processing/disruption-period/disruption-period-question";
+import { DisruptionPeriodInput } from "@/shared/types/alert-processing/disruption-period-input";
+import { Questionnaire } from "@/components/question";
 
 export default function Page() {
   const { alert } = useData<Data>();
@@ -17,9 +21,22 @@ export default function Page() {
       <PageCenterer>
         <PagePadding>
           {alert != null ? (
-            <Column className="min-w-0 gap-4">
+            <Column className="min-w-0">
               <Text style="megatitle">Process alert</Text>
+              <Spacer h="4" />
               <AlertData data={alert.data} />
+              <Spacer h="8" />
+              <hr className="border-soft-border" />
+              <Spacer h="8" />
+              <Text style="subtitle">Disruption builder</Text>
+              <Spacer h="4" />
+              <Column className="gap-6">
+                <Questionnaire
+                  config={disruptionPeriodQuestion}
+                  // eslint-disable-next-line no-console
+                  onSubmit={(p: DisruptionPeriodInput) => console.log(p)}
+                />
+              </Column>
             </Column>
           ) : (
             <Column className="gap-4">
