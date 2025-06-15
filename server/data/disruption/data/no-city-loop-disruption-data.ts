@@ -55,15 +55,8 @@ export class NoCityLoopDisruptionData extends DisruptionDataBase {
     };
   }
 
-  getImpactedLines(app: App): readonly number[] {
-    return unique(
-      this.lineIds.filter((lineId) =>
-        app.lines
-          .get(lineId)
-          ?.route.getAllLineShapeNodes()
-          .includes("the-city"),
-      ),
-    );
+  getImpactedLines(_app: App): readonly number[] {
+    return this.lineIds;
   }
 
   getWriteupAuthor(): DisruptionWriteupAuthor {

@@ -3,7 +3,7 @@ import { NoCityLoopDisruptionData } from "@/server/data/disruption/data/no-city-
 import { Disruption } from "@/server/data/disruption/disruption";
 import { DisruptionWriteup } from "@/server/data/disruption/writeup/disruption-writeup";
 import { DisruptionWriteupAuthor } from "@/server/data/disruption/writeup/disruption-writeup-author";
-import { listifyAnd, nonNull } from "@dan-schel/js-utils";
+import { listifyAnd } from "@dan-schel/js-utils";
 
 /** DisruptionWriteupAuthor for NoCityLoopDisruptionData. */
 export class NoCityLoopDisruptionWriteupAuthor extends DisruptionWriteupAuthor {
@@ -17,8 +17,7 @@ export class NoCityLoopDisruptionWriteupAuthor extends DisruptionWriteupAuthor {
     });
     const lines = this._data
       .getImpactedLines(app)
-      .map((x) => app.lines.get(x))
-      .filter(nonNull);
+      .map((x) => app.lines.require(x));
 
     const subjectString = `on the ${listifyAnd(lines.map((x) => x.name))} line${lines.length > 1 ? "s" : ""}`;
 
