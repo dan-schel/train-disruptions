@@ -26,13 +26,15 @@ const LineJunctionMapping: Readonly<Record<number, number>> = {
   [line.UPFIELD]: NORTH_MELBOURNE,
 };
 
-// Map nodes to remove from map segements
+// Map nodes to keep in map segements
 const DirectToFlindersStreet = [
   mapNode.BURNLEY.FLINDERS_STREET_DIRECT,
   mapNode.CLIFTON_HILL.FLINDERS_STREET_DIRECT,
   mapNode.DANDENONG.FLINDERS_STREET_DIRECT,
   mapNode.NORTHERN.FLINDERS_STREET_DIRECT,
-  mapNode.NORTHERN.SOUTHERN_CROSS, // Northern loop needs to pass through Southern Cross
+  // Northern loop needs to pass through Southern Cross
+  //  before reaching Flinders Street
+  mapNode.NORTHERN.SOUTHERN_CROSS,
 ];
 
 export class NoCityLoopMapHighlighter extends MapHighlighter {
