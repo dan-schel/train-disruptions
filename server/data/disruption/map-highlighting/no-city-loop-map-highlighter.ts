@@ -26,7 +26,7 @@ const LineJunctionMapping: Readonly<Record<number, number>> = {
   [line.UPFIELD]: NORTH_MELBOURNE,
 };
 
-// Map nodes to keep in map segements
+// Map nodes to remove from map segements
 const DirectToFlindersStreet = [
   mapNode.BURNLEY.FLINDERS_STREET_DIRECT,
   mapNode.CLIFTON_HILL.FLINDERS_STREET_DIRECT,
