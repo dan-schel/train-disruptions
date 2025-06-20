@@ -24,13 +24,17 @@ export class DelaysParserRule extends AutoParserRuleBase {
     return this._process(alert, app);
   }
 
-  private _couldParse({ data }: Alert): boolean {
-    return data.title.startsWith("Delays up to");
+  private _couldParse({ data, updatedData }: Alert): boolean {
+    return (updatedData ?? data).title.startsWith("Delays up to");
   }
 
-  private _process({ id, data }: Alert, app: App): Disruption | null {
+  private _process(
+    { id, data, updatedData }: Alert,
+    app: App,
+  ): Disruption | null {
+    const alertData = updatedData ?? data;
     const delayInMinutes = parseIntNull(
-      data.title
+      alertData.title
         .match(/(\d+ minutes)+/g)
         ?.at(0)
         ?.split(" ")
@@ -40,13 +44,13 @@ export class DelaysParserRule extends AutoParserRuleBase {
       return null;
     }
 
-    const affectedLines = data.affectedLinePtvIds
+    const affectedLines = alertData.affectedLinePtvIds
       .map((x) => app.lines.findByPtvId(x))
       .filter(nonNull);
 
     const possibleStations = app.stations.filter(
       (x) =>
-        data.title.includes(x.name) &&
+        alertData.title.includes(x.name) &&
         affectedLines.every((line) =>
           line.route.getAllServedStations().includes(x.id),
         ),

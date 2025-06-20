@@ -8,6 +8,7 @@ import { IntervalScheduler } from "@/server/task/lib/interval-scheduler";
 import { Task } from "@/server/task/lib/task";
 import { TaskScheduler } from "@/server/task/lib/task-scheduler";
 import { Disruption } from "@/types/disruption";
+import { z } from "zod";
 
 /**
  * Fetches fresh alerts from the alert source, and writes all unseen alerts to
@@ -34,6 +35,7 @@ export class PopulateInboxQueueTask extends Task {
       const alerts = await app.database.of(ALERTS).all();
       await Promise.all([
         this._addNewAlerts(app, parser, disruptions, alerts),
+        this._updateAlerts(app, parser, disruptions, alerts),
         this._cleanupOldAlerts(app, disruptions, alerts),
       ]);
     } catch (error) {
@@ -88,6 +90,84 @@ export class PopulateInboxQueueTask extends Task {
       } catch (error) {
         console.warn(`Failed to parse alert #${alert.id}.`);
         console.warn(error);
+      }
+    }
+  }
+
+  private async _updateAlerts(
+    app: App,
+    parser: AutoParsingPipeline,
+    disruptions: Disruption[],
+    alerts: Alert[],
+  ) {
+    for (const disruption of disruptions) {
+      const id = disruption.disruption_id.toString();
+      const alert = alerts.find((x) => x.id === id);
+      const { success, data: mostRecentUpdate } = z.coerce
+        .date()
+        .safeParse(disruption.last_updated);
+
+      if (alert && success && !alert.ignoreFutureUpdates) {
+        const needsToBeUpdated =
+          (alert.getState() === "new" && alert.appearedAt < mostRecentUpdate) ||
+          (alert.getState() === "processed" &&
+            (alert.processedAt ?? app.time.now()) < mostRecentUpdate) ||
+          (alert.getState() === "updated" &&
+            (alert.updatedAt ?? app.time.now()) < mostRecentUpdate);
+
+        if (needsToBeUpdated) {
+          const newAlert = new Alert(
+            alert.id,
+            alert.data,
+            this._createAlertData(disruption),
+            alert.appearedAt,
+            app.time.now(),
+            app.time.now(),
+            alert.ignoreFutureUpdates,
+            alert.deleteAt,
+          );
+          await app.database.of(ALERTS).update(newAlert);
+
+          // Check for an existing disruption that was automatically parsed
+          // If a new disruption can be parsed with the updated data,
+          //  update the existing record, otherwise delete the existing record
+          const existingDisruption = await app.database.of(DISRUPTIONS).first({
+            where: {
+              sourceAlertIds: alert.id,
+              curation: "automatic",
+            },
+          });
+
+          // Catch an error incase somewhere along the pipeline, the data or validation becomes invalid
+          // If that data cannot be parsed, then the existing disruption should be considered invalid
+          let newDisruption = null;
+          try {
+            newDisruption = parser.parseAlert(newAlert, app);
+          } catch (error) {
+            console.warn(`Failed to parse alert #${alert.id}.`);
+            console.warn(error);
+
+            // Old disruption is no longer valid with updated data
+            // We're better off removing it than to display incorrect information
+            if (existingDisruption) {
+              await app.database.of(DISRUPTIONS).delete(existingDisruption.id);
+            }
+          }
+
+          if (existingDisruption) {
+            if (newDisruption) {
+              await app.database
+                .of(DISRUPTIONS)
+                .update({ ...newDisruption, id: existingDisruption.id });
+            } else {
+              // Old disruption is no longer valid with updated data
+              // We're better off removing it than to display incorrect information
+              await app.database.of(DISRUPTIONS).delete(existingDisruption.id);
+            }
+          } else if (newDisruption) {
+            await app.database.of(DISRUPTIONS).create(newDisruption);
+          }
+        }
       }
     }
   }
