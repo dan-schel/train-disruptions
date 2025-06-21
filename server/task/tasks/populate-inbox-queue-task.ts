@@ -3,11 +3,12 @@ import { AutoParsingPipeline } from "@/server/auto-parser/auto-parsing-pipeline"
 import { BusReplacementsParserRule } from "@/server/auto-parser/rules/bus-replacements-parser-rule";
 import { DelaysParserRule } from "@/server/auto-parser/rules/delays-parser-rule";
 import { Alert, AlertData } from "@/server/data/alert";
+import { Disruption } from "@/server/data/disruption/disruption";
 import { ALERTS, DISRUPTIONS } from "@/server/database/models/models";
 import { IntervalScheduler } from "@/server/task/lib/interval-scheduler";
 import { Task } from "@/server/task/lib/task";
 import { TaskScheduler } from "@/server/task/lib/task-scheduler";
-import { Disruption } from "@/types/disruption";
+import { Disruption as PTVDisruption } from "@/types/disruption";
 import { z } from "zod";
 
 /**
@@ -47,7 +48,7 @@ export class PopulateInboxQueueTask extends Task {
   private async _addNewAlerts(
     app: App,
     parser: AutoParsingPipeline,
-    disruptions: Disruption[],
+    disruptions: PTVDisruption[],
     alerts: Alert[],
   ) {
     for (const disruption of disruptions) {
@@ -97,7 +98,7 @@ export class PopulateInboxQueueTask extends Task {
   private async _updateAlerts(
     app: App,
     parser: AutoParsingPipeline,
-    disruptions: Disruption[],
+    disruptions: PTVDisruption[],
     alerts: Alert[],
   ) {
     for (const disruption of disruptions) {
@@ -158,7 +159,15 @@ export class PopulateInboxQueueTask extends Task {
             if (newDisruption) {
               await app.database
                 .of(DISRUPTIONS)
-                .update({ ...newDisruption, id: existingDisruption.id });
+                .update(
+                  new Disruption(
+                    existingDisruption.id,
+                    newDisruption.data,
+                    newDisruption.sourceAlertIds,
+                    newDisruption.period,
+                    newDisruption.curation,
+                  ),
+                );
             } else {
               // Old disruption is no longer valid with updated data
               // We're better off removing it than to display incorrect information
@@ -174,7 +183,7 @@ export class PopulateInboxQueueTask extends Task {
 
   private async _cleanupOldAlerts(
     app: App,
-    disruptions: Disruption[],
+    disruptions: PTVDisruption[],
     alerts: Alert[],
   ) {
     for (const alert of alerts) {
@@ -193,7 +202,7 @@ export class PopulateInboxQueueTask extends Task {
     }
   }
 
-  private _createAlertData(disruption: Disruption) {
+  private _createAlertData(disruption: PTVDisruption) {
     return new AlertData(
       disruption.title,
       disruption.description,
