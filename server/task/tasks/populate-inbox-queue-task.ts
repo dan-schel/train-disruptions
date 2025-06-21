@@ -135,9 +135,11 @@ export class PopulateInboxQueueTask extends Task {
           const existingDisruption = await app.database.of(DISRUPTIONS).first({
             where: {
               sourceAlertIds: alert.id,
-              curation: "automatic",
             },
           });
+
+          // Don't override or duplicate manually parsed disruptions
+          if (existingDisruption?.curation === "manual") continue;
 
           // Catch an error incase somewhere along the pipeline, the data or validation becomes invalid
           // If that data cannot be parsed, then the existing disruption should be considered invalid
@@ -147,12 +149,6 @@ export class PopulateInboxQueueTask extends Task {
           } catch (error) {
             console.warn(`Failed to parse alert #${alert.id}.`);
             console.warn(error);
-
-            // Old disruption is no longer valid with updated data
-            // We're better off removing it than to display incorrect information
-            if (existingDisruption) {
-              await app.database.of(DISRUPTIONS).delete(existingDisruption.id);
-            }
           }
 
           if (existingDisruption) {
