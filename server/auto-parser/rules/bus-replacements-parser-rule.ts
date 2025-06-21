@@ -27,17 +27,22 @@ export class BusReplacementsParserRule extends AutoParserRuleBase {
     return this._process(alert, app);
   }
 
-  private _couldParse({ data }: Alert): boolean {
+  private _couldParse({ data, updatedData }: Alert): boolean {
+    const alertData = updatedData ?? data;
     return (
-      data.description.toLowerCase().includes("buses replace trains") &&
+      alertData.description.toLowerCase().includes("buses replace trains") &&
       // Only parse disruptions that have a definitive time period
-      data.startsAt !== null &&
-      data.endsAt !== null
+      alertData.startsAt !== null &&
+      alertData.endsAt !== null
     );
   }
 
-  private _process({ id, data }: Alert, app: App): Disruption | null {
-    const affectedLines = data.affectedLinePtvIds
+  private _process(
+    { id, data, updatedData }: Alert,
+    app: App,
+  ): Disruption | null {
+    const alertData = updatedData ?? data;
+    const affectedLines = alertData.affectedLinePtvIds
       .map((x) => app.lines.findByPtvId(x))
       .filter(nonNull);
 
@@ -45,7 +50,7 @@ export class BusReplacementsParserRule extends AutoParserRuleBase {
       let stations = line.route
         .getAllServedStations()
         .filter((station) =>
-          data.description.includes(app.stations.require(station).name),
+          alertData.description.includes(app.stations.require(station).name),
         );
 
       // Indication that paritial match has occured
@@ -84,24 +89,24 @@ export class BusReplacementsParserRule extends AutoParserRuleBase {
     }
 
     const endsOnLastService =
-      data.title.includes("last service") ||
-      data.description.includes("last service");
-    const isEvening = data.description.includes("last service each night");
+      alertData.title.includes("last service") ||
+      alertData.description.includes("last service");
+    const isEvening = alertData.description.includes("last service each night");
 
     const ends = endsOnLastService
-      ? new EndsAfterLastService(JustDate.extractFromDate(data.endsAt!))
-      : new EndsExactly(data.endsAt!);
+      ? new EndsAfterLastService(JustDate.extractFromDate(alertData.endsAt!))
+      : new EndsExactly(alertData.endsAt!);
 
-    const startHour = utcToLocalTime(data.startsAt!).getHours();
-    const startMinute = utcToLocalTime(data.startsAt!).getMinutes();
+    const startHour = utcToLocalTime(alertData.startsAt!).getHours();
+    const startMinute = utcToLocalTime(alertData.startsAt!).getMinutes();
     const period = isEvening
       ? new EveningsOnlyDisruptionPeriod(
-          data.startsAt,
+          alertData.startsAt,
           ends,
           startHour,
           startMinute,
         )
-      : new StandardDisruptionPeriod(data.startsAt, ends);
+      : new StandardDisruptionPeriod(alertData.startsAt, ends);
 
     return new Disruption(
       uuid(),
