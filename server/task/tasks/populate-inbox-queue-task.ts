@@ -129,48 +129,44 @@ export class PopulateInboxQueueTask extends Task {
           );
           await app.database.of(ALERTS).update(newAlert);
 
-          // Check for an existing disruption that was automatically parsed
-          // If a new disruption can be parsed with the updated data,
-          //  update the existing record, otherwise delete the existing record
           const existingDisruption = await app.database.of(DISRUPTIONS).first({
             where: {
               sourceAlertIds: alert.id,
             },
           });
 
-          // Don't override or duplicate manually parsed disruptions
-          if (existingDisruption?.curation === "manual") continue;
-
-          // Catch an error incase somewhere along the pipeline, the data or validation becomes invalid
-          // If that data cannot be parsed, then the existing disruption should be considered invalid
-          let newDisruption = null;
-          try {
-            newDisruption = parser.parseAlert(newAlert, app);
-          } catch (error) {
-            console.warn(`Failed to parse alert #${alert.id}.`);
-            console.warn(error);
-          }
-
-          if (existingDisruption) {
-            if (newDisruption) {
-              await app.database
-                .of(DISRUPTIONS)
-                .update(
-                  new Disruption(
-                    existingDisruption.id,
-                    newDisruption.data,
-                    newDisruption.sourceAlertIds,
-                    newDisruption.period,
-                    newDisruption.curation,
-                  ),
-                );
-            } else {
-              // Old disruption is no longer valid with updated data
-              // We're better off removing it than to display incorrect information
-              await app.database.of(DISRUPTIONS).delete(existingDisruption.id);
+          // Only attempt to override if the linked disruption was also automatically parsed
+          if (existingDisruption?.curation === "automatic") {
+            try {
+              const newDisruption = parser.parseAlert(newAlert, app);
+              if (existingDisruption) {
+                if (newDisruption) {
+                  await app.database
+                    .of(DISRUPTIONS)
+                    .update(
+                      new Disruption(
+                        existingDisruption.id,
+                        newDisruption.data,
+                        newDisruption.sourceAlertIds,
+                        newDisruption.period,
+                        newDisruption.curation,
+                      ),
+                    );
+                } else {
+                  // If a disruptions cannot be parsed with the new alert data,
+                  //  we should assume that the existing entry might no longer be valid
+                  // We're better off removing it than to display incorrect information
+                  await app.database
+                    .of(DISRUPTIONS)
+                    .delete(existingDisruption.id);
+                }
+              } else if (newDisruption) {
+                await app.database.of(DISRUPTIONS).create(newDisruption);
+              }
+            } catch (error) {
+              console.warn(`Failed to parse alert #${alert.id}.`);
+              console.warn(error);
             }
-          } else if (newDisruption) {
-            await app.database.of(DISRUPTIONS).create(newDisruption);
           }
         }
       }
