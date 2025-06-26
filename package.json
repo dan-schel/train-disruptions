@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@dan-schel/js-utils": "4.2.0",
-    "@tailwindcss/vite": "4.1.10",
+    "@tailwindcss/vite": "4.1.11",
     "@vitejs/plugin-react": "4.6.0",
     "axios": "1.10.0",
     "bcrypt": "6.0.0",
