@@ -2,6 +2,10 @@
   --duration: 0;
   --width: 0;
   overflow: hidden;
+
+  /* Ensure lowercase letters like gs, ys, etc. aren't cut off. */
+  margin: -0.5rem 0;
+  padding: 0.5rem 0;
 }
 ._marquee > div {
   width: max-content;
