@@ -1,4 +1,9 @@
+import { ArrayField } from "@/components/question/array/ArrayField";
 import { Submit } from "@/components/question/common/use-question";
+import {
+  buildArray,
+  BuildArrayHelperProps,
+} from "@/components/question/helpers";
 import { Maybe } from "@/shared/types/maybe";
 import { ReactElement } from "react";
 
@@ -14,4 +19,8 @@ export abstract class Field<Type, Props> {
     onSubmit: Submit<Type>,
     parentError: string | null,
   ): ReactElement;
+
+  array(p: BuildArrayHelperProps<Type>): ArrayField<Type> {
+    return buildArray(this, p);
+  }
 }
