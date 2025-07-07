@@ -72,7 +72,7 @@ export function ArrayQuestion<Type>(props: ArrayQuestionProps<Type>) {
             index,
             item,
             (value) => handleItemSubmit(value, index),
-            question.error,
+            null,
           ),
         )}
         <With className="justify-items-start">
