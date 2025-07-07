@@ -25,6 +25,7 @@ export class App {
     readonly alertSource: AlertSource,
     readonly discordBot: DiscordBot | null,
     readonly time: TimeProvider,
+    readonly env: "production" | "development" | "test",
     readonly commitHash: string | null,
     private readonly username: string | null,
     private readonly password: string | null,

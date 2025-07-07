@@ -26,6 +26,7 @@ export async function run(root: string) {
     alertSource,
     discordBot,
     time,
+    env.NODE_ENV,
     env.COMMIT_HASH ?? null,
     env.USER_NAME ?? null,
     env.PASSWORD ?? null,
