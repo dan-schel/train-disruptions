@@ -27,5 +27,10 @@ export function ArrayQuestion<Type>(props: ArrayQuestionProps<Type>) {
   const question = useQuestionGroup({ props, setup, validate });
 
   // TODO: [DS] Render the array, with the ability to add/remove items.
+  // To achieve it, we probably need more state. E.g. how can we track when the
+  // user has clicked "add" but hasn't yet filled in the new item? The state
+  // type should probably be Maybe<Type>[] instead of Type[].
+  //
+  // (I should just need to modify useArrayInitializer and useArrayValidator.)
   return <></>;
 }
