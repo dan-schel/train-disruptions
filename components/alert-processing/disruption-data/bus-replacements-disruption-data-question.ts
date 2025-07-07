@@ -2,7 +2,7 @@ import { lineSectionQuestion } from "@/components/alert-processing/disruption-da
 import { q } from "@/components/question";
 
 export const busReplacementsDisruptionDataQuestion = q.object({
-  sections: lineSectionQuestion.array({
+  sections: q.array(lineSectionQuestion, {
     label: "Which section(s) of the network are replaced by buses?",
     min: 1,
   }),

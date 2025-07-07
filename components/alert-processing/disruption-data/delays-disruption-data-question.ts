@@ -9,7 +9,7 @@ export const delaysDisruptionDataQuestion = q.object({
     label: "Roughly how long (in minutes) are the delays expected to be?",
     min: 1,
   }),
-  sections: lineSectionQuestion.array({
+  sections: q.array(lineSectionQuestion, {
     label: "Which section(s) of the network are impacted by delays?",
     min: 1,
   }),

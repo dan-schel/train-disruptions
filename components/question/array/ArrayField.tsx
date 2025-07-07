@@ -12,7 +12,7 @@ export class ArrayField<Type> extends Field<
   ArrayQuestionAdditionalProps<Type>
 > {
   getComponent(
-    key: string,
+    key: string | number,
     input: Maybe<Type[]>,
     onSubmit: Submit<Type[]>,
     parentError: string | null,

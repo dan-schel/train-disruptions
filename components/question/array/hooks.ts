@@ -1,33 +1,42 @@
 import React from "react";
-import { QuestionSetup } from "@/components/question/common/use-question";
-import { QuestionGroupValidator } from "@/components/question/common/use-question-group";
+import {
+  QuestionSetup,
+  QuestionValidator,
+} from "@/components/question/common/use-question";
 import { ArrayValidateFunction } from "@/components/question/array/types";
+import { Maybe } from "@/shared/types/maybe";
+import { nonNull } from "@dan-schel/js-utils";
 
 export function useArrayInitializer<Type>() {
-  return React.useCallback<QuestionSetup<Type[], Type[]>>((input) => {
-    if (input != null) {
-      return input.value;
-    }
-    return [];
+  return React.useCallback<QuestionSetup<Type[], Maybe<Type>[]>>((input) => {
+    if (input == null) return [];
+
+    return input.value.map((value) => ({ value }));
   }, []);
 }
 
 export function useArrayValidator<Type>(
   validate: ArrayValidateFunction<Type> | null,
 ) {
-  return React.useCallback<QuestionGroupValidator<Type[], Type[]>>(
+  return React.useCallback<QuestionValidator<Type[], Maybe<Type>[]>>(
     (raw) => {
-      const error = validate?.(raw) ?? null;
+      const completed = raw.filter(nonNull);
+      if (completed.length < raw.length) {
+        return {
+          error: "Cannot proceed until all items are filled.",
+        };
+      }
 
+      const extracted = completed.map((item) => item.value);
+      const error = validate?.(extracted) ?? null;
       if (error != null) {
         return {
-          raw,
           error: error.error,
         };
       }
 
       return {
-        value: raw,
+        value: extracted,
       };
     },
     [validate],

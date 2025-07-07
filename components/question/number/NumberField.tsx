@@ -9,7 +9,7 @@ import {
 
 export class NumberField extends Field<number, NumberQuestionAdditionalProps> {
   getComponent(
-    key: string,
+    key: string | number,
     input: Maybe<number>,
     onSubmit: Submit<number>,
     parentError: string | null,

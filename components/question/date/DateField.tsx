@@ -9,7 +9,7 @@ import { Maybe } from "@/shared/types/maybe";
 
 export class DateField extends Field<Date, DateQuestionAdditionalProps> {
   getComponent(
-    key: string,
+    key: string | number,
     input: Maybe<Date>,
     onSubmit: Submit<Date>,
     parentError: string | null,
