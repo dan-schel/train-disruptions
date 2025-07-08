@@ -16,7 +16,7 @@ export class ObjectField<Config extends AnyObjectConfig> extends Field<
   ObjectQuestionAdditionalProps<Config>
 > {
   getComponent(
-    key: string,
+    key: string | number,
     input: Maybe<ObjectValue<Config>>,
     onSubmit: Submit<ObjectValue<Config>>,
     parentError: string | null,
