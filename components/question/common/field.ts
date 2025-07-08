@@ -9,7 +9,7 @@ export abstract class Field<Type, Props> {
   constructor(protected readonly _props: Props) {}
 
   abstract getComponent(
-    key: string,
+    key: string | number,
     input: Maybe<Type>,
     onSubmit: Submit<Type>,
     parentError: string | null,

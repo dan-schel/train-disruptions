@@ -8,9 +8,9 @@ import { Data } from "@/pages/admin/alerts/@id/+data";
 import { useData } from "vike-react/useData";
 import { AlertData } from "@/pages/admin/alerts/@id/AlertData";
 import { Spacer } from "@/components/core/Spacer";
-import { disruptionPeriodQuestion } from "@/components/alert-processing/disruption-period/disruption-period-question";
-import { DisruptionPeriodInput } from "@/shared/types/alert-processing/disruption-period-input";
 import { Questionnaire } from "@/components/question";
+import { disruptionDataQuestion } from "@/components/alert-processing/disruption-data/disruption-data-question";
+import { DisruptionDataInput } from "@/shared/types/alert-processing/disruption-data-input";
 
 export default function Page() {
   const { alert } = useData<Data>();
@@ -32,9 +32,9 @@ export default function Page() {
               <Spacer h="4" />
               <Column className="gap-6">
                 <Questionnaire
-                  config={disruptionPeriodQuestion}
+                  config={disruptionDataQuestion}
                   // eslint-disable-next-line no-console
-                  onSubmit={(p: DisruptionPeriodInput) => console.log(p)}
+                  onSubmit={(p: DisruptionDataInput) => console.log(p)}
                 />
               </Column>
             </Column>

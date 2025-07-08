@@ -19,7 +19,7 @@ export class DiscriminatedUnionField<
   DiscriminatedUnionQuestionAdditionalProps<Discriminator, Config>
 > {
   getComponent(
-    key: string,
+    key: string | number,
     input: Maybe<DiscriminatedUnionValue<Discriminator, Config>>,
     onSubmit: Submit<DiscriminatedUnionValue<Discriminator, Config>>,
     parentError: string | null,
