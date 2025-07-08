@@ -11,9 +11,28 @@ import { Spacer } from "@/components/core/Spacer";
 import { Questionnaire } from "@/components/question";
 import { disruptionDataQuestion } from "@/components/alert-processing/disruption-data/disruption-data-question";
 import { DisruptionDataInput } from "@/shared/types/alert-processing/disruption-data-input";
+import { SimpleButton } from "@/components/common/SimpleButton";
+import { usePageContext } from "vike-react/usePageContext";
+import axios from "axios";
+import { navigate } from "vike/client/router";
+import { With } from "@/components/core/With";
 
 export default function Page() {
+  const { id } = usePageContext().routeParams;
   const { alert } = useData<Data>();
+
+  async function handleIgnore() {
+    if (alert == null) return;
+
+    try {
+      await axios.post(`/api/admin/alert-processing/ignore/${id}`, {
+        permanently: false,
+      });
+      navigate("/admin/alerts");
+    } catch {
+      window.alert("Failed to ignore alert.");
+    }
+  }
 
   return (
     <Column>
@@ -36,6 +55,9 @@ export default function Page() {
                   // eslint-disable-next-line no-console
                   onSubmit={(p: DisruptionDataInput) => console.log(p)}
                 />
+                <With className="self-start">
+                  <SimpleButton onClick={handleIgnore} text="Ignore" />
+                </With>
               </Column>
             </Column>
           ) : (

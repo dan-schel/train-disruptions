@@ -7,18 +7,15 @@ import { uuid } from "@dan-schel/js-utils";
 import { Admin } from "@/server/database/models/admin";
 import { ADMINS } from "@/server/database/models/models";
 import { validateMiddleware } from "@/server/routes/middleware/validate";
-import { isAuthenticated } from "@/server/routes/middleware/authentication";
 
-export function createAdminRouter(app: App) {
-  const adminRouter = Router();
-
-  adminRouter.use(isAuthenticated);
+export function createUsersRouter(app: App) {
+  const router = Router();
 
   /**
    * Creates a new admin user and sends them their crendentials via Discord
    */
-  adminRouter.post(
-    "/users",
+  router.post(
+    "/",
     validateMiddleware({
       body: z.object({
         id: z.string().nonempty(),
@@ -80,8 +77,8 @@ export function createAdminRouter(app: App) {
   /**
    * Update the current users's account details
    */
-  adminRouter.put(
-    "/users/:id",
+  router.put(
+    "/:id",
     validateMiddleware({
       body: z.object({
         username: z.string(),
@@ -136,8 +133,8 @@ export function createAdminRouter(app: App) {
   /**
    * Deletes a user
    */
-  adminRouter.delete(
-    "/users/:id",
+  router.delete(
+    "/:id",
     validateMiddleware({
       params: z.object({
         id: z.string(),
@@ -168,7 +165,7 @@ export function createAdminRouter(app: App) {
     },
   );
 
-  return adminRouter;
+  return router;
 }
 
 // Not intended on being complicated, users should change their password when once they login

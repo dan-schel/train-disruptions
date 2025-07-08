@@ -48,6 +48,51 @@ export class Alert {
       return "processed";
     }
   }
+
+  processed() {
+    return this._with({
+      processedAt: new Date(),
+      ignoreFutureUpdates: false,
+    });
+  }
+
+  ignored() {
+    return this._with({
+      processedAt: new Date(),
+      ignoreFutureUpdates: true,
+    });
+  }
+
+  private _with({
+    id,
+    data,
+    updatedData,
+    appearedAt,
+    processedAt,
+    updatedAt,
+    ignoreFutureUpdates,
+    deleteAt,
+  }: {
+    id?: string;
+    data?: AlertData;
+    updatedData?: AlertData | null;
+    appearedAt?: Date;
+    processedAt?: Date | null;
+    updatedAt?: Date | null;
+    ignoreFutureUpdates?: boolean;
+    deleteAt?: Date | null;
+  }) {
+    return new Alert(
+      id ?? this.id,
+      data ?? this.data,
+      updatedData !== undefined ? updatedData : this.updatedData,
+      appearedAt ?? this.appearedAt,
+      processedAt !== undefined ? processedAt : this.processedAt,
+      updatedAt !== undefined ? updatedAt : this.updatedAt,
+      ignoreFutureUpdates ?? this.ignoreFutureUpdates,
+      deleteAt !== undefined ? deleteAt : this.deleteAt,
+    );
+  }
 }
 
 /**
