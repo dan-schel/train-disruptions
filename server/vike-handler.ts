@@ -23,6 +23,7 @@ export type CustomPageContext = {
 };
 
 export type ClientPageContext = {
+  isProduction: boolean;
   settings: z.input<typeof Settings.json>;
 };
 
@@ -41,6 +42,7 @@ export function createVikeHandler(app: App) {
           user,
         },
         client: {
+          isProduction: app.env === "production",
           settings: settings.toJSON(),
         },
         urlOriginal: req.url,

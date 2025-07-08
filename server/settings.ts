@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
-import { cookieSettings, Settings } from "@/shared/settings";
+import { getCookieSettings, Settings } from "@/shared/settings";
 import { StationCollection } from "@/server/data/station/station-collection";
+import { App } from "@/server/app";
 
 /** Extracts the user settings from an Express request's cookies. */
 export function getSettings(req: Request): Settings {
@@ -15,11 +16,19 @@ export function getSettings(req: Request): Settings {
  * express response. Must be used before .json() or .send() in the response
  * chain.
  */
-export function setSettings(res: Response, settings: Settings): Response {
+export function setSettings(
+  res: Response,
+  app: App,
+  settings: Settings,
+): Response {
+  const { sameSite, secure, maxAgeMillis } = getCookieSettings(
+    app.env === "production",
+  );
+
   return res.cookie("settings", JSON.stringify(settings.toJSON()), {
-    sameSite: cookieSettings.sameSite,
-    secure: cookieSettings.secure,
-    expires: new Date(Date.now() + cookieSettings.maxAgeMillis),
+    sameSite,
+    secure,
+    expires: new Date(Date.now() + maxAgeMillis),
   });
 }
 

@@ -155,9 +155,9 @@ A migration only really consists of two things, an ID and a `run()` function.
 
 In the example above, `2025-03-07-rename-color-on-crayon` is the migration's ID. This can be whatever you like, so long as it's unique. Migration IDs are prefixed with the current date to help with that.
 
-As you can guess, the `run()` function is to actually perform the migration. The `migrator` argument is your interface with the database. It's a bit different to the regular database functions to enable you to parse the data "raw" (given that you're probably migrating between two different schemas). You can see what else `Migrator` can do by looking [here](../../server/database/lib/general/migration.ts). If you don't need/want to deal with raw data, you can use `migrator.withModel()` to access the regular database functions (e.g. `create`, `update`, etc.).
+As you can guess, the `run()` function is to actually perform the migration. The `migrator` argument is your interface with the database. It's a bit different to the regular database functions to enable you to parse the data "raw" (given that you're probably migrating between two different schemas). You can see what else `Migrator` can do by looking [here](/server/database/lib/general/migration.ts). If you don't need/want to deal with raw data, you can use `migrator.withModel()` to access the regular database functions (e.g. `create`, `update`, etc.).
 
-Finally, in order to have your migration run, append it to [this list](../../server/database/migrations/migrations.ts):
+Finally, in order to have your migration run, append it to [this list](/server/database/migrations/migrations.ts):
 
 ```diff
   import { Migration } from "../lib/general/migration";
