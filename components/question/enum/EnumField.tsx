@@ -12,7 +12,7 @@ export class EnumField<T extends string> extends Field<
   EnumQuestionAdditionalProps<T>
 > {
   getComponent(
-    key: string,
+    key: string | number,
     input: Maybe<T>,
     onSubmit: Submit<T>,
     parentError: string | null,

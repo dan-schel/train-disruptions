@@ -9,7 +9,7 @@ import { Maybe } from "@/shared/types/maybe";
 
 export class StringField extends Field<string, StringQuestionAdditionalProps> {
   getComponent(
-    key: string,
+    key: string | number,
     input: Maybe<string>,
     onSubmit: Submit<string>,
     parentError: string | null,
