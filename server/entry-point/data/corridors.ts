@@ -16,7 +16,7 @@ export const southYarraToCaulfield = MapCorridor.complex(
   DANDENONG.SOUTH_YARRA,
   DANDENONG.CAULFIELD,
   FRANKSTON.SOUTH_YARRA,
-  DANDENONG.CAULFIELD,
+  FRANKSTON.CAULFIELD,
 );
 
 export const caulfieldToClayton = MapCorridor.complex(

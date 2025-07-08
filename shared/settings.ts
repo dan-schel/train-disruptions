@@ -1,17 +1,16 @@
 import { z } from "zod";
 
-export const cookieSettings = {
-  // Using "lax" means only sent if it's the same site, but still send on the
-  // when navigating from an external site.
-  sameSite: "lax",
+export function getCookieSettings(isProduction: boolean) {
+  return {
+    // Using "lax" means only sent if it's the same site, but still send on the
+    // when navigating from an external site.
+    sameSite: "lax",
 
-  // TODO: This means I can't test on my phone over the local network :(
-  // We definitely want to set this to `true` in prod though!
-  secure: true,
-
-  maxAgeDays: 9999,
-  maxAgeMillis: 9999 * 24 * 60 * 60 * 1000,
-} as const;
+    secure: isProduction,
+    maxAgeDays: 9999,
+    maxAgeMillis: 9999 * 24 * 60 * 60 * 1000,
+  } as const;
+}
 
 // TODO: This list is literally just off the top of my head. Let's refine these
 // categories later!
