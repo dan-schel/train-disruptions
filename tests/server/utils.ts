@@ -1,6 +1,6 @@
 import { FakeAlertSource } from "@/server/alert-source/fake-alert-source";
 import { App } from "@/server/app";
-import { InMemoryDatabase } from "@/server/database/lib/in-memory/in-memory-database";
+import { InMemoryDatabase } from "@dan-schel/db";
 import { startWebServer } from "@/server/entry-point";
 import { lines } from "@/server/entry-point/data/lines";
 import { stations } from "@/server/entry-point/data/stations";
