@@ -1,4 +1,5 @@
 import { q } from "@/components/question";
+import { AnyField } from "@/components/question/common/field";
 import { EndsAfterLastServiceInput } from "@/shared/schemas/alert-processing/disruption-period-input";
 import { isValid, parse } from "date-fns";
 
@@ -33,4 +34,4 @@ export const endsAfterLastServiceQuestion = q.object(
     }),
   },
   validate,
-);
+) satisfies AnyField<EndsAfterLastServiceInput>;

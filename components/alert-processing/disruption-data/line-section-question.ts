@@ -1,4 +1,6 @@
 import { q } from "@/components/question";
+import { AnyField } from "@/components/question/common/field";
+import { LineSectionInput } from "@/shared/schemas/alert-processing/disruption-data-input";
 
 export const lineSectionQuestion = q.object({
   line: q.line({
@@ -10,4 +12,4 @@ export const lineSectionQuestion = q.object({
   b: q.lineShapeNode({
     label: "Ending at",
   }),
-});
+}) satisfies AnyField<LineSectionInput>;
