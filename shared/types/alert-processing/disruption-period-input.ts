@@ -1,37 +1,30 @@
-export type EndsAfterLastServiceInput = {
-  year: number;
-  month: number;
-  day: number;
-};
+import { z } from "zod";
+import {
+  EndsAfterLastServiceInputJson,
+  EndsApproximatelyInputJson,
+  EndsExactlyInputJson,
+  EndsInputJson,
+  StandardDisruptionPeriodInputJson,
+  EveningsOnlyDisruptionPeriodInputJson,
+  DisruptionPeriodInputJson,
+} from "@/shared/schemas/alert-processing/disruption-period-input";
 
-export type EndsApproximatelyInput = {
-  displayText: string;
-  earliest: Date;
-  latest: Date;
-};
+export type EndsAfterLastServiceInput = z.input<
+  typeof EndsAfterLastServiceInputJson
+>;
 
-export type EndsExactlyInput = {
-  date: Date;
-};
+export type EndsApproximatelyInput = z.input<typeof EndsApproximatelyInputJson>;
 
-export type EndsInput =
-  | ({ type: "ends-after-last-service" } & EndsAfterLastServiceInput)
-  | ({ type: "ends-approximately" } & EndsApproximatelyInput)
-  | ({ type: "ends-exactly" } & EndsExactlyInput)
-  | { type: "ends-never" }
-  | { type: "ends-when-alert-ends" };
+export type EndsExactlyInput = z.input<typeof EndsExactlyInputJson>;
 
-export type StandardDisruptionPeriodInput = {
-  start: Date;
-  end: EndsInput;
-};
+export type EndsInput = z.input<typeof EndsInputJson>;
 
-export type EveningsOnlyDisruptionPeriodInput = {
-  start: Date;
-  end: EndsInput;
-  startHourEachDay: number;
-};
+export type StandardDisruptionPeriodInput = z.input<
+  typeof StandardDisruptionPeriodInputJson
+>;
 
-export type DisruptionPeriodInput =
-  | ({ type: "standard" } & StandardDisruptionPeriodInput)
-  | ({ type: "evenings-only" } & EveningsOnlyDisruptionPeriodInput);
+export type EveningsOnlyDisruptionPeriodInput = z.input<
+  typeof EveningsOnlyDisruptionPeriodInputJson
+>;
+
+export type DisruptionPeriodInput = z.input<typeof DisruptionPeriodInputJson>;

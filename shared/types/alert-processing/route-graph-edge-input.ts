@@ -1,16 +1,16 @@
-export type RouteGraphAlternativeEdgeInput = {
-  stationA: number;
-  stationB: number;
-  mode: "bus" | "tram" | "walk";
-};
+import { z } from "zod";
+import {
+  RouteGraphAlternativeEdgeInputJson,
+  RouteGraphTrainEdgeInputJson,
+  RouteGraphEdgeInputJson,
+} from "@/shared/schemas/alert-processing/route-graph-edge-input";
 
-export type RouteGraphTrainEdgeInput = {
-  stationA: number;
-  stationB: number;
-  line: number;
-  isRegionalTrain: boolean;
-};
+export type RouteGraphAlternativeEdgeInput = z.input<
+  typeof RouteGraphAlternativeEdgeInputJson
+>;
 
-export type RouteGraphEdgeInput =
-  | ({ type: "alternative" } & RouteGraphAlternativeEdgeInput)
-  | ({ type: "train" } & RouteGraphTrainEdgeInput);
+export type RouteGraphTrainEdgeInput = z.input<
+  typeof RouteGraphTrainEdgeInputJson
+>;
+
+export type RouteGraphEdgeInput = z.input<typeof RouteGraphEdgeInputJson>;

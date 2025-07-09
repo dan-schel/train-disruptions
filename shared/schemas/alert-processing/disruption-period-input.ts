@@ -8,12 +8,12 @@ export const EndsAfterLastServiceInputJson = z.object({
 
 export const EndsApproximatelyInputJson = z.object({
   displayText: z.string(),
-  earliest: z.string(),
-  latest: z.string(),
+  earliest: z.coerce.date(),
+  latest: z.coerce.date(),
 });
 
 export const EndsExactlyInputJson = z.object({
-  date: z.string(),
+  date: z.coerce.date(),
 });
 
 export const EndsInputJson = z.discriminatedUnion("type", [
@@ -29,12 +29,12 @@ export const EndsInputJson = z.discriminatedUnion("type", [
 ]);
 
 export const StandardDisruptionPeriodInputJson = z.object({
-  start: z.string(),
+  start: z.coerce.date(),
   end: EndsInputJson,
 });
 
 export const EveningsOnlyDisruptionPeriodInputJson = z.object({
-  start: z.string(),
+  start: z.coerce.date(),
   end: EndsInputJson,
   startHourEachDay: z.number(),
 });

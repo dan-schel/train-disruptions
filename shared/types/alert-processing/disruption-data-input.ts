@@ -1,45 +1,34 @@
-import { DisruptionWriteupInput } from "@/shared/types/alert-processing/disruption-writeup-input";
-import { MapHighlightingInput } from "@/shared/types/alert-processing/map-highlighting-input";
+import { z } from "zod";
 import {
-  RouteGraphEdgeInput,
-  RouteGraphTrainEdgeInput,
-} from "@/shared/types/alert-processing/route-graph-edge-input";
+  LineSectionInputJson,
+  CustomDisruptionDataInputJson,
+  StationClosureDisruptionDataInputJson,
+  BusReplacementsDisruptionDataInputJson,
+  DelaysDisruptionDataInputJson,
+  NoCityLoopDisruptionDataInputJson,
+  DisruptionDataInputJson,
+} from "@/shared/schemas/alert-processing/disruption-data-input";
 
-export type LineSectionInput = {
-  line: number;
-  a: number | "the-city";
-  b: number | "the-city";
-};
+export type LineSectionInput = z.input<typeof LineSectionInputJson>;
 
-export type CustomDisruptionDataInput = {
-  impactedLines: number[];
-  writeup: DisruptionWriteupInput;
-  edgesToRemove: RouteGraphTrainEdgeInput[];
-  edgesToAdd: RouteGraphEdgeInput[];
-  highlighting: MapHighlightingInput;
-};
+export type CustomDisruptionDataInput = z.input<
+  typeof CustomDisruptionDataInputJson
+>;
 
-export type StationClosureDisruptionDataInput = {
-  stationId: number;
-};
+export type StationClosureDisruptionDataInput = z.input<
+  typeof StationClosureDisruptionDataInputJson
+>;
 
-export type BusReplacementsDisruptionDataInput = {
-  sections: LineSectionInput[];
-};
+export type BusReplacementsDisruptionDataInput = z.input<
+  typeof BusReplacementsDisruptionDataInputJson
+>;
 
-export type DelaysDisruptionDataInput = {
-  stationId: number;
-  delayInMinutes: number;
-  sections: LineSectionInput[];
-};
+export type DelaysDisruptionDataInput = z.input<
+  typeof DelaysDisruptionDataInputJson
+>;
 
-export type NoCityLoopDisruptionDataInput = {
-  lineIds: number[];
-};
+export type NoCityLoopDisruptionDataInput = z.input<
+  typeof NoCityLoopDisruptionDataInputJson
+>;
 
-export type DisruptionDataInput =
-  | ({ type: "custom" } & CustomDisruptionDataInput)
-  | ({ type: "station-closure" } & StationClosureDisruptionDataInput)
-  | ({ type: "bus-replacements" } & BusReplacementsDisruptionDataInput)
-  | ({ type: "delays" } & DelaysDisruptionDataInput)
-  | ({ type: "no-city-loop" } & NoCityLoopDisruptionDataInput);
+export type DisruptionDataInput = z.input<typeof DisruptionDataInputJson>;
