@@ -26,20 +26,6 @@ export default function Page() {
   const [alertProcessingInput, setAlertProcessingInput] =
     React.useState<AlertProcessingInput | null>(null);
 
-  async function handleIgnore() {
-    if (alert == null) return;
-
-    try {
-      await axios.post(`/api/admin/alert-processing/ignore/${id}`, {
-        permanently: false,
-      });
-      navigate("/admin/alerts");
-    } catch (err) {
-      console.warn("Failed to ignore alert.", err);
-      window.alert("Failed to ignore alert.");
-    }
-  }
-
   async function handleProcess() {
     if (alert == null || alertProcessingInput == null) return;
 
@@ -49,8 +35,24 @@ export default function Page() {
       });
       navigate("/admin/alerts");
     } catch (err) {
+      // TODO: Better UX for these errors.
       console.warn("Failed to process alert.", err);
       window.alert("Failed to process alert.");
+    }
+  }
+
+  async function handleIgnore() {
+    if (alert == null) return;
+
+    try {
+      await axios.post(`/api/admin/alert-processing/ignore/${id}`, {
+        permanently: false,
+      });
+      navigate("/admin/alerts");
+    } catch (err) {
+      // TODO: Better UX for these errors.
+      console.warn("Failed to ignore alert.", err);
+      window.alert("Failed to ignore alert.");
     }
   }
 
@@ -72,16 +74,16 @@ export default function Page() {
               <Column className="gap-6">
                 <Questionnaire
                   config={alertProcessingQuestion}
-                  input={alertProcessingInput}
+                  input={alertProcessingInput ?? undefined}
                   onSubmit={setAlertProcessingInput}
                 />
-                <Row>
+                <Row className="gap-2">
                   <SimpleButton
                     onClick={handleIgnore}
                     text="Ignore"
                     icon={<MingcuteDelete2Line />}
                   />
-                  {alertProcessingInput == null && (
+                  {alertProcessingInput != null && (
                     <SimpleButton
                       onClick={handleProcess}
                       text="Process"

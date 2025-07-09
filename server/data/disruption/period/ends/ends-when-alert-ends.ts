@@ -11,7 +11,7 @@ export class EndsWhenAlertEnds extends EndsBase {
     /** The alert ID to track. */
     readonly alertId: string,
     /** The time the alert ends (last known, to be updated regularly). */
-    readonly alertEndDate: Date,
+    readonly alertEndDate: Date | null,
     // TODO: Need a scheduled job to update this regularly.
   ) {
     super();
@@ -21,7 +21,7 @@ export class EndsWhenAlertEnds extends EndsBase {
     .object({
       type: z.literal("when-alert-ends"),
       alertId: z.string(),
-      alertEndDate: z.date(),
+      alertEndDate: z.date().nullable(),
     })
     .transform((x) => new EndsWhenAlertEnds(x.alertId, x.alertEndDate));
 
@@ -34,6 +34,7 @@ export class EndsWhenAlertEnds extends EndsBase {
   }
 
   getDisplayString(options: DisplayStringOptions): string {
+    if (this.alertEndDate == null) return "further notice";
     return formatDate(this.alertEndDate, options.now);
   }
 
