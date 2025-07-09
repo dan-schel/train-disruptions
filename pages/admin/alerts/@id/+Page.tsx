@@ -10,7 +10,7 @@ import { AlertData } from "@/pages/admin/alerts/@id/AlertData";
 import { Spacer } from "@/components/core/Spacer";
 import { Questionnaire } from "@/components/question";
 import { disruptionDataQuestion } from "@/components/alert-processing/disruption-data/disruption-data-question";
-import { DisruptionDataInput } from "@/shared/types/alert-processing/disruption-data-input";
+import { DisruptionDataInput } from "@/shared/schemas/alert-processing/disruption-data-input";
 import { SimpleButton } from "@/components/common/SimpleButton";
 import { usePageContext } from "vike-react/usePageContext";
 import axios from "axios";

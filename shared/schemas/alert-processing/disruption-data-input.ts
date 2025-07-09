@@ -11,32 +11,48 @@ export const LineSectionInputJson = z.object({
   a: z.union([z.number(), z.literal("the-city")]),
   b: z.union([z.number(), z.literal("the-city")]),
 });
+export type LineSectionInput = z.input<typeof LineSectionInputJson>;
 
 export const CustomDisruptionDataInputJson = z.object({
-  impactedLines: z.array(z.number()),
+  impactedLines: z.number().array(),
   writeup: DisruptionWriteupInputJson,
-  edgesToRemove: z.array(RouteGraphTrainEdgeInputJson),
-  edgesToAdd: z.array(RouteGraphEdgeInputJson),
+  edgesToRemove: RouteGraphTrainEdgeInputJson.array(),
+  edgesToAdd: RouteGraphEdgeInputJson.array(),
   highlighting: MapHighlightingInputJson,
 });
+export type CustomDisruptionDataInput = z.input<
+  typeof CustomDisruptionDataInputJson
+>;
 
 export const StationClosureDisruptionDataInputJson = z.object({
   stationId: z.number(),
 });
+export type StationClosureDisruptionDataInput = z.input<
+  typeof StationClosureDisruptionDataInputJson
+>;
 
 export const BusReplacementsDisruptionDataInputJson = z.object({
-  sections: z.array(LineSectionInputJson),
+  sections: LineSectionInputJson.array(),
 });
+export type BusReplacementsDisruptionDataInput = z.input<
+  typeof BusReplacementsDisruptionDataInputJson
+>;
 
 export const DelaysDisruptionDataInputJson = z.object({
   stationId: z.number(),
   delayInMinutes: z.number(),
-  sections: z.array(LineSectionInputJson),
+  sections: LineSectionInputJson.array(),
 });
+export type DelaysDisruptionDataInput = z.input<
+  typeof DelaysDisruptionDataInputJson
+>;
 
 export const NoCityLoopDisruptionDataInputJson = z.object({
-  lineIds: z.array(z.number()),
+  lineIds: z.number().array(),
 });
+export type NoCityLoopDisruptionDataInput = z.input<
+  typeof NoCityLoopDisruptionDataInputJson
+>;
 
 export const DisruptionDataInputJson = z.discriminatedUnion("type", [
   z.object({ type: z.literal("custom") }).merge(CustomDisruptionDataInputJson),
@@ -51,3 +67,4 @@ export const DisruptionDataInputJson = z.discriminatedUnion("type", [
     .object({ type: z.literal("no-city-loop") })
     .merge(NoCityLoopDisruptionDataInputJson),
 ]);
+export type DisruptionDataInput = z.input<typeof DisruptionDataInputJson>;

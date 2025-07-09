@@ -1,6 +1,6 @@
 import { isAfter } from "date-fns";
 import { q } from "@/components/question";
-import { EndsApproximatelyInput } from "@/shared/types/alert-processing/disruption-period-input";
+import { EndsApproximatelyInput } from "@/shared/schemas/alert-processing/disruption-period-input";
 
 function validate(input: EndsApproximatelyInput) {
   if (!isAfter(input.latest, input.earliest)) {

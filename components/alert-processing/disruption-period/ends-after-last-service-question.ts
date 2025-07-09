@@ -1,5 +1,5 @@
 import { q } from "@/components/question";
-import { EndsAfterLastServiceInput } from "@/shared/types/alert-processing/disruption-period-input";
+import { EndsAfterLastServiceInput } from "@/shared/schemas/alert-processing/disruption-period-input";
 import { isValid, parse } from "date-fns";
 
 function validate(input: EndsAfterLastServiceInput) {
