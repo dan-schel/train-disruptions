@@ -14,4 +14,4 @@ export const DisruptionWriteupInputJson = z.object({
     priority: z.enum(["low", "medium", "high"]),
   }),
 });
-export type DisruptionWriteupInput = z.input<typeof DisruptionWriteupInputJson>;
+export type DisruptionWriteupInput = z.infer<typeof DisruptionWriteupInputJson>;

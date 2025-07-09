@@ -8,4 +8,4 @@ export const AlertProcessingInputJson = z
     period: DisruptionPeriodInputJson,
   })
   .array();
-export type AlertProcessingInput = z.input<typeof AlertProcessingInputJson>;
+export type AlertProcessingInput = z.infer<typeof AlertProcessingInputJson>;

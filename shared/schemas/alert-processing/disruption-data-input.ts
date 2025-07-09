@@ -11,7 +11,7 @@ export const LineSectionInputJson = z.object({
   a: z.union([z.number(), z.literal("the-city")]),
   b: z.union([z.number(), z.literal("the-city")]),
 });
-export type LineSectionInput = z.input<typeof LineSectionInputJson>;
+export type LineSectionInput = z.infer<typeof LineSectionInputJson>;
 
 export const CustomDisruptionDataInputJson = z.object({
   impactedLines: z.number().array(),
@@ -20,21 +20,21 @@ export const CustomDisruptionDataInputJson = z.object({
   edgesToAdd: RouteGraphEdgeInputJson.array(),
   highlighting: MapHighlightingInputJson,
 });
-export type CustomDisruptionDataInput = z.input<
+export type CustomDisruptionDataInput = z.infer<
   typeof CustomDisruptionDataInputJson
 >;
 
 export const StationClosureDisruptionDataInputJson = z.object({
   stationId: z.number(),
 });
-export type StationClosureDisruptionDataInput = z.input<
+export type StationClosureDisruptionDataInput = z.infer<
   typeof StationClosureDisruptionDataInputJson
 >;
 
 export const BusReplacementsDisruptionDataInputJson = z.object({
   sections: LineSectionInputJson.array(),
 });
-export type BusReplacementsDisruptionDataInput = z.input<
+export type BusReplacementsDisruptionDataInput = z.infer<
   typeof BusReplacementsDisruptionDataInputJson
 >;
 
@@ -43,14 +43,14 @@ export const DelaysDisruptionDataInputJson = z.object({
   delayInMinutes: z.number(),
   sections: LineSectionInputJson.array(),
 });
-export type DelaysDisruptionDataInput = z.input<
+export type DelaysDisruptionDataInput = z.infer<
   typeof DelaysDisruptionDataInputJson
 >;
 
 export const NoCityLoopDisruptionDataInputJson = z.object({
   lineIds: z.number().array(),
 });
-export type NoCityLoopDisruptionDataInput = z.input<
+export type NoCityLoopDisruptionDataInput = z.infer<
   typeof NoCityLoopDisruptionDataInputJson
 >;
 
@@ -67,4 +67,4 @@ export const DisruptionDataInputJson = z.discriminatedUnion("type", [
     .object({ type: z.literal("no-city-loop") })
     .merge(NoCityLoopDisruptionDataInputJson),
 ]);
-export type DisruptionDataInput = z.input<typeof DisruptionDataInputJson>;
+export type DisruptionDataInput = z.infer<typeof DisruptionDataInputJson>;

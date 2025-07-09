@@ -27,4 +27,4 @@ export const MapHighlightingInputJson = z.object({
     })
     .array(),
 });
-export type MapHighlightingInput = z.input<typeof MapHighlightingInputJson>;
+export type MapHighlightingInput = z.infer<typeof MapHighlightingInputJson>;

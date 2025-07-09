@@ -5,7 +5,7 @@ export const RouteGraphAlternativeEdgeInputJson = z.object({
   stationB: z.number(),
   mode: z.enum(["bus", "tram", "walk"]),
 });
-export type RouteGraphAlternativeEdgeInput = z.input<
+export type RouteGraphAlternativeEdgeInput = z.infer<
   typeof RouteGraphAlternativeEdgeInputJson
 >;
 
@@ -15,7 +15,7 @@ export const RouteGraphTrainEdgeInputJson = z.object({
   line: z.number(),
   isRegionalTrain: z.boolean(),
 });
-export type RouteGraphTrainEdgeInput = z.input<
+export type RouteGraphTrainEdgeInput = z.infer<
   typeof RouteGraphTrainEdgeInputJson
 >;
 
@@ -25,4 +25,4 @@ export const RouteGraphEdgeInputJson = z.discriminatedUnion("type", [
     .merge(RouteGraphAlternativeEdgeInputJson),
   z.object({ type: z.literal("train") }).merge(RouteGraphTrainEdgeInputJson),
 ]);
-export type RouteGraphEdgeInput = z.input<typeof RouteGraphEdgeInputJson>;
+export type RouteGraphEdgeInput = z.infer<typeof RouteGraphEdgeInputJson>;

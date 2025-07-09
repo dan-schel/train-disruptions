@@ -21,7 +21,7 @@ export function createAlertProcessingRouter(app: App) {
     }),
     async (req, res) => {
       const id = req.params.id;
-      const input = req.body.input;
+      const input = AlertProcessingInputJson.parse(req.body.input);
       const result = await processAlert(app, id, input);
 
       if ("success" in result) {
