@@ -92,7 +92,7 @@ export async function processAlert(
 // because the frontend doesn't send along the current alert end time (it defers
 // that responsibility to the backend).
 //
-// - I don't the data classes themselves should handle this alert processing
+// - I don't think the data classes themselves should handle this alert processing
 //   specific logic (esp. with the ProcessingContext stuff).
 //
 // - I don't think the frontend code should work with the classes, most of the
