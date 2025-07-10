@@ -2,6 +2,8 @@ import { endsAfterLastServiceQuestion } from "@/components/alert-processing/disr
 import { endsApproximatelyQuestion } from "@/components/alert-processing/disruption-period/ends-approximately-question";
 import { endsExactlyQuestion } from "@/components/alert-processing/disruption-period/ends-exactly-question";
 import { q } from "@/components/question";
+import { AnyField } from "@/components/question/common/field";
+import { EndsInput } from "@/shared/schemas/alert-processing/disruption-period-input";
 
 export const endsQuestion = q.discriminatedUnion(
   "type",
@@ -20,4 +22,4 @@ export const endsQuestion = q.discriminatedUnion(
     "ends-when-alert-ends": "When this alert ends (automatic)",
     "ends-never": "Never (currently unknown)",
   },
-);
+) satisfies AnyField<EndsInput>;
