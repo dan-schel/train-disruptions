@@ -37,6 +37,10 @@ export class Alert {
     }
   }
 
+  get latestData() {
+    return this.updatedData ?? this.data;
+  }
+
   getState() {
     if (this.processedAt === null) {
       return "new";

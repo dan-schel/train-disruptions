@@ -3,6 +3,8 @@ import { delaysDisruptionDataQuestion } from "@/components/alert-processing/disr
 import { noCityLoopDisruptionDataQuestion } from "@/components/alert-processing/disruption-data/no-city-loop-disruption-data-question";
 import { stationClosureDisruptionDataQuestion } from "@/components/alert-processing/disruption-data/station-closure-disruption-data-question";
 import { q } from "@/components/question";
+import { AnyField } from "@/components/question/common/field";
+import { DisruptionDataInput } from "@/shared/schemas/alert-processing/disruption-data-input";
 
 export const disruptionDataQuestion = q.discriminatedUnion(
   "type",
@@ -20,4 +22,4 @@ export const disruptionDataQuestion = q.discriminatedUnion(
     "station-closure": "Station closure",
     delays: "Delays",
   },
-);
+) satisfies AnyField<DisruptionDataInput>;

@@ -1,4 +1,6 @@
 import { q } from "@/components/question";
+import { AnyField } from "@/components/question/common/field";
+import { NoCityLoopDisruptionDataInput } from "@/shared/schemas/alert-processing/disruption-data-input";
 
 export const noCityLoopDisruptionDataQuestion = q.object({
   lineIds: q.array(
@@ -10,4 +12,4 @@ export const noCityLoopDisruptionDataQuestion = q.object({
       min: 1,
     },
   ),
-});
+}) satisfies AnyField<NoCityLoopDisruptionDataInput>;
