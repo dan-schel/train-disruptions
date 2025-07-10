@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { DatabaseModel } from "@/server/database/lib/general/database-model";
+import { DatabaseModel } from "@dan-schel/db";
 import { Disruption } from "@/server/data/disruption/disruption";
 import { disruptionPeriodBson } from "@/server/data/disruption/period/disruption-period";
 import { disruptionDataBson } from "@/server/data/disruption/data/disruption-data";

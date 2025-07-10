@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { Alert, AlertData } from "@/server/data/alert";
-import { DatabaseModel } from "@/server/database/lib/general/database-model";
+import { DatabaseModel } from "@dan-schel/db";
 
 export class AlertModel extends DatabaseModel<
   Alert,

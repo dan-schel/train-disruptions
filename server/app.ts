@@ -1,5 +1,5 @@
 import { StationCollection } from "@/server/data/station/station-collection";
-import { Database } from "@/server/database/lib/general/database";
+import { Database, MongoDatabase } from "@dan-schel/db";
 import { AlertSource } from "@/server/alert-source/alert-source";
 import { migrations } from "@/server/database/migrations/migrations";
 import { LineCollection } from "@/server/data/line/line-collection";
@@ -9,7 +9,6 @@ import { LogHistoricalAlertsTask } from "@/server/task/tasks/log-historical-aler
 import { SendStartupMessageTask } from "@/server/task/tasks/send-startup-message-task";
 import { areUnique } from "@dan-schel/js-utils";
 import { VtarAlertSource } from "@/server/alert-source/vtar-alert-source";
-import { MongoDatabase } from "@/server/database/lib/mongo/mongo-database";
 import { TaskScheduler } from "@/server/task/lib/task-scheduler";
 import { SeedSuperAdminTask } from "@/server/task/tasks/seed-super-admin-task";
 import { DiscordBot } from "@/server/discord/bot";
