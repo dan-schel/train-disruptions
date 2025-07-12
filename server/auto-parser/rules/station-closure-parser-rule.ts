@@ -8,11 +8,15 @@ export class StationClosureAutoParserRule extends AutoParserRuleBase {
     super();
   }
 
-  parseAlert(alert: Alert, app: App): Disruption | null {
+  parseAlert(
+    alert: Alert,
+    app: App,
+    withId?: Disruption["id"],
+  ): Disruption | null {
     // TODO: currently don't have any examples :(
     if (!this._couldParse(alert)) return null;
 
-    return this._process(alert, app);
+    return this._process(alert, app, withId);
   }
 
   private _couldParse(_alert: Alert): boolean {
@@ -20,7 +24,11 @@ export class StationClosureAutoParserRule extends AutoParserRuleBase {
     return true;
   }
 
-  private _process(_alert: Alert, _app: App): Disruption | null {
+  private _process(
+    _alert: Alert,
+    _app: App,
+    _withId?: Disruption["id"],
+  ): Disruption | null {
     return null;
   }
 }

@@ -109,61 +109,67 @@ export class PopulateInboxQueueTask extends Task {
         .safeParse(disruption.last_updated);
 
       if (alert && success && !alert.ignoreFutureUpdates) {
-        const needsToBeUpdated =
+        const canToBeUpdated =
           (alert.getState() === "new" && alert.appearedAt < mostRecentUpdate) ||
           (alert.getState() === "processed" &&
             (alert.processedAt ?? app.time.now()) < mostRecentUpdate) ||
           (alert.getState() === "updated" &&
             (alert.updatedAt ?? app.time.now()) < mostRecentUpdate);
 
-        if (needsToBeUpdated) {
-          const newAlert = new Alert(
-            alert.id,
-            alert.data,
-            this._createAlertData(disruption),
-            alert.appearedAt,
-            app.time.now(),
-            app.time.now(),
-            alert.ignoreFutureUpdates,
-            alert.deleteAt,
-          );
-          await app.database.of(ALERTS).update(newAlert);
-
+        if (canToBeUpdated) {
           const existingDisruption = await app.database.of(DISRUPTIONS).first({
             where: {
               sourceAlertIds: alert.id,
             },
           });
 
+          let newDisruption: Disruption | null = null;
           try {
-            const newDisruption = parser.parseAlert(newAlert, app);
-            if (existingDisruption?.curation === "automatic") {
-              if (newDisruption) {
-                await app.database
-                  .of(DISRUPTIONS)
-                  .update(
-                    new Disruption(
-                      existingDisruption.id,
-                      newDisruption.data,
-                      newDisruption.sourceAlertIds,
-                      newDisruption.period,
-                      newDisruption.curation,
-                    ),
-                  );
-              } else {
-                // If a disruptions cannot be parsed with the new alert data,
-                //  we should assume that the existing entry might no longer be valid
-                // We're better off removing it than to display incorrect information
-                await app.database
-                  .of(DISRUPTIONS)
-                  .delete(existingDisruption.id);
-              }
-            } else if (!existingDisruption && newDisruption) {
-              await app.database.of(DISRUPTIONS).create(newDisruption);
-            }
+            newDisruption = parser.parseAlert(
+              new Alert(
+                alert.id,
+                this._createAlertData(disruption),
+                null,
+                alert.appearedAt,
+                null,
+                null,
+                alert.ignoreFutureUpdates,
+                null,
+              ),
+              app,
+              existingDisruption?.id,
+            );
           } catch (error) {
             console.warn(`Failed to parse alert #${alert.id}.`);
             console.warn(error);
+          }
+
+          await app.database
+            .of(ALERTS)
+            .update(
+              new Alert(
+                alert.id,
+                this._createAlertData(disruption),
+                alert.updatedData,
+                app.time.now(),
+                newDisruption ? app.time.now() : alert.processedAt,
+                alert.updatedAt,
+                alert.ignoreFutureUpdates,
+                alert.deleteAt,
+              ),
+            );
+
+          if (existingDisruption?.curation === "automatic") {
+            if (newDisruption) {
+              await app.database.of(DISRUPTIONS).update(newDisruption);
+            } else {
+              // If a disruptions cannot be parsed with the new alert data,
+              //  we should assume that the existing entry might no longer be valid
+              // We're better off removing it than to display incorrect information
+              await app.database.of(DISRUPTIONS).delete(existingDisruption.id);
+            }
+          } else if (!existingDisruption && newDisruption) {
+            await app.database.of(DISRUPTIONS).create(newDisruption);
           }
         }
       }

@@ -18,23 +18,27 @@ export class DelaysParserRule extends AutoParserRuleBase {
     super();
   }
 
-  parseAlert(alert: Alert, app: App): Disruption | null {
+  parseAlert(
+    alert: Alert,
+    app: App,
+    withId?: Disruption["id"],
+  ): Disruption | null {
     if (!this._couldParse(alert)) return null;
 
-    return this._process(alert, app);
+    return this._process(alert, app, withId);
   }
 
-  private _couldParse({ data, updatedData }: Alert): boolean {
-    return (updatedData ?? data).title.startsWith("Delays up to");
+  private _couldParse({ data }: Alert): boolean {
+    return data.title.startsWith("Delays up to");
   }
 
   private _process(
-    { id, data, updatedData }: Alert,
+    { id, data }: Alert,
     app: App,
+    withId?: Disruption["id"],
   ): Disruption | null {
-    const alertData = updatedData ?? data;
     const delayInMinutes = parseIntNull(
-      alertData.title
+      data.title
         .match(/(\d+ minutes)+/g)
         ?.at(0)
         ?.split(" ")
@@ -44,13 +48,13 @@ export class DelaysParserRule extends AutoParserRuleBase {
       return null;
     }
 
-    const affectedLines = alertData.affectedLinePtvIds
+    const affectedLines = data.affectedLinePtvIds
       .map((x) => app.lines.findByPtvId(x))
       .filter(nonNull);
 
     const possibleStations = app.stations.filter(
       (x) =>
-        alertData.title.includes(x.name) &&
+        data.title.includes(x.name) &&
         affectedLines.every((line) =>
           line.route.getAllServedStations().includes(x.id),
         ),
@@ -109,7 +113,7 @@ export class DelaysParserRule extends AutoParserRuleBase {
     });
 
     return new Disruption(
-      uuid(),
+      withId ?? uuid(),
       new DelaysDisruptionData(affectedStation.id, delayInMinutes, sections),
       [id],
       new StandardDisruptionPeriod(null, new EndsNever()),

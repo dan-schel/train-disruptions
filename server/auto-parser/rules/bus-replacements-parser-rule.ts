@@ -21,28 +21,31 @@ export class BusReplacementsParserRule extends AutoParserRuleBase {
     super();
   }
 
-  parseAlert(alert: Alert, app: App): Disruption | null {
+  parseAlert(
+    alert: Alert,
+    app: App,
+    withId?: Disruption["id"],
+  ): Disruption | null {
     if (!this._couldParse(alert)) return null;
 
-    return this._process(alert, app);
+    return this._process(alert, app, withId);
   }
 
-  private _couldParse({ data, updatedData }: Alert): boolean {
-    const alertData = updatedData ?? data;
+  private _couldParse({ data }: Alert): boolean {
     return (
-      alertData.description.toLowerCase().includes("buses replace trains") &&
+      data.description.toLowerCase().includes("buses replace trains") &&
       // Only parse disruptions that have a definitive time period
-      alertData.startsAt !== null &&
-      alertData.endsAt !== null
+      data.startsAt !== null &&
+      data.endsAt !== null
     );
   }
 
   private _process(
-    { id, data, updatedData }: Alert,
+    { id, data }: Alert,
     app: App,
+    withId?: Disruption["id"],
   ): Disruption | null {
-    const alertData = updatedData ?? data;
-    const affectedLines = alertData.affectedLinePtvIds
+    const affectedLines = data.affectedLinePtvIds
       .map((x) => app.lines.findByPtvId(x))
       .filter(nonNull);
 
@@ -50,7 +53,7 @@ export class BusReplacementsParserRule extends AutoParserRuleBase {
       let stations = line.route
         .getAllServedStations()
         .filter((station) =>
-          alertData.description.includes(app.stations.require(station).name),
+          data.description.includes(app.stations.require(station).name),
         );
 
       // Indication that paritial match has occured
@@ -89,27 +92,27 @@ export class BusReplacementsParserRule extends AutoParserRuleBase {
     }
 
     const endsOnLastService =
-      alertData.title.includes("last service") ||
-      alertData.description.includes("last service");
-    const isEvening = alertData.description.includes("last service each night");
+      data.title.includes("last service") ||
+      data.description.includes("last service");
+    const isEvening = data.description.includes("last service each night");
 
     const ends = endsOnLastService
-      ? new EndsAfterLastService(JustDate.extractFromDate(alertData.endsAt!))
-      : new EndsExactly(alertData.endsAt!);
+      ? new EndsAfterLastService(JustDate.extractFromDate(data.endsAt!))
+      : new EndsExactly(data.endsAt!);
 
-    const startHour = utcToLocalTime(alertData.startsAt!).getHours();
-    const startMinute = utcToLocalTime(alertData.startsAt!).getMinutes();
+    const startHour = utcToLocalTime(data.startsAt!).getHours();
+    const startMinute = utcToLocalTime(data.startsAt!).getMinutes();
     const period = isEvening
       ? new EveningsOnlyDisruptionPeriod(
-          alertData.startsAt,
+          data.startsAt,
           ends,
           startHour,
           startMinute,
         )
-      : new StandardDisruptionPeriod(alertData.startsAt, ends);
+      : new StandardDisruptionPeriod(data.startsAt, ends);
 
     return new Disruption(
-      uuid(),
+      withId ?? uuid(),
       new BusReplacementsDisruptionData(lineSections),
       [id],
       period,
