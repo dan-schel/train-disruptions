@@ -18,17 +18,25 @@ export class DelaysParserRule extends AutoParserRuleBase {
     super();
   }
 
-  parseAlert(alert: Alert, app: App): Disruption | null {
+  parseAlert(
+    alert: Alert,
+    app: App,
+    withId?: Disruption["id"],
+  ): Disruption | null {
     if (!this._couldParse(alert)) return null;
 
-    return this._process(alert, app);
+    return this._process(alert, app, withId);
   }
 
   private _couldParse({ data }: Alert): boolean {
     return data.title.startsWith("Delays up to");
   }
 
-  private _process({ id, data }: Alert, app: App): Disruption | null {
+  private _process(
+    { id, data }: Alert,
+    app: App,
+    withId?: Disruption["id"],
+  ): Disruption | null {
     const delayInMinutes = parseIntNull(
       data.title
         .match(/(\d+ minutes)+/g)
@@ -105,7 +113,7 @@ export class DelaysParserRule extends AutoParserRuleBase {
     });
 
     return new Disruption(
-      uuid(),
+      withId ?? uuid(),
       new DelaysDisruptionData(affectedStation.id, delayInMinutes, sections),
       [id],
       new StandardDisruptionPeriod(null, new EndsNever()),
