@@ -10,6 +10,7 @@ import {
   alert7,
   alert8,
   alert9,
+  alert10,
   ptvDisruption1,
   ptvDisruption2,
   ptvDisruption3,
@@ -90,19 +91,19 @@ describe("PopulateInboxQueueTask", () => {
         await task.execute(app);
 
         const alerts = await db.of(ALERTS).all();
-        expect(alerts).toStrictEqual([alert8]);
+        expect(alerts).toStrictEqual([alert9]);
       });
 
       it("doesn't update if alert is up-to-date", async () => {
         const { app, db, alertSource } = createTestApp();
         const task = new PopulateInboxQueueTask();
         alertSource.setAlerts([ptvDisruption4]);
-        await db.of(ALERTS).create(alert9);
+        await db.of(ALERTS).create(alert10);
 
         await task.execute(app);
 
         const alerts = await db.of(ALERTS).all();
-        expect(alerts).toStrictEqual([alert9]);
+        expect(alerts).toStrictEqual([alert10]);
       });
     });
 

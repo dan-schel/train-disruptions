@@ -271,14 +271,25 @@ export const alert7 = new Alert(
 export const alert8 = new Alert(
   "336762",
   new AlertData(
-    "Frankston Line: Buses replace trains from 8.30pm to last service, Thursday 26 June 2025",
-    "Buses replace trains between South Yarra and Moorabbin from 8.30pm to last service, Thursday 26 June, due to works.",
+    "Frankston Line: Buses replace trains from 10:45pm to last service, Thursday 26 June 2025",
+    "Buses replace trains between South Yarra and Moorabbin from 10:45pm to last service, Thursday 26 June, due to works.",
     "http://ptv.vic.gov.au/live-travel-updates/article/frankston-line-buses-replace-trains-from-8-30pm-to-last-service-thursday-26-june-2025",
-    new Date("2025-06-26T10:30:00Z"),
+    new Date("2025-06-26T12:45:00Z"),
     new Date("2025-06-26T17:00:00Z"),
     [6],
     [],
   ),
+  null,
+  new Date("2025-01-01T00:00:00Z"),
+  new Date("2025-01-01T00:00:00Z"),
+  null,
+  false,
+  null,
+);
+
+// Expected "updated" result
+export const alert9 = new Alert(
+  "336762",
   new AlertData(
     "Frankston Line: Buses replace trains from 10:45pm to last service, Thursday 26 June 2025",
     "Buses replace trains between South Yarra and Moorabbin from 10:45pm to last service, Thursday 26 June, due to works.",
@@ -288,15 +299,24 @@ export const alert8 = new Alert(
     [6],
     [],
   ),
-  new Date("2024-12-30T00:00:00Z"),
+  new AlertData(
+    "Frankston Line: Buses replace trains from 10:30pm to last service, Thursday 26 June 2025",
+    "Buses replace trains between South Yarra and Moorabbin from 10:30pm to last service, Thursday 26 June, due to works.",
+    "http://ptv.vic.gov.au/live-travel-updates/article/frankston-line-buses-replace-trains-from-8-30pm-to-last-service-thursday-26-june-2025",
+    new Date("2025-06-26T12:30:00Z"),
+    new Date("2025-06-26T17:00:00Z"),
+    [6],
+    [],
+  ),
   new Date("2025-01-01T00:00:00Z"),
   new Date("2025-01-01T00:00:00Z"),
+  new Date("2024-12-31T00:00:00Z"),
   false,
   null,
 );
 
 // Already up to date
-export const alert9 = new Alert(
+export const alert10 = new Alert(
   "336762",
   new AlertData(
     "Frankston Line: Buses replace trains from 8.30pm to last service, Thursday 26 June 2025",
@@ -307,18 +327,10 @@ export const alert9 = new Alert(
     [6],
     [],
   ),
-  new AlertData(
-    "Frankston Line: Buses replace trains from 10:45pm to last service, Thursday 26 June 2025",
-    "Buses replace trains between South Yarra and Moorabbin from 10:45pm to last service, Thursday 26 June, due to works.",
-    "http://ptv.vic.gov.au/live-travel-updates/article/frankston-line-buses-replace-trains-from-8-30pm-to-last-service-thursday-26-june-2025",
-    new Date("2025-06-26T12:45:00Z"),
-    new Date("2025-06-26T17:00:00Z"),
-    [6],
-    [],
-  ),
+  null,
   new Date("2024-12-30T00:00:00Z"),
   new Date("2025-07-01T00:00:00Z"),
-  new Date("2025-07-01T00:00:00Z"),
+  null,
   false,
   null,
 );
