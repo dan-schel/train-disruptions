@@ -21,10 +21,14 @@ export class BusReplacementsParserRule extends AutoParserRuleBase {
     super();
   }
 
-  parseAlert(alert: Alert, app: App): Disruption | null {
+  parseAlert(
+    alert: Alert,
+    app: App,
+    withId?: Disruption["id"],
+  ): Disruption | null {
     if (!this._couldParse(alert)) return null;
 
-    return this._process(alert, app);
+    return this._process(alert, app, withId);
   }
 
   private _couldParse({ data }: Alert): boolean {
@@ -36,7 +40,11 @@ export class BusReplacementsParserRule extends AutoParserRuleBase {
     );
   }
 
-  private _process({ id, data }: Alert, app: App): Disruption | null {
+  private _process(
+    { id, data }: Alert,
+    app: App,
+    withId?: Disruption["id"],
+  ): Disruption | null {
     const affectedLines = data.affectedLinePtvIds
       .map((x) => app.lines.findByPtvId(x))
       .filter(nonNull);
@@ -104,7 +112,7 @@ export class BusReplacementsParserRule extends AutoParserRuleBase {
       : new StandardDisruptionPeriod(data.startsAt, ends);
 
     return new Disruption(
-      uuid(),
+      withId ?? uuid(),
       new BusReplacementsDisruptionData(lineSections),
       [id],
       period,
