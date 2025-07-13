@@ -1,4 +1,4 @@
-import { Migration } from "@/server/database/lib/general/migration";
+import { Migration } from "@dan-schel/db";
 
 /**
  * See docs/database/writing-database-migrations.md for help writing a database

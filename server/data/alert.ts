@@ -37,6 +37,10 @@ export class Alert {
     }
   }
 
+  get latestData() {
+    return this.updatedData ?? this.data;
+  }
+
   getState() {
     if (this.processedAt === null) {
       return "new";
@@ -47,6 +51,51 @@ export class Alert {
     } else {
       return "processed";
     }
+  }
+
+  processed() {
+    return this._with({
+      processedAt: new Date(),
+      ignoreFutureUpdates: false,
+    });
+  }
+
+  ignored() {
+    return this._with({
+      processedAt: new Date(),
+      ignoreFutureUpdates: true,
+    });
+  }
+
+  private _with({
+    id,
+    data,
+    updatedData,
+    appearedAt,
+    processedAt,
+    updatedAt,
+    ignoreFutureUpdates,
+    deleteAt,
+  }: {
+    id?: string;
+    data?: AlertData;
+    updatedData?: AlertData | null;
+    appearedAt?: Date;
+    processedAt?: Date | null;
+    updatedAt?: Date | null;
+    ignoreFutureUpdates?: boolean;
+    deleteAt?: Date | null;
+  }) {
+    return new Alert(
+      id ?? this.id,
+      data ?? this.data,
+      updatedData !== undefined ? updatedData : this.updatedData,
+      appearedAt ?? this.appearedAt,
+      processedAt !== undefined ? processedAt : this.processedAt,
+      updatedAt !== undefined ? updatedAt : this.updatedAt,
+      ignoreFutureUpdates ?? this.ignoreFutureUpdates,
+      deleteAt !== undefined ? deleteAt : this.deleteAt,
+    );
   }
 }
 

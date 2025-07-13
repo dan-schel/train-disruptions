@@ -1,4 +1,4 @@
-import { DatabaseModel } from "@/server/database/lib/general/database-model";
+import { DatabaseModel } from "@dan-schel/db";
 import { z } from "zod";
 
 export class DeploymentLog {

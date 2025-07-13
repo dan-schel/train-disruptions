@@ -4,7 +4,7 @@ import { errorHandler } from "@/server/routes/middleware/error";
 import { App } from "@/server/app";
 import { createDisruptionRouter } from "@/server/routes/disruptions";
 import { createAuthRouter } from "@/server/routes/auth";
-import { createAdminRouter } from "@/server/routes/admin";
+import { createAdminRouter } from "@/server/routes/admin/admin";
 
 // CORS enabled to prevent API abuse from origins outside our domain(s)
 const domains = ["http://localhost:3000", "https://beta.isitbuses.com"];

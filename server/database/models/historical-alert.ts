@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { DatabaseModel } from "@/server/database/lib/general/database-model";
+import { DatabaseModel } from "@dan-schel/db";
 import { HistoricalAlert } from "@/server/data/historical-alert";
 
 export class HistoricalAlertModel extends DatabaseModel<

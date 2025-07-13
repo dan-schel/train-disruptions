@@ -6,7 +6,7 @@ import {
   buildObject,
   buildDiscriminatedUnion,
 } from "@/components/question/field-types";
-import { buildInteger } from "@/components/question/helpers";
+import { buildArray, buildInteger } from "@/components/question/helpers";
 
 export const q = {
   string: buildString,
@@ -16,6 +16,12 @@ export const q = {
   enum: buildEnum,
   object: buildObject,
   discriminatedUnion: buildDiscriminatedUnion,
+  array: buildArray,
+
+  // TODO: [DS] Implement these properly!
+  line: buildNumber,
+  station: buildNumber,
+  lineShapeNode: buildNumber,
 };
 
 export { Questionnaire } from "@/components/question/Questionnaire";

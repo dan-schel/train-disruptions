@@ -165,4 +165,4 @@ To summarise, the difference between these two concepts is:
 - The route graph is helpful for determining if a commute between **any two stations** is impacted by a disruption, and how.
 - Line shapes are helpful for translating a phrase like "Caulfield to Dandenong" into an **unambiguous** list of relevant route graph edges. They are only ever used in the context of **one particular line**.
 
-Note that if you're curious to see the full unabridged list of route graph edges sorted by line, as well as the line shape of each line, you can do so! There's a snapshot test to test that these graphs are being built correctly, and [its output](/tests/server/data/static/line-routes/__snapshots__/line-routes.test.ts.snap) shows everything.
+Note that if you're curious to see the full unabridged list of route graph edges sorted by line, as well as the line shape of each line, you can do so! There's a snapshot test to test that these graphs are being built correctly, and [its output](/tests/server/entry-point/data/__snapshots__/line-routes.test.ts.snap) shows everything.
