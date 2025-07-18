@@ -31,6 +31,10 @@ export class StationClosureDisruptionData extends DisruptionDataBase {
     };
   }
 
+  inspect(): string {
+    return JSON.stringify(this.toBson(), undefined, 2);
+  }
+
   getImpactedLines(app: App): readonly number[] {
     return app.lines.whichStopAt(this.stationId).map((x) => x.id);
   }
@@ -45,5 +49,20 @@ export class StationClosureDisruptionData extends DisruptionDataBase {
 
   getMapHighlighter(): MapHighlighter {
     return new StationMapHighlighter([this.stationId]);
+  }
+
+  validate(app: App): boolean {
+    try {
+      // Call all functions to check if its safe for FE to call
+      this.getImpactedLines(app);
+      this.getWriteupAuthor();
+      this.getRouteGraphModifier();
+      this.getMapHighlighter();
+
+      return app.stations.has(this.stationId);
+    } catch (error) {
+      console.warn(`Invalid disruption: ${error}`);
+      return false;
+    }
   }
 }

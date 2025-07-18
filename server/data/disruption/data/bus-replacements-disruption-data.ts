@@ -34,6 +34,10 @@ export class BusReplacementsDisruptionData extends DisruptionDataBase {
     };
   }
 
+  inspect(): string {
+    return JSON.stringify(this.toBson(), undefined, 2);
+  }
+
   getImpactedLines(_app: App): readonly number[] {
     return unique(this.sections.map((x) => x.line));
   }
@@ -48,5 +52,22 @@ export class BusReplacementsDisruptionData extends DisruptionDataBase {
 
   getMapHighlighter(): MapHighlighter {
     return new SectionMapHighlighter(this.sections);
+  }
+
+  validate(app: App): boolean {
+    try {
+      // Call all functions to check if its safe for FE to call
+      this.getImpactedLines(app);
+      this.getWriteupAuthor();
+      this.getRouteGraphModifier();
+      this.getMapHighlighter();
+
+      return this.sections.every((section) =>
+        app.lines.require(section.line).route.isValidSection(section),
+      );
+    } catch (error) {
+      console.warn(`Invalid disruption: ${error}`);
+      return false;
+    }
   }
 }
