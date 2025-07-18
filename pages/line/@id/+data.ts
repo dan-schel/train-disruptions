@@ -5,7 +5,6 @@ import { Line } from "@/server/data/line/line";
 import { JsonSerializable } from "@/shared/json-serializable";
 import { CalendarData } from "@/shared/types/calendar-data";
 import { createCalendarData } from "@/server/data/disruption/period/utils/create-calendar-data";
-import { getDemoDisruptions } from "@/server/data/disruption/demo-disruptions";
 import { TimeRange } from "@/server/data/disruption/period/utils/time-range";
 import {
   LineStatusIndicatorPriorities,
@@ -17,7 +16,7 @@ import {
   LinePageStatusColour,
   LinePageUpcomingDisruption,
 } from "@/shared/types/line-page";
-import { DISRUPTIONS } from "@/server/database/models/models";
+import { DisruptionSource } from "@/server/disruption-source/disruption-source";
 
 const statusColorMapping: Record<
   LineStatusIndicatorPriority,
@@ -53,25 +52,25 @@ export async function data(
     };
   }
 
+  const disruptionSource = DisruptionSource.getInstance(app);
+
   // Filter out disruptions from the past and sort by priority
-  const disruptions = getDemoDisruptions(app)
-    .concat(await app.database.of(DISRUPTIONS).all())
-    .filter(
-      (x) =>
-        x.data.getImpactedLines(app).includes(line.id) &&
-        x.data.getWriteupAuthor().write(app, x).lineStatusIndicator.priority !==
-          "hidden" &&
-        x.period.intersects(new TimeRange(app.time.now(), null)),
-    )
-    .sort(
-      (a, b) =>
-        LineStatusIndicatorPriorities.indexOf(
-          b.data.getWriteupAuthor().write(app, b).lineStatusIndicator.priority,
-        ) -
-        LineStatusIndicatorPriorities.indexOf(
-          a.data.getWriteupAuthor().write(app, a).lineStatusIndicator.priority,
-        ),
-    );
+  const disruptions = (
+    await disruptionSource.listDisruptions({
+      lines: [line.id],
+      period: new TimeRange(app.time.now(), null),
+      priority: ["high", "medium", "low", "very-low"],
+      valid: true,
+    })
+  ).sort(
+    (a, b) =>
+      LineStatusIndicatorPriorities.indexOf(
+        b.data.getWriteupAuthor().write(app, b).lineStatusIndicator.priority,
+      ) -
+      LineStatusIndicatorPriorities.indexOf(
+        a.data.getWriteupAuthor().write(app, a).lineStatusIndicator.priority,
+      ),
+  );
 
   // Split the disruptions that occur today from the ones that occur in the future
   const [today, future] = disruptions.reduce<[Disruption[], Disruption[]]>(

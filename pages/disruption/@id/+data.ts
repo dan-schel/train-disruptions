@@ -2,14 +2,13 @@ import { PageContext } from "vike/types";
 import { JsonSerializable } from "@/shared/json-serializable";
 import { createCalendarData } from "@/server/data/disruption/period/utils/create-calendar-data";
 import { CalendarData } from "@/shared/types/calendar-data";
-import { getDemoDisruptions } from "@/server/data/disruption/demo-disruptions";
 import { App } from "@/server/app";
 import { LineCollection } from "@/server/data/line/line-collection";
 import { Line } from "@/server/data/line/line";
 import { parseIntNull } from "@dan-schel/js-utils";
 import { SerializedMapHighlighting } from "@/shared/types/map-data";
 import { MapHighlighting } from "@/server/data/disruption/map-highlighting/map-highlighting";
-import { DISRUPTIONS } from "@/server/database/models/models";
+import { DisruptionSource } from "@/server/disruption-source/disruption-source";
 
 export type Data = {
   disruption: {
@@ -34,9 +33,8 @@ export async function data(
   const back = determineBackBehaviour(app, urlParsed);
   const id = routeParams.id;
 
-  const disruption =
-    (await app.database.of(DISRUPTIONS).get(id)) ??
-    getDemoDisruptions(app).find((x) => x?.id === id);
+  const disruptionSource = DisruptionSource.getInstance(app);
+  const disruption = await disruptionSource.getDisruption({ id, valid: true });
 
   if (disruption == null) {
     return { disruption: null, back };
