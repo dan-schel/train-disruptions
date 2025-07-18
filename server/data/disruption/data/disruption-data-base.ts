@@ -5,8 +5,10 @@ import { DisruptionWriteupAuthor } from "@/server/data/disruption/writeup/disrup
 
 /** Stores the data inherent to this particular type of disruption. */
 export abstract class DisruptionDataBase {
+  abstract inspect(): string;
   abstract getImpactedLines(app: App): readonly number[];
   abstract getWriteupAuthor(): DisruptionWriteupAuthor;
   abstract getRouteGraphModifier(): RouteGraphModifier;
   abstract getMapHighlighter(): MapHighlighter;
+  abstract validate(app: App): boolean;
 }

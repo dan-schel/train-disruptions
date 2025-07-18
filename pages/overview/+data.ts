@@ -5,7 +5,6 @@ import {
   OverviewPageLineData,
   OverviewPageLineStatusColor,
 } from "@/shared/types/overview-page";
-import { getDemoDisruptions } from "@/server/data/disruption/demo-disruptions";
 import { LineCollection } from "@/server/data/line/line-collection";
 import { Disruption } from "@/server/data/disruption/disruption";
 import {
@@ -15,7 +14,7 @@ import {
 import { Line } from "@/server/data/line/line";
 import { MapHighlighting } from "@/server/data/disruption/map-highlighting/map-highlighting";
 import { SerializedMapHighlighting } from "@/shared/types/map-data";
-import { DISRUPTIONS } from "@/server/database/models/models";
+import { DisruptionSource } from "@/server/disruption-source/disruption-source";
 
 const statusColorMapping: Record<
   LineStatusIndicatorPriority,
@@ -47,15 +46,19 @@ export async function data(
 ): Promise<Data & JsonSerializable> {
   const { app } = pageContext.custom;
 
-  const disruptions: PreprocessedDisruption[] = getDemoDisruptions(app)
-    .concat(await app.database.of(DISRUPTIONS).all())
-    .filter((x) => x.period.occursAt(app.time.now()))
-    .map((x) => ({
-      disruption: x,
-      lines: x.data.getImpactedLines(app),
-      writeup: x.data.getWriteupAuthor().write(app, x),
-      map: x.data.getMapHighlighter().getHighlighting(app),
-    }));
+  const disruptionSource = DisruptionSource.getInstance(app);
+
+  const disruptions: PreprocessedDisruption[] = (
+    await disruptionSource.listDisruptions({
+      valid: true,
+      period: app.time.now(),
+    })
+  ).map((x) => ({
+    disruption: x,
+    lines: x.data.getImpactedLines(app),
+    writeup: x.data.getWriteupAuthor().write(app, x),
+    map: x.data.getMapHighlighter().getHighlighting(app),
+  }));
 
   return {
     disruptions: getSummaries(disruptions),
