@@ -16,7 +16,7 @@ export default function Page() {
     password: "",
   });
   const [errors, setErrors] = React.useState<
-    z.inferFlattenedErrors<typeof loginSchema>["fieldErrors"] | null
+    z.core.$ZodFlattenedError<z.input<typeof loginSchema>>["fieldErrors"] | null
   >(null);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -28,7 +28,7 @@ export default function Page() {
     const { error, success } = loginSchema.safeParse(data);
     // Only validate on change if the form has been submitted before
     if (errors !== null) {
-      setErrors(!success ? error.flatten().fieldErrors : {});
+      setErrors(!success ? z.flattenError(error).fieldErrors : {});
     }
 
     setFormData(data);
@@ -39,7 +39,7 @@ export default function Page() {
 
     const { success, data, error } = loginSchema.safeParse(formData);
     if (!success) {
-      setErrors(error.flatten().fieldErrors);
+      setErrors(z.flattenError(error).fieldErrors);
       return;
     }
 

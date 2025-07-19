@@ -1,13 +1,14 @@
-import { ZodIssue, ZodObjectDef, ZodSchema } from "zod";
+import { ZodType } from "zod";
+import { $ZodIssue } from "zod/v4/core";
 import { NextFunction, Request, Response } from "express";
 import { ParamsDictionary } from "express-serve-static-core";
 import { IValidationError, ValidationError } from "@/types/errors/validation";
 
 type ValidationRequest<TParams, TQuery, TBody, TResBody> = {
-  params?: ZodSchema<TParams, ZodObjectDef>;
-  query?: ZodSchema<TQuery, ZodObjectDef>;
-  body?: ZodSchema<TBody, ZodObjectDef>;
-  response?: ZodSchema<TResBody>;
+  params?: ZodType<TParams, TParams>;
+  query?: ZodType<TQuery, TQuery>;
+  body?: ZodType<TBody, TBody>;
+  response?: ZodType<TResBody, TResBody>;
 };
 
 /**
@@ -33,21 +34,21 @@ export const validateMiddleware = <
     if (params) {
       const { success, error } = params.safeParse(req.params);
       if (!success) {
-        errors.params = parseError(error.errors[0]);
+        errors.params = parseError(error.issues[0]);
       }
     }
 
     if (query) {
       const { success, error } = query.safeParse(req.query);
       if (!success) {
-        errors.query = parseError(error.errors[0]);
+        errors.query = parseError(error.issues[0]);
       }
     }
 
     if (body) {
       const { success, error } = body.safeParse(req.body);
       if (!success) {
-        errors.body = parseError(error.errors[0]);
+        errors.body = parseError(error.issues[0]);
       }
     }
 
@@ -60,7 +61,7 @@ export const validateMiddleware = <
   };
 };
 
-const parseError = (error: ZodIssue) => ({
+const parseError = (error: $ZodIssue) => ({
   field: error.path.join("."),
   message: error.message,
 });

@@ -17,8 +17,8 @@ const schema = z.object({
     .default("development"),
   TZ: z.literal("Etc/UTC"),
   NPM_CONFIG_PRODUCTION: z.string().default("false"),
-  PORT: stringNumberSchema.default("3000"),
-  HMR_PORT: stringNumberSchema.default("24678"),
+  PORT: stringNumberSchema.prefault("3000"),
+  HMR_PORT: stringNumberSchema.prefault("24678"),
 });
 
 // Loads environment variables from the `.env` file into process.env.

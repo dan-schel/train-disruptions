@@ -27,9 +27,10 @@ function schemaForCommaSeparated<T extends object>(
     const parsed = numbers.filter(nonNull);
 
     if (parsed.length !== numbers.length) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
+      ctx.issues.push({
+        code: "custom",
         message: "Not a valid comma separated string of numbers.",
+        input,
       });
       return z.NEVER;
     }

@@ -46,7 +46,7 @@ export default function Page() {
     confirm: "",
   });
   const [errors, setErrors] = React.useState<
-    z.inferFlattenedErrors<typeof schema>["fieldErrors"] | null
+    z.core.$ZodFlattenedError<z.input<typeof schema>>["fieldErrors"] | null
   >(null);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -58,7 +58,7 @@ export default function Page() {
     const { error, success } = schema.safeParse(data);
     // Only validate on change if the form has been submitted before
     if (errors !== null) {
-      setErrors(!success ? error.flatten().fieldErrors : {});
+      setErrors(!success ? z.flattenError(error).fieldErrors : {});
     }
 
     setFormData(data);
@@ -79,7 +79,7 @@ export default function Page() {
 
     const { data, error, success } = schema.safeParse(formData);
     if (!success) {
-      setErrors(error.flatten().fieldErrors);
+      setErrors(z.flattenError(error).fieldErrors);
       return;
     }
 
