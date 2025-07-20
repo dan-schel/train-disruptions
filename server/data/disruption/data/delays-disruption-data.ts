@@ -73,21 +73,10 @@ export class DelaysDisruptionData extends DisruptionDataBase {
   }
 
   validate(app: App): boolean {
-    try {
-      // Call all functions to check if its safe for FE to call
-      this.getImpactedLines(app);
-      this.getWriteupAuthor();
-      this.getRouteGraphModifier();
-      this.getMapHighlighter();
-
-      return (
-        this.sections.every((section) =>
-          app.lines.require(section.line).route.isValidSection(section),
-        ) && app.stations.has(this.stationId)
-      );
-    } catch (error) {
-      console.warn(`Invalid disruption: ${error}`);
-      return false;
-    }
+    return (
+      this.sections.every((section) =>
+        app.lines.require(section.line).route.isValidSection(section),
+      ) && app.stations.has(this.stationId)
+    );
   }
 }

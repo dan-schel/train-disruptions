@@ -54,24 +54,10 @@ export class NoCityLoopDisruptionData extends DisruptionDataBase {
   }
 
   validate(app: App): boolean {
-    try {
-      // Call all functions to check if its safe for FE to call
-      this.getImpactedLines(app);
-      this.getWriteupAuthor();
-      this.getRouteGraphModifier();
-      this.getMapHighlighter();
-
-      return (
-        this.lineIds.filter((line) =>
-          app.lines
-            .get(line)
-            ?.route.getAllLineShapeNodes()
-            .includes("the-city"),
-        ).length > 0
-      );
-    } catch (error) {
-      console.warn(`Invalid disruption: ${error}`);
-      return false;
-    }
+    return (
+      this.lineIds.filter((line) =>
+        app.lines.get(line)?.route.getAllLineShapeNodes().includes("the-city"),
+      ).length > 0
+    );
   }
 }

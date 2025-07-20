@@ -52,17 +52,6 @@ export class StationClosureDisruptionData extends DisruptionDataBase {
   }
 
   validate(app: App): boolean {
-    try {
-      // Call all functions to check if its safe for FE to call
-      this.getImpactedLines(app);
-      this.getWriteupAuthor();
-      this.getRouteGraphModifier();
-      this.getMapHighlighter();
-
-      return app.stations.has(this.stationId);
-    } catch (error) {
-      console.warn(`Invalid disruption: ${error}`);
-      return false;
-    }
+    return app.stations.has(this.stationId);
   }
 }

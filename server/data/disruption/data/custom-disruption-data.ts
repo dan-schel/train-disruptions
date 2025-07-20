@@ -83,18 +83,6 @@ export class CustomDisruptionData extends DisruptionDataBase {
   }
 
   validate(app: App): boolean {
-    try {
-      // Call all functions to check if its safe for FE to call
-      this.getImpactedLines();
-      this.getWriteupAuthor();
-      this.getRouteGraphModifier();
-      this.getMapHighlighter();
-
-      // TODO: Also check that the edges to add and remove are also valid
-      return this.impactedLines.every((line) => app.lines.has(line));
-    } catch (error) {
-      console.warn(`Invalid disruption: ${error}`);
-      return false;
-    }
+    return this.impactedLines.every((line) => app.lines.has(line));
   }
 }
