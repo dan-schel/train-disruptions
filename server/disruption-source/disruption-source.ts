@@ -1,4 +1,5 @@
 import { App } from "@/server/app";
+import { disruptionDataBson } from "@/server/data/disruption/data/disruption-data";
 import { Disruption } from "@/server/data/disruption/disruption";
 import { TimeRange } from "@/server/data/disruption/period/utils/time-range";
 import { LineStatusIndicatorPriority } from "@/server/data/disruption/writeup/disruption-writeup";
@@ -7,11 +8,12 @@ import { NonEmptyArray } from "@/shared/types/non-empty-array";
 import { differenceInMilliseconds } from "date-fns";
 import { millisecondsInMinute } from "date-fns/constants";
 
-type ListDisruptionFilter = {
-  valid?: boolean;
-  priority?: NonEmptyArray<LineStatusIndicatorPriority>;
+export type ListDisruptionFilter = {
   lines?: NonEmptyArray<number>;
+  types?: NonEmptyArray<typeof disruptionDataBson._input.type>;
   period?: TimeRange | Date;
+  priority?: NonEmptyArray<LineStatusIndicatorPriority>;
+  valid?: boolean;
 };
 
 type GetDisruptionFilter = {
@@ -47,6 +49,7 @@ export class DisruptionSource {
 
   async listDisruptions({
     lines,
+    types,
     period,
     priority,
     valid,
@@ -55,6 +58,7 @@ export class DisruptionSource {
 
     return this.disruptions
       .filter(this._filterByAffectedLines(lines))
+      .filter(this._filterByDisruptionType(types))
       .filter(this._filterByPeriod(period))
       .filter(this._filterByPriority(priority))
       .filter(this._filterByValidity(valid));
@@ -79,6 +83,13 @@ export class DisruptionSource {
           new Set(lines),
         ).size > 0
       );
+    };
+  }
+
+  private _filterByDisruptionType(type: ListDisruptionFilter["types"]) {
+    return function (disruption: Disruption) {
+      if (!type) return true;
+      return type.includes(disruption.data.toBson().type);
     };
   }
 
