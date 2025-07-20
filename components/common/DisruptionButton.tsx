@@ -6,18 +6,19 @@ import { Column } from "@/components/core/Column";
 import { MingcuteRightLine } from "@/components/icons/MingcuteRightLine";
 import { MingcuteRouteFill } from "@/components/icons/MingcuteRouteFill";
 import { MingcuteCloseCircleFill } from "@/components/icons/MingcuteCloseCircleFill";
-import { OverviewPageDisruptionSummary } from "@/shared/types/overview-page";
+import { DisruptionSummary } from "@/shared/types/disruption-summary";
 import { PTVSignalMediumSpeedWarning } from "@/components/icons/PTVSignalMediumSpeedWarning";
 
 export type DisruptionButtonProps = {
-  data: OverviewPageDisruptionSummary;
+  data: DisruptionSummary;
+  admin?: true;
 };
 
 export function DisruptionButton(props: DisruptionButtonProps) {
   const { id, headline, subject, period, icon } = props.data;
 
   return (
-    <Button href={`/disruption/${id}`}>
+    <Button href={`${props.admin ? "/admin" : ""}/disruption/${id}`}>
       <Grid
         columns="2rem 1fr 1.5rem"
         align="center"
@@ -35,11 +36,7 @@ export function DisruptionButton(props: DisruptionButtonProps) {
   );
 }
 
-function DisruptionIcon({
-  icon,
-}: {
-  icon: OverviewPageDisruptionSummary["icon"];
-}) {
+function DisruptionIcon({ icon }: { icon: DisruptionSummary["icon"] }) {
   if (icon === "line") {
     return (
       <div className="bg-soft flex size-8 items-center justify-center overflow-hidden rounded-full">

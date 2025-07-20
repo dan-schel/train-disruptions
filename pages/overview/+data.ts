@@ -1,10 +1,10 @@
 import { PageContext } from "vike/types";
 import { JsonSerializable } from "@/shared/json-serializable";
 import {
-  OverviewPageDisruptionSummary,
   OverviewPageLineData,
   OverviewPageLineStatusColor,
 } from "@/shared/types/overview-page";
+import { DisruptionSummary } from "@/shared/types/disruption-summary";
 import { LineCollection } from "@/server/data/line/line-collection";
 import { Disruption } from "@/server/data/disruption/disruption";
 import {
@@ -28,7 +28,7 @@ const statusColorMapping: Record<
 };
 
 export type Data = {
-  disruptions: OverviewPageDisruptionSummary[];
+  disruptions: DisruptionSummary[];
   suburban: OverviewPageLineData[];
   regional: OverviewPageLineData[];
   mapHighlighting: SerializedMapHighlighting;
@@ -71,7 +71,7 @@ export async function data(
 
 function getSummaries(
   disruptions: PreprocessedDisruption[],
-): OverviewPageDisruptionSummary[] {
+): DisruptionSummary[] {
   return disruptions.map((x) => ({
     id: x.disruption.id,
     headline: x.writeup.summary.headline,

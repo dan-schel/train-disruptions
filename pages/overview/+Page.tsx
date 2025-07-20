@@ -12,7 +12,7 @@ import { Column } from "@/components/core/Column";
 import { Spacer } from "@/components/core/Spacer";
 import { PagePadding } from "@/components/common/PagePadding";
 import { PageCenterer } from "@/components/common/PageCenterer";
-import { DisruptionButton } from "@/pages/overview/DisruptionButton";
+import { DisruptionButton } from "@/components/common/DisruptionButton";
 import { Select } from "@/components/common/Select";
 
 export default function Page() {
