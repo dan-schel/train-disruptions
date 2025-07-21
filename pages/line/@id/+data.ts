@@ -5,7 +5,6 @@ import { Line } from "@/server/data/line/line";
 import { JsonSerializable } from "@/shared/json-serializable";
 import { CalendarData } from "@/shared/types/calendar-data";
 import { createCalendarData } from "@/server/data/disruption/period/utils/create-calendar-data";
-import { getDemoDisruptions } from "@/server/data/disruption/demo-disruptions";
 import { TimeRange } from "@/server/data/disruption/period/utils/time-range";
 import {
   LineStatusIndicatorPriorities,
@@ -54,8 +53,7 @@ export async function data(
   }
 
   // Filter out disruptions from the past and sort by priority
-  const disruptions = getDemoDisruptions(app)
-    .concat(await app.database.of(DISRUPTIONS).all())
+  const disruptions = (await app.database.of(DISRUPTIONS).all())
     .filter(
       (x) =>
         x.data.getImpactedLines(app).includes(line.id) &&

@@ -5,7 +5,6 @@ import {
   OverviewPageLineData,
   OverviewPageLineStatusColor,
 } from "@/shared/types/overview-page";
-import { getDemoDisruptions } from "@/server/data/disruption/demo-disruptions";
 import { LineCollection } from "@/server/data/line/line-collection";
 import { Disruption } from "@/server/data/disruption/disruption";
 import {
@@ -47,8 +46,9 @@ export async function data(
 ): Promise<Data & JsonSerializable> {
   const { app } = pageContext.custom;
 
-  const disruptions: PreprocessedDisruption[] = getDemoDisruptions(app)
-    .concat(await app.database.of(DISRUPTIONS).all())
+  const disruptions: PreprocessedDisruption[] = (
+    await app.database.of(DISRUPTIONS).all()
+  )
     .filter((x) => x.period.occursAt(app.time.now()))
     .map((x) => ({
       disruption: x,
