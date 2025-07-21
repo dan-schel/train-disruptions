@@ -14,10 +14,6 @@ import { SectionMapHighlighter } from "@/server/data/disruption/map-highlighting
 export class BusReplacementsDisruptionData extends DisruptionDataBase {
   constructor(readonly sections: LineSection[]) {
     super();
-
-    if (sections.length === 0) {
-      throw new Error("Must have at least one section.");
-    }
   }
 
   static readonly bson = z
@@ -55,8 +51,11 @@ export class BusReplacementsDisruptionData extends DisruptionDataBase {
   }
 
   validate(app: App): boolean {
-    return this.sections.every((section) =>
-      app.lines.require(section.line).route.isValidSection(section),
+    return (
+      this.sections.length > 0 &&
+      this.sections.every((section) =>
+        app.lines.get(section.line)?.route.isValidSection(section),
+      )
     );
   }
 }

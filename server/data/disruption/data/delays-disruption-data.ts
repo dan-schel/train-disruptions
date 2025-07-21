@@ -16,17 +16,6 @@ export class DelaysDisruptionData extends DisruptionDataBase {
     readonly sections: LineSection[],
   ) {
     super();
-
-    if (sections.length === 0) {
-      throw new Error("Must have at least one section.");
-    }
-
-    if (!Number.isInteger(delayInMinutes) || delayInMinutes < 1) {
-      throw new Error(
-        `Invalid delay in minutes: ${delayInMinutes}. Must be an integer` +
-          "that is greater than 0.",
-      );
-    }
   }
 
   static readonly bson = z
@@ -74,9 +63,13 @@ export class DelaysDisruptionData extends DisruptionDataBase {
 
   validate(app: App): boolean {
     return (
+      Number.isInteger(this.delayInMinutes) &&
+      this.delayInMinutes > 0 &&
+      this.sections.length > 0 &&
       this.sections.every((section) =>
-        app.lines.require(section.line).route.isValidSection(section),
-      ) && app.stations.has(this.stationId)
+        app.lines.get(section.line)?.route.isValidSection(section),
+      ) &&
+      app.stations.has(this.stationId)
     );
   }
 }

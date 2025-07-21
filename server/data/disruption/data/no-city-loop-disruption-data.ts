@@ -14,9 +14,6 @@ export class NoCityLoopDisruptionData extends DisruptionDataBase {
     super();
 
     this.lineIds = unique(this.lineIds);
-    if (this.lineIds.length < 1) {
-      throw new Error("Lines must include at least 1 line");
-    }
   }
 
   static readonly bson = z
@@ -55,6 +52,7 @@ export class NoCityLoopDisruptionData extends DisruptionDataBase {
 
   validate(app: App): boolean {
     return (
+      this.lineIds.length > 0 &&
       this.lineIds.filter((line) =>
         app.lines.get(line)?.route.getAllLineShapeNodes().includes("the-city"),
       ).length > 0
