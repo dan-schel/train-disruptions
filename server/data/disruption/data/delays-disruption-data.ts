@@ -50,6 +50,10 @@ export class DelaysDisruptionData extends DisruptionDataBase {
     };
   }
 
+  inspect(): string {
+    return JSON.stringify(this.toBson(), undefined, 2);
+  }
+
   getImpactedLines(_app: App): readonly number[] {
     return this.sections.map((x) => x.line);
   }
@@ -66,5 +70,13 @@ export class DelaysDisruptionData extends DisruptionDataBase {
 
   getMapHighlighter(): MapHighlighter {
     return new DelayMapHighlighter(this.sections, [this.stationId]);
+  }
+
+  validate(app: App): boolean {
+    return (
+      this.sections.every((section) =>
+        app.lines.require(section.line).route.isValidSection(section),
+      ) && app.stations.has(this.stationId)
+    );
   }
 }

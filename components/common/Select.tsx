@@ -23,11 +23,13 @@ export function Select<T extends string | number>({
   value,
   handleChange,
 }: SelectProps<T>) {
+  const valueProp = handleChange ? { value } : { defaultValue: value };
+
   return (
     <select
       id={id}
       name={name}
-      value={value}
+      {...valueProp}
       onChange={handleChange}
       className="focus:border-b-accent-active hover:border-b-accent-hover border-b-soft-border h-6 cursor-pointer border-y-2 border-transparent focus:outline-0"
     >

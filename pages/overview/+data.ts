@@ -1,11 +1,10 @@
 import { PageContext } from "vike/types";
 import { JsonSerializable } from "@/shared/json-serializable";
 import {
-  OverviewPageDisruptionSummary,
   OverviewPageLineData,
   OverviewPageLineStatusColor,
 } from "@/shared/types/overview-page";
-import { getDemoDisruptions } from "@/server/data/disruption/demo-disruptions";
+import { DisruptionSummary } from "@/shared/types/disruption-summary";
 import { LineCollection } from "@/server/data/line/line-collection";
 import { Disruption } from "@/server/data/disruption/disruption";
 import {
@@ -15,7 +14,7 @@ import {
 import { Line } from "@/server/data/line/line";
 import { MapHighlighting } from "@/server/data/disruption/map-highlighting/map-highlighting";
 import { SerializedMapHighlighting } from "@/shared/types/map-data";
-import { DISRUPTIONS } from "@/server/database/models/models";
+import { DisruptionSource } from "@/server/disruption-source/disruption-source";
 
 const statusColorMapping: Record<
   LineStatusIndicatorPriority,
@@ -29,7 +28,7 @@ const statusColorMapping: Record<
 };
 
 export type Data = {
-  disruptions: OverviewPageDisruptionSummary[];
+  disruptions: DisruptionSummary[];
   suburban: OverviewPageLineData[];
   regional: OverviewPageLineData[];
   mapHighlighting: SerializedMapHighlighting;
@@ -47,15 +46,19 @@ export async function data(
 ): Promise<Data & JsonSerializable> {
   const { app } = pageContext.custom;
 
-  const disruptions: PreprocessedDisruption[] = getDemoDisruptions(app)
-    .concat(await app.database.of(DISRUPTIONS).all())
-    .filter((x) => x.period.occursAt(app.time.now()))
-    .map((x) => ({
-      disruption: x,
-      lines: x.data.getImpactedLines(app),
-      writeup: x.data.getWriteupAuthor().write(app, x),
-      map: x.data.getMapHighlighter().getHighlighting(app),
-    }));
+  const disruptionSource = DisruptionSource.getInstance(app);
+
+  const disruptions: PreprocessedDisruption[] = (
+    await disruptionSource.listDisruptions({
+      valid: true,
+      period: app.time.now(),
+    })
+  ).map((x) => ({
+    disruption: x,
+    lines: x.data.getImpactedLines(app),
+    writeup: x.data.getWriteupAuthor().write(app, x),
+    map: x.data.getMapHighlighter().getHighlighting(app),
+  }));
 
   return {
     disruptions: getSummaries(disruptions),
@@ -68,7 +71,7 @@ export async function data(
 
 function getSummaries(
   disruptions: PreprocessedDisruption[],
-): OverviewPageDisruptionSummary[] {
+): DisruptionSummary[] {
   return disruptions.map((x) => ({
     id: x.disruption.id,
     headline: x.writeup.summary.headline,
