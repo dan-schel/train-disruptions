@@ -152,7 +152,11 @@ export class PopulateInboxQueueTask extends Task {
                 this._createAlertData(disruption),
                 alert.updatedData,
                 app.time.now(),
-                newDisruption ? app.time.now() : alert.processedAt,
+                newDisruption
+                  ? app.time.now()
+                  : existingDisruption?.curation === "automatic"
+                    ? null
+                    : alert.processedAt,
                 alert.updatedAt,
                 alert.ignoreFutureUpdates,
                 alert.deleteAt,
