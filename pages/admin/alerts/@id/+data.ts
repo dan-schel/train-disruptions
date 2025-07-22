@@ -7,6 +7,8 @@ import { nonNull, unique } from "@dan-schel/js-utils";
 import { DetailsError } from "@/server/alert-source/alert-source";
 import sanitizeHtml from "sanitize-html";
 import { formatDate } from "@/server/data/disruption/period/utils/utils";
+import { AlertProcessingContextData } from "@/shared/types/alert-processing-context-data";
+import { formatLineShapeNode } from "@/server/data/disruption/writeup/utils";
 
 type UrlPreview = { html: string } | { error: string };
 
@@ -26,6 +28,7 @@ export type Data = {
       }[];
       urlPreview: UrlPreview;
     };
+    context: AlertProcessingContextData;
   } | null;
 };
 
@@ -78,6 +81,7 @@ export async function data(
   return {
     alert: {
       data: serializeData(alert.updatedData ?? alert.data, app, urlPreview),
+      context: prepContext(app),
     },
   };
 }
@@ -130,4 +134,21 @@ async function generateUrlPreview(app: App, url: string): Promise<UrlPreview> {
   } catch {
     return { error: errorMapping["unknown-error"] };
   }
+}
+
+function prepContext(app: App): AlertProcessingContextData {
+  return {
+    lines: app.lines.map((line) => ({
+      id: line.id,
+      name: line.name,
+      lineShapeNodes: line.route.getAllLineShapeNodes().map((node) => ({
+        id: node,
+        name: formatLineShapeNode(app, node, { capitalize: true }),
+      })),
+    })),
+    stations: app.stations.map((station) => ({
+      id: station.id,
+      name: station.name,
+    })),
+  };
 }
