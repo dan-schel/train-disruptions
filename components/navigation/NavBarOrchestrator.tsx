@@ -6,7 +6,7 @@ import {
   overview,
   settings as settingsTab,
 } from "@/components/navigation/utils";
-import { useSettings } from "@/components/settings/useSettings";
+import { useSettings } from "@/components/settings/use-settings";
 import React from "react";
 import { usePageContext } from "vike-react/usePageContext";
 import { navigate } from "vike/client/router";

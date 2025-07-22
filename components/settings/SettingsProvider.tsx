@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { getCookieSettings, Settings } from "@/shared/settings";
 import { usePageContext } from "vike-react/usePageContext";
 import Cookies from "js-cookie";
-import { SettingsContext } from "@/components/settings/useSettings";
+import { SettingsContext } from "@/components/settings/use-settings";
 
 export type SettingsProviderProps = {
   children: React.ReactNode;
