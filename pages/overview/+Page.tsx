@@ -20,16 +20,6 @@ export default function Page() {
 
   const [mapMode, setMapMode] = React.useState<MapMode>("show-disruptions");
 
-  function handleMapModeChange(event: React.ChangeEvent<HTMLSelectElement>) {
-    if (event.target.value === "show-disruptions") {
-      setMapMode("show-disruptions");
-    } else if (event.target.value === "show-lines-running") {
-      setMapMode("show-lines-running");
-    } else {
-      throw new Error(`Unknown map mode: ${event.target.value}`);
-    }
-  }
-
   return (
     <PageCenterer>
       <PagePadding>
@@ -51,12 +41,12 @@ export default function Page() {
                 },
               ]}
               value={mapMode}
-              handleChange={handleMapModeChange}
+              onChange={setMapMode}
             />
             {/* TODO: Determine/implement time range options. */}
             <Select
               options={[{ label: "right now", value: "now" }]}
-              handleChange={() => {}}
+              onChange={() => {}}
             />
           </Row>
           <Spacer h="4" />

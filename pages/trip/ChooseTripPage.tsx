@@ -59,7 +59,10 @@ function StationSelect(props: StationSelectProps) {
       <Select
         id={props.id}
         name={props.id}
-        options={props.stations.map((x) => ({ label: x.name, value: x.id }))}
+        options={props.stations.map((x) => ({
+          label: x.name,
+          value: x.id.toFixed(),
+        }))}
       />
     </Row>
   );

@@ -1,3 +1,4 @@
+import { buildLine } from "@/components/alert-processing/custom-questions/line/LineField";
 import {
   buildString,
   buildNumber,
@@ -17,9 +18,9 @@ export const q = {
   object: buildObject,
   discriminatedUnion: buildDiscriminatedUnion,
   array: buildArray,
+  line: buildLine,
 
   // TODO: [DS] Implement these properly!
-  line: buildNumber,
   station: buildNumber,
   lineShapeNode: buildNumber,
 };
