@@ -5,7 +5,7 @@ import { Settings } from "@/shared/settings";
 import { Column } from "@/components/core/Column";
 import { Text } from "@/components/core/Text";
 import { applyTheme } from "@/pages/settings/utils";
-import { useSettings } from "@/hooks/useSettings";
+import { useSettings } from "@/components/settings/use-settings";
 
 export function SettingsReset() {
   const [, setSettings] = useSettings();

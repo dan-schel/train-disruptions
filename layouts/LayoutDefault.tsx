@@ -6,7 +6,7 @@ import { DesktopNavBar } from "@/components/navigation/DesktopNavBar";
 import { MobileNavBar } from "@/components/navigation/MobileNavBar";
 import { Column } from "@/components/core/Column";
 import { With } from "@/components/core/With";
-import { SettingsProvider } from "@/components/SettingsProvider";
+import { SettingsProvider } from "@/components/settings/SettingsProvider";
 import { LoadingSpinner } from "@/components/common/LoadingSpinner";
 import { CenterAccountingForNav } from "@/components/navigation/CenterAccountingForNav";
 

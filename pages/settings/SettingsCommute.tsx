@@ -3,7 +3,7 @@ import React from "react";
 import { SimpleButton } from "@/components/common/SimpleButton";
 import { Column } from "@/components/core/Column";
 import { Text } from "@/components/core/Text";
-import { useSettings } from "@/hooks/useSettings";
+import { useSettings } from "@/components/settings/use-settings";
 
 export type SettingsCommuteProps = {
   stations: {
