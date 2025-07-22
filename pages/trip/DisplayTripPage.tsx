@@ -9,7 +9,7 @@ import { SimpleButton } from "@/components/common/SimpleButton";
 import { Spacer } from "@/components/core/Spacer";
 import { Row } from "@/components/core/Row";
 import { MingcuteCheckLine } from "@/components/icons/MingcuteCheckLine";
-import { useSettings } from "@/hooks/useSettings";
+import { useSettings } from "@/components/settings/useSettings";
 
 export type DisplayTripPageProps = {
   data: DisplayData;

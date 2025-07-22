@@ -4,7 +4,7 @@ import { Column } from "@/components/core/Column";
 import { Text } from "@/components/core/Text";
 import { Theme, themes } from "@/shared/settings";
 import { applyTheme } from "@/pages/settings/utils";
-import { useSettings } from "@/hooks/useSettings";
+import { useSettings } from "@/components/settings/useSettings";
 import { SettingsRadioButton } from "@/components/settings/SettingsRadioButton";
 
 const formattedTheme: Record<

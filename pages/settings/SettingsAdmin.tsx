@@ -2,7 +2,7 @@ import React from "react";
 
 import { Column } from "@/components/core/Column";
 import { Text } from "@/components/core/Text";
-import { useSettings } from "@/hooks/useSettings";
+import { useSettings } from "@/components/settings/useSettings";
 import { Spacer } from "@/components/core/Spacer";
 import { SettingsSwitch } from "@/components/settings/SettingsSwitch";
 
