@@ -9,14 +9,13 @@ import { useAlertProcessingContext } from "@/components/alert-processing/use-ale
 
 export function useLineInitializer() {
   const context = useAlertProcessingContext();
+  const defaultValue = context.lines[0]?.id.toFixed() ?? "";
 
-  // TODO: [DS] Use the alert processing context and use the first line as the
-  // default?
   return React.useCallback<QuestionSetup<number, string>>(
     (input) => {
-      return input?.value.toFixed() ?? context.lines[0]?.id.toFixed() ?? "";
+      return input?.value.toFixed() ?? defaultValue;
     },
-    [context],
+    [defaultValue],
   );
 }
 
