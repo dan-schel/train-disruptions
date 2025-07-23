@@ -31,8 +31,12 @@ export function formatSections(app: App, sections: LineSection[]): string {
   return listifyAnd(individualSections);
 }
 
-function formatLineShapeNode(app: App, node: LineShapeNode): string {
-  if (node === "the-city") return "the city";
+export function formatLineShapeNode(
+  app: App,
+  node: LineShapeNode,
+  { capitalize = false } = {},
+): string {
+  if (node === "the-city") return capitalize ? "The city" : "the city";
   return app.stations.require(node).name;
 }
 
