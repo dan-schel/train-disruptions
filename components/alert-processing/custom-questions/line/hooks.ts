@@ -3,7 +3,6 @@ import {
   QuestionSetup,
   QuestionValidator,
 } from "@/components/question/common/use-question";
-import { AlertProcessingContextData } from "@/shared/types/alert-processing-context-data";
 import { parseIntNull } from "@dan-schel/js-utils";
 import { useAlertProcessingContext } from "@/components/alert-processing/use-alert-processing-context";
 
@@ -19,7 +18,9 @@ export function useLineInitializer() {
   );
 }
 
-export function useLineValidator(context: AlertProcessingContextData) {
+export function useLineValidator() {
+  const context = useAlertProcessingContext();
+
   return React.useCallback<QuestionValidator<number, string>>(
     (raw) => {
       const parsed = parseIntNull(raw);

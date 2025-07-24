@@ -2,8 +2,7 @@ import { unique } from "@dan-schel/js-utils";
 import { StationPair } from "@/server/data/line/line-routes/station-pair";
 import { Edge, Tree } from "@/server/data/line/line-routes/tree";
 import { MapSegment } from "@/server/data/map-segment";
-
-export type LineShapeNode = number | "the-city";
+import { LineShapeNode } from "@/shared/types/line-shape-node";
 
 export type LineShapeEdgeData = {
   routeGraphPairs: StationPair[];

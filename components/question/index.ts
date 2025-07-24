@@ -1,3 +1,4 @@
+import { buildLineSection } from "@/components/alert-processing/custom-questions/line-section/LineSectionField";
 import { buildLine } from "@/components/alert-processing/custom-questions/line/LineField";
 import { buildStation } from "@/components/alert-processing/custom-questions/station/StationField";
 import {
@@ -21,9 +22,7 @@ export const q = {
   array: buildArray,
   line: buildLine,
   station: buildStation,
-
-  // TODO: [DS] Implement these properly!
-  lineShapeNode: buildNumber,
+  lineSection: buildLineSection,
 };
 
 export { Questionnaire } from "@/components/question/Questionnaire";

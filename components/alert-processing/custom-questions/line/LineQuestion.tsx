@@ -25,7 +25,7 @@ export function LineQuestion(props: LineQuestionProps) {
   const context = useAlertProcessingContext();
 
   const setup = useLineInitializer();
-  const validate = useLineValidator(context);
+  const validate = useLineValidator();
   const question = useQuestion({ props, setup, validate });
 
   const options = context.lines.map((line) => ({
