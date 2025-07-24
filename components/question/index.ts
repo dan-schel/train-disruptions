@@ -1,4 +1,5 @@
 import { buildLine } from "@/components/alert-processing/custom-questions/line/LineField";
+import { buildStation } from "@/components/alert-processing/custom-questions/station/StationField";
 import {
   buildString,
   buildNumber,
@@ -19,9 +20,9 @@ export const q = {
   discriminatedUnion: buildDiscriminatedUnion,
   array: buildArray,
   line: buildLine,
+  station: buildStation,
 
   // TODO: [DS] Implement these properly!
-  station: buildNumber,
   lineShapeNode: buildNumber,
 };
 
