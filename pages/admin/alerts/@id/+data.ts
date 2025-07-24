@@ -142,7 +142,7 @@ function prepContext(app: App): AlertProcessingContextData {
       id: line.id,
       name: line.name,
       lineShapeNodes: line.route.getAllLineShapeNodes().map((node) => ({
-        id: node,
+        id: typeof node === "string" ? node : node.toFixed(),
         name: formatLineShapeNode(app, node, { capitalize: true }),
       })),
     })),

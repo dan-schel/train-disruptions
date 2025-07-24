@@ -3,7 +3,7 @@ export type AlertProcessingContextData = {
     id: number;
     name: string;
     lineShapeNodes: {
-      id: "the-city" | number;
+      id: string;
       name: string;
     }[];
   }[];

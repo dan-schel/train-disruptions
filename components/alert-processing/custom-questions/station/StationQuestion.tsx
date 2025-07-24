@@ -25,7 +25,7 @@ export function StationQuestion(props: StationQuestionProps) {
   const context = useAlertProcessingContext();
 
   const setup = useStationInitializer();
-  const validate = useStationValidator(context);
+  const validate = useStationValidator();
   const question = useQuestion({ props, setup, validate });
 
   const options = context.stations.map((station) => ({

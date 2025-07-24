@@ -24,6 +24,7 @@ import { StandardDisruptionPeriod } from "@/server/data/disruption/period/standa
 import { JustDate } from "@/server/data/disruption/period/utils/just-date";
 import { DisruptionWriteup } from "@/server/data/disruption/writeup/disruption-writeup";
 import { LineSection } from "@/server/data/line-section";
+import { toLineShapeNode } from "@/server/data/line/line-routes/line-shape";
 import { MapPoint } from "@/server/data/map-point";
 import { MapSegment } from "@/server/data/map-segment";
 import { RouteGraphAlternativeEdge } from "@/server/data/route-graph/edge/route-graph-alternative-edge";
@@ -134,7 +135,11 @@ function createData(input: DisruptionDataInput): DisruptionData {
 }
 
 function createSection(input: LineSectionInput): LineSection {
-  return new LineSection(input.line, input.a, input.b);
+  return new LineSection(
+    input.line,
+    toLineShapeNode(input.a),
+    toLineShapeNode(input.b),
+  );
 }
 
 function createWriteup(input: DisruptionWriteupInput): DisruptionWriteup {

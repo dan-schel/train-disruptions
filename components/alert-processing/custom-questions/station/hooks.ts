@@ -8,13 +8,13 @@ import { useAlertProcessingContext } from "@/components/alert-processing/use-ale
 
 export function useStationInitializer() {
   const context = useAlertProcessingContext();
-  const defaultValue = context.stations[0]?.id.toFixed() ?? "";
 
   return React.useCallback<QuestionSetup<number, string>>(
     (input) => {
+      const defaultValue = context.stations[0].id.toFixed();
       return input?.value.toFixed() ?? defaultValue;
     },
-    [defaultValue],
+    [context.stations],
   );
 }
 

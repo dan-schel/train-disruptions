@@ -1,8 +1,16 @@
-import { unique } from "@dan-schel/js-utils";
+import { parseIntNull, unique } from "@dan-schel/js-utils";
 import { StationPair } from "@/server/data/line/line-routes/station-pair";
 import { Edge, Tree } from "@/server/data/line/line-routes/tree";
 import { MapSegment } from "@/server/data/map-segment";
-import { LineShapeNode } from "@/shared/types/line-shape-node";
+
+export type LineShapeNode = number | "the-city";
+
+export function toLineShapeNode(node: string) {
+  const number = parseIntNull(node);
+  if (number != null) return number;
+  if (node === "the-city") return "the-city";
+  throw new Error(`Invalid LineShapeNode: ${node}`);
+}
 
 export type LineShapeEdgeData = {
   routeGraphPairs: StationPair[];
