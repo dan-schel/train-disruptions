@@ -53,7 +53,7 @@ export function LineQuestion(props: LineQuestionProps) {
       label={props.props.label}
       value={
         context.lines.find((l) => l.id === question.value)?.name.toString() ??
-        "Unknown Line"
+        "Unknown line"
       }
       onEditClick={question.onEditClick}
     />

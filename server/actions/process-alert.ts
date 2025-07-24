@@ -24,7 +24,6 @@ import { StandardDisruptionPeriod } from "@/server/data/disruption/period/standa
 import { JustDate } from "@/server/data/disruption/period/utils/just-date";
 import { DisruptionWriteup } from "@/server/data/disruption/writeup/disruption-writeup";
 import { LineSection } from "@/server/data/line-section";
-import { toLineShapeNode } from "@/server/data/line/line-routes/line-shape";
 import { MapPoint } from "@/server/data/map-point";
 import { MapSegment } from "@/server/data/map-segment";
 import { RouteGraphAlternativeEdge } from "@/server/data/route-graph/edge/route-graph-alternative-edge";
@@ -47,7 +46,7 @@ import {
   RouteGraphEdgeInput,
   RouteGraphTrainEdgeInput,
 } from "@/shared/schemas/alert-processing/route-graph-edge-input";
-import { uuid } from "@dan-schel/js-utils";
+import { parseIntNull, uuid } from "@dan-schel/js-utils";
 
 type Result = { error: "not-found" | "already-processed" } | { success: true };
 type ProcessingContext = { alert: Alert };
@@ -137,9 +136,17 @@ function createData(input: DisruptionDataInput): DisruptionData {
 function createSection(input: LineSectionInput): LineSection {
   return new LineSection(
     input.line,
-    toLineShapeNode(input.a),
-    toLineShapeNode(input.b),
+    createLineShapeNode(input.a),
+    createLineShapeNode(input.b),
   );
+}
+
+function createLineShapeNode(input: string) {
+  // https://imgur.com/a/nkZpMnl
+  const number = parseIntNull(input);
+  if (number != null) return number;
+  if (input === "the-city") return "the-city";
+  throw new Error(`Invalid LineShapeNode: ${input}`);
 }
 
 function createWriteup(input: DisruptionWriteupInput): DisruptionWriteup {

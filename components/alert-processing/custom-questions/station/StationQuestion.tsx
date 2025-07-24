@@ -54,7 +54,7 @@ export function StationQuestion(props: StationQuestionProps) {
       value={
         context.stations
           .find((l) => l.id === question.value)
-          ?.name.toString() ?? "Unknown Station"
+          ?.name.toString() ?? "Unknown station"
       }
       onEditClick={question.onEditClick}
     />

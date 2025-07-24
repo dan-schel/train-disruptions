@@ -5,7 +5,6 @@ import {
 } from "@/components/question/common/use-question";
 import { useAlertProcessingContext } from "@/components/alert-processing/use-alert-processing-context";
 import { LineSectionInput } from "@/shared/schemas/alert-processing/disruption-data-input";
-import { parseIntNull } from "@dan-schel/js-utils";
 import { chooseBoundariesForLine } from "@/components/alert-processing/custom-questions/line-section/utils";
 
 export type LineSectionQuestionState = {
@@ -40,13 +39,8 @@ export function useLineSectionValidator() {
   return React.useCallback<
     QuestionValidator<LineSectionInput, LineSectionQuestionState>
   >(
-    ({ line: lineStr, a, b }) => {
-      const line = parseIntNull(lineStr);
-      if (line == null || a == null || b == null) {
-        return { error: "Some fields not completed" };
-      }
-
-      const lineCtx = context.lines.find((l) => l.id === line);
+    ({ line, a, b }) => {
+      const lineCtx = context.lines.find((l) => l.id.toFixed() === line);
       if (!lineCtx) {
         return { error: "Not a valid line" };
       }
@@ -58,7 +52,7 @@ export function useLineSectionValidator() {
         return { error: "Invalid line section boundaries" };
       }
 
-      return { value: { line, a, b } };
+      return { value: { line: lineCtx.id, a, b } };
     },
     [context],
   );
