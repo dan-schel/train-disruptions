@@ -7,30 +7,30 @@ import { SubmittedQuestion } from "@/components/question/common/SubmittedQuestio
 import { ActiveQuestion } from "@/components/question/common/ActiveQuestion";
 import { useAlertProcessingContext } from "@/components/alert-processing/use-alert-processing-context";
 import {
-  useLineInitializer,
-  useLineValidator,
-} from "@/components/alert-processing/custom-questions/line/hooks";
+  useStationInitializer,
+  useStationValidator,
+} from "@/components/alert-processing/custom-questions/station/hooks";
 import { Select } from "@/components/common/Select";
 
-export type LineQuestionAdditionalProps = {
+export type StationQuestionAdditionalProps = {
   label: string;
 };
 
-export type LineQuestionProps = QuestionProps<
+export type StationQuestionProps = QuestionProps<
   number,
-  LineQuestionAdditionalProps
+  StationQuestionAdditionalProps
 >;
 
-export function LineQuestion(props: LineQuestionProps) {
+export function StationQuestion(props: StationQuestionProps) {
   const context = useAlertProcessingContext();
 
-  const setup = useLineInitializer();
-  const validate = useLineValidator();
+  const setup = useStationInitializer();
+  const validate = useStationValidator();
   const question = useQuestion({ props, setup, validate });
 
-  const options = context.lines.map((line) => ({
-    value: line.id.toFixed(),
-    label: line.name,
+  const options = context.stations.map((station) => ({
+    value: station.id.toFixed(),
+    label: station.name,
   }));
 
   return question.isEditorOpen ? (
@@ -52,8 +52,9 @@ export function LineQuestion(props: LineQuestionProps) {
     <SubmittedQuestion
       label={props.props.label}
       value={
-        context.lines.find((l) => l.id === question.value)?.name.toString() ??
-        "Unknown line"
+        context.stations
+          .find((l) => l.id === question.value)
+          ?.name.toString() ?? "Unknown station"
       }
       onEditClick={question.onEditClick}
     />

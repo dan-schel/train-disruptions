@@ -6,26 +6,26 @@ import {
 import { parseIntNull } from "@dan-schel/js-utils";
 import { useAlertProcessingContext } from "@/components/alert-processing/use-alert-processing-context";
 
-export function useLineInitializer() {
+export function useStationInitializer() {
   const context = useAlertProcessingContext();
 
   return React.useCallback<QuestionSetup<number, string>>(
     (input) => {
-      const defaultValue = context.lines[0].id.toFixed();
+      const defaultValue = context.stations[0].id.toFixed();
       return input?.value.toFixed() ?? defaultValue;
     },
-    [context.lines],
+    [context.stations],
   );
 }
 
-export function useLineValidator() {
+export function useStationValidator() {
   const context = useAlertProcessingContext();
 
   return React.useCallback<QuestionValidator<number, string>>(
     (raw) => {
       const parsed = parseIntNull(raw);
-      if (parsed == null || !context.lines.some((l) => l.id === parsed)) {
-        return { error: "Not a valid line" };
+      if (parsed == null || !context.stations.some((l) => l.id === parsed)) {
+        return { error: "Not a valid station" };
       }
       return { value: parsed };
     },

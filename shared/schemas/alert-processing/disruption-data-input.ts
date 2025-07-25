@@ -8,8 +8,8 @@ import {
 
 export const LineSectionInputJson = z.object({
   line: z.number(),
-  a: z.union([z.number(), z.literal("the-city")]),
-  b: z.union([z.number(), z.literal("the-city")]),
+  a: z.string(),
+  b: z.string(),
 });
 export type LineSectionInput = z.infer<typeof LineSectionInputJson>;
 

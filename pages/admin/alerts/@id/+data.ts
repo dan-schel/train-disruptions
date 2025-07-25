@@ -142,7 +142,9 @@ function prepContext(app: App): AlertProcessingContextData {
       id: line.id,
       name: line.name,
       lineShapeNodes: line.route.getAllLineShapeNodes().map((node) => ({
-        id: node,
+        // The frontend shouldn't have to care about "the-city" | number, it
+        // just deals with strings.
+        id: typeof node === "string" ? node : node.toFixed(),
         name: formatLineShapeNode(app, node, { capitalize: true }),
       })),
     })),

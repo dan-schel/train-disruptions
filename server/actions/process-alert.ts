@@ -46,7 +46,7 @@ import {
   RouteGraphEdgeInput,
   RouteGraphTrainEdgeInput,
 } from "@/shared/schemas/alert-processing/route-graph-edge-input";
-import { uuid } from "@dan-schel/js-utils";
+import { parseIntNull, uuid } from "@dan-schel/js-utils";
 
 type Result = { error: "not-found" | "already-processed" } | { success: true };
 type ProcessingContext = { alert: Alert };
@@ -134,7 +134,19 @@ function createData(input: DisruptionDataInput): DisruptionData {
 }
 
 function createSection(input: LineSectionInput): LineSection {
-  return new LineSection(input.line, input.a, input.b);
+  return new LineSection(
+    input.line,
+    createLineShapeNode(input.a),
+    createLineShapeNode(input.b),
+  );
+}
+
+function createLineShapeNode(input: string) {
+  // https://imgur.com/a/nkZpMnl
+  const number = parseIntNull(input);
+  if (number != null) return number;
+  if (input === "the-city") return "the-city";
+  throw new Error(`Invalid LineShapeNode: ${input}`);
 }
 
 function createWriteup(input: DisruptionWriteupInput): DisruptionWriteup {
