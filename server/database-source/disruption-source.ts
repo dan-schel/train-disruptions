@@ -1,18 +1,17 @@
 import { App } from "@/server/app";
-import { disruptionDataBson } from "@/server/data/disruption/data/disruption-data";
 import { Disruption } from "@/server/data/disruption/disruption";
 import { TimeRange } from "@/server/data/disruption/period/utils/time-range";
 import { LineStatusIndicatorPriority } from "@/server/data/disruption/writeup/disruption-writeup";
+import { DisruptionModel } from "@/server/database/models/disruption";
 import { DISRUPTIONS } from "@/server/database/models/models";
-import { NonEmptyArray } from "@/shared/types/non-empty-array";
-import { differenceInMilliseconds } from "date-fns";
-import { millisecondsInMinute } from "date-fns/constants";
+import { DisruptionType } from "@/shared/types/disruption";
+import { Repository } from "@dan-schel/db";
 
-export type ListDisruptionFilter = {
-  lines?: NonEmptyArray<number>;
-  types?: NonEmptyArray<typeof disruptionDataBson._input.type>;
+type ListDisruptionFilter = {
+  lines?: number[];
+  types?: DisruptionType[];
   period?: TimeRange | Date;
-  priority?: NonEmptyArray<LineStatusIndicatorPriority>;
+  priority?: LineStatusIndicatorPriority[];
   valid?: boolean;
 };
 
@@ -23,14 +22,10 @@ type GetDisruptionFilter = {
 
 export class DisruptionSource {
   private static instance: DisruptionSource;
-  static readonly STALE_TIMER = millisecondsInMinute;
-  private lastQueried: Date;
-
-  // Caching the database results to prevent excessive database calls
-  private disruptions: Disruption[] = [];
+  private database: Repository<DisruptionModel>;
 
   private constructor(private app: App) {
-    this.lastQueried = new Date(0);
+    this.database = app.database.of(DISRUPTIONS);
   }
 
   static getInstance(app: App): DisruptionSource {
@@ -41,12 +36,6 @@ export class DisruptionSource {
     return this.instance;
   }
 
-  private async _retrieveDisruptions() {
-    if (this._isDataStale()) {
-      this.disruptions = await this.app.database.of(DISRUPTIONS).all();
-    }
-  }
-
   async listDisruptions({
     lines,
     types,
@@ -54,9 +43,7 @@ export class DisruptionSource {
     priority,
     valid,
   }: ListDisruptionFilter) {
-    await this._retrieveDisruptions();
-
-    return this.disruptions
+    return (await this.database.all())
       .filter(this._filterByAffectedLines(lines))
       .filter(this._filterByDisruptionType(types))
       .filter(this._filterByPeriod(period))
@@ -65,13 +52,11 @@ export class DisruptionSource {
   }
 
   async getDisruption({ id, valid }: GetDisruptionFilter) {
-    await this._retrieveDisruptions();
+    const disruption = await this.database.get(id);
 
-    return (
-      this.disruptions.find(
-        (d) => d.id === id && this._filterByValidity(valid)(d),
-      ) ?? null
-    );
+    if (valid === undefined || !disruption) return disruption ?? null;
+
+    return this._filterByValidity(valid)(disruption) ? disruption : null;
   }
 
   private _filterByAffectedLines(lines: ListDisruptionFilter["lines"]) {
@@ -121,12 +106,5 @@ export class DisruptionSource {
         ? disruption.data.validate(app)
         : !disruption.data.validate(app);
     };
-  }
-
-  private _isDataStale() {
-    return (
-      differenceInMilliseconds(this.app.time.now(), this.lastQueried) >=
-      DisruptionSource.STALE_TIMER
-    );
   }
 }

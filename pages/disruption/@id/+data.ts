@@ -8,7 +8,8 @@ import { Line } from "@/server/data/line/line";
 import { parseIntNull } from "@dan-schel/js-utils";
 import { SerializedMapHighlighting } from "@/shared/types/map-data";
 import { MapHighlighting } from "@/server/data/disruption/map-highlighting/map-highlighting";
-import { DisruptionSource } from "@/server/disruption-source/disruption-source";
+import { DisruptionSource } from "@/server/database-source/disruption-source";
+import { AlertSource } from "@/server/database-source/alert-source";
 
 export type Data = {
   disruption: {
@@ -33,11 +34,24 @@ export async function data(
   const back = determineBackBehaviour(app, urlParsed);
   const id = routeParams.id;
 
-  const disruptionSource = DisruptionSource.getInstance(app);
-  const disruption = await disruptionSource.getDisruption({ id, valid: true });
+  const disruption = await DisruptionSource.getInstance(app).getDisruption({
+    id,
+    valid: true,
+  });
 
   if (disruption == null) {
     return { disruption: null, back };
+  }
+
+  let link = "https://www.ptv.vic.gov.au/live-travel-updates/";
+  if (disruption.sourceAlertIds.length > 0) {
+    const alert = await AlertSource.getInstance(app).getFirstAlert({
+      ids: disruption.sourceAlertIds,
+    });
+
+    if (alert) {
+      link = alert.data.url;
+    }
   }
 
   const period = disruption.period.toBson();
@@ -48,10 +62,7 @@ export async function data(
     disruption: {
       title: writeup.title,
       bodyMarkdown: writeup.bodyMarkdown,
-
-      // TODO: Fetch from the source alerts, presumably?
-      link: "https://www.ptv.vic.gov.au/live-travel-updates/",
-
+      link,
       calendar: itNeverEnds
         ? null
         : createCalendarData([disruption.period], app.time.now()),

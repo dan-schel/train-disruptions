@@ -14,7 +14,9 @@ import {
 import { Line } from "@/server/data/line/line";
 import { MapHighlighting } from "@/server/data/disruption/map-highlighting/map-highlighting";
 import { SerializedMapHighlighting } from "@/shared/types/map-data";
-import { DisruptionSource } from "@/server/disruption-source/disruption-source";
+import { DisruptionSource } from "@/server/database-source/disruption-source";
+import { FilterableDisruptionCategory } from "@/shared/settings";
+import { DisruptionType } from "@/shared/types/disruption";
 
 const statusColorMapping: Record<
   LineStatusIndicatorPriority,
@@ -44,14 +46,13 @@ type PreprocessedDisruption = {
 export async function data(
   pageContext: PageContext,
 ): Promise<Data & JsonSerializable> {
-  const { app } = pageContext.custom;
-
-  const disruptionSource = DisruptionSource.getInstance(app);
+  const { app, settings } = pageContext.custom;
 
   const disruptions: PreprocessedDisruption[] = (
-    await disruptionSource.listDisruptions({
+    await DisruptionSource.getInstance(app).listDisruptions({
       valid: true,
       period: app.time.now(),
+      types: getTypesFromSettings(settings.enabledCategories),
     })
   ).map((x) => ({
     disruption: x,
@@ -138,4 +139,32 @@ function getLines(
       .map(populate)
       .sort(byNameDesc),
   };
+}
+
+function getTypesFromSettings(
+  filters: readonly FilterableDisruptionCategory[],
+): DisruptionType[] {
+  // Default options
+  const types: DisruptionType[] = [
+    "bus-replacements",
+    "no-city-loop",
+    "custom",
+  ];
+
+  filters.forEach((filter) => {
+    switch (filter) {
+      case "delays":
+        types.concat("delays");
+        break;
+      case "station-closures":
+        types.concat("station-closure");
+        break;
+
+      // TODO: Update with new disruptions when added
+      default:
+        break;
+    }
+  });
+
+  return types;
 }

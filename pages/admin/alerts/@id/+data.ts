@@ -1,5 +1,4 @@
 import { PageContext } from "vike/types";
-import { ALERTS } from "@/server/database/models/models";
 import { JsonSerializable } from "@/shared/json-serializable";
 import { AlertData } from "@/server/data/alert";
 import { App } from "@/server/app";
@@ -7,6 +6,7 @@ import { nonNull, unique } from "@dan-schel/js-utils";
 import { DetailsError } from "@/server/alert-source/alert-source";
 import sanitizeHtml from "sanitize-html";
 import { formatDate } from "@/server/data/disruption/period/utils/utils";
+import { AlertSource } from "@/server/database-source/alert-source";
 
 type UrlPreview = { html: string } | { error: string };
 
@@ -27,6 +27,10 @@ export type Data = {
       urlPreview: UrlPreview;
     };
   } | null;
+  back: {
+    name: string;
+    href: string;
+  };
 };
 
 const sanitizeOptions: sanitizeHtml.IOptions = {
@@ -64,13 +68,16 @@ export async function data(
   const {
     routeParams,
     custom: { app },
+    urlParsed,
   } = pageContext;
 
   const id = routeParams.id;
-  const alert = await app.database.of(ALERTS).get(id);
+  const alert = await AlertSource.getInstance(app).getAlert({ id });
+
+  const back = determineBackBehaviour(urlParsed);
 
   if (alert == null) {
-    return { alert: null };
+    return { alert: null, back };
   }
 
   const urlPreview = await generateUrlPreview(app, alert.data.url);
@@ -79,6 +86,7 @@ export async function data(
     alert: {
       data: serializeData(alert.updatedData ?? alert.data, app, urlPreview),
     },
+    back,
   };
 }
 
@@ -130,4 +138,13 @@ async function generateUrlPreview(app: App, url: string): Promise<UrlPreview> {
   } catch {
     return { error: errorMapping["unknown-error"] };
   }
+}
+
+function determineBackBehaviour(urlParsed: { search: Record<string, string> }) {
+  const from = urlParsed.search.from;
+
+  return {
+    name: from ? "Disruption" : "Alerts",
+    href: from ? `/admin/disruption/${from}` : "/overview",
+  };
 }

@@ -21,7 +21,7 @@ import { MingcuteDelete2Line } from "@/components/icons/MingcuteDelete2Line";
 
 export default function Page() {
   const { id } = usePageContext().routeParams;
-  const { alert } = useData<Data>();
+  const { alert, back } = useData<Data>();
 
   const [alertProcessingInput, setAlertProcessingInput] =
     React.useState<AlertProcessingInput | null>(null);
@@ -58,7 +58,7 @@ export default function Page() {
 
   return (
     <Column>
-      <BackNavigation name="Alerts" href="/admin/alerts" />
+      <BackNavigation {...back} />
       <PageCenterer>
         <PagePadding>
           {alert != null ? (

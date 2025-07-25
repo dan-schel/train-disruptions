@@ -16,7 +16,7 @@ import {
   LinePageStatusColour,
   LinePageUpcomingDisruption,
 } from "@/shared/types/line-page";
-import { DisruptionSource } from "@/server/disruption-source/disruption-source";
+import { DisruptionSource } from "@/server/database-source/disruption-source";
 
 const statusColorMapping: Record<
   LineStatusIndicatorPriority,
@@ -52,11 +52,9 @@ export async function data(
     };
   }
 
-  const disruptionSource = DisruptionSource.getInstance(app);
-
   // Filter out disruptions from the past and sort by priority
   const disruptions = (
-    await disruptionSource.listDisruptions({
+    await DisruptionSource.getInstance(app).listDisruptions({
       lines: [line.id],
       period: new TimeRange(app.time.now(), null),
       priority: ["high", "medium", "low", "very-low"],
