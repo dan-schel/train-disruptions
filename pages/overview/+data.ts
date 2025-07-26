@@ -17,6 +17,10 @@ import { SerializedMapHighlighting } from "@/shared/types/map-data";
 import { DisruptionRepository } from "@/server/database-repository/disruption-repository";
 import { FilterableDisruptionCategory } from "@/shared/settings";
 import { DisruptionType } from "@/shared/types/disruption";
+import { TimeRange } from "@/server/data/disruption/period/utils/time-range";
+import { addWeeks, endOfDay } from "date-fns";
+import { localToUtcTime } from "@/server/data/disruption/period/utils/utils";
+import { unique } from "@dan-schel/js-utils";
 
 const statusColorMapping: Record<
   LineStatusIndicatorPriority,
@@ -29,11 +33,14 @@ const statusColorMapping: Record<
   high: "red",
 };
 
+type PeriodFilter = "now" | "today" | "week";
+
 export type Data = {
   disruptions: OverviewPageDisruptionSummary[];
   suburban: OverviewPageLineData[];
   regional: OverviewPageLineData[];
   mapHighlighting: SerializedMapHighlighting;
+  occuring: PeriodFilter;
 };
 
 type PreprocessedDisruption = {
@@ -47,10 +54,19 @@ export async function data(
   pageContext: PageContext,
 ): Promise<Data & JsonSerializable> {
   const { app, settings } = pageContext.custom;
+  const { occuring } = pageContext.urlParsed.search;
 
   const disruptions: PreprocessedDisruption[] = (
     await DisruptionRepository.getRepository(app).listDisruptions({
-      period: app.time.now(),
+      period:
+        occuring === "week"
+          ? new TimeRange(app.time.now(), addWeeks(app.time.now(), 1))
+          : occuring === "today"
+            ? new TimeRange(
+                app.time.now(),
+                localToUtcTime(endOfDay(app.time.now())),
+              )
+            : app.time.now(),
       types: getTypesFromSettings(settings.enabledCategories),
       valid: true,
     })
@@ -62,6 +78,7 @@ export async function data(
   }));
 
   return {
+    occuring: occuring === "week" || occuring === "today" ? occuring : "now",
     disruptions: getSummaries(disruptions),
     ...getLines(app.lines, disruptions),
     mapHighlighting: MapHighlighting.serializeGroup(
@@ -117,9 +134,9 @@ function getLines(
       // together in a smarter way, e.g. "Middle Footscray station closed,
       // Ginifer station closed" is combined into "Middle Footscray and Ginifer
       // stations closed".)
-      status: highestPriority
-        .map((x) => x.lineStatusIndicator.summary)
-        .join(", "),
+      status: unique(
+        highestPriority.map((x) => x.lineStatusIndicator.summary),
+      ).join(", "),
       statusColor:
         statusColorMapping[highestPriority[0].lineStatusIndicator.priority],
     };

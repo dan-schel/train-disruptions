@@ -16,7 +16,13 @@ import { DisruptionButton } from "@/pages/overview/DisruptionButton";
 import { Select } from "@/components/common/Select";
 
 export default function Page() {
-  const { disruptions, suburban, regional, mapHighlighting } = useData<Data>();
+  const {
+    disruptions,
+    suburban,
+    regional,
+    mapHighlighting,
+    occuring: period,
+  } = useData<Data>();
 
   const [mapMode, setMapMode] = React.useState<MapMode>("show-disruptions");
 
@@ -43,10 +49,18 @@ export default function Page() {
               value={mapMode}
               onChange={setMapMode}
             />
-            {/* TODO: Determine/implement time range options. */}
             <Select
-              options={[{ label: "right now", value: "now" }]}
-              onChange={() => {}}
+              value={period}
+              options={[
+                { label: "right now", value: "now" },
+                { label: "today", value: "today" },
+                { label: "next 7 days", value: "week" },
+              ]}
+              onChange={(value) => {
+                window.location.search = new URLSearchParams({
+                  occuring: value,
+                }).toString();
+              }}
             />
           </Row>
           <Spacer h="4" />
