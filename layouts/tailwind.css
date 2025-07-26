@@ -119,6 +119,10 @@
   flex-shrink: 0;
 }
 
+:root {
+  --max-chin-size: env(safe-area-max-inset-bottom, 36px);
+}
+
 html {
   --page-min-width: 20rem;
   min-width: var(--page-min-width);
