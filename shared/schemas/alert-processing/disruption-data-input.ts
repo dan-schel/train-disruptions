@@ -54,6 +54,13 @@ export type NoCityLoopDisruptionDataInput = z.infer<
   typeof NoCityLoopDisruptionDataInputJson
 >;
 
+export const NoTrainsRunningDisruptionDataInputJson = z.object({
+  sections: LineSectionInputJson.array(),
+});
+export type NoTrainsRunningDisruptionDataInput = z.infer<
+  typeof NoTrainsRunningDisruptionDataInputJson
+>;
+
 export const DisruptionDataInputJson = z.discriminatedUnion("type", [
   z.object({ type: z.literal("custom") }).merge(CustomDisruptionDataInputJson),
   z
@@ -66,5 +73,8 @@ export const DisruptionDataInputJson = z.discriminatedUnion("type", [
   z
     .object({ type: z.literal("no-city-loop") })
     .merge(NoCityLoopDisruptionDataInputJson),
+  z
+    .object({ type: z.literal("no-trains-running") })
+    .merge(NoTrainsRunningDisruptionDataInputJson),
 ]);
 export type DisruptionDataInput = z.infer<typeof DisruptionDataInputJson>;
