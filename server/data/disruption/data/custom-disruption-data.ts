@@ -13,6 +13,7 @@ import { SimpleRouteGraphModifier } from "@/server/data/disruption/route-graph-m
 import { CustomMapHighlighter } from "@/server/data/disruption/map-highlighting/custom-map-highlighter";
 import { MapHighlighting } from "@/server/data/disruption/map-highlighting/map-highlighting";
 import { MapHighlighter } from "@/server/data/disruption/map-highlighting/map-highlighter";
+import { App } from "@/server/app";
 
 /**
  * Used in edge cases where the normal disruption types we have don't cut it.
@@ -61,6 +62,10 @@ export class CustomDisruptionData extends DisruptionDataBase {
     };
   }
 
+  inspect(): string {
+    return JSON.stringify(this.toBson(), undefined, 2);
+  }
+
   getImpactedLines(): readonly number[] {
     return this.impactedLines;
   }
@@ -75,5 +80,9 @@ export class CustomDisruptionData extends DisruptionDataBase {
 
   getMapHighlighter(): MapHighlighter {
     return new CustomMapHighlighter(this.highlighting);
+  }
+
+  validate(app: App): boolean {
+    return this.impactedLines.every((line) => app.lines.has(line));
   }
 }

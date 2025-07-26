@@ -34,6 +34,10 @@ export class BusReplacementsDisruptionData extends DisruptionDataBase {
     };
   }
 
+  inspect(): string {
+    return JSON.stringify(this.toBson(), undefined, 2);
+  }
+
   getImpactedLines(_app: App): readonly number[] {
     return unique(this.sections.map((x) => x.line));
   }
@@ -48,5 +52,11 @@ export class BusReplacementsDisruptionData extends DisruptionDataBase {
 
   getMapHighlighter(): MapHighlighter {
     return new SectionMapHighlighter(this.sections);
+  }
+
+  validate(app: App): boolean {
+    return this.sections.every((section) =>
+      app.lines.get(section.line)?.route.isValidSection(section),
+    );
   }
 }

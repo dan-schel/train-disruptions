@@ -41,6 +41,10 @@ export class DelaysDisruptionData extends DisruptionDataBase {
         new DelaysDisruptionData(x.stationId, x.delayInMinutes, x.sections),
     );
 
+  inspect(): string {
+    return JSON.stringify(this.toBson(), undefined, 2);
+  }
+
   toBson(): z.input<typeof DelaysDisruptionData.bson> {
     return {
       type: "delays",
@@ -66,5 +70,13 @@ export class DelaysDisruptionData extends DisruptionDataBase {
 
   getMapHighlighter(): MapHighlighter {
     return new DelayMapHighlighter(this.sections, [this.stationId]);
+  }
+
+  validate(app: App): boolean {
+    return (
+      this.sections.every((section) =>
+        app.lines.get(section.line)?.route.isValidSection(section),
+      ) && app.stations.has(this.stationId)
+    );
   }
 }
