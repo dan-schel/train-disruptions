@@ -4,6 +4,7 @@ import { CustomDisruptionData } from "@/server/data/disruption/data/custom-disru
 import { BusReplacementsDisruptionData } from "@/server/data/disruption/data/bus-replacements-disruption-data";
 import { DelaysDisruptionData } from "@/server/data/disruption/data/delays-disruption-data";
 import { NoCityLoopDisruptionData } from "@/server/data/disruption/data/no-city-loop-disruption-data";
+import { NoTrainsRunningDisruptionData } from "@/server/data/disruption/data/no-trains-running-disruption-data";
 
 /**
  * Stores the data inherent to this particular type of disruption.
@@ -15,7 +16,8 @@ export type DisruptionData =
   | StationClosureDisruptionData
   | BusReplacementsDisruptionData
   | DelaysDisruptionData
-  | NoCityLoopDisruptionData;
+  | NoCityLoopDisruptionData
+  | NoTrainsRunningDisruptionData;
 
 export const disruptionDataBson = z.union([
   CustomDisruptionData.bson,
@@ -23,4 +25,5 @@ export const disruptionDataBson = z.union([
   BusReplacementsDisruptionData.bson,
   DelaysDisruptionData.bson,
   NoCityLoopDisruptionData.bson,
+  NoTrainsRunningDisruptionData.bson,
 ]);
