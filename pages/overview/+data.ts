@@ -14,7 +14,13 @@ import {
 import { Line } from "@/server/data/line/line";
 import { MapHighlighting } from "@/server/data/disruption/map-highlighting/map-highlighting";
 import { SerializedMapHighlighting } from "@/shared/types/map-data";
-import { DISRUPTIONS } from "@/server/database/models/models";
+import { DisruptionRepository } from "@/server/database-repository/disruption-repository";
+import { FilterableDisruptionCategory } from "@/shared/settings";
+import { DisruptionType } from "@/shared/types/disruption";
+import { TimeRange } from "@/server/data/disruption/period/utils/time-range";
+import { addWeeks, endOfDay } from "date-fns";
+import { localToUtcTime } from "@/server/data/disruption/period/utils/utils";
+import { unique } from "@dan-schel/js-utils";
 
 const statusColorMapping: Record<
   LineStatusIndicatorPriority,
@@ -27,11 +33,14 @@ const statusColorMapping: Record<
   high: "red",
 };
 
+type PeriodFilter = "now" | "today" | "week";
+
 export type Data = {
   disruptions: OverviewPageDisruptionSummary[];
   suburban: OverviewPageLineData[];
   regional: OverviewPageLineData[];
   mapHighlighting: SerializedMapHighlighting;
+  occuring: PeriodFilter;
 };
 
 type PreprocessedDisruption = {
@@ -44,20 +53,31 @@ type PreprocessedDisruption = {
 export async function data(
   pageContext: PageContext,
 ): Promise<Data & JsonSerializable> {
-  const { app } = pageContext.custom;
+  const { app, settings } = pageContext.custom;
+  const { occuring } = pageContext.urlParsed.search;
 
   const disruptions: PreprocessedDisruption[] = (
-    await app.database.of(DISRUPTIONS).all()
-  )
-    .filter((x) => x.period.occursAt(app.time.now()))
-    .map((x) => ({
-      disruption: x,
-      lines: x.data.getImpactedLines(app),
-      writeup: x.data.getWriteupAuthor().write(app, x),
-      map: x.data.getMapHighlighter().getHighlighting(app),
-    }));
+    await DisruptionRepository.getRepository(app).listDisruptions({
+      period:
+        occuring === "week"
+          ? new TimeRange(app.time.now(), addWeeks(app.time.now(), 1))
+          : occuring === "today"
+            ? new TimeRange(
+                app.time.now(),
+                localToUtcTime(endOfDay(app.time.now())),
+              )
+            : app.time.now(),
+      types: getTypesFromSettings(settings.enabledCategories),
+    })
+  ).map((x) => ({
+    disruption: x,
+    lines: x.data.getImpactedLines(app),
+    writeup: x.data.getWriteupAuthor().write(app, x),
+    map: x.data.getMapHighlighter().getHighlighting(app),
+  }));
 
   return {
+    occuring: occuring === "week" || occuring === "today" ? occuring : "now",
     disruptions: getSummaries(disruptions),
     ...getLines(app.lines, disruptions),
     mapHighlighting: MapHighlighting.serializeGroup(
@@ -113,9 +133,9 @@ function getLines(
       // together in a smarter way, e.g. "Middle Footscray station closed,
       // Ginifer station closed" is combined into "Middle Footscray and Ginifer
       // stations closed".)
-      status: highestPriority
-        .map((x) => x.lineStatusIndicator.summary)
-        .join(", "),
+      status: unique(
+        highestPriority.map((x) => x.lineStatusIndicator.summary),
+      ).join(", "),
       statusColor:
         statusColorMapping[highestPriority[0].lineStatusIndicator.priority],
     };
@@ -135,4 +155,36 @@ function getLines(
       .map(populate)
       .sort(byNameDesc),
   };
+}
+
+function getTypesFromSettings(
+  filters: readonly FilterableDisruptionCategory[],
+): DisruptionType[] {
+  // Default options
+  const types: DisruptionType[] = [
+    "bus-replacements",
+    "no-city-loop",
+    "no-trains-running",
+    "custom",
+  ];
+
+  filters.forEach((filter) => {
+    switch (filter) {
+      case "delays":
+        types.push("delays");
+        break;
+      case "station-closures":
+        types.push("station-closure");
+        break;
+
+      // TODO: Update with new disruptions when added
+      case "cancellations":
+      case "accessibility":
+      case "car-park-closures":
+      default:
+        break;
+    }
+  });
+
+  return types;
 }

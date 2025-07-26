@@ -1,5 +1,4 @@
 import { PageContext } from "vike/types";
-import { ALERTS } from "@/server/database/models/models";
 import { JsonSerializable } from "@/shared/json-serializable";
 import { AlertData } from "@/server/data/alert";
 import { App } from "@/server/app";
@@ -9,6 +8,7 @@ import sanitizeHtml from "sanitize-html";
 import { formatDate } from "@/server/data/disruption/period/utils/utils";
 import { AlertProcessingContextData } from "@/shared/types/alert-processing-context-data";
 import { formatLineShapeNode } from "@/server/data/disruption/writeup/utils";
+import { AlertRepository } from "@/server/database-repository/alert-repository";
 
 type UrlPreview = { html: string } | { error: string };
 
@@ -70,7 +70,7 @@ export async function data(
   } = pageContext;
 
   const id = routeParams.id;
-  const alert = await app.database.of(ALERTS).get(id);
+  const alert = await AlertRepository.getRepository(app).getAlert(id);
 
   if (alert == null) {
     return { alert: null };

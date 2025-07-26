@@ -8,36 +8,13 @@ import { DisruptionWriteupAuthor } from "@/server/data/disruption/writeup/disrup
 import { NoCityLoopDisruptionWriteupAuthor } from "@/server/data/disruption/writeup/no-city-loop-disruption-writeup-author";
 import { unique } from "@dan-schel/js-utils";
 import { z } from "zod";
-import * as line from "@/shared/line-ids";
-
-// TODO: Remove Cranbourne, Pakenham, and Sunbury when Metro Tunnel is operating
-const CityLoopLines = [
-  line.ALAMEIN,
-  line.BELGRAVE,
-  line.GLEN_WAVERLEY,
-  line.LILYDALE,
-  line.HURSTBRIDGE,
-  line.MERNDA,
-  line.CRANBOURNE,
-  line.PAKENHAM,
-  line.CRAIGIEBURN,
-  line.SUNBURY,
-  line.UPFIELD,
-];
 
 export class NoCityLoopDisruptionData extends DisruptionDataBase {
   constructor(readonly lineIds: number[]) {
     super();
 
-    // Prevent this disruption from being created on lines that don't
-    // traverse through the city loop
-    this.lineIds = unique(
-      this.lineIds.filter((line) => CityLoopLines.includes(line)),
-    );
     if (this.lineIds.length < 1) {
-      throw new Error(
-        "Lines must include at least 1 line that runs through the city loop",
-      );
+      throw new Error("Must have at least one line.");
     }
   }
 
@@ -55,8 +32,12 @@ export class NoCityLoopDisruptionData extends DisruptionDataBase {
     };
   }
 
+  inspect(): string {
+    return JSON.stringify(this.toBson(), undefined, 2);
+  }
+
   getImpactedLines(_app: App): readonly number[] {
-    return this.lineIds;
+    return unique(this.lineIds);
   }
 
   getWriteupAuthor(): DisruptionWriteupAuthor {
@@ -69,5 +50,11 @@ export class NoCityLoopDisruptionData extends DisruptionDataBase {
 
   getMapHighlighter(): MapHighlighter {
     return new NoCityLoopMapHighlighter(this.lineIds);
+  }
+
+  validate(app: App): boolean {
+    return this.lineIds.every((line) =>
+      app.lines.get(line)?.route.getAllLineShapeNodes().includes("the-city"),
+    );
   }
 }

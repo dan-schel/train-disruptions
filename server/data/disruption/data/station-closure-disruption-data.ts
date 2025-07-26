@@ -31,6 +31,10 @@ export class StationClosureDisruptionData extends DisruptionDataBase {
     };
   }
 
+  inspect(): string {
+    return JSON.stringify(this.toBson(), undefined, 2);
+  }
+
   getImpactedLines(app: App): readonly number[] {
     return app.lines.whichStopAt(this.stationId).map((x) => x.id);
   }
@@ -45,5 +49,9 @@ export class StationClosureDisruptionData extends DisruptionDataBase {
 
   getMapHighlighter(): MapHighlighter {
     return new StationMapHighlighter([this.stationId]);
+  }
+
+  validate(app: App): boolean {
+    return app.stations.has(this.stationId);
   }
 }
