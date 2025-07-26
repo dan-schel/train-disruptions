@@ -5,6 +5,7 @@ import { CustomDisruptionData } from "@/server/data/disruption/data/custom-disru
 import { DelaysDisruptionData } from "@/server/data/disruption/data/delays-disruption-data";
 import { DisruptionData } from "@/server/data/disruption/data/disruption-data";
 import { NoCityLoopDisruptionData } from "@/server/data/disruption/data/no-city-loop-disruption-data";
+import { NoTrainsRunningDisruptionData } from "@/server/data/disruption/data/no-trains-running-disruption-data";
 import { StationClosureDisruptionData } from "@/server/data/disruption/data/station-closure-disruption-data";
 import { Disruption } from "@/server/data/disruption/disruption";
 import {
@@ -122,6 +123,10 @@ function createData(input: DisruptionDataInput): DisruptionData {
       );
     case "no-city-loop":
       return new NoCityLoopDisruptionData(input.lineIds);
+    case "no-trains-running":
+      return new NoTrainsRunningDisruptionData(
+        input.sections.map(createSection),
+      );
     case "custom":
       return new CustomDisruptionData(
         input.impactedLines,

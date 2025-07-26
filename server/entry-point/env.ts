@@ -22,7 +22,7 @@ const schema = z.object({
 });
 
 // Loads environment variables from the `.env` file into process.env.
-configDotenv();
+configDotenv({ quiet: true });
 
 // Parses process.env using the schema (i.e. checks that `RELAY_KEY`,
 // `DATABASE_URL`, etc. are there), and makes them available in the "env"
