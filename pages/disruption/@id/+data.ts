@@ -8,7 +8,7 @@ import { Line } from "@/server/data/line/line";
 import { parseIntNull } from "@dan-schel/js-utils";
 import { SerializedMapHighlighting } from "@/shared/types/map-data";
 import { MapHighlighting } from "@/server/data/disruption/map-highlighting/map-highlighting";
-import { DISRUPTIONS } from "@/server/database/models/models";
+import { DisruptionRepository } from "@/server/database-repository/disruption-repository";
 
 export type Data = {
   disruption: {
@@ -33,7 +33,9 @@ export async function data(
   const back = determineBackBehaviour(app, urlParsed);
   const id = routeParams.id;
 
-  const disruption = await app.database.of(DISRUPTIONS).get(id);
+  const disruption = await DisruptionRepository.getRepository(
+    app,
+  ).getDisruption({ id, valid: true });
   if (disruption == null) {
     return { disruption: null, back };
   }

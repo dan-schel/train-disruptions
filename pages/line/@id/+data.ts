@@ -16,7 +16,7 @@ import {
   LinePageStatusColour,
   LinePageUpcomingDisruption,
 } from "@/shared/types/line-page";
-import { DISRUPTIONS } from "@/server/database/models/models";
+import { DisruptionRepository } from "@/server/database-repository/disruption-repository";
 
 const statusColorMapping: Record<
   LineStatusIndicatorPriority,
@@ -53,23 +53,22 @@ export async function data(
   }
 
   // Filter out disruptions from the past and sort by priority
-  const disruptions = (await app.database.of(DISRUPTIONS).all())
-    .filter(
-      (x) =>
-        x.data.getImpactedLines(app).includes(line.id) &&
-        x.data.getWriteupAuthor().write(app, x).lineStatusIndicator.priority !==
-          "hidden" &&
-        x.period.intersects(new TimeRange(app.time.now(), null)),
-    )
-    .sort(
-      (a, b) =>
-        LineStatusIndicatorPriorities.indexOf(
-          b.data.getWriteupAuthor().write(app, b).lineStatusIndicator.priority,
-        ) -
-        LineStatusIndicatorPriorities.indexOf(
-          a.data.getWriteupAuthor().write(app, a).lineStatusIndicator.priority,
-        ),
-    );
+  const disruptions = (
+    await DisruptionRepository.getRepository(app).listDisruptions({
+      lines: [line.id],
+      period: new TimeRange(app.time.now(), null),
+      priority: ["high", "medium", "low", "very-low"],
+      valid: true,
+    })
+  ).sort(
+    (a, b) =>
+      LineStatusIndicatorPriorities.indexOf(
+        b.data.getWriteupAuthor().write(app, b).lineStatusIndicator.priority,
+      ) -
+      LineStatusIndicatorPriorities.indexOf(
+        a.data.getWriteupAuthor().write(app, a).lineStatusIndicator.priority,
+      ),
+  );
 
   // Split the disruptions that occur today from the ones that occur in the future
   const [today, future] = disruptions.reduce<[Disruption[], Disruption[]]>(

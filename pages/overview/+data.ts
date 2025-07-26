@@ -14,7 +14,9 @@ import {
 import { Line } from "@/server/data/line/line";
 import { MapHighlighting } from "@/server/data/disruption/map-highlighting/map-highlighting";
 import { SerializedMapHighlighting } from "@/shared/types/map-data";
-import { DISRUPTIONS } from "@/server/database/models/models";
+import { DisruptionRepository } from "@/server/database-repository/disruption-repository";
+import { FilterableDisruptionCategory } from "@/shared/settings";
+import { DisruptionType } from "@/shared/types/disruption";
 
 const statusColorMapping: Record<
   LineStatusIndicatorPriority,
@@ -44,18 +46,20 @@ type PreprocessedDisruption = {
 export async function data(
   pageContext: PageContext,
 ): Promise<Data & JsonSerializable> {
-  const { app } = pageContext.custom;
+  const { app, settings } = pageContext.custom;
 
   const disruptions: PreprocessedDisruption[] = (
-    await app.database.of(DISRUPTIONS).all()
-  )
-    .filter((x) => x.period.occursAt(app.time.now()))
-    .map((x) => ({
-      disruption: x,
-      lines: x.data.getImpactedLines(app),
-      writeup: x.data.getWriteupAuthor().write(app, x),
-      map: x.data.getMapHighlighter().getHighlighting(app),
-    }));
+    await DisruptionRepository.getRepository(app).listDisruptions({
+      period: app.time.now(),
+      types: getTypesFromSettings(settings.enabledCategories),
+      valid: true,
+    })
+  ).map((x) => ({
+    disruption: x,
+    lines: x.data.getImpactedLines(app),
+    writeup: x.data.getWriteupAuthor().write(app, x),
+    map: x.data.getMapHighlighter().getHighlighting(app),
+  }));
 
   return {
     disruptions: getSummaries(disruptions),
@@ -135,4 +139,36 @@ function getLines(
       .map(populate)
       .sort(byNameDesc),
   };
+}
+
+function getTypesFromSettings(
+  filters: readonly FilterableDisruptionCategory[],
+): DisruptionType[] {
+  // Default options
+  const types: DisruptionType[] = [
+    "bus-replacements",
+    "no-city-loop",
+    "no-trains-running",
+    "custom",
+  ];
+
+  filters.forEach((filter) => {
+    switch (filter) {
+      case "delays":
+        types.push("delays");
+        break;
+      case "station-closures":
+        types.push("station-closure");
+        break;
+
+      // TODO: Update with new disruptions when added
+      case "cancellations":
+      case "accessibility":
+      case "car-park-closures":
+      default:
+        break;
+    }
+  });
+
+  return types;
 }
