@@ -58,7 +58,6 @@ export async function data(
       lines: [line.id],
       period: new TimeRange(app.time.now(), null),
       priority: ["high", "medium", "low", "very-low"],
-      valid: true,
     })
   ).sort(
     (a, b) =>

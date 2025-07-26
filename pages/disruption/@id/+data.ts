@@ -35,7 +35,7 @@ export async function data(
 
   const disruption = await DisruptionRepository.getRepository(
     app,
-  ).getDisruption({ id, valid: true });
+  ).getDisruption({ id });
   if (disruption == null) {
     return { disruption: null, back };
   }

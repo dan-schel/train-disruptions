@@ -40,7 +40,7 @@ export class DisruptionRepository {
     types,
     period,
     priority,
-    valid,
+    valid = true,
   }: ListDisruptionFilter) {
     return (await this.database.all())
       .filter(this._filterByLines(lines))
@@ -50,7 +50,7 @@ export class DisruptionRepository {
       .filter(this._filterByValidity(valid));
   }
 
-  async getDisruption({ id, valid }: GetDisruptionFilter) {
+  async getDisruption({ id, valid = true }: GetDisruptionFilter) {
     const disruption = await this.database.get(id);
 
     if (valid === undefined || !disruption) return disruption;

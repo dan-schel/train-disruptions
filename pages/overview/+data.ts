@@ -68,7 +68,6 @@ export async function data(
               )
             : app.time.now(),
       types: getTypesFromSettings(settings.enabledCategories),
-      valid: true,
     })
   ).map((x) => ({
     disruption: x,
