@@ -27,7 +27,10 @@ export default function LayoutDefault({
         <CenterAccountingForNav className="_page-loader">
           <LoadingSpinner style="large" />
         </CenterAccountingForNav>
-        <With flexGrow="1" className="_page-container pb-16 md:pt-12 md:pb-0">
+        <With
+          flexGrow="1"
+          className="_page-container pb-[calc(4rem_+_var(--max-chin-size))] md:pt-12 md:pb-0"
+        >
           {children}
         </With>
       </SettingsProvider>
