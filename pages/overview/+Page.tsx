@@ -1,6 +1,5 @@
 import React from "react";
 import { useData } from "vike-react/useData";
-
 import { Data } from "@/pages/overview/+data";
 
 import { Lines } from "@/pages/overview/Lines";
@@ -16,13 +15,8 @@ import { DisruptionButton } from "@/pages/overview/DisruptionButton";
 import { Select } from "@/components/common/Select";
 
 export default function Page() {
-  const {
-    disruptions,
-    suburban,
-    regional,
-    mapHighlighting,
-    occuring: period,
-  } = useData<Data>();
+  const { disruptions, suburban, regional, mapHighlighting, occuring } =
+    useData<Data>();
 
   const [mapMode, setMapMode] = React.useState<MapMode>("show-disruptions");
 
@@ -50,7 +44,7 @@ export default function Page() {
               onChange={setMapMode}
             />
             <Select
-              value={period}
+              value={occuring}
               options={[
                 { label: "right now", value: "now" },
                 { label: "today", value: "today" },
