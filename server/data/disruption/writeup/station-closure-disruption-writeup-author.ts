@@ -11,7 +11,8 @@ export class StationClosureDisruptionWriteupAuthor extends DisruptionWriteupAuth
   }
 
   write(app: App, disruption: Disruption): DisruptionWriteup {
-    const stationName = app.stations.require(this._data.stationId).name;
+    const stationName =
+      app.stations.get(this._data.stationId)?.name ?? "unknown";
     const periodString = disruption.period.getDisplayString({
       now: app.time.now(),
     });

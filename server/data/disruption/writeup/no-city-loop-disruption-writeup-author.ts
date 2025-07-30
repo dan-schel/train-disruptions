@@ -17,9 +17,9 @@ export class NoCityLoopDisruptionWriteupAuthor extends DisruptionWriteupAuthor {
     });
     const lines = this._data
       .getImpactedLines(app)
-      .map((x) => app.lines.require(x));
+      .map((x) => app.lines.get(x)?.name ?? "unknown");
 
-    const subjectString = `on the ${listifyAnd(lines.map((x) => x.name))} line${lines.length > 1 ? "s" : ""}`;
+    const subjectString = `on the ${listifyAnd(lines)} line${lines.length > 1 ? "s" : ""}`;
 
     return new DisruptionWriteup(
       `No city loop services ${subjectString}`,

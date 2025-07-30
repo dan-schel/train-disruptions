@@ -37,7 +37,7 @@ export function formatLineShapeNode(
   { capitalize = false } = {},
 ): string {
   if (node === "the-city") return capitalize ? "The city" : "the city";
-  return app.stations.require(node).name;
+  return app.stations.get(node)?.name ?? "unknown";
 }
 
 function allTheSame(sections: LineSection[]): boolean {
