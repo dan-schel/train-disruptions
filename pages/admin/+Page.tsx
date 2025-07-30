@@ -13,6 +13,7 @@ import { MingcuteExitFill } from "@/components/icons/MingcuteExitFill";
 import { MingcuteUser4Fill } from "@/components/icons/MingcuteUser4Fill";
 import { MingcuteGroup2Fill } from "@/components/icons/MingcuteGroup2Fill";
 import { MingcuteMailFill } from "@/components/icons/MingcuteMailFill";
+import { MingcuteAlertOctagonFill } from "@/components/icons/MingcuteAlertOctagonFill";
 
 export default function Page() {
   // TODO: This is temporary. Saves me having to check the prod database all the
@@ -51,6 +52,12 @@ export default function Page() {
             action={"/admin/alerts"}
             icon={<MingcuteMailFill className="size-8" />}
             label="Alert Inbox"
+          />
+
+          <AdminButton
+            action={"/admin/disruptions"}
+            icon={<MingcuteAlertOctagonFill className="size-8" />}
+            label="Disruptions"
           />
 
           <AdminButton

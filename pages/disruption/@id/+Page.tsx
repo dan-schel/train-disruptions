@@ -2,7 +2,7 @@ import React from "react";
 import { Data } from "@/pages/disruption/@id/+data";
 import { useData } from "vike-react/useData";
 
-import { NotFound } from "@/pages/disruption/@id/NotFound";
+import { NotFound } from "@/components/disruptions/NotFound";
 import { Disruption } from "@/pages/disruption/@id/Disruption";
 import { With } from "@/components/core/With";
 import { Column } from "@/components/core/Column";

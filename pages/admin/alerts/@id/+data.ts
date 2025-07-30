@@ -30,6 +30,10 @@ export type Data = {
     };
     context: AlertProcessingContextData;
   } | null;
+  back: {
+    name: string;
+    href: string;
+  };
 };
 
 const sanitizeOptions: sanitizeHtml.IOptions = {
@@ -66,14 +70,16 @@ export async function data(
 ): Promise<Data & JsonSerializable> {
   const {
     routeParams,
+    urlParsed,
     custom: { app },
   } = pageContext;
 
   const id = routeParams.id;
+  const back = determineBackBehaviour(urlParsed);
   const alert = await AlertRepository.getRepository(app).getAlert(id);
 
   if (alert == null) {
-    return { alert: null };
+    return { alert: null, back };
   }
 
   const urlPreview = await generateUrlPreview(app, alert.data.url);
@@ -83,6 +89,7 @@ export async function data(
       data: serializeData(alert.updatedData ?? alert.data, app, urlPreview),
       context: prepContext(app),
     },
+    back,
   };
 }
 
@@ -152,5 +159,21 @@ function prepContext(app: App): AlertProcessingContextData {
       id: station.id,
       name: station.name,
     })),
+  };
+}
+
+function determineBackBehaviour(urlParsed: { search: Record<string, string> }) {
+  const disruption = urlParsed.search.disruption;
+
+  if (disruption) {
+    return {
+      name: "Disruption",
+      href: `/admin/disruptions/${disruption}`,
+    };
+  }
+
+  return {
+    name: "Alerts",
+    href: "/admin/alerts",
   };
 }

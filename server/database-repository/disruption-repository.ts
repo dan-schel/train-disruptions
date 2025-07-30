@@ -12,12 +12,12 @@ type ListDisruptionFilter = {
   types?: DisruptionType[];
   period?: TimeRange | Date;
   priority?: LineStatusIndicatorPriority[];
-  valid?: boolean;
+  valid?: boolean | "either";
 };
 
 type GetDisruptionFilter = {
   id: Disruption["id"];
-  valid?: boolean;
+  valid?: boolean | "either";
 };
 
 export class DisruptionRepository {
@@ -53,7 +53,7 @@ export class DisruptionRepository {
   async getDisruption({ id, valid = true }: GetDisruptionFilter) {
     const disruption = await this.database.get(id);
 
-    if (valid === undefined || !disruption) return disruption;
+    if (valid === "either" || !disruption) return disruption;
 
     return this._filterByValidity(valid)(disruption) ? disruption : null;
   }
@@ -100,7 +100,7 @@ export class DisruptionRepository {
   private _filterByValidity(valid: ListDisruptionFilter["valid"]) {
     const app = this.app;
     return function (disruption: Disruption) {
-      if (valid === undefined) return true;
+      if (valid === "either") return true;
       return valid === disruption.data.validate(app);
     };
   }
