@@ -34,12 +34,7 @@ export function DisruptionTypeFilter({
     );
   }
 
-  // Do we want to explore fetching from the server instead of `+data`?
-  // If we apply the type filter `onChange`, it'll reload the page which
-  //  resets the states in react, meaning you'll have to reopen this
-  //  collapsible when you toggle an option.
-  // Personally, I would like it so that the filter is applied actively
-  //  rather than requiring confirmation.
+  // Filtering needs to be batched as changing the search params reloads the page
   function handleFilter() {
     const params = new URLSearchParams(urlParsed.search);
     params.delete("type");
