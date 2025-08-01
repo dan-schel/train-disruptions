@@ -44,6 +44,10 @@ export function Actions({ id }: ActionsProps) {
     }
   }
 
+  function handleCancel() {
+    setCurrentAction(null);
+  }
+
   return (
     <Column>
       {currentAction === null && (
@@ -71,10 +75,7 @@ export function Actions({ id }: ActionsProps) {
           </Text>
 
           <Row justify="center" className="gap-2">
-            <SimpleButton
-              text="No, Cancel"
-              onClick={() => setCurrentAction(null)}
-            />
+            <SimpleButton text="No, Cancel" onClick={handleCancel} />
 
             <SimpleButton
               text="Yes, Delete"
@@ -92,7 +93,7 @@ export function Actions({ id }: ActionsProps) {
             <em>Not yet implemented</em>
           </Text>
 
-          <SimpleButton text="Cancel" onClick={() => setCurrentAction(null)} />
+          <SimpleButton text="Cancel" onClick={handleCancel} />
         </Column>
       )}
     </Column>

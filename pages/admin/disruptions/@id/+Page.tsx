@@ -5,7 +5,6 @@ import { Column } from "@/components/core/Column";
 import { BackNavigation } from "@/components/navigation/BackNavigation";
 import { Data } from "@/pages/admin/disruptions/@id/+data";
 import { Disruption } from "@/pages/admin/disruptions/@id/Disruption";
-import { InvalidDisruption } from "@/pages/admin/disruptions/@id/InvalidDisruption";
 import { useData } from "vike-react/useData";
 import { NotFound } from "@/components/disruptions/NotFound";
 
@@ -20,8 +19,6 @@ export default function Page() {
           <Column>
             {disruption === null ? (
               <NotFound />
-            ) : disruption.type === "invalid" ? (
-              <InvalidDisruption data={disruption} />
             ) : (
               <Disruption data={disruption} />
             )}

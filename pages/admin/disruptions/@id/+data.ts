@@ -11,7 +11,6 @@ import { PageContext } from "vike/types";
 export type Data = {
   disruption:
     | {
-        type: "valid";
         title: string;
         bodyMarkdown: string;
         calendar: CalendarData | null;
@@ -19,7 +18,6 @@ export type Data = {
         alerts: AlertPreview;
       }
     | {
-        type: "invalid";
         title: string;
         bodyMarkdown: string;
         calendar: CalendarData | null;
@@ -57,7 +55,6 @@ export async function data(
   if (!disruption.data.validate(app)) {
     return {
       disruption: {
-        type: "invalid",
         title: writeup.title,
         bodyMarkdown: writeup.bodyMarkdown,
         calendar: itNeverEnds
@@ -71,7 +68,6 @@ export async function data(
 
   return {
     disruption: {
-      type: "valid",
       title: writeup.title,
       bodyMarkdown: writeup.bodyMarkdown,
       calendar: itNeverEnds

@@ -17,7 +17,8 @@ export type DisruptionProps = {
     title: string;
     bodyMarkdown: string;
     calendar: CalendarData | null;
-    highlighting: SerializedMapHighlighting;
+    highlighting?: SerializedMapHighlighting;
+    raw?: string;
     alerts: AlertPreview;
   };
 };
@@ -26,7 +27,8 @@ export function Disruption(props: DisruptionProps) {
   const {
     routeParams: { id },
   } = usePageContext();
-  const { title, bodyMarkdown, calendar, highlighting, alerts } = props.data;
+  const { title, bodyMarkdown, calendar, highlighting, raw, alerts } =
+    props.data;
 
   return (
     <Column className="gap-8">
@@ -43,11 +45,19 @@ export function Disruption(props: DisruptionProps) {
 
       <Actions id={id} />
 
+      {Boolean(raw) && (
+        <Column className="border-soft-border divide-soft-border bg-soft divide-y rounded-md border">
+          <pre className="_ptv-preview">{raw}</pre>
+        </Column>
+      )}
+
       {calendar && <Calendar data={calendar} />}
 
-      <With className="border-soft-border rounded-md border">
-        <Map highlighting={highlighting} mode="show-disruptions" />
-      </With>
+      {highlighting && (
+        <With className="border-soft-border rounded-md border">
+          <Map highlighting={highlighting} mode="show-disruptions" />
+        </With>
+      )}
 
       <Column className="gap-4">
         <Text>Related Alerts</Text>
