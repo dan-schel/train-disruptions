@@ -3,7 +3,7 @@ import { Disruption } from "@/server/data/disruption/disruption";
 import { DisruptionWriteup } from "@/server/data/disruption/writeup/disruption-writeup";
 import { DisruptionRepository } from "@/server/database-repository/disruption-repository";
 import { JsonSerializable } from "@/shared/json-serializable";
-import { DisruptionSummary } from "@/shared/types/disruption";
+import { DisruptionSummary, DisruptionType } from "@/shared/types/disruption";
 import { PageContext } from "vike/types";
 
 type PreprocessedDisruption = {
@@ -15,7 +15,9 @@ type PreprocessedDisruption = {
 export type Data = {
   disruptions: DisruptionSummary[];
   lines: { name: string; id: number; lineGroup: "suburban" | "regional" }[];
-  // filters: FilterInput;
+  filters: {
+    type: DisruptionType[];
+  };
 };
 
 export async function data(
@@ -23,9 +25,14 @@ export async function data(
 ): Promise<Data & JsonSerializable> {
   const { app } = pageContext.custom;
 
+  const typeFilter = getDisruptionTypeFilter(
+    pageContext.urlParsed.searchAll.type,
+  );
+
   const disruptions = (
     await DisruptionRepository.getRepository(app).listDisruptions({
       valid: "either",
+      types: typeFilter,
     })
   ).map((x) => ({
     disruption: x,
@@ -36,6 +43,9 @@ export async function data(
   return {
     disruptions: getSummaries(disruptions, app),
     lines: [],
+    filters: {
+      type: typeFilter,
+    },
   };
 }
 
@@ -51,4 +61,23 @@ function getSummaries(
     icon: x.writeup.summary.iconType,
     valid: x.disruption.data.validate(app),
   }));
+}
+
+function getDisruptionTypeFilter(types?: string[]) {
+  const defaultTypes: DisruptionType[] = [
+    "bus-replacements",
+    "custom",
+    "delays",
+    "no-city-loop",
+    "no-trains-running",
+    "station-closure",
+  ];
+
+  if (!types) return defaultTypes;
+
+  const filtered = types.filter((type): type is DisruptionType =>
+    defaultTypes.some((x) => x === type),
+  );
+
+  return filtered.length ? filtered : defaultTypes;
 }
