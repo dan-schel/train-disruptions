@@ -14,7 +14,6 @@ type PreprocessedDisruption = {
 
 export type Data = {
   disruptions: DisruptionSummary[];
-  lines: { name: string; id: number; lineGroup: "suburban" | "regional" }[];
   filters: {
     type: DisruptionType[];
   };
@@ -42,7 +41,6 @@ export async function data(
 
   return {
     disruptions: getSummaries(disruptions, app),
-    lines: [],
     filters: {
       type: typeFilter,
     },
