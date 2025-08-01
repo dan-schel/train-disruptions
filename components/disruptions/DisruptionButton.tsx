@@ -47,7 +47,7 @@ function DisruptionIcon({
 }) {
   const outline =
     valid !== undefined
-      ? `outline ${valid ? "outline-status-green" : "outline-status-red"}`
+      ? `outline-2 ${valid ? "outline-status-green" : "outline-status-red"}`
       : "";
 
   if (icon === "line") {

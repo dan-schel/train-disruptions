@@ -16,7 +16,7 @@ const mapDisruptionType: Record<string, DisruptionType> = {
   "Station closures": "station-closure",
   Delays: "delays",
   Custom: "custom",
-} as const;
+};
 
 type DisruptionTypeFilterProps = {
   filteredTypes: DisruptionType[];
@@ -52,7 +52,9 @@ export function DisruptionTypeFilter({
   }
 
   return (
-    <Collapsible label="Disruption Type">
+    <Collapsible
+      label={`Disruption Type (${filteredTypes.length}/${Object.keys(mapDisruptionType).length} applied)`}
+    >
       <Column className="bg-soft/30 p-2">
         {Object.entries(mapDisruptionType).map(([label, type]) => (
           <Switch
@@ -61,7 +63,7 @@ export function DisruptionTypeFilter({
             onChange={(checked) => handleChange(checked, type)}
             className="p-2"
           >
-            <Text>{label}</Text>
+            <Text style="small">{label}</Text>
           </Switch>
         ))}
 

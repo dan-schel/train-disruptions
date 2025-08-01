@@ -22,14 +22,19 @@ export default function Page() {
 
             <Column>
               <DisruptionTypeFilter filteredTypes={filters.type} />
+              {/* TODO: Add more filter options */}
             </Column>
-            {/* TODO: Add more filter options */}
 
             <Column className="divide-soft-border divide-y-1">
               {disruptions.map((x) => (
                 <DisruptionButton key={x.id} admin data={x} />
               ))}
             </Column>
+            {disruptions.length === 0 && (
+              <Text style="subtitle" align="center">
+                Looks like there&apos;s no disruptions!
+              </Text>
+            )}
           </Column>
         </PagePadding>
       </PageCenterer>

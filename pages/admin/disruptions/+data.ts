@@ -31,8 +31,8 @@ export async function data(
 
   const disruptions = (
     await DisruptionRepository.getRepository(app).listDisruptions({
-      valid: "either",
       types: typeFilter,
+      valid: "either",
     })
   ).map((x) => ({
     disruption: x,

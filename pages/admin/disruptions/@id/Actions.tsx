@@ -22,6 +22,8 @@ export function Actions({ id }: ActionsProps) {
     if (currentAction !== "edit") {
       setCurrentAction("edit");
     } else {
+      // TODO: Update the disruption
+
       // TODO: On success, reload the page to refetch disruption
       setCurrentAction(null);
     }
@@ -33,7 +35,7 @@ export function Actions({ id }: ActionsProps) {
     } else {
       try {
         await axios.delete(`/api/admin/disruption/${id}`);
-        navigate("/admin/disruptions", { overwriteLastHistoryEntry: true });
+        navigate("/admin/disruptions");
       } catch (err) {
         // TODO: Better UX for these errors.
         console.warn("Failed to delete disruption.", err);
@@ -84,11 +86,14 @@ export function Actions({ id }: ActionsProps) {
       )}
 
       {currentAction === "edit" && (
-        <>
+        <Column className="gap-4">
           {/* TODO: Use the disruption builder but prefill the data of the inputs */}
+          <Text>
+            <em>Not yet implemented</em>
+          </Text>
 
           <SimpleButton text="Cancel" onClick={() => setCurrentAction(null)} />
-        </>
+        </Column>
       )}
     </Column>
   );
