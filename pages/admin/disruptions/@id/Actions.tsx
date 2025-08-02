@@ -7,13 +7,18 @@ import { MingcuteDelete2Line } from "@/components/icons/MingcuteDelete2Line";
 import { MingcutePencil2Fill } from "@/components/icons/MingcutePencil2Fill";
 import { Text } from "@/components/core/Text";
 import axios from "axios";
-import { navigate } from "vike/client/router";
+import { navigate, reload } from "vike/client/router";
+import { DisruptionBuilder } from "@/pages/admin/disruptions/@id/DisruptionBuilder";
+import { ProcessingContextData } from "@/shared/types/processing-context-data";
+import { DisruptionProcessingInput } from "@/shared/schemas/disruption-processing/disruption-processing-input";
 
 type ActionsProps = {
   id: string;
+  context: ProcessingContextData;
+  input: DisruptionProcessingInput | null;
 };
 
-export function Actions({ id }: ActionsProps) {
+export function Actions({ id, context, input }: ActionsProps) {
   const [currentAction, setCurrentAction] = React.useState<
     "edit" | "delete" | null
   >(null);
@@ -22,10 +27,8 @@ export function Actions({ id }: ActionsProps) {
     if (currentAction !== "edit") {
       setCurrentAction("edit");
     } else {
-      // TODO: Update the disruption
-
-      // TODO: On success, reload the page to refetch disruption
       setCurrentAction(null);
+      await reload();
     }
   }
 
@@ -87,14 +90,13 @@ export function Actions({ id }: ActionsProps) {
       )}
 
       {currentAction === "edit" && (
-        <Column className="gap-4">
-          {/* TODO: Use the disruption builder but prefill the data of the inputs */}
-          <Text>
-            <em>Not yet implemented</em>
-          </Text>
-
-          <SimpleButton text="Cancel" onClick={handleCancel} />
-        </Column>
+        <DisruptionBuilder
+          id={id}
+          onCancel={handleCancel}
+          onProcessed={handleEdit}
+          context={context}
+          input={input}
+        />
       )}
     </Column>
   );

@@ -19,7 +19,7 @@ export function useObjectInitializer<Config extends AnyObjectConfig>(
       // the raw value follows the same shape, it just allows nulls for each
       // field).
       if (input != null) {
-        const entries = Object.entries(input).map(([key, value]) => [
+        const entries = Object.entries(input.value).map(([key, value]) => [
           key,
           { value: value },
         ]);
