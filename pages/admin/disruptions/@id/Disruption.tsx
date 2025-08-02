@@ -47,7 +47,7 @@ export function Disruption(props: DisruptionProps) {
           ))}
       </Column>
 
-      {Boolean(raw) && (
+      {raw && (
         <Column className="border-soft-border divide-soft-border bg-soft divide-y rounded-md border">
           <pre className="_ptv-preview">{raw}</pre>
         </Column>

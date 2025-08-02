@@ -21,22 +21,20 @@ import { DisruptionDataInput } from "@/shared/schemas/common/disruption-data-inp
 
 export type Data = {
   disruption:
-    | {
+    | ({
         title: string;
         bodyMarkdown: string;
         calendar: CalendarData | null;
-        highlighting: SerializedMapHighlighting;
         input: DisruptionProcessingInput | null;
         alerts: AlertPreview;
-      }
-    | {
-        title: string;
-        bodyMarkdown: string;
-        calendar: CalendarData | null;
-        raw: string;
-        input: DisruptionProcessingInput | null;
-        alerts: AlertPreview;
-      }
+      } & (
+        | {
+            highlighting: SerializedMapHighlighting;
+          }
+        | {
+            raw: string;
+          }
+      ))
     | null;
   context: ProcessingContextData;
 };
@@ -77,7 +75,7 @@ export async function data(
           : createCalendarData([disruption.period], app.time.now()),
         raw: disruption.data.inspect(),
         alerts,
-        input: createProcessingInput(disruption),
+        input: createProcessingInput(app, disruption),
       },
       context,
     };
@@ -93,7 +91,7 @@ export async function data(
       highlighting: MapHighlighting.serializeGroup([
         disruption.data.getMapHighlighter().getHighlighting(app),
       ]),
-      input: createProcessingInput(disruption),
+      input: createProcessingInput(app, disruption),
       alerts,
     },
     context,
@@ -120,6 +118,7 @@ function prepContext(app: App): ProcessingContextData {
 }
 
 function createProcessingInput(
+  app: App,
   disruption: Disruption,
 ): DisruptionProcessingInput | null {
   if (disruption.data instanceof CustomDisruptionData) {
@@ -133,7 +132,7 @@ function createProcessingInput(
 
   return {
     data: parseData(disruption.data),
-    period: parsePeriod(disruption.period),
+    period: parsePeriod(disruption.period, app.time.now()),
   };
 }
 
@@ -162,6 +161,7 @@ function parseData(
 
 function parsePeriod(
   period: Exclude<DisruptionPeriod, CustomDisruptionPeriod>,
+  now: Date,
 ): DisruptionPeriodInput {
   const bson = period.toBson();
 
@@ -169,13 +169,15 @@ function parsePeriod(
     case "standard":
       return {
         type: "standard",
-        start: bson.start ?? new Date(),
+        // TODO: null is a vaild value for start
+        start: bson.start ?? now,
         end: parsePeriodEnd(period),
       };
     case "evenings-only":
       return {
         type: "evenings-only",
-        start: bson.start ?? new Date(),
+        // TODO: null is a vaild value for start
+        start: bson.start ?? now,
         end: parsePeriodEnd(period),
         startHourEachDay: bson.startHourEachDay,
       };
