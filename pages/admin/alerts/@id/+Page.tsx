@@ -14,7 +14,7 @@ import { DisruptionBuilder } from "@/pages/admin/alerts/@id/DisruptionBuilder";
 
 export default function Page() {
   const { id } = usePageContext().routeParams;
-  const { alert } = useData<Data>();
+  const { alert, back } = useData<Data>();
 
   function handleProcessed() {
     navigate("/admin/alerts");
@@ -22,7 +22,7 @@ export default function Page() {
 
   return (
     <Column>
-      <BackNavigation name="Alerts" href="/admin/alerts" />
+      <BackNavigation {...back} />
       <PageCenterer>
         <PagePadding>
           {alert != null ? (
