@@ -190,14 +190,13 @@ function parsePeriodEnd(
   const bson = period.toBson().end;
   switch (bson.type) {
     case "never":
-      return { type: "ends-never" };
+    case "when-alert-ends":
+      return { type: `ends-${bson.type}` };
     case "after-last-service":
       return { type: "ends-after-last-service", ...bson.date };
     case "approximately":
       return { ...bson, type: "ends-approximately" };
     case "exactly":
-      return { type: "ends-exactly", date: bson.date };
-    case "when-alert-ends":
-      return { type: "ends-when-alert-ends" };
+      return { ...bson, type: "ends-exactly" };
   }
 }
