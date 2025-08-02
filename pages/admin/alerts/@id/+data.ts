@@ -6,7 +6,7 @@ import { nonNull, unique } from "@dan-schel/js-utils";
 import { DetailsError } from "@/server/alert-source/alert-source";
 import sanitizeHtml from "sanitize-html";
 import { formatDate } from "@/server/data/disruption/period/utils/utils";
-import { AlertProcessingContextData } from "@/shared/types/alert-processing-context-data";
+import { ProcessingContextData } from "@/shared/types/processing-context-data";
 import { formatLineShapeNode } from "@/server/data/disruption/writeup/utils";
 import { AlertRepository } from "@/server/database-repository/alert-repository";
 
@@ -28,7 +28,7 @@ export type Data = {
       }[];
       urlPreview: UrlPreview;
     };
-    context: AlertProcessingContextData;
+    context: ProcessingContextData;
   } | null;
   back: {
     name: string;
@@ -143,7 +143,7 @@ async function generateUrlPreview(app: App, url: string): Promise<UrlPreview> {
   }
 }
 
-function prepContext(app: App): AlertProcessingContextData {
+function prepContext(app: App): ProcessingContextData {
   return {
     lines: app.lines.map((line) => ({
       id: line.id,

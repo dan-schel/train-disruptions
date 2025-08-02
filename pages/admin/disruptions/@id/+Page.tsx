@@ -9,7 +9,7 @@ import { useData } from "vike-react/useData";
 import { NotFound } from "@/components/disruptions/NotFound";
 
 export default function Page() {
-  const { disruption } = useData<Data>();
+  const { context, disruption } = useData<Data>();
 
   return (
     <Column>
@@ -20,7 +20,7 @@ export default function Page() {
             {disruption === null ? (
               <NotFound />
             ) : (
-              <Disruption data={disruption} />
+              <Disruption context={context} data={disruption} />
             )}
           </Column>
         </PagePadding>

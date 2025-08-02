@@ -1,6 +1,6 @@
-import { buildLineSection } from "@/components/alert-processing/custom-questions/line-section/LineSectionField";
-import { buildLine } from "@/components/alert-processing/custom-questions/line/LineField";
-import { buildStation } from "@/components/alert-processing/custom-questions/station/StationField";
+import { buildLineSection } from "@/components/processing/custom-questions/line-section/LineSectionField";
+import { buildLine } from "@/components/processing/custom-questions/line/LineField";
+import { buildStation } from "@/components/processing/custom-questions/station/StationField";
 import {
   buildString,
   buildNumber,

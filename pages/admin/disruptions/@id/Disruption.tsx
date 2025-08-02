@@ -11,6 +11,8 @@ import { AlertPreview } from "@/shared/types/alert-data";
 import { AlertListContainer } from "@/components/alerts/AlertListContainer";
 import { usePageContext } from "vike-react/usePageContext";
 import { Actions } from "@/pages/admin/disruptions/@id/Actions";
+import { ProcessingContextData } from "@/shared/types/processing-context-data";
+import { DisruptionProcessingInput } from "@/shared/schemas/disruption-processing/disruption-processing-input";
 
 export type DisruptionProps = {
   data: {
@@ -20,14 +22,16 @@ export type DisruptionProps = {
     highlighting?: SerializedMapHighlighting;
     raw?: string;
     alerts: AlertPreview;
+    input: DisruptionProcessingInput | null;
   };
+  context: ProcessingContextData;
 };
 
 export function Disruption(props: DisruptionProps) {
   const {
     routeParams: { id },
   } = usePageContext();
-  const { title, bodyMarkdown, calendar, highlighting, raw, alerts } =
+  const { title, bodyMarkdown, calendar, highlighting, raw, input, alerts } =
     props.data;
 
   return (
@@ -43,13 +47,13 @@ export function Disruption(props: DisruptionProps) {
           ))}
       </Column>
 
-      <Actions id={id} />
-
-      {Boolean(raw) && (
+      {raw && (
         <Column className="border-soft-border divide-soft-border bg-soft divide-y rounded-md border">
           <pre className="_ptv-preview">{raw}</pre>
         </Column>
       )}
+
+      <Actions id={id} context={props.context} input={input} />
 
       {calendar && <Calendar data={calendar} />}
 
