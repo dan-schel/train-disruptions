@@ -6,7 +6,7 @@ export const ptvAlertJson = z
     title: z.string(),
     url: z.url(),
     description: z.string(),
-    last_updated: z.iso.datetime(), // TODO: [DS] Remove this.
+    last_updated: z.iso.datetime(),
     from_date: z.iso.datetime(),
     to_date: z.iso.datetime().nullable(),
     routes: z
