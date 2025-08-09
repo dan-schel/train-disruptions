@@ -7,7 +7,7 @@ import { ALERTS, DISRUPTIONS } from "@/server/database/models/models";
 import { IntervalScheduler } from "@/server/task/lib/interval-scheduler";
 import { Task } from "@/server/task/lib/task";
 import { TaskScheduler } from "@/server/task/lib/task-scheduler";
-import { PtvAlert as PTVDisruption } from "@/server/alert-source/ptv-alert";
+import { PtvAlert } from "@/server/alert-source/ptv-alert";
 import { z } from "zod";
 
 /**
@@ -42,7 +42,7 @@ export class PopulateInboxQueueTask extends Task {
 
   private async _addNewAlerts(
     app: App,
-    ptvAlerts: PTVDisruption[],
+    ptvAlerts: PtvAlert[],
     alerts: Alert[],
   ) {
     const parser = new AutoParsingPipeline(app);
@@ -70,7 +70,7 @@ export class PopulateInboxQueueTask extends Task {
 
   private async _updateAlerts(
     app: App,
-    ptvAlerts: PTVDisruption[],
+    ptvAlerts: PtvAlert[],
     alerts: Alert[],
   ) {
     const parser = new AutoParsingPipeline(app);
@@ -145,7 +145,7 @@ export class PopulateInboxQueueTask extends Task {
 
   private async _cleanupOldAlerts(
     app: App,
-    ptvAlerts: PTVDisruption[],
+    ptvAlerts: PtvAlert[],
     alerts: Alert[],
   ) {
     for (const alert of alerts) {
@@ -164,7 +164,7 @@ export class PopulateInboxQueueTask extends Task {
     }
   }
 
-  private _createAlertData(ptvAlert: PTVDisruption) {
+  private _createAlertData(ptvAlert: PtvAlert) {
     return new AlertData(
       ptvAlert.title,
       ptvAlert.description,
