@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { PtvAlert, disruptionSchema } from "@/types/ptv-alert";
+import { PtvAlert, ptvAlertJson } from "@/server/alert-source/ptv-alert";
 import { AlertSource, Details } from "@/server/alert-source/alert-source";
 
 export class VtarAlertSource extends AlertSource {
@@ -13,9 +13,9 @@ export class VtarAlertSource extends AlertSource {
   async fetchDisruptions(): Promise<PtvAlert[]> {
     const responseSchema = z.object({
       disruptions: z.object({
-        general: disruptionSchema.array(),
-        metro_train: disruptionSchema.array(),
-        regional_train: disruptionSchema.array(),
+        general: ptvAlertJson.array(),
+        metro_train: ptvAlertJson.array(),
+        regional_train: ptvAlertJson.array(),
       }),
     });
 

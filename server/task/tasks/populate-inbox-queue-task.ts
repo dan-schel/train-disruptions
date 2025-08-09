@@ -7,7 +7,7 @@ import { ALERTS, DISRUPTIONS } from "@/server/database/models/models";
 import { IntervalScheduler } from "@/server/task/lib/interval-scheduler";
 import { Task } from "@/server/task/lib/task";
 import { TaskScheduler } from "@/server/task/lib/task-scheduler";
-import { PtvAlert as PTVDisruption } from "@/types/ptv-alert";
+import { PtvAlert as PTVDisruption } from "@/server/alert-source/ptv-alert";
 import { z } from "zod";
 
 /**
@@ -48,7 +48,7 @@ export class PopulateInboxQueueTask extends Task {
     const parser = new AutoParsingPipeline(app);
 
     for (const ptvAlert of ptvAlerts) {
-      const alertId = ptvAlert.disruption_id.toString();
+      const alertId = ptvAlert.id.toString();
       if (alerts.some((x) => x.id === alertId)) continue;
 
       const data = this._createAlertData(ptvAlert);
@@ -76,11 +76,11 @@ export class PopulateInboxQueueTask extends Task {
     const parser = new AutoParsingPipeline(app);
 
     for (const ptvAlert of ptvAlerts) {
-      const id = ptvAlert.disruption_id.toString();
+      const id = ptvAlert.id.toString();
       const alert = alerts.find((x) => x.id === id);
       const { success, data: mostRecentUpdate } = z.coerce
         .date()
-        .safeParse(ptvAlert.last_updated);
+        .safeParse(ptvAlert.lastUpdated);
 
       if (alert && success && !alert.ignoreFutureUpdates) {
         const canToBeUpdated =
@@ -149,7 +149,7 @@ export class PopulateInboxQueueTask extends Task {
     alerts: Alert[],
   ) {
     for (const alert of alerts) {
-      if (!ptvAlerts.some((d) => d.disruption_id.toString() === alert.id)) {
+      if (!ptvAlerts.some((a) => a.id.toString() === alert.id)) {
         await app.database.of(ALERTS).delete(alert.id);
         const _disruptions = await app.database.of(DISRUPTIONS).find({
           where: {
@@ -169,10 +169,10 @@ export class PopulateInboxQueueTask extends Task {
       ptvAlert.title,
       ptvAlert.description,
       ptvAlert.url,
-      new Date(ptvAlert.from_date),
-      ptvAlert.to_date ? new Date(ptvAlert.to_date) : null,
-      ptvAlert.routes.map((route) => route.route_id),
-      ptvAlert.stops.map((stop) => stop.stop_id),
+      new Date(ptvAlert.fromDate),
+      ptvAlert.toDate ? new Date(ptvAlert.toDate) : null,
+      ptvAlert.routes.map((route) => route.routeId),
+      ptvAlert.stops.map((stop) => stop.stopId),
     );
   }
 }

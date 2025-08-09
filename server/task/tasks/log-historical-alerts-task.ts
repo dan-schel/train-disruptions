@@ -22,19 +22,19 @@ export class LogHistoricalAlertsTask extends Task {
 
   async execute(app: App): Promise<void> {
     try {
-      const disruptions = await app.alertSource.fetchDisruptions();
+      const ptvAlerts = await app.alertSource.fetchDisruptions();
 
-      for (const disruption of disruptions) {
+      for (const ptvAlert of ptvAlerts) {
         const existing = await app.database
           .of(HISTORICAL_ALERTS)
-          .get(disruption.disruption_id);
+          .get(ptvAlert.id);
 
         if (existing != null) return;
 
         const record = new HistoricalAlert(
-          disruption.disruption_id,
-          disruption.title,
-          disruption.description,
+          ptvAlert.id,
+          ptvAlert.title,
+          ptvAlert.description,
         );
 
         await app.database.of(HISTORICAL_ALERTS).create(record);

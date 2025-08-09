@@ -1,4 +1,4 @@
-import { PtvAlert } from "@/types/ptv-alert";
+import { PtvAlert } from "@/server/alert-source/ptv-alert";
 
 export type Details = { details: string } | { error: DetailsError };
 
