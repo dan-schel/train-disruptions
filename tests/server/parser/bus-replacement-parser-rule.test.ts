@@ -23,22 +23,16 @@ describe("Bus Replacement Auto Parser", () => {
 
   it("parses alert to a disruption with a standard period that ends after the last service", () => {
     const { app } = createTestApp();
-    const parser = new BusReplacementsParserRule();
+    const parser = new BusReplacementsParserRule(app);
+    const output = parser.parseAlert(AlertStandardToAfterLastService.data);
 
-    const disruption = parser.parseAlert(AlertStandardToAfterLastService, app);
-
-    expect(disruption).not.toBeNull();
-    expect(disruption).toHaveProperty(
-      "data",
+    expect(output).not.toBeNull();
+    expect(output?.data).toStrictEqual(
       new BusReplacementsDisruptionData([
         new LineSection(SUNBURY, station.NORTH_MELBOURNE, station.SUNSHINE),
       ]),
     );
-    expect(disruption).toHaveProperty("sourceAlertIds", [
-      AlertStandardToAfterLastService.id,
-    ]);
-    expect(disruption).toHaveProperty(
-      "period",
+    expect(output?.period).toStrictEqual(
       new StandardDisruptionPeriod(
         AlertStandardToAfterLastService.data.startsAt,
         new EndsAfterLastService(
@@ -48,57 +42,41 @@ describe("Bus Replacement Auto Parser", () => {
         ),
       ),
     );
-    expect(disruption).toHaveProperty("curation", "automatic");
   });
 
   it("parses alert to a disruption with a standard period that ends at an exact time", () => {
     const { app } = createTestApp();
-    const parser = new BusReplacementsParserRule();
+    const parser = new BusReplacementsParserRule(app);
+    const output = parser.parseAlert(AlertStandardToExactly.data);
 
-    const disruption = parser.parseAlert(AlertStandardToExactly, app);
-
-    expect(disruption).not.toBeNull();
-    expect(disruption).toHaveProperty(
-      "data",
+    expect(output).not.toBeNull();
+    expect(output?.data).toStrictEqual(
       new BusReplacementsDisruptionData([
         new LineSection(WERRIBEE, station.NEWPORT, station.WERRIBEE),
       ]),
     );
-    expect(disruption).toHaveProperty("sourceAlertIds", [
-      AlertStandardToExactly.id,
-    ]);
-    expect(disruption).toHaveProperty(
-      "period",
+    expect(output?.period).toStrictEqual(
       new StandardDisruptionPeriod(
         AlertStandardToExactly.data.startsAt,
         new EndsExactly(AlertStandardToExactly.data.endsAt!),
       ),
     );
-    expect(disruption).toHaveProperty("curation", "automatic");
   });
 
   it("parses alert to a disruption with a evening only period that ends after the last service", () => {
     const { app } = createTestApp();
-    const parser = new BusReplacementsParserRule();
+    const parser = new BusReplacementsParserRule(app);
 
-    const disruption = parser.parseAlert(
-      AlertEveningsOnlyToAfterLastService,
-      app,
-    );
+    const output = parser.parseAlert(AlertEveningsOnlyToAfterLastService.data);
 
-    expect(disruption).not.toBeNull();
-    expect(disruption).toHaveProperty(
-      "data",
+    expect(output).not.toBeNull();
+    expect(output?.data).toStrictEqual(
       new BusReplacementsDisruptionData([
         new LineSection(BELGRAVE, station.BLACKBURN, station.BELGRAVE),
         new LineSection(LILYDALE, station.BLACKBURN, station.LILYDALE),
       ]),
     );
-    expect(disruption).toHaveProperty("sourceAlertIds", [
-      AlertEveningsOnlyToAfterLastService.id,
-    ]);
-    expect(disruption).toHaveProperty(
-      "period",
+    expect(output?.period).toStrictEqual(
       new EveningsOnlyDisruptionPeriod(
         AlertEveningsOnlyToAfterLastService.data.startsAt,
         new EndsAfterLastService(
@@ -114,18 +92,15 @@ describe("Bus Replacement Auto Parser", () => {
         ).getMinutes(),
       ),
     );
-    expect(disruption).toHaveProperty("curation", "automatic");
   });
 
   it("selects the correct stations", () => {
     const { app } = createTestApp();
-    const parser = new BusReplacementsParserRule();
+    const parser = new BusReplacementsParserRule(app);
+    const output = parser.parseAlert(AlertNameCollision.data);
 
-    const disruption = parser.parseAlert(AlertNameCollision, app);
-
-    expect(disruption).not.toBeNull();
-    expect(disruption).toHaveProperty(
-      "data",
+    expect(output).not.toBeNull();
+    expect(output?.data).toStrictEqual(
       new BusReplacementsDisruptionData([
         new LineSection(
           SUNBURY,
@@ -134,11 +109,7 @@ describe("Bus Replacement Auto Parser", () => {
         ),
       ]),
     );
-    expect(disruption).toHaveProperty("sourceAlertIds", [
-      AlertNameCollision.id,
-    ]);
-    expect(disruption).toHaveProperty(
-      "period",
+    expect(output?.period).toStrictEqual(
       new EveningsOnlyDisruptionPeriod(
         AlertNameCollision.data.startsAt,
         new EndsAfterLastService(
@@ -148,19 +119,17 @@ describe("Bus Replacement Auto Parser", () => {
         utcToLocalTime(AlertNameCollision.data.startsAt!).getMinutes(),
       ),
     );
-    expect(disruption).toHaveProperty("curation", "automatic");
   });
 
   it("ignores alerts that don't qualify as bus replacements", () => {
     const { app } = createTestApp();
-    const parser = new BusReplacementsParserRule();
+    const parser = new BusReplacementsParserRule(app);
+    const output = Object.values(SampleAlerts.Delays);
+    const outputs = output.map((x) => parser.parseAlert(x.data));
 
-    const alerts = Object.values(SampleAlerts.Delays);
-    const disruptions = alerts.map((x) => parser.parseAlert(x, app));
-
-    expect(disruptions).toHaveLength(alerts.length);
-    expect(disruptions).toStrictEqual(
-      Array.from({ length: alerts.length }, () => null),
+    expect(outputs).toHaveLength(output.length);
+    expect(outputs).toStrictEqual(
+      Array.from({ length: output.length }, () => null),
     );
   });
 });

@@ -19,11 +19,14 @@ export class AutoParsingOutput {
     );
   }
 
-  updateExistingDisruption(existing: Disruption): Disruption {
+  updateExistingDisruption(
+    disruptionId: string,
+    sourceAlertIds: string[],
+  ): Disruption {
     return new Disruption(
-      existing.id,
+      disruptionId,
       this.data,
-      existing.sourceAlertIds,
+      sourceAlertIds,
       this.period,
       "automatic",
     );

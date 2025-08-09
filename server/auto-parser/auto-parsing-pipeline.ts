@@ -17,9 +17,13 @@ export class AutoParsingPipeline {
 
   parseAlert(alert: Alert, withId?: Disruption["id"]): Disruption | null {
     for (const rule of this._rules) {
-      const disruption = rule.parseAlert(alert, withId);
+      const output = rule.parseAlert(alert.data);
 
-      if (disruption) return disruption;
+      if (output && withId != null) {
+        return output.updateExistingDisruption(withId, [alert.id]);
+      } else if (output) {
+        return output.toNewDisruption([alert.id]);
+      }
     }
 
     return null;
