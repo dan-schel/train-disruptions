@@ -104,11 +104,11 @@ export class Settings {
   }
 
   with({
-    commute,
-    enabledCategories,
-    theme,
-    startPage,
-    showAdminTab,
+    commute = this.commute,
+    enabledCategories = this.enabledCategories,
+    theme = this.theme,
+    startPage = this.startPage,
+    showAdminTab = this.showAdminTab,
   }: {
     commute?: { readonly a: number; readonly b: number } | null;
     enabledCategories?: readonly FilterableDisruptionCategory[];
@@ -117,11 +117,11 @@ export class Settings {
     showAdminTab?: boolean;
   }): Settings {
     return new Settings(
-      commute !== undefined ? commute : this.commute,
-      enabledCategories ?? this.enabledCategories,
-      theme ?? this.theme,
-      startPage ?? this.startPage,
-      showAdminTab ?? this.showAdminTab,
+      commute,
+      enabledCategories,
+      theme,
+      startPage,
+      showAdminTab,
     );
   }
 

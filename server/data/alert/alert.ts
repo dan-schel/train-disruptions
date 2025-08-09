@@ -69,14 +69,14 @@ export class Alert {
   }
 
   with({
-    id,
-    data,
-    updatedData,
-    appearedAt,
-    processedAt,
-    updatedAt,
-    ignoreFutureUpdates,
-    deleteAt,
+    id = this.id,
+    data = this.data,
+    updatedData = this.updatedData,
+    appearedAt = this.appearedAt,
+    processedAt = this.processedAt,
+    updatedAt = this.updatedAt,
+    ignoreFutureUpdates = this.ignoreFutureUpdates,
+    deleteAt = this.deleteAt,
   }: {
     id?: string;
     data?: AlertData;
@@ -88,14 +88,14 @@ export class Alert {
     deleteAt?: Date | null;
   }) {
     return new Alert(
-      id ?? this.id,
-      data ?? this.data,
-      updatedData !== undefined ? updatedData : this.updatedData,
-      appearedAt ?? this.appearedAt,
-      processedAt !== undefined ? processedAt : this.processedAt,
-      updatedAt !== undefined ? updatedAt : this.updatedAt,
-      ignoreFutureUpdates ?? this.ignoreFutureUpdates,
-      deleteAt !== undefined ? deleteAt : this.deleteAt,
+      id,
+      data,
+      updatedData,
+      appearedAt,
+      processedAt,
+      updatedAt,
+      ignoreFutureUpdates,
+      deleteAt,
     );
   }
 
