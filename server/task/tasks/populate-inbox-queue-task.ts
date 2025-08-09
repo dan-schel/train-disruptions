@@ -48,29 +48,20 @@ export class PopulateInboxQueueTask extends Task {
     const parser = new AutoParsingPipeline(app);
 
     for (const disruption of disruptions) {
-      const id = disruption.disruption_id.toString();
-      if (alerts.some((x) => x.id === id)) continue;
+      const alertId = disruption.disruption_id.toString();
+      if (alerts.some((x) => x.id === alertId)) continue;
 
-      const alert = Alert.fresh(app, id, this._createAlertData(disruption));
-      await app.database.of(ALERTS).create(alert);
+      const data = this._createAlertData(disruption);
+      const parserOutput = parser.parseAlert(data);
 
-      // Prevent a failed parse attempt from not processing the rest of alerts
-      try {
-        const parserOutput = parser.parseAlert(alert.data);
+      await app.database
+        .of(ALERTS)
+        .create(Alert.fresh(app, alertId, data, parserOutput != null));
 
-        if (parserOutput) {
-          const disruption = parserOutput.toNewDisruption([alert.id]);
-          await app.database.of(DISRUPTIONS).create(disruption);
-
-          await app.database.of(ALERTS).update(
-            alert.with({
-              processedAt: app.time.now(),
-            }),
-          );
-        }
-      } catch (error) {
-        console.warn(`Failed to parse alert #${alert.id}.`);
-        console.warn(error);
+      if (parserOutput != null) {
+        await app.database
+          .of(DISRUPTIONS)
+          .create(parserOutput.toNewDisruption([alertId]));
       }
     }
   }
