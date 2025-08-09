@@ -1,4 +1,4 @@
-import { Disruption } from "@/types/disruption";
+import { PtvAlert } from "@/types/ptv-alert";
 
 export type Details = { details: string } | { error: DetailsError };
 
@@ -10,6 +10,6 @@ export type DetailsError =
   | "rate-limited";
 
 export abstract class AlertSource {
-  abstract fetchDisruptions(): Promise<Disruption[]>;
+  abstract fetchDisruptions(): Promise<PtvAlert[]>;
   abstract fetchDetails(url: string): Promise<Details>;
 }

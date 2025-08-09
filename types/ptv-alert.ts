@@ -39,4 +39,4 @@ export const disruptionSchema = z.object({
   display_status: z.boolean(),
 });
 
-export type Disruption = z.infer<typeof disruptionSchema>;
+export type PtvAlert = z.infer<typeof disruptionSchema>;

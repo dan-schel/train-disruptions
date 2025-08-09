@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { validateMiddleware } from "@/server/routes/middleware/validate";
-import { disruptionSchema } from "@/types/disruption";
+import { disruptionSchema } from "@/types/ptv-alert";
 import { App } from "@/server/app";
 
 export function createDisruptionRouter(app: App) {

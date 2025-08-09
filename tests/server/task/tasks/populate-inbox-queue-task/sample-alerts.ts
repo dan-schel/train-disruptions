@@ -1,8 +1,8 @@
 import { Alert } from "@/server/data/alert/alert";
 import { AlertData } from "@/server/data/alert/alert-data";
-import { Disruption } from "@/types/disruption";
+import { PtvAlert } from "@/types/ptv-alert";
 
-export const ptvDisruption1: Disruption = {
+export const ptvDisruption1: PtvAlert = {
   disruption_id: 333750,
   title:
     "Sunbury Line: Buses replace trains from 1am Saturday 26 April to last service Sunday 27 April 2025",
@@ -31,7 +31,7 @@ export const ptvDisruption1: Disruption = {
   display_status: true,
 };
 
-export const ptvDisruption2: Disruption = {
+export const ptvDisruption2: PtvAlert = {
   disruption_id: 327738,
   title:
     "Due to construction works, customers at Hastings Station will not be able to use myki devices to Touch on / Touch off and perform Top ups until further notice.",
@@ -65,7 +65,7 @@ export const ptvDisruption2: Disruption = {
   display_status: false,
 };
 
-export const ptvDisruption3: Disruption = {
+export const ptvDisruption3: PtvAlert = {
   disruption_id: 335425,
   title:
     "Delays up to 10 minutes due to an operational issue in the Malvern area.",
@@ -94,7 +94,7 @@ export const ptvDisruption3: Disruption = {
   display_status: false,
 };
 
-export const ptvDisruption4: Disruption = {
+export const ptvDisruption4: PtvAlert = {
   disruption_id: 336762,
   title:
     "Frankston Line: Buses replace trains from 10:45pm to last service, Thursday 26 June 2025",

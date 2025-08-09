@@ -7,7 +7,7 @@ import { ALERTS, DISRUPTIONS } from "@/server/database/models/models";
 import { IntervalScheduler } from "@/server/task/lib/interval-scheduler";
 import { Task } from "@/server/task/lib/task";
 import { TaskScheduler } from "@/server/task/lib/task-scheduler";
-import { Disruption as PTVDisruption } from "@/types/disruption";
+import { PtvAlert as PTVDisruption } from "@/types/ptv-alert";
 import { z } from "zod";
 
 /**
@@ -27,12 +27,12 @@ export class PopulateInboxQueueTask extends Task {
 
   async execute(app: App): Promise<void> {
     try {
-      const disruptions = await app.alertSource.fetchDisruptions();
+      const ptvAlerts = await app.alertSource.fetchDisruptions();
       const alerts = await app.database.of(ALERTS).all();
       await Promise.all([
-        this._addNewAlerts(app, disruptions, alerts),
-        this._updateAlerts(app, disruptions, alerts),
-        this._cleanupOldAlerts(app, disruptions, alerts),
+        this._addNewAlerts(app, ptvAlerts, alerts),
+        this._updateAlerts(app, ptvAlerts, alerts),
+        this._cleanupOldAlerts(app, ptvAlerts, alerts),
       ]);
     } catch (error) {
       console.warn("Failed to populate unprocessed alerts.");
@@ -42,16 +42,16 @@ export class PopulateInboxQueueTask extends Task {
 
   private async _addNewAlerts(
     app: App,
-    disruptions: PTVDisruption[],
+    ptvAlerts: PTVDisruption[],
     alerts: Alert[],
   ) {
     const parser = new AutoParsingPipeline(app);
 
-    for (const disruption of disruptions) {
-      const alertId = disruption.disruption_id.toString();
+    for (const ptvAlert of ptvAlerts) {
+      const alertId = ptvAlert.disruption_id.toString();
       if (alerts.some((x) => x.id === alertId)) continue;
 
-      const data = this._createAlertData(disruption);
+      const data = this._createAlertData(ptvAlert);
       const parserOutput = parser.parseAlert(data);
 
       await app.database.of(ALERTS).create(
@@ -70,17 +70,17 @@ export class PopulateInboxQueueTask extends Task {
 
   private async _updateAlerts(
     app: App,
-    disruptions: PTVDisruption[],
+    ptvAlerts: PTVDisruption[],
     alerts: Alert[],
   ) {
     const parser = new AutoParsingPipeline(app);
 
-    for (const disruption of disruptions) {
-      const id = disruption.disruption_id.toString();
+    for (const ptvAlert of ptvAlerts) {
+      const id = ptvAlert.disruption_id.toString();
       const alert = alerts.find((x) => x.id === id);
       const { success, data: mostRecentUpdate } = z.coerce
         .date()
-        .safeParse(disruption.last_updated);
+        .safeParse(ptvAlert.last_updated);
 
       if (alert && success && !alert.ignoreFutureUpdates) {
         const canToBeUpdated =
@@ -116,7 +116,7 @@ export class PopulateInboxQueueTask extends Task {
 
           await app.database.of(ALERTS).update(
             alert.with({
-              data: this._createAlertData(disruption),
+              data: this._createAlertData(ptvAlert),
               appearedAt: app.time.now(),
               processedAt: newDisruption
                 ? app.time.now()
@@ -145,11 +145,11 @@ export class PopulateInboxQueueTask extends Task {
 
   private async _cleanupOldAlerts(
     app: App,
-    disruptions: PTVDisruption[],
+    ptvAlerts: PTVDisruption[],
     alerts: Alert[],
   ) {
     for (const alert of alerts) {
-      if (!disruptions.some((d) => d.disruption_id.toString() === alert.id)) {
+      if (!ptvAlerts.some((d) => d.disruption_id.toString() === alert.id)) {
         await app.database.of(ALERTS).delete(alert.id);
         const _disruptions = await app.database.of(DISRUPTIONS).find({
           where: {
@@ -164,15 +164,15 @@ export class PopulateInboxQueueTask extends Task {
     }
   }
 
-  private _createAlertData(disruption: PTVDisruption) {
+  private _createAlertData(ptvAlert: PTVDisruption) {
     return new AlertData(
-      disruption.title,
-      disruption.description,
-      disruption.url,
-      new Date(disruption.from_date),
-      disruption.to_date ? new Date(disruption.to_date) : null,
-      disruption.routes.map((route) => route.route_id),
-      disruption.stops.map((stop) => stop.stop_id),
+      ptvAlert.title,
+      ptvAlert.description,
+      ptvAlert.url,
+      new Date(ptvAlert.from_date),
+      ptvAlert.to_date ? new Date(ptvAlert.to_date) : null,
+      ptvAlert.routes.map((route) => route.route_id),
+      ptvAlert.stops.map((stop) => stop.stop_id),
     );
   }
 }

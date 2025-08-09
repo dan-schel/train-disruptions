@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { Disruption, disruptionSchema } from "@/types/disruption";
+import { PtvAlert, disruptionSchema } from "@/types/ptv-alert";
 import { AlertSource, Details } from "@/server/alert-source/alert-source";
 
 export class VtarAlertSource extends AlertSource {
@@ -10,7 +10,7 @@ export class VtarAlertSource extends AlertSource {
     super();
   }
 
-  async fetchDisruptions(): Promise<Disruption[]> {
+  async fetchDisruptions(): Promise<PtvAlert[]> {
     const responseSchema = z.object({
       disruptions: z.object({
         general: disruptionSchema.array(),
