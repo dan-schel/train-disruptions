@@ -16,9 +16,9 @@ export class DisruptionModel extends DatabaseModel<
 
   private static schema = z.object({
     data: disruptionDataBson,
-    sourceAlertIds: z.string().array(),
     period: disruptionPeriodBson,
     curation: z.enum(["automatic", "manual"]).default("manual"),
+    alertId: z.string().nullable(),
 
     // Computed fields - included for ease of querying.
     earliestImpactedDate: z.date(),
@@ -38,9 +38,9 @@ export class DisruptionModel extends DatabaseModel<
 
     return {
       data: item.data.toBson(),
-      sourceAlertIds: item.sourceAlertIds,
       period: item.period.toBson(),
       curation: item.curation,
+      alertId: item.alertId,
 
       earliestImpactedDate: start,
       latestImpactedDate: end,
@@ -52,9 +52,9 @@ export class DisruptionModel extends DatabaseModel<
     return new Disruption(
       id,
       parsed.data,
-      parsed.sourceAlertIds,
       parsed.period,
       parsed.curation,
+      parsed.alertId,
     );
   }
 

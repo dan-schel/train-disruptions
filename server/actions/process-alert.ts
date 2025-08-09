@@ -29,13 +29,7 @@ export async function processAlert(
     const data = createData(dataInput);
     const period = createPeriod(ctx, periodInput);
 
-    const disruption = new Disruption(
-      uuid(),
-      data,
-      [alert.id],
-      period,
-      "manual",
-    );
+    const disruption = new Disruption(uuid(), data, period, "manual", alert.id);
     await app.database.of(DISRUPTIONS).create(disruption);
   }
 
