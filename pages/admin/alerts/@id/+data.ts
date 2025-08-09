@@ -1,6 +1,6 @@
 import { PageContext } from "vike/types";
 import { JsonSerializable } from "@/shared/json-serializable";
-import { AlertData } from "@/server/data/alert";
+import { AlertData } from "@/server/data/alert/alert";
 import { App } from "@/server/app";
 import { nonNull, unique } from "@dan-schel/js-utils";
 import { DetailsError } from "@/server/alert-source/alert-source";

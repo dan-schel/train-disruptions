@@ -1,4 +1,4 @@
-import { Alert, AlertData } from "@/server/data/alert";
+import { Alert, AlertData } from "@/server/data/alert/alert";
 import { Disruption } from "@/types/disruption";
 
 export const ptvDisruption1: Disruption = {

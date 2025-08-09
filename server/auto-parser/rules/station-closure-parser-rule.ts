@@ -1,6 +1,6 @@
 import { App } from "@/server/app";
 import { AutoParserRuleBase } from "@/server/auto-parser/rules/auto-parser-rule-base";
-import { Alert } from "@/server/data/alert";
+import { Alert } from "@/server/data/alert/alert";
 import { Disruption } from "@/server/data/disruption/disruption";
 
 export class StationClosureAutoParserRule extends AutoParserRuleBase {

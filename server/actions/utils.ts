@@ -1,4 +1,4 @@
-import { Alert } from "@/server/data/alert";
+import { Alert } from "@/server/data/alert/alert";
 import { BusReplacementsDisruptionData } from "@/server/data/disruption/data/bus-replacements-disruption-data";
 import { CustomDisruptionData } from "@/server/data/disruption/data/custom-disruption-data";
 import { DelaysDisruptionData } from "@/server/data/disruption/data/delays-disruption-data";

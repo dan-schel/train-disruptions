@@ -2,7 +2,7 @@ import { App } from "@/server/app";
 import { AutoParsingPipeline } from "@/server/auto-parser/auto-parsing-pipeline";
 import { BusReplacementsParserRule } from "@/server/auto-parser/rules/bus-replacements-parser-rule";
 import { DelaysParserRule } from "@/server/auto-parser/rules/delays-parser-rule";
-import { Alert, AlertData } from "@/server/data/alert";
+import { Alert, AlertData } from "@/server/data/alert/alert";
 import { Disruption } from "@/server/data/disruption/disruption";
 import { ALERTS, DISRUPTIONS } from "@/server/database/models/models";
 import { IntervalScheduler } from "@/server/task/lib/interval-scheduler";

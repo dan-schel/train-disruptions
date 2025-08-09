@@ -1,6 +1,6 @@
 import { createData, createPeriod } from "@/server/actions/utils";
 import { App } from "@/server/app";
-import { Alert } from "@/server/data/alert";
+import { Alert } from "@/server/data/alert/alert";
 import { Disruption } from "@/server/data/disruption/disruption";
 import { ALERTS, DISRUPTIONS } from "@/server/database/models/models";
 import { AlertProcessingInput } from "@/shared/schemas/alert-processing/alert-processing-input";

@@ -5,7 +5,7 @@ import {
   isPartOfTheCity,
   doesLineRunThroughCityLoop,
 } from "@/server/auto-parser/rules/utils";
-import { Alert } from "@/server/data/alert";
+import { Alert } from "@/server/data/alert/alert";
 import { DelaysDisruptionData } from "@/server/data/disruption/data/delays-disruption-data";
 import { Disruption } from "@/server/data/disruption/disruption";
 import { EndsNever } from "@/server/data/disruption/period/ends/ends-never";

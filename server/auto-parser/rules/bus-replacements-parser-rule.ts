@@ -4,7 +4,7 @@ import {
   isPartOfTheCity,
   doesLineRunThroughCityLoop,
 } from "@/server/auto-parser/rules/utils";
-import { Alert } from "@/server/data/alert";
+import { Alert } from "@/server/data/alert/alert";
 import { BusReplacementsDisruptionData } from "@/server/data/disruption/data/bus-replacements-disruption-data";
 import { Disruption } from "@/server/data/disruption/disruption";
 import { EndsAfterLastService } from "@/server/data/disruption/period/ends/ends-after-last-service";

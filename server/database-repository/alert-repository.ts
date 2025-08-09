@@ -1,5 +1,5 @@
 import { App } from "@/server/app";
-import { Alert } from "@/server/data/alert";
+import { Alert } from "@/server/data/alert/alert";
 import { AlertModel } from "@/server/database/models/alert";
 import { ALERTS } from "@/server/database/models/models";
 import { Repository } from "@dan-schel/db";
