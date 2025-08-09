@@ -1,3 +1,5 @@
+import { PtvAlert } from "@/server/alert-source/ptv-alert";
+import { arraysMatch } from "@dan-schel/js-utils";
 import { z } from "zod";
 
 /**
@@ -50,5 +52,29 @@ export class AlertData {
       affectedLinePtvIds: this.affectedLinePtvIds,
       affectedStationPtvIds: this.affectedStationPtvIds,
     };
+  }
+
+  equals(other: AlertData) {
+    return (
+      this.title === other.title &&
+      this.description === other.description &&
+      this.url === other.url &&
+      this.startsAt === other.startsAt &&
+      this.endsAt === other.endsAt &&
+      arraysMatch(this.affectedLinePtvIds, other.affectedLinePtvIds) &&
+      arraysMatch(this.affectedStationPtvIds, other.affectedStationPtvIds)
+    );
+  }
+
+  static fromPtvAlert(ptvAlert: PtvAlert) {
+    return new AlertData(
+      ptvAlert.title,
+      ptvAlert.description,
+      ptvAlert.url,
+      new Date(ptvAlert.fromDate),
+      ptvAlert.toDate ? new Date(ptvAlert.toDate) : null,
+      ptvAlert.routeIds,
+      ptvAlert.stopIds,
+    );
   }
 }

@@ -51,7 +51,7 @@ export class PopulateInboxQueueTask extends Task {
       const alertId = ptvAlert.id.toString();
       if (alerts.some((x) => x.id === alertId)) continue;
 
-      const data = this._createAlertData(ptvAlert);
+      const data = AlertData.fromPtvAlert(ptvAlert);
       const parserOutput = parser.parseAlert(data);
 
       await app.database.of(ALERTS).create(
@@ -116,7 +116,7 @@ export class PopulateInboxQueueTask extends Task {
 
           await app.database.of(ALERTS).update(
             alert.with({
-              data: this._createAlertData(ptvAlert),
+              data: AlertData.fromPtvAlert(ptvAlert),
               appearedAt: app.time.now(),
               processedAt: newDisruption
                 ? app.time.now()
@@ -162,17 +162,5 @@ export class PopulateInboxQueueTask extends Task {
         }
       }
     }
-  }
-
-  private _createAlertData(ptvAlert: PtvAlert) {
-    return new AlertData(
-      ptvAlert.title,
-      ptvAlert.description,
-      ptvAlert.url,
-      new Date(ptvAlert.fromDate),
-      ptvAlert.toDate ? new Date(ptvAlert.toDate) : null,
-      ptvAlert.routeIds,
-      ptvAlert.stopIds,
-    );
   }
 }
