@@ -54,9 +54,11 @@ export class PopulateInboxQueueTask extends Task {
       const data = this._createAlertData(disruption);
       const parserOutput = parser.parseAlert(data);
 
-      await app.database
-        .of(ALERTS)
-        .create(Alert.fresh(app, alertId, data, parserOutput != null));
+      await app.database.of(ALERTS).create(
+        Alert.fresh(app, alertId, data, {
+          isProcessed: parserOutput != null,
+        }),
+      );
 
       if (parserOutput != null) {
         await app.database

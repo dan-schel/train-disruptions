@@ -99,9 +99,14 @@ export class Alert {
     );
   }
 
-  static fresh(app: App, id: string, data: AlertData, processed: boolean) {
+  static fresh(
+    app: App,
+    id: string,
+    data: AlertData,
+    { isProcessed = false } = {},
+  ) {
     const now = app.time.now();
-    const processedAt = processed ? now : null;
+    const processedAt = isProcessed ? now : null;
     return new Alert(id, data, null, now, processedAt, null, false, null);
   }
 }
