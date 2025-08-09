@@ -48,7 +48,7 @@ export class BusReplacementsParserRule extends AutoParserRuleBase {
           data.description.includes(this._app.stations.require(station).name),
         );
 
-      // Indication that paritial match has occured
+      // Indication that partial match has occured
       if (stations.length > 2) {
         const names = stations.map((x) => this._app.stations.require(x).name);
         // Filter only stations where its name is only a substring to itself
@@ -83,6 +83,13 @@ export class BusReplacementsParserRule extends AutoParserRuleBase {
       return null;
     }
 
+    return new AutoParsingOutput(
+      new BusReplacementsDisruptionData(lineSections),
+      this._parsePeriod(data),
+    );
+  }
+
+  private _parsePeriod(data: AlertData) {
     const endsOnLastService =
       data.title.includes("last service") ||
       data.description.includes("last service");
@@ -94,7 +101,8 @@ export class BusReplacementsParserRule extends AutoParserRuleBase {
 
     const startHour = utcToLocalTime(data.startsAt!).getHours();
     const startMinute = utcToLocalTime(data.startsAt!).getMinutes();
-    const period = isEvening
+
+    return isEvening
       ? new EveningsOnlyDisruptionPeriod(
           data.startsAt,
           ends,
@@ -102,10 +110,5 @@ export class BusReplacementsParserRule extends AutoParserRuleBase {
           startMinute,
         )
       : new StandardDisruptionPeriod(data.startsAt, ends);
-
-    return new AutoParsingOutput(
-      new BusReplacementsDisruptionData(lineSections),
-      period,
-    );
   }
 }
