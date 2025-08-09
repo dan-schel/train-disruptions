@@ -57,7 +57,7 @@ export async function data(
 
   const alerts: AlertPreview = (
     await AlertRepository.getRepository(app).listAlerts({
-      ids: disruption.sourceAlertIds,
+      ids: disruption.alertId != null ? [disruption.alertId] : [],
     })
   ).map((alert) => ({ title: alert.data.title, id: alert.id }));
 
