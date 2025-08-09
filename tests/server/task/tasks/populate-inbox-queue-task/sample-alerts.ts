@@ -9,26 +9,11 @@ export const ptvDisruption1: PtvAlert = {
   url: "http://ptv.vic.gov.au/live-travel-updates/article/sunbury-line-buses-replace-trains-from-1am-saturday-26-april-to-last-service-sunday-27-april-2025",
   description:
     "Buses replace trains between North Melbourne and Sunbury from 1am Saturday 26 April to last service Sunday 27 April, due to Metro Tunnel works.",
-  disruptionStatus: "Current",
-  disruptionType: "Planned Works",
-  publishedOn: "2025-04-10T10:39:03Z",
   lastUpdated: "2025-04-25T20:26:02Z",
   fromDate: "2025-04-25T15:00:00Z",
   toDate: "2025-04-27T17:00:00Z",
-  routes: [
-    {
-      routeType: 0,
-      routeId: 14,
-      routeName: "Sunbury",
-      routeNumber: "",
-      routeGtfsId: "2-SUY",
-      direction: null,
-    },
-  ],
-  stops: [],
-  color: "#ffd500",
-  displayOnBoard: true,
-  displayStatus: true,
+  routeIds: [14],
+  stopIds: [],
 };
 
 export const ptvDisruption2: PtvAlert = {
@@ -38,31 +23,11 @@ export const ptvDisruption2: PtvAlert = {
   url: "http://ptv.vic.gov.au/live-travel-updates/",
   description:
     "Due to construction works, customers at Hastings Station will not be able to use myki devices to Touch on / Touch off and perform Top ups until further notice.",
-  disruptionStatus: "Current",
-  disruptionType: "Power outage",
-  publishedOn: "2024-12-25T10:15:38Z",
   lastUpdated: "2024-12-25T10:15:39Z",
   fromDate: "2024-12-25T10:08:00Z",
   toDate: null,
-  routes: [
-    {
-      routeType: 0,
-      routeId: 13,
-      routeName: "Stony Point",
-      routeNumber: "",
-      routeGtfsId: "2-STY",
-      direction: null,
-    },
-  ],
-  stops: [
-    {
-      stopId: 1088,
-      stopName: "Hastings ",
-    },
-  ],
-  color: "#ffd500",
-  displayOnBoard: false,
-  displayStatus: false,
+  routeIds: [13],
+  stopIds: [1088],
 };
 
 export const ptvDisruption3: PtvAlert = {
@@ -72,26 +37,11 @@ export const ptvDisruption3: PtvAlert = {
   url: "http://ptv.vic.gov.au/live-travel-updates/",
   description:
     "Delays up to 10 minutes due to an operational issue in the Malvern area.",
-  disruptionStatus: "Current",
-  disruptionType: "Minor Delays",
-  publishedOn: "2024-12-25T10:15:38Z",
   lastUpdated: "2024-12-25T10:15:39Z",
   fromDate: "2024-12-25T10:08:00Z",
   toDate: null,
-  routes: [
-    {
-      routeType: 0,
-      routeId: 6,
-      routeName: "Frankston",
-      routeNumber: "",
-      routeGtfsId: "2-FKN",
-      direction: null,
-    },
-  ],
-  stops: [],
-  color: "#ffd500",
-  displayOnBoard: false,
-  displayStatus: false,
+  routeIds: [6],
+  stopIds: [],
 };
 
 export const ptvDisruption4: PtvAlert = {
@@ -101,26 +51,11 @@ export const ptvDisruption4: PtvAlert = {
   url: "http://ptv.vic.gov.au/live-travel-updates/article/frankston-line-buses-replace-trains-from-8-30pm-to-last-service-thursday-26-june-2025",
   description:
     "Buses replace trains between South Yarra and Moorabbin from 10:45pm to last service, Thursday 26 June, due to works.",
-  disruptionStatus: "Planned",
-  disruptionType: "Planned Works",
-  publishedOn: "2025-06-01T10:41:24Z",
   lastUpdated: "2025-06-13T12:02:08Z",
   fromDate: "2025-06-26T12:45:00Z",
   toDate: "2025-06-26T17:00:00Z",
-  routes: [
-    {
-      routeType: 0,
-      routeId: 6,
-      routeName: "Frankston",
-      routeNumber: "",
-      routeGtfsId: "2-FKN",
-      direction: null,
-    },
-  ],
-  stops: [],
-  color: "#ffd500",
-  displayOnBoard: false,
-  displayStatus: false,
+  routeIds: [6],
+  stopIds: [],
 };
 
 export const alert1 = new Alert(

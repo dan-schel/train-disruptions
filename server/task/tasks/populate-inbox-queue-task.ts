@@ -171,8 +171,8 @@ export class PopulateInboxQueueTask extends Task {
       ptvAlert.url,
       new Date(ptvAlert.fromDate),
       ptvAlert.toDate ? new Date(ptvAlert.toDate) : null,
-      ptvAlert.routes.map((route) => route.routeId),
-      ptvAlert.stops.map((stop) => stop.stopId),
+      ptvAlert.routeIds,
+      ptvAlert.stopIds,
     );
   }
 }
