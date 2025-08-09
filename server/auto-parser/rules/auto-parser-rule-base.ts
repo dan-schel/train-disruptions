@@ -11,9 +11,10 @@ export type AutoParserRule =
   | StationClosureAutoParserRule;
 
 export abstract class AutoParserRuleBase {
+  constructor(protected readonly _app: App) {}
+
   abstract parseAlert(
     alert: Alert,
-    app: App,
     withId?: Disruption["id"],
   ): Disruption | null;
 }

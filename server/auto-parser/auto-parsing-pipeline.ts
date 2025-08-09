@@ -8,17 +8,16 @@ import { Disruption } from "@/server/data/disruption/disruption";
 export class AutoParsingPipeline {
   private readonly _rules: AutoParserRule[];
 
-  constructor() {
-    this._rules = [new BusReplacementsParserRule(), new DelaysParserRule()];
+  constructor(app: App) {
+    this._rules = [
+      new BusReplacementsParserRule(app),
+      new DelaysParserRule(app),
+    ];
   }
 
-  parseAlert(
-    alert: Alert,
-    app: App,
-    withId?: Disruption["id"],
-  ): Disruption | null {
+  parseAlert(alert: Alert, withId?: Disruption["id"]): Disruption | null {
     for (const rule of this._rules) {
-      const disruption = rule.parseAlert(alert, app, withId);
+      const disruption = rule.parseAlert(alert, withId);
 
       if (disruption) return disruption;
     }

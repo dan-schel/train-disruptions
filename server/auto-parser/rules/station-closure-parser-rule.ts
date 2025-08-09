@@ -4,19 +4,15 @@ import { Alert } from "@/server/data/alert/alert";
 import { Disruption } from "@/server/data/disruption/disruption";
 
 export class StationClosureAutoParserRule extends AutoParserRuleBase {
-  constructor() {
-    super();
+  constructor(app: App) {
+    super(app);
   }
 
-  parseAlert(
-    alert: Alert,
-    app: App,
-    withId?: Disruption["id"],
-  ): Disruption | null {
+  parseAlert(alert: Alert, withId?: Disruption["id"]): Disruption | null {
     // TODO: currently don't have any examples :(
     if (!this._couldParse(alert)) return null;
 
-    return this._process(alert, app, withId);
+    return this._process(alert, withId);
   }
 
   private _couldParse(_alert: Alert): boolean {
@@ -26,7 +22,6 @@ export class StationClosureAutoParserRule extends AutoParserRuleBase {
 
   private _process(
     _alert: Alert,
-    _app: App,
     _withId?: Disruption["id"],
   ): Disruption | null {
     return null;

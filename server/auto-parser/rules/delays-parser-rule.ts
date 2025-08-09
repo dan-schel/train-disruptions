@@ -14,18 +14,14 @@ import { LineSection } from "@/server/data/line-section";
 import { nonNull, parseIntNull, unique, uuid } from "@dan-schel/js-utils";
 
 export class DelaysParserRule extends AutoParserRuleBase {
-  constructor() {
-    super();
+  constructor(app: App) {
+    super(app);
   }
 
-  parseAlert(
-    alert: Alert,
-    app: App,
-    withId?: Disruption["id"],
-  ): Disruption | null {
+  parseAlert(alert: Alert, withId?: Disruption["id"]): Disruption | null {
     if (!this._couldParse(alert)) return null;
 
-    return this._process(alert, app, withId);
+    return this._process(alert, withId);
   }
 
   private _couldParse({ data }: Alert): boolean {
@@ -34,7 +30,6 @@ export class DelaysParserRule extends AutoParserRuleBase {
 
   private _process(
     { id, data }: Alert,
-    app: App,
     withId?: Disruption["id"],
   ): Disruption | null {
     const delayInMinutes = parseIntNull(
@@ -49,10 +44,10 @@ export class DelaysParserRule extends AutoParserRuleBase {
     }
 
     const affectedLines = data.affectedLinePtvIds
-      .map((x) => app.lines.findByPtvId(x))
+      .map((x) => this._app.lines.findByPtvId(x))
       .filter(nonNull);
 
-    const possibleStations = app.stations.filter(
+    const possibleStations = this._app.stations.filter(
       (x) =>
         data.title.includes(x.name) &&
         affectedLines.every((line) =>

@@ -17,18 +17,14 @@ import { LineSection } from "@/server/data/line-section";
 import { nonNull, uuid } from "@dan-schel/js-utils";
 
 export class BusReplacementsParserRule extends AutoParserRuleBase {
-  constructor() {
-    super();
+  constructor(app: App) {
+    super(app);
   }
 
-  parseAlert(
-    alert: Alert,
-    app: App,
-    withId?: Disruption["id"],
-  ): Disruption | null {
+  parseAlert(alert: Alert, withId?: Disruption["id"]): Disruption | null {
     if (!this._couldParse(alert)) return null;
 
-    return this._process(alert, app, withId);
+    return this._process(alert, withId);
   }
 
   private _couldParse({ data }: Alert): boolean {
@@ -42,28 +38,27 @@ export class BusReplacementsParserRule extends AutoParserRuleBase {
 
   private _process(
     { id, data }: Alert,
-    app: App,
     withId?: Disruption["id"],
   ): Disruption | null {
     const affectedLines = data.affectedLinePtvIds
-      .map((x) => app.lines.findByPtvId(x))
+      .map((x) => this._app.lines.findByPtvId(x))
       .filter(nonNull);
 
     const lineSections = affectedLines.flatMap((line) => {
       let stations = line.route
         .getAllServedStations()
         .filter((station) =>
-          data.description.includes(app.stations.require(station).name),
+          data.description.includes(this._app.stations.require(station).name),
         );
 
       // Indication that paritial match has occured
       if (stations.length > 2) {
-        const names = stations.map((x) => app.stations.require(x).name);
+        const names = stations.map((x) => this._app.stations.require(x).name);
         // Filter only stations where its name is only a substring to itself
         stations = stations.filter(
           (station) =>
             names.filter((stationName) =>
-              stationName.includes(app.stations.require(station).name),
+              stationName.includes(this._app.stations.require(station).name),
             ).length === 1,
         );
       }

@@ -27,7 +27,7 @@ export class PopulateInboxQueueTask extends Task {
 
   async execute(app: App): Promise<void> {
     try {
-      const parser = new AutoParsingPipeline();
+      const parser = new AutoParsingPipeline(app);
       const disruptions = await app.alertSource.fetchDisruptions();
       const alerts = await app.database.of(ALERTS).all();
       await Promise.all([
@@ -56,7 +56,7 @@ export class PopulateInboxQueueTask extends Task {
 
       // Prevent a failed parse attempt from not processing the rest of alerts
       try {
-        const parsedDisruption = parser.parseAlert(alert, app);
+        const parsedDisruption = parser.parseAlert(alert);
         if (parsedDisruption) {
           await app.database.of(DISRUPTIONS).create(parsedDisruption);
           await app.database.of(ALERTS).update(
@@ -110,7 +110,6 @@ export class PopulateInboxQueueTask extends Task {
                 updatedAt: null,
                 deleteAt: null,
               }),
-              app,
               existingDisruption?.id,
             );
           } catch (error) {
