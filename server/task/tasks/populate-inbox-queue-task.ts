@@ -1,7 +1,5 @@
 import { App } from "@/server/app";
 import { AutoParsingPipeline } from "@/server/auto-parser/auto-parsing-pipeline";
-import { BusReplacementsParserRule } from "@/server/auto-parser/rules/bus-replacements-parser-rule";
-import { DelaysParserRule } from "@/server/auto-parser/rules/delays-parser-rule";
 import { Alert } from "@/server/data/alert/alert";
 import { AlertData } from "@/server/data/alert/alert-data";
 import { Disruption } from "@/server/data/disruption/disruption";
@@ -29,10 +27,7 @@ export class PopulateInboxQueueTask extends Task {
 
   async execute(app: App): Promise<void> {
     try {
-      const parser = new AutoParsingPipeline([
-        new BusReplacementsParserRule(),
-        new DelaysParserRule(),
-      ]);
+      const parser = new AutoParsingPipeline();
       const disruptions = await app.alertSource.fetchDisruptions();
       const alerts = await app.database.of(ALERTS).all();
       await Promise.all([
