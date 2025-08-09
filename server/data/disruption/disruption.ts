@@ -15,6 +15,6 @@ export class Disruption {
     readonly data: DisruptionData,
     readonly sourceAlertIds: string[],
     readonly period: DisruptionPeriod,
-    readonly curation: Curation = "manual",
+    readonly curation: Curation,
   ) {}
 }
