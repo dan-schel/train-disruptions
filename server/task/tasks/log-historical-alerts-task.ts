@@ -1,5 +1,5 @@
 import { App } from "@/server/app";
-import { HistoricalAlert } from "@/server/data/historical-alert";
+import { HistoricalAlert } from "@/server/data/alert/historical-alert";
 import { HISTORICAL_ALERTS } from "@/server/database/models/models";
 import { IntervalScheduler } from "@/server/task/lib/interval-scheduler";
 import { Task } from "@/server/task/lib/task";
@@ -22,19 +22,19 @@ export class LogHistoricalAlertsTask extends Task {
 
   async execute(app: App): Promise<void> {
     try {
-      const disruptions = await app.alertSource.fetchDisruptions();
+      const ptvAlerts = await app.alertSource.fetchAlerts();
 
-      for (const disruption of disruptions) {
+      for (const ptvAlert of ptvAlerts) {
         const existing = await app.database
           .of(HISTORICAL_ALERTS)
-          .get(disruption.disruption_id);
+          .get(ptvAlert.id);
 
         if (existing != null) return;
 
         const record = new HistoricalAlert(
-          disruption.disruption_id,
-          disruption.title,
-          disruption.description,
+          ptvAlert.id,
+          ptvAlert.title,
+          ptvAlert.description,
         );
 
         await app.database.of(HISTORICAL_ALERTS).create(record);

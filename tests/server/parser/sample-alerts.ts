@@ -1,4 +1,5 @@
-import { Alert, AlertData } from "@/server/data/alert";
+import { Alert } from "@/server/data/alert/alert";
+import { AlertData } from "@/server/data/alert/alert-data";
 
 export const SampleAlerts = {
   BusReplacements: {

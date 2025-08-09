@@ -1,22 +1,25 @@
 import { App } from "@/server/app";
+import { AutoParsingOutput } from "@/server/auto-parser/auto-parsing-output";
 import { AutoParserRule } from "@/server/auto-parser/rules/auto-parser-rule-base";
-import { Alert } from "@/server/data/alert";
-import { Disruption } from "@/server/data/disruption/disruption";
+import { BusReplacementsParserRule } from "@/server/auto-parser/rules/bus-replacements-parser-rule";
+import { DelaysParserRule } from "@/server/auto-parser/rules/delays-parser-rule";
+import { AlertData } from "@/server/data/alert/alert-data";
 
 export class AutoParsingPipeline {
-  constructor(private rules: AutoParserRule[]) {}
+  private readonly _rules: AutoParserRule[];
 
-  parseAlert(
-    alert: Alert,
-    app: App,
-    withId?: Disruption["id"],
-  ): Disruption | null {
-    for (const rule of this.rules) {
-      const disruption = rule.parseAlert(alert, app, withId);
+  constructor(app: App) {
+    this._rules = [
+      new BusReplacementsParserRule(app),
+      new DelaysParserRule(app),
+    ];
+  }
 
-      if (disruption) return disruption;
+  parseAlert(data: AlertData): AutoParsingOutput | null {
+    for (const rule of this._rules) {
+      const output = rule.parseAlert(data);
+      if (output) return output;
     }
-
     return null;
   }
 }

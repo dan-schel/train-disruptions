@@ -1,9 +1,9 @@
 import { App } from "@/server/app";
+import { AutoParsingOutput } from "@/server/auto-parser/auto-parsing-output";
 import { BusReplacementsParserRule } from "@/server/auto-parser/rules/bus-replacements-parser-rule";
 import { DelaysParserRule } from "@/server/auto-parser/rules/delays-parser-rule";
 import { StationClosureAutoParserRule } from "@/server/auto-parser/rules/station-closure-parser-rule";
-import { Alert } from "@/server/data/alert";
-import { Disruption } from "@/server/data/disruption/disruption";
+import { AlertData } from "@/server/data/alert/alert-data";
 
 export type AutoParserRule =
   | BusReplacementsParserRule
@@ -11,9 +11,7 @@ export type AutoParserRule =
   | StationClosureAutoParserRule;
 
 export abstract class AutoParserRuleBase {
-  abstract parseAlert(
-    alert: Alert,
-    app: App,
-    withId?: Disruption["id"],
-  ): Disruption | null;
+  constructor(protected readonly _app: App) {}
+
+  abstract parseAlert(data: AlertData): AutoParsingOutput | null;
 }

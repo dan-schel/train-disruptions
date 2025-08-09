@@ -1,12 +1,12 @@
 import { App } from "@/server/app";
+import { AutoParsingOutput } from "@/server/auto-parser/auto-parsing-output";
 import { AutoParserRuleBase } from "@/server/auto-parser/rules/auto-parser-rule-base";
 import {
   isPartOfTheCity,
   doesLineRunThroughCityLoop,
 } from "@/server/auto-parser/rules/utils";
-import { Alert } from "@/server/data/alert";
+import { AlertData } from "@/server/data/alert/alert-data";
 import { BusReplacementsDisruptionData } from "@/server/data/disruption/data/bus-replacements-disruption-data";
-import { Disruption } from "@/server/data/disruption/disruption";
 import { EndsAfterLastService } from "@/server/data/disruption/period/ends/ends-after-last-service";
 import { EndsExactly } from "@/server/data/disruption/period/ends/ends-exactly";
 import { EveningsOnlyDisruptionPeriod } from "@/server/data/disruption/period/evenings-only-disruption-period";
@@ -14,24 +14,20 @@ import { StandardDisruptionPeriod } from "@/server/data/disruption/period/standa
 import { JustDate } from "@/server/data/disruption/period/utils/just-date";
 import { utcToLocalTime } from "@/server/data/disruption/period/utils/utils";
 import { LineSection } from "@/server/data/line-section";
-import { nonNull, uuid } from "@dan-schel/js-utils";
+import { nonNull } from "@dan-schel/js-utils";
 
 export class BusReplacementsParserRule extends AutoParserRuleBase {
-  constructor() {
-    super();
+  constructor(app: App) {
+    super(app);
   }
 
-  parseAlert(
-    alert: Alert,
-    app: App,
-    withId?: Disruption["id"],
-  ): Disruption | null {
-    if (!this._couldParse(alert)) return null;
+  parseAlert(data: AlertData): AutoParsingOutput | null {
+    if (!this._couldParse(data)) return null;
 
-    return this._process(alert, app, withId);
+    return this._process(data);
   }
 
-  private _couldParse({ data }: Alert): boolean {
+  private _couldParse(data: AlertData): boolean {
     return (
       data.description.toLowerCase().includes("buses replace trains") &&
       // Only parse disruptions that have a definitive time period
@@ -40,30 +36,26 @@ export class BusReplacementsParserRule extends AutoParserRuleBase {
     );
   }
 
-  private _process(
-    { id, data }: Alert,
-    app: App,
-    withId?: Disruption["id"],
-  ): Disruption | null {
+  private _process(data: AlertData): AutoParsingOutput | null {
     const affectedLines = data.affectedLinePtvIds
-      .map((x) => app.lines.findByPtvId(x))
+      .map((x) => this._app.lines.findByPtvId(x))
       .filter(nonNull);
 
     const lineSections = affectedLines.flatMap((line) => {
       let stations = line.route
         .getAllServedStations()
         .filter((station) =>
-          data.description.includes(app.stations.require(station).name),
+          data.description.includes(this._app.stations.require(station).name),
         );
 
-      // Indication that paritial match has occured
+      // Indication that partial match has occured
       if (stations.length > 2) {
-        const names = stations.map((x) => app.stations.require(x).name);
+        const names = stations.map((x) => this._app.stations.require(x).name);
         // Filter only stations where its name is only a substring to itself
         stations = stations.filter(
           (station) =>
             names.filter((stationName) =>
-              stationName.includes(app.stations.require(station).name),
+              stationName.includes(this._app.stations.require(station).name),
             ).length === 1,
         );
       }
@@ -91,6 +83,13 @@ export class BusReplacementsParserRule extends AutoParserRuleBase {
       return null;
     }
 
+    return new AutoParsingOutput(
+      new BusReplacementsDisruptionData(lineSections),
+      this._parsePeriod(data),
+    );
+  }
+
+  private _parsePeriod(data: AlertData) {
     const endsOnLastService =
       data.title.includes("last service") ||
       data.description.includes("last service");
@@ -102,7 +101,8 @@ export class BusReplacementsParserRule extends AutoParserRuleBase {
 
     const startHour = utcToLocalTime(data.startsAt!).getHours();
     const startMinute = utcToLocalTime(data.startsAt!).getMinutes();
-    const period = isEvening
+
+    return isEvening
       ? new EveningsOnlyDisruptionPeriod(
           data.startsAt,
           ends,
@@ -110,13 +110,5 @@ export class BusReplacementsParserRule extends AutoParserRuleBase {
           startMinute,
         )
       : new StandardDisruptionPeriod(data.startsAt, ends);
-
-    return new Disruption(
-      withId ?? uuid(),
-      new BusReplacementsDisruptionData(lineSections),
-      [id],
-      period,
-      "automatic",
-    );
   }
 }

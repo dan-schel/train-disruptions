@@ -2,7 +2,6 @@ import { Router } from "express";
 import cors, { type CorsOptions } from "cors";
 import { errorHandler } from "@/server/routes/middleware/error";
 import { App } from "@/server/app";
-import { createDisruptionRouter } from "@/server/routes/disruptions";
 import { createAuthRouter } from "@/server/routes/auth";
 import { createAdminRouter } from "@/server/routes/admin/admin";
 
@@ -24,7 +23,6 @@ export function createApiRouter(app: App) {
   apiRouter.use(cors(corsOptions));
 
   // Start of routes.
-  apiRouter.use("/disruptions", createDisruptionRouter(app));
   apiRouter.use("/auth", createAuthRouter(app));
   apiRouter.use("/admin", createAdminRouter(app));
   // (...add additional routes here.)

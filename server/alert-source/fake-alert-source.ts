@@ -1,15 +1,15 @@
-import { Disruption } from "@/types/disruption";
+import { PtvAlert } from "@/server/alert-source/ptv-alert";
 import { AlertSource, Details } from "@/server/alert-source/alert-source";
 
 // For testing purposes.
 export class FakeAlertSource extends AlertSource {
-  private _alerts: Disruption[] = [];
+  private _alerts: PtvAlert[] = [];
 
-  setAlerts(alerts: Disruption[]) {
+  setAlerts(alerts: PtvAlert[]) {
     this._alerts = alerts;
   }
 
-  async fetchDisruptions(): Promise<Disruption[]> {
+  async fetchAlerts(): Promise<PtvAlert[]> {
     return this._alerts;
   }
 

@@ -21,60 +21,45 @@ describe("Delays Auto Parser", () => {
 
   it("parses alert to a disruption with a standard period that never ends", () => {
     const { app } = createTestApp();
-    const parser = new DelaysParserRule();
+    const parser = new DelaysParserRule(app);
+    const output = parser.parseAlert(AlertStandardToNeverEnds.data);
 
-    const disruption = parser.parseAlert(AlertStandardToNeverEnds, app);
-
-    expect(disruption).not.toBeNull();
-    expect(disruption).toHaveProperty(
-      "data",
+    expect(output).not.toBeNull();
+    expect(output?.data).toStrictEqual(
       new DelaysDisruptionData(MALVERN, 10, [
         new LineSection(FRANKSTON, ARMADALE, CAULFIELD),
       ]),
     );
-    expect(disruption).toHaveProperty("sourceAlertIds", [
-      AlertStandardToNeverEnds.id,
-    ]);
-    expect(disruption).toHaveProperty(
-      "period",
+    expect(output?.period).toStrictEqual(
       new StandardDisruptionPeriod(null, new EndsNever()),
     );
-    expect(disruption).toHaveProperty("curation", "automatic");
   });
 
   it("ignores alerts that don't qualify as delays", () => {
     const { app } = createTestApp();
-    const parser = new DelaysParserRule();
-
+    const parser = new DelaysParserRule(app);
     const alerts = Object.values(SampleAlerts.BusReplacements);
-    const disruptions = alerts.map((x) => parser.parseAlert(x, app));
+    const outputs = alerts.map((x) => parser.parseAlert(x.data));
 
-    expect(disruptions).toHaveLength(alerts.length);
-    expect(disruptions).toStrictEqual(
+    expect(outputs).toHaveLength(alerts.length);
+    expect(outputs).toStrictEqual(
       Array.from({ length: alerts.length }, () => null),
     );
   });
 
   it("selects the correct station", () => {
     const { app } = createTestApp();
-    const parser = new DelaysParserRule();
+    const parser = new DelaysParserRule(app);
+    const output = parser.parseAlert(AlertNameCollision.data);
 
-    const disruption = parser.parseAlert(AlertNameCollision, app);
-
-    expect(disruption).not.toBeNull();
-    expect(disruption).toHaveProperty(
-      "data",
+    expect(output).not.toBeNull();
+    expect(output?.data).toStrictEqual(
       new DelaysDisruptionData(MIDDLE_FOOTSCRAY, 50, [
         new LineSection(SUNBURY, FOOTSCRAY, WEST_FOOTSCRAY),
       ]),
     );
-    expect(disruption).toHaveProperty("sourceAlertIds", [
-      AlertNameCollision.id,
-    ]);
-    expect(disruption).toHaveProperty(
-      "period",
+    expect(output?.period).toStrictEqual(
       new StandardDisruptionPeriod(null, new EndsNever()),
     );
-    expect(disruption).toHaveProperty("curation", "automatic");
   });
 });

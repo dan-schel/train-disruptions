@@ -11,10 +11,10 @@ import {
   alert8,
   alert9,
   alert10,
-  ptvDisruption1,
-  ptvDisruption2,
-  ptvDisruption3,
-  ptvDisruption4,
+  ptvAlert1,
+  ptvAlert2,
+  ptvAlert3,
+  ptvAlert4,
 } from "@/tests/server/task/tasks/populate-inbox-queue-task/sample-alerts";
 import { createTestApp } from "@/tests/server/utils";
 import { describe, expect, it } from "vitest";
@@ -24,7 +24,7 @@ describe("PopulateInboxQueueTask", () => {
     it("does nothing when no change to alerts have occurred", async () => {
       const { app, db, alertSource } = createTestApp();
       const task = new PopulateInboxQueueTask();
-      alertSource.setAlerts([ptvDisruption1]);
+      alertSource.setAlerts([ptvAlert1]);
       await db.of(ALERTS).create(alert1);
 
       await task.execute(app);
@@ -36,7 +36,7 @@ describe("PopulateInboxQueueTask", () => {
     it("adds unseen alerts to the database", async () => {
       const { app, db, alertSource } = createTestApp();
       const task = new PopulateInboxQueueTask();
-      alertSource.setAlerts([ptvDisruption1, ptvDisruption2]);
+      alertSource.setAlerts([ptvAlert1, ptvAlert2]);
       await db.of(ALERTS).create(alert1);
 
       await task.execute(app);
@@ -49,7 +49,7 @@ describe("PopulateInboxQueueTask", () => {
       it("updates an existing alert", async () => {
         const { app, db, alertSource } = createTestApp();
         const task = new PopulateInboxQueueTask();
-        alertSource.setAlerts([ptvDisruption4]);
+        alertSource.setAlerts([ptvAlert4]);
         await db.of(ALERTS).create(alert4);
 
         await task.execute(app);
@@ -61,7 +61,7 @@ describe("PopulateInboxQueueTask", () => {
       it("skips an ignored alert", async () => {
         const { app, db, alertSource } = createTestApp();
         const task = new PopulateInboxQueueTask();
-        alertSource.setAlerts([ptvDisruption4]);
+        alertSource.setAlerts([ptvAlert4]);
         await db.of(ALERTS).create(alert5);
 
         await task.execute(app);
@@ -73,7 +73,7 @@ describe("PopulateInboxQueueTask", () => {
       it("updates a processed alert", async () => {
         const { app, db, alertSource } = createTestApp();
         const task = new PopulateInboxQueueTask();
-        alertSource.setAlerts([ptvDisruption4]);
+        alertSource.setAlerts([ptvAlert4]);
         await db.of(ALERTS).create(alert6);
 
         await task.execute(app);
@@ -85,7 +85,7 @@ describe("PopulateInboxQueueTask", () => {
       it("updates an updated alert", async () => {
         const { app, db, alertSource } = createTestApp();
         const task = new PopulateInboxQueueTask();
-        alertSource.setAlerts([ptvDisruption4]);
+        alertSource.setAlerts([ptvAlert4]);
         await db.of(ALERTS).create(alert7);
 
         await task.execute(app);
@@ -97,7 +97,7 @@ describe("PopulateInboxQueueTask", () => {
       it("doesn't update if alert is up-to-date", async () => {
         const { app, db, alertSource } = createTestApp();
         const task = new PopulateInboxQueueTask();
-        alertSource.setAlerts([ptvDisruption4]);
+        alertSource.setAlerts([ptvAlert4]);
         await db.of(ALERTS).create(alert10);
 
         await task.execute(app);
@@ -110,7 +110,7 @@ describe("PopulateInboxQueueTask", () => {
     it("cleans up old alerts once they disappear from the source", async () => {
       const { app, db, alertSource } = createTestApp();
       const task = new PopulateInboxQueueTask();
-      alertSource.setAlerts([ptvDisruption1]);
+      alertSource.setAlerts([ptvAlert1]);
       await db.of(ALERTS).create(alert1);
       await db.of(ALERTS).create(alert2);
 
@@ -123,7 +123,7 @@ describe("PopulateInboxQueueTask", () => {
     it("creates disruptions from applicable alerts", async () => {
       const { app, db, alertSource } = createTestApp();
       const task = new PopulateInboxQueueTask();
-      alertSource.setAlerts([ptvDisruption2, ptvDisruption3]);
+      alertSource.setAlerts([ptvAlert2, ptvAlert3]);
 
       let disruptions = await db.of(DISRUPTIONS).all();
       expect(disruptions).toHaveLength(0);

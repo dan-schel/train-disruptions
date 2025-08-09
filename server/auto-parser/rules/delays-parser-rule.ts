@@ -1,42 +1,34 @@
 import { App } from "@/server/app";
+import { AutoParsingOutput } from "@/server/auto-parser/auto-parsing-output";
 import { AutoParserRuleBase } from "@/server/auto-parser/rules/auto-parser-rule-base";
 import {
   isOnCityBoundary,
   isPartOfTheCity,
   doesLineRunThroughCityLoop,
 } from "@/server/auto-parser/rules/utils";
-import { Alert } from "@/server/data/alert";
+import { AlertData } from "@/server/data/alert/alert-data";
 import { DelaysDisruptionData } from "@/server/data/disruption/data/delays-disruption-data";
-import { Disruption } from "@/server/data/disruption/disruption";
 import { EndsNever } from "@/server/data/disruption/period/ends/ends-never";
 import { StandardDisruptionPeriod } from "@/server/data/disruption/period/standard-disruption-period";
 import { LineSection } from "@/server/data/line-section";
-import { nonNull, parseIntNull, unique, uuid } from "@dan-schel/js-utils";
+import { nonNull, parseIntNull, unique } from "@dan-schel/js-utils";
 
 export class DelaysParserRule extends AutoParserRuleBase {
-  constructor() {
-    super();
+  constructor(app: App) {
+    super(app);
   }
 
-  parseAlert(
-    alert: Alert,
-    app: App,
-    withId?: Disruption["id"],
-  ): Disruption | null {
-    if (!this._couldParse(alert)) return null;
+  parseAlert(data: AlertData): AutoParsingOutput | null {
+    if (!this._couldParse(data)) return null;
 
-    return this._process(alert, app, withId);
+    return this._process(data);
   }
 
-  private _couldParse({ data }: Alert): boolean {
+  private _couldParse(data: AlertData): boolean {
     return data.title.startsWith("Delays up to");
   }
 
-  private _process(
-    { id, data }: Alert,
-    app: App,
-    withId?: Disruption["id"],
-  ): Disruption | null {
+  private _process(data: AlertData): AutoParsingOutput | null {
     const delayInMinutes = parseIntNull(
       data.title
         .match(/(\d+ minutes)+/g)
@@ -49,10 +41,10 @@ export class DelaysParserRule extends AutoParserRuleBase {
     }
 
     const affectedLines = data.affectedLinePtvIds
-      .map((x) => app.lines.findByPtvId(x))
+      .map((x) => this._app.lines.findByPtvId(x))
       .filter(nonNull);
 
-    const possibleStations = app.stations.filter(
+    const possibleStations = this._app.stations.filter(
       (x) =>
         data.title.includes(x.name) &&
         affectedLines.every((line) =>
@@ -112,12 +104,9 @@ export class DelaysParserRule extends AutoParserRuleBase {
       return line.route.isValidSection(section) ? section : [];
     });
 
-    return new Disruption(
-      withId ?? uuid(),
+    return new AutoParsingOutput(
       new DelaysDisruptionData(affectedStation.id, delayInMinutes, sections),
-      [id],
       new StandardDisruptionPeriod(null, new EndsNever()),
-      "automatic",
     );
   }
 }
