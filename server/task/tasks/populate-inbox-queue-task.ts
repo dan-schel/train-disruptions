@@ -56,17 +56,7 @@ export class PopulateInboxQueueTask extends Task {
       const id = disruption.disruption_id.toString();
       if (alerts.some((x) => x.id === id)) continue;
 
-      const alert = new Alert(
-        id,
-        this._createAlertData(disruption),
-        null,
-        app.time.now(),
-        null,
-        null,
-        false,
-        null,
-      );
-
+      const alert = Alert.fresh(app, id, this._createAlertData(disruption));
       await app.database.of(ALERTS).create(alert);
 
       // Prevent a failed parse attempt from not processing the rest of alerts
@@ -74,20 +64,11 @@ export class PopulateInboxQueueTask extends Task {
         const parsedDisruption = parser.parseAlert(alert, app);
         if (parsedDisruption) {
           await app.database.of(DISRUPTIONS).create(parsedDisruption);
-          await app.database
-            .of(ALERTS)
-            .update(
-              new Alert(
-                alert.id,
-                alert.data,
-                alert.updatedData,
-                alert.appearedAt,
-                app.time.now(),
-                alert.updatedAt,
-                alert.ignoreFutureUpdates,
-                alert.deleteAt,
-              ),
-            );
+          await app.database.of(ALERTS).update(
+            alert.with({
+              processedAt: app.time.now(),
+            }),
+          );
         }
       } catch (error) {
         console.warn(`Failed to parse alert #${alert.id}.`);
@@ -127,16 +108,13 @@ export class PopulateInboxQueueTask extends Task {
           let newDisruption: Disruption | null = null;
           try {
             newDisruption = parser.parseAlert(
-              new Alert(
-                alert.id,
-                this._createAlertData(disruption),
-                null,
-                alert.appearedAt,
-                null,
-                null,
-                alert.ignoreFutureUpdates,
-                null,
-              ),
+              alert.with({
+                data: this._createAlertData(disruption),
+                updatedData: null,
+                processedAt: null,
+                updatedAt: null,
+                deleteAt: null,
+              }),
               app,
               existingDisruption?.id,
             );
@@ -145,24 +123,17 @@ export class PopulateInboxQueueTask extends Task {
             console.warn(error);
           }
 
-          await app.database
-            .of(ALERTS)
-            .update(
-              new Alert(
-                alert.id,
-                this._createAlertData(disruption),
-                alert.updatedData,
-                app.time.now(),
-                newDisruption
-                  ? app.time.now()
-                  : existingDisruption?.curation === "automatic"
-                    ? null
-                    : alert.processedAt,
-                alert.updatedAt,
-                alert.ignoreFutureUpdates,
-                alert.deleteAt,
-              ),
-            );
+          await app.database.of(ALERTS).update(
+            alert.with({
+              data: this._createAlertData(disruption),
+              appearedAt: app.time.now(),
+              processedAt: newDisruption
+                ? app.time.now()
+                : existingDisruption?.curation === "automatic"
+                  ? null
+                  : alert.processedAt,
+            }),
+          );
 
           if (existingDisruption?.curation === "automatic") {
             if (newDisruption) {

@@ -1,3 +1,4 @@
+import { App } from "@/server/app";
 import { AlertData } from "@/server/data/alert/alert-data";
 
 /**
@@ -54,20 +55,20 @@ export class Alert {
   }
 
   processed() {
-    return this._with({
+    return this.with({
       processedAt: new Date(),
       ignoreFutureUpdates: false,
     });
   }
 
   ignored() {
-    return this._with({
+    return this.with({
       processedAt: new Date(),
       ignoreFutureUpdates: true,
     });
   }
 
-  private _with({
+  with({
     id,
     data,
     updatedData,
@@ -96,5 +97,9 @@ export class Alert {
       ignoreFutureUpdates ?? this.ignoreFutureUpdates,
       deleteAt !== undefined ? deleteAt : this.deleteAt,
     );
+  }
+
+  static fresh(app: App, id: string, data: AlertData) {
+    return new Alert(id, data, null, app.time.now(), null, null, false, null);
   }
 }
