@@ -27,12 +27,11 @@ export class PopulateInboxQueueTask extends Task {
 
   async execute(app: App): Promise<void> {
     try {
-      const parser = new AutoParsingPipeline(app);
       const disruptions = await app.alertSource.fetchDisruptions();
       const alerts = await app.database.of(ALERTS).all();
       await Promise.all([
-        this._addNewAlerts(app, parser, disruptions, alerts),
-        this._updateAlerts(app, parser, disruptions, alerts),
+        this._addNewAlerts(app, disruptions, alerts),
+        this._updateAlerts(app, disruptions, alerts),
         this._cleanupOldAlerts(app, disruptions, alerts),
       ]);
     } catch (error) {
@@ -43,10 +42,11 @@ export class PopulateInboxQueueTask extends Task {
 
   private async _addNewAlerts(
     app: App,
-    parser: AutoParsingPipeline,
     disruptions: PTVDisruption[],
     alerts: Alert[],
   ) {
+    const parser = new AutoParsingPipeline(app);
+
     for (const disruption of disruptions) {
       const id = disruption.disruption_id.toString();
       if (alerts.some((x) => x.id === id)) continue;
@@ -56,9 +56,12 @@ export class PopulateInboxQueueTask extends Task {
 
       // Prevent a failed parse attempt from not processing the rest of alerts
       try {
-        const parsedDisruption = parser.parseAlert(alert);
-        if (parsedDisruption) {
-          await app.database.of(DISRUPTIONS).create(parsedDisruption);
+        const parserOutput = parser.parseAlert(alert.data);
+
+        if (parserOutput) {
+          const disruption = parserOutput.toNewDisruption([alert.id]);
+          await app.database.of(DISRUPTIONS).create(disruption);
+
           await app.database.of(ALERTS).update(
             alert.with({
               processedAt: app.time.now(),
@@ -74,10 +77,11 @@ export class PopulateInboxQueueTask extends Task {
 
   private async _updateAlerts(
     app: App,
-    parser: AutoParsingPipeline,
     disruptions: PTVDisruption[],
     alerts: Alert[],
   ) {
+    const parser = new AutoParsingPipeline(app);
+
     for (const disruption of disruptions) {
       const id = disruption.disruption_id.toString();
       const alert = alerts.find((x) => x.id === id);
@@ -102,16 +106,16 @@ export class PopulateInboxQueueTask extends Task {
 
           let newDisruption: Disruption | null = null;
           try {
-            newDisruption = parser.parseAlert(
-              alert.with({
-                data: this._createAlertData(disruption),
-                updatedData: null,
-                processedAt: null,
-                updatedAt: null,
-                deleteAt: null,
-              }),
-              existingDisruption?.id,
-            );
+            const parserOutput = parser.parseAlert(alert.data);
+            if (parserOutput) {
+              newDisruption =
+                existingDisruption != null
+                  ? parserOutput.updateExistingDisruption(
+                      existingDisruption.id,
+                      [alert.id],
+                    )
+                  : parserOutput.toNewDisruption([alert.id]);
+            }
           } catch (error) {
             console.warn(`Failed to parse alert #${alert.id}.`);
             console.warn(error);
