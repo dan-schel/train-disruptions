@@ -9,7 +9,7 @@ export class FakeAlertSource extends AlertSource {
     this._alerts = alerts;
   }
 
-  async fetchDisruptions(): Promise<PtvAlert[]> {
+  async fetchAlerts(): Promise<PtvAlert[]> {
     return this._alerts;
   }
 

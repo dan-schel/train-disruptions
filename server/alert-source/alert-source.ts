@@ -10,6 +10,6 @@ export type DetailsError =
   | "rate-limited";
 
 export abstract class AlertSource {
-  abstract fetchDisruptions(): Promise<PtvAlert[]>;
+  abstract fetchAlerts(): Promise<PtvAlert[]>;
   abstract fetchDetails(url: string): Promise<Details>;
 }

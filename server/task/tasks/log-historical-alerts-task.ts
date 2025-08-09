@@ -22,7 +22,7 @@ export class LogHistoricalAlertsTask extends Task {
 
   async execute(app: App): Promise<void> {
     try {
-      const ptvAlerts = await app.alertSource.fetchDisruptions();
+      const ptvAlerts = await app.alertSource.fetchAlerts();
 
       for (const ptvAlert of ptvAlerts) {
         const existing = await app.database

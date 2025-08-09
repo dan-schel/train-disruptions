@@ -27,7 +27,7 @@ export class PopulateInboxQueueTask extends Task {
 
   async execute(app: App): Promise<void> {
     try {
-      const ptvAlerts = await app.alertSource.fetchDisruptions();
+      const ptvAlerts = await app.alertSource.fetchAlerts();
       const alerts = await app.database.of(ALERTS).all();
       await Promise.all([
         this._addNewAlerts(app, ptvAlerts, alerts),

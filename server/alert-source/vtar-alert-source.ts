@@ -10,7 +10,7 @@ export class VtarAlertSource extends AlertSource {
     super();
   }
 
-  async fetchDisruptions(): Promise<PtvAlert[]> {
+  async fetchAlerts(): Promise<PtvAlert[]> {
     const responseSchema = z.object({
       disruptions: z.object({
         general: ptvAlertJson.array(),
