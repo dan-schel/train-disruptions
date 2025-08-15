@@ -16,7 +16,7 @@ export async function processAlert(
 ): Promise<Result> {
   const alert = await app.database.of(ALERTS).get(id);
   if (alert == null) return { error: "not-found" };
-  if (alert.getState() !== "new") return { error: "already-processed" };
+  if (alert.isInInbox) return { error: "already-processed" };
 
   const ctx: ProcessingContext = { alert };
 
@@ -28,11 +28,19 @@ export async function processAlert(
   for (const { data: dataInput, period: periodInput } of input) {
     const data = createData(dataInput);
     const period = createPeriod(ctx, periodInput);
-
     const disruption = new Disruption(uuid(), data, period, "manual", alert.id);
+
     await app.database.of(DISRUPTIONS).create(disruption);
   }
 
-  await app.database.of(ALERTS).update(alert.processed());
+  await app.database.of(ALERTS).update(
+    alert.with({
+      state: "processed-manually",
+      updatedData: null,
+      updatedAt: null,
+      processedAt: app.time.now(),
+    }),
+  );
+
   return { success: true };
 }
