@@ -63,7 +63,7 @@ export class PopulateInboxQueueTask extends Task {
       if (parserOutput != null) {
         await app.database
           .of(DISRUPTIONS)
-          .create(parserOutput.toNewDisruption([alertId]));
+          .create(parserOutput.toNewDisruption(alertId));
       }
     }
   }
@@ -93,7 +93,7 @@ export class PopulateInboxQueueTask extends Task {
         if (canToBeUpdated) {
           const existingDisruption = await app.database.of(DISRUPTIONS).first({
             where: {
-              sourceAlertIds: alert.id,
+              alertId: alert.id,
             },
           });
 
@@ -105,9 +105,9 @@ export class PopulateInboxQueueTask extends Task {
                 existingDisruption != null
                   ? parserOutput.updateExistingDisruption(
                       existingDisruption.id,
-                      [alert.id],
+                      alert.id,
                     )
-                  : parserOutput.toNewDisruption([alert.id]);
+                  : parserOutput.toNewDisruption(alert.id);
             }
           } catch (error) {
             console.warn(`Failed to parse alert #${alert.id}.`);
@@ -153,7 +153,7 @@ export class PopulateInboxQueueTask extends Task {
         await app.database.of(ALERTS).delete(alert.id);
         const _disruptions = await app.database.of(DISRUPTIONS).find({
           where: {
-            sourceAlertIds: alert.id,
+            alertId: alert.id,
             curation: "automatic",
           },
         });

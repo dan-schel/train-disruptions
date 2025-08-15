@@ -10,13 +10,14 @@ export async function ignoreAlert(
 ): Promise<Result> {
   const alert = await app.database.of(ALERTS).get(id);
   if (alert == null) return { error: "not-found" };
-  if (alert.getState() !== "new") return { error: "already-processed" };
+  if (!alert.isInInbox) return { error: "already-processed" };
 
-  if (permanently) {
-    await app.database.of(ALERTS).update(alert.ignored());
-  } else {
-    await app.database.of(ALERTS).update(alert.processed());
-  }
-
+  const updatedData = alert.with({
+    state: permanently ? "ignored-manually" : "ignored-permanently",
+    updatedData: null,
+    processedAt: app.time.now(),
+    updatedAt: null,
+  });
+  await app.database.of(ALERTS).update(updatedData);
   return { success: true };
 }

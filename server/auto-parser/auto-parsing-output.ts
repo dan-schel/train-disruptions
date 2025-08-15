@@ -9,26 +9,17 @@ export class AutoParsingOutput {
     readonly period: DisruptionPeriod,
   ) {}
 
-  toNewDisruption(sourceAlertIds: string[]): Disruption {
-    return new Disruption(
-      uuid(),
-      this.data,
-      sourceAlertIds,
-      this.period,
-      "automatic",
-    );
+  toNewDisruption(alertId: string): Disruption {
+    return new Disruption(uuid(), this.data, this.period, "automatic", alertId);
   }
 
-  updateExistingDisruption(
-    disruptionId: string,
-    sourceAlertIds: string[],
-  ): Disruption {
+  updateExistingDisruption(disruptionId: string, alertId: string): Disruption {
     return new Disruption(
       disruptionId,
       this.data,
-      sourceAlertIds,
       this.period,
       "automatic",
+      alertId,
     );
   }
 }

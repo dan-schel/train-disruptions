@@ -13,8 +13,30 @@ export class Disruption {
   constructor(
     readonly id: string,
     readonly data: DisruptionData,
-    readonly sourceAlertIds: string[],
     readonly period: DisruptionPeriod,
     readonly curation: Curation,
-  ) {}
+    readonly alertId: string | null,
+  ) {
+    if (curation === "automatic" && alertId == null) {
+      throw new Error(
+        "Automatically curated disruptions must specify an alertId.",
+      );
+    }
+  }
+
+  with({
+    id = this.id,
+    data = this.data,
+    period = this.period,
+    curation = this.curation,
+    alertId = this.alertId,
+  }: {
+    id?: string;
+    data?: DisruptionData;
+    period?: DisruptionPeriod;
+    curation?: Curation;
+    alertId?: string | null;
+  }): Disruption {
+    return new Disruption(id, data, period, curation, alertId);
+  }
 }
