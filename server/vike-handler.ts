@@ -1,6 +1,6 @@
 import { renderPage } from "vike/server";
 import express from "express";
-import { getSettings, validateSettings } from "@/server/settings";
+import { getSettings } from "@/server/settings";
 import { App } from "@/server/app";
 import { Settings } from "@/shared/settings";
 import { z } from "zod";
@@ -29,9 +29,7 @@ export type ClientPageContext = {
 
 export function createVikeHandler(app: App) {
   return async (req: express.Request, res: express.Response) => {
-    // TODO: Arguably, we should also update the cookie if the validation causes
-    // the settings to change.
-    const settings = validateSettings(getSettings(req), app.stations);
+    const settings = getSettings(req);
     const user = req.session.getUser();
 
     const { body, statusCode, headers } = (

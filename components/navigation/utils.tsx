@@ -1,10 +1,8 @@
 import React from "react";
-import { MingcuteArrowRightCircleLine } from "@/components/icons/MingcuteArrowRightCircleLine";
 import { MingcuteMapLine } from "@/components/icons/MingcuteMapLine";
 import { MingcuteToolLine } from "@/components/icons/MingcuteToolLine";
 import { MingcuteSettings7Line } from "@/components/icons/MingcuteSettings7Line";
 import { MingcuteMapFill } from "@/components/icons/MingcuteMapFill";
-import { MingcuteArrowRightCircleFill } from "@/components/icons/MingcuteArrowRightCircleFill";
 import { MingcuteToolFill } from "@/components/icons/MingcuteToolFill";
 import { MingcuteSettings7Fill } from "@/components/icons/MingcuteSettings7Fill";
 
@@ -20,19 +18,9 @@ export const overview: NavTab = {
   name: "Overview",
   icon: <MingcuteMapLine />,
   iconFill: <MingcuteMapFill />,
-  path: "/overview",
+  path: "/",
   active: (url: string) =>
-    url === "/overview" ||
-    url.startsWith("/disruption") ||
-    url.startsWith("/line"),
-};
-
-export const myCommute: NavTab = {
-  name: "My commute",
-  icon: <MingcuteArrowRightCircleLine />,
-  iconFill: <MingcuteArrowRightCircleFill />,
-  path: "/commute",
-  active: (url: string) => url === "/commute" || url.startsWith("/trip"),
+    !url.startsWith("/admin") && !url.startsWith("/settings"),
 };
 
 export const admin: NavTab = {
@@ -51,4 +39,4 @@ export const settings: NavTab = {
   active: (url: string) => url === "/settings",
 };
 
-export const navTabs = [overview, myCommute, admin, settings];
+export const navTabs = [overview, admin, settings];
