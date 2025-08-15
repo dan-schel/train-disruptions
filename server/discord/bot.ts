@@ -125,7 +125,7 @@ export class DiscordBot {
           name: "Commit Hash",
           value: hyperlink(
             inlineCode(hash),
-            `https://github.com/dan-schel/train-disruptions/commit/${hash}`,
+            `https://github.com/dan-schel/is-it-buses/commit/${hash}`,
           ),
         },
       ])

@@ -13,7 +13,7 @@ export type LinkProps = {
  * - `<Button>` supports `href`, so only use this if you want the underlined
  *   text.
  *
- * ([More info](https://github.com/dan-schel/train-disruptions/blob/master/docs/ui-conventions.md))
+ * ([More info](https://github.com/dan-schel/is-it-buses/blob/master/docs/ui-conventions.md))
  */
 export function Link(props: LinkProps) {
   if (props.href != null) {

@@ -28,7 +28,7 @@ That all means there's a period of time where some or all of the migrations have
 
 ### Example of supporting two schemas at once
 
-Writing that first PR might sound tricky, so I thought I'd show a worked example. Imagine we wanted to rename the `color` field on our [Crayon](https://github.com/dan-schel/train-disruptions/blob/5939e09bd65870c3bbed072d0bf77e5f551dea73/server/database/models/crayons.ts) model to `colour` (wild stuff).
+Writing that first PR might sound tricky, so I thought I'd show a worked example. Imagine we wanted to rename the `color` field on our [Crayon](https://github.com/dan-schel/is-it-buses/blob/5939e09bd65870c3bbed072d0bf77e5f551dea73/server/database/models/crayons.ts) model to `colour` (wild stuff).
 
 #### PR #1 <!-- omit in toc -->
 
@@ -118,7 +118,7 @@ Of course, if your migration doesn't modify the database schemas _at all_ (e.g. 
 
 To write a migration, create a file in `server/database/migrations` which adds a class inheriting from `Migration`.
 
-For example, here's a migration to rename `color` to `colour` for a [Crayon](https://github.com/dan-schel/train-disruptions/blob/5939e09bd65870c3bbed072d0bf77e5f551dea73/server/database/models/crayons.ts) model:
+For example, here's a migration to rename `color` to `colour` for a [Crayon](https://github.com/dan-schel/is-it-buses/blob/5939e09bd65870c3bbed072d0bf77e5f551dea73/server/database/models/crayons.ts) model:
 
 ```ts
 import { z } from "zod";

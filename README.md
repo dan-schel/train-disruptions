@@ -13,7 +13,7 @@ Requires [NodeJS](https://nodejs.org/en) and [MongoDB](https://www.mongodb.com/)
 1. Clone the repo:
 
    ```
-   git clone https://github.com/dan-schel/train-disruptions.git
+   git clone https://github.com/dan-schel/is-it-buses.git
    ```
 
 2. Install dependencies:

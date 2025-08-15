@@ -54,7 +54,7 @@ export type TextProps = {
  * - Do not nest `<Text>` elements.
  * - Never use `className` for margin/padding on `<Text>`.
  *
- * ([More info](https://github.com/dan-schel/train-disruptions/blob/master/docs/ui-conventions.md))
+ * ([More info](https://github.com/dan-schel/is-it-buses/blob/master/docs/ui-conventions.md))
  */
 export function Text(props: TextProps) {
   const Tag = props.as ?? "span";

@@ -20,7 +20,7 @@ export type CheckboxControl = {
  * - Child elements should use `group-has-[input:checked]` and
  *   `group-has-[input:disabled]` for styling.
  *
- * ([More info](https://github.com/dan-schel/train-disruptions/blob/master/docs/ui-conventions.md))
+ * ([More info](https://github.com/dan-schel/is-it-buses/blob/master/docs/ui-conventions.md))
  */
 export function Checkbox(props: CheckboxProps) {
   return (

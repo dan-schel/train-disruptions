@@ -34,7 +34,7 @@ const db = await initDatabase();
 Note that we've imported both `CRAYONS` and `Crayon`.
 
 - `CRAYONS` is a constant passed to the `db` object to tell it which model to query.
-- `Crayon` is the regular Typescript class we'll be persisting/retrieving objects of ([see code](https://github.com/dan-schel/train-disruptions/blob/d16606c137e4e5e0da660ce7349ffd622b2231b2/server/database/models/crayons.ts)).
+- `Crayon` is the regular Typescript class we'll be persisting/retrieving objects of ([see code](https://github.com/dan-schel/is-it-buses/blob/d16606c137e4e5e0da660ce7349ffd622b2231b2/server/database/models/crayons.ts)).
 
 (A guide on creating your own database models can be found [here](/docs/database/creating-a-new-database-model.md).)
 

@@ -52,7 +52,7 @@ export type SpacerProps = {
  * Rules:
  * - Consider using padding or gap in the parent container if possible.
  *
- * ([More info](https://github.com/dan-schel/train-disruptions/blob/master/docs/ui-conventions.md))
+ * ([More info](https://github.com/dan-schel/is-it-buses/blob/master/docs/ui-conventions.md))
  */
 export function Spacer(props: SpacerProps) {
   return (

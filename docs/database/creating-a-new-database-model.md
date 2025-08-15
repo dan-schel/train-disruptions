@@ -38,7 +38,7 @@ export class Crayon {
 
 For most of the codebase, this is how it will interact with `Crayon` data. We can add whatever methods, properties, or functionality we like here. Really, this has nothing to do with the database, it's simply data.
 
-In the [crayon example](https://github.com/dan-schel/train-disruptions/blob/d16606c137e4e5e0da660ce7349ffd622b2231b2/server/database/models/crayons.ts), I've put this class together with the model class in `server/database/models/crayons.ts`, but in reality, this class would be defined wherever in the codebase makes the most sense.
+In the [crayon example](https://github.com/dan-schel/is-it-buses/blob/d16606c137e4e5e0da660ce7349ffd622b2231b2/server/database/models/crayons.ts), I've put this class together with the model class in `server/database/models/crayons.ts`, but in reality, this class would be defined wherever in the codebase makes the most sense.
 
 ## The model class
 
