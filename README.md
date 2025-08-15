@@ -1,4 +1,4 @@
-# Is It Buses?
+# Is it buses?
 
 A hub for train disruption information in Melbourne and Victoria.
 

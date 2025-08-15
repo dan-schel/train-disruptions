@@ -34,9 +34,9 @@ const pwaConfig: Partial<VitePWAOptions> = {
   ],
 
   manifest: {
-    name: "My Vike App",
-    short_name: "My Vike App",
-    description: "Demo showcasing Vike",
+    name: "Is it buses?",
+    short_name: "Is it buses?",
+    description: "Melbourne's train disruptions, visualised",
 
     // Acts as a default value for 'theme-color' if not set in the HTML.
     // Probably not needed in our case?
