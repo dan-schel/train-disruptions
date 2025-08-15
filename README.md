@@ -1,4 +1,4 @@
-# Train Disruptions
+# Is It Buses?
 
 A hub for train disruption information in Melbourne and Victoria.
 
@@ -46,6 +46,6 @@ Requires [NodeJS](https://nodejs.org/en) and [MongoDB](https://www.mongodb.com/)
 
 ### Database
 
-- [Querying the database](/docs/database/querying-the-database.md)
-- [Creating a new database model](/docs/database/creating-a-new-database-model.md)
-- [Writing database migrations](/docs/database/writing-database-migrations.md)
+- [Querying the database](https://github.com/dan-schel/node-db/blob/master/docs/querying-the-database.md)
+- [Creating a new database model](https://github.com/dan-schel/node-db/blob/master/docs/creating-a-new-database-model.md)
+- [Writing database migrations](https://github.com/dan-schel/node-db/blob/master/docs/writing-database-migrations.md)
