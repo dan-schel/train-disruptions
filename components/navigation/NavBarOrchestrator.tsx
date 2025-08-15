@@ -1,7 +1,6 @@
 import {
   admin,
   navTabs,
-  myCommute,
   NavTab,
   overview,
   settings as settingsTab,
@@ -30,12 +29,11 @@ export type NavBarOrchestratorProps = {
 export function NavBarOrchestrator(props: NavBarOrchestratorProps) {
   const [settings] = useSettings();
   const nonSettingsTabs = settings.showAdminTab
-    ? [overview, myCommute, admin]
-    : [overview, myCommute];
+    ? [overview, admin]
+    : [overview];
 
   const { urlPathname } = usePageContext();
-  const pathname = urlPathname === "/" ? `/${settings.startPage}` : urlPathname;
-  const loadedTab = navTabs.find((x) => x.active(pathname))?.name ?? null;
+  const loadedTab = navTabs.find((x) => x.active(urlPathname))?.name ?? null;
   const [activeTabName, setActiveTabName] = React.useState(loadedTab);
 
   React.useEffect(() => {

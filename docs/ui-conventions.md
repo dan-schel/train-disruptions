@@ -299,7 +299,7 @@ Since they're just `<svg>` elements set to a size of `1em` and using `currentCol
 
 - To set the size, use `text-[size]`, e.g. `text-2xl`.
 
-See [this code](https://github.com/dan-schel/train-disruptions/blob/af77e069485c72c0db283480acdf24f056c46f85/components/common/SimpleButton.tsx#L34) for an example of this in action.
+See [this code](https://github.com/dan-schel/is-it-buses/blob/af77e069485c72c0db283480acdf24f056c46f85/components/common/SimpleButton.tsx#L34) for an example of this in action.
 
 ### Adding new icons
 

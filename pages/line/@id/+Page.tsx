@@ -19,7 +19,7 @@ export default function Page() {
 
   return (
     <Column>
-      <BackNavigation name="Overview" href="/overview" />
+      <BackNavigation name="Overview" href="/" />
       <With flexGrow="1">
         <PageCenterer>
           <PagePadding>

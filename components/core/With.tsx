@@ -17,7 +17,7 @@ export type WithProps = {
  * - Great for setting flex grow, or grid columns/row/area.
  * - This is a last resort for setting margin. Consider alternatives.
  *
- * ([More info](https://github.com/dan-schel/train-disruptions/blob/master/docs/ui-conventions.md))
+ * ([More info](https://github.com/dan-schel/is-it-buses/blob/master/docs/ui-conventions.md))
  */
 export function With(props: WithProps) {
   const child = React.Children.only(props.children);

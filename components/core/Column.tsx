@@ -16,7 +16,7 @@ export type ColumnProps = {
  * Rules:
  * - Don't abuse `className` for complex layouts, e.g. media queries.
  *
- * ([More info](https://github.com/dan-schel/train-disruptions/blob/master/docs/ui-conventions.md))
+ * ([More info](https://github.com/dan-schel/is-it-buses/blob/master/docs/ui-conventions.md))
  */
 export function Column(props: ColumnProps) {
   const Tag = props.as ?? "div";

@@ -38,7 +38,7 @@ export type ButtonProps = {
  * - Child elements should use `group-hover` and `group-active` for styling,
  *   over `hover` and `active`.
  *
- * ([More info](https://github.com/dan-schel/train-disruptions/blob/master/docs/ui-conventions.md))
+ * ([More info](https://github.com/dan-schel/is-it-buses/blob/master/docs/ui-conventions.md))
  */
 export function Button(props: ButtonProps) {
   if (props.onClick != null || props.submit) {

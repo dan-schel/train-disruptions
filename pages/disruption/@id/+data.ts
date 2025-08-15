@@ -81,7 +81,7 @@ function determineBackBehaviour(
 
   return {
     name: "Overview",
-    href: "/overview",
+    href: "/",
   };
 }
 

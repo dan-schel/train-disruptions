@@ -27,23 +27,16 @@ export type FilterableDisruptionCategory =
 export const themes = ["system", "light", "dark"] as const;
 export type Theme = (typeof themes)[number];
 
-export const startPages = ["overview", "commute"] as const;
-export type Startpage = (typeof startPages)[number];
-
 export class Settings {
   constructor(
-    readonly commute: { readonly a: number; readonly b: number } | null,
     readonly enabledCategories: readonly FilterableDisruptionCategory[],
     readonly theme: Theme,
-    readonly startPage: Startpage,
     readonly showAdminTab: boolean,
   ) {}
 
   static readonly default = new Settings(
-    null,
     ["station-closures", "cancellations", "delays"],
     "system",
-    "overview",
     false,
   );
 
@@ -52,22 +45,13 @@ export class Settings {
   // with the admin auth token, so let's hope there's not much more to add!
   static readonly json = z
     .object({
-      commute: z
-        .object({
-          a: z.number(),
-          b: z.number(),
-        })
-        .optional(),
       enabledCategories: z.string().array().readonly(),
       theme: z.enum(themes),
-      startPage: z.enum(startPages),
       showAdminTab: z.boolean(),
     })
     .transform(
       (obj) =>
         new Settings(
-          obj.commute ?? null,
-
           // If the valid list of enabled categories changes, gracefully ignore
           // any that are no longer valid.
           filterNonEnumValues(
@@ -75,7 +59,6 @@ export class Settings {
             filterableDisruptionCategories,
           ),
           obj.theme,
-          obj.startPage,
           obj.showAdminTab,
         ),
     );
@@ -95,32 +78,24 @@ export class Settings {
 
   toJSON(): z.input<typeof Settings.json> {
     return {
-      commute: this.commute ?? undefined,
       enabledCategories: this.enabledCategories,
       theme: this.theme,
-      startPage: this.startPage,
       showAdminTab: this.showAdminTab,
     };
   }
 
   with({
-    commute,
     enabledCategories,
     theme,
-    startPage,
     showAdminTab,
   }: {
-    commute?: { readonly a: number; readonly b: number } | null;
     enabledCategories?: readonly FilterableDisruptionCategory[];
     theme?: Theme;
-    startPage?: Startpage;
     showAdminTab?: boolean;
   }): Settings {
     return new Settings(
-      commute !== undefined ? commute : this.commute,
       enabledCategories ?? this.enabledCategories,
       theme ?? this.theme,
-      startPage ?? this.startPage,
       showAdminTab ?? this.showAdminTab,
     );
   }
