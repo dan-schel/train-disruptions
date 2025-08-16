@@ -3,12 +3,12 @@ import React from "react";
 import { Column } from "@/components/core/Column";
 import { PageCenterer } from "@/components/common/PageCenterer";
 import { PagePadding } from "@/components/common/PagePadding";
-import { SettingsDisruptions } from "@/pages/settings/SettingsDisruptions";
-import { SettingsTheme } from "@/pages/settings/SettingsTheme";
-import { SettingsReset } from "@/pages/settings/SettingsReset";
-import { SettingsAdmin } from "@/pages/settings/SettingsAdmin";
-import { useSettings } from "@/components/settings/use-settings";
-import { SettingsTitle } from "@/pages/settings/SettingsTitle";
+import { SettingsDisruptions } from "@/components/settings/SettingsDisruptions";
+import { SettingsTheme } from "@/components/settings/SettingsTheme";
+import { SettingsReset } from "@/components/settings/SettingsReset";
+import { SettingsAdmin } from "@/components/settings/SettingsAdmin";
+import { useSettings } from "@/components/settings/common/use-settings";
+import { SettingsTitle } from "@/components/settings/SettingsTitle";
 
 export default function Page() {
   const [settings] = useSettings();

@@ -3,7 +3,7 @@ import "@/layouts/tailwind.css";
 import React from "react";
 
 import { Column } from "@/components/core/Column";
-import { SettingsProvider } from "@/components/settings/SettingsProvider";
+import { SettingsProvider } from "@/components/settings/common/SettingsProvider";
 
 export default function LayoutDefault({
   children,

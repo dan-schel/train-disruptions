@@ -4,8 +4,8 @@ import { Column } from "@/components/core/Column";
 import { Text } from "@/components/core/Text";
 import { Theme, themes } from "@/shared/settings";
 import { applyTheme } from "@/pages/settings/utils";
-import { useSettings } from "@/components/settings/use-settings";
-import { SettingsRadioButton } from "@/components/settings/SettingsRadioButton";
+import { useSettings } from "@/components/settings/common/use-settings";
+import { SettingsRadioButton } from "@/components/settings/common/SettingsRadioButton";
 
 const formattedTheme: Record<
   (typeof themes)[number],

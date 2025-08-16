@@ -3,8 +3,8 @@ import React from "react";
 import { Column } from "@/components/core/Column";
 import { Text } from "@/components/core/Text";
 import { filterableDisruptionCategories } from "@/shared/settings";
-import { useSettings } from "@/components/settings/use-settings";
-import { SettingsSwitch } from "@/components/settings/SettingsSwitch";
+import { useSettings } from "@/components/settings/common/use-settings";
+import { SettingsSwitch } from "@/components/settings/common/SettingsSwitch";
 
 const allCategories = ["essential", ...filterableDisruptionCategories] as const;
 

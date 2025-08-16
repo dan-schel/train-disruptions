@@ -7,7 +7,7 @@ import { Row } from "@/components/core/Row";
 import { Text } from "@/components/core/Text";
 import { MingcuteInformationLine } from "@/components/icons/MingcuteInformationLine";
 import { MingcuteToolLine } from "@/components/icons/MingcuteToolLine";
-import { useSettings } from "@/components/settings/use-settings";
+import { useSettings } from "@/components/settings/common/use-settings";
 
 export function FinePrint() {
   const [settings] = useSettings();

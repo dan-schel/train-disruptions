@@ -2,9 +2,9 @@ import React from "react";
 
 import { Column } from "@/components/core/Column";
 import { Text } from "@/components/core/Text";
-import { useSettings } from "@/components/settings/use-settings";
+import { useSettings } from "@/components/settings/common/use-settings";
 import { Spacer } from "@/components/core/Spacer";
-import { SettingsSwitch } from "@/components/settings/SettingsSwitch";
+import { SettingsSwitch } from "@/components/settings/common/SettingsSwitch";
 
 export function SettingsAdmin() {
   const [settings, setSettings] = useSettings();
