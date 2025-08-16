@@ -13,7 +13,7 @@
     "@dan-schel/db": "0.1.4",
     "@dan-schel/js-utils": "4.3.0",
     "@tailwindcss/vite": "4.1.11",
-    "@vitejs/plugin-react": "4.7.0",
+    "@vitejs/plugin-react": "5.0.0",
     "axios": "1.10.0",
     "bcrypt": "6.0.0",
     "clsx": "2.1.1",
