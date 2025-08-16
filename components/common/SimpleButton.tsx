@@ -21,56 +21,95 @@ type Content =
 
 export type SimpleButtonProps = {
   theme?: keyof typeof themes;
-  layout?: "default" | "tile";
+  layout?: "default" | "tile" | "small";
 } & Content &
   Action;
+
+type LayoutProps = {
+  action: Action;
+  theme: string;
+  content: Content;
+};
 
 export function SimpleButton(props: SimpleButtonProps) {
   const action = extractAction(props);
   const theme = themes[props.theme ?? "default"];
   const layout = props.layout ?? "default";
 
-  if (layout === "tile") {
-    return (
-      <Button {...action} alt={props.alt}>
-        <Column
-          className={clsx("gap-2 px-4 py-2 select-none", theme)}
-          align="center"
-        >
-          {props.icon && <With className="-ml-0.5 text-2xl">{props.icon}</With>}
-          {props.text && <Text align="center">{props.text}</Text>}
-        </Column>
-      </Button>
-    );
-  } else {
-    const iconOnly = props.text == null;
-
-    if (iconOnly) {
-      return (
-        <Button {...action} alt={props.alt}>
-          <Row
-            className={clsx("h-8 w-8 gap-2 text-lg select-none", theme)}
-            align="center"
-            justify="center"
-          >
-            {props.icon}
-          </Row>
-        </Button>
-      );
-    } else {
-      return (
-        <Button {...action} alt={props.alt}>
-          <Row
-            className={clsx("h-8 gap-2 px-4 select-none", theme)}
-            align="center"
-          >
-            {props.icon != null && (
-              <With className="-ml-0.5 text-lg">{props.icon}</With>
-            )}
-            <Text>{props.text}</Text>
-          </Row>
-        </Button>
-      );
-    }
+  switch (layout) {
+    case "tile":
+      return <TileLayout action={action} theme={theme} content={props} />;
+    case "small":
+      return <SmallLayout action={action} theme={theme} content={props} />;
+    default:
+      return <DefaultLayout action={action} theme={theme} content={props} />;
   }
+}
+
+function DefaultLayout(props: LayoutProps) {
+  const hasText = props.content.text != null;
+
+  return (
+    <Button {...props.action} alt={props.content.alt}>
+      <Row
+        className={clsx(
+          "h-8 gap-2 select-none",
+          hasText ? "px-4" : "w-8",
+          props.theme,
+        )}
+        align="center"
+        justify="center"
+      >
+        {props.content.icon != null && (
+          <With className={clsx("text-lg", { "-ml-0.5": hasText })}>
+            {props.content.icon}
+          </With>
+        )}
+        {props.content.text != null && <Text>{props.content.text}</Text>}
+      </Row>
+    </Button>
+  );
+}
+
+function SmallLayout(props: LayoutProps) {
+  const hasText = props.content.text != null;
+
+  return (
+    <Button {...props.action} alt={props.content.alt}>
+      <Row
+        className={clsx(
+          "h-7 gap-2 select-none",
+          hasText ? "px-3" : "w-8",
+          props.theme,
+        )}
+        align="center"
+        justify="center"
+      >
+        {props.content.icon != null && (
+          <With className={clsx("text-sm", { "-ml-0.5": hasText })}>
+            {props.content.icon}
+          </With>
+        )}
+        {props.content.text != null && (
+          <Text style="tiny">{props.content.text}</Text>
+        )}
+      </Row>
+    </Button>
+  );
+}
+
+function TileLayout(props: LayoutProps) {
+  return (
+    <Button {...props.action} alt={props.content.alt}>
+      <Column
+        className={clsx("gap-2 px-4 py-2 select-none", props.theme)}
+        align="center"
+      >
+        {props.content.icon && (
+          <With className="-ml-0.5 text-2xl">{props.content.icon}</With>
+        )}
+        {props.content.text && <Text align="center">{props.content.text}</Text>}
+      </Column>
+    </Button>
+  );
 }

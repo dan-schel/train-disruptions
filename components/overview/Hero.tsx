@@ -2,16 +2,30 @@ import React from "react";
 import { Text } from "@/components/core/Text";
 import { Favicon } from "@/components/icons/Favicon";
 import { With } from "@/components/core/With";
+import clsx from "clsx";
 
-export function Hero() {
+export type HeroProps = {
+  className?: string;
+};
+
+export function Hero(props: HeroProps) {
   return (
-    <div className="flex flex-col items-center gap-4 py-12 md:flex-row">
+    <div
+      className={clsx(
+        "flex flex-col items-center gap-4 md:flex-row",
+        props.className,
+      )}
+    >
       <With className="text-5xl">
         <Favicon />
       </With>
       <div className="flex flex-col items-center gap-2 md:items-start">
-        <Text style="megatitle">Is it buses?</Text>
-        <Text>Melbourne&apos;s train disruptions, visualised</Text>
+        <Text style="megatitle" align="center">
+          Is it buses?
+        </Text>
+        <Text align="center">
+          Melbourne&apos;s train disruptions, visualised
+        </Text>
       </div>
     </div>
   );

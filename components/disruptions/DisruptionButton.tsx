@@ -17,7 +17,7 @@ export type DisruptionButtonProps = {
 };
 
 export function DisruptionButton(props: DisruptionButtonProps) {
-  const { id, headline, subject, period, icon, valid } = props.data;
+  const { id, headline, subject, icon, valid } = props.data;
 
   return (
     <Button href={`/${props.admin ? "admin/disruptions" : "disruption"}/${id}`}>
@@ -30,7 +30,6 @@ export function DisruptionButton(props: DisruptionButtonProps) {
         <Column className="gap-2">
           {headline != null && <Text style="tiny-weak">{headline}</Text>}
           <Text>{subject}</Text>
-          {period != null && <Text style="tiny-weak">{period}</Text>}
         </Column>
         <MingcuteRightLine className="size-full" />
       </Grid>
