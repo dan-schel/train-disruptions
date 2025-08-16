@@ -3,9 +3,9 @@ import React from "react";
 import { Column } from "@/components/core/Column";
 import { Text } from "@/components/core/Text";
 import { Theme, themes } from "@/shared/settings";
-import { applyTheme } from "@/pages/settings/utils";
-import { useSettings } from "@/components/settings/use-settings";
-import { SettingsRadioButton } from "@/components/settings/SettingsRadioButton";
+import { applyTheme } from "@/components/settings/common/utils";
+import { useSettings } from "@/components/settings/common/use-settings";
+import { SettingsRadioButton } from "@/components/settings/common/SettingsRadioButton";
 
 const formattedTheme: Record<
   (typeof themes)[number],
@@ -25,7 +25,7 @@ export function SettingsTheme() {
   }
 
   return (
-    <Column className="gap-4">
+    <Column className="gap-6">
       <Text style="subtitle">Colour theme</Text>
       {themes.map((theme) => (
         <SettingsRadioButton

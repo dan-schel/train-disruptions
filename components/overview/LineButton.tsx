@@ -8,7 +8,6 @@ import { Button } from "@/components/core/Button";
 import { MingcuteRightLine } from "@/components/icons/MingcuteRightLine";
 import { OverviewPageLineData } from "@/shared/types/overview-page";
 import { Marquee } from "@/components/common/Marquee";
-import { With } from "@/components/core/With";
 
 type LineButtonProps = {
   line: OverviewPageLineData;
@@ -30,9 +29,9 @@ export function LineButton({ line }: LineButtonProps) {
   return (
     <Button href={`/line/${line.id}`}>
       <Grid
-        columns="auto 1fr auto"
+        columns="auto 1fr auto auto"
         align="center"
-        className="group-active:bg-soft-active group-hover:bg-soft-hover gap-2 p-1"
+        className="group-active:bg-soft-active group-hover:bg-soft-hover gap-2 px-4 py-2"
       >
         <Row align="center" className="gap-2">
           <div
@@ -45,13 +44,10 @@ export function LineButton({ line }: LineButtonProps) {
             {line.name}
           </Text>
         </Row>
-        <With className="justify-self-end">
-          <Marquee>
-            <Text style={textStyleMapping[line.statusColor]}>
-              {line.status}
-            </Text>
-          </Marquee>
-        </With>
+        <div className="border-soft-border mb-0.5 self-end border-b-2 border-dotted" />
+        <Marquee>
+          <Text style={textStyleMapping[line.statusColor]}>{line.status}</Text>
+        </Marquee>
         <MingcuteRightLine />
       </Grid>
     </Button>

@@ -1,7 +1,7 @@
-import clsx from "clsx";
 import React from "react";
-import { DisruptionSummary } from "@/shared/types/disruption";
 
+import clsx from "clsx";
+import { DisruptionSummary } from "@/shared/types/disruption";
 import { Grid } from "@/components/core/Grid";
 import { Text } from "@/components/core/Text";
 import { Button } from "@/components/core/Button";
@@ -17,22 +17,21 @@ export type DisruptionButtonProps = {
 };
 
 export function DisruptionButton(props: DisruptionButtonProps) {
-  const { id, headline, subject, period, icon, valid } = props.data;
+  const { id, headline, subject, icon, valid } = props.data;
 
   return (
     <Button href={`/${props.admin ? "admin/disruptions" : "disruption"}/${id}`}>
       <Grid
-        columns="2rem 1fr 1.5rem"
+        columns="auto 1fr auto"
         align="center"
-        className="group-active:bg-soft-active group-hover:bg-soft-hover gap-2 p-2"
+        className="group-active:bg-soft-active group-hover:bg-soft-hover gap-2 px-4 py-2"
       >
         <DisruptionIcon icon={icon} valid={valid} />
         <Column className="gap-2">
           {headline != null && <Text style="tiny-weak">{headline}</Text>}
           <Text>{subject}</Text>
-          {period != null && <Text style="tiny-weak">{period}</Text>}
         </Column>
-        <MingcuteRightLine className="size-full" />
+        <MingcuteRightLine />
       </Grid>
     </Button>
   );
@@ -54,24 +53,24 @@ function DisruptionIcon({
     return (
       <div
         className={clsx(
-          "bg-soft flex size-8 items-center justify-center overflow-hidden rounded-full",
+          "bg-soft flex size-6 items-center justify-center overflow-hidden rounded-full",
           outline,
         )}
       >
-        <div className="bg-accent grid h-full w-2 rotate-45" />
+        <div className="bg-accent grid h-full w-1 rotate-45" />
       </div>
     );
   } else if (icon === "cross") {
     return (
       <MingcuteCloseCircleFill
-        className={clsx("size-8 rounded-full", outline)}
+        className={clsx("size-6 rounded-full", outline)}
       />
     );
   } else if (icon === "altered-route") {
     return (
       <div
         className={clsx(
-          "bg-soft flex size-8 items-center justify-center rounded-full",
+          "bg-soft flex size-6 items-center justify-center rounded-full",
           outline,
         )}
       >
@@ -82,7 +81,7 @@ function DisruptionIcon({
     return (
       <div
         className={clsx(
-          "bg-soft flex size-8 items-center justify-center rounded-full",
+          "bg-soft flex size-6 items-center justify-center rounded-full",
           outline,
         )}
       >
@@ -94,7 +93,7 @@ function DisruptionIcon({
     return (
       <div
         className={clsx(
-          "bg-soft flex size-8 items-center justify-center overflow-hidden rounded-full",
+          "bg-soft flex size-6 items-center justify-center overflow-hidden rounded-full",
           outline,
         )}
       />

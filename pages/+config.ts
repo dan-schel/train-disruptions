@@ -12,7 +12,6 @@ export default {
   // https://vike.dev/head-tags
   title: "Is it buses?",
   description: "Melbourne's train disruptions, visualised",
-  viewport: null,
 
   extends: vikeReact,
 

@@ -33,7 +33,7 @@ const statusColorMapping: Record<
   high: "red",
 };
 
-type PeriodFilter = "now" | "today" | "week";
+export type PeriodFilter = "now" | "today" | "week";
 
 export type Data = {
   disruptions: DisruptionSummary[];
