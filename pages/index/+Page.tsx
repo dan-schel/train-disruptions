@@ -5,7 +5,6 @@ import { Data } from "@/pages/index/+data";
 import { Lines } from "@/pages/index/Lines";
 import { Map, MapMode } from "@/components/map/Map";
 import { Row } from "@/components/core/Row";
-import { With } from "@/components/core/With";
 import { Text } from "@/components/core/Text";
 import { Column } from "@/components/core/Column";
 import { Spacer } from "@/components/core/Spacer";
@@ -59,9 +58,7 @@ export default function Page() {
           </Row>
           <Spacer h="4" />
 
-          <With className="border-soft-border rounded-md border">
-            <Map mode={mapMode} highlighting={mapHighlighting} />
-          </With>
+          <Map mode={mapMode} highlighting={mapHighlighting} />
           <Spacer h="2" />
 
           <Column className="divide-soft-border divide-y-1">

@@ -1,7 +1,6 @@
 @import "tailwindcss";
 @import "./css/loading-spinner.css" layer(base);
 @import "./css/marquee.css" layer(base);
-@import "./css/page-transition.css" layer(base);
 @import "./css/ptv-preview.css" layer(base);
 @import "./css/text.css" layer(base);
 
@@ -117,10 +116,6 @@
 
 * {
   flex-shrink: 0;
-}
-
-:root {
-  --max-chin-size: env(safe-area-max-inset-bottom, 36px);
 }
 
 html {
