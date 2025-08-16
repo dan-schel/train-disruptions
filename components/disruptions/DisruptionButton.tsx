@@ -22,16 +22,16 @@ export function DisruptionButton(props: DisruptionButtonProps) {
   return (
     <Button href={`/${props.admin ? "admin/disruptions" : "disruption"}/${id}`}>
       <Grid
-        columns="2rem 1fr 1.5rem"
+        columns="2rem 1fr auto"
         align="center"
-        className="group-active:bg-soft-active group-hover:bg-soft-hover gap-2 p-2"
+        className="group-active:bg-soft-active group-hover:bg-soft-hover gap-2 px-4 py-2"
       >
         <DisruptionIcon icon={icon} valid={valid} />
         <Column className="gap-2">
           {headline != null && <Text style="tiny-weak">{headline}</Text>}
           <Text>{subject}</Text>
         </Column>
-        <MingcuteRightLine className="size-full" />
+        <MingcuteRightLine />
       </Grid>
     </Button>
   );

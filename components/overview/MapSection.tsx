@@ -51,7 +51,7 @@ export function MapSection(props: MapSectionProps) {
       <Map mode="show-disruptions" highlighting={props.mapHighlighting} />
       <Spacer h="2" />
 
-      <Column className="divide-soft-border divide-y-1">
+      <Column className="-mx-4">
         {props.disruptions.map((x) => (
           <DisruptionButton key={x.id} data={x} />
         ))}

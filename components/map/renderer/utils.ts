@@ -6,7 +6,7 @@ export const terminusLineWidth = 3;
 export const iconRadius = 8;
 export const iconStrokeWidth = 1;
 
-export const viewportPadding = 10;
+export const viewportPadding = 5;
 
 export const lineColors = [
   "red",
