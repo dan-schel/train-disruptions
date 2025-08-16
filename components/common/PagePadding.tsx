@@ -10,8 +10,8 @@ export type PagePaddingProps = {
 export function PagePadding(props: PagePaddingProps) {
   return (
     <With
-      className={clsx(`px-4 pb-6 md:px-6 md:pb-8`, {
-        "pt-6 md:pt-8": !(props.excludingTop ?? false),
+      className={clsx("px-6 pb-12", {
+        "pt-12": !(props.excludingTop ?? false),
       })}
     >
       {props.children}

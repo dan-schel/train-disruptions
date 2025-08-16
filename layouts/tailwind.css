@@ -21,6 +21,7 @@
 
   --color-*: initial;
   --color-background: hsl(220deg 20% 100%); /* Update pages/utils.ts too! */
+  --color-dialog-backdrop: hsl(0, 0%, 0%, 40%);
   --color-foreground: hsl(220deg 20% 15%);
   --color-foreground-strong: hsl(220deg 20% 0%);
   --color-foreground-weak: hsl(220deg 20% 30%);
@@ -64,6 +65,7 @@
 /* Dark mode colours */
 @variant dark {
   --color-background: hsl(220deg 20% 5%); /* Update pages/utils.ts too! */
+  --color-dialog-backdrop: hsl(0, 0%, 0%, 80%);
   --color-foreground: hsl(220deg 20% 85%);
   --color-foreground-strong: hsl(220deg 20% 100%);
   --color-foreground-weak: hsl(220deg 20% 70%);

@@ -53,7 +53,7 @@ export function SettingsDisruptions() {
   }
 
   return (
-    <Column className="gap-4">
+    <Column className="gap-6">
       <Text style="subtitle">Disruptions to show</Text>
       {allCategories.map((category) => (
         <SettingsSwitch

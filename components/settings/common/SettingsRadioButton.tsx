@@ -13,7 +13,7 @@ export function SettingsRadioButton(props: SettingsRadioButtonProps) {
   return (
     <RadioButton
       {...extractRadioControl(props)}
-      className="hover:bg-soft-hover -mx-4 -my-2 px-4 py-2"
+      className="hover:bg-soft-hover -mx-6 -my-3 px-6 py-3"
     >
       <Column className="gap-2 select-none">
         <Text>{props.title}</Text>
