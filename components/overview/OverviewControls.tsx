@@ -14,9 +14,12 @@ export type OverviewControlsProps = {
 
 export function OverviewControls(props: OverviewControlsProps) {
   return (
-    <Grid columns="1fr auto" className="bg-soft p-2">
-      <Row align="center">
-        <With className="h-8 w-8 items-center justify-center text-lg">
+    <Grid
+      columns="1fr auto"
+      className="bg-soft -mx-4 p-2 px-4 md:-mx-6 md:px-6 lg:-mx-4 lg:px-4"
+    >
+      <Row align="center" className="gap-2">
+        <With className="text-lg">
           <MingcuteTimeLine />
         </With>
         <Select
