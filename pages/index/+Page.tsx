@@ -10,6 +10,7 @@ import { Divider } from "@/components/common/Divider";
 import { Lines } from "@/components/overview/Lines";
 import { MapSection } from "@/components/overview/MapSection";
 import { FinePrint } from "@/components/overview/FinePrint";
+import { OverviewControls } from "@/components/overview/OverviewControls";
 
 export default function Page() {
   const { disruptions, suburban, regional, mapHighlighting, occuring } =
@@ -20,7 +21,7 @@ export default function Page() {
       <PagePadding excludingTop={true}>
         <Column className="gap-8">
           <Hero className="mt-12 mb-4" />
-          <Divider />
+          <OverviewControls occuring={occuring} />
           <MapSection
             disruptions={disruptions}
             mapHighlighting={mapHighlighting}
