@@ -3,51 +3,37 @@ import { useData } from "vike-react/useData";
 import { Data } from "@/pages/index/+data";
 
 import { Lines } from "@/pages/index/Lines";
-import { Map, MapMode } from "@/components/map/Map";
+import { Map } from "@/components/map/Map";
 import { Row } from "@/components/core/Row";
-import { Text } from "@/components/core/Text";
 import { Column } from "@/components/core/Column";
 import { Spacer } from "@/components/core/Spacer";
 import { PagePadding } from "@/components/common/PagePadding";
 import { PageCenterer } from "@/components/common/PageCenterer";
 import { DisruptionButton } from "@/components/disruptions/DisruptionButton";
 import { Select } from "@/components/common/Select";
+import { Hero } from "@/components/overview/Hero";
+import { SimpleButton } from "@/components/common/SimpleButton";
+import { MingcuteSettings7Line } from "@/components/icons/MingcuteSettings7Line";
+import { Divider } from "@/components/common/Divider";
 
 export default function Page() {
   const { disruptions, suburban, regional, mapHighlighting, occuring } =
     useData<Data>();
 
-  const [mapMode, setMapMode] = React.useState<MapMode>("show-disruptions");
-
   return (
     <PageCenterer>
-      <PagePadding>
+      <PagePadding excludingTop={true}>
         <Column>
-          <Text style="megatitle">Is it buses?</Text>
+          <Hero />
+          <Divider />
           <Spacer h="4" />
-
-          <Text>Melbourne&apos;s train disruptions, visualised</Text>
-          <Spacer h="8" />
-
-          <Row align="center" className="max-w-md gap-1.5" wrap>
-            <Text>Show</Text>
-            <Select<MapMode>
-              options={[
-                { label: "disruptions occuring", value: "show-disruptions" },
-                {
-                  label: "train lines running",
-                  value: "show-lines-running",
-                },
-              ]}
-              value={mapMode}
-              onChange={setMapMode}
-            />
+          <Row justify="space-between" align="center">
             <Select
               value={occuring}
               options={[
-                { label: "right now", value: "now" },
-                { label: "today", value: "today" },
-                { label: "next 7 days", value: "week" },
+                { label: "Right now", value: "now" },
+                { label: "Today", value: "today" },
+                { label: "Next 7 days", value: "week" },
               ]}
               onChange={(value) => {
                 window.location.search = new URLSearchParams({
@@ -55,10 +41,16 @@ export default function Page() {
                 }).toString();
               }}
             />
+            <SimpleButton
+              theme="hover"
+              icon={<MingcuteSettings7Line />}
+              alt="Settings"
+              onClick={() => {}}
+            />
           </Row>
-          <Spacer h="4" />
+          <Spacer h="8" />
 
-          <Map mode={mapMode} highlighting={mapHighlighting} />
+          <Map mode="show-disruptions" highlighting={mapHighlighting} />
           <Spacer h="2" />
 
           <Column className="divide-soft-border divide-y-1">
